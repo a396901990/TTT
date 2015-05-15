@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="chart_padding">5dp</dimen>
+    <dimen name="min_chart_size">100dp</dimen>
+</resources>

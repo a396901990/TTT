@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="light_green">#8bc34a</color>
+    <color name="indicator_mountain">#9E9E9E</color>
+    <color name="indicator_shadow">#E0E0E0</color>
+    <color name="white_background">#FFF</color>
+    <color name="gray_background">#EFEFEF</color>
+    <color name="gray">#999</color>
+    <color name="dark_gray_background">#DDD</color>
+    <color name="footer_row_divider">#DDD</color>
+    <color name="footnote_tap_background">#EEE</color>
+    <color name="tab_strip">#2F2F2F</color>
+    <color name="green">#3F7E0A</color>
+    <color name="red">#961E26</color>
+    <color name="blue">#0F57C2</color>
+    <color name="opaque">#80000000</color>
+    <color name="rule">#DDD</color>
+
+    <item name="white" type="color">#FFFFFF</item>
+    <item name="black" type="color">#000000</item>
+</resources>
