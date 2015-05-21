@@ -1,4 +1,12 @@
 <resources>
-    <dimen name="chart_padding">5dp</dimen>
-    <dimen name="min_chart_size">100dp</dimen>
+    <dimen name="min_chart_size">300dp</dimen>
+    <dimen name="chart_header_text_padding_left">10dp</dimen>
+    <dimen name="chart_header_button_margin">5dp</dimen>
+    <dimen name="chart_header_button_padding">5dp</dimen>
+    <dimen name="chart_header_button_min_height">5dp</dimen>
+    <dimen name="chart_header_button_min_width">5dp</dimen>
+    <dimen name="chart_header_button_height">32dp</dimen>
+    <dimen name="chart_label_text_size">8sp</dimen>
+    <dimen name="indicator_chartview_height">60dip</dimen>
+    <dimen name="chart_headerbar_height">80dip</dimen>
 </resources>

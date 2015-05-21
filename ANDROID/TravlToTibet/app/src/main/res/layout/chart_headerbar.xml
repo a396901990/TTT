@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chart_header_bar"
+    style="@style/ChartHedaerBar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/chart_headerbar_height"
+    android:layout_alignParentTop="true" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/header_position_name"
+            style="@style/ChartHedaerBar.Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/header_position_height"
+            style="@style/ChartHedaerBar.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/header_position_mileage"
+            style="@style/ChartHedaerBar.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="right"
+        android:orientation="horizontal" >
+
+        <Button
+            style="@style/ChartHedaerBar.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chart_header_button_height"
+            android:text="天气" >
+        </Button>
+
+        <Button
+            style="@style/ChartHedaerBar.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chart_header_button_height"
+            android:text="食宿" >
+        </Button>
+
+        <Button
+            style="@style/ChartHedaerBar.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chart_header_button_height"
+            android:text="景点" >
+        </Button>
+
+        <Button
+            style="@style/ChartHedaerBar.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chart_header_button_height"
+            android:text="更多" >
+        </Button>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -12,7 +12,9 @@ public abstract class AbstractPoint
 
     private String mName;
 
-    private int mPriority;
+    private int mCategory;
+    
+    private RectF pointRect;
 
     public AbstractPoint()
     {
@@ -36,7 +38,7 @@ public abstract class AbstractPoint
         mX = x;
         mY = y;
         mName = name;
-        mPriority = category;
+        mCategory = category;
     }
 
     public float getX( Rect contentRect, RectF currentViewPoint )
@@ -85,13 +87,23 @@ public abstract class AbstractPoint
         return Double.compare(mX, another.mX);
     }
 
-    public int getPriority()
+    public int getCategory()
     {
-        return mPriority;
+        return mCategory;
     }
 
-    public void setPriority( int mPriority )
+    public void setCategory( int mCategory )
     {
-        this.mPriority = mPriority;
+        this.mCategory = mCategory;
+    }
+
+    public RectF getPointRect()
+    {
+        return pointRect;
+    }
+
+    public void setPointRect( RectF textRect )
+    {
+        this.pointRect = textRect;
     }
 }

@@ -2,14 +2,15 @@ package com.dean.travltotibet;
 
 import java.util.ArrayList;
 
+import com.dean.travltotibet.ChartIndicatorUtil.OnChartListener;
+import com.dean.travltotibet.ChartIndicatorUtil.OnIndicatorListener;
+import com.dean.travltotibet.RouteChartView.SavedState;
 
-import com.dean.travltotibet.ChartIndicatorUtil.*;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,8 +28,6 @@ public class IndicatorChartView
 
     private RectF mCurrentViewport = new RectF();
 
-    private Paint mAxisPaint;
-
     public IndicatorChartView( Context context )
     {
         super(context);
@@ -42,24 +41,16 @@ public class IndicatorChartView
     public IndicatorChartView( Context context, AttributeSet attrs, int defStyle )
     {
         super(context, attrs, defStyle);
-        initPaints();
+        this.setBackgroundColor(TTTApplication.getResourceUtil().indicator_backgroud);
     }
 
     @Override
     protected void onSizeChanged( int w, int h, int oldw, int oldh )
     {
         super.onSizeChanged(w, h, oldw, oldh);
-        mContentRect.set(this.getPaddingLeft(), this.getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
+        // add indicator width space
+        mContentRect.set(this.getPaddingLeft() + (int) ChartIndicatorUtil.INDICATOR_WIDTH, this.getPaddingTop(), getWidth() - getPaddingRight() - (int) ChartIndicatorUtil.INDICATOR_WIDTH, getHeight() - getPaddingBottom());
         initIndicator();
-    }
-
-    private void initPaints()
-    {
-        mAxisPaint = new Paint();
-        mAxisPaint.setAntiAlias(true);
-        mAxisPaint.setStyle(Paint.Style.STROKE);
-        mAxisPaint.setStrokeWidth(5);
-        mAxisPaint.setColor(Color.BLACK);
     }
 
     @Override
@@ -67,19 +58,13 @@ public class IndicatorChartView
     {
         super.onDraw(canvas);
 
-        int clipRestoreCount = canvas.save();
-        canvas.clipRect(mContentRect);
-
         for (AbstractSeries series : mSeries)
         {
-            // series.drawLine(canvas, mContentRect, mCurrentViewport);
-            series.drawMountain(canvas, mContentRect, mCurrentViewport);
+            series.drawLine(canvas, mContentRect, mCurrentViewport);
+            // series.drawMountain(canvas, mContentRect, mCurrentViewport);
         }
         mIndicatorUtil.drawIndicator(canvas);
 
-        // Removes clipping rectangle
-        canvas.restoreToCount(clipRestoreCount);
-        canvas.drawRect(mContentRect, mAxisPaint);
     }
 
     private OnChartListener mChartListener = new OnChartListener()
@@ -125,7 +110,10 @@ public class IndicatorChartView
     {
         if (mIndicatorUtil == null)
         {
-            mIndicatorUtil = new ChartIndicatorUtil(getContext(), this, mSeries.get(0));
+            if (mSeries != null)
+            {
+                mIndicatorUtil = new ChartIndicatorUtil(this, mSeries.get(0));
+            }
         }
 
         addIndicatorListener(mChartView.getIndicatorListener());
@@ -179,5 +167,29 @@ public class IndicatorChartView
     public void setChartListener( OnChartListener mChartListener )
     {
         this.mChartListener = mChartListener;
+    }
+    
+    @Override
+    public Parcelable onSaveInstanceState()
+    {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState ss = new SavedState(superState);
+        ss.viewport = mCurrentViewport;
+        return ss;
+    }
+
+    @Override
+    public void onRestoreInstanceState( Parcelable state )
+    {
+        if (!(state instanceof SavedState))
+        {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        mCurrentViewport = ss.viewport;
     }
 }

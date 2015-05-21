@@ -1,8 +1,6 @@
 package com.dean.travltotibet;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -11,7 +9,7 @@ import android.view.MotionEvent;
 
 public class ChartIndicatorUtil
 {
-    private static final float INDICATOR_WIDTH = 60;
+    public static final float INDICATOR_WIDTH = 60;
 
     public static interface OnIndicatorListener
     {
@@ -25,9 +23,7 @@ public class ChartIndicatorUtil
         void onChartScale(RectF mChartViewprot);
     }
 
-    private Context mContext;
-
-    private Rect mRect;
+    private Rect mRect = new Rect();
 
     private RectF mLeftIndicator = new RectF();
 
@@ -187,9 +183,8 @@ public class ChartIndicatorUtil
             }
         };
 
-    public ChartIndicatorUtil( final Context context, final IndicatorChartView indicatorChartView, final AbstractSeries series )
+    public ChartIndicatorUtil( final IndicatorChartView indicatorChartView, final AbstractSeries series )
     {
-        mContext = context;
         mIndicator = indicatorChartView;
         mSeries = series;
 
@@ -199,7 +194,7 @@ public class ChartIndicatorUtil
 
     private void initRect()
     {
-        mRect = mIndicator.getContentRect();
+        mRect.set(mIndicator.getContentRect().left - (int) INDICATOR_WIDTH, mIndicator.getContentRect().top, mIndicator.getContentRect().right + (int) INDICATOR_WIDTH, mIndicator.getContentRect().bottom);
         mLeftIndicator.set(mRect.left, mRect.top, mRect.left + INDICATOR_WIDTH, mRect.bottom);
         mRightIndicator.set(mRect.right - INDICATOR_WIDTH, mRect.top, mRect.right, mRect.bottom);
         mMovingLeftIndicator.set(mLeftIndicator);
@@ -214,52 +209,40 @@ public class ChartIndicatorUtil
         indicatorPaint.setAntiAlias(true);
         indicatorPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         indicatorPaint.setStrokeWidth(2);
-        indicatorPaint.setColor(Color.GRAY);
-        indicatorPaint.setAlpha((int) (255 * 0.5));
+        indicatorPaint.setColor(TTTApplication.getResourceUtil().indicator_indicator);
+        indicatorPaint.setAlpha(TTTApplication.getResourceUtil().indicator_indicator_alpha);
 
         shadowPaint = new Paint();
         shadowPaint.setAntiAlias(true);
-        shadowPaint.setColor(mContext.getResources().getColor(R.color.indicator_shadow));
+        shadowPaint.setColor(TTTApplication.getResourceUtil().indicator_shadow);
         shadowPaint.setStyle(Paint.Style.FILL);
-        shadowPaint.setAlpha((int) (255 * 0.8));
+        shadowPaint.setAlpha(TTTApplication.getResourceUtil().indicator_shadow_alpha);
     }
 
     public void updateIndicator( RectF mChartViewprot )
     {
-        float scale = mRect.width() / mIndicator.getCurrentViewport().width();
-        float left = (mChartViewprot.left - mIndicator.getCurrentViewport().left) * scale;
-        float right = (mChartViewprot.right - mIndicator.getCurrentViewport().left) * scale;
+        // use original width to calculation scale
+        float scale = mIndicator.getContentRect().width() / mIndicator.getCurrentViewport().width();
+        float left = (mChartViewprot.left - mIndicator.getCurrentViewport().left) * scale + INDICATOR_WIDTH;
+        float right = (mChartViewprot.right - mIndicator.getCurrentViewport().left) * scale + INDICATOR_WIDTH;
 
-        if (left <= INDICATOR_WIDTH)
-        {
-            left = INDICATOR_WIDTH;
-            right = left + mChartViewprot.width() * scale;
-        }
-        if (right >= mRect.right - INDICATOR_WIDTH)
-        {
-            right = mRect.right - INDICATOR_WIDTH;
-            left = right - mChartViewprot.width() * scale;
-            if (left <= INDICATOR_WIDTH)
-            {
-                left = INDICATOR_WIDTH;
-            }
-        }
         mLeftIndicator.set(left - INDICATOR_WIDTH, mRect.top, left, mRect.bottom);
         mRightIndicator.set(right, mRect.top, right + INDICATOR_WIDTH, mRect.bottom);
         mLeftShadow.set(mRect.left, mRect.top, mLeftIndicator.left, mRect.bottom);
         mRightShadow.set(mRightIndicator.right, mRect.top, mRect.right, mRect.bottom);
         mMovingLeftIndicator.set(mLeftIndicator);
         mMovingRightIndicator.set(mRightIndicator);
-
+        
         invalidate();
     }
 
     public RectF calcCenterRect()
     {
-        float scale = mIndicator.getCurrentViewport().width() / mRect.width();
+        // use original width to calculation scale
+        float scale = mIndicator.getCurrentViewport().width() / mIndicator.getContentRect().width();
 
-        float left = mIndicator.getCurrentViewport().left + mLeftIndicator.right * scale;
-        float right = mIndicator.getCurrentViewport().left + mRightIndicator.left * scale;
+        float left = mIndicator.getCurrentViewport().left + (mLeftIndicator.right - INDICATOR_WIDTH) * scale;
+        float right = mIndicator.getCurrentViewport().left + (mRightIndicator.left - INDICATOR_WIDTH) * scale;
 
         return new RectF(left, mIndicator.getCurrentViewport().top, right, mIndicator.getCurrentViewport().bottom);
     }

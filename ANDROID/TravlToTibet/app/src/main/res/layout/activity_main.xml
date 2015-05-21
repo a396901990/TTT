@@ -8,63 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:id="@+id/charHeaderBar"
-            android:layout_width="match_parent"
-            android:layout_height="46dip"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/border_gray_bottom"
-            android:orientation="vertical" >
-        </LinearLayout>
+        <include
+            android:id="@+id/chart_header_contents"
+            layout="@layout/chart_headerbar" />
 
         <com.dean.travltotibet.RouteChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/indicator"
-            android:layout_below="@+id/charHeaderBar"
-            android:paddingBottom="5dip"
+            android:layout_below="@+id/chart_header_contents"
+            android:background="@color/white_background"
             android:paddingTop="5dip"
-            app:axisColor="#d000"
-            app:axisThickness="2dp"
-            app:dataColor="#a6c"
-            app:dataThickness="8dp"
-            app:gridColor="#2000"
+            app:axisThickness="1dp"
             app:gridThickness="1dp"
             app:labelSeparation="3dp"
-            app:labelTextColor="#d000"
-            app:labelTextSize="8sp" />
+            app:labelTextSize="@dimen/chart_label_text_size" />
 
         <com.dean.travltotibet.IndicatorChartView
             android:id="@+id/indicator"
             android:layout_width="match_parent"
-            android:layout_height="50dip"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dip" />
+            android:layout_height="@dimen/indicator_chartview_height"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/timeSelector"
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:layout_gravity="bottom"
-        android:visibility="gone"
-        android:background="@color/light_green"
-        android:orientation="vertical" >
-        
-                    <View
-                android:id="@+id/topRule"
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:alpha="0"
-                android:background="@color/black" />
-
-            <View
-                android:id="@+id/bottomRule"
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:alpha="0.2"
-                android:background="@color/black" />
-    </LinearLayout>
-
 </FrameLayout>

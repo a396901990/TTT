@@ -1,26 +1,20 @@
-/*
- * Copyright 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.dean.travltotibet;
+import java.util.ArrayList;
 
+import com.dean.travltotibet.AbstractSeries.PointListener;
+import com.dean.travltotibet.ChartCrosshairUtil.OnCrosshairPainted;
+import com.dean.travltotibet.PlanSpinnerAdapter.PlanNavItem;
+
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity
     extends Activity
@@ -29,25 +23,25 @@ public class MainActivity
 
     private IndicatorChartView mIndicatorView;
 
+    private View mHeaderView;
+
     private MountainSeries series;
 
     private IndicatorSeries indicatorSeries;
 
-    private boolean isShowSelector = false;
-
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
+        getActionBar().setIcon(R.drawable.ic_ab_back_icon);
+        initDropdownNavigation();
+        getActionBar().setTitle("新藏线");
         setContentView(R.layout.activity_main);
+        mHeaderView = findViewById(R.id.chart_header_contents);
+        
         mChartView = (RouteChartView) findViewById(R.id.chart);
         mChartView.setAxisRange(-5, 0, 105, 6000);
         // Create the data points
         series = new MountainSeries();
-        series.setLineWidth(2);
-        series.setLineColor(0xFF0099CC);
-        series.setMountainColor(0xFF0099CC);
-        series.setMountainAlpha(0.6);
-
         series.addPoint(new MountainSeries.MountainPoint(0, 220, "成都", Constants.CITY));
         series.addPoint(new MountainSeries.MountainPoint(10, 3001, "雅安", Constants.CITY));
         series.addPoint(new MountainSeries.MountainPoint(35, 5001, "二郎山", Constants.MOUNTAIN));
@@ -60,23 +54,32 @@ public class MainActivity
         // Add chart view data
         mChartView.addSeries(series);
         mChartView.initCrosshair();
-        mChartView.addCrosshairPaintedListener(new ChartCrosshairUtil.OnCrosshairPainted()
+        mChartView.addCrosshairPaintedListener(new OnCrosshairPainted()
             {
 
                 @Override
-                public void onCrosshairPainted( int index )
+                public void onCrosshairPainted( AbstractPoint point )
                 {
-                    updateHeader(index);
+                    updateHeader(point);
+                }
+            });
+        mChartView.setPointListener(new PointListener()
+            {
+                
+                @Override
+                public void pointOnTouched( AbstractPoint point )
+                {
+                    updateHeader(point);
                 }
             });
 
         mIndicatorView = (IndicatorChartView) findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
-        indicatorSeries = new IndicatorSeries(this);
-        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(0, 2250));
+        indicatorSeries = new IndicatorSeries();
+        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(0, 220));
         indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(10, 3001));
         indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(35, 5001));
-        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(25, 3251));
+        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(25, 31));
         indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(55, 4533));
         indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(65, 1800));
         indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(85, 5200));
@@ -84,75 +87,48 @@ public class MainActivity
         mIndicatorView.addSeries(indicatorSeries);
     }
 
-    protected void updateHeader( int index )
+    protected void updateHeader( AbstractPoint point )
     {
+        TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
+        TextView posHeight = (TextView) mHeaderView.findViewById(R.id.header_position_height);
+        TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
 
+        Place place = series.getPlace(point);
+        posHeight.setText(place.getHeight());
+        posMileage.setText(place.getMileage());
+        posName.setText(place.getName());
     }
 
-    double oldLocation = 0;
-
-    double newLocation = 0;
-
-    @Override
-    public boolean onTouchEvent( MotionEvent event )
+    private void initDropdownNavigation()
     {
-        double eachX = event.getX();
-        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN)
-        {
-                oldLocation = eachX;
-                toggleTimeSelector();
-        }
+        ArrayList<PlanNavItem> mPlans = new ArrayList<PlanNavItem>();
+        mPlans.add(new PlanNavItem("川藏线", "成都－拉萨"));
+        mPlans.add(new PlanNavItem("DAY1", "成都－拉萨"));
+        mPlans.add(new PlanNavItem("DAY2", "成都－拉萨"));
+        mPlans.add(new PlanNavItem("DAY3", "成都－拉萨"));
+        
+        PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(this);
+        adapter.setData(mPlans);
+        
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        final View spinnerView = mInflater.inflate(R.layout.plan_spinner, null);
+        Spinner spinner = (Spinner) spinnerView.findViewById(R.id.plan_spinner);
+        spinner.setAdapter(adapter);
 
-        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)
-        {
-            newLocation = eachX;
-            
-            if (Math.abs(newLocation - oldLocation) < 10d)
-            {
-             //   toggleTimeSelector();
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             }
-        }
-        return true;
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.RIGHT;
+        layoutParams.rightMargin = 5;
+        getActionBar().setCustomView(spinnerView, layoutParams); 
+        getActionBar().setDisplayShowCustomEnabled(true);
     }
-
-    private void toggleTimeSelector()
-    {
-
-        View view = findViewById(R.id.timeSelector);
-
-        View topShadow = findViewById(R.id.topRule);
-        View bottomShadow = findViewById(R.id.bottomRule);
-        // Define a flag for time selector used for toggle time bar frame
-        // animation
-        TranslateAnimation animation;
-        if (view.getVisibility() == View.GONE)
-        {
-            view.setVisibility(View.VISIBLE);
-            animation = new TranslateAnimation(0, 0, view.getHeight(), 0);
-            animation.setDuration(800);
-            if (topShadow != null && bottomShadow != null)
-            {
-                topShadow.setVisibility(View.VISIBLE);
-                bottomShadow.setVisibility(View.VISIBLE);
-                topShadow.startAnimation(animation);
-                bottomShadow.startAnimation(animation);
-            }
-            view.startAnimation(animation);
-        }
-        else
-        {
-            animation = new TranslateAnimation(0, 0, 0, view.getHeight());
-            animation.setDuration(800);
-            if (topShadow != null && bottomShadow != null)
-            {
-                topShadow.setVisibility(View.GONE);
-                bottomShadow.setVisibility(View.GONE);
-                topShadow.startAnimation(animation);
-                bottomShadow.startAnimation(animation);
-            }
-            view.startAnimation(animation);
-            view.setVisibility(View.GONE);
-        }
-    }
-
 }

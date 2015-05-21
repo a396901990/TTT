@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.AppBaseTheme" parent="@android:style/Theme.Holo.Light" />
+
+    <style name="Theme.ChartTheme" parent="Theme.AppBaseTheme">
+        <item name="android:actionBarStyle">@style/ChartActionBar</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:actionDropDownStyle">@style/Theme.Spinner</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:windowBackground">@color/gray_background</item>
+    </style>
+
+    <style name="Theme.White" parent="Theme.AppBaseTheme">
+        <item name="android:windowBackground">@color/white_background</item>
+    </style>
+
+    <style name="ChartActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/light_sky_blue</item>
+        <item name="android:titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar" parent="Theme.AppBaseTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    
+    <style name="Theme.Spinner" parent="android:Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_ab_holo_dark</item>
+    </style>
+
+    <style name="ChartHedaerBar">
+        <item name="android:background">@color/light_sky_blue</item>
+    </style>
+
+    <style name="ChartHedaerBar.Text" parent="@style/TextAppearance.Small">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:paddingLeft">@dimen/chart_header_text_padding_left</item>
+    </style>
+
+    <style name="ChartHedaerBar.Text.Title" parent="@style/TextAppearance.Medium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:paddingLeft">@dimen/chart_header_text_padding_left</item>
+    </style>
+
+    <style name="ChartHedaerBar.Button" parent="@style/ChartHedaerBar.Text">
+        <item name="android:background">@drawable/chart_header_btn</item>
+        <item name="android:layout_margin">@dimen/chart_header_button_margin</item>
+        <item name="android:padding">@dimen/chart_header_button_padding</item>
+        <item name="android:minHeight">@dimen/chart_header_button_min_height</item>
+        <item name="android:minWidth">@dimen/chart_header_button_min_width</item>
+    </style>
+    
+    <style name="DropDownNavigation">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    
+    <style name="DropDownItem">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+</resources>

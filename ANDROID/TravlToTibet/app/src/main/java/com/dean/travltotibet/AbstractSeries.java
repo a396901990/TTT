@@ -8,9 +8,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.view.MotionEvent;
 
 public abstract class AbstractSeries
 {
+    public static interface PointListener
+    {
+        void pointOnTouched(AbstractPoint point);
+    }
+
     protected float mScaleX = 1;
 
     protected float mScaleY = 1;
@@ -30,7 +36,7 @@ public abstract class AbstractSeries
     private double mRangeX = 0;
 
     private double mRangeY = 0;
-    
+
     public Context mContext;
 
     protected abstract void drawPoint( Canvas canvas, AbstractPoint point, Rect contentRect, RectF currentViewPoint );
@@ -188,6 +194,97 @@ public abstract class AbstractSeries
             }
         }
         return X;
+    }
+
+    public String getName( double X )
+    {
+        List<AbstractPoint> points = getPoints();
+        double offset = 1;
+        for (int i = 0; i < points.size(); i++)
+        {
+            AbstractPoint p = points.get(i);
+            // 重合
+            if (p.getX() < X + offset && p.getX() > X - offset)
+            {
+                return p.getName();
+            }
+            else if (p.getX() > X + offset && i == 0)
+            {
+                return p.getName();
+            }
+            else if (p.getX() > X + offset && i > 0)
+            {
+                return points.get(i - 1).getName() + " - " + p.getName();
+            }
+            else if (p.getX() < X - offset && i == points.size() - 1)
+            {
+                return points.get(points.size() - 1).getName();
+            }
+        }
+        return "";
+    }
+
+    public AbstractPoint handleTouchEvent( MotionEvent event )
+    {
+        float X = event.getX();
+        float Y = event.getY();
+        for (AbstractPoint point : mPoints)
+        {
+            if (point.getPointRect().contains(X, Y))
+            {
+                return point;
+            }
+        }
+        return null;
+    }
+
+    public Place getPlace( AbstractPoint point )
+    {
+        List<AbstractPoint> points = getPoints();
+        Place place = new Place();
+        double X = point.getX();
+        double Y = point.getY();
+
+        double offset = 1;
+
+        for (int i = 0; i < points.size(); i++)
+        {
+            AbstractPoint p = points.get(i);
+            // coincide
+            if (p.getX() < X + offset && p.getX() > X - offset)
+            {
+                place.setName(p.getName());
+                place.setHeight(p.getY());
+                place.setMileage(p.getX());
+                return place;
+            }
+            // out of range (right)
+            else if (p.getX() > X + offset && i == 0)
+            {
+                place.setName(p.getName());
+                place.setHeight(p.getY());
+                place.setMileage(p.getX());
+                return place;
+            }
+            // in the road
+            else if (p.getX() > X + offset && i > 0)
+            {
+                place.setName(points.get(i - 1).getName() + " - " + p.getName());
+                place.setHeight(X);
+                place.setMileage(Y);
+                return place;
+            }
+            // out of range (left)
+            else if (p.getX() < X - offset && i == points.size() - 1)
+            {
+                place.setName(p.getName());
+                place.setHeight(p.getY());
+                place.setMileage(p.getX());
+                return place;
+            }
+
+        }
+        return place;
     }
 
     protected void onDrawingComplete()

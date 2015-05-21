@@ -3,9 +3,7 @@ package com.dean.travltotibet;
 import java.util.Collections;
 import java.util.List;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -21,20 +19,16 @@ public class IndicatorSeries
 
     public PointF mLastPoint;
     
-    private Context mContext;
-    
-    public IndicatorSeries(Context context)
+    public IndicatorSeries()
     {
-        mContext = context;
-        
         mMountainPaint = new Paint();
         mMountainPaint.setAntiAlias(true);
-        mMountainPaint.setColor(mContext.getResources().getColor(R.color.indicator_mountain));
+        mMountainPaint.setColor(TTTApplication.getResourceUtil().indicator_mountain);
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
-        mLinePaint.setColor(Color.GRAY);
-        mLinePaint.setStrokeWidth(2);
+        mLinePaint.setColor(TTTApplication.getResourceUtil().indicator_mountain_line);
+        mLinePaint.setStrokeWidth(3);
     }
 
     @Override

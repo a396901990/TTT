@@ -1,7 +1,6 @@
 package com.dean.travltotibet;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -19,7 +18,7 @@ public class ChartCrosshairUtil
 {
     public static interface OnCrosshairPainted
     {
-        void onCrosshairPainted(int index);
+        void onCrosshairPainted(AbstractPoint point);
     }
 
     private static final int DELAY_START = 300;
@@ -106,35 +105,36 @@ public class ChartCrosshairUtil
         centerPaint = new Paint();
         centerPaint.setAntiAlias(true);
         centerPaint.setStyle(Style.FILL);
-        centerPaint.setColor(Color.GRAY);
+        centerPaint.setColor(TTTApplication.getResourceUtil().chart_cross);
 
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
         linePaint.setStyle(Style.STROKE);
-        linePaint.setColor(Color.GRAY);
+        linePaint.setColor(TTTApplication.getResourceUtil().chart_cross);
         linePaint.setStrokeWidth(4);
         linePaint.setPathEffect(new DashPathEffect(new float[]
             { 5, 5, 5, 5 }, 1));
 
         dialogPaint = new Paint();
         dialogPaint.setAntiAlias(true);
-        dialogPaint.setColor(Color.BLACK);
-        dialogPaint.setAlpha((int) (255 * 0.4));
+        dialogPaint.setColor(TTTApplication.getResourceUtil().chart_cross);
+        dialogPaint.setAlpha((int) (TTTApplication.getResourceUtil().chart_cross_dialog_alpha));
 
         textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(20);
+        textPaint.setColor(TTTApplication.getResourceUtil().chart_cross_text);
         textPaint.setTextAlign(Align.LEFT);
 
         arrowPaint = new Paint();
         arrowPaint.setAntiAlias(true);
         arrowPaint.setStyle(Style.FILL);
-        arrowPaint.setColor(Color.BLACK);
+        arrowPaint.setColor(TTTApplication.getResourceUtil().chart_arrow);
 
         arrowTextPaint = new TextPaint();
         arrowTextPaint.setAntiAlias(true);
         arrowTextPaint.setTextSize(mChart.getLabelTextSize());
-        arrowTextPaint.setColor(Color.WHITE);
+        arrowTextPaint.setColor(TTTApplication.getResourceUtil().chart_cross_text);
         arrowTextPaint.setTextAlign(Align.LEFT);
     }
 
@@ -143,7 +143,7 @@ public class ChartCrosshairUtil
         return mSeries;
     }
 
-    /** 处理触摸事件**/
+    /** 处理触摸事件 **/
     public boolean handleCrosshair( final MotionEvent event )
     {
         boolean handled = mStarted;
@@ -244,8 +244,8 @@ public class ChartCrosshairUtil
         canvas.drawLine(mCurrentX, mCurrentY + CENTER_BLANK, mCurrentX, mChart.getContentRect().bottom, linePaint);
 
         StringBuffer mText = new StringBuffer();
-        mText.append(HEIGHT + (int) point.getY() + "M" + "\n");
-        mText.append(MILEAGE + (int) point.getX() + "KM");
+        mText.append(Constants.NAME_HEIGHT + (int) point.getY() + "M" + "\n");
+        mText.append(Constants.NAME_MILEAGE + (int) point.getX() + "KM");
 
         Rect charRect = mChart.getContentRect();
         RectF dialogRect = new RectF();
@@ -299,7 +299,7 @@ public class ChartCrosshairUtil
         mStaticLayout.draw(canvas);
         canvas.restore();
 
-        notifyListener(1);
+        notifyListener(point);
     }
 
     private int calcMaxTextLength( String text )
@@ -313,10 +313,6 @@ public class ChartCrosshairUtil
         return (int) textLength;
     }
 
-    private static final String HEIGHT = "海拔：";
-
-    private static final String MILEAGE = "总里程：";
-
     /** 根据屏幕上X的坐标计算出实际点 */
     private AbstractPoint calcPoint( int X )
     {
@@ -325,6 +321,15 @@ public class ChartCrosshairUtil
 
         float scaleX = (float) contentRect.width() / (float) currentViewPoint.width();
         double pointX = ((X - contentRect.left) / scaleX) + currentViewPoint.left;
+        if (pointX <= mSeries.getPoints().get(0).getX())
+        {
+            pointX = (int) mSeries.getPoints().get(0).getX();
+        }
+        else if (pointX >= mSeries.getPoints().get(mSeries.getPoints().size() - 1).getX())
+        {
+            pointX = (int) mSeries.getPoints().get(mSeries.getPoints().size() - 1).getX();
+        }
+
         double pointY = mSeries.getPointY(pointX);
 
         return new MountainSeries.MountainPoint(pointX, pointY);
@@ -335,11 +340,11 @@ public class ChartCrosshairUtil
         mChart.invalidate();
     }
 
-    private void notifyListener( final int index )
+    private void notifyListener( final AbstractPoint point )
     {
         if (mListener != null)
         {
-            mListener.onCrosshairPainted(index);
+            mListener.onCrosshairPainted(point);
         }
     }
 }

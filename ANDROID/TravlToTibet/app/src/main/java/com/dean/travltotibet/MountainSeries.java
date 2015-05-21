@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -23,7 +24,7 @@ public class MountainSeries
 
     public PointF mLastPoint;
 
-    private int mMountainColor = Color.BLUE;
+    private int mMountainColor;
 
     private DetailPaint cityPaint;
 
@@ -35,16 +36,20 @@ public class MountainSeries
     {
         mMountainPaint = new Paint();
         mMountainPaint.setAntiAlias(true);
-        mMountainPaint.setAlpha((int) (255 * 0.8));
+        mMountainPaint.setColor(TTTApplication.getResourceUtil().chart_mountain);
+        mMountainPaint.setAlpha(TTTApplication.getResourceUtil().chart_mountain_alpha);
 
+        mMountainColor = TTTApplication.getResourceUtil().chart_mountain_shader;
+        
         cityPaint = new DetailPaint(Constants.CITY);
         townPaint = new DetailPaint(Constants.TOWN);
         mountainPaint = new DetailPaint(Constants.MOUNTAIN);
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
-        mLinePaint.setColor(Color.BLUE);
-        mLinePaint.setStrokeWidth(2);
+        mLinePaint.setStyle(Style.FILL);
+        mLinePaint.setStrokeWidth(3);
+        mLinePaint.setColor(TTTApplication.getResourceUtil().chart_line);
     }
 
     @Override
@@ -116,7 +121,7 @@ public class MountainSeries
         {
             if (!TextUtils.isEmpty(point.getName()))
             {
-                switch (point.getPriority())
+                switch (point.getCategory())
                 {
                 case Constants.CITY:
                     mPaint = cityPaint;
@@ -137,7 +142,7 @@ public class MountainSeries
                     float y = point.getY(contentRect, currentViewPoint);
 
                     mPaint.calcSize(point, contentRect, currentViewPoint);
-                    mPaint.drawText(canvas, point.getName(), x, y);
+                    mPaint.drawText(canvas, point, x, y);
                 }
             }
 
@@ -187,7 +192,7 @@ public class MountainSeries
         mMountainPaint.setShader(mShader);
         canvas.drawPath(path, mMountainPaint);
     }
-
+    
     public void setLineColor( int color )
     {
         mLinePaint.setColor(color);

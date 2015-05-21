@@ -1,6 +1,12 @@
 <resources>
-    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
-    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <dimen name="min_chart_size">500dp</dimen>
+    <dimen name="chart_header_text_padding_left">12dp</dimen>
+    <dimen name="chart_header_button_margin">8dp</dimen>
+    <dimen name="chart_header_button_padding">5dp</dimen>
+    <dimen name="chart_header_button_min_height">5dp</dimen>
+    <dimen name="chart_header_button_min_width">5dp</dimen>
+    <dimen name="chart_header_button_height">40dp</dimen>
+    <dimen name="chart_label_text_size">12sp</dimen>
+    <dimen name="indicator_chartview_height">80dip</dimen>
+    <dimen name="chart_headerbar_height">140dip</dimen>
 </resources>

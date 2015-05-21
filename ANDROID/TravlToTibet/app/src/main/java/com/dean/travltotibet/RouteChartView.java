@@ -2,16 +2,21 @@ package com.dean.travltotibet;
 
 import java.util.ArrayList;
 
+import com.dean.travltotibet.AbstractSeries.PointListener;
+import com.dean.travltotibet.ChartCrosshairUtil.OnCrosshairPainted;
+import com.dean.travltotibet.ChartIndicatorUtil.OnChartListener;
+import com.dean.travltotibet.ChartIndicatorUtil.OnIndicatorListener;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Paint.Align;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -27,8 +32,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.OverScroller;
 
-import com.dean.travltotibet.ChartIndicatorUtil.*;
-import com.dean.travltotibet.ChartCrosshairUtil.*;
 public class RouteChartView
     extends View
 {
@@ -39,6 +42,8 @@ public class RouteChartView
     private ChartCrosshairUtil mCrosshairUtil;
 
     private OnChartListener mChartListener;
+    
+    private PointListener mPointListener;
 
     /**
      * Initial fling velocity for pan operations, in screen widths (or heights)
@@ -99,8 +104,6 @@ public class RouteChartView
 
     private int mLabelSeparation;
 
-    private int mLabelTextColor;
-
     private Paint mLabelTextPaint;
 
     private int mMaxLabelWidth;
@@ -109,8 +112,6 @@ public class RouteChartView
 
     private float mGridThickness;
 
-    private int mGridColor;
-
     private Paint mGridPaint;
 
     private float mAxisThickness;
@@ -118,12 +119,6 @@ public class RouteChartView
     private int mAxisColor;
 
     private Paint mAxisPaint;
-
-    private float mDataThickness;
-
-    private int mDataColor;
-
-    private Paint mDataPaint;
 
     // State objects and values related to gesture tracking.
     private ScaleGestureDetector mScaleGestureDetector;
@@ -203,22 +198,16 @@ public class RouteChartView
     {
         super(context, attrs, defStyle);
 
+        this.setBackgroundColor(TTTApplication.getResourceUtil().chart_backgroud);
+
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.RouteChartView, defStyle, defStyle);
 
         try
         {
-            mLabelTextColor = a.getColor(R.styleable.RouteChartView_labelTextColor, mLabelTextColor);
             mLabelTextSize = a.getDimension(R.styleable.RouteChartView_labelTextSize, mLabelTextSize);
             mLabelSeparation = a.getDimensionPixelSize(R.styleable.RouteChartView_labelSeparation, mLabelSeparation);
-
             mGridThickness = a.getDimension(R.styleable.RouteChartView_gridThickness, mGridThickness);
-            mGridColor = a.getColor(R.styleable.RouteChartView_gridColor, mGridColor);
-
             mAxisThickness = a.getDimension(R.styleable.RouteChartView_axisThickness, mAxisThickness);
-            mAxisColor = a.getColor(R.styleable.RouteChartView_axisColor, mAxisColor);
-
-            mDataThickness = a.getDimension(R.styleable.RouteChartView_dataThickness, mDataThickness);
-            mDataColor = a.getColor(R.styleable.RouteChartView_dataColor, mDataColor);
         }
         finally
         {
@@ -271,26 +260,23 @@ public class RouteChartView
         mLabelTextPaint = new Paint();
         mLabelTextPaint.setAntiAlias(true);
         mLabelTextPaint.setTextSize(mLabelTextSize);
-        mLabelTextPaint.setColor(mLabelTextColor);
+        mLabelTextPaint.setColor(TTTApplication.getResourceUtil().chart_label_text);
 
         mLabelHeight = (int) Math.abs(mLabelTextPaint.getFontMetrics().top);
         mMaxLabelWidth = (int) mLabelTextPaint.measureText("0000");
 
         mGridPaint = new Paint();
         mGridPaint.setStrokeWidth(mGridThickness);
-        mGridPaint.setColor(mGridColor);
+        mGridPaint.setColor(TTTApplication.getResourceUtil().chart_grid);
+        mGridPaint.setAlpha((int) (255 * 0.5));
+        mGridPaint.setPathEffect(new DashPathEffect(new float[]
+            { 5, 5 }, 1));
         mGridPaint.setStyle(Paint.Style.STROKE);
 
         mAxisPaint = new Paint();
-        mAxisPaint.setStrokeWidth(mGridThickness);
-        mAxisPaint.setColor(mGridColor);
+        mAxisPaint.setStrokeWidth(mAxisThickness);
+        mAxisPaint.setColor(TTTApplication.getResourceUtil().chart_axis);
         mAxisPaint.setStyle(Paint.Style.STROKE);
-
-        mDataPaint = new Paint();
-        mDataPaint.setStrokeWidth(mDataThickness);
-        mDataPaint.setColor(mDataColor);
-        mDataPaint.setStyle(Paint.Style.STROKE);
-        mDataPaint.setAntiAlias(true);
 
         // turning off hardware acceleration for current view
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -338,9 +324,12 @@ public class RouteChartView
 
         // Removes clipping rectangle
         canvas.restoreToCount(clipRestoreCount);
+
+        // draw Arrow indicator
         mCrosshairUtil.drawArrow(canvas);
+
         // Draws chart container
-        canvas.drawRect(mContentRect, mAxisPaint);
+        // canvas.drawRect(mContentRect, mAxisPaint);
     }
 
     /**
@@ -408,7 +397,7 @@ public class RouteChartView
         // Draws X labels
         int labelOffset;
         int labelLength;
-        mLabelTextPaint.setTextAlign(Align.CENTER);
+        mLabelTextPaint.setTextAlign(Paint.Align.CENTER);
         for (i = 0; i < mXStopsBuffer.numStops; i++)
         {
             // Do not use String.format in high-performance code such as onDraw
@@ -419,7 +408,7 @@ public class RouteChartView
         }
 
         // Draws Y labels
-        mLabelTextPaint.setTextAlign(Align.RIGHT);
+        mLabelTextPaint.setTextAlign(Paint.Align.RIGHT);
         for (i = 0; i < mYStopsBuffer.numStops; i++)
         {
             // Do not use String.format in high-performance code such as onDraw
@@ -679,12 +668,25 @@ public class RouteChartView
     @Override
     public boolean onTouchEvent( MotionEvent event )
     {
+        // handle point touched event 
+        AbstractPoint point = mSeries.get(0).handleTouchEvent(event);
+        if (point != null)
+        {
+            mPointListener.pointOnTouched(point);
+        }
+        
+        // handle cross hair touched event
         if (mCrosshairUtil.handleCrosshair(event))
         {
             return true;
         }
+        
+        // handle scale gesture
         boolean retVal = mScaleGestureDetector.onTouchEvent(event);
+        
+        // handle gesture
         retVal = mGestureDetector.onTouchEvent(event) || retVal;
+        
         return retVal || super.onTouchEvent(event);
     }
 
@@ -701,13 +703,13 @@ public class RouteChartView
 
             private float lastSpanX;
 
-            private float lastSpanY;
+            //private float lastSpanY;
 
             @Override
             public boolean onScaleBegin( ScaleGestureDetector scaleGestureDetector )
             {
                 lastSpanX = ScaleGestureDetectorCompat.getCurrentSpanX(scaleGestureDetector);
-                lastSpanY = ScaleGestureDetectorCompat.getCurrentSpanY(scaleGestureDetector);
+                //lastSpanY = ScaleGestureDetectorCompat.getCurrentSpanY(scaleGestureDetector);
                 return true;
             }
 
@@ -715,10 +717,10 @@ public class RouteChartView
             public boolean onScale( ScaleGestureDetector scaleGestureDetector )
             {
                 // set X scale length limit
-                if (scaleGestureDetector.getScaleFactor() < 1 || mCurrentViewport.width() > (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PRECENT)
+                if (scaleGestureDetector.getScaleFactor() < 1 || mCurrentViewport.width() >= (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PRECENT)
                 {
                     float spanX = ScaleGestureDetectorCompat.getCurrentSpanX(scaleGestureDetector);
-                    float spanY = ScaleGestureDetectorCompat.getCurrentSpanY(scaleGestureDetector);
+                    //float spanY = ScaleGestureDetectorCompat.getCurrentSpanY(scaleGestureDetector);
 
                     float newWidth = lastSpanX / spanX * mCurrentViewport.width();
                     // float newHeight = lastSpanY / spanY *
@@ -742,7 +744,7 @@ public class RouteChartView
                     ViewCompat.postInvalidateOnAnimation(RouteChartView.this);
 
                     lastSpanX = spanX;
-                    lastSpanY = spanY;
+                    //lastSpanY = spanY;
 
                     // update indicator when chart scale
                     if (mChartListener != null)
@@ -949,11 +951,27 @@ public class RouteChartView
             // programmatically or via
             // double-touch).
             float newWidth = (1f - mZoomer.getCurrZoom()) * mScrollerStartViewport.width();
-            float newHeight = (1f - mZoomer.getCurrZoom()) * mScrollerStartViewport.height();
+            //float newHeight = (1f - mZoomer.getCurrZoom()) * mScrollerStartViewport.height();
             float pointWithinViewportX = (mZoomFocalPoint.x - mScrollerStartViewport.left) / mScrollerStartViewport.width();
-            float pointWithinViewportY = (mZoomFocalPoint.y - mScrollerStartViewport.top) / mScrollerStartViewport.height();
-            mCurrentViewport.set(mZoomFocalPoint.x - newWidth * pointWithinViewportX, mZoomFocalPoint.y - newHeight * pointWithinViewportY, mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX), mZoomFocalPoint.y + newHeight * (1 - pointWithinViewportY));
+            //float pointWithinViewportY = (mZoomFocalPoint.y - mScrollerStartViewport.top) / mScrollerStartViewport.height();
+            // mCurrentViewport.set(mZoomFocalPoint.x - newWidth *
+            // pointWithinViewportX, mZoomFocalPoint.y - newHeight *
+            // pointWithinViewportY, mZoomFocalPoint.x + newWidth * (1 -
+            // pointWithinViewportX), mZoomFocalPoint.y + newHeight * (1 -
+            // pointWithinViewportY));
+            float left = mZoomFocalPoint.x - newWidth * pointWithinViewportX;
+            float right = mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX);
+            if ((right - left) >= (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PRECENT)
+            {
+                mCurrentViewport.set(mZoomFocalPoint.x - newWidth * pointWithinViewportX, mCurrentViewport.top, mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX), mCurrentViewport.bottom);
+            }
             constrainViewport();
+
+            // update indicator when zoom
+            if (mChartListener != null)
+            {
+                mChartListener.onChartScale(mCurrentViewport);
+            }
             needsInvalidate = true;
         }
 
@@ -1089,18 +1107,6 @@ public class RouteChartView
         ViewCompat.postInvalidateOnAnimation(this);
     }
 
-    public int getLabelTextColor()
-    {
-        return mLabelTextColor;
-    }
-
-    public void setLabelTextColor( int labelTextColor )
-    {
-        mLabelTextColor = labelTextColor;
-        initPaints();
-        ViewCompat.postInvalidateOnAnimation(this);
-    }
-
     public float getGridThickness()
     {
         return mGridThickness;
@@ -1109,18 +1115,6 @@ public class RouteChartView
     public void setGridThickness( float gridThickness )
     {
         mGridThickness = gridThickness;
-        initPaints();
-        ViewCompat.postInvalidateOnAnimation(this);
-    }
-
-    public int getGridColor()
-    {
-        return mGridColor;
-    }
-
-    public void setGridColor( int gridColor )
-    {
-        mGridColor = gridColor;
         initPaints();
         ViewCompat.postInvalidateOnAnimation(this);
     }
@@ -1147,26 +1141,6 @@ public class RouteChartView
         mAxisColor = axisColor;
         initPaints();
         ViewCompat.postInvalidateOnAnimation(this);
-    }
-
-    public float getDataThickness()
-    {
-        return mDataThickness;
-    }
-
-    public void setDataThickness( float dataThickness )
-    {
-        mDataThickness = dataThickness;
-    }
-
-    public int getDataColor()
-    {
-        return mDataColor;
-    }
-
-    public void setDataColor( int dataColor )
-    {
-        mDataColor = dataColor;
     }
 
     // //////////////////////////////////////////////////////////////////////////////////////////////
@@ -1205,7 +1179,7 @@ public class RouteChartView
     public static class SavedState
         extends BaseSavedState
     {
-        private RectF viewport;
+        RectF viewport;
 
         public SavedState( Parcelable superState )
         {
@@ -1357,6 +1331,16 @@ public class RouteChartView
     public void setCrosshairUtil( ChartCrosshairUtil mCrosshairUtil )
     {
         this.mCrosshairUtil = mCrosshairUtil;
+    }
+
+    public PointListener getPointListener()
+    {
+        return mPointListener;
+    }
+
+    public void setPointListener( PointListener mPointListener )
+    {
+        this.mPointListener = mPointListener;
     }
 
 }
