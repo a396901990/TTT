@@ -1,4 +1,4 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.adapter;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.dean.travltotibet.R;
 
 public class PlanSpinnerAdapter
     extends BaseAdapter

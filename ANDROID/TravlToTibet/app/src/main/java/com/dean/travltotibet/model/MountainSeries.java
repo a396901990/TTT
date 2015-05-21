@@ -1,4 +1,4 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +14,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.text.TextUtils;
+
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.ui.DetailPaint;
+import com.dean.travltotibet.TTTApplication;
 
 public class MountainSeries
     extends AbstractSeries
@@ -111,7 +115,7 @@ public class MountainSeries
     }
 
     @Override
-    protected void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint )
+    public void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {
         List<AbstractPoint> mPoints = getPoints();
         sortPoints();
@@ -151,7 +155,7 @@ public class MountainSeries
     }
 
     @Override
-    protected void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint )
+    public void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {
         List<AbstractPoint> mPoints = getPoints();
         // mPoints.add(0, new MountainPoint(mPoints.get(0).getX(),0));
@@ -165,7 +169,7 @@ public class MountainSeries
     }
 
     @Override
-    protected void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint )
+    public void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {
         List<AbstractPoint> mPoints = getPoints();
         Collections.sort(mPoints);

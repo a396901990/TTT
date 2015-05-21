@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dean.travltotibet;
+package com.dean.travltotibet.util;
 
 import android.annotation.TargetApi;
 import android.os.Build;

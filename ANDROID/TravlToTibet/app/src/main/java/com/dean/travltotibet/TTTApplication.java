@@ -3,6 +3,8 @@ package com.dean.travltotibet;
 
 import android.app.Application;
 
+import com.dean.travltotibet.util.ResourceUtil;
+
 public class TTTApplication extends Application
 {
     private static TTTApplication instance;

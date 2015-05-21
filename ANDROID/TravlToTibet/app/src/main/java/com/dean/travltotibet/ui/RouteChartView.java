@@ -1,11 +1,19 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.ui;
 
 import java.util.ArrayList;
 
-import com.dean.travltotibet.AbstractSeries.PointListener;
-import com.dean.travltotibet.ChartCrosshairUtil.OnCrosshairPainted;
-import com.dean.travltotibet.ChartIndicatorUtil.OnChartListener;
-import com.dean.travltotibet.ChartIndicatorUtil.OnIndicatorListener;
+import com.dean.travltotibet.model.AbstractPoint;
+import com.dean.travltotibet.model.AbstractSeries;
+import com.dean.travltotibet.model.AbstractSeries.PointListener;
+import com.dean.travltotibet.util.OverScrollerCompat;
+import com.dean.travltotibet.R;
+import com.dean.travltotibet.util.ScaleGestureDetectorCompat;
+import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.Zoomer;
+import com.dean.travltotibet.util.ChartCrosshairUtil;
+import com.dean.travltotibet.util.ChartCrosshairUtil.OnCrosshairPainted;
+import com.dean.travltotibet.util.ChartIndicatorUtil.OnChartListener;
+import com.dean.travltotibet.util.ChartIndicatorUtil.OnIndicatorListener;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -494,7 +502,7 @@ public class RouteChartView
      *            available screen space; the more space there is, the more
      *            stops should be shown.
      * @param outStops
-     *            The destination {@link com.dean.travltotibet.RouteChartView.AxisStops} object to populate.
+     *            The destination {@link RouteChartView.AxisStops} object to populate.
      */
     private static void computeAxisStops( float start, float stop, int steps, AxisStops outStops )
     {

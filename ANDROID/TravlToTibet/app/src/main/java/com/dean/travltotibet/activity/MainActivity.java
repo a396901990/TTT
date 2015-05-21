@@ -1,9 +1,18 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.activity;
 import java.util.ArrayList;
 
-import com.dean.travltotibet.AbstractSeries.PointListener;
-import com.dean.travltotibet.ChartCrosshairUtil.OnCrosshairPainted;
-import com.dean.travltotibet.PlanSpinnerAdapter.PlanNavItem;
+import com.dean.travltotibet.R;
+import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
+import com.dean.travltotibet.model.AbstractPoint;
+import com.dean.travltotibet.model.AbstractSeries.PointListener;
+import com.dean.travltotibet.model.IndicatorSeries;
+import com.dean.travltotibet.model.MountainSeries;
+import com.dean.travltotibet.model.Place;
+import com.dean.travltotibet.ui.IndicatorChartView;
+import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.util.ChartCrosshairUtil.OnCrosshairPainted;
+import com.dean.travltotibet.adapter.PlanSpinnerAdapter.PlanNavItem;
+import com.dean.travltotibet.util.Constants;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -106,7 +115,7 @@ public class MainActivity
         mPlans.add(new PlanNavItem("DAY1", "成都－拉萨"));
         mPlans.add(new PlanNavItem("DAY2", "成都－拉萨"));
         mPlans.add(new PlanNavItem("DAY3", "成都－拉萨"));
-        
+
         PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(this);
         adapter.setData(mPlans);
         

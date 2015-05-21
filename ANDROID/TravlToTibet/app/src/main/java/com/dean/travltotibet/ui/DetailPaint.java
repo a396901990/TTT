@@ -1,9 +1,13 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.ui;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+
+import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.model.AbstractPoint;
+import com.dean.travltotibet.util.Constants;
 
 public class DetailPaint
     extends Paint
@@ -102,7 +106,7 @@ public class DetailPaint
      * 在点(x,y) 上画文字/图标
      * 
      * @param canvas
-     * @param name
+     * @param point
      * @param x
      * @param y
      */

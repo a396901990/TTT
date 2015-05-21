@@ -12,7 +12,7 @@
             android:id="@+id/chart_header_contents"
             layout="@layout/chart_headerbar" />
 
-        <com.dean.travltotibet.RouteChartView
+        <com.dean.travltotibet.ui.RouteChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             app:labelSeparation="3dp"
             app:labelTextSize="@dimen/chart_label_text_size" />
 
-        <com.dean.travltotibet.IndicatorChartView
+        <com.dean.travltotibet.ui.IndicatorChartView
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="@dimen/indicator_chartview_height"

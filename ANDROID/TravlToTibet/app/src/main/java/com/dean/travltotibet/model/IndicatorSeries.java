@@ -1,4 +1,4 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,6 +9,10 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+
+import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.model.AbstractPoint;
+import com.dean.travltotibet.model.AbstractSeries;
 
 public class IndicatorSeries
     extends AbstractSeries
@@ -80,7 +84,7 @@ public class IndicatorSeries
     }
 
     @Override
-    protected void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint )
+    public void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {
         List<AbstractPoint> mPoints = getPoints();
         for (AbstractPoint point : mPoints)
@@ -91,7 +95,7 @@ public class IndicatorSeries
     }
 
     @Override
-    protected void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint )
+    public void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {
         List<AbstractPoint> mPoints = getPoints();
         Collections.sort(mPoints);
@@ -117,7 +121,7 @@ public class IndicatorSeries
     }
 
     @Override
-    protected void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint )
+    public void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {
     }
 }

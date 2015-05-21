@@ -1,4 +1,4 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,13 +39,13 @@ public abstract class AbstractSeries
 
     public Context mContext;
 
-    protected abstract void drawPoint( Canvas canvas, AbstractPoint point, Rect contentRect, RectF currentViewPoint );
+    public abstract void drawPoint( Canvas canvas, AbstractPoint point, Rect contentRect, RectF currentViewPoint );
 
-    protected abstract void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint );
+    public abstract void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint );
 
-    protected abstract void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint );
+    public abstract void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint );
 
-    protected abstract void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint );
+    public abstract void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint );
 
     public List<AbstractPoint> getPoints()
     {

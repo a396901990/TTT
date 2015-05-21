@@ -1,8 +1,10 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.util;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+
+import com.dean.travltotibet.R;
 
 public class ResourceUtil
 {

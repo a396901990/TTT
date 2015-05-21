@@ -1,4 +1,4 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.util;
 
 public final class Constants
 {

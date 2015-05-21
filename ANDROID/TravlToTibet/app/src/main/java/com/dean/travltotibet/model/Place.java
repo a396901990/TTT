@@ -1,4 +1,6 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.model;
+
+import com.dean.travltotibet.util.Constants;
 
 public class Place
 {

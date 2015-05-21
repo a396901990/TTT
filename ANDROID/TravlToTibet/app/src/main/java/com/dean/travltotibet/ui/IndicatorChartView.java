@@ -1,10 +1,12 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.ui;
 
 import java.util.ArrayList;
 
-import com.dean.travltotibet.ChartIndicatorUtil.OnChartListener;
-import com.dean.travltotibet.ChartIndicatorUtil.OnIndicatorListener;
-import com.dean.travltotibet.RouteChartView.SavedState;
+import com.dean.travltotibet.model.AbstractSeries;
+import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.ChartIndicatorUtil;
+import com.dean.travltotibet.util.ChartIndicatorUtil.OnChartListener;
+import com.dean.travltotibet.util.ChartIndicatorUtil.OnIndicatorListener;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -159,21 +161,11 @@ public class IndicatorChartView
         setCurrentViewport(mChartView.getCurrentViewport());
     }
 
-    public OnChartListener getChartListener()
-    {
-        return mChartListener;
-    }
-
-    public void setChartListener( OnChartListener mChartListener )
-    {
-        this.mChartListener = mChartListener;
-    }
-    
     @Override
     public Parcelable onSaveInstanceState()
     {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
+        RouteChartView.SavedState ss = new RouteChartView.SavedState(superState);
         ss.viewport = mCurrentViewport;
         return ss;
     }
@@ -181,13 +173,13 @@ public class IndicatorChartView
     @Override
     public void onRestoreInstanceState( Parcelable state )
     {
-        if (!(state instanceof SavedState))
+        if (!(state instanceof RouteChartView.SavedState))
         {
             super.onRestoreInstanceState(state);
             return;
         }
 
-        SavedState ss = (SavedState) state;
+        RouteChartView.SavedState ss = (RouteChartView.SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
 
         mCurrentViewport = ss.viewport;

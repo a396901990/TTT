@@ -1,4 +1,4 @@
-package com.dean.travltotibet;
+package com.dean.travltotibet.model;
 
 import android.graphics.Rect;
 import android.graphics.RectF;
