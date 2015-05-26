@@ -18,9 +18,9 @@ public class DetailPaint
 
     private int textRectColor;
 
-    private Double stopPrecent;
+    private Double stopPercent;
 
-    private Double displayPrecent;
+    private Double displayPercent;
 
     private int category;
 
@@ -38,24 +38,24 @@ public class DetailPaint
         case Constants.CITY:
             maxSize = 25;
             minSize = 10;
-            displayPrecent = 1.0d;
-            stopPrecent = 0.5d;
+            displayPercent = 1.0d;
+            stopPercent = 0.5d;
             textRectColor = TTTApplication.getResourceUtil().chart_text_rect_city_paint;
             break;
 
         case Constants.TOWN:
             maxSize = 20;
             minSize = 10;
-            displayPrecent = 0.8d;
-            stopPrecent = 0.4d;
+            displayPercent = 0.8d;
+            stopPercent = 0.4d;
             textRectColor = TTTApplication.getResourceUtil().chart_text_rect_town_paint;
             break;
 
         case Constants.MOUNTAIN:
             maxSize = 16;
             minSize = 10;
-            displayPrecent = 0.6d;
-            stopPrecent = 0.3d;
+            displayPercent = 0.6d;
+            stopPercent = 0.3d;
             textRectColor = TTTApplication.getResourceUtil().chart_text_rect_mountain_paint;
             break;
         default:
@@ -73,7 +73,7 @@ public class DetailPaint
 
     /**
      * 计算字体大小 当currentViewPoint扩大到displayPrecent时显示并放大字体，当扩大到stopPrecent时停止放大
-     * 
+     *
      * @param point
      *            点
      * @param contentRect
@@ -83,11 +83,11 @@ public class DetailPaint
      */
     public void calcSize( AbstractPoint point, Rect contentRect, RectF currentViewPoint )
     {
-        if (currentViewPoint.width() <= mRect.width() * displayPrecent)
+        if (currentViewPoint.width() <= mRect.width() * displayPercent)
         {
-            if (currentViewPoint.width() > mRect.width() * stopPrecent)
+            if (currentViewPoint.width() > mRect.width() * stopPercent)
             {
-                double p = (mRect.width() - currentViewPoint.width()) / (mRect.width() * (1.0d - stopPrecent));
+                double p = (mRect.width() - currentViewPoint.width()) / (mRect.width() * (1.0d - stopPercent));
                 float textSize = (float) (minSize + (maxSize - minSize) * p);
                 setTextSize(textSize);
             }
@@ -104,7 +104,7 @@ public class DetailPaint
 
     /**
      * 在点(x,y) 上画文字/图标
-     * 
+     *
      * @param canvas
      * @param point
      * @param x
