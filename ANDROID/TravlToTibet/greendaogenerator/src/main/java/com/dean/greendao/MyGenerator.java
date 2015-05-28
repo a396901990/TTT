@@ -30,10 +30,10 @@ public class MyGenerator {
         Entity geocode = schema.addEntity("Geocode");
         geocode.addIdProperty();
         geocode.addStringProperty("name").notNull();
-        geocode.addLongProperty("elevation").notNull();
-        geocode.addLongProperty("mileage").notNull();
-        geocode.addLongProperty("latitude").notNull();
-        geocode.addLongProperty("longitude").notNull();
+        geocode.addDoubleProperty("elevation").notNull();
+        geocode.addDoubleProperty("mileage").notNull();
+        geocode.addDoubleProperty("latitude").notNull();
+        geocode.addDoubleProperty("longitude").notNull();
         geocode.addStringProperty("address").notNull();
         geocode.addStringProperty("types").notNull();
     }

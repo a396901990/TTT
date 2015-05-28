@@ -26,7 +26,14 @@ public final class GoogleMapAPIUtil {
      * doc https://developers.google.com/maps/documentation/geocoding/
      * sample http://maps.googleapis.com/maps/api/geocode/json?latlng=37.8855098,77.4718697&sensor=false
      */
-    public static final String GEOCODE_URL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false&key=\"+KEY";
+    public static final String GEOCODE_URL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false&key=" + KEY;
+
+
+    /**
+     * doc https://developers.google.com/maps/documentation/geocoding/
+     * sample https://maps.googleapis.com/maps/api/geocode/json?address=叶城
+     */
+    public static final String GEOCODE_ADDRESS_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&key=" + KEY;
 
     public static String getElevationPathUrl(String path, int samples) {
         String url = String.format(Locale.CHINA, ELEVATION_PATH_URL, path, samples);
@@ -42,4 +49,10 @@ public final class GoogleMapAPIUtil {
         String url = String.format(Locale.CHINA, GEOCODE_URL, latitude, longitude);
         return url;
     }
+
+    public static String getDeocodeUrl(String address) {
+        String url = String.format(Locale.CHINA, GEOCODE_ADDRESS_URL, address);
+        return url;
+    }
+
 }

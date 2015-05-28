@@ -19,7 +19,7 @@ public class HttpHelper {
     private static final int PROXY_PORT = 8580;
 
     // HTTP GET request
-    private static void sendGet(String url) throws Exception {
+    public static String sendGet(String url) throws Exception {
 
         URL obj = new URL(url);
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_HOST, PROXY_PORT));
@@ -47,11 +47,11 @@ public class HttpHelper {
 
         //print result
         System.out.println(response.toString());
-
+        return response.toString();
     }
 
     // HTTP POST request
-    private void sendPost(String url) throws Exception {
+    public String sendPost(String url) throws Exception {
 
         URL obj = new URL(url);
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_HOST, PROXY_PORT));
@@ -88,6 +88,6 @@ public class HttpHelper {
 
         //print result
         System.out.println(response.toString());
-
+        return response.toString();
     }
 }
