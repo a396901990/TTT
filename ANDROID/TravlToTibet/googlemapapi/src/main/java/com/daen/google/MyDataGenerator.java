@@ -18,6 +18,7 @@ public class MyDataGenerator {
 
         geocodes.add(geocode);
         ParseJson.parseGeocode("", geocode);
+        ParseJson.parseElevation("", geocode);
         //getDetail(geocode.getName());
 
     }

@@ -78,7 +78,7 @@ public class ParseJson {
     }
 
     public static Geocode parseGeocode(String result, Geocode geocode) throws JSONException {
-        result = readFile(FILE_PATH);
+        result = readFile("C:/Users/95/Desktop/geocode.txt");
 
         JSONObject jsonObject = new JSONObject(result);
 
@@ -111,6 +111,17 @@ public class ParseJson {
         geocode.setAddress(address);
         geocode.setLatitude(lat);
         geocode.setLongitude(lng);
+        return geocode;
+    }
+
+    public static Geocode parseElevation(String result, Geocode geocode) throws JSONException {
+        result = readFile("C:/Users/95/Desktop/elevation.txt");
+
+        JSONObject jsonObject = new JSONObject(result);
+
+        JSONArray results = jsonObject.getJSONArray("results");
+        Double elevation = results.getJSONObject(0).getDouble("elevation");
+        geocode.setElevation(elevation);
         return geocode;
     }
 }
