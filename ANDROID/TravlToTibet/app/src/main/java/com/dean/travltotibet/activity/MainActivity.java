@@ -1,10 +1,12 @@
 package com.dean.travltotibet.activity;
 import java.util.ArrayList;
 
+import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
 import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.AbstractSeries.PointListener;
+import com.dean.travltotibet.model.GeocodesJson;
 import com.dean.travltotibet.model.IndicatorSeries;
 import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.model.Place;
@@ -18,6 +20,7 @@ import com.google.gson.Gson;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -161,23 +164,53 @@ public class MainActivity
 //        List list = mquery.list();
 //        System.out.print(list);
 
-        ArrayList<Location> locations = new ArrayList<Location>();
-        Location l = new Location();
-        l.setName("lasa");
-        l.setHeight("2051");
-        l.setMileage("3311");
+        ArrayList<Geocode> geocodes = new ArrayList<Geocode>();
+        Geocode geocode = new Geocode();
+        geocode.setName("lasa");
+        geocode.setElevation(1124);
+        geocode.setMileage(4123);
+        geocode.setAddress("aaasdf");
+        geocode.setLatitude(333);
+        geocode.setLongitude(444);
+        geocode.setTypes("city");
 
-        Location l1 = new Location();
-        l1.setName("lasa");
-        l1.setHeight("2051");
-        l1.setMileage("3311");
+        Geocode geocode1 = new Geocode();
+        geocode1.setName("lasa");
+        geocode1.setElevation(1124);
+        geocode1.setMileage(4123);
+        geocode1.setAddress("aaasdf");
+        geocode1.setLatitude(333);
+        geocode1.setLongitude(444);
+        geocode1.setTypes("city");
 
-        locations.add(l);
-        locations.add(l1);
+        Geocode geocode2 = new Geocode();
+        geocode2.setName("lasa");
+        geocode2.setElevation(1124);
+        geocode2.setMileage(4123);
+        geocode2.setAddress("aaasdf");
+        geocode2.setLatitude(333);
+        geocode2.setLongitude(444);
+        geocode2.setTypes("city");
 
+        Geocode geocode3 = new Geocode();
+        geocode3.setName("lasa");
+        geocode3.setElevation(1124);
+        geocode3.setMileage(4123);
+        geocode3.setAddress("aaasdf");
+        geocode3.setLatitude(333);
+        geocode3.setLongitude(444);
+        geocode3.setTypes("city");
+
+        geocodes.add(geocode);
+        geocodes.add(geocode1);
+        geocodes.add(geocode2);
+        geocodes.add(geocode3);
+
+        GeocodesJson gj = new GeocodesJson();
+        gj.setGeocodes(geocodes);
         Gson gson = new Gson();
-        String s = gson.toJson(locations);
-        Log.d("aaa",s);
+        String s = gson.toJson(gj);
+        Log.e("gsdfg", s);
     }
 
 }

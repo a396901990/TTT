@@ -1,0 +1,22 @@
+{
+    "geocodes" : [
+	    {
+	        "name":"叶城",
+	        "mileage":0,
+	        "elevation":1124,
+	        "longitude":444,
+	        "latitude":333,
+	        "address":"aaasdf",
+	        "types":"city"
+	    },
+	    {
+	        "address":"aaasdf",
+	        "types":"city",
+	        "name":"lasa",
+	        "longitude":444,
+	        "mileage":4123,
+	        "latitude":333,
+	        "elevation":1124
+	    }
+	]
+}

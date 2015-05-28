@@ -2,6 +2,9 @@ package com.dean.travltotibet.util;
 
 import android.content.Context;
 
+import com.dean.greendao.DaoSession;
+import com.dean.greendao.Geocode;
+import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
 import com.dean.travltotibet.TTTApplication;
 

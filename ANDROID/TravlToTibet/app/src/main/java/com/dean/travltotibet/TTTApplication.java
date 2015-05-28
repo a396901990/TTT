@@ -4,6 +4,8 @@ package com.dean.travltotibet;
 import android.app.Application;
 import android.content.Context;
 
+import com.dean.greendao.DaoMaster;
+import com.dean.greendao.DaoSession;
 import com.dean.travltotibet.util.DataBaseInfo;
 import com.dean.travltotibet.util.ResourceUtil;
 
