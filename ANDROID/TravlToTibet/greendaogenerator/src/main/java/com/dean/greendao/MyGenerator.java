@@ -14,20 +14,56 @@ public class MyGenerator {
 
     public static void main(String[] args) throws Exception {
 
-        // The "root" model class to which you can add entities to.
         Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME);
-        addLocation(schema);
+        addGeocode(schema);
+        addZoneType(schema);
+        addBuildingType(schema);
+
         //生成Dao文件路径
         new DaoGenerator().generateAll(schema, DAO_PATH);
 
     }
 
-    private static void addLocation(Schema schema) {
-        Entity location = schema.addEntity("Location");
-        location.addIdProperty();
-        location.addStringProperty("name").notNull();
-        location.addStringProperty("height").notNull();
-        location.addStringProperty("mileage").notNull();
+
+    // 地理表
+    private static void addGeocode(Schema schema) {
+        Entity geocode = schema.addEntity("Geocode");
+        geocode.addIdProperty();
+        geocode.addStringProperty("name").notNull();
+        geocode.addLongProperty("elevation").notNull();
+        geocode.addLongProperty("mileage").notNull();
+        geocode.addLongProperty("latitude").notNull();
+        geocode.addLongProperty("longitude").notNull();
+        geocode.addStringProperty("address").notNull();
+        geocode.addStringProperty("types").notNull();
+    }
+
+    // 区域类型表
+    private static void addZoneType(Schema schema) {
+        Entity zone = schema.addEntity("ZoneType");
+        zone.addIdProperty();
+        zone.addStringProperty("CITY").notNull();
+        zone.addStringProperty("COUNTY").notNull();
+        zone.addStringProperty("TOWN").notNull();
+        zone.addStringProperty("VILLAGE").notNull();
+        zone.addStringProperty("DAOBAN").notNull();
+        zone.addStringProperty("MOUNTAIN").notNull();
+        zone.addStringProperty("SCENICSPOT").notNull();
+        zone.addStringProperty("BUILDING").notNull();
+        zone.addStringProperty("OTHERS").notNull();
+    }
+
+    // 建筑物类型表
+    private static void addBuildingType(Schema schema) {
+        Entity build = schema.addEntity("BuildingType");
+        build.addIdProperty();
+        build.addStringProperty("TUNNEL").notNull();
+        build.addStringProperty("VIEW").notNull();
+        build.addStringProperty("TENT").notNull();
+        build.addStringProperty("HOTEL").notNull();
+        build.addStringProperty("STORE").notNull();
+        build.addStringProperty("CHECKPOINT").notNull();
+        build.addStringProperty("BRIDGE").notNull();
     }
 
 }

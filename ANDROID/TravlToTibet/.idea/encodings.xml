@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/EncodeJson.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/HttpHelper.java" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
 </project>
 

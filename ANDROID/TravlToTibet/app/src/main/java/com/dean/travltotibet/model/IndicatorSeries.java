@@ -73,16 +73,6 @@ public class IndicatorSeries
         }
     }
 
-    public void setMountainAlpha( double d )
-    {
-        mMountainPaint.setAlpha((int) (255 * d));
-    }
-
-    public void setMountainColor( int color )
-    {
-        mMountainPaint.setColor(color);
-    }
-
     @Override
     public void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint )
     {

@@ -13,10 +13,13 @@ import com.dean.travltotibet.ui.RouteChartView;
 import com.dean.travltotibet.util.ChartCrosshairUtil.OnCrosshairPainted;
 import com.dean.travltotibet.adapter.PlanSpinnerAdapter.PlanNavItem;
 import com.dean.travltotibet.util.Constants;
+import com.google.gson.Gson;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +44,7 @@ public class MainActivity
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
+        initDatabase(this);
         getActionBar().setIcon(R.drawable.ic_ab_back_icon);
         initDropdownNavigation();
         getActionBar().setTitle("新藏线");
@@ -140,4 +144,40 @@ public class MainActivity
         getActionBar().setCustomView(spinnerView, layoutParams); 
         getActionBar().setDisplayShowCustomEnabled(true);
     }
+
+    private void initDatabase(Context mContext) {
+//        DaoSession daoSession = TTTApplication.getDaoSession(mContext);
+//        LocationDao mLocationDao = daoSession.getLocationDao();
+//
+//
+//        Location l = new Location();
+//        l.setName("lasa");
+//        l.setHeight("2051");
+//        l.setMileage("3311");
+//
+//        mLocationDao.insert(l);
+//
+//        QueryBuilder<Location> mquery = mLocationDao.queryBuilder();
+//        List list = mquery.list();
+//        System.out.print(list);
+
+        ArrayList<Location> locations = new ArrayList<Location>();
+        Location l = new Location();
+        l.setName("lasa");
+        l.setHeight("2051");
+        l.setMileage("3311");
+
+        Location l1 = new Location();
+        l1.setName("lasa");
+        l1.setHeight("2051");
+        l1.setMileage("3311");
+
+        locations.add(l);
+        locations.add(l1);
+
+        Gson gson = new Gson();
+        String s = gson.toJson(locations);
+        Log.d("aaa",s);
+    }
+
 }
