@@ -3,7 +3,7 @@ package com.daen.google;
 /**
  * Created by 95 on 2015/5/29.
  */
-public class DownloadRunable implements Runnable {
+public class DownloadRunnable implements Runnable {
 
     private String URL;
 
@@ -11,14 +11,15 @@ public class DownloadRunable implements Runnable {
 
     private String result;
 
-    public DownloadRunable(String url, DownloadCallback callbak) {
+    public DownloadRunnable(String url, DownloadCallback callbak) {
         this.URL = url;
         this.mCallbak = callbak;
     }
 
     public static interface DownloadCallback {
         public void downloadSuccess(String result);
-        public void downloadFaild();
+
+        public void downloadFail();
     }
 
     @Override
@@ -27,7 +28,7 @@ public class DownloadRunable implements Runnable {
             result = HttpHelper.sendPost(URL);
             mCallbak.downloadSuccess(result);
         } catch (Exception e) {
-            mCallbak.downloadFaild();
+            mCallbak.downloadFail();
             e.printStackTrace();
         }
     }
