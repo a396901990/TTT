@@ -10,7 +10,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class HttpHelper {
+public final class HttpHelper {
 
     private static final String USER_AGENT = "Mozilla/5.0";
 
@@ -18,11 +18,12 @@ public class HttpHelper {
 
     private static final int PROXY_PORT = 8580;
 
+    private static final Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_HOST, PROXY_PORT));
+
     // HTTP GET request
     public static String sendGet(String url) throws Exception {
 
         URL obj = new URL(url);
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_HOST, PROXY_PORT));
         HttpURLConnection con = (HttpURLConnection) obj.openConnection(proxy);
 
         // optional default is GET
@@ -51,11 +52,11 @@ public class HttpHelper {
     }
 
     // HTTP POST request
-    public String sendPost(String url) throws Exception {
+    public static String sendPost(String url) throws Exception {
 
         URL obj = new URL(url);
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_HOST, PROXY_PORT));
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection(proxy);
+
+        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");

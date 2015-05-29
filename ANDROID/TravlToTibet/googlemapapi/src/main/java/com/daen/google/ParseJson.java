@@ -78,7 +78,7 @@ public class ParseJson {
     }
 
     public static Geocode parseGeocode(String result, Geocode geocode) throws JSONException {
-        result = readFile("C:/Users/95/Desktop/geocode.txt");
+        //result = readFile("C:/Users/95/Desktop/geocode.txt");
 
         JSONObject jsonObject = new JSONObject(result);
 
@@ -115,7 +115,7 @@ public class ParseJson {
     }
 
     public static Geocode parseElevation(String result, Geocode geocode) throws JSONException {
-        result = readFile("C:/Users/95/Desktop/elevation.txt");
+        //result = readFile("C:/Users/95/Desktop/elevation.txt");
 
         JSONObject jsonObject = new JSONObject(result);
 

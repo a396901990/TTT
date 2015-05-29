@@ -13,37 +13,52 @@ public class MyDataGenerator {
     public static void main(String[] args) throws Exception {
 
         ArrayList<Geocode> geocodes = new ArrayList<Geocode>();
-        Geocode geocode = new Geocode();
-        geocode.setName("叶城县");
+        final Geocode geocode = new Geocode();
+        geocode.setName("阿克美其特村");
 
         geocodes.add(geocode);
-        ParseJson.parseGeocode("", geocode);
-        ParseJson.parseElevation("", geocode);
-        //getDetail(geocode.getName());
 
-    }
-    public static final String FILE_PATH = "C:/Users/95/Desktop/result.txt";
+        String url = GoogleMapAPIUtil.getDeocodeUrl(geocode.getName());
+        DownloadRunable deocodeRunable = new DownloadRunable(url, new DownloadRunable.DownloadCallback() {
+            @Override
+            public void downloadSuccess(String result) {
+                try {
+                    ParseJson.parseGeocode(result, geocode);
 
-    public static void resolveDetail() {
-        String a = ParseJson.readFile(FILE_PATH);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(a);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        jsonObject.toString();
-    }
+                    String url = GoogleMapAPIUtil.getElevationLocationUrl(geocode.getLatitude(), geocode.getLongitude());
+                    DownloadRunable evleationRunable = new DownloadRunable(url, new DownloadRunable.DownloadCallback() {
+                        @Override
+                        public void downloadSuccess(String result) {
+                            try {
+                                ParseJson.parseElevation(result, geocode);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void downloadFaild() {
+
+                        }
+                    });
+
+                    Thread t = new Thread(evleationRunable);
+                    t.start();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void downloadFaild() {
+
+            }
+        });
 
 
-    public static void getDetail(String name) {
-        HttpHelper httpHelper = new HttpHelper();
-        String url = GoogleMapAPIUtil.getDeocodeUrl(name);
-        try {
-            String result = httpHelper.sendPost(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        Thread t = new Thread(deocodeRunable);
+        t.start();
     }
 
 }
