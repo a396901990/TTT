@@ -1,4 +1,4 @@
-package com.dean.travltotibet.util;
+package com.dean.travltotibet.database;
 
 import android.content.Context;
 
@@ -7,7 +7,9 @@ import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
 import com.dean.travltotibet.TTTApplication;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.dao.query.DeleteQuery;
@@ -74,18 +76,32 @@ public class DBHelper
         bd.executeDeleteWithoutDetachingEntities();
     }
 
-    /** 删除 */
-    public void cleaGeocode()
+    /** 删除Geocode数据 */
+    public void clearGeocode()
     {
         geocodeDao.deleteAll();
     }
 
-    /** 多重查询 */
-    public List<Geocode> getLoactionsByRoad(String road)
+    /** 检查Geocode是否初始化 */
+    public boolean isGeocodeDaoInited()
     {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
-        qb.where(Properties.Name.eq(road));
-        qb.orderAsc(Properties.Mileage);// 排序依据
-        return qb.list();
+        qb.buildCount().count();
+        return qb.buildCount().count() > 0 ? true : false;
     }
+
+    /** 初始化Geocode数据 */
+    public void initGeocodeData() {
+
+        if (!isGeocodeDaoInited()) {
+            String json_result = ParseUtil.readFromRaw(mContext);
+            Gson gson = new Gson();
+            GeocodesJson geocodesJson = gson.fromJson(json_result, GeocodesJson.class);
+
+            for (Geocode geocode : geocodesJson.getGeocodes()) {
+                geocodeDao.insert(geocode);
+            }
+        }
+    }
+
 }

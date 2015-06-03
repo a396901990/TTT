@@ -6,7 +6,8 @@ import android.content.Context;
 
 import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
-import com.dean.travltotibet.util.DataBaseInfo;
+import com.dean.travltotibet.database.DBHelper;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.ResourceUtil;
 
 public class TTTApplication extends Application
@@ -19,6 +20,8 @@ public class TTTApplication extends Application
 
     private static DaoSession daoSession;
 
+    private static DBHelper dbHelper;
+
     @Override
     public void onCreate()
     {
@@ -26,6 +29,13 @@ public class TTTApplication extends Application
         instance = this;
         
         resourceUtil = new ResourceUtil(getApplicationContext());
+
+        initDB();
+    }
+
+    private void initDB() {
+        dbHelper = DBHelper.getInstance(getApplicationContext());
+        dbHelper.initGeocodeData();
     }
 
     public static TTTApplication getInstance()
@@ -42,7 +52,7 @@ public class TTTApplication extends Application
     {
         if (daoMaster == null)
         {
-            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, DataBaseInfo.DB_NAME, null);
+            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, Constants.DB_NAME, null);
             daoMaster = new DaoMaster(helper.getWritableDatabase());
         }
         return daoMaster;
@@ -61,4 +71,7 @@ public class TTTApplication extends Application
         return daoSession;
     }
 
+    public static DBHelper getDbHelper() {
+        return dbHelper;
+    }
 }

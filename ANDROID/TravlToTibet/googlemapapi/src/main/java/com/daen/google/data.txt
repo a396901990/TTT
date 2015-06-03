@@ -1,0 +1,6 @@
+        geocodes.add(new Geocode("叶城县", 0));
+        geocodes.add(new Geocode("柯克亚乡", 62));
+        geocodes.add(new Geocode("普萨村", 72));
+        geocodes.add(new Geocode("阿克美其特村", 100, "叶城县"));
+        geocodes.add(new Geocode("库地", 160));
+        geocodes.add(new Geocode("大红柳滩", 487));

@@ -10,6 +10,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
+import com.dean.travltotibet.util.Constants;
+
 public abstract class AbstractSeries
 {
     public static interface PointListener
@@ -289,5 +291,18 @@ public abstract class AbstractSeries
 
     protected void onDrawingComplete()
     {
+    }
+
+    public static int getType(String type) {
+        if (type.equals("CITY")) {
+            return Constants.CITY;
+        }
+        else if (type.equals("TOWN")) {
+            return Constants.TOWN;
+        }
+        else if (type.equals("VILLAGE")) {
+            return Constants.VILLAGE;
+        }
+        return 1;
     }
 }

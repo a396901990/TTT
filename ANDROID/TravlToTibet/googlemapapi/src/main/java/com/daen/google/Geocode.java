@@ -36,14 +36,14 @@ public class Geocode {
         this.id = id;
     }
 
-    public Geocode(String name, double mileage) {
-        this.name = name;
-        this.mileage = mileage;
+    public Geocode(String name, double mileage, String types) {
+        this(name, mileage, "", types);
     }
 
-    public Geocode(String name, double mileage, String belong) {
+    public Geocode(String name, double mileage, String belong, String types) {
         this.name = name;
         this.mileage = mileage;
+        this.types = types;
         this.belong = belong;
     }
 

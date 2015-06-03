@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
- * Created by 95 on 2015/5/28.
+ * Created by Dean on 2015/5/28.
  */
 public class ParseJson {
 
@@ -86,7 +86,8 @@ public class ParseJson {
         writefile(OUTPUT_FILE_PATH, result);
     }
 
-    public static String parseDirections(String result) throws JSONException {
+    /** 解析Directions返回值并为Geocode赋值 */
+    public static String parseDirections(String result, Geocode geocode) throws JSONException {
         result = readFile(FILE_PATH);
         //System.out.println(a);
         JSONObject jsonObject = new JSONObject(result);
@@ -105,6 +106,7 @@ public class ParseJson {
         return builder.toString();
     }
 
+    /** 解析Geocode返回值并为Geocode赋值 */
     public static Geocode parseGeocode(String result, Geocode geocode) throws JSONException {
         //result = readFile("C:/Users/95/Desktop/geocode.txt");
 
@@ -121,7 +123,7 @@ public class ParseJson {
             JSONArray address_components = results.getJSONObject(i).getJSONArray("address_components");
 
             // have multiply address
-            if (geocode.getBelong() != null) {
+            if (geocode.getBelong() != null && !geocode.getBelong().equals("")) {
                 for (int j = 0; j < address_components.length(); j++) {
                     String long_name = address_components.getJSONObject(i).getString("long_name");
                     if (geocode.getBelong().equals(long_name)) {
@@ -169,6 +171,7 @@ public class ParseJson {
         return geocode;
     }
 
+    /** 解析Elevation返回值并为Geocode赋值 */
     public static Geocode parseElevation(String result, Geocode geocode) throws JSONException {
         //result = readFile("C:/Users/95/Desktop/elevation.txt");
 
@@ -178,5 +181,18 @@ public class ParseJson {
         Double elevation = results.getJSONObject(0).getDouble("elevation");
         geocode.setElevation(elevation);
         return geocode;
+    }
+
+    /** 获取当前路径 */
+    public String getCurrentPath(){
+        //取得根目录路径
+        String rootPath=getClass().getResource("/").getFile().toString();
+        //当前目录路径
+        String currentPath1=getClass().getResource(".").getFile().toString();
+        String currentPath2=getClass().getResource("").getFile().toString();
+        //当前目录的上级目录路径
+        String parentPath=getClass().getResource("../").getFile().toString();
+
+        return rootPath;
     }
 }

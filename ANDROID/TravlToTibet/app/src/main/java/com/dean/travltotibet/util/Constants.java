@@ -36,4 +36,6 @@ public final class Constants
     
     public static final String NAME_MILEAGE = "里程：";
 
+    public static final String DB_NAME = "TTT_DB";
+
 }
