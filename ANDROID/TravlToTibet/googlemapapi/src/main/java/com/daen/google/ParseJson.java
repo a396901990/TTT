@@ -1,5 +1,7 @@
 package com.daen.google;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,9 +9,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /**
  * Created by 95 on 2015/5/28.
@@ -17,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 public class ParseJson {
 
     public static final String FILE_PATH = "C:/Users/95/Desktop/result.txt";
+
+    public static final String OUTPUT_FILE_PATH = "C:/Users/95/Desktop/outputresult.txt";
 
     public static void main(String[] args) throws Exception {
 
@@ -58,6 +65,27 @@ public class ParseJson {
         return lines.toString();
     }
 
+    public static boolean writefile(String path, String content){
+        try{
+            OutputStream out = new FileOutputStream(path);
+            out.write(content.getBytes());
+            out.close();
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /** parse geocodes to json and saved into local file */
+    public static void parseToFile(ArrayList<Geocode> geocodes) {
+        Gson gson = new Gson();
+        GeocodesJson gj = new GeocodesJson();
+        gj.setGeocodes(geocodes);
+        String result = gson.toJson(gj, GeocodesJson.class);
+        writefile(OUTPUT_FILE_PATH, result);
+    }
+
     public static String parseDirections(String result) throws JSONException {
         result = readFile(FILE_PATH);
         //System.out.println(a);
@@ -91,20 +119,47 @@ public class ParseJson {
         for (int i = 0; i < results.length(); i++) {
             // address_components
             JSONArray address_components = results.getJSONObject(i).getJSONArray("address_components");
-            JSONObject first_address = address_components.getJSONObject(0);
 
-            // long_name
-            name = first_address.getString("long_name");
-            if (geocode.getName().equals(name)) {
+            // have multiply address
+            if (geocode.getBelong() != null) {
+                for (int j = 0; j < address_components.length(); j++) {
+                    String long_name = address_components.getJSONObject(i).getString("long_name");
+                    if (geocode.getBelong().equals(long_name)) {
+                        JSONObject first_address = address_components.getJSONObject(0);
 
-                // formatted_address
-                address = results.getJSONObject(i).getString("formatted_address");
+                        // long_name
+                        name = first_address.getString("long_name");
+                        if (geocode.getName().equals(name)) {
 
-                // geometry
-                JSONObject geometry = results.getJSONObject(i).getJSONObject("geometry");
-                JSONObject location = geometry.getJSONObject("location");
-                lat = location.getDouble("lat");
-                lng = location.getDouble("lng");
+                            // formatted_address
+                            address = results.getJSONObject(i).getString("formatted_address");
+
+                            // geometry
+                            JSONObject geometry = results.getJSONObject(i).getJSONObject("geometry");
+                            JSONObject location = geometry.getJSONObject("location");
+                            lat = location.getDouble("lat");
+                            lng = location.getDouble("lng");
+                        }
+                    }
+                }
+            }
+            // single result
+            else {
+                JSONObject first_address = address_components.getJSONObject(0);
+
+                // long_name
+                name = first_address.getString("long_name");
+                if (geocode.getName().equals(name)) {
+
+                    // formatted_address
+                    address = results.getJSONObject(i).getString("formatted_address");
+
+                    // geometry
+                    JSONObject geometry = results.getJSONObject(i).getJSONObject("geometry");
+                    JSONObject location = geometry.getJSONObject("location");
+                    lat = location.getDouble("lat");
+                    lng = location.getDouble("lng");
+                }
             }
         }
 

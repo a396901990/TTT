@@ -66,6 +66,7 @@ public class DetailsInfoRunnable implements Runnable {
                         }
                     });
 
+                    // started thread
                     Thread t = new Thread(evleationRunable);
                     t.start();
 
