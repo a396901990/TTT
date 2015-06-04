@@ -1,13 +1,17 @@
-package com.daen.google;
+package com.daen.google.runnable;
+
+import com.daen.google.Geocode;
+import com.daen.google.GoogleMapAPIUtil;
+import com.daen.google.ParseJson;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 
 /**
- * Created by 95 on 2015/5/29.
+ * Created by Dean on 2015/5/29.
  */
-public class DetailsInfoRunnable implements Runnable {
+public class PathRunnable implements Runnable {
 
     private ArrayList<Geocode> mGeocodes;
 
@@ -15,7 +19,7 @@ public class DetailsInfoRunnable implements Runnable {
 
     private String result;
 
-    public DetailsInfoRunnable(ArrayList<Geocode> geocodes, FetchCallback callbak) {
+    public PathRunnable(ArrayList<Geocode> geocodes, FetchCallback callbak) {
         this.mGeocodes = geocodes;
         this.mCallbak = callbak;
     }

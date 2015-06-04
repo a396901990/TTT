@@ -1,8 +1,9 @@
 package com.daen.google;
 
+import com.daen.google.runnable.DetailsInfoRunnable;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by 95 on 2015/5/29.
@@ -26,10 +27,10 @@ public class MyDataGenerator {
             public void fetchSuccess(Geocode geocode) {
 
                 geos.add(geocode);
+
                 if (geos.size() == geocodes.size()) {
                     Collections.sort(geos, Geocode.MileageComparator);
                     ParseJson.parseToFile(geos);
-                    //System.out.print(geos);
                 }
             }
 
