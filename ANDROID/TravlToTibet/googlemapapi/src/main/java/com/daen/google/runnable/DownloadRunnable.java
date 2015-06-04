@@ -1,4 +1,6 @@
-package com.daen.google;
+package com.daen.google.runnable;
+
+import com.daen.google.HttpHelper;
 
 /**
  * Created by 95 on 2015/5/29.
@@ -25,7 +27,7 @@ public class DownloadRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            result = HttpHelper.sendGet(URL);
+            result = HttpHelper.sendPost(URL);
             mCallbak.downloadSuccess(result);
         } catch (Exception e) {
             mCallbak.downloadFail();

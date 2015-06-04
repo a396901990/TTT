@@ -1,8 +1,10 @@
 package com.daen.google;
 
+import com.daen.google.runnable.DetailsInfoRunnable;
+import com.daen.google.runnable.PathRunnable;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by 95 on 2015/5/29.
@@ -25,11 +27,40 @@ public class MyDataGenerator {
             @Override
             public void fetchSuccess(Geocode geocode) {
 
+
                 geos.add(geocode);
                 if (geos.size() == geocodes.size()) {
                     Collections.sort(geos, Geocode.MileageComparator);
-                    ParseJson.parseToFile(geos);
-                    //System.out.print(geos);
+                    //ParseJson.parseToFile(geos);
+
+                    PathRunnable pathRunnable = new PathRunnable(geos, new PathRunnable.FetchCallback() {
+
+                        int count = 0;
+                        @Override
+                        public void fetchSuccess(ArrayList<Geocode> geocodes) {
+                            count ++;
+                            for (Geocode g : geocodes) {
+                                geos.add(g);
+                            }
+                            if (count == 5) {
+                                Collections.sort(geos, Geocode.MileageComparator);
+                                ParseJson.parseToFile(geos);
+                            }
+                        }
+
+                        @Override
+                        public void fetchFinished() {
+
+                        }
+
+                        @Override
+                        public void fetchFail() {
+
+                        }
+                    });
+
+                    Thread t = new Thread(pathRunnable);
+                    t.start();
                 }
             }
 

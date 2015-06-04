@@ -303,6 +303,9 @@ public abstract class AbstractSeries
         else if (type.equals("VILLAGE")) {
             return Constants.VILLAGE;
         }
+        else if (type.equals("PATH")) {
+            return Constants.PATH;
+        }
         return 1;
     }
 }

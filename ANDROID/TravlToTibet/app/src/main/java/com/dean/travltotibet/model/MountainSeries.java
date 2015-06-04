@@ -123,7 +123,7 @@ public class MountainSeries
 
         for (AbstractPoint point : mPoints)
         {
-            if (!TextUtils.isEmpty(point.getName()))
+            if (!TextUtils.isEmpty(point.getName()) && point.getCategory() != Constants.PATH)
             {
                 switch (point.getCategory())
                 {

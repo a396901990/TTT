@@ -18,6 +18,8 @@ public class Geocode {
     private double mileage;
     private double latitude;
     private double longitude;
+    private String road;
+
     /**
      * Not-null value.
      */
@@ -47,8 +49,7 @@ public class Geocode {
         this.belong = belong;
     }
 
-    public Geocode(Long id, String name, double elevation, double mileage, double latitude, double longitude, String address, String types) {
-        this.id = id;
+    public Geocode(String name, double elevation, double mileage, double latitude, double longitude, String address, String types) {
         this.name = name;
         this.elevation = elevation;
         this.mileage = mileage;
@@ -139,6 +140,15 @@ public class Geocode {
 
     public String getBelong() {
         return belong;
+    }
+
+
+    public String getRoad() {
+        return road;
+    }
+
+    public void setRoad(String road) {
+        this.road = road;
     }
 
     public void setBelong(String belong) {

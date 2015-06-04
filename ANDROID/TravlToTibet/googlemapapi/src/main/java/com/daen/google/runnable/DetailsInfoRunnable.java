@@ -1,19 +1,21 @@
-package com.daen.google;
+package com.daen.google.runnable;
+
+import com.daen.google.Geocode;
+import com.daen.google.GoogleMapAPIUtil;
+import com.daen.google.ParseJson;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 
 /**
- * Created by 95 on 2015/5/29.
+ * Created by Dean on 2015/5/29.
  */
 public class DetailsInfoRunnable implements Runnable {
 
     private ArrayList<Geocode> mGeocodes;
 
     private FetchCallback mCallbak;
-
-    private String result;
 
     public DetailsInfoRunnable(ArrayList<Geocode> geocodes, FetchCallback callbak) {
         this.mGeocodes = geocodes;
@@ -36,8 +38,8 @@ public class DetailsInfoRunnable implements Runnable {
     }
 
     public void getDetailInfo(final Geocode geocode) {
-        String deocodeUrl = GoogleMapAPIUtil.getDeocodeUrl(geocode.getName());
-        DownloadRunnable deocodeRunable = new DownloadRunnable(deocodeUrl, new DownloadRunnable.DownloadCallback() {
+        String geocodeUrl = GoogleMapAPIUtil.getDeocodeUrl(geocode.getName());
+        DownloadRunnable geocodeRunnable = new DownloadRunnable(geocodeUrl, new DownloadRunnable.DownloadCallback() {
             @Override
             public void downloadSuccess(String result) {
                 try {
@@ -81,31 +83,7 @@ public class DetailsInfoRunnable implements Runnable {
             }
         });
 
-        Thread t = new Thread(deocodeRunable);
+        Thread t = new Thread(geocodeRunnable);
         t.start();
-    }
-
-    public ArrayList<Geocode> getmGeocodes() {
-        return mGeocodes;
-    }
-
-    public void setmGeocodes(ArrayList<Geocode> mGeocodes) {
-        this.mGeocodes = mGeocodes;
-    }
-
-    public FetchCallback getCallbak() {
-        return mCallbak;
-    }
-
-    public void setCallbak(FetchCallback mCallbak) {
-        this.mCallbak = mCallbak;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
     }
 }

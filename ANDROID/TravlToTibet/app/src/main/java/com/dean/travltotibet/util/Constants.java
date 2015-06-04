@@ -31,7 +31,10 @@ public final class Constants
     
     // 商店
     public static final int STORE = 10;
-    
+
+    // 路径
+    public static final int PATH = 11;
+
     public static final String NAME_HEIGHT = "海拔：";
     
     public static final String NAME_MILEAGE = "里程：";

@@ -65,19 +65,21 @@ public class ParseJson {
         return lines.toString();
     }
 
-    public static boolean writefile(String path, String content){
-        try{
+    public static boolean writefile(String path, String content) {
+        try {
             OutputStream out = new FileOutputStream(path);
             out.write(content.getBytes());
             out.close();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    /** parse geocodes to json and saved into local file */
+    /**
+     * parse geocodes to json and saved into local file
+     */
     public static void parseToFile(ArrayList<Geocode> geocodes) {
         Gson gson = new Gson();
         GeocodesJson gj = new GeocodesJson();
@@ -86,8 +88,10 @@ public class ParseJson {
         writefile(OUTPUT_FILE_PATH, result);
     }
 
-    /** 解析Directions返回值并为Geocode赋值 */
-    public static String parseDirections(String result, Geocode geocode) throws JSONException {
+    /**
+     * 解析Directions返回值并为Geocode赋值
+     */
+    public static String parseDirection(String result, Geocode geocode) throws JSONException {
         result = readFile(FILE_PATH);
         //System.out.println(a);
         JSONObject jsonObject = new JSONObject(result);
@@ -106,7 +110,29 @@ public class ParseJson {
         return builder.toString();
     }
 
-    /** 解析Geocode返回值并为Geocode赋值 */
+    /**
+     * 解析Directions返回值并为Geocode赋值
+     */
+    public static Direction parseDirections(String result) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject(result);
+
+        JSONArray routes = jsonObject.getJSONArray("routes");
+        JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
+        JSONObject distance = legs.getJSONObject(0).getJSONObject("distance");
+        String distance_value = distance.getString("value");
+
+        JSONObject overview_polyline = routes.getJSONObject(0).getJSONObject("overview_polyline");
+        String points = overview_polyline.getString("points");
+
+        String summary = routes.getJSONObject(0).getString("summary");
+
+        return new Direction(distance_value, points, summary);
+    }
+
+    /**
+     * 解析Geocode返回值并为Geocode赋值
+     */
     public static Geocode parseGeocode(String result, Geocode geocode) throws JSONException {
         //result = readFile("C:/Users/95/Desktop/geocode.txt");
 
@@ -171,7 +197,9 @@ public class ParseJson {
         return geocode;
     }
 
-    /** 解析Elevation返回值并为Geocode赋值 */
+    /**
+     * 解析Elevation返回值并为Geocode赋值
+     */
     public static Geocode parseElevation(String result, Geocode geocode) throws JSONException {
         //result = readFile("C:/Users/95/Desktop/elevation.txt");
 
@@ -183,15 +211,47 @@ public class ParseJson {
         return geocode;
     }
 
-    /** 获取当前路径 */
-    public String getCurrentPath(){
+    /**
+     * 解析Elevation返回值并为Geocode赋值
+     */
+    public static ArrayList<Geocode> parseElevationPath(String result, Geocode origin, Geocode destination) throws JSONException {
+        //result = readFile("C:/Users/95/Desktop/elevation.txt");
+
+        JSONObject jsonObject = new JSONObject(result);
+
+        JSONArray results = jsonObject.getJSONArray("results");
+        ArrayList<Geocode> geocodes = new ArrayList<Geocode>();
+
+        double mileage_lenght = destination.getMileage() - origin.getMileage();
+        double mileage_unit = mileage_lenght / results.length();
+        for (int i = 0; i < results.length(); i++) {
+            double elevation = results.getJSONObject(i).getDouble("elevation");
+            JSONObject location = results.getJSONObject(i).getJSONObject("location");
+            double lat = location.getDouble("lat");
+            double lng = location.getDouble("lng");
+
+            String name = origin.getName() + "_" + destination.getName() + "_" + i;
+
+            double mileage = origin.getMileage() + (i+1) * mileage_unit;
+            if (mileage >= destination.getMileage()) {
+                mileage = destination.getMileage();
+            }
+            geocodes.add(new Geocode(name, elevation, mileage, lat, lng, "", "PATH"));
+        }
+        return geocodes;
+    }
+
+    /**
+     * 获取当前路径
+     */
+    public String getCurrentPath() {
         //取得根目录路径
-        String rootPath=getClass().getResource("/").getFile().toString();
+        String rootPath = getClass().getResource("/").getFile().toString();
         //当前目录路径
-        String currentPath1=getClass().getResource(".").getFile().toString();
-        String currentPath2=getClass().getResource("").getFile().toString();
+        String currentPath1 = getClass().getResource(".").getFile().toString();
+        String currentPath2 = getClass().getResource("").getFile().toString();
         //当前目录的上级目录路径
-        String parentPath=getClass().getResource("../").getFile().toString();
+        String parentPath = getClass().getResource("../").getFile().toString();
 
         return rootPath;
     }
