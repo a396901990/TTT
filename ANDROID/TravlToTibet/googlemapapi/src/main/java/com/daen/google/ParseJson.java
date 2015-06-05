@@ -25,6 +25,8 @@ public class ParseJson {
 
     public static final String OUTPUT_FILE_PATH = "C:/Users/95/Desktop/outputresult.txt";
 
+    //public static final String OUTPUT_FILE_PATH = "D:/GitHub/TTT/ANDROID/TravlToTibet/app/src/main/res/raw/data.txt";
+
     public static void main(String[] args) throws Exception {
 
         String a = readFile(FILE_PATH);
@@ -222,8 +224,10 @@ public class ParseJson {
         JSONArray results = jsonObject.getJSONArray("results");
         ArrayList<Geocode> geocodes = new ArrayList<Geocode>();
 
-        double mileage_lenght = destination.getMileage() - origin.getMileage();
-        double mileage_unit = mileage_lenght / results.length();
+        // 计算每段小距离
+        double mileage_length = destination.getMileage() - origin.getMileage();
+        double mileage_unit = mileage_length / (results.length()+1);
+
         for (int i = 0; i < results.length(); i++) {
             double elevation = results.getJSONObject(i).getDouble("elevation");
             JSONObject location = results.getJSONObject(i).getJSONObject("location");

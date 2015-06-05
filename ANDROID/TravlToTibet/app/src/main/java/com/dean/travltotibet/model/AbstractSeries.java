@@ -232,7 +232,7 @@ public abstract class AbstractSeries
         float Y = event.getY();
         for (AbstractPoint point : mPoints)
         {
-            if (point.getPointRect().contains(X, Y))
+            if (point.getPointRect() !=null && point.getPointRect().contains(X, Y))
             {
                 return point;
             }

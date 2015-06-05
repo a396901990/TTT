@@ -51,7 +51,7 @@ public class PathRunnable implements Runnable {
     }
 
     public void getPathInfo(final Geocode origin, final Geocode destination, final int i) {
-        String directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
+        String directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getAddress(), destination.getAddress());
         DownloadRunnable directionsRunnable = new DownloadRunnable(directionsUrl, new DownloadRunnable.DownloadCallback() {
 
             @Override
@@ -79,6 +79,7 @@ public class PathRunnable implements Runnable {
                                 count--;
                                 tempGeocodes.addAll(geocodes);
 
+                                // do not need to calc last location
                                 if (count == 1) {
                                     // invoke callback
                                     mCallback.fetchFinished(tempGeocodes);
