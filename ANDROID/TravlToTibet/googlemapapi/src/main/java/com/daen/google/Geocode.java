@@ -16,6 +16,8 @@ public class Geocode {
     private String name;
     private double elevation;
     private double mileage;
+    private double milestone;
+    private double distance;
     private double latitude;
     private double longitude;
     private String road;
@@ -45,16 +47,19 @@ public class Geocode {
     public Geocode(String name, double mileage, String belong, String types) {
         this.name = name;
         this.mileage = mileage;
+        this.milestone = mileage;
         this.types = types;
         this.belong = belong;
     }
 
-    public Geocode(String name, double elevation, double mileage, double latitude, double longitude, String address, String types) {
+    public Geocode(String name, double elevation, double mileage, double latitude, double longitude, double distance, String address, String types) {
         this.name = name;
         this.elevation = elevation;
         this.mileage = mileage;
+        this.milestone = mileage;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.distance = distance;
         this.address = address;
         this.types = types;
     }
@@ -157,6 +162,22 @@ public class Geocode {
 
     public void setTypes(String types) {
         this.types = types;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public double getMilestone() {
+        return milestone;
+    }
+
+    public void setMilestone(double milestone) {
+        this.milestone = milestone;
     }
 
     public static Comparator<Geocode> MileageComparator = new Comparator<Geocode>() {

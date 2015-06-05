@@ -228,6 +228,8 @@ public class ParseJson {
         double mileage_length = destination.getMileage() - origin.getMileage();
         double mileage_unit = mileage_length / (results.length()+1);
 
+        double distance = origin.getDistance() / (results.length()+1);
+
         for (int i = 0; i < results.length(); i++) {
             double elevation = results.getJSONObject(i).getDouble("elevation");
             JSONObject location = results.getJSONObject(i).getJSONObject("location");
@@ -240,8 +242,10 @@ public class ParseJson {
             if (mileage >= destination.getMileage()) {
                 mileage = destination.getMileage();
             }
-            geocodes.add(new Geocode(name, elevation, mileage, lat, lng, "", "PATH"));
+
+            geocodes.add(new Geocode(name, elevation, mileage, lat, lng, distance, "", "PATH"));
         }
+        origin.setDistance(distance);
         return geocodes;
     }
 

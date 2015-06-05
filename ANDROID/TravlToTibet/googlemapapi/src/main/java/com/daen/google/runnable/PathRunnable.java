@@ -64,6 +64,7 @@ public class PathRunnable implements Runnable {
                     String summary = direction.getSummary();
 
                     origin.setRoad(summary);
+                    origin.setDistance(Double.parseDouble(distance)/1000);
                     int samples = Integer.parseInt(distance) / Direction.DIRECTION_UNIT;
                     if (samples < 2) {
                         samples = 2;

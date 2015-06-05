@@ -11,12 +11,15 @@ public class Geocode {
     private String name;
     private double elevation;
     private double mileage;
+    private double milestone;
+    private double distance;
     private double latitude;
     private double longitude;
     /** Not-null value. */
     private String address;
     /** Not-null value. */
     private String types;
+    private String road;
 
     public Geocode() {
     }
@@ -25,15 +28,18 @@ public class Geocode {
         this.id = id;
     }
 
-    public Geocode(Long id, String name, double elevation, double mileage, double latitude, double longitude, String address, String types) {
+    public Geocode(Long id, String name, double elevation, double mileage, double milestone, double distance, double latitude, double longitude, String address, String types, String road) {
         this.id = id;
         this.name = name;
         this.elevation = elevation;
         this.mileage = mileage;
+        this.milestone = milestone;
+        this.distance = distance;
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
         this.types = types;
+        this.road = road;
     }
 
     public Long getId() {
@@ -70,6 +76,22 @@ public class Geocode {
         this.mileage = mileage;
     }
 
+    public double getMilestone() {
+        return milestone;
+    }
+
+    public void setMilestone(double milestone) {
+        this.milestone = milestone;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public double getLatitude() {
         return latitude;
     }
@@ -104,6 +126,14 @@ public class Geocode {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setTypes(String types) {
         this.types = types;
+    }
+
+    public String getRoad() {
+        return road;
+    }
+
+    public void setRoad(String road) {
+        this.road = road;
     }
 
 }

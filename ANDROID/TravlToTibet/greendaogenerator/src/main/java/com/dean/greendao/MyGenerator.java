@@ -32,10 +32,13 @@ public class MyGenerator {
         geocode.addStringProperty("name").notNull();
         geocode.addDoubleProperty("elevation").notNull();
         geocode.addDoubleProperty("mileage").notNull();
+        geocode.addDoubleProperty("milestone").notNull();
+        geocode.addDoubleProperty("distance").notNull();
         geocode.addDoubleProperty("latitude").notNull();
         geocode.addDoubleProperty("longitude").notNull();
         geocode.addStringProperty("address").notNull();
         geocode.addStringProperty("types").notNull();
+        geocode.addStringProperty("road");
     }
 
     // 区域类型表
