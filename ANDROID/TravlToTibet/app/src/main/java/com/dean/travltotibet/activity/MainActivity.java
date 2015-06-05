@@ -67,14 +67,6 @@ public class MainActivity
         // Create the data points
         series = new MountainSeries();
         indicatorSeries = new IndicatorSeries();
-//        series.addPoint(new MountainSeries.MountainPoint(0, 220, "成都", Constants.CITY));
-//        series.addPoint(new MountainSeries.MountainPoint(10, 3001, "雅安", Constants.CITY));
-//        series.addPoint(new MountainSeries.MountainPoint(35, 5001, "二郎山", Constants.MOUNTAIN));
-//        series.addPoint(new MountainSeries.MountainPoint(25, 31, "新都桥", Constants.TOWN));
-//        series.addPoint(new MountainSeries.MountainPoint(55, 4533, "高尔山", Constants.MOUNTAIN));
-//        series.addPoint(new MountainSeries.MountainPoint(65, 1800, "通麦", Constants.TOWN));
-//        series.addPoint(new MountainSeries.MountainPoint(85, 5200, "米拉山", Constants.MOUNTAIN));
-//        series.addPoint(new MountainSeries.MountainPoint(100, 3000, "拉萨", Constants.CITY));
 
         List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeList();
         for (Geocode geocode : geocodes) {
@@ -106,21 +98,9 @@ public class MainActivity
 
         mIndicatorView = (IndicatorChartView) findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
-
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(0, 220));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(10, 3001));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(35, 5001));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(25, 31));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(55, 4533));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(65, 1800));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(85, 5200));
-//        indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint(100, 3000));
         mIndicatorView.addSeries(indicatorSeries);
     }
 
-    void initData() {
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeList();
-    }
     protected void updateHeader( AbstractPoint point )
     {
         TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
@@ -128,9 +108,13 @@ public class MainActivity
         TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
 
         Place place = series.getPlace(point);
-        posHeight.setText(place.getHeight());
-        posMileage.setText(place.getMileage());
-        posName.setText(place.getName());
+
+        if (place != null) {
+            posHeight.setText(place.getHeight());
+            posMileage.setText(place.getMileage());
+            posName.setText(place.getName());
+        }
+
     }
 
     private void initDropdownNavigation()

@@ -34,6 +34,8 @@ public class MountainSeries
 
     private DetailPaint townPaint;
 
+    private DetailPaint villagePaint;
+
     private DetailPaint mountainPaint;
     
     public MountainSeries()
@@ -47,6 +49,7 @@ public class MountainSeries
         
         cityPaint = new DetailPaint(Constants.CITY);
         townPaint = new DetailPaint(Constants.TOWN);
+        villagePaint = new DetailPaint(Constants.VILLAGE);
         mountainPaint = new DetailPaint(Constants.MOUNTAIN);
 
         mLinePaint = new Paint();
@@ -130,8 +133,14 @@ public class MountainSeries
                 case Constants.CITY:
                     mPaint = cityPaint;
                     break;
+                case Constants.COUNTY:
+                    mPaint = cityPaint;
+                    break;
                 case Constants.TOWN:
                     mPaint = townPaint;
+                    break;
+                case Constants.VILLAGE:
+                    mPaint = villagePaint;
                     break;
                 case Constants.MOUNTAIN:
                     mPaint = mountainPaint;

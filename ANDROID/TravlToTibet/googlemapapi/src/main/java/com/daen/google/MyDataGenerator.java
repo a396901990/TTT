@@ -15,12 +15,12 @@ public class MyDataGenerator {
 
         final ArrayList<Geocode> geocodes = new ArrayList<Geocode>();
 
-        geocodes.add(new Geocode("叶城县", 0, "CITY"));
-        geocodes.add(new Geocode("柯克亚乡", 62, "VILLAGE"));
-        geocodes.add(new Geocode("普萨村", 72, "VILLAGE"));
-        geocodes.add(new Geocode("阿克美其特村", 100, "叶城县", "VILLAGE"));
-        geocodes.add(new Geocode("库地", 160, "TOWN"));
-        geocodes.add(new Geocode("大红柳滩", 487, "TOWN"));
+        geocodes.add(new Geocode("叶城县", 0, Constants.COUNTY));
+        geocodes.add(new Geocode("柯克亚乡", 62, Constants.VILLAGE));
+        geocodes.add(new Geocode("普萨村", 72, Constants.VILLAGE));
+        geocodes.add(new Geocode("阿克美其特村", 100, "叶城县", Constants.VILLAGE));
+        geocodes.add(new Geocode("库地", 160, Constants.TOWN));
+        geocodes.add(new Geocode("大红柳滩", 487, Constants.VILLAGE));
 
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override

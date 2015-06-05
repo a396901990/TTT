@@ -57,6 +57,8 @@ public class ResourceUtil
     public int chart_text_rect_city_paint;
     
     public int chart_text_rect_town_paint;
+
+    public int chart_text_rect_village_paint;
     
     public int chart_text_rect_mountain_paint;
     
@@ -106,6 +108,7 @@ public class ResourceUtil
         chart_text_rect_aplha = (int) (255 * 0.8);
         chart_text_rect_city_paint = mResources.getColor(R.color.brown);
         chart_text_rect_town_paint = mResources.getColor(R.color.teal);
+        chart_text_rect_village_paint = mResources.getColor(R.color.lime);
         chart_text_rect_mountain_paint = mResources.getColor(R.color.blue_gray);
     }
     

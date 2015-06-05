@@ -252,6 +252,9 @@ public abstract class AbstractSeries
         for (int i = 0; i < points.size(); i++)
         {
             AbstractPoint p = points.get(i);
+            if (p.getCategory() == Constants.PATH) {
+                return null;
+            }
             // coincide
             if (p.getX() < X + offset && p.getX() > X - offset)
             {
@@ -296,6 +299,9 @@ public abstract class AbstractSeries
     public static int getType(String type) {
         if (type.equals("CITY")) {
             return Constants.CITY;
+        }
+        else if (type.equals("COUNTY")) {
+            return Constants.COUNTY;
         }
         else if (type.equals("TOWN")) {
             return Constants.TOWN;

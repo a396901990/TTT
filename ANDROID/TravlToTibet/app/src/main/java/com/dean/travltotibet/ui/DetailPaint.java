@@ -36,6 +36,7 @@ public class DetailPaint
         switch (category)
         {
         case Constants.CITY:
+        case Constants.COUNTY:
             maxSize = 25;
             minSize = 10;
             displayPercent = 1.0d;
@@ -44,6 +45,14 @@ public class DetailPaint
             break;
 
         case Constants.TOWN:
+            maxSize = 20;
+            minSize = 10;
+            displayPercent = 0.8d;
+            stopPercent = 0.4d;
+            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_town_paint;
+            break;
+
+        case Constants.VILLAGE:
             maxSize = 20;
             minSize = 10;
             displayPercent = 0.8d;
@@ -72,7 +81,7 @@ public class DetailPaint
     }
 
     /**
-     * 计算字体大小 当currentViewPoint扩大到displayPrecent时显示并放大字体，当扩大到stopPrecent时停止放大
+     * 计算字体大小 当currentViewPoint扩大到displayPercent时显示并放大字体，当扩大到stopPercent时停止放大
      *
      * @param point
      *            点
@@ -123,8 +132,10 @@ public class DetailPaint
         float bottom = top + padding + padding + margin + this.descent();
         RectF rect = new RectF(left, top, right, bottom);
         canvas.drawRoundRect(rect, 8, 8, textRectPaint);
+        if (getTextSize() != 0) {
+            canvas.drawCircle(x, y, 5, textRectPaint);
+        }
         canvas.drawText(name, x, y - margin, this);
-
         // expand point border in order to touch easy
         point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
     }
