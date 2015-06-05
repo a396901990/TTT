@@ -22,55 +22,47 @@ public class MyDataGenerator {
         geocodes.add(new Geocode("ø‚µÿ", 160, "TOWN"));
         geocodes.add(new Geocode("¥Û∫Ï¡¯Ã≤", 487, "TOWN"));
 
-        final ArrayList<Geocode> geos = new ArrayList<Geocode>();
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override
             public void fetchSuccess(Geocode geocode) {
 
+            }
 
-                geos.add(geocode);
-                if (geos.size() == geocodes.size()) {
-                    Collections.sort(geos, Geocode.MileageComparator);
-                    //ParseJson.parseToFile(geos);
+            @Override
+            public void fetchFinish(ArrayList<Geocode> geos) {
+                Collections.sort(geos, Geocode.MileageComparator);
+                //ParseJson.parseToFile(geos);
 
-                    PathRunnable pathRunnable = new PathRunnable(geos, new PathRunnable.FetchCallback() {
+                PathRunnable pathRunnable = new PathRunnable(geos, new PathRunnable.FetchCallback() {
 
-                        int count = 0;
-                        @Override
-                        public void fetchSuccess(ArrayList<Geocode> geocodes) {
-                            count ++;
-                            for (Geocode g : geocodes) {
-                                geos.add(g);
-                            }
-                            if (count == 5) {
-                                Collections.sort(geos, Geocode.MileageComparator);
-                                ParseJson.parseToFile(geos);
-                            }
-                        }
+                    @Override
+                    public void fetchSuccess(Geocode geocode) {
+                    }
 
-                        @Override
-                        public void fetchFinished() {
+                    @Override
+                    public void fetchFinished(ArrayList<Geocode> geocodes) {
+                        Collections.sort(geocodes, Geocode.MileageComparator);
+                        ParseJson.parseToFile(geocodes);
+                    }
 
-                        }
+                    @Override
+                    public void fetchFail() {
 
-                        @Override
-                        public void fetchFail() {
+                    }
+                });
 
-                        }
-                    });
-
-                    Thread t = new Thread(pathRunnable);
-                    t.start();
-                }
+                Thread t = new Thread(pathRunnable);
+                t.start();
             }
 
             @Override
             public void fetchFail() {
 
             }
-        });
+        }
+    );
 
-        Thread t = new Thread(detailsInfoRunnable);
-        t.start();
-    }
+    Thread t = new Thread(detailsInfoRunnable);
+    t.start();
+}
 }

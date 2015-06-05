@@ -17,6 +17,8 @@ public class DetailsInfoRunnable implements Runnable {
 
     private FetchCallback mCallbak;
 
+    private ArrayList<Geocode> tempGeocodes = new ArrayList<Geocode>();
+
     public DetailsInfoRunnable(ArrayList<Geocode> geocodes, FetchCallback callbak) {
         this.mGeocodes = geocodes;
         this.mCallbak = callbak;
@@ -24,7 +26,9 @@ public class DetailsInfoRunnable implements Runnable {
 
 
     public static interface FetchCallback {
-        public void fetchSuccess(Geocode geocode);
+        public void fetchSuccess(Geocode tempGeocodes);
+
+        public void fetchFinish(ArrayList<Geocode> tempGeocodes);
 
         public void fetchFail();
     }
@@ -40,6 +44,7 @@ public class DetailsInfoRunnable implements Runnable {
     public void getDetailInfo(final Geocode geocode) {
         String geocodeUrl = GoogleMapAPIUtil.getDeocodeUrl(geocode.getName());
         DownloadRunnable geocodeRunnable = new DownloadRunnable(geocodeUrl, new DownloadRunnable.DownloadCallback() {
+
             @Override
             public void downloadSuccess(String result) {
                 try {
@@ -47,15 +52,18 @@ public class DetailsInfoRunnable implements Runnable {
                     ParseJson.parseGeocode(result, geocode);
 
                     String elevationURL = GoogleMapAPIUtil.getElevationLocationUrl(geocode.getLatitude(), geocode.getLongitude());
-                    DownloadRunnable evleationRunable = new DownloadRunnable(elevationURL, new DownloadRunnable.DownloadCallback() {
+                    DownloadRunnable elevationRunnable = new DownloadRunnable(elevationURL, new DownloadRunnable.DownloadCallback() {
                         @Override
                         public void downloadSuccess(String result) {
                             try {
                                 // fetch elevation info to geocode
                                 ParseJson.parseElevation(result, geocode);
+                                tempGeocodes.add(geocode);
 
-                                // invoke callback
-                                mCallbak.fetchSuccess(geocode);
+                                if (tempGeocodes.size() == mGeocodes.size()) {
+                                    // invoke callback
+                                    mCallbak.fetchFinish(tempGeocodes);
+                                }
                             } catch (JSONException e) {
                                 mCallbak.fetchFail();
                                 e.printStackTrace();
@@ -69,7 +77,7 @@ public class DetailsInfoRunnable implements Runnable {
                     });
 
                     // started thread
-                    Thread t = new Thread(evleationRunable);
+                    Thread t = new Thread(elevationRunnable);
                     t.start();
 
                 } catch (JSONException e) {

@@ -16,18 +16,24 @@ public class PathRunnable implements Runnable {
 
     private ArrayList<Geocode> mGeocodes;
 
-    private FetchCallback mCallbak;
+    private FetchCallback mCallback;
+
+    private int count;
+
+    private ArrayList<Geocode> tempGeocodes;
 
     public PathRunnable(ArrayList<Geocode> geocodes, FetchCallback callbak) {
         this.mGeocodes = geocodes;
-        this.mCallbak = callbak;
+        this.mCallback = callbak;
+        this.tempGeocodes = geocodes;
+        this.count = geocodes.size();
     }
 
 
     public static interface FetchCallback {
-        public void fetchSuccess(ArrayList<Geocode> geocodes);
+        public void fetchSuccess(Geocode geocode);
 
-        public void fetchFinished();
+        public void fetchFinished(ArrayList<Geocode> geocodes);
 
         public void fetchFail();
 
@@ -47,6 +53,7 @@ public class PathRunnable implements Runnable {
     public void getPathInfo(final Geocode origin, final Geocode destination, final int i) {
         String directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
         DownloadRunnable directionsRunnable = new DownloadRunnable(directionsUrl, new DownloadRunnable.DownloadCallback() {
+
             @Override
             public void downloadSuccess(String result) {
                 try {
@@ -62,18 +69,22 @@ public class PathRunnable implements Runnable {
                         samples = 2;
                     }
                     String elevationURL = GoogleMapAPIUtil.getElevationPathUrl(points, samples);
-                    DownloadRunnable evleationRunnable = new DownloadRunnable(elevationURL, new DownloadRunnable.DownloadCallback() {
+                    DownloadRunnable elevationRunnable = new DownloadRunnable(elevationURL, new DownloadRunnable.DownloadCallback() {
                         @Override
                         public void downloadSuccess(String result) {
                             try {
                                 // fetch elevation info to geocode
                                 ArrayList<Geocode> geocodes = ParseJson.parseElevationPath(result, origin, destination);
 
-                                // invoke callback
-                                mCallbak.fetchSuccess(geocodes);
-                                mCallbak.fetchFinished();
+                                count--;
+                                tempGeocodes.addAll(geocodes);
+
+                                if (count == 1) {
+                                    // invoke callback
+                                    mCallback.fetchFinished(tempGeocodes);
+                                }
                             } catch (JSONException e) {
-                                mCallbak.fetchFail();
+                                mCallback.fetchFail();
                                 e.printStackTrace();
                             }
                         }
@@ -85,7 +96,7 @@ public class PathRunnable implements Runnable {
                     });
 
                     // started thread
-                    Thread t = new Thread(evleationRunnable);
+                    Thread t = new Thread(elevationRunnable);
                     t.start();
 
                 } catch (JSONException e) {
