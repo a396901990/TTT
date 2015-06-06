@@ -21,3 +21,16 @@
         geocodes.add(new Geocode("切热乡", 1940, Constants.VILLAGE));
         geocodes.add(new Geocode("桑桑镇", 2025, Constants.TOWN));
         geocodes.add(new Geocode("卡嘎镇", 2087, Constants.TOWN));
+        geocodes.add(new Geocode("查务乡", 2139, Constants.VILLAGE));
+        geocodes.add(new Geocode("拉孜县", 2146, Constants.COUNTY));
+        geocodes.add(new Geocode("热萨乡", 2189, Constants.VILLAGE));
+        geocodes.add(new Geocode("柳乡", 2213, Constants.VILLAGE));
+        geocodes.add(new Geocode("吉定镇", 2236, Constants.TOWN));
+        geocodes.add(new Geocode("日喀则", 2291, Constants.CITY));
+        geocodes.add(new Geocode("白朗县", 2341, Constants.COUNTY));
+        geocodes.add(new Geocode("江孜县", 2382, Constants.COUNTY));
+        geocodes.add(new Geocode("加热村", 2407,"江孜县", Constants.VILLAGE));
+        geocodes.add(new Geocode("热龙乡", 2437, Constants.VILLAGE));
+        geocodes.add(new Geocode("浪卡子县", 2485, Constants.COUNTY));
+        geocodes.add(new Geocode("达嘎乡", 2577, Constants.VILLAGE));
+        geocodes.add(new Geocode("拉萨", 2651, Constants.CITY));
