@@ -247,46 +247,51 @@ public abstract class AbstractSeries
         double X = point.getX();
         double Y = point.getY();
 
-        double offset = 1;
+        double offset = 10;
 
         for (int i = 0; i < points.size(); i++)
         {
             AbstractPoint p = points.get(i);
             if (p.getCategory() == Constants.PATH) {
                 return null;
-            }
-            // coincide
-            if (p.getX() < X + offset && p.getX() > X - offset)
-            {
-                place.setName(p.getName());
-                place.setHeight(p.getY());
-                place.setMileage(p.getX());
+            } else {
+                place.setName(point.getName());
+                place.setHeight(point.getY());
+                place.setMileage(point.getX());
                 return place;
             }
-            // out of range (right)
-            else if (p.getX() > X + offset && i == 0)
-            {
-                place.setName(p.getName());
-                place.setHeight(p.getY());
-                place.setMileage(p.getX());
-                return place;
-            }
-            // in the road
-            else if (p.getX() > X + offset && i > 0)
-            {
-                place.setName(points.get(i - 1).getName() + " - " + p.getName());
-                place.setHeight(X);
-                place.setMileage(Y);
-                return place;
-            }
-            // out of range (left)
-            else if (p.getX() < X - offset && i == points.size() - 1)
-            {
-                place.setName(p.getName());
-                place.setHeight(p.getY());
-                place.setMileage(p.getX());
-                return place;
-            }
+//            // coincide
+//            if (p.getX() < X + offset && p.getX() > X - offset)
+//            {
+//                place.setName( p.getName());
+//                place.setHeight(p.getY());
+//                place.setMileage(p.getX());
+//                return place;
+//            }
+//            // out of range (right)
+//            else if (p.getX() > X + offset && i == 0)
+//            {
+//                place.setName(p.getName());
+//                place.setHeight(p.getY());
+//                place.setMileage(p.getX());
+//                return place;
+//            }
+//            // in the road
+//            else if (p.getX() > X + offset && i > 0)
+//            {
+//                place.setName(points.get(i - 1).getName() + " - " + p.getName());
+//                place.setHeight(X);
+//                place.setMileage(Y);
+//                return place;
+//            }
+//            // out of range (left)
+//            else if (p.getX() < X - offset && i == points.size() - 1)
+//            {
+//                place.setName(p.getName());
+//                place.setHeight(p.getY());
+//                place.setMileage(p.getX());
+//                return place;
+//            }
 
         }
         return place;

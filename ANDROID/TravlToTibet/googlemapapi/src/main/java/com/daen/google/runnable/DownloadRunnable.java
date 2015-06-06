@@ -27,7 +27,7 @@ public class DownloadRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            result = HttpHelper.sendPost(URL);
+            result = HttpHelper.sendGet(URL);
             mCallbak.downloadSuccess(result);
         } catch (Exception e) {
             mCallbak.downloadFail();

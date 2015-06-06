@@ -153,7 +153,7 @@ public class ParseJson {
             // have multiply address
             if (geocode.getBelong() != null && !geocode.getBelong().equals("")) {
                 for (int j = 0; j < address_components.length(); j++) {
-                    String long_name = address_components.getJSONObject(i).getString("long_name");
+                    String long_name = address_components.getJSONObject(j).getString("long_name");
                     if (geocode.getBelong().equals(long_name)) {
                         JSONObject first_address = address_components.getJSONObject(0);
 
@@ -208,6 +208,7 @@ public class ParseJson {
         JSONObject jsonObject = new JSONObject(result);
 
         JSONArray results = jsonObject.getJSONArray("results");
+        System.out.print(geocode.getName());
         Double elevation = results.getJSONObject(0).getDouble("elevation");
         geocode.setElevation(elevation);
         return geocode;

@@ -81,7 +81,7 @@ public class RouteChartView
 
     public static float AXIS_Y_MAX = 1f;
 
-    public double AXIS_X_LIMIT_PRECENT = 0.1;
+    public double AXIS_X_LIMIT_PRECENT = 0.05;
 
     /**
      * The current viewport. This rectangle represents the currently visible

@@ -57,7 +57,7 @@ public class DetailPaint
             minSize = 10;
             displayPercent = 0.8d;
             stopPercent = 0.4d;
-            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_town_paint;
+            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_village_paint;
             break;
 
         case Constants.MOUNTAIN:
@@ -137,7 +137,7 @@ public class DetailPaint
         }
         canvas.drawText(name, x, y - margin, this);
         // expand point border in order to touch easy
-        point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
+        point.setPointRect(rect);
     }
 
     public void calcTextRect( AbstractPoint point )
