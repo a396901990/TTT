@@ -137,6 +137,7 @@ public class DetailPaint
         }
         canvas.drawText(name, x, y - margin, this);
         // expand point border in order to touch easy
+        // point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
         point.setPointRect(rect);
     }
 

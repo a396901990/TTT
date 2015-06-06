@@ -60,7 +60,7 @@ public class MainActivity
         mHeaderView = findViewById(R.id.chart_header_contents);
         
         mChartView = (RouteChartView) findViewById(R.id.chart);
-        mChartView.setAxisRange(-30, 0, 2130, 6000);
+        mChartView.setAxisRange(-30, 0, 2680, 6000);
 
 
 
