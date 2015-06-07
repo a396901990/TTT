@@ -32,11 +32,17 @@ public class MountainSeries
 
     private DetailPaint cityPaint;
 
+    private DetailPaint countyPaint;
+
     private DetailPaint townPaint;
 
     private DetailPaint villagePaint;
 
     private DetailPaint mountainPaint;
+
+    private DetailPaint hotelPaint;
+
+    private DetailPaint viewPaint;
     
     public MountainSeries()
     {
@@ -48,9 +54,12 @@ public class MountainSeries
         mMountainColor = TTTApplication.getResourceUtil().chart_mountain_shader;
         
         cityPaint = new DetailPaint(Constants.CITY);
+        countyPaint = new DetailPaint(Constants.COUNTY);
         townPaint = new DetailPaint(Constants.TOWN);
         villagePaint = new DetailPaint(Constants.VILLAGE);
         mountainPaint = new DetailPaint(Constants.MOUNTAIN);
+        hotelPaint = new DetailPaint(Constants.HOTEL);
+        viewPaint = new DetailPaint(Constants.SCENIC_SPOT);
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
@@ -134,7 +143,7 @@ public class MountainSeries
                     mPaint = cityPaint;
                     break;
                 case Constants.COUNTY:
-                    mPaint = cityPaint;
+                    mPaint = countyPaint;
                     break;
                 case Constants.TOWN:
                     mPaint = townPaint;
@@ -144,6 +153,12 @@ public class MountainSeries
                     break;
                 case Constants.MOUNTAIN:
                     mPaint = mountainPaint;
+                    break;
+                case Constants.HOTEL:
+                    mPaint = hotelPaint;
+                    break;
+                case Constants.SCENIC_SPOT:
+                    mPaint = viewPaint;
                     break;
                 default:
                     break;

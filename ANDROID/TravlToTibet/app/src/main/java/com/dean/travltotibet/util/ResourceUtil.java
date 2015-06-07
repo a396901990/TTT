@@ -61,6 +61,10 @@ public class ResourceUtil
     public int chart_text_rect_village_paint;
     
     public int chart_text_rect_mountain_paint;
+
+    public int chart_text_rect_hotel_paint;
+
+    public int chart_text_rect_view_paint;
     
     public int chart_text_rect_aplha;
 
@@ -108,8 +112,10 @@ public class ResourceUtil
         chart_text_rect_aplha = (int) (255 * 0.8);
         chart_text_rect_city_paint = mResources.getColor(R.color.brown);
         chart_text_rect_town_paint = mResources.getColor(R.color.teal);
-        chart_text_rect_village_paint = mResources.getColor(R.color.lime);
+        chart_text_rect_village_paint = mResources.getColor(R.color.green);
         chart_text_rect_mountain_paint = mResources.getColor(R.color.blue_gray);
+        chart_text_rect_hotel_paint = mResources.getColor(R.color.lime);
+        chart_text_rect_view_paint = mResources.getColor(R.color.blue);
     }
     
     public String[] getStringArray( int id )

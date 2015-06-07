@@ -60,13 +60,30 @@ public class DetailPaint
             textRectColor = TTTApplication.getResourceUtil().chart_text_rect_village_paint;
             break;
 
+
+            case Constants.HOTEL:
+                maxSize = 16;
+                minSize = 10;
+                displayPercent = 0.2d;
+                stopPercent = 0.1d;
+                textRectColor = TTTApplication.getResourceUtil().chart_text_rect_hotel_paint;
+                break;
+
+            case Constants.SCENIC_SPOT:
+                maxSize = 16;
+                minSize = 10;
+                displayPercent = 0.2d;
+                stopPercent = 0.1d;
+                textRectColor = TTTApplication.getResourceUtil().chart_text_rect_view_paint;
+                break;
         case Constants.MOUNTAIN:
-            maxSize = 16;
+            maxSize = 20;
             minSize = 10;
-            displayPercent = 0.6d;
-            stopPercent = 0.3d;
+            displayPercent = 0.2d;
+            stopPercent = 0.1d;
             textRectColor = TTTApplication.getResourceUtil().chart_text_rect_mountain_paint;
             break;
+
         default:
             break;
         }

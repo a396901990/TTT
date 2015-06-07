@@ -302,21 +302,31 @@ public abstract class AbstractSeries
     }
 
     public static int getType(String type) {
+        int mtype = 1;
         if (type.equals("CITY")) {
-            return Constants.CITY;
+            mtype = Constants.CITY;
         }
         else if (type.equals("COUNTY")) {
-            return Constants.COUNTY;
+            mtype = Constants.COUNTY;
         }
         else if (type.equals("TOWN")) {
-            return Constants.TOWN;
+            mtype = Constants.TOWN;
         }
         else if (type.equals("VILLAGE")) {
-            return Constants.VILLAGE;
+            mtype = Constants.VILLAGE;
         }
         else if (type.equals("PATH")) {
-            return Constants.PATH;
+            mtype = Constants.PATH;
         }
-        return 1;
+        else if (type.equals("MOUNTAIN")) {
+            mtype = Constants.MOUNTAIN;
+        }
+        else if (type.equals("HOTEL")) {
+            mtype = Constants.HOTEL;
+        }
+        else if (type.equals("SCENIC_SPOT")) {
+            mtype = Constants.SCENIC_SPOT;
+        }
+        return mtype;
     }
 }
