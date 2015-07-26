@@ -118,6 +118,9 @@ public class MainActivity
 
     }
 
+    /**
+     *
+     */
     private void initDropdownNavigation()
     {
         ArrayList<PlanNavItem> mPlans = new ArrayList<PlanNavItem>();
