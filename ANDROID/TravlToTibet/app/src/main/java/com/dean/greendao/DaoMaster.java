@@ -9,6 +9,7 @@ import de.greenrobot.dao.AbstractDaoMaster;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
 
 import com.dean.greendao.GeocodeDao;
+import com.dean.greendao.RoutesDao;
 import com.dean.greendao.ZoneTypeDao;
 import com.dean.greendao.BuildingTypeDao;
 
@@ -22,6 +23,7 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
         GeocodeDao.createTable(db, ifNotExists);
+        RoutesDao.createTable(db, ifNotExists);
         ZoneTypeDao.createTable(db, ifNotExists);
         BuildingTypeDao.createTable(db, ifNotExists);
     }
@@ -29,6 +31,7 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(SQLiteDatabase db, boolean ifExists) {
         GeocodeDao.dropTable(db, ifExists);
+        RoutesDao.dropTable(db, ifExists);
         ZoneTypeDao.dropTable(db, ifExists);
         BuildingTypeDao.dropTable(db, ifExists);
     }
@@ -63,6 +66,7 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(SQLiteDatabase db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(GeocodeDao.class);
+        registerDaoClass(RoutesDao.class);
         registerDaoClass(ZoneTypeDao.class);
         registerDaoClass(BuildingTypeDao.class);
     }

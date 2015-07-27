@@ -8,7 +8,8 @@ import de.greenrobot.daogenerator.Schema;
  * 用来为GreenDao框架生成Dao文件
  */
 public class MyGenerator {
-    public static final String DAO_PATH = "../app/src/main/java";
+    //public static final String DAO_PATH = "../app/src/main/java";
+    public static final String DAO_PATH = "/Users/DeanGuo/Github_Workspace/ANDROID/TravlToTibet/app/src/main/java";
     public static final String PACKAGE_NAME = "com.dean.greendao";
     public static final int DATA_VERSION_CODE = 1;
 
@@ -16,6 +17,7 @@ public class MyGenerator {
 
         Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME);
         addGeocode(schema);
+        addRoute(schema);
         addZoneType(schema);
         addBuildingType(schema);
 
@@ -39,6 +41,17 @@ public class MyGenerator {
         geocode.addStringProperty("address").notNull();
         geocode.addStringProperty("types").notNull();
         geocode.addStringProperty("road");
+    }
+
+    // 路线表
+    private static void addRoute(Schema schema) {
+        Entity route = schema.addEntity("Routes");
+        route.addIdProperty();
+        route.addStringProperty("name").notNull();
+        route.addStringProperty("start").notNull();
+        route.addStringProperty("end").notNull();
+        route.addStringProperty("type").notNull();
+        route.addStringProperty("guide");
     }
 
     // 区域类型表

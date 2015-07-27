@@ -27,15 +27,18 @@ public class TTTApplication extends Application
     {
         super.onCreate();
         instance = this;
-        
+
+        // 初始化颜色
         resourceUtil = new ResourceUtil(getApplicationContext());
 
+        // 初始化数据库
         initDB();
     }
 
     private void initDB() {
         dbHelper = DBHelper.getInstance(getApplicationContext());
-        dbHelper.initGeocodeData();
+        //dbHelper.initGeocodeData();
+        dbHelper.readDataBase(instance);
     }
 
     public static TTTApplication getInstance()

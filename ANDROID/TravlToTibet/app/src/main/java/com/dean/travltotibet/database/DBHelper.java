@@ -6,10 +6,15 @@ import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
+import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.Constants;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import de.greenrobot.dao.query.DeleteQuery;
@@ -102,6 +107,41 @@ public class DBHelper
                 geocodeDao.insert(geocode);
             }
         }
+    }
+
+    // 初始化读入数据库内容
+    public String readDataBase(Context context) {
+
+        String DB_PATH = mContext.getDatabasePath(Constants.DB_NAME).getPath();
+        //String DB_PATH = CommonData.baseDir + File.separator + Constants.DB_NAME;
+
+            try {
+                // 如 SQLite 数据库文件不存在，再检查一下 database 目录是否存在
+                File f = new File(DB_PATH);
+                // 如 database 目录不存在，新建该目录
+                if (!f.exists()) {
+                    f.mkdir();
+                }
+                // 得到 assets 目录下我们实现准备好的 SQLite 数据库作为输入流
+                //InputStream is = context.getAssets().open(Constants.DB_NAME);
+                InputStream is = context.getResources().openRawResource(R.raw.database);
+                // 输出流
+                OutputStream os = new FileOutputStream(DB_PATH);
+                // 文件写入
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+                // 关闭文件流
+                os.flush();
+                os.close();
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        return DB_PATH;
     }
 
 }

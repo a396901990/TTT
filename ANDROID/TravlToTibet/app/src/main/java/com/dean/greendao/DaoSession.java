@@ -10,10 +10,12 @@ import de.greenrobot.dao.identityscope.IdentityScopeType;
 import de.greenrobot.dao.internal.DaoConfig;
 
 import com.dean.greendao.Geocode;
+import com.dean.greendao.Routes;
 import com.dean.greendao.ZoneType;
 import com.dean.greendao.BuildingType;
 
 import com.dean.greendao.GeocodeDao;
+import com.dean.greendao.RoutesDao;
 import com.dean.greendao.ZoneTypeDao;
 import com.dean.greendao.BuildingTypeDao;
 
@@ -27,10 +29,12 @@ import com.dean.greendao.BuildingTypeDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig geocodeDaoConfig;
+    private final DaoConfig routesDaoConfig;
     private final DaoConfig zoneTypeDaoConfig;
     private final DaoConfig buildingTypeDaoConfig;
 
     private final GeocodeDao geocodeDao;
+    private final RoutesDao routesDao;
     private final ZoneTypeDao zoneTypeDao;
     private final BuildingTypeDao buildingTypeDao;
 
@@ -41,6 +45,9 @@ public class DaoSession extends AbstractDaoSession {
         geocodeDaoConfig = daoConfigMap.get(GeocodeDao.class).clone();
         geocodeDaoConfig.initIdentityScope(type);
 
+        routesDaoConfig = daoConfigMap.get(RoutesDao.class).clone();
+        routesDaoConfig.initIdentityScope(type);
+
         zoneTypeDaoConfig = daoConfigMap.get(ZoneTypeDao.class).clone();
         zoneTypeDaoConfig.initIdentityScope(type);
 
@@ -48,22 +55,29 @@ public class DaoSession extends AbstractDaoSession {
         buildingTypeDaoConfig.initIdentityScope(type);
 
         geocodeDao = new GeocodeDao(geocodeDaoConfig, this);
+        routesDao = new RoutesDao(routesDaoConfig, this);
         zoneTypeDao = new ZoneTypeDao(zoneTypeDaoConfig, this);
         buildingTypeDao = new BuildingTypeDao(buildingTypeDaoConfig, this);
 
         registerDao(Geocode.class, geocodeDao);
+        registerDao(Routes.class, routesDao);
         registerDao(ZoneType.class, zoneTypeDao);
         registerDao(BuildingType.class, buildingTypeDao);
     }
     
     public void clear() {
         geocodeDaoConfig.getIdentityScope().clear();
+        routesDaoConfig.getIdentityScope().clear();
         zoneTypeDaoConfig.getIdentityScope().clear();
         buildingTypeDaoConfig.getIdentityScope().clear();
     }
 
     public GeocodeDao getGeocodeDao() {
         return geocodeDao;
+    }
+
+    public RoutesDao getRoutesDao() {
+        return routesDao;
     }
 
     public ZoneTypeDao getZoneTypeDao() {
