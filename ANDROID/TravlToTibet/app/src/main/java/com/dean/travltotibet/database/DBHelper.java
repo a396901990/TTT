@@ -6,6 +6,8 @@ import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
+import com.dean.greendao.Routes;
+import com.dean.greendao.RoutesDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.Constants;
@@ -30,6 +32,8 @@ public class DBHelper
 
     private GeocodeDao geocodeDao;
 
+    private RoutesDao routesDao;
+
     private DBHelper()
     {
     }
@@ -47,14 +51,22 @@ public class DBHelper
             // 数据库对象
             DaoSession daoSession = TTTApplication.getDaoSession(mContext);
             instance.geocodeDao = daoSession.getGeocodeDao();
+            instance.routesDao = daoSession.getRoutesDao();
         }
         return instance;
     }
 
-    /** 查询 */
+    /** 查询所有地理位置信息 */
     public List<Geocode> getGeocodeList()
     {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        return qb.list();
+    }
+
+    /** 查询所有路线信息 */
+    public List<Routes> getRoutsList()
+    {
+        QueryBuilder<Routes> qb = routesDao.queryBuilder();
         return qb.list();
     }
 

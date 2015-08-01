@@ -5,6 +5,7 @@ import java.util.List;
 import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
+import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
@@ -119,15 +120,20 @@ public class MainActivity
     }
 
     /**
-     *
+     * 初始化下拉菜单
      */
     private void initDropdownNavigation()
     {
         ArrayList<PlanNavItem> mPlans = new ArrayList<PlanNavItem>();
-        mPlans.add(new PlanNavItem("川藏线", "成都－拉萨"));
-        mPlans.add(new PlanNavItem("DAY1", "成都－拉萨"));
-        mPlans.add(new PlanNavItem("DAY2", "成都－拉萨"));
-        mPlans.add(new PlanNavItem("DAY3", "成都－拉萨"));
+
+        // 获取数据库路线
+        List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
+
+        // 为下拉菜单赋值
+        mPlans.add(new PlanNavItem("新藏线", "叶城－拉萨"));
+        for (Routes r : routes) {
+            mPlans.add(new PlanNavItem("DAY"+r.getId(), r.getStart()+" - "+r.getEnd()));
+        }
 
         PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(this);
         adapter.setData(mPlans);
