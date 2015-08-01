@@ -74,7 +74,7 @@ public class PlanSpinnerAdapter
         detail = (TextView) convertView.findViewById(R.id.plan_detail);
 
         data.setText(mPlans.get(position).getPlanDate());
-        detail.setText(mPlans.get(position).getPlanDetail());
+        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd());
 
         return convertView;
     }
@@ -88,13 +88,16 @@ public class PlanSpinnerAdapter
     {
         private String planDate;
 
-        private String planDetail;
+        private String planDetailStart;
 
-        public PlanNavItem( String planDate, String planDetail )
+        private String planDetailEnd;
+
+        public PlanNavItem( String planDate, String planDetailStart, String planDetailEnd)
         {
             super();
             this.planDate = planDate;
-            this.planDetail = planDetail;
+            this.planDetailStart = planDetailStart;
+            this.planDetailEnd = planDetailEnd;
         }
 
         public String getPlanDate()
@@ -107,14 +110,20 @@ public class PlanSpinnerAdapter
             this.planDate = planDate;
         }
 
-        public String getPlanDetail()
-        {
-            return planDetail;
+        public String getPlanDetailStart() {
+            return planDetailStart;
         }
 
-        public void setPlanDetail( String planDetail )
-        {
-            this.planDetail = planDetail;
+        public void setPlanDetailStart(String planDetailStart) {
+            this.planDetailStart = planDetailStart;
+        }
+
+        public String getPlanDetailEnd() {
+            return planDetailEnd;
+        }
+
+        public void setPlanDetailEnd(String planDetailEnd) {
+            this.planDetailEnd = planDetailEnd;
         }
     }
 

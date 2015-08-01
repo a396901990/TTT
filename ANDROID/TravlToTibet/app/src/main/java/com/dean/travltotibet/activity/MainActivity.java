@@ -130,9 +130,9 @@ public class MainActivity
         List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
 
         // 为下拉菜单赋值
-        mPlans.add(new PlanNavItem("新藏线", "叶城－拉萨"));
+        mPlans.add(new PlanNavItem("新藏线", "叶城县", "拉萨"));
         for (Routes r : routes) {
-            mPlans.add(new PlanNavItem("DAY"+r.getId(), r.getStart()+" - "+r.getEnd()));
+            mPlans.add(new PlanNavItem("DAY"+r.getId(), r.getStart() ,r.getEnd()));
         }
 
         PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(this);
@@ -147,6 +147,14 @@ public class MainActivity
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                PlanNavItem planNavItem = (PlanNavItem) parent.getItemAtPosition(position);
+                String date = planNavItem.getPlanDate();
+                String start = planNavItem.getPlanDetailStart();
+                String end = planNavItem.getPlanDetailEnd();
+
+                List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
+                geocodes.toString();
+
             }
 
             @Override
