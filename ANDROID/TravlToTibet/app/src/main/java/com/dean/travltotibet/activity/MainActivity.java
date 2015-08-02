@@ -158,15 +158,20 @@ public class MainActivity
                 series = new MountainSeries();
                 indicatorSeries = new IndicatorSeries();
 
+                float firstPointLength = (float)geocodes.get(0).getMileage();
+                float lastPointLength = (float)geocodes.get(geocodes.size()-1).getMileage();
+                float pointLength = lastPointLength - firstPointLength;
+
                 for (Geocode geocode : geocodes) {
-                    series.addPoint(new MountainSeries.MountainPoint((int)geocode.getMileage(), (int)geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
-                    indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int)geocode.getMileage(), (int)geocode.getElevation()));
+                    series.addPoint(new MountainSeries.MountainPoint((int)geocode.getMileage()-firstPointLength, (int)geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
+                    indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int)geocode.getMileage()-firstPointLength, (int)geocode.getElevation()));
                 }
 
                 // reset chart view data
-                mChartView.setAxisRange(-30, 0, 2680, 6500);
+                mChartView.setAxisRange(-30, 0, pointLength + 30, 6500);
                 mChartView.addSeries(series);
                 mIndicatorView.addSeries(indicatorSeries);
+                mIndicatorView.setChartView(mChartView);
             }
 
             @Override
