@@ -99,10 +99,7 @@ public class IndicatorChartView
 
     public void addSeries( AbstractSeries series )
     {
-        if (mSeries == null)
-        {
-            mSeries = new ArrayList<AbstractSeries>();
-        }
+        mSeries = new ArrayList<AbstractSeries>();
 
         mSeries.add(series);
         invalidate();

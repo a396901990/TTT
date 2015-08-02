@@ -36,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -62,9 +63,7 @@ public class MainActivity
         mHeaderView = findViewById(R.id.chart_header_contents);
         
         mChartView = (RouteChartView) findViewById(R.id.chart);
-        mChartView.setAxisRange(-30, 0, 2680, 6000);
-
-
+        mChartView.setAxisRange(-30, 0, 2680, 6500);
 
         // Create the data points
         series = new MountainSeries();
@@ -90,7 +89,7 @@ public class MainActivity
             });
         mChartView.setPointListener(new PointListener()
             {
-                
+
                 @Override
                 public void pointOnTouched( AbstractPoint point )
                 {
@@ -130,7 +129,9 @@ public class MainActivity
         List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
 
         // 为下拉菜单赋值
+        // 第一个初始默认，每次加载会调用第一个的onItemSelected方法
         mPlans.add(new PlanNavItem("新藏线", "叶城县", "拉萨"));
+        // 其他路线
         for (Routes r : routes) {
             mPlans.add(new PlanNavItem("DAY"+r.getId(), r.getStart() ,r.getEnd()));
         }
@@ -153,8 +154,19 @@ public class MainActivity
                 String end = planNavItem.getPlanDetailEnd();
 
                 List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
-                geocodes.toString();
 
+                series = new MountainSeries();
+                indicatorSeries = new IndicatorSeries();
+
+                for (Geocode geocode : geocodes) {
+                    series.addPoint(new MountainSeries.MountainPoint((int)geocode.getMileage(), (int)geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
+                    indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int)geocode.getMileage(), (int)geocode.getElevation()));
+                }
+
+                // reset chart view data
+                mChartView.setAxisRange(-30, 0, 2680, 6500);
+                mChartView.addSeries(series);
+                mIndicatorView.addSeries(indicatorSeries);
             }
 
             @Override

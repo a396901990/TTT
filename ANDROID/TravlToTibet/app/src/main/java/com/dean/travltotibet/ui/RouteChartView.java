@@ -43,7 +43,6 @@ import android.widget.OverScroller;
 public class RouteChartView
     extends View
 {
-
     // Series
     private ArrayList<AbstractSeries> mSeries = new ArrayList<AbstractSeries>();
 
@@ -1254,10 +1253,7 @@ public class RouteChartView
 
     public void addSeries( AbstractSeries series )
     {
-        if (mSeries == null)
-        {
-            mSeries = new ArrayList<AbstractSeries>();
-        }
+        mSeries = new ArrayList<AbstractSeries>();
 
         mSeries.add(series);
         invalidate();
@@ -1349,6 +1345,10 @@ public class RouteChartView
     public void setPointListener( PointListener mPointListener )
     {
         this.mPointListener = mPointListener;
+    }
+
+    public ArrayList<AbstractSeries> getSeries() {
+        return mSeries;
     }
 
 }
