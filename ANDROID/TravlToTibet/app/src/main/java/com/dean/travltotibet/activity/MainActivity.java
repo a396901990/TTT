@@ -78,24 +78,20 @@ public class MainActivity
         // Add chart view data
         mChartView.addSeries(series);
         mChartView.initCrosshair();
-        mChartView.addCrosshairPaintedListener(new OnCrosshairPainted()
-            {
+        mChartView.addCrosshairPaintedListener(new OnCrosshairPainted() {
 
-                @Override
-                public void onCrosshairPainted( AbstractPoint point )
-                {
-                    updateHeader(point);
-                }
-            });
-        mChartView.setPointListener(new PointListener()
-            {
+            @Override
+            public void onCrosshairPainted(AbstractPoint point) {
+                updateHeader(point);
+            }
+        });
+        mChartView.setPointListener(new PointListener() {
 
-                @Override
-                public void pointOnTouched( AbstractPoint point )
-                {
-                    updateHeader(point);
-                }
-            });
+            @Override
+            public void pointOnTouched(AbstractPoint point) {
+                updateHeader(point);
+            }
+        });
 
         mIndicatorView = (IndicatorChartView) findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
@@ -153,11 +149,13 @@ public class MainActivity
                 String start = planNavItem.getPlanDetailStart();
                 String end = planNavItem.getPlanDetailEnd();
 
+                // 根据路线的起始和终点 获取数据
                 List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
 
                 series = new MountainSeries();
                 indicatorSeries = new IndicatorSeries();
 
+                // 计算两个路线点起点和终点的间距，使路线在屏幕中间
                 float firstPointLength = (float)geocodes.get(0).getMileage();
                 float lastPointLength = (float)geocodes.get(geocodes.size()-1).getMileage();
                 float pointLength = lastPointLength - firstPointLength;
