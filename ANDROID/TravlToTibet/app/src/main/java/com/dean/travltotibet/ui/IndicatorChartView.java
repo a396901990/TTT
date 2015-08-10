@@ -109,10 +109,7 @@ public class IndicatorChartView
     {
         if (mIndicatorUtil == null)
         {
-            if (mSeries != null)
-            {
-                mIndicatorUtil = new ChartIndicatorUtil(this, mSeries.get(0));
-            }
+            mIndicatorUtil = new ChartIndicatorUtil(this);
         }
 
         addIndicatorListener(mChartView.getIndicatorListener());

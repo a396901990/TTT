@@ -56,46 +56,19 @@ public class MainActivity
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
+
+        // 初始化actionbar
         getActionBar().setIcon(R.drawable.ic_ab_back_icon);
-        initDropdownNavigation();
         getActionBar().setTitle("新藏线");
+        // 初始化actionbar下拉菜单
+        initDropdownNavigation();
+
+        // 初始化视图
         setContentView(R.layout.activity_main);
         mHeaderView = findViewById(R.id.chart_header_contents);
-        
         mChartView = (RouteChartView) findViewById(R.id.chart);
-        mChartView.setAxisRange(-30, 0, 2680, 6500);
-
-        // Create the data points
-        series = new MountainSeries();
-        indicatorSeries = new IndicatorSeries();
-
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeList();
-        for (Geocode geocode : geocodes) {
-            series.addPoint(new MountainSeries.MountainPoint((int)geocode.getMileage(), (int)geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
-            indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int)geocode.getMileage(), (int)geocode.getElevation()));
-        }
-
-        // Add chart view data
-        mChartView.addSeries(series);
-        mChartView.initCrosshair();
-        mChartView.addCrosshairPaintedListener(new OnCrosshairPainted() {
-
-            @Override
-            public void onCrosshairPainted(AbstractPoint point) {
-                updateHeader(point);
-            }
-        });
-        mChartView.setPointListener(new PointListener() {
-
-            @Override
-            public void pointOnTouched(AbstractPoint point) {
-                updateHeader(point);
-            }
-        });
-
         mIndicatorView = (IndicatorChartView) findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
-        mIndicatorView.addSeries(indicatorSeries);
     }
 
     protected void updateHeader( AbstractPoint point )
@@ -129,7 +102,7 @@ public class MainActivity
         mPlans.add(new PlanNavItem("新藏线", "叶城县", "拉萨"));
         // 其他路线
         for (Routes r : routes) {
-            mPlans.add(new PlanNavItem("DAY"+r.getId(), r.getStart() ,r.getEnd()));
+            mPlans.add(new PlanNavItem("D"+r.getId(), r.getStart() ,r.getEnd()));
         }
 
         PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(this);
@@ -168,6 +141,21 @@ public class MainActivity
                 // reset chart view data
                 mChartView.setAxisRange(-30, 0, pointLength + 30, 6500);
                 mChartView.addSeries(series);
+                mChartView.initCrosshair();
+                mChartView.addCrosshairPaintedListener(new OnCrosshairPainted() {
+
+                    @Override
+                    public void onCrosshairPainted(AbstractPoint point) {
+                        updateHeader(point);
+                    }
+                });
+                mChartView.setPointListener(new PointListener() {
+
+                    @Override
+                    public void pointOnTouched(AbstractPoint point) {
+                        updateHeader(point);
+                    }
+                });
                 mIndicatorView.addSeries(indicatorSeries);
                 mIndicatorView.setChartView(mChartView);
             }

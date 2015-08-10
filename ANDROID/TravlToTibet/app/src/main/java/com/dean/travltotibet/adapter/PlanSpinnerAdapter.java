@@ -74,7 +74,7 @@ public class PlanSpinnerAdapter
         detail = (TextView) convertView.findViewById(R.id.plan_detail);
 
         data.setText(mPlans.get(position).getPlanDate());
-        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd());
+        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd()+"(2000KM)");
 
         return convertView;
     }

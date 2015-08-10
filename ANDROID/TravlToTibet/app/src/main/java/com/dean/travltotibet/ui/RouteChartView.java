@@ -235,6 +235,8 @@ public class RouteChartView
         mEdgeEffectTop = new EdgeEffectCompat(context);
         mEdgeEffectRight = new EdgeEffectCompat(context);
         mEdgeEffectBottom = new EdgeEffectCompat(context);
+
+        setAxisRange(AXIS_X_MIN, AXIS_Y_MIN, AXIS_X_MAX, AXIS_Y_MAX);
     }
 
     /** 初始化十字视图 */

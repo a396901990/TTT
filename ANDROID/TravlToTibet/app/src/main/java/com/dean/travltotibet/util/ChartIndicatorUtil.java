@@ -187,10 +187,9 @@ public class ChartIndicatorUtil
             }
         };
 
-    public ChartIndicatorUtil( final IndicatorChartView indicatorChartView, final AbstractSeries series )
+    public ChartIndicatorUtil( final IndicatorChartView indicatorChartView )
     {
         mIndicator = indicatorChartView;
-        mSeries = series;
 
         initRect();
         initPaint();
