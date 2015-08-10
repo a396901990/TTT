@@ -109,6 +109,9 @@ public class DetailPaint
      */
     public void calcSize( AbstractPoint point, Rect contentRect, RectF currentViewPoint )
     {
+        // 重新计算当前屏幕大小
+        mRect = new RectF(RouteChartView.AXIS_X_MIN, RouteChartView.AXIS_Y_MIN, RouteChartView.AXIS_X_MAX, RouteChartView.AXIS_Y_MAX);
+
         if (currentViewPoint.width() <= mRect.width() * displayPercent)
         {
             if (currentViewPoint.width() > mRect.width() * stopPercent)

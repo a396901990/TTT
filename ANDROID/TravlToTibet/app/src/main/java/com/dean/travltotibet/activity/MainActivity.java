@@ -138,10 +138,17 @@ public class MainActivity
                     indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int)geocode.getMileage()-firstPointLength, (int)geocode.getElevation()));
                 }
 
-                // reset chart view data
+                // 重置图标视图数据
                 mChartView.setAxisRange(-30, 0, pointLength + 30, 6500);
                 mChartView.addSeries(series);
                 mChartView.initCrosshair();
+
+                // 重置指示视图数据
+                mIndicatorView.addSeries(indicatorSeries);
+                mIndicatorView.initIndicator();
+                mIndicatorView.setChartView(mChartView);
+
+                // 设置监听
                 mChartView.addCrosshairPaintedListener(new OnCrosshairPainted() {
 
                     @Override
@@ -156,8 +163,6 @@ public class MainActivity
                         updateHeader(point);
                     }
                 });
-                mIndicatorView.addSeries(indicatorSeries);
-                mIndicatorView.setChartView(mChartView);
             }
 
             @Override

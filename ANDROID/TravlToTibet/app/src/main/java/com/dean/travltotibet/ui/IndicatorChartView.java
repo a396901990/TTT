@@ -107,10 +107,7 @@ public class IndicatorChartView
 
     public void initIndicator()
     {
-        if (mIndicatorUtil == null)
-        {
-            mIndicatorUtil = new ChartIndicatorUtil(this);
-        }
+        mIndicatorUtil = new ChartIndicatorUtil(this);
 
         addIndicatorListener(mChartView.getIndicatorListener());
         mChartView.setChartListener(mChartListener);
@@ -155,27 +152,4 @@ public class IndicatorChartView
         setCurrentViewport(mChartView.getCurrentViewport());
     }
 
-    @Override
-    public Parcelable onSaveInstanceState()
-    {
-        Parcelable superState = super.onSaveInstanceState();
-        RouteChartView.SavedState ss = new RouteChartView.SavedState(superState);
-        ss.viewport = mCurrentViewport;
-        return ss;
-    }
-
-    @Override
-    public void onRestoreInstanceState( Parcelable state )
-    {
-        if (!(state instanceof RouteChartView.SavedState))
-        {
-            super.onRestoreInstanceState(state);
-            return;
-        }
-
-        RouteChartView.SavedState ss = (RouteChartView.SavedState) state;
-        super.onRestoreInstanceState(ss.getSuperState());
-
-        mCurrentViewport = ss.viewport;
-    }
 }

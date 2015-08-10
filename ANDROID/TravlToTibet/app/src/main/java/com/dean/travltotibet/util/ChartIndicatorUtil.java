@@ -203,7 +203,7 @@ public class ChartIndicatorUtil
         mMovingLeftIndicator.set(mLeftIndicator);
         mMovingRightIndicator.set(mRightIndicator);
 
-        limit = (float) (mRect.width() * mIndicator.getChartView().AXIS_X_LIMIT_PRECENT);
+        limit = (float) (mRect.width() * mIndicator.getChartView().AXIS_X_LIMIT_PERCENT);
     }
 
     private void initPaint()

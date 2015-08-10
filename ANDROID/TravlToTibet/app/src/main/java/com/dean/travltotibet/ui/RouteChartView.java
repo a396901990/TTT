@@ -80,7 +80,7 @@ public class RouteChartView
 
     public static float AXIS_Y_MAX = 1f;
 
-    public double AXIS_X_LIMIT_PRECENT = 0.01;
+    public double AXIS_X_LIMIT_PERCENT = 0.01;
 
     /**
      * The current viewport. This rectangle represents the currently visible
@@ -242,10 +242,7 @@ public class RouteChartView
     /** 初始化十字视图 */
     public void initCrosshair()
     {
-        if (mCrosshairUtil == null)
-        {
-            mCrosshairUtil = new ChartCrosshairUtil(this, mSeries.get(0));
-        }
+        mCrosshairUtil = new ChartCrosshairUtil(this, mSeries.get(0));
     }
 
     /** 指示器监听器，根据指示器位置刷新本视图 */
@@ -726,7 +723,7 @@ public class RouteChartView
             public boolean onScale( ScaleGestureDetector scaleGestureDetector )
             {
                 // set X scale length limit
-                if (scaleGestureDetector.getScaleFactor() < 1 || mCurrentViewport.width() >= (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PRECENT)
+                if (scaleGestureDetector.getScaleFactor() < 1 || mCurrentViewport.width() >= (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PERCENT)
                 {
                     float spanX = ScaleGestureDetectorCompat.getCurrentSpanX(scaleGestureDetector);
                     //float spanY = ScaleGestureDetectorCompat.getCurrentSpanY(scaleGestureDetector);
@@ -970,7 +967,7 @@ public class RouteChartView
             // pointWithinViewportY));
             float left = mZoomFocalPoint.x - newWidth * pointWithinViewportX;
             float right = mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX);
-            if ((right - left) >= (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PRECENT)
+            if ((right - left) >= (AXIS_X_MAX - AXIS_X_MIN) * AXIS_X_LIMIT_PERCENT)
             {
                 mCurrentViewport.set(mZoomFocalPoint.x - newWidth * pointWithinViewportX, mCurrentViewport.top, mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX), mCurrentViewport.bottom);
             }
