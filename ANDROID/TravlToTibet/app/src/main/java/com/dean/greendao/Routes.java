@@ -14,6 +14,8 @@ public class Routes {
     /** Not-null value. */
     private String end;
     /** Not-null value. */
+    private String distance;
+    /** Not-null value. */
     private String type;
     private String guide;
 
@@ -24,11 +26,12 @@ public class Routes {
         this.id = id;
     }
 
-    public Routes(Long id, String name, String start, String end, String type, String guide) {
+    public Routes(Long id, String name, String start, String end, String distance, String type, String guide) {
         this.id = id;
         this.name = name;
         this.start = start;
         this.end = end;
+        this.distance = distance;
         this.type = type;
         this.guide = guide;
     }
@@ -69,6 +72,16 @@ public class Routes {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    /** Not-null value. */
+    public String getDistance() {
+        return distance;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
     /** Not-null value. */

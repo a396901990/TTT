@@ -27,8 +27,9 @@ public class RoutesDao extends AbstractDao<Routes, Long> {
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Start = new Property(2, String.class, "start", false, "START");
         public final static Property End = new Property(3, String.class, "end", false, "END");
-        public final static Property Type = new Property(4, String.class, "type", false, "TYPE");
-        public final static Property Guide = new Property(5, String.class, "guide", false, "GUIDE");
+        public final static Property Distance = new Property(4, String.class, "distance", false, "DISTANCE");
+        public final static Property Type = new Property(5, String.class, "type", false, "TYPE");
+        public final static Property Guide = new Property(6, String.class, "guide", false, "GUIDE");
     };
 
 
@@ -48,8 +49,9 @@ public class RoutesDao extends AbstractDao<Routes, Long> {
                 "'NAME' TEXT NOT NULL ," + // 1: name
                 "'START' TEXT NOT NULL ," + // 2: start
                 "'END' TEXT NOT NULL ," + // 3: end
-                "'TYPE' TEXT NOT NULL ," + // 4: type
-                "'GUIDE' TEXT);"); // 5: guide
+                "'DISTANCE' TEXT NOT NULL ," + // 4: distance
+                "'TYPE' TEXT NOT NULL ," + // 5: type
+                "'GUIDE' TEXT);"); // 6: guide
     }
 
     /** Drops the underlying database table. */
@@ -70,11 +72,12 @@ public class RoutesDao extends AbstractDao<Routes, Long> {
         stmt.bindString(2, entity.getName());
         stmt.bindString(3, entity.getStart());
         stmt.bindString(4, entity.getEnd());
-        stmt.bindString(5, entity.getType());
+        stmt.bindString(5, entity.getDistance());
+        stmt.bindString(6, entity.getType());
  
         String guide = entity.getGuide();
         if (guide != null) {
-            stmt.bindString(6, guide);
+            stmt.bindString(7, guide);
         }
     }
 
@@ -92,8 +95,9 @@ public class RoutesDao extends AbstractDao<Routes, Long> {
             cursor.getString(offset + 1), // name
             cursor.getString(offset + 2), // start
             cursor.getString(offset + 3), // end
-            cursor.getString(offset + 4), // type
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // guide
+            cursor.getString(offset + 4), // distance
+            cursor.getString(offset + 5), // type
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // guide
         );
         return entity;
     }
@@ -105,8 +109,9 @@ public class RoutesDao extends AbstractDao<Routes, Long> {
         entity.setName(cursor.getString(offset + 1));
         entity.setStart(cursor.getString(offset + 2));
         entity.setEnd(cursor.getString(offset + 3));
-        entity.setType(cursor.getString(offset + 4));
-        entity.setGuide(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDistance(cursor.getString(offset + 4));
+        entity.setType(cursor.getString(offset + 5));
+        entity.setGuide(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */

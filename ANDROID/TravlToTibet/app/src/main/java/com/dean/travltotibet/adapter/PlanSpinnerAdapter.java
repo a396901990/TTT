@@ -57,7 +57,7 @@ public class PlanSpinnerAdapter
 
         data = (TextView) convertView.findViewById(R.id.plan_dropdown_title);
         data.setText(mPlans.get(position).getPlanDate());
-        
+
         return convertView;
     }
 
@@ -74,7 +74,7 @@ public class PlanSpinnerAdapter
         detail = (TextView) convertView.findViewById(R.id.plan_detail);
 
         data.setText(mPlans.get(position).getPlanDate());
-        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd()+"(2000KM)");
+        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd()+"("+mPlans.get(position).getPlanDistance()+")");
 
         return convertView;
     }
@@ -92,6 +92,8 @@ public class PlanSpinnerAdapter
 
         private String planDetailEnd;
 
+        private String planDistance;
+
         public PlanNavItem( String planDate, String planDetailStart, String planDetailEnd)
         {
             super();
@@ -100,30 +102,30 @@ public class PlanSpinnerAdapter
             this.planDetailEnd = planDetailEnd;
         }
 
+        public PlanNavItem( String planDate, String planDetailStart, String planDetailEnd, String planDistance)
+        {
+            super();
+            this.planDate = planDate;
+            this.planDetailStart = planDetailStart;
+            this.planDetailEnd = planDetailEnd;
+            this.planDistance = planDistance;
+        }
+
         public String getPlanDate()
         {
             return planDate;
-        }
-
-        public void setPlanDate( String planDate )
-        {
-            this.planDate = planDate;
         }
 
         public String getPlanDetailStart() {
             return planDetailStart;
         }
 
-        public void setPlanDetailStart(String planDetailStart) {
-            this.planDetailStart = planDetailStart;
-        }
-
         public String getPlanDetailEnd() {
             return planDetailEnd;
         }
 
-        public void setPlanDetailEnd(String planDetailEnd) {
-            this.planDetailEnd = planDetailEnd;
+        public String getPlanDistance() {
+            return planDistance;
         }
     }
 

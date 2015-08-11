@@ -99,10 +99,10 @@ public class MainActivity
 
         // 为下拉菜单赋值
         // 第一个初始默认，每次加载会调用第一个的onItemSelected方法
-        mPlans.add(new PlanNavItem("新藏线", "叶城县", "拉萨"));
+        mPlans.add(new PlanNavItem("新藏线", "叶城县", "拉萨", "2793KM"));
         // 其他路线
         for (Routes r : routes) {
-            mPlans.add(new PlanNavItem("D"+r.getId(), r.getStart() ,r.getEnd()));
+            mPlans.add(new PlanNavItem("D"+r.getId(), r.getStart() ,r.getEnd(), r.getDistance()));
         }
 
         PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(this);
