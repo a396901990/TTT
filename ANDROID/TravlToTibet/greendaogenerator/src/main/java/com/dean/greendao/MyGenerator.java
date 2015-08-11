@@ -50,6 +50,7 @@ public class MyGenerator {
         route.addStringProperty("name").notNull();
         route.addStringProperty("start").notNull();
         route.addStringProperty("end").notNull();
+        route.addStringProperty("distance").notNull();
         route.addStringProperty("type").notNull();
         route.addStringProperty("guide");
     }
