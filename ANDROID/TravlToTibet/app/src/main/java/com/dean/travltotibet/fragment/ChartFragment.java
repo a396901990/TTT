@@ -23,6 +23,7 @@ import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.ui.SlidingLayout;
 import com.dean.travltotibet.util.ChartCrosshairUtil;
 
 import java.util.ArrayList;
@@ -35,9 +36,11 @@ public class ChartFragment extends Fragment {
 
     private View root;
 
+    private SlidingLayout.SlidingMenuListener slidingMenuListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.activity_main, container, false);
+        root = inflater.inflate(R.layout.chart_fragment_view, container, false);
         return root;
     }
 
@@ -67,6 +70,9 @@ public class ChartFragment extends Fragment {
 
     private IndicatorSeries indicatorSeries;
 
+    /**
+     * 更新标题头
+     */
     protected void updateHeader( AbstractPoint point )
     {
         TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
@@ -159,6 +165,8 @@ public class ChartFragment extends Fragment {
                         updateHeader(point);
                     }
                 });
+
+                slidingMenuListener.onLeftMenuBtnClicked();
             }
 
             @Override
@@ -172,4 +180,7 @@ public class ChartFragment extends Fragment {
         getActivity().getActionBar().setDisplayShowCustomEnabled(true);
     }
 
+    public void setSlidingMenuListener(SlidingLayout.SlidingMenuListener slidingMenuListener) {
+        this.slidingMenuListener = slidingMenuListener;
+    }
 }

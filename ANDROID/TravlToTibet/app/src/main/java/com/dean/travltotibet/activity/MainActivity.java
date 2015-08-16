@@ -1,11 +1,4 @@
 package com.dean.travltotibet.activity;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.dean.greendao.DaoSession;
-import com.dean.greendao.Geocode;
-import com.dean.greendao.GeocodeDao;
-import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
@@ -21,6 +14,7 @@ import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.ui.SlidingLayout;
 import com.dean.travltotibet.util.ChartCrosshairUtil.OnCrosshairPainted;
 import com.dean.travltotibet.adapter.PlanSpinnerAdapter.PlanNavItem;
 import com.dean.travltotibet.util.Constants;
@@ -38,6 +32,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,10 +43,31 @@ public class MainActivity
 {
     ChartFragment chartFragment;
 
+    SlidingLayout slidingLayout;
+
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+
+        slidingLayout = (SlidingLayout) findViewById(R.id.sliding_layout);
+        FrameLayout chartContent = (FrameLayout) findViewById(R.id.chartFragment);
+        slidingLayout.setScrollEvent(chartContent);
+
+        Button showLeftButton = (Button) findViewById(R.id.left_btn);
+        showLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (slidingLayout.isLeftLayoutVisible()) {
+                    slidingLayout.scrollToContentFromLeftMenu();
+                } else {
+                    slidingLayout.initShowLeftState();
+                    slidingLayout.scrollToLeftMenu();
+                }
+            }
+        });
+
+        // chart fragment
         Fragment fragment = getFragmentManager().findFragmentById(R.id.chartFragment);
         if (fragment == null)
         {
@@ -61,7 +78,28 @@ public class MainActivity
         {
             chartFragment = (ChartFragment) fragment;
         }
+        chartFragment.setSlidingMenuListener(slidingMenuListener);
     }
 
+    SlidingLayout.SlidingMenuListener slidingMenuListener = new SlidingLayout.SlidingMenuListener() {
+        @Override
+        public void onLeftMenuBtnClicked() {
+            if (slidingLayout.isLeftLayoutVisible()) {
+                slidingLayout.scrollToContentFromLeftMenu();
+            } else {
+                slidingLayout.initShowLeftState();
+                slidingLayout.scrollToLeftMenu();
+            }
+        }
 
+        @Override
+        public void onRightMenuBtnClicked() {
+            if (slidingLayout.isRightLayoutVisible()) {
+                slidingLayout.scrollToContentFromRightMenu();
+            } else {
+                slidingLayout.initShowRightState();
+                slidingLayout.scrollToRightMenu();
+            }
+        }
+    };
 }
