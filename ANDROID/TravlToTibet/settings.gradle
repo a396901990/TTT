@@ -1,1 +1,1 @@
-include ':app', ':greendaogenerator', ':googlemapapi'
+include ':app', ':greendaogenerator', ':googlemapapi', 'SlidingMenu/library'

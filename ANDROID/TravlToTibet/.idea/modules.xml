@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SlidingMenu/library/SlidingMenu_library.iml" filepath="$PROJECT_DIR$/SlidingMenu/library/SlidingMenu_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/TravlToTibet.iml" filepath="$PROJECT_DIR$/TravlToTibet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/googlemapapi/googlemapapi.iml" filepath="$PROJECT_DIR$/googlemapapi/googlemapapi.iml" />

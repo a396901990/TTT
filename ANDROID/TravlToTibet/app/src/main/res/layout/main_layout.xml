@@ -4,52 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/left_menu"
         android:layout_width="270dip"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:background="#00ccff"
+        android:orientation="vertical"
         android:visibility="invisible">
 
         <Button
             android:id="@+id/left_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:text="This is left menu" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/right_menu"
+    <FrameLayout
+        android:id="@+id/routeFragment"
         android:layout_width="270dip"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
-        android:background="#00ffcc"
         android:visibility="invisible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="This is right menu"
-            android:textColor="#000000"
-            android:textSize="28sp" />
-    </RelativeLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/chartFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/right_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="This is left menu" />
-
     </FrameLayout>
+
 
 </com.dean.travltotibet.ui.SlidingLayout>

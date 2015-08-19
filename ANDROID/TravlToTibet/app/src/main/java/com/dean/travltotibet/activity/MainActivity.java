@@ -1,47 +1,21 @@
 package com.dean.travltotibet.activity;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
-import com.dean.travltotibet.database.DBHelper;
-import com.dean.travltotibet.database.ParseUtil;
 import com.dean.travltotibet.fragment.ChartFragment;
-import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.model.AbstractSeries;
-import com.dean.travltotibet.model.AbstractSeries.PointListener;
-import com.dean.travltotibet.model.GeocodesJson;
-import com.dean.travltotibet.model.IndicatorSeries;
-import com.dean.travltotibet.model.MountainSeries;
-import com.dean.travltotibet.model.Place;
-import com.dean.travltotibet.ui.IndicatorChartView;
-import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.fragment.RouteFragment;
 import com.dean.travltotibet.ui.SlidingLayout;
-import com.dean.travltotibet.util.ChartCrosshairUtil.OnCrosshairPainted;
-import com.dean.travltotibet.adapter.PlanSpinnerAdapter.PlanNavItem;
-import com.dean.travltotibet.util.Constants;
-import com.google.gson.Gson;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 public class MainActivity
     extends Activity
 {
     ChartFragment chartFragment;
+
+    RouteFragment routeFragment;
 
     SlidingLayout slidingLayout;
 
@@ -54,31 +28,30 @@ public class MainActivity
         FrameLayout chartContent = (FrameLayout) findViewById(R.id.chartFragment);
         slidingLayout.setScrollEvent(chartContent);
 
-        Button showLeftButton = (Button) findViewById(R.id.left_btn);
-        showLeftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (slidingLayout.isLeftLayoutVisible()) {
-                    slidingLayout.scrollToContentFromLeftMenu();
-                } else {
-                    slidingLayout.initShowLeftState();
-                    slidingLayout.scrollToLeftMenu();
-                }
-            }
-        });
-
         // chart fragment
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.chartFragment);
-        if (fragment == null)
+        Fragment cFragment = getFragmentManager().findFragmentById(R.id.chartFragment);
+        if (cFragment == null)
         {
             chartFragment = new ChartFragment();
             getFragmentManager().beginTransaction().replace(R.id.chartFragment, chartFragment).commit();
         }
         else
         {
-            chartFragment = (ChartFragment) fragment;
+            chartFragment = (ChartFragment) cFragment;
         }
         chartFragment.setSlidingMenuListener(slidingMenuListener);
+
+        // route fragment
+        Fragment rFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
+        if (rFragment == null)
+        {
+            routeFragment = new RouteFragment();
+            getFragmentManager().beginTransaction().replace(R.id.routeFragment, routeFragment).commit();
+        }
+        else
+        {
+            routeFragment = (RouteFragment) rFragment;
+        }
     }
 
     SlidingLayout.SlidingMenuListener slidingMenuListener = new SlidingLayout.SlidingMenuListener() {

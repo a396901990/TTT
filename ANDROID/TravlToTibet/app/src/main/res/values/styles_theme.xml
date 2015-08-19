@@ -78,4 +78,32 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="SpinnerStyle" parent="android:Widget.Holo.Spinner">
+        <item name="android:background">@drawable/spinner_ab_holo_dark</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:dropDownSelector">#FFFFFF</item>
+        <item name="android:popupBackground">#335233</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="SpinnerItem">
+        <item name="android:textColor">#333333</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="SpinnerDropDownItem">
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
 </resources>
