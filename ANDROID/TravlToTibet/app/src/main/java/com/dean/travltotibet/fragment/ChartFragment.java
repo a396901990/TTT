@@ -36,8 +36,6 @@ public class ChartFragment extends Fragment {
 
     private View root;
 
-    private SlidingLayout.SlidingMenuListener slidingMenuListener;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.chart_fragment_view, container, false);
@@ -166,7 +164,6 @@ public class ChartFragment extends Fragment {
                     }
                 });
 
-                slidingMenuListener.onLeftMenuBtnClicked();
             }
 
             @Override
@@ -180,7 +177,4 @@ public class ChartFragment extends Fragment {
         getActivity().getActionBar().setDisplayShowCustomEnabled(true);
     }
 
-    public void setSlidingMenuListener(SlidingLayout.SlidingMenuListener slidingMenuListener) {
-        this.slidingMenuListener = slidingMenuListener;
-    }
 }

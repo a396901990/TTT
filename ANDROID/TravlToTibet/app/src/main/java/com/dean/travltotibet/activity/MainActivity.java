@@ -1,78 +1,132 @@
 package com.dean.travltotibet.activity;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.ChartFragment;
+import com.dean.travltotibet.fragment.MenuFragment;
 import com.dean.travltotibet.fragment.RouteFragment;
 import com.dean.travltotibet.ui.SlidingLayout;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 public class MainActivity
-    extends Activity
+    extends SlidingFragmentActivity
 {
+    MenuFragment menuFragment;
+
     ChartFragment chartFragment;
 
     RouteFragment routeFragment;
 
-    SlidingLayout slidingLayout;
+    SlidingMenu slidingMenu;
 
-    protected void onCreate( Bundle savedInstanceState )
+    public void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.main_layout);
 
-        slidingLayout = (SlidingLayout) findViewById(R.id.sliding_layout);
-        FrameLayout chartContent = (FrameLayout) findViewById(R.id.chartFragment);
-        slidingLayout.setScrollEvent(chartContent);
+        initMenu();
+        initFragment();
+    }
+
+    private void initFragment() {
+        // menu fragment
+        Fragment leftFragment = getFragmentManager().findFragmentById(R.id.menuFragment);
+        if (leftFragment == null)
+        {
+            menuFragment = new MenuFragment();
+            getFragmentManager().beginTransaction().replace(R.id.menuFragment, menuFragment).commit();
+        }
+        else
+        {
+            menuFragment = (MenuFragment) leftFragment;
+        }
 
         // chart fragment
-        Fragment cFragment = getFragmentManager().findFragmentById(R.id.chartFragment);
-        if (cFragment == null)
+        Fragment contentFragment = getFragmentManager().findFragmentById(R.id.chartFragment);
+        if (contentFragment == null)
         {
             chartFragment = new ChartFragment();
             getFragmentManager().beginTransaction().replace(R.id.chartFragment, chartFragment).commit();
         }
         else
         {
-            chartFragment = (ChartFragment) cFragment;
+            chartFragment = (ChartFragment) contentFragment;
         }
-        chartFragment.setSlidingMenuListener(slidingMenuListener);
 
         // route fragment
-        Fragment rFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
-        if (rFragment == null)
+        Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
+        if (rightFragment == null)
         {
             routeFragment = new RouteFragment();
             getFragmentManager().beginTransaction().replace(R.id.routeFragment, routeFragment).commit();
         }
         else
         {
-            routeFragment = (RouteFragment) rFragment;
+            routeFragment = (RouteFragment) rightFragment;
         }
     }
 
-    SlidingLayout.SlidingMenuListener slidingMenuListener = new SlidingLayout.SlidingMenuListener() {
-        @Override
-        public void onLeftMenuBtnClicked() {
-            if (slidingLayout.isLeftLayoutVisible()) {
-                slidingLayout.scrollToContentFromLeftMenu();
-            } else {
-                slidingLayout.initShowLeftState();
-                slidingLayout.scrollToLeftMenu();
-            }
-        }
+    private void initMenu()
+    {
+        // 设置主菜单
+        setBehindContentView(R.layout.menu_layout);
+        // 初始化menu
+        slidingMenu = getSlidingMenu();
 
-        @Override
-        public void onRightMenuBtnClicked() {
-            if (slidingLayout.isRightLayoutVisible()) {
-                slidingLayout.scrollToContentFromRightMenu();
-            } else {
-                slidingLayout.initShowRightState();
-                slidingLayout.scrollToRightMenu();
-            }
+        // 设置触摸屏幕的模式 全屏：TOUCHMODE_FULLSCREEN ；边缘：TOUCHMODE_MARGIN ；不打开：TOUCHMODE_NONE
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        // 设置是否淡入淡出
+        slidingMenu.setFadeEnabled(true);
+        // 设置淡入淡出的值，只在setFadeEnabled设置为true时有效
+        slidingMenu.setFadeDegree(0.5f);
+        // 设置偏移量。说明：设置menu全部打开后，主界面剩余部分与屏幕边界的距离，值写在dimens里面:60dp
+        slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        // 设置阴影的图片
+        slidingMenu.setShadowDrawable(R.drawable.shadow);
+        // 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
+        slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
+        // 设置滑动方向
+        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
+        //slidingMenu.setMenu(R.layout.menu_layout);
+
+        // slidingMenu.setBehindScrollScale(1.0f);
+        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
+        //设置右边（二级）侧滑菜单
+        slidingMenu.setSecondaryMenu(R.layout.route_layout);
+
+
+        // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
+        //menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                slidingMenu.toggle();
+                return true;
         }
-    };
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void showLeftMenu()
+    {
+        slidingMenu.showMenu();
+    }
+
+    public void showRightMenu()
+    {
+        slidingMenu.showSecondaryMenu();
+    }
 }

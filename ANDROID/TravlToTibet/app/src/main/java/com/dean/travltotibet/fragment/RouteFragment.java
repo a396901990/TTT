@@ -40,7 +40,7 @@ public class RouteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.route_layout, null);
+        root = inflater.inflate(R.layout.main_tab_01, null);
         return root;
     }
 
