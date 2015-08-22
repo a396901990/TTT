@@ -8,5 +8,6 @@
     <dimen name="chart_header_button_height">40dp</dimen>
     <dimen name="chart_label_text_size">12sp</dimen>
     <dimen name="indicator_chartview_height">80dip</dimen>
-    <dimen name="chart_headerbar_height">140dip</dimen>
+    <dimen name="chart_header_menu_height">80dip</dimen>
+    <dimen name="chart_header_content_height">140dip</dimen>
 </resources>

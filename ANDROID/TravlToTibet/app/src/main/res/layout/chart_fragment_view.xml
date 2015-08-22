@@ -1,23 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/chartContents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <include
-            android:id="@+id/chart_header_contents"
-            layout="@layout/chart_headerbar" />
+            android:id="@+id/chart_header_view"
+            layout="@layout/chart_header_view" />
 
         <com.dean.travltotibet.ui.RouteChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/indicator"
-            android:layout_below="@+id/chart_header_contents"
+            android:layout_below="@+id/chart_header_view"
             android:background="@color/white_background"
             android:paddingTop="5dip"
             app:axisThickness="1dp"

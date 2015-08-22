@@ -11,6 +11,12 @@
         <item name="android:windowBackground">@color/gray_background</item>
     </style>
 
+    <style name="Theme.NoActionBar" parent="Theme.AppBaseTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/gray_background</item>
+    </style>
+
     <style name="Theme.White" parent="Theme.AppBaseTheme">
         <item name="android:windowBackground">@color/white_background</item>
     </style>
@@ -36,18 +42,18 @@
         <item name="android:background">@drawable/spinner_ab_holo_dark</item>
     </style>
 
-    <style name="ChartHedaerBar">
+    <style name="ChartHeaderBar">
         <item name="android:background">@color/light_sky_blue</item>
     </style>
 
-    <style name="ChartHedaerBar.Text" parent="@style/TextAppearance.Small">
+    <style name="ChartHeaderBar.Text" parent="@style/TextAppearance.Small">
         <item name="android:textColor">@color/white</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">middle</item>
         <item name="android:paddingLeft">@dimen/chart_header_text_padding_left</item>
     </style>
 
-    <style name="ChartHedaerBar.Text.Title" parent="@style/TextAppearance.Medium">
+    <style name="ChartHeaderBar.Text.Title" parent="@style/TextAppearance.Medium">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:singleLine">true</item>
@@ -55,7 +61,7 @@
         <item name="android:paddingLeft">@dimen/chart_header_text_padding_left</item>
     </style>
 
-    <style name="ChartHedaerBar.Button" parent="@style/ChartHedaerBar.Text">
+    <style name="ChartHeaderBar.Button" parent="@style/ChartHeaderBar.Text">
         <item name="android:background">@drawable/chart_header_btn</item>
         <item name="android:layout_margin">@dimen/chart_header_button_margin</item>
         <item name="android:padding">@dimen/chart_header_button_padding</item>

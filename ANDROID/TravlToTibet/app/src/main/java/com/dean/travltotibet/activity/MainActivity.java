@@ -29,7 +29,7 @@ public class MainActivity
     public void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.main_layout);
 
         initMenu();
@@ -82,7 +82,7 @@ public class MainActivity
         slidingMenu = getSlidingMenu();
 
         // 设置触摸屏幕的模式 全屏：TOUCHMODE_FULLSCREEN ；边缘：TOUCHMODE_MARGIN ；不打开：TOUCHMODE_NONE
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         // 设置是否淡入淡出
         slidingMenu.setFadeEnabled(true);
         // 设置淡入淡出的值，只在setFadeEnabled设置为true时有效
@@ -109,15 +109,15 @@ public class MainActivity
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                slidingMenu.toggle();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                slidingMenu.toggle();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     public void showLeftMenu()

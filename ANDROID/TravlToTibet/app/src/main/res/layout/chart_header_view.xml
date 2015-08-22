@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chart_header"
+    style="@style/ChartHeaderBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/chart_header_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chart_header_menu_height">
+
+        <Button
+            android:id="@+id/menu_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:layout_alignParentLeft="true"/>
+
+        <Button
+            android:id="@+id/route_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Route"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/chart_header_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+</LinearLayout>
