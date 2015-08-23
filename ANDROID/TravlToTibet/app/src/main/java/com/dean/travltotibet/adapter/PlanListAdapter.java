@@ -18,6 +18,8 @@ public class PlanListAdapter
 
     TextView detail;
 
+    TextView distance;
+
     private ArrayList<PlanListItem> mPlans;
 
     private Context context;
@@ -52,11 +54,16 @@ public class PlanListAdapter
         if (convertView == null)
         {
             LayoutInflater mInflater = LayoutInflater.from(context);
-            convertView = mInflater.inflate(R.layout.plan_list_layout, null);
+            convertView = mInflater.inflate(R.layout.plan_list_item, null);
         }
 
-        data = (TextView) convertView.findViewById(R.id.plan_list_item);
+        data = (TextView) convertView.findViewById(R.id.plan_date);
+        detail = (TextView) convertView.findViewById(R.id.plan_detail);
+        distance = (TextView) convertView.findViewById(R.id.plan_distance);
+
         data.setText(mPlans.get(position).getPlanDate());
+        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd());
+        distance.setText(mPlans.get(position).getPlanDistance());
 
         return convertView;
     }

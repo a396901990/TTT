@@ -1,32 +1,19 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
 import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.ChartActivity;
 import com.dean.travltotibet.adapter.PlanListAdapter;
-import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
-import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.model.AbstractSeries;
-import com.dean.travltotibet.model.IndicatorSeries;
-import com.dean.travltotibet.model.MountainSeries;
-import com.dean.travltotibet.model.Place;
-import com.dean.travltotibet.ui.IndicatorChartView;
-import com.dean.travltotibet.ui.RouteChartView;
-import com.dean.travltotibet.ui.SlidingLayout;
-import com.dean.travltotibet.util.ChartCrosshairUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,43 +25,72 @@ public class RouteFragment extends Fragment {
 
     private View root;
 
+    private ChartActivity chartActivity;
+
+    /**
+     * 更新路线监听器
+     */
+    public interface RouteListener {
+        void updateRoute(List<Geocode> geocodes);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.main_tab_01, null);
+        root = inflater.inflate(R.layout.route_view, null);
         return root;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //initDropdownNavigation();
-        //initPlanList();
+        chartActivity = (ChartActivity) getActivity();
+//        initDropdownNavigation();
+        initPlanList();
     }
 
     /**
-     * 初始化下拉菜单
+     * 初始化列表菜单
      */
-//    private void initPlanList()
-//    {
-//        ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
-//
-//        // 获取数据库路线
-//        List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
-//
-//        for (Routes r : routes) {
-//            mPlans.add(new PlanListAdapter.PlanListItem("D"+r.getId(), r.getStart() ,r.getEnd(), r.getDistance()));
-//        }
-//
-//        PlanListAdapter adapter = new PlanListAdapter(getActivity());
-//        adapter.setData(mPlans);
-//
-//        ListView planList = (ListView) root.findViewById(R.id.plan_list);
-//        planList.setAdapter(adapter);
-//    }
+    private void initPlanList() {
+        ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
 
-    /**
-     * 初始化下拉菜单
-     */
+        // 获取数据库路线
+        final List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
+
+        for (Routes r : routes) {
+            mPlans.add(new PlanListAdapter.PlanListItem("DAY" + r.getId(), r.getStart(), r.getEnd(), r.getDistance()));
+        }
+
+        PlanListAdapter adapter = new PlanListAdapter(getActivity());
+        adapter.setData(mPlans);
+
+        ListView planList = (ListView) root.findViewById(R.id.plan_list);
+        planList.setAdapter(adapter);
+        planList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PlanListAdapter.PlanListItem planItem = (PlanListAdapter.PlanListItem) parent.getItemAtPosition(position);
+                String date = planItem.getPlanDate();
+                String start = planItem.getPlanDetailStart();
+                String end = planItem.getPlanDetailEnd();
+
+                // 根据路线的起始和终点 获取数据
+                List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
+
+                // 更新chart视图
+                chartActivity.getChartFragment().updateRoute(geocodes);
+
+                // 关闭菜单
+                chartActivity.getSlidingMenu().toggle();
+            }
+        });
+    }
+
+
+//
+//    /**
+//     * 初始化下拉菜单
+//     */
 //    private void initDropdownNavigation()
 //    {
 //        ArrayList<PlanSpinnerAdapter.PlanNavItem> mPlans = new ArrayList<PlanSpinnerAdapter.PlanNavItem>();
@@ -114,5 +130,4 @@ public class RouteFragment extends Fragment {
 //            }
 //        });
 //    }
-
 }

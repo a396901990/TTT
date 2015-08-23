@@ -16,7 +16,7 @@ import com.dean.greendao.Geocode;
 import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.MainActivity;
+import com.dean.travltotibet.activity.ChartActivity;
 import com.dean.travltotibet.adapter.PlanSpinnerAdapter;
 import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.AbstractSeries;
@@ -25,7 +25,6 @@ import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
-import com.dean.travltotibet.ui.SlidingLayout;
 import com.dean.travltotibet.util.ChartCrosshairUtil;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class ChartFragment extends Fragment {
+public class ChartFragment extends Fragment implements RouteFragment.RouteListener{
 
     private View root;
 
@@ -47,7 +46,6 @@ public class ChartFragment extends Fragment {
     private MountainSeries series;
 
     private IndicatorSeries indicatorSeries;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,14 +119,14 @@ public class ChartFragment extends Fragment {
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).getSlidingMenu().showMenu();
+                ((ChartActivity) getActivity()).showMenu();
             }
         });
 
         routeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).getSlidingMenu().showSecondaryMenu();
+                ((ChartActivity) getActivity()).showSecondaryMenu();
             }
         });
 
@@ -242,4 +240,45 @@ public class ChartFragment extends Fragment {
         getActivity().getActionBar().setDisplayShowCustomEnabled(true);
     }
 
+    @Override
+    public void updateRoute(List<Geocode> geocodes) {
+        series = new MountainSeries();
+        indicatorSeries = new IndicatorSeries();
+
+        // 计算两个路线点起点和终点的间距，使路线在屏幕中间
+        float firstPointLength = (float) geocodes.get(0).getMileage();
+        float lastPointLength = (float) geocodes.get(geocodes.size() - 1).getMileage();
+        float pointLength = lastPointLength - firstPointLength;
+
+        for (Geocode geocode : geocodes) {
+            series.addPoint(new MountainSeries.MountainPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
+            indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation()));
+        }
+
+        // 重置图标视图数据
+        mChartView.setAxisRange(-30, 0, pointLength + 30, 6500);
+        mChartView.addSeries(series);
+        mChartView.initCrosshair();
+
+        // 重置指示视图数据
+        mIndicatorView.addSeries(indicatorSeries);
+        mIndicatorView.initIndicator();
+        mIndicatorView.setChartView(mChartView);
+
+        // 设置监听
+        mChartView.addCrosshairPaintedListener(new ChartCrosshairUtil.OnCrosshairPainted() {
+
+            @Override
+            public void onCrosshairPainted(AbstractPoint point) {
+                updateHeader(point);
+            }
+        });
+        mChartView.setPointListener(new AbstractSeries.PointListener() {
+
+            @Override
+            public void pointOnTouched(AbstractPoint point) {
+                updateHeader(point);
+            }
+        });
+    }
 }
