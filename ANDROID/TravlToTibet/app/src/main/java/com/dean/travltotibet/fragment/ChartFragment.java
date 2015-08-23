@@ -3,12 +3,14 @@ package com.dean.travltotibet.fragment;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,7 +35,7 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class ChartFragment extends Fragment implements RouteFragment.RouteListener{
+public class ChartFragment extends Fragment implements RouteFragment.RouteListener {
 
     private View root;
 
@@ -66,47 +68,8 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
         // 初始化header menu两侧按钮
         initHeaderButton();
 
-        // 根据路线的起始和终点 获取数据
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeList();
-
-        series = new MountainSeries();
-        indicatorSeries = new IndicatorSeries();
-
-        // 计算两个路线点起点和终点的间距，使路线在屏幕中间
-        float firstPointLength = (float) geocodes.get(0).getMileage();
-        float lastPointLength = (float) geocodes.get(geocodes.size() - 1).getMileage();
-        float pointLength = lastPointLength - firstPointLength;
-
-        for (Geocode geocode : geocodes) {
-            series.addPoint(new MountainSeries.MountainPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
-            indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation()));
-        }
-
-        // 重置图标视图数据
-        mChartView.setAxisRange(-30, 0, pointLength + 30, 6500);
-        mChartView.addSeries(series);
-        mChartView.initCrosshair();
-
-        // 重置指示视图数据
-        mIndicatorView.addSeries(indicatorSeries);
-        mIndicatorView.initIndicator();
-        mIndicatorView.setChartView(mChartView);
-
-        // 设置监听
-        mChartView.addCrosshairPaintedListener(new ChartCrosshairUtil.OnCrosshairPainted() {
-
-            @Override
-            public void onCrosshairPainted(AbstractPoint point) {
-                updateHeader(point);
-            }
-        });
-        mChartView.setPointListener(new AbstractSeries.PointListener() {
-
-            @Override
-            public void pointOnTouched(AbstractPoint point) {
-                updateHeader(point);
-            }
-        });
+        updateRoute("叶城县", "拉萨");
+        updateHeader("叶城县", "拉萨", "新藏线");
     }
 
     /**
@@ -114,7 +77,7 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
      */
     private void initHeaderButton() {
         Button menuBtn = (Button) mHeaderView.findViewById(R.id.menu_btn);
-        Button routeBtn = (Button) mHeaderView.findViewById(R.id.route_btn);
+        LinearLayout routeBtn = (LinearLayout) mHeaderView.findViewById(R.id.route_btn);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,8 +203,18 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
         getActivity().getActionBar().setDisplayShowCustomEnabled(true);
     }
 
+    /**
+     * RouteListener回调函数，用于更新chart视图路线
+     *
+     * @param start 初始点
+     * @param end   终点
+     */
     @Override
-    public void updateRoute(List<Geocode> geocodes) {
+    public void updateRoute(String start, String end) {
+
+        // 根据路线的起始和终点 获取数据
+        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
+
         series = new MountainSeries();
         indicatorSeries = new IndicatorSeries();
 
@@ -280,5 +253,20 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
                 updateHeader(point);
             }
         });
+    }
+
+    /**
+     * RouteListener回调函数，用于更新chart视图路线
+     *
+     * @param start 初始点
+     * @param end   终点
+     */
+    @Override
+    public void updateHeader(String start, String end, String date) {
+        TextView header_date = (TextView) root.findViewById(R.id.header_menu_date);
+        TextView header_detail = (TextView) root.findViewById(R.id.header_menu_detail);
+
+        header_date.setText(date);
+        header_detail.setText(start + "-" + end);
     }
 }

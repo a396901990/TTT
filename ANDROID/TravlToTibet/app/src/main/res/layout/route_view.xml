@@ -2,19 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <TextView
-        android:textSize="26dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/overall_route"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_white_bottom"
-        android:text="新藏线 叶城-拉萨 2640KM"
-        />
+        android:background="@drawable/nav_row_bg"
+        android:clickable="true"
+        android:padding="3dip">
+
+        <TextView
+            android:id="@+id/overall_route_date"
+            style="@style/PlanList.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/overall_route_detail"
+            style="@style/PlanList.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/overall_route_distance"
+            style="@style/PlanList.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dip"
+        android:background="@color/plan_row_divider" />
+
     <ListView
         android:id="@+id/plan_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>
 

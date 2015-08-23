@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
 import com.dean.greendao.Routes;
@@ -31,7 +33,9 @@ public class RouteFragment extends Fragment {
      * 更新路线监听器
      */
     public interface RouteListener {
-        void updateRoute(List<Geocode> geocodes);
+        void updateRoute(String start, String end);
+
+        void updateHeader(String start, String end, String date);
     }
 
     @Override
@@ -45,7 +49,34 @@ public class RouteFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         chartActivity = (ChartActivity) getActivity();
 //        initDropdownNavigation();
+        updataPlanOverall("新藏线");
         initPlanList();
+    }
+
+    /**
+     * 初始化总览视图
+     */
+    private void updataPlanOverall(final String routeName) {
+        // 根据routeName获取路线名字 从数据库找出并跟新起点，终点和距离信息
+        final String start = "叶城县";
+        final String end = "拉萨";
+        final String dis = "2650KM";
+
+        TextView date = (TextView) root.findViewById(R.id.overall_route_date);
+        TextView detail = (TextView) root.findViewById(R.id.overall_route_detail);
+        TextView distance = (TextView) root.findViewById(R.id.overall_route_distance);
+
+        date.setText(routeName);
+        detail.setText(start + "-" + end);
+        distance.setText(dis);
+
+        RelativeLayout overall = (RelativeLayout) root.findViewById(R.id.overall_route);
+        overall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateChart(start, end, routeName);
+            }
+        });
     }
 
     /**
@@ -70,20 +101,32 @@ public class RouteFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PlanListAdapter.PlanListItem planItem = (PlanListAdapter.PlanListItem) parent.getItemAtPosition(position);
-                String date = planItem.getPlanDate();
                 String start = planItem.getPlanDetailStart();
                 String end = planItem.getPlanDetailEnd();
-
-                // 根据路线的起始和终点 获取数据
-                List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
+                String date = planItem.getPlanDate();
 
                 // 更新chart视图
-                chartActivity.getChartFragment().updateRoute(geocodes);
-
-                // 关闭菜单
-                chartActivity.getSlidingMenu().toggle();
+                updateChart(start, end, date);
             }
         });
+    }
+
+    /**
+     * 根据路线的起始和终点获取数据，并更新chart视图
+     *
+     * @param start 初始地点
+     * @param end   终点
+     */
+    public void updateChart(String start, String end, String date) {
+
+        // 更新chart视图
+        chartActivity.getChartFragment().updateRoute(start, end);
+        chartActivity.getChartFragment().updateHeader(start, end, date);
+
+        // 关闭菜单
+        if (chartActivity.getSlidingMenu().isSecondaryMenuShowing()) {
+            chartActivity.getSlidingMenu().toggle();
+        }
     }
 
 

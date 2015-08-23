@@ -21,4 +21,5 @@
     <color name="teal">#009688</color>
     <color name="lime">#CDDC39</color>
     <color name="blue_gray">#607D8B</color>
+    <color name="plan_row_divider">#4C4C4C</color>
 </resources>

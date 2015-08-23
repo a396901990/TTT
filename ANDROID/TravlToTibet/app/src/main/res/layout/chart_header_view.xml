@@ -12,20 +12,43 @@
         android:layout_height="@dimen/chart_header_menu_height">
 
         <Button
-            style="@style/ChartHeaderBar.Button"
             android:id="@+id/menu_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu"
-            android:layout_alignParentLeft="true"/>
-
-        <Button
             style="@style/ChartHeaderBar.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="Menu" />
+
+        <TextView
+            android:id="@+id/header_menu_detail"
+            style="@style/TextAppearance.Medium.White"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center" />
+
+        <LinearLayout
             android:id="@+id/route_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Route"
-            android:layout_alignParentRight="true"/>
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/header_menu_date"
+                style="@style/TextAppearance.Small.White"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_media_play" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
