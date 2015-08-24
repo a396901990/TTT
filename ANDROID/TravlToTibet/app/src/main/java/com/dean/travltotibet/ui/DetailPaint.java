@@ -23,6 +23,8 @@ public class DetailPaint
 
     private int category;
 
+    private int count;
+
     private RectF mRect = new RectF(RouteChartView.AXIS_X_MIN, RouteChartView.AXIS_Y_MIN, RouteChartView.AXIS_X_MAX, RouteChartView.AXIS_Y_MAX);
 
     private Paint textRectPaint = new Paint();
@@ -31,6 +33,8 @@ public class DetailPaint
 
     public DetailPaint(int category, int pointCount) {
         this.category = category;
+        this.count = pointCount;
+
         this.setAntiAlias(true);
 
         switch (category) {
@@ -161,19 +165,38 @@ public class DetailPaint
     public void drawText(Canvas canvas, AbstractPoint point, float x, float y) {
         String name = point.getName();
         float margin = getTextSize();
-
-        // calculation text rectangle size and position
         float padding = getTextSize() / 4;
+
         float left = x - this.measureText(name) / 2 - padding;
         float right = left + this.measureText(name) + padding + padding;
-        float top = y - margin + this.ascent() - padding;
-        float bottom = top + padding + padding + margin + this.descent();
+        float top;
+        float bottom;
+
+        // 文字Y坐标
+        float textY;
+
+        // 如果点数大于10，倒着显示
+        if (count > POINT_MIN && (getCategory() == Constants.VILLAGE || getCategory() == Constants.TOWN)) {
+
+            top = y + padding + padding;
+            bottom = top + margin + this.descent();
+            textY = y + margin + padding + padding;
+
+        } else {
+
+            top = y - margin + this.ascent() - padding;
+            bottom = top + padding + padding + margin + this.descent();
+            textY = y - margin;
+        }
+
+        // calculation text rectangle size and position
         RectF rect = new RectF(left, top, right, bottom);
+
         canvas.drawRoundRect(rect, 8, 8, textRectPaint);
         if (getTextSize() != 0) {
             canvas.drawCircle(x, y, 5, textRectPaint);
         }
-        canvas.drawText(name, x, y - margin, this);
+        canvas.drawText(name, x, textY, this);
         // expand point border in order to touch easy
         // point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
         point.setPointRect(rect);
