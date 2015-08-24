@@ -14,6 +14,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.DetailPaint;
@@ -53,19 +54,34 @@ public class MountainSeries
 
         mMountainColor = TTTApplication.getResourceUtil().chart_mountain_shader;
         
-        cityPaint = new DetailPaint(Constants.CITY);
-        countyPaint = new DetailPaint(Constants.COUNTY);
-        townPaint = new DetailPaint(Constants.TOWN);
-        villagePaint = new DetailPaint(Constants.VILLAGE);
-        mountainPaint = new DetailPaint(Constants.MOUNTAIN);
-        hotelPaint = new DetailPaint(Constants.HOTEL);
-        viewPaint = new DetailPaint(Constants.SCENIC_SPOT);
-
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
         mLinePaint.setStyle(Style.FILL);
         mLinePaint.setStrokeWidth(3);
         mLinePaint.setColor(TTTApplication.getResourceUtil().chart_line);
+    }
+
+    public void initPaint() {
+        cityPaint = new DetailPaint(Constants.CITY, calcPoint());
+        countyPaint = new DetailPaint(Constants.COUNTY, calcPoint());
+        townPaint = new DetailPaint(Constants.TOWN, calcPoint());
+        villagePaint = new DetailPaint(Constants.VILLAGE, calcPoint());
+        mountainPaint = new DetailPaint(Constants.MOUNTAIN, calcPoint());
+        hotelPaint = new DetailPaint(Constants.HOTEL, calcPoint());
+        viewPaint = new DetailPaint(Constants.SCENIC_SPOT, calcPoint());
+    }
+
+    public int calcPoint() {
+        List<AbstractPoint> points = getPoints();
+        int count = 0;
+        for (AbstractPoint p : points) {
+            if (p.getCategory() != 0) {
+                count ++;
+            }
+        }
+//        Log.e("points:  ", points.size()+"");
+//        Log.e("count:  ", count+"");
+        return count;
     }
 
     @Override
@@ -137,6 +153,7 @@ public class MountainSeries
         {
             if (!TextUtils.isEmpty(point.getName()) && point.getCategory() != Constants.PATH)
             {
+                mPaint = new DetailPaint(point.getCategory(), calcPoint());
                 switch (point.getCategory())
                 {
                 case Constants.CITY:

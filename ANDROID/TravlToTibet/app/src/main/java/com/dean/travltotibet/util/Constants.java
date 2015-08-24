@@ -36,7 +36,7 @@ public final class Constants
     public static final int STORE = 10;
 
     // 路径
-    public static final int PATH = 11;
+    public static final int PATH = 0;
 
     public static final String NAME_HEIGHT = "海拔：";
     

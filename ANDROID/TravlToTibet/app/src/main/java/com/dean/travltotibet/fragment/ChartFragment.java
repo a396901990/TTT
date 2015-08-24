@@ -228,8 +228,11 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
             indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation()));
         }
 
+        series.initPaint();
+
         // 重置图标视图数据
-        mChartView.setAxisRange(-30, 0, pointLength + 30, 6500);
+        // 远离屏幕左右间隔是起点终点长的1/10
+        mChartView.setAxisRange(-pointLength/10, 0, pointLength + pointLength/10, 6500);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 

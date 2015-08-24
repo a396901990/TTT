@@ -10,8 +10,7 @@ import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.util.Constants;
 
 public class DetailPaint
-    extends Paint
-{
+        extends Paint {
     private float maxSize;
 
     private float minSize;
@@ -28,64 +27,94 @@ public class DetailPaint
 
     private Paint textRectPaint = new Paint();
 
-    public DetailPaint( int category )
-    {
+    private static int POINT_MIN = 10;
+
+    public DetailPaint(int category, int pointCount) {
         this.category = category;
         this.setAntiAlias(true);
 
-        switch (category)
-        {
-        case Constants.CITY:
-        case Constants.COUNTY:
-            maxSize = 25;
-            minSize = 10;
-            displayPercent = 1.0d;
-            stopPercent = 0.5d;
-            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_city_paint;
-            break;
+        switch (category) {
+            case Constants.CITY:
+            case Constants.COUNTY:
+                if (pointCount < POINT_MIN) {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                } else {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                }
+                maxSize = 28;
+                minSize = 20;
+                textRectColor = TTTApplication.getResourceUtil().chart_text_rect_city_paint;
+                break;
 
-        case Constants.TOWN:
-            maxSize = 20;
-            minSize = 10;
-            displayPercent = 0.8d;
-            stopPercent = 0.4d;
-            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_town_paint;
-            break;
+            case Constants.TOWN:
+                if (pointCount < POINT_MIN) {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                } else {
+                    displayPercent = 0.8d;
+                    stopPercent = 0.4d;
+                }
+                maxSize = 25;
+                minSize = 15;
+                textRectColor = TTTApplication.getResourceUtil().chart_text_rect_town_paint;
+                break;
 
-        case Constants.VILLAGE:
-            maxSize = 20;
-            minSize = 10;
-            displayPercent = 0.8d;
-            stopPercent = 0.4d;
-            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_village_paint;
-            break;
-
+            case Constants.VILLAGE:
+                maxSize = 25;
+                minSize = 15;
+                if (pointCount < POINT_MIN) {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                } else {
+                    displayPercent = 0.8d;
+                    stopPercent = 0.4d;
+                }
+                textRectColor = TTTApplication.getResourceUtil().chart_text_rect_village_paint;
+                break;
 
             case Constants.HOTEL:
                 maxSize = 16;
                 minSize = 10;
-                displayPercent = 0.2d;
-                stopPercent = 0.1d;
+                if (pointCount < POINT_MIN) {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                } else {
+                    displayPercent = 0.5d;
+                    stopPercent = 0.3d;
+                }
                 textRectColor = TTTApplication.getResourceUtil().chart_text_rect_hotel_paint;
                 break;
 
             case Constants.SCENIC_SPOT:
                 maxSize = 16;
                 minSize = 10;
-                displayPercent = 0.2d;
-                stopPercent = 0.1d;
+                if (pointCount < POINT_MIN) {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                } else {
+                    displayPercent = 0.5d;
+                    stopPercent = 0.3d;
+                }
                 textRectColor = TTTApplication.getResourceUtil().chart_text_rect_view_paint;
                 break;
-        case Constants.MOUNTAIN:
-            maxSize = 20;
-            minSize = 10;
-            displayPercent = 0.2d;
-            stopPercent = 0.1d;
-            textRectColor = TTTApplication.getResourceUtil().chart_text_rect_mountain_paint;
-            break;
 
-        default:
-            break;
+            case Constants.MOUNTAIN:
+                maxSize = 25;
+                minSize = 18;
+                if (pointCount < POINT_MIN) {
+                    displayPercent = 1.0d;
+                    stopPercent = 0.5d;
+                } else {
+                    displayPercent = 0.8d;
+                    stopPercent = 0.5d;
+                }
+                textRectColor = TTTApplication.getResourceUtil().chart_text_rect_mountain_paint;
+                break;
+
+            default:
+                break;
         }
 
         setColor(TTTApplication.getResourceUtil().chart_text_paint);
@@ -100,33 +129,23 @@ public class DetailPaint
     /**
      * 计算字体大小 当currentViewPoint扩大到displayPercent时显示并放大字体，当扩大到stopPercent时停止放大
      *
-     * @param point
-     *            点
-     * @param contentRect
-     *            屏幕
-     * @param currentViewPoint
-     *            视口
+     * @param point            点
+     * @param contentRect      屏幕
+     * @param currentViewPoint 视口
      */
-    public void calcSize( AbstractPoint point, Rect contentRect, RectF currentViewPoint )
-    {
+    public void calcSize(AbstractPoint point, Rect contentRect, RectF currentViewPoint) {
         // 重新计算当前屏幕大小
         mRect = new RectF(RouteChartView.AXIS_X_MIN, RouteChartView.AXIS_Y_MIN, RouteChartView.AXIS_X_MAX, RouteChartView.AXIS_Y_MAX);
 
-        if (currentViewPoint.width() <= mRect.width() * displayPercent)
-        {
-            if (currentViewPoint.width() > mRect.width() * stopPercent)
-            {
+        if (currentViewPoint.width() <= mRect.width() * displayPercent) {
+            if (currentViewPoint.width() > mRect.width() * stopPercent) {
                 double p = (mRect.width() - currentViewPoint.width()) / (mRect.width() * (1.0d - stopPercent));
                 float textSize = (float) (minSize + (maxSize - minSize) * p);
                 setTextSize(textSize);
-            }
-            else
-            {
+            } else {
                 setTextSize(maxSize);
             }
-        }
-        else
-        {
+        } else {
             setTextSize(0);
         }
     }
@@ -139,8 +158,7 @@ public class DetailPaint
      * @param x
      * @param y
      */
-    public void drawText( Canvas canvas, AbstractPoint point, float x, float y )
-    {
+    public void drawText(Canvas canvas, AbstractPoint point, float x, float y) {
         String name = point.getName();
         float margin = getTextSize();
 
@@ -161,18 +179,15 @@ public class DetailPaint
         point.setPointRect(rect);
     }
 
-    public void calcTextRect( AbstractPoint point )
-    {
+    public void calcTextRect(AbstractPoint point) {
 
     }
 
-    public int getCategory()
-    {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory( int category )
-    {
+    public void setCategory(int category) {
         this.category = category;
     }
 
