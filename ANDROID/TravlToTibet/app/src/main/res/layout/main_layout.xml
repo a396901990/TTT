@@ -9,10 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 
-    <FrameLayout
-        android:id="@+id/chartFragment"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:background="#FFFFFF"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
 
 </LinearLayout>
 

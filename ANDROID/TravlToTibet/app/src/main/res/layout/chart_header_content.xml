@@ -44,24 +44,28 @@
 
         <Button
             style="@style/ChartHeaderBar.Button"
+            android:id="@+id/bt1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/chart_header_button_height"
             android:text="天气"></Button>
 
         <Button
             style="@style/ChartHeaderBar.Button"
+            android:id="@+id/bt2"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/chart_header_button_height"
             android:text="食宿"></Button>
 
         <Button
             style="@style/ChartHeaderBar.Button"
+            android:id="@+id/bt3"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/chart_header_button_height"
             android:text="景点"></Button>
 
         <Button
             style="@style/ChartHeaderBar.Button"
+            android:id="@+id/bt4"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/chart_header_button_height"
             android:text="更多"></Button>

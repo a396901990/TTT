@@ -27,6 +27,7 @@ sourceSets {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v13:+'
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile project(':SlidingMenu/library')
     compile 'de.greenrobot:greendao:1.3.1'

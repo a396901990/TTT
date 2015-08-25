@@ -1,8 +1,10 @@
 package com.dean.travltotibet.activity;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.fragment.ChartFragment;
 import com.dean.travltotibet.fragment.MenuFragment;
 import com.dean.travltotibet.fragment.RouteFragment;
+import com.dean.travltotibet.fragment.TestFragment;
 import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.ui.SlidingLayout;
@@ -12,6 +14,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +22,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class ChartActivity
     extends SlidingFragmentActivity
@@ -33,6 +38,10 @@ public class ChartActivity
 
     private View mHeaderView;
 
+    private ViewPager mPager;
+
+    private ArrayList<Fragment> fragmentsList;
+
     public void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
@@ -42,7 +51,25 @@ public class ChartActivity
         initMenu();
         initHeader();
         initFragment();
+        initViewPager();
+    }
 
+    private void initViewPager() {
+        mPager = (ViewPager) findViewById(R.id.vPager);
+        fragmentsList = new ArrayList<Fragment>();
+
+        Fragment chartFragment = ChartFragment.newInstance();
+        Fragment groupFragment = TestFragment.newInstance("Hello Group.");
+        Fragment friendsFragment=TestFragment.newInstance("Hello Friends.");
+        Fragment chatFragment=TestFragment.newInstance("Hello Chat.");
+
+        fragmentsList.add(chartFragment);
+        fragmentsList.add(groupFragment);
+        fragmentsList.add(friendsFragment);
+        fragmentsList.add(chatFragment);
+
+        mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
+        mPager.setCurrentItem(0);
     }
 
     private void initHeader() {
@@ -50,7 +77,28 @@ public class ChartActivity
 
         // 初始化header menu两侧按钮
         initHeaderButton();
+
+        Button tvTabActivity = (Button) findViewById(R.id.bt1);
+        Button tvTabGroups = (Button) findViewById(R.id.bt2);
+        Button tvTabFriends = (Button) findViewById(R.id.bt3);
+        Button tvTabChat = (Button) findViewById(R.id.bt4);
+
+        tvTabActivity.setOnClickListener(new MyOnClickListener(0));
+        tvTabGroups.setOnClickListener(new MyOnClickListener(1));
+        tvTabFriends.setOnClickListener(new MyOnClickListener(2));
+        tvTabChat.setOnClickListener(new MyOnClickListener(3));
     }
+
+    public class MyOnClickListener implements View.OnClickListener {
+        private int index = 0;
+        public MyOnClickListener(int i) {
+            index = i;
+        }
+        @Override
+        public void onClick(View v) {
+            mPager.setCurrentItem(index);
+        }
+    };
 
     private void initFragment() {
         // menu fragment
@@ -65,17 +113,17 @@ public class ChartActivity
             menuFragment = (MenuFragment) leftFragment;
         }
 
-        // chart fragment
-        Fragment contentFragment = getFragmentManager().findFragmentById(R.id.chartFragment);
-        if (contentFragment == null)
-        {
-            chartFragment = new ChartFragment();
-            getFragmentManager().beginTransaction().replace(R.id.chartFragment, chartFragment).commit();
-        }
-        else
-        {
-            chartFragment = (ChartFragment) contentFragment;
-        }
+//        // chart fragment
+//        Fragment contentFragment = getFragmentManager().findFragmentById(R.id.chartFragment);
+//        if (contentFragment == null)
+//        {
+//            chartFragment = new ChartFragment();
+//            getFragmentManager().beginTransaction().replace(R.id.chartFragment, chartFragment).commit();
+//        }
+//        else
+//        {
+//            chartFragment = (ChartFragment) contentFragment;
+//        }
 
         // route fragment
         Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);

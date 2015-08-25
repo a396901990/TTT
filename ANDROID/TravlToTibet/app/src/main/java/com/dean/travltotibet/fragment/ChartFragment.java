@@ -49,6 +49,10 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 
     private ChartActivity chartActivity;
 
+    public static ChartFragment newInstance() {
+        return new ChartFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.chart_fragment_view, container, false);
