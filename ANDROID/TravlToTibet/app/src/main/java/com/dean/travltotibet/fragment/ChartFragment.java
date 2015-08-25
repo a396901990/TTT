@@ -43,11 +43,11 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 
     private IndicatorChartView mIndicatorView;
 
-    private View mHeaderView;
-
     private MountainSeries series;
 
     private IndicatorSeries indicatorSeries;
+
+    private ChartActivity chartActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,60 +58,35 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        chartActivity = (ChartActivity)getActivity();
 
         // 初始化视图
-        mHeaderView = root.findViewById(R.id.chart_header_view);
         mChartView = (RouteChartView) root.findViewById(R.id.chart);
         mIndicatorView = (IndicatorChartView) root.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
 
-        // 初始化header menu两侧按钮
-        initHeaderButton();
-
         updateRoute("叶城县", "拉萨");
-        updateHeader("叶城县", "拉萨", "新藏线");
+        // need improve
+        chartActivity.updateHeader("叶城县", "拉萨", "新藏线");
     }
 
-    /**
-     * 初始化header左右两侧按钮
-     */
-    private void initHeaderButton() {
-        Button menuBtn = (Button) mHeaderView.findViewById(R.id.menu_btn);
-        LinearLayout routeBtn = (LinearLayout) mHeaderView.findViewById(R.id.route_btn);
-
-        menuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ChartActivity) getActivity()).showMenu();
-            }
-        });
-
-        routeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ChartActivity) getActivity()).showSecondaryMenu();
-            }
-        });
-
-    }
-
-    /**
-     * 更新标题头
-     */
-    protected void updateHeader(AbstractPoint point) {
-        TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
-        TextView posHeight = (TextView) mHeaderView.findViewById(R.id.header_position_height);
-        TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
-
-        Place place = series.getPlace(point);
-
-        if (place != null) {
-            posHeight.setText(place.getHeight());
-            posMileage.setText(place.getMileage());
-            posName.setText(place.getName());
-        }
-
-    }
+//    /**
+//     * 更新标题头
+//     */
+//    protected void updateHeader(AbstractPoint point) {
+//        TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
+//        TextView posHeight = (TextView) mHeaderView.findViewById(R.id.header_position_height);
+//        TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
+//
+//        Place place = series.getPlace(point);
+//
+//        if (place != null) {
+//            posHeight.setText(place.getHeight());
+//            posMileage.setText(place.getMileage());
+//            posName.setText(place.getName());
+//        }
+//
+//    }
 
     /**
      * 初始化下拉菜单
@@ -178,14 +153,16 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 
                     @Override
                     public void onCrosshairPainted(AbstractPoint point) {
-                        updateHeader(point);
+                        Place place = series.getPlace(point);
+                        chartActivity.updateHeader(place);
                     }
                 });
                 mChartView.setPointListener(new AbstractSeries.PointListener() {
 
                     @Override
                     public void pointOnTouched(AbstractPoint point) {
-                        updateHeader(point);
+                        Place place = series.getPlace(point);
+                        chartActivity.updateHeader(place);
                     }
                 });
 
@@ -246,30 +223,17 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 
             @Override
             public void onCrosshairPainted(AbstractPoint point) {
-                updateHeader(point);
+                Place place = series.getPlace(point);
+                chartActivity.updateHeader(place);
             }
         });
         mChartView.setPointListener(new AbstractSeries.PointListener() {
 
             @Override
             public void pointOnTouched(AbstractPoint point) {
-                updateHeader(point);
+                Place place = series.getPlace(point);
+                chartActivity.updateHeader(place);
             }
         });
-    }
-
-    /**
-     * RouteListener回调函数，用于更新chart视图路线
-     *
-     * @param start 初始点
-     * @param end   终点
-     */
-    @Override
-    public void updateHeader(String start, String end, String date) {
-        TextView header_date = (TextView) root.findViewById(R.id.header_menu_date);
-        TextView header_detail = (TextView) root.findViewById(R.id.header_menu_detail);
-
-        header_date.setText(date);
-        header_detail.setText(start + "-" + end);
     }
 }

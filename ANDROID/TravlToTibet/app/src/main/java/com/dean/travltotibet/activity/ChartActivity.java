@@ -3,6 +3,8 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.ChartFragment;
 import com.dean.travltotibet.fragment.MenuFragment;
 import com.dean.travltotibet.fragment.RouteFragment;
+import com.dean.travltotibet.model.AbstractPoint;
+import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.ui.SlidingLayout;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -13,7 +15,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class ChartActivity
     extends SlidingFragmentActivity
@@ -26,6 +31,8 @@ public class ChartActivity
 
     SlidingMenu slidingMenu;
 
+    private View mHeaderView;
+
     public void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
@@ -33,7 +40,16 @@ public class ChartActivity
         setContentView(R.layout.main_layout);
 
         initMenu();
+        initHeader();
         initFragment();
+
+    }
+
+    private void initHeader() {
+        mHeaderView = this.findViewById(R.id.chart_header);
+
+        // 初始化header menu两侧按钮
+        initHeaderButton();
     }
 
     private void initFragment() {
@@ -108,6 +124,58 @@ public class ChartActivity
 
 
     }
+
+    /**
+     * 初始化header左右两侧按钮
+     */
+    private void initHeaderButton() {
+        Button menuBtn = (Button) mHeaderView.findViewById(R.id.menu_btn);
+        LinearLayout routeBtn = (LinearLayout) mHeaderView.findViewById(R.id.route_btn);
+
+        menuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLeftMenu();
+            }
+        });
+
+        routeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRightMenu();
+            }
+        });
+    }
+
+    /**
+     * 更新标题栏文字
+     * @param start
+     * @param end
+     * @param date
+     */
+    public void updateHeader(String start, String end, String date) {
+        TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
+        TextView header_detail = (TextView) this.findViewById(R.id.header_menu_detail);
+
+        header_date.setText(date);
+        header_detail.setText(start + "-" + end);
+    }
+
+    /**
+     * 更新标题头
+     */
+    public void updateHeader(Place place) {
+        TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
+        TextView posHeight = (TextView) mHeaderView.findViewById(R.id.header_position_height);
+        TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
+
+        if (place != null) {
+            posHeight.setText(place.getHeight());
+            posMileage.setText(place.getMileage());
+            posName.setText(place.getName());
+        }
+    }
+
 
     public MenuFragment getMenuFragment() {
         return menuFragment;

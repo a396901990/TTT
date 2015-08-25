@@ -8,16 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/chart_header_view"
-            layout="@layout/chart_header_view" />
-
         <com.dean.travltotibet.ui.RouteChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/indicator"
-            android:layout_below="@+id/chart_header_view"
             android:background="@color/white_background"
             android:paddingTop="5dip"
             app:axisThickness="1dp"

@@ -34,8 +34,6 @@ public class RouteFragment extends Fragment {
      */
     public interface RouteListener {
         void updateRoute(String start, String end);
-
-        void updateHeader(String start, String end, String date);
     }
 
     @Override
@@ -121,7 +119,8 @@ public class RouteFragment extends Fragment {
 
         // 更新chart视图
         chartActivity.getChartFragment().updateRoute(start, end);
-        chartActivity.getChartFragment().updateHeader(start, end, date);
+        // 更新标题栏文字
+        chartActivity.updateHeader(start, end, date);
 
         // 关闭菜单
         if (chartActivity.getSlidingMenu().isSecondaryMenuShowing()) {
