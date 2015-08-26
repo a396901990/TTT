@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 
-    <android.support.v4.view.ViewPager
+    <com.dean.travltotibet.ui.NoSlidingViewPager
         android:id="@+id/vPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
         android:layout_weight="1.0"
         android:background="#FFFFFF"
         android:flipInterval="30"
-        android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
+        android:persistentDrawingCache="animation"></com.dean.travltotibet.ui.NoSlidingViewPager>
 
 </LinearLayout>
 

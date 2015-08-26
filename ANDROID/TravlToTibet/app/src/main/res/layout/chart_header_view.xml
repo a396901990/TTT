@@ -52,9 +52,76 @@
 
     </RelativeLayout>
 
-    <include
-        layout="@layout/chart_header_content"
+    <RelativeLayout
+        style="@style/ChartHeaderBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></include>
+        android:layout_height="@dimen/chart_header_content_height">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/header_position_name"
+                style="@style/ChartHeaderBar.Text.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Test"></TextView>
+
+            <TextView
+                android:id="@+id/header_position_height"
+                style="@style/ChartHeaderBar.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1414M"></TextView>
+
+            <TextView
+                android:id="@+id/header_position_mileage"
+                style="@style/ChartHeaderBar.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1515H"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/header_tab_btn_width"
+            android:layout_height="@dimen/header_tab_btn_height"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bt1"
+                style="@style/TextAppearance.Large.Withe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="海拔" />
+
+            <TextView
+                android:id="@+id/bt2"
+                style="@style/TextAppearance.Large.Withe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="地图" />
+
+            <TextView
+                android:id="@+id/bt3"
+                style="@style/TextAppearance.Large.Withe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="攻略" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

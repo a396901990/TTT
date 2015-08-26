@@ -1,33 +1,27 @@
 package com.dean.travltotibet.activity;
+
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.fragment.ChartFragment;
 import com.dean.travltotibet.fragment.MenuFragment;
 import com.dean.travltotibet.fragment.RouteFragment;
 import com.dean.travltotibet.fragment.TestFragment;
-import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.Place;
-import com.dean.travltotibet.ui.SlidingLayout;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class ChartActivity
-    extends SlidingFragmentActivity
-{
+        extends SlidingFragmentActivity {
     MenuFragment menuFragment;
 
     ChartFragment chartFragment;
@@ -42,8 +36,11 @@ public class ChartActivity
 
     private ArrayList<Fragment> fragmentsList;
 
-    public void onCreate( Bundle savedInstanceState )
-    {
+    TextView heightBtn;
+    TextView tvTabGroups;
+    TextView tvTabFriends;
+
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.main_layout);
@@ -56,19 +53,21 @@ public class ChartActivity
 
     private void initViewPager() {
         mPager = (ViewPager) findViewById(R.id.vPager);
+
         fragmentsList = new ArrayList<Fragment>();
 
-        Fragment chartFragment = ChartFragment.newInstance();
+        chartFragment = ChartFragment.newInstance();
         Fragment groupFragment = TestFragment.newInstance("Hello Group.");
-        Fragment friendsFragment=TestFragment.newInstance("Hello Friends.");
-        Fragment chatFragment=TestFragment.newInstance("Hello Chat.");
+        Fragment friendsFragment = TestFragment.newInstance("Hello Friends.");
 
         fragmentsList.add(chartFragment);
         fragmentsList.add(groupFragment);
         fragmentsList.add(friendsFragment);
-        fragmentsList.add(chatFragment);
 
         mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
+
+        // 设置默认点击btn
+        btnSelected(heightBtn);
         mPager.setCurrentItem(0);
     }
 
@@ -78,38 +77,65 @@ public class ChartActivity
         // 初始化header menu两侧按钮
         initHeaderButton();
 
-        Button tvTabActivity = (Button) findViewById(R.id.bt1);
-        Button tvTabGroups = (Button) findViewById(R.id.bt2);
-        Button tvTabFriends = (Button) findViewById(R.id.bt3);
-        Button tvTabChat = (Button) findViewById(R.id.bt4);
+        heightBtn = (TextView) findViewById(R.id.bt1);
+        tvTabGroups = (TextView) findViewById(R.id.bt2);
+        tvTabFriends = (TextView) findViewById(R.id.bt3);
 
-        tvTabActivity.setOnClickListener(new MyOnClickListener(0));
+        heightBtn.setOnClickListener(new MyOnClickListener(0));
         tvTabGroups.setOnClickListener(new MyOnClickListener(1));
         tvTabFriends.setOnClickListener(new MyOnClickListener(2));
-        tvTabChat.setOnClickListener(new MyOnClickListener(3));
     }
 
     public class MyOnClickListener implements View.OnClickListener {
         private int index = 0;
+
         public MyOnClickListener(int i) {
             index = i;
         }
+
         @Override
         public void onClick(View v) {
+
+            // 每次点击不同按钮式重置所有按钮颜色和背景
+            resetBtnColorAndBackground();
+
+            // 设置新颜色
+            btnSelected(v);
+
+            // 变换fragment
             mPager.setCurrentItem(index);
         }
-    };
+    }
+
+    /**
+     * 选中btn变换颜色和背景
+     * @param v
+     */
+    public void btnSelected(View v) {
+        v.setBackgroundResource(R.drawable.btn_write_background);
+        ((TextView) v).setTextColor(getResources().getColor(R.color.light_sky_blue));
+    }
+
+
+    /**
+     * 每次点击不同按钮式重置所有按钮颜色和背景
+     */
+    private void resetBtnColorAndBackground() {
+        heightBtn.setBackgroundResource(R.drawable.btn_blue_background);
+        tvTabGroups.setBackgroundResource(R.drawable.btn_blue_background);
+        tvTabFriends.setBackgroundResource(R.drawable.btn_blue_background);
+        heightBtn.setTextColor(getResources().getColor(R.color.white_background));
+        tvTabGroups.setTextColor(getResources().getColor(R.color.white_background));
+        tvTabFriends.setTextColor(getResources().getColor(R.color.white_background));
+    }
 
     private void initFragment() {
         // menu fragment
         Fragment leftFragment = getFragmentManager().findFragmentById(R.id.menuFragment);
-        if (leftFragment == null)
-        {
+        if (leftFragment == null) {
             menuFragment = new MenuFragment();
             getFragmentManager().beginTransaction().replace(R.id.menuFragment, menuFragment).commit();
-        }
-        else
-        {
+        } else {
             menuFragment = (MenuFragment) leftFragment;
         }
 
@@ -127,19 +153,15 @@ public class ChartActivity
 
         // route fragment
         Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
-        if (rightFragment == null)
-        {
+        if (rightFragment == null) {
             routeFragment = new RouteFragment();
             getFragmentManager().beginTransaction().replace(R.id.routeFragment, routeFragment).commit();
-        }
-        else
-        {
+        } else {
             routeFragment = (RouteFragment) rightFragment;
         }
     }
 
-    private void initMenu()
-    {
+    private void initMenu() {
         // 设置主菜单
         setBehindContentView(R.layout.menu_layout);
         // 初始化menu
@@ -197,6 +219,7 @@ public class ChartActivity
 
     /**
      * 更新标题栏文字
+     *
      * @param start
      * @param end
      * @param date
@@ -242,13 +265,11 @@ public class ChartActivity
         return slidingMenu;
     }
 
-    public void showLeftMenu()
-    {
+    public void showLeftMenu() {
         slidingMenu.showMenu();
     }
 
-    public void showRightMenu()
-    {
+    public void showRightMenu() {
         slidingMenu.showSecondaryMenu();
     }
 }

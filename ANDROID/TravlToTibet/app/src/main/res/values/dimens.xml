@@ -12,4 +12,6 @@
     <dimen name="chart_header_content_height">80dip</dimen>
     <dimen name="slidingmenu_offset">60dp</dimen>
     <dimen name="shadow_width">5dp</dimen>
+    <dimen name="header_tab_btn_width">180dp</dimen>
+    <dimen name="header_tab_btn_height">30dp</dimen>
 </resources>

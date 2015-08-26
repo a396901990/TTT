@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class ChartPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragmentsList;
+    private boolean isCanScroll = true;
 
     public ChartPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -16,6 +17,10 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
     public ChartPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
         this.fragmentsList = fragments;
+    }
+
+    public void setScanScroll(boolean isCanScroll){
+        this.isCanScroll = isCanScroll;
     }
 
     @Override

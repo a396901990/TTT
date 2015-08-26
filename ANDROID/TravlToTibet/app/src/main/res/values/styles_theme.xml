@@ -68,7 +68,7 @@
         <item name="android:minHeight">@dimen/chart_header_button_min_height</item>
         <item name="android:minWidth">@dimen/chart_header_button_min_width</item>
     </style>
-    
+
     <style name="DropDownNavigation">
         <item name="android:textColor">@color/white</item>
         <item name="android:singleLine">true</item>
