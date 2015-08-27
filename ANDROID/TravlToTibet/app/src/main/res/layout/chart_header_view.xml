@@ -25,14 +25,6 @@
             android:textColor="@color/white_background"
             android:textSize="20dp" />
 
-        <TextView
-            android:id="@+id/header_menu_detail"
-            style="@style/TextAppearance.Medium.White"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center" />
-
         <!--最右边按钮-->
         <TextView
             android:id="@+id/header_menu_date"
@@ -60,26 +52,33 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/header_position_name"
-                style="@style/ChartHeaderBar.Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test"></TextView>
+            <!--<TextView-->
+                <!--android:id="@+id/header_menu_detail"-->
+                <!--style="@style/TextAppearance.Medium.White"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--/>-->
 
-            <TextView
-                android:id="@+id/header_position_height"
-                style="@style/ChartHeaderBar.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1414M"></TextView>
+            <!--<TextView-->
+                <!--android:id="@+id/header_position_name"-->
+                <!--style="@style/ChartHeaderBar.Text.Title"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Test"></TextView>-->
 
-            <TextView
-                android:id="@+id/header_position_mileage"
-                style="@style/ChartHeaderBar.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1515H"></TextView>
+            <!--<TextView-->
+                <!--android:id="@+id/header_position_height"-->
+                <!--style="@style/ChartHeaderBar.Text"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="1414M"></TextView>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/header_position_mileage"-->
+                <!--style="@style/ChartHeaderBar.Text"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="1515H"></TextView>-->
         </LinearLayout>
 
         <!--Tab标签栏-->

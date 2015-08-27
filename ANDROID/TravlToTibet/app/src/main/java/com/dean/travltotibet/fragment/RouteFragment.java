@@ -60,15 +60,19 @@ public class RouteFragment extends Fragment {
         final String end = "拉萨";
         final String dis = "2650KM";
 
-        TextView date = (TextView) root.findViewById(R.id.overall_route_date);
-        TextView detail = (TextView) root.findViewById(R.id.overall_route_detail);
-        TextView distance = (TextView) root.findViewById(R.id.overall_route_distance);
+        RelativeLayout overall = (RelativeLayout) root.findViewById(R.id.overall_route);
+
+        TextView date = (TextView) overall.findViewById(R.id.plan_date);
+        TextView detail_start = (TextView) overall.findViewById(R.id.plan_detail_start);
+        TextView detail_end = (TextView) overall.findViewById(R.id.plan_detail_end);
+        TextView distance = (TextView) overall.findViewById(R.id.plan_distance);
 
         date.setText(routeName);
-        detail.setText(start + "-" + end);
+        detail_start.setText(start);
+        detail_end.setText(end);
         distance.setText(dis);
 
-        RelativeLayout overall = (RelativeLayout) root.findViewById(R.id.overall_route);
+
         overall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,53 +127,9 @@ public class RouteFragment extends Fragment {
         chartActivity.updateHeader(start, end, date);
 
         // 关闭菜单
-        if (chartActivity.getSlidingMenu().isSecondaryMenuShowing()) {
+        if (chartActivity.getSlidingMenu().isMenuShowing()) {
             chartActivity.getSlidingMenu().toggle();
         }
     }
 
-
-//
-//    /**
-//     * 初始化下拉菜单
-//     */
-//    private void initDropdownNavigation()
-//    {
-//        ArrayList<PlanSpinnerAdapter.PlanNavItem> mPlans = new ArrayList<PlanSpinnerAdapter.PlanNavItem>();
-//
-//        // 获取数据库路线
-//        List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
-//
-//        // 为下拉菜单赋值
-//        // 第一个初始默认，每次加载会调用第一个的onItemSelected方法
-//        mPlans.add(new PlanSpinnerAdapter.PlanNavItem("新藏线", "叶城县", "拉萨", "2793KM"));
-//        // 其他路线
-//        for (Routes r : routes) {
-//            mPlans.add(new PlanSpinnerAdapter.PlanNavItem("D"+r.getId(), r.getStart() ,r.getEnd(), r.getDistance()));
-//        }
-//
-//        PlanSpinnerAdapter adapter = new PlanSpinnerAdapter(getActivity());
-//        adapter.setData(mPlans);
-//
-//        Spinner spinner = (Spinner) root.findViewById(R.id.trap_route);
-//        spinner.setAdapter(adapter);
-//
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                PlanSpinnerAdapter.PlanNavItem planNavItem = (PlanSpinnerAdapter.PlanNavItem) parent.getItemAtPosition(position);
-//                String date = planNavItem.getPlanDate();
-//                String start = planNavItem.getPlanDetailStart();
-//                String end = planNavItem.getPlanDetailEnd();
-//
-//                // 根据路线的起始和终点 获取数据
-//                List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//    }
 }

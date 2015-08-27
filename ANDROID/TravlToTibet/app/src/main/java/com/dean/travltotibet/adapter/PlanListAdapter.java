@@ -16,7 +16,9 @@ public class PlanListAdapter
 {
     TextView data;
 
-    TextView detail;
+    TextView detail_start;
+
+    TextView detail_end;
 
     TextView distance;
 
@@ -58,11 +60,13 @@ public class PlanListAdapter
         }
 
         data = (TextView) convertView.findViewById(R.id.plan_date);
-        detail = (TextView) convertView.findViewById(R.id.plan_detail);
+        detail_start = (TextView) convertView.findViewById(R.id.plan_detail_start);
+        detail_end = (TextView) convertView.findViewById(R.id.plan_detail_end);
         distance = (TextView) convertView.findViewById(R.id.plan_distance);
 
         data.setText(mPlans.get(position).getPlanDate());
-        detail.setText(mPlans.get(position).getPlanDetailStart() + " - " + mPlans.get(position).getPlanDetailEnd());
+        detail_start.setText(mPlans.get(position).getPlanDetailStart());
+        detail_end.setText(mPlans.get(position).getPlanDetailEnd());
         distance.setText(mPlans.get(position).getPlanDistance());
 
         return convertView;

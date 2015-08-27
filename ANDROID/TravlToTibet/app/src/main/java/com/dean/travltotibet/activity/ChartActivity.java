@@ -183,14 +183,13 @@ public class ChartActivity
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLeftMenu();
             }
         });
 
         routeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showRightMenu();
+                showMenu();
             }
         });
     }
@@ -204,25 +203,25 @@ public class ChartActivity
      */
     public void updateHeader(String start, String end, String date) {
         TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
-        TextView header_detail = (TextView) this.findViewById(R.id.header_menu_detail);
-
+        //TextView header_detail = (TextView) this.findViewById(R.id.header_menu_detail);
+        TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
         header_date.setText(date);
-        header_detail.setText(start + "-" + end);
+        menuBtn.setText(start + "-" + end);
     }
 
     /**
      * 更新标题头
      */
     public void updateHeader(Place place) {
-        TextView posName = (TextView) this.findViewById(R.id.header_position_name);
-        TextView posHeight = (TextView) this.findViewById(R.id.header_position_height);
-        TextView posMileage = (TextView) this.findViewById(R.id.header_position_mileage);
-
-        if (place != null) {
-            posHeight.setText(place.getHeight());
-            posMileage.setText(place.getMileage());
-            posName.setText(place.getName());
-        }
+//        TextView posName = (TextView) this.findViewById(R.id.header_position_name);
+//        TextView posHeight = (TextView) this.findViewById(R.id.header_position_height);
+//        TextView posMileage = (TextView) this.findViewById(R.id.header_position_mileage);
+//
+//        if (place != null) {
+//            posHeight.setText(place.getHeight());
+//            posMileage.setText(place.getMileage());
+//            posName.setText(place.getName());
+//        }
     }
 
 
@@ -239,11 +238,8 @@ public class ChartActivity
         return slidingMenu;
     }
 
-    public void showLeftMenu() {
+    public void showMenu() {
         slidingMenu.showMenu();
     }
 
-    public void showRightMenu() {
-        slidingMenu.showSecondaryMenu();
-    }
 }

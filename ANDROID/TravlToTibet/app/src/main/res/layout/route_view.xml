@@ -1,47 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/gray_background"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <include
+        android:layout_margin="8dp"
         android:id="@+id/overall_route"
+        layout="@layout/plan_list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/nav_row_bg"
-        android:clickable="true"
-        android:padding="3dip">
-
-        <TextView
-            android:id="@+id/overall_route_date"
-            style="@style/PlanList.Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
-
-        <TextView
-            android:id="@+id/overall_route_detail"
-            style="@style/PlanList.Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
-        <TextView
-            android:id="@+id/overall_route_distance"
-            style="@style/PlanList.Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dip"
-        android:background="@color/plan_row_divider" />
+        android:layout_height="wrap_content"></include>
 
     <ListView
+        android:layout_margin="8dp"
         android:id="@+id/plan_list"
+        android:dividerHeight="8dip"
+        android:divider="@color/gray_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 </LinearLayout>
