@@ -10,9 +10,14 @@ import com.dean.travltotibet.model.Place;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,15 +27,12 @@ import java.util.ArrayList;
 
 public class ChartActivity
         extends SlidingFragmentActivity {
-    MenuFragment menuFragment;
 
     ChartFragment chartFragment;
 
     RouteFragment routeFragment;
 
     SlidingMenu slidingMenu;
-
-    private View mHeaderView;
 
     private ViewPager mPager;
 
@@ -40,14 +42,13 @@ public class ChartActivity
     TextView tvTabGroups;
     TextView tvTabFriends;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.main_layout);
 
         initMenu();
         initHeader();
-        initFragment();
         initViewPager();
     }
 
@@ -72,7 +73,6 @@ public class ChartActivity
     }
 
     private void initHeader() {
-        mHeaderView = this.findViewById(R.id.chart_header);
 
         // 初始化header menu两侧按钮
         initHeaderButton();
@@ -109,13 +109,13 @@ public class ChartActivity
 
     /**
      * 选中btn变换颜色和背景
+     *
      * @param v
      */
     public void btnSelected(View v) {
         v.setBackgroundResource(R.drawable.btn_write_background);
         ((TextView) v).setTextColor(getResources().getColor(R.color.light_sky_blue));
     }
-
 
     /**
      * 每次点击不同按钮式重置所有按钮颜色和背景
@@ -129,27 +129,10 @@ public class ChartActivity
         tvTabFriends.setTextColor(getResources().getColor(R.color.white_background));
     }
 
-    private void initFragment() {
-        // menu fragment
-        Fragment leftFragment = getFragmentManager().findFragmentById(R.id.menuFragment);
-        if (leftFragment == null) {
-            menuFragment = new MenuFragment();
-            getFragmentManager().beginTransaction().replace(R.id.menuFragment, menuFragment).commit();
-        } else {
-            menuFragment = (MenuFragment) leftFragment;
-        }
-
-//        // chart fragment
-//        Fragment contentFragment = getFragmentManager().findFragmentById(R.id.chartFragment);
-//        if (contentFragment == null)
-//        {
-//            chartFragment = new ChartFragment();
-//            getFragmentManager().beginTransaction().replace(R.id.chartFragment, chartFragment).commit();
-//        }
-//        else
-//        {
-//            chartFragment = (ChartFragment) contentFragment;
-//        }
+    /**
+     * 初始化侧滑菜单
+     */
+    private void initMenu() {
 
         // route fragment
         Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
@@ -159,11 +142,9 @@ public class ChartActivity
         } else {
             routeFragment = (RouteFragment) rightFragment;
         }
-    }
 
-    private void initMenu() {
         // 设置主菜单
-        setBehindContentView(R.layout.menu_layout);
+        setBehindContentView(R.layout.route_layout);
         // 初始化menu
         slidingMenu = super.getSlidingMenu();
 
@@ -180,27 +161,24 @@ public class ChartActivity
         // 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
         slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
         // 设置滑动方向
-        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
+        slidingMenu.setMode(SlidingMenu.RIGHT);
         //slidingMenu.setMenu(R.layout.menu_layout);
 
-        // slidingMenu.setBehindScrollScale(1.0f);
-        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
-        //设置右边（二级）侧滑菜单
-        slidingMenu.setSecondaryMenu(R.layout.route_layout);
-
+//        // slidingMenu.setBehindScrollScale(1.0f);
+//        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
+//        //设置右边（二级）侧滑菜单
+//        slidingMenu.setSecondaryMenu(R.layout.route_layout);
 
         // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
         //menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-
-
     }
 
     /**
      * 初始化header左右两侧按钮
      */
     private void initHeaderButton() {
-        Button menuBtn = (Button) mHeaderView.findViewById(R.id.menu_btn);
-        LinearLayout routeBtn = (LinearLayout) mHeaderView.findViewById(R.id.route_btn);
+        TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
+        TextView routeBtn = (TextView) this.findViewById(R.id.header_menu_date);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,9 +214,9 @@ public class ChartActivity
      * 更新标题头
      */
     public void updateHeader(Place place) {
-        TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
-        TextView posHeight = (TextView) mHeaderView.findViewById(R.id.header_position_height);
-        TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
+        TextView posName = (TextView) this.findViewById(R.id.header_position_name);
+        TextView posHeight = (TextView) this.findViewById(R.id.header_position_height);
+        TextView posMileage = (TextView) this.findViewById(R.id.header_position_mileage);
 
         if (place != null) {
             posHeight.setText(place.getHeight());
@@ -247,10 +225,6 @@ public class ChartActivity
         }
     }
 
-
-    public MenuFragment getMenuFragment() {
-        return menuFragment;
-    }
 
     public ChartFragment getChartFragment() {
         return chartFragment;

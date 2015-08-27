@@ -63,7 +63,7 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        chartActivity = (ChartActivity)getActivity();
+        chartActivity = (ChartActivity) getActivity();
 
         // 初始化视图
         mChartView = (RouteChartView) root.findViewById(R.id.chart);
@@ -214,7 +214,7 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 
         // 重置图标视图数据
         // 远离屏幕左右间隔是起点终点长的1/10
-        mChartView.setAxisRange(-pointLength/10, 0, pointLength + pointLength/10, 6500);
+        mChartView.setAxisRange(-pointLength / 10, 0, pointLength + pointLength / 10, 6500);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 
