@@ -39,6 +39,10 @@ public class ChartActivity
     private TextView mapTab;
     private TextView guideTab;
 
+    private String planDate;
+    private String planStart;
+    private String planEnd;
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -239,9 +243,13 @@ public class ChartActivity
      * @param date
      */
     public void updateHeader(String start, String end, String date) {
+        planDate = date;
+        planStart = start;
+        planEnd = end;
+
         TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
-        //TextView header_detail = (TextView) this.findViewById(R.id.header_menu_detail);
         TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
+
         header_date.setText(date);
         menuBtn.setText(start + "-" + end);
     }
@@ -261,6 +269,17 @@ public class ChartActivity
 //        }
     }
 
+    public String getPlanDate() {
+        return planDate;
+    }
+
+    public String getPlanStart() {
+        return planStart;
+    }
+
+    public String getPlanEnd() {
+        return planEnd;
+    }
 
     public ChartFragment getChartFragment() {
         return chartFragment;

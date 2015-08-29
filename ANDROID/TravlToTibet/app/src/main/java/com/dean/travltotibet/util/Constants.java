@@ -44,4 +44,13 @@ public final class Constants
 
     public static final String DB_NAME = "TTT_DB";
 
+    // plan start end date
+    public static final String INTENT_START = "intent_start";
+
+    public static final String INTENT_END = "intent_end";
+
+    public static final String INTENT_DATE = "intent_Date";
+
+    public static final String INTENT_PLAN_BUNDLE = "intent_plan_bundle";
+
 }
