@@ -22,7 +22,7 @@
     </style>
 
     <style name="ChartActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/light_sky_blue</item>
+        <item name="android:background">@color/light_blue</item>
         <item name="android:titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
     </style>
 
@@ -43,7 +43,7 @@
     </style>
 
     <style name="ChartHeaderBar">
-        <item name="android:background">@color/light_sky_blue</item>
+        <item name="android:background">@color/light_blue</item>
     </style>
 
     <style name="ChartHeaderBar.Text" parent="@style/TextAppearance.Small">

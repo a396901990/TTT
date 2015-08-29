@@ -6,4 +6,11 @@
         <attr name="dataThickness" format="dimension" />
         <attr name="gridThickness" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="SquareImageView">
+        <attr name="labelText" format="string" />
+        <attr name="labelSize" format="dimension" />
+        <attr name="labelTextColor" format="color|reference" />
+        <attr name="imageSrc" format="reference" />
+    </declare-styleable>
 </resources>

@@ -40,7 +40,6 @@
 
     <!--Tab标签栏 & 内容栏-->
     <RelativeLayout
-        style="@style/ChartHeaderBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_header_content_height">
 

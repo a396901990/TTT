@@ -3,7 +3,7 @@ package com.dean.travltotibet.activity;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.fragment.ChartFragment;
-import com.dean.travltotibet.fragment.MenuFragment;
+import com.dean.travltotibet.fragment.GuideFragment;
 import com.dean.travltotibet.fragment.RouteFragment;
 import com.dean.travltotibet.fragment.TestFragment;
 import com.dean.travltotibet.model.Place;
@@ -11,16 +11,11 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,19 +23,21 @@ import java.util.ArrayList;
 public class ChartActivity
         extends SlidingFragmentActivity {
 
-    ChartFragment chartFragment;
+    private ChartFragment chartFragment;
 
-    RouteFragment routeFragment;
+    private RouteFragment routeFragment;
 
-    SlidingMenu slidingMenu;
+    private SlidingMenu slidingMenu;
 
     private ViewPager mPager;
 
     private ArrayList<Fragment> fragmentsList;
 
-    TextView heightBtn;
-    TextView tvTabGroups;
-    TextView tvTabFriends;
+    private View headerView;
+
+    private TextView heightTab;
+    private TextView mapTab;
+    private TextView guideTab;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
@@ -59,37 +56,39 @@ public class ChartActivity
 
         chartFragment = ChartFragment.newInstance();
         Fragment groupFragment = TestFragment.newInstance("Hello Group.");
-        Fragment friendsFragment = TestFragment.newInstance("Hello Friends.");
+        Fragment guideFragment = GuideFragment.newInstance();
 
         fragmentsList.add(chartFragment);
         fragmentsList.add(groupFragment);
-        fragmentsList.add(friendsFragment);
+        fragmentsList.add(guideFragment);
 
         mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
 
         // 设置默认点击btn
-        btnSelected(heightBtn);
+        btnSelected(heightTab, 0);
         mPager.setCurrentItem(0);
     }
 
     private void initHeader() {
 
+        headerView = findViewById(R.id.chart_header);
+
         // 初始化header menu两侧按钮
         initHeaderButton();
 
-        heightBtn = (TextView) findViewById(R.id.bt1);
-        tvTabGroups = (TextView) findViewById(R.id.bt2);
-        tvTabFriends = (TextView) findViewById(R.id.bt3);
+        heightTab = (TextView) findViewById(R.id.bt1);
+        mapTab = (TextView) findViewById(R.id.bt2);
+        guideTab = (TextView) findViewById(R.id.bt3);
 
-        heightBtn.setOnClickListener(new MyOnClickListener(0));
-        tvTabGroups.setOnClickListener(new MyOnClickListener(1));
-        tvTabFriends.setOnClickListener(new MyOnClickListener(2));
+        heightTab.setOnClickListener(new TabBtnOnClickListener(0));
+        mapTab.setOnClickListener(new TabBtnOnClickListener(1));
+        guideTab.setOnClickListener(new TabBtnOnClickListener(2));
     }
 
-    public class MyOnClickListener implements View.OnClickListener {
+    public class TabBtnOnClickListener implements View.OnClickListener {
         private int index = 0;
 
-        public MyOnClickListener(int i) {
+        public TabBtnOnClickListener(int i) {
             index = i;
         }
 
@@ -97,10 +96,10 @@ public class ChartActivity
         public void onClick(View v) {
 
             // 每次点击不同按钮式重置所有按钮颜色和背景
-            resetBtnColorAndBackground();
+            resetColorAndBackground(index);
 
             // 设置新颜色
-            btnSelected(v);
+            btnSelected(v, index);
 
             // 变换fragment
             mPager.setCurrentItem(index);
@@ -109,24 +108,62 @@ public class ChartActivity
 
     /**
      * 选中btn变换颜色和背景
-     *
-     * @param v
      */
-    public void btnSelected(View v) {
+    public void btnSelected(View v, int index) {
+
         v.setBackgroundResource(R.drawable.btn_write_background);
-        ((TextView) v).setTextColor(getResources().getColor(R.color.light_sky_blue));
+
+        switch (index) {
+            case 0:
+                ((TextView) v).setTextColor(getResources().getColor(R.color.light_blue));
+                break;
+            case 1:
+                ((TextView) v).setTextColor(getResources().getColor(R.color.light_green));
+                break;
+            case 2:
+                ((TextView) v).setTextColor(getResources().getColor(R.color.light_purple));
+                break;
+            default:
+                break;
+        }
     }
 
     /**
      * 每次点击不同按钮式重置所有按钮颜色和背景
      */
-    private void resetBtnColorAndBackground() {
-        heightBtn.setBackgroundResource(R.drawable.btn_blue_background);
-        tvTabGroups.setBackgroundResource(R.drawable.btn_blue_background);
-        tvTabFriends.setBackgroundResource(R.drawable.btn_blue_background);
-        heightBtn.setTextColor(getResources().getColor(R.color.white_background));
-        tvTabGroups.setTextColor(getResources().getColor(R.color.white_background));
-        tvTabFriends.setTextColor(getResources().getColor(R.color.white_background));
+    private void resetColorAndBackground(int index) {
+        switch (index) {
+            case 0:
+                headerView.setBackgroundResource(R.color.light_blue);
+
+                heightTab.setBackgroundResource(R.drawable.btn_blue_background);
+                mapTab.setBackgroundResource(R.drawable.btn_blue_background);
+                guideTab.setBackgroundResource(R.drawable.btn_blue_background);
+
+                break;
+            case 1:
+                headerView.setBackgroundResource(R.color.light_green);
+
+                heightTab.setBackgroundResource(R.drawable.btn_green_background);
+                mapTab.setBackgroundResource(R.drawable.btn_green_background);
+                guideTab.setBackgroundResource(R.drawable.btn_green_background);
+
+                break;
+            case 2:
+                headerView.setBackgroundResource(R.color.light_purple);
+
+                heightTab.setBackgroundResource(R.drawable.btn_purple_background);
+                mapTab.setBackgroundResource(R.drawable.btn_purple_background);
+                guideTab.setBackgroundResource(R.drawable.btn_purple_background);
+
+                break;
+            default:
+                break;
+        }
+
+        heightTab.setTextColor(getResources().getColor(R.color.white_background));
+        mapTab.setTextColor(getResources().getColor(R.color.white_background));
+        guideTab.setTextColor(getResources().getColor(R.color.white_background));
     }
 
     /**

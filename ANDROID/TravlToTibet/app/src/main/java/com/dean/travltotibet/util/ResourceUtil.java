@@ -79,11 +79,11 @@ public class ResourceUtil
 
     private void initColor()
     {
-        chart_mountain = mResources.getColor(R.color.light_sky_blue);
-        chart_mountain_shader = mResources.getColor(R.color.light_sky_blue);
+        chart_mountain = mResources.getColor(R.color.light_blue);
+        chart_mountain_shader = mResources.getColor(R.color.light_blue);
         chart_mountain_alpha = (int) (255 * 0.6);
 
-        chart_line = mResources.getColor(R.color.light_sky_blue);
+        chart_line = mResources.getColor(R.color.light_blue);
 
         chart_cross = mResources.getColor(R.color.orange_red);
         chart_cross_dialog_alpha = (int) (255 * 0.8);
@@ -92,13 +92,13 @@ public class ResourceUtil
 
         chart_label_text = mResources.getColor(R.color.blue);
 
-        chart_grid = mResources.getColor(R.color.light_sky_blue);
+        chart_grid = mResources.getColor(R.color.light_blue);
         chart_grid_alpha = (int) (255 * 0.6);
-        chart_axis = mResources.getColor(R.color.light_sky_blue);
+        chart_axis = mResources.getColor(R.color.light_blue);
 
         chart_backgroud = mResources.getColor(R.color.white_background);
 
-        indicator_backgroud = mResources.getColor(R.color.light_sky_blue);
+        indicator_backgroud = mResources.getColor(R.color.light_blue);
         indicator_mountain = mResources.getColor(R.color.white);
         indicator_mountain_line = mResources.getColor(R.color.white);
 

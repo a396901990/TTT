@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.dean.travltotibet.ui.SquareImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:imageSrc="@drawable/bed"
+            app:labelSize="5dp"
+            app:labelText="食宿"
+            app:labelTextColor="@color/white_background"></com.dean.travltotibet.ui.SquareImageView>
+
+        <com.dean.travltotibet.ui.SquareImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:imageSrc="@drawable/bed"
+            app:labelSize="5dp"
+            app:labelText="食宿"
+            app:labelTextColor="@color/white_background"></com.dean.travltotibet.ui.SquareImageView>
+
+        <com.dean.travltotibet.ui.SquareImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:imageSrc="@drawable/bed"
+            app:labelSize="5dp"
+            app:labelText="食宿"
+            app:labelTextColor="@color/white_background"></com.dean.travltotibet.ui.SquareImageView>
+    </LinearLayout>
+
+</LinearLayout>

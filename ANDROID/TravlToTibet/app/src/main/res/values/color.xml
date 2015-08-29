@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_green">#8bc34a</color>
+    <color name="light_green">#9CCC65</color>
     <color name="white_gray">#E0E0E0</color>
     <color name="white_background">#FFF</color>
     <color name="gray_background">#EFEFEF</color>
@@ -13,7 +13,7 @@
     <color name="opaque">#80000000</color>
     <color name="rule">#DDD</color>
     <color name="sky_blue">#87CEEB</color>
-    <color name="light_sky_blue">#87CEFA</color>
+    <color name="light_blue">#87CEFA</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="orange_red">#FF4500</color>
@@ -22,4 +22,8 @@
     <color name="lime">#CDDC39</color>
     <color name="blue_gray">#607D8B</color>
     <color name="plan_row_divider">#4C4C4C</color>
+    <color name="light_orange">#FFA726</color>
+    <color name="light_lime">#D4E157</color>
+    <color name="light_purple">#CE93D8</color>
+    <color name="background_selected">#545454</color>
 </resources>
