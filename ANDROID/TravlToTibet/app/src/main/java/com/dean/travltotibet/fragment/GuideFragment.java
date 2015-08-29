@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.ui.BackgroundDrawable;
 
 public class GuideFragment extends Fragment {
 

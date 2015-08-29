@@ -10,36 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:id="@+id/route_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_weight="1"
-            app:imageSrc="@drawable/bed"
+            app:imageSrc="@drawable/route_map"
             app:labelSize="5dp"
-            app:labelText="食宿"
+            app:labelText="路线攻略"
             app:labelTextColor="@color/white_background"></com.dean.travltotibet.ui.SquareImageView>
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:id="@+id/food_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_weight="1"
-            app:imageSrc="@drawable/bed"
+            app:imageSrc="@drawable/eat"
             app:labelSize="5dp"
-            app:labelText="食宿"
+            app:labelText="饮食补给"
             app:labelTextColor="@color/white_background"></com.dean.travltotibet.ui.SquareImageView>
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:id="@+id/hotel_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
             app:imageSrc="@drawable/bed"
             app:labelSize="5dp"
-            app:labelText="食宿"
+            app:labelText="住宿休息"
             app:labelTextColor="@color/white_background"></com.dean.travltotibet.ui.SquareImageView>
     </LinearLayout>
 

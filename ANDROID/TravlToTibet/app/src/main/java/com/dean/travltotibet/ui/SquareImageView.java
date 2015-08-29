@@ -103,7 +103,7 @@ public class SquareImageView extends RelativeLayout {
             image.layout(mLeft, mTop, mLeft + width, mTop + height);
         }
 
-        // 3/4 位置
+        // 4/5 位置
         View text = getChildAt(1);
         if (text instanceof TextView) {
 
@@ -111,7 +111,7 @@ public class SquareImageView extends RelativeLayout {
             int height = text.getMeasuredHeight();
 
             int mLeft = ((r - l) - width) / 2;
-            int mTop = (((b - t) - height) / 4 ) * 3;
+            int mTop = (((b - t) - height) / 5 ) * 4;
 
             text.layout(mLeft, mTop, mLeft + width, mTop + height);
         }
