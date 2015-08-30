@@ -3,9 +3,9 @@ package com.dean.travltotibet.activity;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.fragment.ChartFragment;
-import com.dean.travltotibet.fragment.GuideFragment;
+import com.dean.travltotibet.fragment.MapFragment;
 import com.dean.travltotibet.fragment.RouteFragment;
-import com.dean.travltotibet.fragment.TestFragment;
+import com.dean.travltotibet.fragment.GuideFragment;
 import com.dean.travltotibet.model.Place;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -59,12 +59,12 @@ public class ChartActivity
         fragmentsList = new ArrayList<Fragment>();
 
         chartFragment = ChartFragment.newInstance();
-        Fragment groupFragment = TestFragment.newInstance("Hello Group.");
-        Fragment guideFragment = GuideFragment.newInstance();
+        Fragment groupFragment = GuideFragment.newInstance();
+        Fragment mapFragment = MapFragment.newInstance();
 
         fragmentsList.add(chartFragment);
+        fragmentsList.add(mapFragment);
         fragmentsList.add(groupFragment);
-        fragmentsList.add(guideFragment);
 
         mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
 

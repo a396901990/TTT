@@ -1,78 +1,87 @@
 package com.dean.travltotibet.fragment;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.ChartActivity;
-import com.dean.travltotibet.activity.GuideRouteActivity;
+import com.dean.travltotibet.ui.ChangeColorIconWithTextView;
 import com.dean.travltotibet.util.Constants;
 
-/**
- * Created by DeanGuo on 8/30/15.
- */
-public class GuideFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    private View root;
-    private View routeGuideBtn;
-    private View foodGuideBtn;
-    private View hotelGuideBtn;
+public class GuideFragment extends Fragment
+        implements
+        ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private ChartActivity mActivity;
+    private ViewPager mViewPager;
+    private List<Fragment> mTabs;
+    private FragmentPagerAdapter mAdapter;
+
+    private List<ChangeColorIconWithTextView> mTabIndicator;
 
 
     public static Fragment newInstance() {
-        return new GuideFragment();
+        GuideFragment newFragment = new GuideFragment();
+        return newFragment;
+
     }
+
+    private View root;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.guide_layout, container, false);
+        root = inflater.inflate(R.layout.guide_fragment_layout, container, false);
         return root;
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (ChartActivity) getActivity();
+        mViewPager = (ViewPager) root.findViewById(R.id.id_viewpager);
+        mTabs = new ArrayList<Fragment>();
+        mTabIndicator = new ArrayList<ChangeColorIconWithTextView>();
 
-        initBtn();
+        initDate();
+
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.setOnPageChangeListener(this);
     }
 
-    /**
-     * 初始化按钮
-     */
-    private void initBtn() {
-        routeGuideBtn = root.findViewById(R.id.route_guide);
-        foodGuideBtn = root.findViewById(R.id.food_guide);
-        hotelGuideBtn = root.findViewById(R.id.hotel_guide);
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void initDate() {
 
-        routeGuideBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GuideRouteActivity.class);
-                intent.putExtra(Constants.INTENT_PLAN_BUNDLE, getPlanBundle());
-                startActivity(intent);
-            }
-        });
+        mTabs.add(GuideRouteFragment.newInstance(getPlanBundle()));
+        mTabs.add(new TabFragment());
+        mTabs.add(new TabFragment());
+        mTabs.add(new TabFragment());
 
-        foodGuideBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GuideRouteActivity.class);
-            }
-        });
+        mAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
 
-        hotelGuideBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GuideRouteActivity.class);
+            public int getCount() {
+                return mTabs.size();
             }
-        });
+
+            @Override
+            public Fragment getItem(int arg0) {
+                return mTabs.get(arg0);
+            }
+        };
+
+        initTabIndicator();
+
     }
 
     /**
@@ -87,4 +96,86 @@ public class GuideFragment extends Fragment {
         return bundle;
     }
 
+    private void initTabIndicator() {
+        ChangeColorIconWithTextView one = (ChangeColorIconWithTextView) root.findViewById(R.id.id_indicator_one);
+        ChangeColorIconWithTextView two = (ChangeColorIconWithTextView) root.findViewById(R.id.id_indicator_two);
+        ChangeColorIconWithTextView three = (ChangeColorIconWithTextView) root.findViewById(R.id.id_indicator_three);
+        ChangeColorIconWithTextView four = (ChangeColorIconWithTextView) root.findViewById(R.id.id_indicator_four);
+
+        mTabIndicator.add(one);
+        mTabIndicator.add(two);
+        mTabIndicator.add(three);
+        mTabIndicator.add(four);
+
+        one.setOnClickListener(this);
+        two.setOnClickListener(this);
+        three.setOnClickListener(this);
+        four.setOnClickListener(this);
+
+        one.setIconAlpha(1.0f);
+    }
+
+    @Override
+    public void onPageSelected(int arg0) {
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset,
+                               int positionOffsetPixels) {
+        // Log.e("TAG", "position = " + position + " , positionOffset = "
+        // + positionOffset);
+
+        if (positionOffset > 0) {
+            ChangeColorIconWithTextView left = mTabIndicator.get(position);
+            ChangeColorIconWithTextView right = mTabIndicator.get(position + 1);
+
+            left.setIconAlpha(1 - positionOffset);
+            right.setIconAlpha(positionOffset);
+        }
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        resetOtherTabs();
+
+        switch (v.getId()) {
+            case R.id.id_indicator_one:
+                mTabIndicator.get(0).setIconAlpha(1.0f);
+                mViewPager.setCurrentItem(0, false);
+                break;
+            case R.id.id_indicator_two:
+                mTabIndicator.get(1).setIconAlpha(1.0f);
+                mViewPager.setCurrentItem(1, false);
+                break;
+            case R.id.id_indicator_three:
+                mTabIndicator.get(2).setIconAlpha(1.0f);
+                mViewPager.setCurrentItem(2, false);
+                break;
+            case R.id.id_indicator_four:
+                mTabIndicator.get(3).setIconAlpha(1.0f);
+                mViewPager.setCurrentItem(3, false);
+                break;
+
+        }
+
+    }
+
+    /**
+     * 重置其他的Tab
+     */
+    private void resetOtherTabs() {
+        for (int i = 0; i < mTabIndicator.size(); i++) {
+            mTabIndicator.get(i).setIconAlpha(0);
+        }
+    }
+
+
 }
+

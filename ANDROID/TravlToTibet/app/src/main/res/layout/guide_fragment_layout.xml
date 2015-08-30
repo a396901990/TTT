@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/indicator_chartview_height"
+        android:background="@drawable/tab_view_bg"
+        android:orientation="horizontal">
+
+        <com.dean.travltotibet.ui.ChangeColorIconWithTextView
+            android:id="@+id/id_indicator_one"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:color="@color/light_purple"
+            app:icon_bg="@drawable/route_map_gray"
+            app:text="@string/guide_route_name"
+            app:text_size="8sp" />
+
+        <com.dean.travltotibet.ui.ChangeColorIconWithTextView
+            android:id="@+id/id_indicator_two"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:color="@color/light_purple"
+            app:icon_bg="@drawable/hotel_gray"
+            app:text="@string/guide_hotel_name"
+            app:text_size="8sp" />
+
+        <com.dean.travltotibet.ui.ChangeColorIconWithTextView
+            android:id="@+id/id_indicator_three"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:color="@color/light_purple"
+            app:icon_bg="@drawable/weather_gray"
+            app:text="@string/guide_weather_name"
+            app:text_size="8sp" />
+
+        <com.dean.travltotibet.ui.ChangeColorIconWithTextView
+            android:id="@+id/id_indicator_four"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:color="@color/light_purple"
+            app:icon_bg="@drawable/view_gray"
+            app:text="@string/guide_view_name"
+            app:text_size="8sp" />
+    </LinearLayout>
+
+</LinearLayout>

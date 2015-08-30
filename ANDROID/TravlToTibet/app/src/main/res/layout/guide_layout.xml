@@ -1,46 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/white_background"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_background">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@+id/bottom_tool"
+        android:background="@color/light_purple" />
 
     <LinearLayout
+        android:id="@+id/bottom_tool"
+        android:background="@color/light_purple"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="@dimen/indicator_chartview_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-        <com.dean.travltotibet.ui.SquareImageView
+        <com.dean.travltotibet.ui.AutoResizeImageView
             android:id="@+id/route_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:imageSrc="@drawable/route_map"
-            app:labelSize="5dp"
             app:labelText="@string/guide_route_name"
             app:labelTextColor="@color/white_background" />
 
-        <com.dean.travltotibet.ui.SquareImageView
+        <com.dean.travltotibet.ui.AutoResizeImageView
             android:id="@+id/hotel_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:imageSrc="@drawable/bed"
-            app:labelSize="5dp"
             app:labelText="@string/guide_hotel_name"
-        app:labelTextColor="@color/white_background" />
+            app:labelTextColor="@color/white_background" />
 
-        <com.dean.travltotibet.ui.SquareImageView
+        <com.dean.travltotibet.ui.AutoResizeImageView
             android:id="@+id/food_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:imageSrc="@drawable/eat"
-            app:labelSize="5dp"
-            app:labelText="@string/guide_food_name"
+            app:imageSrc="@drawable/weather_gray"
+            app:labelText="@string/guide_weather_name"
             app:labelTextColor="@color/white_background" />
+
+        <com.dean.travltotibet.ui.AutoResizeImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:imageSrc="@drawable/view"
+            app:labelText="@string/guide_view_name"
+            app:labelTextColor="@color/white_background" />
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

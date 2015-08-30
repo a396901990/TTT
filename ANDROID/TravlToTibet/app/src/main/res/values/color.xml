@@ -24,6 +24,6 @@
     <color name="plan_row_divider">#4C4C4C</color>
     <color name="light_orange">#FFA726</color>
     <color name="light_lime">#D4E157</color>
-    <color name="light_purple">#CE93D8</color>
+    <color name="light_purple">#FFA726</color>
     <color name="background_selected">#545454</color>
 </resources>
