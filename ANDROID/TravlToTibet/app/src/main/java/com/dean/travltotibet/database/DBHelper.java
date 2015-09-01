@@ -79,6 +79,39 @@ public class DBHelper
         return qb.list();
     }
 
+    /**
+     * 根据name获取海拔
+     * @param name
+     * @return
+     */
+    public Double getElevationWithName(String name) {
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Name.eq(name));
+        return qb.list().get(0).getElevation();
+    }
+
+    /**
+     * 根据name获取道路信息
+     * @param name
+     * @return
+     */
+    public String getRoadWithName(String name) {
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Name.eq(name));
+        return qb.list().get(0).getRoad();
+    }
+
+    /**
+     * 根据name获取里程碑
+     * @param name
+     * @return
+     */
+    public Double getMilestoneWithName(String name) {
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Name.eq(name));
+        return qb.list().get(0).getMilestone();
+    }
+
     /** 查询所有路线信息 */
     public List<Routes> getRoutsList()
     {

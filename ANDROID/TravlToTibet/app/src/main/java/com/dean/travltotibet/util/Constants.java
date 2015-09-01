@@ -53,4 +53,13 @@ public final class Constants
 
     public static final String INTENT_PLAN_BUNDLE = "intent_plan_bundle";
 
+
+    /** Default decimal format pattern **/
+    public static final String DECIMAL_FORMAT = "###,##0.00";
+    public static final String STRING_INTEGER_FORMATTER = "#0";
+
+    public static final String GUIDE_OVERALL_HEIGHT_FORMAT = "海拔: %sM";
+
+    public static final String GUIDE_OVERALL_MILESTONE_FORMAT = "位置: %s/%sKM";
+
 }

@@ -30,14 +30,13 @@
                 style="@style/TextAppearance.Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="阿克美其特村" />
+                android:layout_gravity="center" />
 
             <ImageView
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:src="@drawable/right_arrow" />
 
             <TextView
@@ -45,24 +44,21 @@
                 style="@style/TextAppearance.Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="拉萨" />
+                android:layout_gravity="center" />
         </LinearLayout>
 
         <LinearLayout
-            android:paddingTop="5dp"
-            android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/plan_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 style="@style/TextAppearance.Small.Gray"
-                android:text="90km"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

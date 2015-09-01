@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.ChartActivity;
+import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.ChangeColorIconWithTextView;
 import com.dean.travltotibet.util.Constants;
 
@@ -22,7 +22,7 @@ public class GuideFragment extends Fragment
         implements
         ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    private ChartActivity mActivity;
+    private RouteActivity mActivity;
     private ViewPager mViewPager;
     private List<Fragment> mTabs;
     private FragmentPagerAdapter mAdapter;
@@ -30,10 +30,8 @@ public class GuideFragment extends Fragment
     private List<ChangeColorIconWithTextView> mTabIndicator;
 
 
-    public static Fragment newInstance() {
-        GuideFragment newFragment = new GuideFragment();
-        return newFragment;
-
+    public static GuideFragment newInstance() {
+        return new GuideFragment();
     }
 
     private View root;
@@ -48,7 +46,7 @@ public class GuideFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (ChartActivity) getActivity();
+        mActivity = (RouteActivity) getActivity();
         mViewPager = (ViewPager) root.findViewById(R.id.id_viewpager);
         mTabs = new ArrayList<Fragment>();
         mTabIndicator = new ArrayList<ChangeColorIconWithTextView>();
@@ -62,7 +60,7 @@ public class GuideFragment extends Fragment
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initDate() {
 
-        mTabs.add(GuideRouteFragment.newInstance(getPlanBundle()));
+        mTabs.add(GuideRouteFragment.newInstance());
         mTabs.add(new TabFragment());
         mTabs.add(new TabFragment());
         mTabs.add(new TabFragment());

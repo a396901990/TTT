@@ -7,20 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.ChartActivity;
+import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.util.Constants;
 
 /**
  * Created by DeanGuo on 8/30/15.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends BaseRouteFragment {
 
     private View root;
 
-    private ChartActivity mActivity;
+    private RouteActivity mActivity;
 
 
-    public static Fragment newInstance() {
+    public static MapFragment newInstance() {
         return new MapFragment();
     }
 
@@ -33,7 +33,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (ChartActivity) getActivity();
+        mActivity = (RouteActivity) getActivity();
 
     }
 
@@ -49,4 +49,8 @@ public class MapFragment extends Fragment {
         return bundle;
     }
 
+    @Override
+    public void updateRoute(String start, String end, String date, String distance) {
+        super.updateRoute(start, end, date, distance);
+    }
 }

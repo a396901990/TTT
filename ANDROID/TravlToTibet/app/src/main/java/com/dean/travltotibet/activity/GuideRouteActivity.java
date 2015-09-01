@@ -29,11 +29,10 @@ public class GuideRouteActivity extends Activity {
     }
 
     private void initFragment() {
-        Bundle planBundle = getIntent().getBundleExtra(Constants.INTENT_PLAN_BUNDLE);
         // guideRouteFragment
         Fragment fragment = getFragmentManager().findFragmentById(R.id.route_guide_fragment);
         if (fragment == null) {
-            guideRouteFragment = GuideRouteFragment.newInstance(planBundle);
+            guideRouteFragment = GuideRouteFragment.newInstance();
             getFragmentManager().beginTransaction().replace(R.id.route_guide_fragment, guideRouteFragment).commit();
         } else {
             guideRouteFragment = (GuideRouteFragment) fragment;

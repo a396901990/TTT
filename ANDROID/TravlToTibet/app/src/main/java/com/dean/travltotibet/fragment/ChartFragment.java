@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ChartActivity;
+import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.AbstractSeries;
 import com.dean.travltotibet.model.IndicatorSeries;
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class ChartFragment extends Fragment implements RouteFragment.RouteListener {
+public class ChartFragment extends BaseRouteFragment {
 
     private View root;
 
@@ -36,7 +36,7 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 
     private IndicatorSeries indicatorSeries;
 
-    private ChartActivity chartActivity;
+    private RouteActivity routeActivity;
 
     public static ChartFragment newInstance() {
         return new ChartFragment();
@@ -51,16 +51,16 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        chartActivity = (ChartActivity) getActivity();
+        routeActivity = (RouteActivity) getActivity();
 
         // 初始化视图
         mChartView = (RouteChartView) root.findViewById(R.id.chart);
         mIndicatorView = (IndicatorChartView) root.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
 
-        updateRoute("叶城县", "拉萨");
+        updateChartRoute("叶城县", "拉萨");
         // need improve
-        chartActivity.updateHeader("叶城县", "拉萨", "新藏线");
+        routeActivity.updateHeader("叶城县", "拉萨", "新藏线","2579M");
     }
 
 //    /**
@@ -82,13 +82,12 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
 //    }
 
     /**
-     * RouteListener回调函数，用于更新chart视图路线
+     * 更新chart视图路线
      *
      * @param start 初始点
      * @param end   终点
      */
-    @Override
-    public void updateRoute(String start, String end) {
+    public void updateChartRoute(String start, String end) {
 
         // 根据路线的起始和终点 获取数据
         List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
@@ -125,7 +124,7 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
             @Override
             public void onCrosshairPainted(AbstractPoint point) {
                 Place place = series.getPlace(point);
-                chartActivity.updateHeader(place);
+                routeActivity.updateHeader(place);
             }
         });
         mChartView.setPointListener(new AbstractSeries.PointListener() {
@@ -133,8 +132,14 @@ public class ChartFragment extends Fragment implements RouteFragment.RouteListen
             @Override
             public void pointOnTouched(AbstractPoint point) {
                 Place place = series.getPlace(point);
-                chartActivity.updateHeader(place);
+                routeActivity.updateHeader(place);
             }
         });
+    }
+
+    @Override
+    public void updateRoute(String start, String end, String date, String distance) {
+        super.updateRoute(start, end, date, distance);
+        updateChartRoute(start, end);
     }
 }

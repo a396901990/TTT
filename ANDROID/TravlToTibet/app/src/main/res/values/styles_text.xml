@@ -22,6 +22,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextAppearance.Regular.Bold" parent="TextAppearance.Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance">
         <item name="android:textSize">16sp</item>
     </style>

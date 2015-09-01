@@ -3,8 +3,9 @@ package com.dean.travltotibet.activity;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.fragment.ChartFragment;
+import com.dean.travltotibet.fragment.GuideRouteFragment;
 import com.dean.travltotibet.fragment.MapFragment;
-import com.dean.travltotibet.fragment.RouteFragment;
+import com.dean.travltotibet.fragment.PlanFragment;
 import com.dean.travltotibet.fragment.GuideFragment;
 import com.dean.travltotibet.model.Place;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -15,17 +16,24 @@ import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ChartActivity
+public class RouteActivity
         extends SlidingFragmentActivity {
 
     private ChartFragment chartFragment;
 
-    private RouteFragment routeFragment;
+    private PlanFragment planFragment;
+
+    private GuideFragment guideFragment;
+
+    private MapFragment mapFragment;
+
+    private GuideRouteFragment guideRouteFragment;
 
     private SlidingMenu slidingMenu;
 
@@ -42,6 +50,7 @@ public class ChartActivity
     private String planDate;
     private String planStart;
     private String planEnd;
+    private String planDistance;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
@@ -59,12 +68,13 @@ public class ChartActivity
         fragmentsList = new ArrayList<Fragment>();
 
         chartFragment = ChartFragment.newInstance();
-        Fragment groupFragment = GuideFragment.newInstance();
-        Fragment mapFragment = MapFragment.newInstance();
+        mapFragment = MapFragment.newInstance();
+        guideFragment = GuideFragment.newInstance();
+        guideRouteFragment = GuideRouteFragment.newInstance();
 
         fragmentsList.add(chartFragment);
         fragmentsList.add(mapFragment);
-        fragmentsList.add(groupFragment);
+        fragmentsList.add(guideRouteFragment);
 
         mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
 
@@ -178,10 +188,10 @@ public class ChartActivity
         // route fragment
         Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
         if (rightFragment == null) {
-            routeFragment = new RouteFragment();
-            getFragmentManager().beginTransaction().replace(R.id.routeFragment, routeFragment).commit();
+            planFragment = new PlanFragment();
+            getFragmentManager().beginTransaction().replace(R.id.routeFragment, planFragment).commit();
         } else {
-            routeFragment = (RouteFragment) rightFragment;
+            planFragment = (PlanFragment) rightFragment;
         }
 
         // 设置主菜单
@@ -242,18 +252,37 @@ public class ChartActivity
      * @param end
      * @param date
      */
-    public void updateHeader(String start, String end, String date) {
+    public void updateHeader(String start, String end, String date, String distance) {
         planDate = date;
         planStart = start;
         planEnd = end;
+        planDistance = distance;
 
         TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
         TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
 
         header_date.setText(date);
         menuBtn.setText(start + "-" + end);
+
+        updateToAll(start, end, date, distance);
     }
 
+    public void updateToAll(String start, String end, String date, String distance) {
+        // update chartFragment
+        if (chartFragment.isAdded()) {
+            chartFragment.updateRoute(start, end, date, distance);
+        }
+
+        // update chartFragment
+        if (mapFragment.isAdded()) {
+            mapFragment.updateRoute(start, end, date, distance);
+        }
+
+        // update chartFragment
+        if (guideRouteFragment.isAdded()) {
+            guideRouteFragment.updateRoute(start, end, date, distance);
+        }
+    }
     /**
      * 更新标题头
      */
@@ -281,12 +310,24 @@ public class ChartActivity
         return planEnd;
     }
 
+    public String getPlanDistance() {
+        return planDistance;
+    }
+
     public ChartFragment getChartFragment() {
         return chartFragment;
     }
 
-    public RouteFragment getRouteFragment() {
-        return routeFragment;
+    public PlanFragment getPlanFragment() {
+        return planFragment;
+    }
+
+    public GuideFragment getGuideFragment() {
+        return guideFragment;
+    }
+
+    public MapFragment getMapFragment() {
+        return mapFragment;
     }
 
     @Override

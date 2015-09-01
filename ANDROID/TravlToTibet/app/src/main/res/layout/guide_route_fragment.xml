@@ -1,14 +1,180 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp">
+    android:fadingEdgeLength="0dip"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:scrollbars="none">
 
-    <TextView
-        android:id="@+id/ttt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="叶城-拉萨"
-        style="@style/TextAppearance.Large.Black.Bold"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--简介-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <!--标题-->
+            <TextView
+                style="@style/TextAppearance.Large.Black.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="简介" />
+
+            <!--起点-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/begin_title"
+                    style="@style/TextAppearance.Regular.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="起点：" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/begin_title"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/route_start_name"
+                        style="@style/TextAppearance.Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="叶城" />
+
+                    <TextView
+                        android:id="@+id/route_start_height"
+                        style="@style/TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="海拔：3913M" />
+
+                    <TextView
+                        android:id="@+id/route_start_milestone"
+                        style="@style/TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="位置：G219/2018KM" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--终点-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/end_title"
+                    style="@style/TextAppearance.Regular.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="终点：" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/end_title"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/route_end_name"
+                        style="@style/TextAppearance.Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="拉萨" />
+
+                    <TextView
+                        android:id="@+id/route_end_height"
+                        style="@style/TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="海拔：3913M" />
+
+                    <TextView
+                        android:id="@+id/route_end_milestone"
+                        style="@style/TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="位置：G219/2018KM" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--全长-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <TextView
+                    style="@style/TextAppearance.Regular.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="全长：" />
+
+                <TextView
+                    android:id="@+id/route_distance"
+                    style="@style/TextAppearance.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="291KM" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_orange" />
+
+        <!--行程timeline-->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_background">
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/route_title"
+                style="@style/TextAppearance.Large.Black.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行程" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/route_title"
+                android:layout_marginLeft="55dp"
+                android:background="@color/time_line_bg" />
+
+            <com.dean.travltotibet.ui.TimelineListview
+                android:id="@+id/timeline_list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/route_title"
+                android:background="@null"
+                android:cacheColorHint="#00000000"
+                android:divider="@null" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+

@@ -10,11 +10,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dean.greendao.Geocode;
 import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ChartActivity;
+import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.PlanListAdapter;
 
 import java.util.ArrayList;
@@ -23,11 +22,11 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class RouteFragment extends Fragment {
+public class PlanFragment extends Fragment {
 
     private View root;
 
-    private ChartActivity chartActivity;
+    private RouteActivity routeActivity;
 
     /**
      * 更新路线监听器
@@ -45,16 +44,16 @@ public class RouteFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        chartActivity = (ChartActivity) getActivity();
+        routeActivity = (RouteActivity) getActivity();
 //        initDropdownNavigation();
-        updataPlanOverall("新藏线");
+        updatePlanOverall("新藏线");
         initPlanList();
     }
 
     /**
      * 初始化总览视图
      */
-    private void updataPlanOverall(final String routeName) {
+    private void updatePlanOverall(final String routeName) {
         // 根据routeName获取路线名字 从数据库找出并跟新起点，终点和距离信息
         final String start = "叶城县";
         final String end = "拉萨";
@@ -72,11 +71,10 @@ public class RouteFragment extends Fragment {
         detail_end.setText(end);
         distance.setText(dis);
 
-
         overall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateChart(start, end, routeName);
+                updateChart(start, end, routeName, dis);
             }
         });
     }
@@ -106,9 +104,10 @@ public class RouteFragment extends Fragment {
                 String start = planItem.getPlanDetailStart();
                 String end = planItem.getPlanDetailEnd();
                 String date = planItem.getPlanDate();
+                String distance = planItem.getPlanDistance();
 
                 // 更新chart视图
-                updateChart(start, end, date);
+                updateChart(start, end, date, distance);
             }
         });
     }
@@ -119,16 +118,14 @@ public class RouteFragment extends Fragment {
      * @param start 初始地点
      * @param end   终点
      */
-    public void updateChart(String start, String end, String date) {
+    public void updateChart(String start, String end, String date, String distance) {
 
-        // 更新chart视图
-        chartActivity.getChartFragment().updateRoute(start, end);
         // 更新标题栏文字
-        chartActivity.updateHeader(start, end, date);
+        routeActivity.updateHeader(start, end, date, distance);
 
         // 关闭菜单
-        if (chartActivity.getSlidingMenu().isMenuShowing()) {
-            chartActivity.getSlidingMenu().toggle();
+        if (routeActivity.getSlidingMenu().isMenuShowing()) {
+            routeActivity.getSlidingMenu().toggle();
         }
     }
 
