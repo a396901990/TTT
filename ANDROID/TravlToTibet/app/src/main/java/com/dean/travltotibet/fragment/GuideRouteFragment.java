@@ -37,7 +37,7 @@ public class GuideRouteFragment extends BaseRouteFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.guide_route_fragment, container, false);
+        root = inflater.inflate(R.layout.guide_route_fragment_view, container, false);
         return root;
     }
 
@@ -61,10 +61,11 @@ public class GuideRouteFragment extends BaseRouteFragment {
         timelineList.setSelection(0);// 设置默认选中项
         timelineList.setClickable(false);
         // 遍历所有group,将所有项设置成默认展开
-        int groupCount = timelineList.getCount();
-        for (int i = 0; i < groupCount; i++) {
-            timelineList.expandGroup(i);
-        }
+//        int groupCount = timelineList.getCount();
+//        for (int i = 0; i < groupCount; i++) {
+//            timelineList.expandGroup(i);
+//        }
+        timelineList.expandGroup(0);
     }
 
     private List<GroupTimelineEntity> getListData() {

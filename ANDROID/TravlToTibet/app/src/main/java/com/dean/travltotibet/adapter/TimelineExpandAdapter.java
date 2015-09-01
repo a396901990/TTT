@@ -88,7 +88,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         GroupViewHolder holder = new GroupViewHolder();
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.group_status_item, null);
+            convertView = inflater.inflate(R.layout.route_timeline_group_item, null);
         }
         holder.titleName = (TextView) convertView
                 .findViewById(R.id.title_name);
@@ -108,7 +108,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
             viewHolder = (ChildViewHolder) convertView.getTag();
         } else {
             viewHolder = new ChildViewHolder();
-            convertView = inflater.inflate(R.layout.child_status_item, null);
+            convertView = inflater.inflate(R.layout.route_timeline_child_item, null);
 
             // 标题海拔
             viewHolder.titleHeight = (TextView) convertView.findViewById(R.id.title_height);

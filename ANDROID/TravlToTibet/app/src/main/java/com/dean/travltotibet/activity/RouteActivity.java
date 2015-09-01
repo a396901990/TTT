@@ -16,7 +16,6 @@ import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -195,7 +194,7 @@ public class RouteActivity
         }
 
         // 设置主菜单
-        setBehindContentView(R.layout.route_layout);
+        setBehindContentView(R.layout.route_fragment_layout);
         // 初始化menu
         slidingMenu = super.getSlidingMenu();
 
@@ -218,7 +217,7 @@ public class RouteActivity
 //        // slidingMenu.setBehindScrollScale(1.0f);
 //        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
 //        //设置右边（二级）侧滑菜单
-//        slidingMenu.setSecondaryMenu(R.layout.route_layout);
+//        slidingMenu.setSecondaryMenu(R.layout.route_fragment_layout);
 
         // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
         //menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
