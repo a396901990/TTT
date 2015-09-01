@@ -69,24 +69,30 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
     private List<GroupTimelineEntity> getListData() {
         List<GroupTimelineEntity> groupList;
-        String[] strArray = new String[]{"10月22日", "10月23日", "10月25日"};
+        String[] strArray = new String[]{"叶城", "菩萨村", "南京矿山"};
         String[] markArray = new String[]{"G2191835", "G2191835", "G2191835"};
         String[][] childTimeArray = new String[][]{
                 {"俯卧撑十次", "仰卧起坐二十次", "大喊我爱紫豪二十次", "每日赞紫豪一次"},
                 {"亲，快快滴点赞哦~"}, {"没有赞的，赶紧去赞哦~"}};
+
         groupList = new ArrayList<GroupTimelineEntity>();
         for (int i = 0; i < strArray.length; i++) {
             GroupTimelineEntity groupStatusEntity = new GroupTimelineEntity();
             groupStatusEntity.setTitleName(strArray[i]);
-            groupStatusEntity.setTitleMarkName(markArray[i]);
 
             List<ChildTimelineEntity> childList = new ArrayList<ChildTimelineEntity>();
 
+            ChildTimelineEntity childStatusEntity = new ChildTimelineEntity();
+            childStatusEntity.setTitleHeight(markArray[i]);
+            childStatusEntity.setTitleMilestone(markArray[i]);
+
+            StringBuffer sb = new StringBuffer();
             for (int j = 0; j < childTimeArray[i].length; j++) {
-                ChildTimelineEntity childStatusEntity = new ChildTimelineEntity();
-                childStatusEntity.setRouteDetail(childTimeArray[i][j]);
-                childList.add(childStatusEntity);
+                sb.append(childTimeArray[i][j]);
+                sb.append("\n");
             }
+            childStatusEntity.setRouteDetail(sb.toString());
+            childList.add(childStatusEntity);
 
             groupStatusEntity.setChildList(childList);
             groupList.add(groupStatusEntity);

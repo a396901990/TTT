@@ -92,11 +92,8 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         }
         holder.titleName = (TextView) convertView
                 .findViewById(R.id.title_name);
-        holder.titleMarkName = (TextView) convertView
-                .findViewById(R.id.title_mark_name);
 
         holder.titleName.setText(groupList.get(groupPosition).getTitleName());
-        holder.titleMarkName.setText(groupList.get(groupPosition).getTitleMarkName());
 
         return convertView;
     }
@@ -112,10 +109,18 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         } else {
             viewHolder = new ChildViewHolder();
             convertView = inflater.inflate(R.layout.child_status_item, null);
-            viewHolder.contentDetail = (TextView) convertView
-                    .findViewById(R.id.content_name);
+
+            // 标题海拔
+            viewHolder.titleHeight = (TextView) convertView.findViewById(R.id.title_height);
+            // 标题里程碑
+            viewHolder.titleMileage = (TextView) convertView.findViewById(R.id.title_milestone);
+            // 详细攻略内容
+            viewHolder.contentDetail = (TextView) convertView.findViewById(R.id.content_detail);
         }
+
         viewHolder.contentDetail.setText(entity.getRouteDetail());
+        viewHolder.titleHeight.setText(entity.getTitleHeight());
+        viewHolder.titleMileage.setText(entity.getTitleMilestone());
 
         convertView.setTag(viewHolder);
         return convertView;
@@ -128,11 +133,12 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
     }
 
     private class GroupViewHolder {
-        TextView titleMarkName;
         TextView titleName;
     }
 
     private class ChildViewHolder {
+        TextView titleHeight;
+        TextView titleMileage;
         public TextView contentDetail;
     }
 
@@ -140,27 +146,37 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
      * timeline list 一级Item实体类
      */
     public static class GroupTimelineEntity {
+
         private String titleName;
-        private String titleMarkName;
+        private String titleHeight;
+        private String titleMilestone;
         /**
          * 二级Item数据列表 *
          */
         private List<ChildTimelineEntity> childList;
 
+        public String getTitleMilestone() {
+            return titleMilestone;
+        }
+
+        public void setTitleMilestone(String titleMilestone) {
+            this.titleMilestone = titleMilestone;
+        }
+
         public String getTitleName() {
             return titleName;
         }
 
-        public String getTitleMarkName() {
-            return titleMarkName;
-        }
-
-        public void setTitleMarkName(String titleMarkName) {
-            this.titleMarkName = titleMarkName;
-        }
-
         public void setTitleName(String titleName) {
             this.titleName = titleName;
+        }
+
+        public String getTitleHeight() {
+            return titleHeight;
+        }
+
+        public void setTitleHeight(String titleHeight) {
+            this.titleHeight = titleHeight;
         }
 
         public List<ChildTimelineEntity> getChildList() {
@@ -170,6 +186,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         public void setChildList(List<ChildTimelineEntity> childList) {
             this.childList = childList;
         }
+
 
     }
 
@@ -182,12 +199,38 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
          */
         private String routeDetail;
 
+        /**
+         * 标题海拔
+         */
+        private String titleHeight;
+
+        /**
+         * 标题里程碑
+         */
+        private String titleMilestone;
+
         public String getRouteDetail() {
             return routeDetail;
         }
 
         public void setRouteDetail(String routeDetail) {
             this.routeDetail = routeDetail;
+        }
+
+        public String getTitleMilestone() {
+            return titleMilestone;
+        }
+
+        public void setTitleMilestone(String titleMilestone) {
+            this.titleMilestone = titleMilestone;
+        }
+
+        public String getTitleHeight() {
+            return titleHeight;
+        }
+
+        public void setTitleHeight(String titleHeight) {
+            this.titleHeight = titleHeight;
         }
 
     }

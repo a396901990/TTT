@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:fadingEdgeLength="0dip"
     android:orientation="vertical"
-    android:padding="15dp"
+    android:padding="@dimen/guide_route_view_padding"
     android:scrollbars="none">
 
     <LinearLayout
@@ -12,6 +12,7 @@
         android:orientation="vertical">
         <!--简介-->
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -157,14 +158,8 @@
                 style="@style/TextAppearance.Large.Black.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
                 android:text="行程" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:layout_below="@+id/route_title"
-                android:layout_marginLeft="55dp"
-                android:background="@color/time_line_bg" />
 
             <com.dean.travltotibet.ui.TimelineListview
                 android:id="@+id/timeline_list"

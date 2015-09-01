@@ -14,7 +14,15 @@
     <dimen name="shadow_width">5dp</dimen>
     <dimen name="header_tab_btn_width">180dp</dimen>
     <dimen name="header_tab_btn_height">30dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--路线视图的padding-->
+    <dimen name="guide_route_view_padding">15dp</dimen>
+
+    <dimen name="guide_time_line_title_image_width">20dp</dimen>
+    <dimen name="guide_time_line_title_image_height">20dp</dimen>
+    <dimen name="guide_time_line_title_margin_left">5dp</dimen>
+    <dimen name="guide_time_line_title_margin_right">10dp</dimen>
+
+    <!--padding + margin_left + margin_right-->
+    <dimen name="guide_time_line_content_margin_left">35dp</dimen>
 </resources>
