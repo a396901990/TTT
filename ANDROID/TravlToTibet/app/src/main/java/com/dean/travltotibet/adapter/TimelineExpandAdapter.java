@@ -3,10 +3,12 @@ package com.dean.travltotibet.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
@@ -23,6 +25,16 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         this.groupList = group_list;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    /**
+     * 设置数据
+     *
+     * @param groupList
+     */
+    public void setData(List<GroupTimelineEntity> groupList) {
+        this.groupList = groupList;
+        notifyDataSetChanged();
     }
 
     /**
@@ -51,7 +63,6 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public Object getGroup(int groupPosition) {
-        // TODO Auto-generated method stub
         return groupList.get(groupPosition);
     }
 
@@ -90,6 +101,13 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.route_timeline_group_item, null);
         }
+
+        ImageView indicatorImage =(ImageView)convertView.findViewById(R.id.title_indicator);
+        indicatorImage.setImageResource(R.drawable.orange_circle_blank);
+        if(!isExpanded){
+            indicatorImage.setImageResource(R.drawable.orange_circle);
+        }
+
         holder.titleName = (TextView) convertView
                 .findViewById(R.id.title_name);
 

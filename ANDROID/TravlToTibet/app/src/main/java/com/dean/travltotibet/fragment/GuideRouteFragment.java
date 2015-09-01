@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
+import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
@@ -29,6 +29,10 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
     private RouteActivity mActivity;
 
+    private TimelineExpandAdapter timelineAdapter;
+
+    private ExpandableListView timelineList;
+
     public static GuideRouteFragment newInstance() {
         GuideRouteFragment newFragment = new GuideRouteFragment();
         return newFragment;
@@ -46,7 +50,6 @@ public class GuideRouteFragment extends BaseRouteFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (RouteActivity) getActivity();
 
-        initOverallView();
         initTimelineRouteListView();
     }
 
@@ -54,109 +57,80 @@ public class GuideRouteFragment extends BaseRouteFragment {
      * 初始化路线时间轴列表
      */
     private void initTimelineRouteListView() {
-        ExpandableListView timelineList = (ExpandableListView) root.findViewById(R.id.timeline_list);
-        TimelineExpandAdapter timelineAdapter = new TimelineExpandAdapter(mActivity, getListData());
+        timelineList = (ExpandableListView) root.findViewById(R.id.timeline_list);
+        // 初始化数据adapter并赋值
+        timelineAdapter = new TimelineExpandAdapter(mActivity, getListData(mActivity.getPlanStart(), mActivity.getPlanEnd()));
         timelineList.setAdapter(timelineAdapter);
-        timelineList.setGroupIndicator(null); // 去掉默认带的箭头
-        timelineList.setSelection(0);// 设置默认选中项
-        timelineList.setClickable(false);
-        // 遍历所有group,将所有项设置成默认展开
-//        int groupCount = timelineList.getCount();
-//        for (int i = 0; i < groupCount; i++) {
-//            timelineList.expandGroup(i);
-//        }
         timelineList.expandGroup(0);
     }
 
-    private List<GroupTimelineEntity> getListData() {
-        List<GroupTimelineEntity> groupList;
+    private List<GroupTimelineEntity> getListData(String start, String end) {
+
         String[] strArray = new String[]{"叶城", "菩萨村", "南京矿山"};
         String[] markArray = new String[]{"G2191835", "G2191835", "G2191835"};
         String[][] childTimeArray = new String[][]{
                 {"俯卧撑十次", "仰卧起坐二十次", "大喊我爱紫豪二十次", "每日赞紫豪一次"},
                 {"亲，快快滴点赞哦~"}, {"没有赞的，赶紧去赞哦~"}};
 
-        groupList = new ArrayList<GroupTimelineEntity>();
-        for (int i = 0; i < strArray.length; i++) {
+        // 根据起点终点获取数据
+        List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithName(start, end);
+
+        // groupList存放所有数据
+        List<GroupTimelineEntity> groupList = new ArrayList<GroupTimelineEntity>();
+
+        for (Geocode geocode : geocodes) {
+            // title模型对象
             GroupTimelineEntity groupStatusEntity = new GroupTimelineEntity();
-            groupStatusEntity.setTitleName(strArray[i]);
+            // 为title设置值
+            groupStatusEntity.setTitleName(geocode.getName());
 
             List<ChildTimelineEntity> childList = new ArrayList<ChildTimelineEntity>();
-
+            // child子view的模型
             ChildTimelineEntity childStatusEntity = new ChildTimelineEntity();
-            childStatusEntity.setTitleHeight(markArray[i]);
-            childStatusEntity.setTitleMilestone(markArray[i]);
 
-            StringBuffer sb = new StringBuffer();
-            for (int j = 0; j < childTimeArray[i].length; j++) {
-                sb.append(childTimeArray[i][j]);
-                sb.append("\n");
-            }
-            childStatusEntity.setRouteDetail(sb.toString());
+            // 为子视图设置高度
+            String height = StringUtil.formatDoubleToInteger(geocode.getElevation());
+            height = String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, height);
+            childStatusEntity.setTitleHeight(height);
+
+            // 为子视图设置位置
+            String road = geocode.getRoad();
+            if (!TextUtils.isEmpty(road))
+                road = road.split("/")[1];
+
+            String milestone = StringUtil.formatDoubleToFourInteger(geocode.getMilestone());
+            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            childStatusEntity.setTitleMilestone(milestone);
+
+            // 为子视图设置详细攻略信息
+            childStatusEntity.setRouteDetail(geocode.getAddress());
+//            StringBuffer sb = new StringBuffer();
+//            for (int j = 0; j < childTimeArray[i].length; j++) {
+//                sb.append(childTimeArray[i][j]);
+//                sb.append("\n");
+//            }
+
             childList.add(childStatusEntity);
-
             groupStatusEntity.setChildList(childList);
             groupList.add(groupStatusEntity);
         }
+
         return groupList;
-    }
-
-    /**
-     * 初始化简介视图
-     */
-    private void initOverallView() {
-
-        String start = mActivity.getPlanStart();
-        String end = mActivity.getPlanEnd();
-        String distance = mActivity.getPlanDistance();
-
-        updateOverallView(start, end, distance);
-    }
-
-    /**
-     * 根据start，end去数据库取值更新overall视图
-     *
-     * @param start
-     * @param end
-     * @param distance
-     */
-    private void updateOverallView(String start, String end, String distance) {
-        TextView start_name = (TextView) root.findViewById(R.id.route_start_name);
-        TextView start_height = (TextView) root.findViewById(R.id.route_start_height);
-        TextView start_milestone = (TextView) root.findViewById(R.id.route_start_milestone);
-
-        TextView end_name = (TextView) root.findViewById(R.id.route_end_name);
-        TextView end_height = (TextView) root.findViewById(R.id.route_end_height);
-        TextView end_milestone = (TextView) root.findViewById(R.id.route_end_milestone);
-
-        TextView overall_distance = (TextView) root.findViewById(R.id.route_distance);
-
-        start_name.setText(start);
-        end_name.setText(end);
-        overall_distance.setText(distance);
-
-        String start_road = TTTApplication.getDbHelper().getRoadWithName(start);
-        if (!TextUtils.isEmpty(start_road))
-            start_road = start_road.split("/")[1];
-
-        String end_road = TTTApplication.getDbHelper().getRoadWithName(end);
-        if (!TextUtils.isEmpty(end_road))
-            end_road = end_road.split("/")[1];
-
-        String startHeight = StringUtil.formatDoubleToInteger(TTTApplication.getDbHelper().getElevationWithName(start));
-        String endHeight = StringUtil.formatDoubleToInteger(TTTApplication.getDbHelper().getElevationWithName(end));
-        String startMilestone = StringUtil.formatDoubleToInteger(TTTApplication.getDbHelper().getMilestoneWithName(start));
-        String endMilestone = StringUtil.formatDoubleToInteger(TTTApplication.getDbHelper().getMilestoneWithName(end));
-
-        start_height.setText(String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, startHeight));
-        end_height.setText(String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, endHeight));
-        start_milestone.setText(String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, start_road, startMilestone));
-        end_milestone.setText(String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, end_road, endMilestone));
     }
 
     @Override
     public void updateRoute(String start, String end, String date, String distance) {
-        super.updateRoute(start, end, date, distance);
-        updateOverallView(start, end, distance);
+        updateTimelineView(start, end, distance);
+    }
+
+    private void updateTimelineView(String start, String end, String distance) {
+        timelineAdapter.setData(getListData(start, end));
+        // 遍历所有group,将所有项设置成默认关闭
+        int groupCount = timelineList.getCount();
+        for (int i = 0; i < groupCount; i++) {
+            timelineList.collapseGroup(i);
+        }
+        // 打开第一个
+        timelineList.expandGroup(0);
     }
 }

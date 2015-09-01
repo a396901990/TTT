@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:paddingTop="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/guide_time_line_item_padding"
+    android:paddingTop="@dimen/guide_time_line_item_padding">
 
     <ImageView
+        android:id="@+id/title_indicator"
         android:layout_width="@dimen/guide_time_line_title_image_width"
         android:layout_height="@dimen/guide_time_line_title_image_height"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/guide_time_line_title_margin_left"
-        android:layout_marginRight="@dimen/guide_time_line_title_margin_right"
-        android:background="@drawable/icons_ok"
-        android:contentDescription="@string/app_name" />
+        android:layout_marginRight="@dimen/guide_time_line_title_margin_right" />
 
     <TextView
         android:id="@+id/title_name"

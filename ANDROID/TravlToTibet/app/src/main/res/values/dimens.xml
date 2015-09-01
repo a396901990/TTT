@@ -25,4 +25,6 @@
 
     <!--padding + margin_left + margin_right-->
     <dimen name="guide_time_line_content_margin_left">35dp</dimen>
+
+    <dimen name="guide_time_line_item_padding">10dp</dimen>
 </resources>

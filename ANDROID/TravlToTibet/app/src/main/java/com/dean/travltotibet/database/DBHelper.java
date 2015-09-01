@@ -79,6 +79,24 @@ public class DBHelper
         return qb.list();
     }
 
+    /** 查询两个名字之间的地理位置信息 */
+    public List<Geocode> getNonPathGeocodeListWithName(String start , String end)
+    {
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Name.eq(start));
+        long startID = qb.list().get(0).getId();
+
+        qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Name.eq(end));
+        long endID = qb.list().get(0).getId();
+
+        qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Id.between(startID, endID));
+        qb.where(Properties.Types.notEq("PATH"));
+
+        return qb.list();
+    }
+
     /**
      * 根据name获取海拔
      * @param name

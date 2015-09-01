@@ -42,10 +42,10 @@ public class StringUtil
      * various method from {@link List}.
      */
     public static final int INDEX_NOT_FOUND = -1;
-    
+
     /**
      * format String
-     * 
+     *
      * @param argString
      *            String to be formatted
      * @return formtted String
@@ -57,7 +57,7 @@ public class StringUtil
 
     /**
      * format double
-     * 
+     *
      * @param argDouble
      *            double to be formatted
      * @return formtted String
@@ -70,6 +70,11 @@ public class StringUtil
     public static String formatDoubleToInteger( final double argDouble )
     {
         return STRING_INTEGER_FORMATTER.format(argDouble);
+    }
+
+    public static String formatDoubleToFourInteger( final double argDouble )
+    {
+        return new DecimalFormat(Constants.FOUR_INTEGER_FORMATTER).format(argDouble);
     }
 
     /**
@@ -95,7 +100,7 @@ public class StringUtil
 
     /**
      * Parses a Double from the specified string
-     * 
+     *
      * @param argString
      *            String to be formatted
      * @return double value of specified string
@@ -115,7 +120,7 @@ public class StringUtil
         {
             try
             {
-                return Double.valueOf(DECIMAL_FORMATTER.parse(argString).doubleValue()); 
+                return Double.valueOf(DECIMAL_FORMATTER.parse(argString).doubleValue());
             }
             catch (final NumberFormatException e1)
             {
@@ -130,7 +135,7 @@ public class StringUtil
 
     /**
      * Parses a double from the specified string
-     * 
+     *
      * @param argString
      *            specified string
      * @param defaultValue
@@ -154,7 +159,7 @@ public class StringUtil
 
     /**
      * Parses an Integer from the specified string
-     * 
+     *
      * @param argString
      *            String to be converted to integer
      * @return integer value of specified string
@@ -189,7 +194,7 @@ public class StringUtil
 
     /**
      * Parses an integer from the specified string
-     * 
+     *
      * @param argString
      *            String to be converted to integer
      * @param defaultValue
@@ -211,7 +216,7 @@ public class StringUtil
 
     /**
      * Parses a Float from the specified string
-     * 
+     *
      * @param argString
      *            String to be converted to float
      * @return float value of specified string
@@ -241,7 +246,7 @@ public class StringUtil
 
     /**
      * Parses a float from the specified string
-     * 
+     *
      * @param argString
      *            String to be converted to float
      * @param defaultValue
@@ -265,7 +270,7 @@ public class StringUtil
 
     /**
      * add strings
-     * 
+     *
      * @param args
      *            strings to add
      * @return string
@@ -294,7 +299,7 @@ public class StringUtil
 
     /**
      * get special characters from web service.
-     * 
+     *
      * @param source
      *            data from web service.
      * @return string data support special characters.
@@ -317,7 +322,7 @@ public class StringUtil
     /**
      * Helper method to join objects in an array together separated by...a
      * separator
-     * 
+     *
      * @param argArray
      *            The array of objects to join
      * @param argSeparator
@@ -364,7 +369,7 @@ public class StringUtil
         }
         return buf.toString();
     }
-    
+
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
@@ -375,11 +380,11 @@ public class StringUtil
      *  if the input is whitespace, empty ("") or {@code null}, may be null
      * @return the passed in CharSequence, or the default
      */
-    public static <T extends CharSequence> T defaultIfBlank(T str, T defaultStr) 
+    public static <T extends CharSequence> T defaultIfBlank(T str, T defaultStr)
     {
         return TextUtils.isEmpty(str) ? defaultStr : str;
     }
-    
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -390,7 +395,7 @@ public class StringUtil
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(int[] array, int valueToFind) 
+    public static int indexOf(int[] array, int valueToFind)
     {
         return indexOf(array, valueToFind, 0);
     }
@@ -428,7 +433,7 @@ public class StringUtil
         }
         return INDEX_NOT_FOUND;
     }
-    
+
     /**
      * <p>Finds the index of the given object in the array.</p>
      *
@@ -439,7 +444,7 @@ public class StringUtil
      * @return the index of the object within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(Object[] array, Object objectToFind) 
+    public static int indexOf(Object[] array, Object objectToFind)
     {
         return indexOf(array, objectToFind, 0);
     }
@@ -490,7 +495,7 @@ public class StringUtil
         }
         return INDEX_NOT_FOUND;
     }
-    
+
     /**
      * <p>Checks whether the character is ASCII 7 bit alphabetic.</p>
      *
@@ -502,15 +507,15 @@ public class StringUtil
      *   CharUtils.isAsciiAlpha('\n') = false
      *   CharUtils.isAsciiAlpha('&copy;') = false
      * </pre>
-     * 
+     *
      * @param ch  the character to check
      * @return true if between 65 and 90 or 97 and 122 inclusive
      */
-    public static boolean isAsciiAlpha(char ch) 
+    public static boolean isAsciiAlpha(char ch)
     {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
     }
-    
+
     /**
      * <p>Checks whether the character is ASCII 7 bit numeric.</p>
      *
@@ -522,27 +527,27 @@ public class StringUtil
      *   CharUtils.isAsciiAlphanumeric('\n') = false
      *   CharUtils.isAsciiAlphanumeric('&copy;') = false
      * </pre>
-     * 
+     *
      * @param ch  the character to check
      * @return true if between 48 and 57 or 65 and 90 or 97 and 122 inclusive
      */
-    public static boolean isAsciiAlphanumeric(char ch) 
+    public static boolean isAsciiAlphanumeric(char ch)
     {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
     }
-    
-    public static String nullToEmpty(String string) 
+
+    public static String nullToEmpty(String string)
     {
         return (string == null) ? "" : string;
-    }    
-    
+    }
+
     public static String[] clean( final String[] v )
     {
         List<String> list = new ArrayList<String>(Arrays.asList(v));
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
     }
-    
+
     /**
      * @param stringList
      *            source string list

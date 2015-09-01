@@ -22,9 +22,9 @@
     <color name="lime">#CDDC39</color>
     <color name="blue_gray">#607D8B</color>
     <color name="plan_row_divider">#4C4C4C</color>
-    <color name="light_orange">#FFA726</color>
+    <color name="orange">#FFA726</color>
     <color name="light_lime">#D4E157</color>
-    <color name="light_purple">#FFA726</color>
+    <color name="light_orange">#FFC107</color>
     <color name="background_selected">#545454</color>
     <color name="time_line_bg">#b3b3b3</color>
     <color name="head_line_bg">#cccccc</color>

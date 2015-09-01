@@ -134,7 +134,7 @@ public class RouteActivity
                 ((TextView) v).setTextColor(getResources().getColor(R.color.light_green));
                 break;
             case 2:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.light_purple));
+                ((TextView) v).setTextColor(getResources().getColor(R.color.light_orange));
                 break;
             default:
                 break;
@@ -163,7 +163,7 @@ public class RouteActivity
 
                 break;
             case 2:
-                headerView.setBackgroundResource(R.color.light_purple);
+                headerView.setBackgroundResource(R.color.light_orange);
 
                 heightTab.setBackgroundResource(R.drawable.btn_purple_background);
                 mapTab.setBackgroundResource(R.drawable.btn_purple_background);
