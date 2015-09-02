@@ -18,8 +18,8 @@ public class MyGenerator {
         Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME);
         addGeocode(schema);
         addRoute(schema);
-        addZoneType(schema);
-        addBuildingType(schema);
+//        addZoneType(schema);
+//        addBuildingType(schema);
 
         //生成Dao文件路径
         new DaoGenerator().generateAll(schema, DAO_PATH);
@@ -52,7 +52,7 @@ public class MyGenerator {
         route.addStringProperty("end").notNull();
         route.addStringProperty("distance").notNull();
         route.addStringProperty("type").notNull();
-        route.addStringProperty("guide");
+        route.addStringProperty("hotel");
     }
 
     // 区域类型表

@@ -34,6 +34,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -295,7 +296,6 @@ public class RouteChartView
     {
         super.onSizeChanged(w, h, oldw, oldh);
         mContentRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight() - mLabelSeparation - mMaxLabelWidth - mLabelSeparation, getHeight() - getPaddingBottom() - mLabelHeight - mLabelSeparation - mLabelSeparation);
-
         scaleX = (float) mContentRect.width() / (float) mCurrentViewport.width();
         scaleY = (float) mContentRect.height() / (float) mCurrentViewport.height();
     }
@@ -1264,8 +1264,9 @@ public class RouteChartView
         AXIS_X_MAX = maxX;
         AXIS_Y_MIN = minY;
         AXIS_Y_MAX = maxY;
-
         mCurrentViewport.set(minX, minY, maxX, maxY);
+        constrainViewport();
+        ViewCompat.postInvalidateOnAnimation(RouteChartView.this);
     }
 
     public void addCrosshairPaintedListener( OnCrosshairPainted mCrosshairPaintedListener )

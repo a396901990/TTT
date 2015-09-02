@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,18 +53,14 @@ public class ChartFragment extends BaseRouteFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-
         // 初始化视图
         mChartView = (RouteChartView) root.findViewById(R.id.chart);
         mIndicatorView = (IndicatorChartView) root.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
 
-        updateChartRoute("叶城县", "拉萨");
-        // need improve
-        routeActivity.updateHeader("叶城县", "拉萨", "新藏线","2579M");
+        updateChartRoute(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
     }
 
-//    /**
 //     * 更新标题头
 //     */
 //    protected void updateHeader(AbstractPoint point) {
@@ -98,7 +95,7 @@ public class ChartFragment extends BaseRouteFragment {
         // 计算两个路线点起点和终点的间距，使路线在屏幕中间
         float firstPointLength = (float) geocodes.get(0).getMileage();
         float lastPointLength = (float) geocodes.get(geocodes.size() - 1).getMileage();
-        float pointLength = lastPointLength - firstPointLength;
+        final float pointLength = lastPointLength - firstPointLength;
 
         for (Geocode geocode : geocodes) {
             series.addPoint(new MountainSeries.MountainPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
@@ -107,9 +104,16 @@ public class ChartFragment extends BaseRouteFragment {
 
         series.initPaint();
 
-        // 重置图标视图数据
-        // 远离屏幕左右间隔是起点终点长的1/10
-        mChartView.setAxisRange(-pointLength / 10, 0, pointLength + pointLength / 10, 6500);
+        // 另起一个子线程更新视窗大小变换，修复切换fragment重新加载bug
+        mChartView.post(new Runnable() {
+            @Override
+            public void run() {
+                // 重置图标视图数据
+                // 远离屏幕左右间隔是起点终点长的1/10
+                mChartView.setAxisRange(-pointLength / 10, 0, pointLength + pointLength / 10, 6500);
+            }
+        });
+
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 

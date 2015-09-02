@@ -59,6 +59,8 @@ public class RouteActivity
         initMenu();
         initHeader();
         initViewPager();
+        // need improve
+        updateHeader("叶城县", "拉萨", "新藏线","2579M");
     }
 
     private void initViewPager() {
