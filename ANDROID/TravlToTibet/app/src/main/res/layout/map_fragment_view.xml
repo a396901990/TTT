@@ -5,11 +5,10 @@
     android:orientation="vertical"
     android:background="#FFFFFF" >
 
-
-    <TextView
-        android:id="@+id/tv_hello"
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/id_bmapView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:clickable="true" />
 
 </LinearLayout>
