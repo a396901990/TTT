@@ -10,6 +10,7 @@ import com.dean.greendao.Routes;
 import com.dean.greendao.RoutesDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.util.Constants;
 import com.google.gson.Gson;
 
@@ -106,6 +107,19 @@ public class DBHelper
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Name.eq(name));
         return qb.list().get(0).getElevation();
+    }
+
+    /**
+     * 根据name获取经纬度信息为Location赋值
+     * @param name
+     * @return
+     */
+    public Location getLocationWithName(String name) {
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Name.eq(name));
+        Geocode geocode = qb.list().get(0);
+
+        return new Location(geocode.getLatitude(), geocode.getLongitude());
     }
 
     /**

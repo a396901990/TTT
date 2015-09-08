@@ -4,11 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.model.LatLng;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
+import com.dean.travltotibet.model.Location;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -20,6 +27,8 @@ public class MapFragment extends BaseRouteFragment {
     private RouteActivity mActivity;
 
     private MapView mMapView = null;
+
+    BaiduMap mBaiduMap;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -47,7 +56,35 @@ public class MapFragment extends BaseRouteFragment {
 
         // 获取地图控件引用
         mMapView = (MapView) root.findViewById(R.id.id_bmapView);
+        mBaiduMap = mMapView.getMap();
 
+        Location location = TTTApplication.getDbHelper().getLocationWithName(mActivity.getPlanStart());
+        LatLng ll = new LatLng(location.getLatitude(),
+                location.getLongitude());
+        MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+        mBaiduMap.animateMapStatus(u);
+
+        initBtn();
+
+    }
+
+    private void initBtn() {
+        Button normail = (Button) root.findViewById(R.id.normal);
+        Button satile = (Button) root.findViewById(R.id.normal);
+
+        normail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+            }
+        });
+
+        satile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+            }
+        });
     }
 
     @Override
