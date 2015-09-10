@@ -6,8 +6,11 @@ import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
+import com.dean.greendao.Plan;
+import com.dean.greendao.PlanDao;
+import com.dean.greendao.Route;
+import com.dean.greendao.RouteDao;
 import com.dean.greendao.Routes;
-import com.dean.greendao.RoutesDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -26,47 +29,47 @@ import de.greenrobot.dao.query.QueryBuilder;
 /**
  * Created by Dean on 2015/5/27.
  */
-public class DBHelper
-{
+public class DBHelper {
     private static Context mContext;
     private static DBHelper instance;
 
     private GeocodeDao geocodeDao;
 
-    private RoutesDao routesDao;
+    private RouteDao routesDao;
 
-    private DBHelper()
-    {
+    private PlanDao planDao;
+
+    private DBHelper() {
     }
 
-    public static DBHelper getInstance(Context context)
-    {
-        if (instance == null)
-        {
+    public static DBHelper getInstance(Context context) {
+        if (instance == null) {
             instance = new DBHelper();
-            if (mContext == null)
-            {
+            if (mContext == null) {
                 mContext = context;
             }
 
             // 数据库对象
             DaoSession daoSession = TTTApplication.getDaoSession(mContext);
             instance.geocodeDao = daoSession.getGeocodeDao();
-            instance.routesDao = daoSession.getRoutesDao();
+            instance.routesDao = daoSession.getRouteDao();
+            instance.planDao = daoSession.getPlanDao();
         }
         return instance;
     }
 
-    /** 查询所有地理位置信息 */
-    public List<Geocode> getGeocodeList()
-    {
+    /**
+     * 查询所有地理位置信息
+     */
+    public List<Geocode> getGeocodeList() {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         return qb.list();
     }
 
-    /** 查询两个名字之间的地理位置信息 */
-    public List<Geocode> getGeocodeListWithName(String start , String end)
-    {
+    /**
+     * 查询两个名字之间的地理位置信息
+     */
+    public List<Geocode> getGeocodeListWithName(String start, String end) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Name.eq(start));
         long startID = qb.list().get(0).getId();
@@ -80,9 +83,10 @@ public class DBHelper
         return qb.list();
     }
 
-    /** 查询两个名字之间的地理位置信息 */
-    public List<Geocode> getNonPathGeocodeListWithName(String start , String end)
-    {
+    /**
+     * 查询两个名字之间的地理位置信息
+     */
+    public List<Geocode> getNonPathGeocodeListWithName(String start, String end) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Name.eq(start));
         long startID = qb.list().get(0).getId();
@@ -100,6 +104,7 @@ public class DBHelper
 
     /**
      * 根据name获取海拔
+     *
      * @param name
      * @return
      */
@@ -111,6 +116,7 @@ public class DBHelper
 
     /**
      * 根据name获取经纬度信息为Location赋值
+     *
      * @param name
      * @return
      */
@@ -124,6 +130,7 @@ public class DBHelper
 
     /**
      * 根据name获取道路信息
+     *
      * @param name
      * @return
      */
@@ -135,6 +142,7 @@ public class DBHelper
 
     /**
      * 根据name获取里程碑
+     *
      * @param name
      * @return
      */
@@ -144,51 +152,67 @@ public class DBHelper
         return qb.list().get(0).getMilestone();
     }
 
-    /** 查询所有路线信息 */
-    public List<Routes> getRoutsList()
-    {
-        QueryBuilder<Routes> qb = routesDao.queryBuilder();
+    /**
+     * 查询所有路线信息
+     */
+    public List<Route> getRoutsList() {
+        QueryBuilder<Route> qb = routesDao.queryBuilder();
         return qb.list();
     }
 
-    /** 查询 */
-    public List<Geocode> getGeocode()
-    {
+    /**
+     * 查询所有计划信息
+     */
+    public List<Plan> getPlanList() {
+        QueryBuilder<Plan> qb = planDao.queryBuilder();
+        return qb.list();
+    }
+
+    /**
+     * 查询
+     */
+    public List<Geocode> getGeocode() {
         return geocodeDao.loadAll();
     }
 
-    /** 查询 */
-    public boolean isSaved(int Id)
-    {
+    /**
+     * 查询
+     */
+    public boolean isSaved(int Id) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Id.eq(Id));
         qb.buildCount().count();
         return qb.buildCount().count() > 0 ? true : false;// 查找收藏表
     }
 
-    /** 删除 */
-    public void deleteGeocodeList(int Id)
-    {
+    /**
+     * 删除
+     */
+    public void deleteGeocodeList(int Id) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         DeleteQuery<Geocode> bd = qb.where(Properties.Id.eq(Id)).buildDelete();
         bd.executeDeleteWithoutDetachingEntities();
     }
 
-    /** 删除Geocode数据 */
-    public void clearGeocode()
-    {
+    /**
+     * 删除Geocode数据
+     */
+    public void clearGeocode() {
         geocodeDao.deleteAll();
     }
 
-    /** 检查Geocode是否初始化 */
-    public boolean isGeocodeDaoInited()
-    {
+    /**
+     * 检查Geocode是否初始化
+     */
+    public boolean isGeocodeDaoInited() {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.buildCount().count();
         return qb.buildCount().count() > 0 ? true : false;
     }
 
-    /** 初始化Geocode数据 */
+    /**
+     * 初始化Geocode数据
+     */
     public void initGeocodeData() {
 
         if (!isGeocodeDaoInited()) {
@@ -208,31 +232,31 @@ public class DBHelper
         String DB_PATH = mContext.getDatabasePath(Constants.DB_NAME).getPath();
         //String DB_PATH = CommonData.baseDir + File.separator + Constants.DB_NAME;
 
-            try {
-                // 如 SQLite 数据库文件不存在，再检查一下 database 目录是否存在
-                File f = new File(DB_PATH);
-                // 如 database 目录不存在，新建该目录
-                if (!f.exists()) {
-                    f.mkdir();
-                }
-                // 得到 assets 目录下我们实现准备好的 SQLite 数据库作为输入流
-                //InputStream is = context.getAssets().open(Constants.DB_NAME);
-                InputStream is = context.getResources().openRawResource(R.raw.database);
-                // 输出流
-                OutputStream os = new FileOutputStream(DB_PATH);
-                // 文件写入
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = is.read(buffer)) > 0) {
-                    os.write(buffer, 0, length);
-                }
-                // 关闭文件流
-                os.flush();
-                os.close();
-                is.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            // 如 SQLite 数据库文件不存在，再检查一下 database 目录是否存在
+            File f = new File(DB_PATH);
+            // 如 database 目录不存在，新建该目录
+            if (!f.exists()) {
+                f.mkdir();
             }
+            // 得到 assets 目录下我们实现准备好的 SQLite 数据库作为输入流
+            //InputStream is = context.getAssets().open(Constants.DB_NAME);
+            InputStream is = context.getResources().openRawResource(R.raw.database);
+            // 输出流
+            OutputStream os = new FileOutputStream(DB_PATH);
+            // 文件写入
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+            // 关闭文件流
+            os.flush();
+            os.close();
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return DB_PATH;
     }

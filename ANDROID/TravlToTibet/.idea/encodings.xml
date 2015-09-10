@@ -4,10 +4,10 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/data.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/data2.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/data3.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/HttpHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/MyDataGenerator.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/ParseJson.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
-

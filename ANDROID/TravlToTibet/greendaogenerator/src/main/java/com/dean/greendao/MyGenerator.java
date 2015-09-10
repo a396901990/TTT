@@ -17,6 +17,7 @@ public class MyGenerator {
 
         Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME);
         addGeocode(schema);
+        addPlan(schema);
         addRoute(schema);
 //        addZoneType(schema);
 //        addBuildingType(schema);
@@ -31,28 +32,49 @@ public class MyGenerator {
     private static void addGeocode(Schema schema) {
         Entity geocode = schema.addEntity("Geocode");
         geocode.addIdProperty();
+        geocode.addStringProperty("route");
         geocode.addStringProperty("name").notNull();
         geocode.addDoubleProperty("elevation").notNull();
-        geocode.addDoubleProperty("mileage").notNull();
-        geocode.addDoubleProperty("milestone").notNull();
         geocode.addDoubleProperty("distance").notNull();
         geocode.addDoubleProperty("latitude").notNull();
         geocode.addDoubleProperty("longitude").notNull();
         geocode.addStringProperty("address").notNull();
         geocode.addStringProperty("types").notNull();
+        geocode.addDoubleProperty("milestone").notNull();
         geocode.addStringProperty("road");
+        geocode.addStringProperty("f_detail");
+        geocode.addStringProperty("r_detail");
     }
 
-    // 路线表
-    private static void addRoute(Schema schema) {
-        Entity route = schema.addEntity("Routes");
+    // 计划表
+    private static void addPlan(Schema schema) {
+        Entity route = schema.addEntity("Plan");
         route.addIdProperty();
         route.addStringProperty("name").notNull();
+        route.addStringProperty("day").notNull();
         route.addStringProperty("start").notNull();
         route.addStringProperty("end").notNull();
         route.addStringProperty("distance").notNull();
         route.addStringProperty("type").notNull();
-        route.addStringProperty("hotel");
+        route.addStringProperty("describe").notNull();
+        route.addStringProperty("rank").notNull();
+    }
+
+    // 路线表
+    private static void addRoute(Schema schema) {
+        Entity route = schema.addEntity("Route");
+        route.addIdProperty();
+        route.addStringProperty("route").notNull();
+        route.addStringProperty("name").notNull();
+        route.addStringProperty("day").notNull();
+        route.addStringProperty("start").notNull();
+        route.addStringProperty("end").notNull();
+        route.addStringProperty("distance").notNull();
+        route.addStringProperty("type").notNull();
+        route.addStringProperty("rank").notNull();
+        route.addStringProperty("describe").notNull();
+        route.addStringProperty("detail").notNull();
+        route.addStringProperty("pic_url").notNull();
     }
 
     // 区域类型表

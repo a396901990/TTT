@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dean.greendao.Plan;
 import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -86,10 +87,10 @@ public class PlanFragment extends Fragment {
         ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
 
         // 获取数据库路线
-        final List<Routes> routes = TTTApplication.getDbHelper().getRoutsList();
+        final List<Plan> plans = TTTApplication.getDbHelper().getPlanList();
 
-        for (Routes r : routes) {
-            mPlans.add(new PlanListAdapter.PlanListItem("DAY" + r.getId(), r.getStart(), r.getEnd(), r.getDistance()));
+        for (Plan plan : plans) {
+            mPlans.add(new PlanListAdapter.PlanListItem("DAY" + plan.getId(), plan.getStart(), plan.getEnd(), plan.getDistance()));
         }
 
         PlanListAdapter adapter = new PlanListAdapter(getActivity());

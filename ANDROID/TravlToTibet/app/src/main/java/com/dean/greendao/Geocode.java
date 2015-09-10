@@ -7,11 +7,10 @@ package com.dean.greendao;
 public class Geocode {
 
     private Long id;
+    private String route;
     /** Not-null value. */
     private String name;
     private double elevation;
-    private double mileage;
-    private double milestone;
     private double distance;
     private double latitude;
     private double longitude;
@@ -19,7 +18,10 @@ public class Geocode {
     private String address;
     /** Not-null value. */
     private String types;
+    private double milestone;
     private String road;
+    private String f_detail;
+    private String r_detail;
 
     public Geocode() {
     }
@@ -28,18 +30,20 @@ public class Geocode {
         this.id = id;
     }
 
-    public Geocode(Long id, String name, double elevation, double mileage, double milestone, double distance, double latitude, double longitude, String address, String types, String road) {
+    public Geocode(Long id, String route, String name, double elevation, double distance, double latitude, double longitude, String address, String types, double milestone, String road, String f_detail, String r_detail) {
         this.id = id;
+        this.route = route;
         this.name = name;
         this.elevation = elevation;
-        this.mileage = mileage;
-        this.milestone = milestone;
         this.distance = distance;
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
         this.types = types;
+        this.milestone = milestone;
         this.road = road;
+        this.f_detail = f_detail;
+        this.r_detail = r_detail;
     }
 
     public Long getId() {
@@ -48,6 +52,14 @@ public class Geocode {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     /** Not-null value. */
@@ -66,22 +78,6 @@ public class Geocode {
 
     public void setElevation(double elevation) {
         this.elevation = elevation;
-    }
-
-    public double getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(double mileage) {
-        this.mileage = mileage;
-    }
-
-    public double getMilestone() {
-        return milestone;
-    }
-
-    public void setMilestone(double milestone) {
-        this.milestone = milestone;
     }
 
     public double getDistance() {
@@ -128,12 +124,36 @@ public class Geocode {
         this.types = types;
     }
 
+    public double getMilestone() {
+        return milestone;
+    }
+
+    public void setMilestone(double milestone) {
+        this.milestone = milestone;
+    }
+
     public String getRoad() {
         return road;
     }
 
     public void setRoad(String road) {
         this.road = road;
+    }
+
+    public String getF_detail() {
+        return f_detail;
+    }
+
+    public void setF_detail(String f_detail) {
+        this.f_detail = f_detail;
+    }
+
+    public String getR_detail() {
+        return r_detail;
+    }
+
+    public void setR_detail(String r_detail) {
+        this.r_detail = r_detail;
     }
 
 }

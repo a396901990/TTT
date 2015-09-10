@@ -31,7 +31,7 @@ public class ParseUtil {
 
     public static String readFromRaw(Context mContext) {
         try {
-            InputStream is = mContext.getResources().openRawResource(R.raw.data);
+            InputStream is = mContext.getResources().openRawResource(R.raw.data3);
             String result = readInputStream(is);
             return result;
         } catch (Exception e) {

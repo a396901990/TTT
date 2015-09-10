@@ -60,7 +60,7 @@ public class RouteActivity
         initHeader();
         initViewPager();
         // need improve
-        updateHeader("叶城县", "拉萨", "新藏线","2579M");
+        updateHeader("叶城县", "柯克亚乡", "新藏线","2579M");
     }
 
     private void initViewPager() {

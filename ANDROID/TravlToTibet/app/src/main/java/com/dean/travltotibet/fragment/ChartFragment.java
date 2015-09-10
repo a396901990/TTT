@@ -92,17 +92,22 @@ public class ChartFragment extends BaseRouteFragment {
         series = new MountainSeries();
         indicatorSeries = new IndicatorSeries();
 
-        // 计算两个路线点起点和终点的间距，使路线在屏幕中间
-        float firstPointLength = (float) geocodes.get(0).getMileage();
-        float lastPointLength = (float) geocodes.get(geocodes.size() - 1).getMileage();
-        final float pointLength = lastPointLength - firstPointLength;
+        double mileage=0;
 
-        for (Geocode geocode : geocodes) {
-            series.addPoint(new MountainSeries.MountainPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
-            indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) geocode.getMileage() - firstPointLength, (int) geocode.getElevation()));
+        for (int i=0; i < geocodes.size(); i++) {
+            Geocode geocode = geocodes.get(i);
+
+            series.addPoint(new MountainSeries.MountainPoint((int) mileage, (int) geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
+            indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) mileage, (int) geocode.getElevation()));
+
+            // 最后一个位置不需要进行计算，根据距离计算每个点得距离长度
+            if (i < geocodes.size()-2)
+            mileage = mileage + geocode.getDistance();
         }
 
         series.initPaint();
+
+        final float border = (float) mileage;
 
         // 另起一个子线程更新视窗大小变换，修复切换fragment重新加载bug
         mChartView.post(new Runnable() {
@@ -110,7 +115,8 @@ public class ChartFragment extends BaseRouteFragment {
             public void run() {
                 // 重置图标视图数据
                 // 远离屏幕左右间隔是起点终点长的1/10
-                mChartView.setAxisRange(-pointLength / 10, 0, pointLength + pointLength / 10, 6500);
+                mChartView.setAxisRange(-border / 10, 0, border + border / 10, 6500);
+                mIndicatorView.setCurrentViewport(mChartView.getCurrentViewport()); // ??????????????????
             }
         });
 
