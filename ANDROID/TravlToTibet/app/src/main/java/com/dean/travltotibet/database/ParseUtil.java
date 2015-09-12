@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.dean.greendao.Geocode;
+import com.dean.greendao.GeocodeOld;
 import com.dean.travltotibet.R;
 import com.google.gson.Gson;
 
@@ -31,7 +32,7 @@ public class ParseUtil {
 
     public static String readFromRaw(Context mContext) {
         try {
-            InputStream is = mContext.getResources().openRawResource(R.raw.data3);
+            InputStream is = mContext.getResources().openRawResource(R.raw.data);
             String result = readInputStream(is);
             return result;
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class ParseUtil {
         return buffer.toString();
     }
 
-    public static void parseToFile(ArrayList<Geocode> geocodes) {
+    public static void parseToFile(ArrayList<GeocodeOld> geocodes) {
         Gson gson = new Gson();
         GeocodesJson gj = new GeocodesJson();
         gj.setGeocodes(geocodes);

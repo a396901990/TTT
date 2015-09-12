@@ -1,6 +1,7 @@
 package com.dean.travltotibet.database;
 
 import com.dean.greendao.Geocode;
+import com.dean.greendao.GeocodeOld;
 
 import java.util.ArrayList;
 
@@ -9,13 +10,13 @@ import java.util.ArrayList;
  */
 public class GeocodesJson {
 
-    public ArrayList<Geocode> geocodes;
+    public ArrayList<GeocodeOld> geocodes;
 
-    public ArrayList<Geocode> getGeocodes() {
+    public ArrayList<GeocodeOld> getGeocodes() {
         return geocodes;
     }
 
-    public void setGeocodes(ArrayList<Geocode> geocodes) {
+    public void setGeocodes(ArrayList<GeocodeOld> geocodes) {
         this.geocodes = geocodes;
     }
 }

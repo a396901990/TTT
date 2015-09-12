@@ -101,8 +101,9 @@ public class ChartFragment extends BaseRouteFragment {
             indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) mileage, (int) geocode.getElevation()));
 
             // 最后一个位置不需要进行计算，根据距离计算每个点得距离长度
-            if (i < geocodes.size()-2)
-            mileage = mileage + geocode.getDistance();
+            if (i < geocodes.size()-2) {
+                mileage = mileage + geocode.getDistance();
+            }
         }
 
         series.initPaint();
@@ -116,10 +117,10 @@ public class ChartFragment extends BaseRouteFragment {
                 // 重置图标视图数据
                 // 远离屏幕左右间隔是起点终点长的1/10
                 mChartView.setAxisRange(-border / 10, 0, border + border / 10, 6500);
-                mIndicatorView.setCurrentViewport(mChartView.getCurrentViewport()); // ??????????????????
+                //mIndicatorView.setCurrentViewport(mChartView.getCurrentViewport()); // ??????????????????
             }
         });
-
+        mChartView.setAxisRange(-border / 10, 0, border + border / 10, 6500);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 

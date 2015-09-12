@@ -6,6 +6,7 @@ import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
+import com.dean.greendao.GeocodeOld;
 import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.Route;
@@ -220,8 +221,13 @@ public class DBHelper {
             Gson gson = new Gson();
             GeocodesJson geocodesJson = gson.fromJson(json_result, GeocodesJson.class);
 
-            for (Geocode geocode : geocodesJson.getGeocodes()) {
-                geocodeDao.insert(geocode);
+            for (GeocodeOld geocode : geocodesJson.getGeocodes()) {
+                Geocode g = new Geocode(geocode.getId(), "XINZANG", geocode.getName(), geocode.getElevation(),
+                        geocode.getDistance(), geocode.getLatitude(), geocode.getLongitude(),
+                        geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
+                        geocode.getRoad(), "正向攻略", "反向攻略"
+                        );
+                geocodeDao.insert(g);
             }
         }
     }
