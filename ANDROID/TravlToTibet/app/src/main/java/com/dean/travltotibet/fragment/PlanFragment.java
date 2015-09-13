@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dean.greendao.Plan;
+import com.dean.greendao.Route;
 import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -47,18 +48,22 @@ public class PlanFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
 //        initDropdownNavigation();
-        updatePlanOverall("新藏线");
+        updatePlanOverall();
         initPlanList();
     }
 
     /**
      * 初始化总览视图
      */
-    private void updatePlanOverall(final String routeName) {
-        // 根据routeName获取路线名字 从数据库找出并跟新起点，终点和距离信息
-        final String start = "叶城县";
-        final String end = "拉萨";
-        final String dis = "2650KM";
+    private void updatePlanOverall() {
+
+        // 获取当前的路线
+        Route route = routeActivity.getCurrentRoute();
+
+        final String start = route.getStart();
+        final String end = route.getEnd();
+        final String dis = route.getDistance();
+        final String name = route.getName();
 
         RelativeLayout overall = (RelativeLayout) root.findViewById(R.id.overall_route);
 
@@ -67,7 +72,7 @@ public class PlanFragment extends Fragment {
         TextView detail_end = (TextView) overall.findViewById(R.id.plan_detail_end);
         TextView distance = (TextView) overall.findViewById(R.id.plan_distance);
 
-        date.setText(routeName);
+        date.setText(name);
         detail_start.setText(start);
         detail_end.setText(end);
         distance.setText(dis);
@@ -75,7 +80,7 @@ public class PlanFragment extends Fragment {
         overall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateChart(start, end, routeName, dis);
+                updateChart(start, end, name, dis);
             }
         });
     }

@@ -1,6 +1,8 @@
 package com.dean.travltotibet.activity;
 
+import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.fragment.ChartFragment;
 import com.dean.travltotibet.fragment.GuideRouteFragment;
@@ -46,10 +48,14 @@ public class RouteActivity
     private TextView mapTab;
     private TextView guideTab;
 
+    // 当前计划
     private String planDate;
     private String planStart;
     private String planEnd;
     private String planDistance;
+
+    // 当前路线
+    private Route currentRoute;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +65,10 @@ public class RouteActivity
         initMenu();
         initHeader();
         initViewPager();
-        // need improve
-        updateHeader("叶城县", "拉萨", "新藏线","2579M");
+
+        // 设置路线信息
+        currentRoute = TTTApplication.getDbHelper().getRouteWithName("XINZANG");
+        updateHeader(currentRoute.getStart(), currentRoute.getEnd(), currentRoute.getName(), currentRoute.getDistance());
     }
 
     private void initViewPager() {
@@ -329,6 +337,14 @@ public class RouteActivity
 
     public MapFragment getMapFragment() {
         return mapFragment;
+    }
+
+    public Route getCurrentRoute() {
+        return currentRoute;
+    }
+
+    public void setCurrentRoute(Route currentRoute) {
+        this.currentRoute = currentRoute;
     }
 
     @Override

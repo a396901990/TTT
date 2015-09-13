@@ -92,16 +92,16 @@ public class ChartFragment extends BaseRouteFragment {
         series = new MountainSeries();
         indicatorSeries = new IndicatorSeries();
 
-        double mileage=0;
+        double mileage = 0;
 
-        for (int i=0; i < geocodes.size(); i++) {
+        for (int i = 0; i < geocodes.size(); i++) {
             Geocode geocode = geocodes.get(i);
 
             series.addPoint(new MountainSeries.MountainPoint((int) mileage, (int) geocode.getElevation(), geocode.getName(), AbstractSeries.getType(geocode.getTypes())));
             indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) mileage, (int) geocode.getElevation()));
 
             // 最后一个位置不需要进行计算，根据距离计算每个点得距离长度
-            if (i < geocodes.size()-2) {
+            if (i < geocodes.size() - 2) {
                 mileage = mileage + geocode.getDistance();
             }
         }

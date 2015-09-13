@@ -11,7 +11,6 @@ import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
-import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -36,7 +35,7 @@ public class DBHelper {
 
     private GeocodeDao geocodeDao;
 
-    private RouteDao routesDao;
+    private RouteDao routeDao;
 
     private PlanDao planDao;
 
@@ -53,7 +52,7 @@ public class DBHelper {
             // 数据库对象
             DaoSession daoSession = TTTApplication.getDaoSession(mContext);
             instance.geocodeDao = daoSession.getGeocodeDao();
-            instance.routesDao = daoSession.getRouteDao();
+            instance.routeDao = daoSession.getRouteDao();
             instance.planDao = daoSession.getPlanDao();
         }
         return instance;
@@ -130,6 +129,18 @@ public class DBHelper {
     }
 
     /**
+     * 根据routeName获取路线信息
+     *
+     * @param routeName
+     * @return
+     */
+    public Route getRouteWithName(String routeName) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(Properties.Route.eq(routeName));
+        return qb.list().get(0);
+    }
+
+    /**
      * 根据name获取道路信息
      *
      * @param name
@@ -157,7 +168,7 @@ public class DBHelper {
      * 查询所有路线信息
      */
     public List<Route> getRoutsList() {
-        QueryBuilder<Route> qb = routesDao.queryBuilder();
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
         return qb.list();
     }
 
