@@ -66,14 +66,9 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
     private List<GroupTimelineEntity> getListData(String start, String end) {
 
-        String[] strArray = new String[]{"叶城", "菩萨村", "南京矿山"};
-        String[] markArray = new String[]{"G2191835", "G2191835", "G2191835"};
-        String[][] childTimeArray = new String[][]{
-                {"俯卧撑十次", "仰卧起坐二十次", "大喊我爱紫豪二十次", "每日赞紫豪一次"},
-                {"亲，快快滴点赞哦~"}, {"没有赞的，赶紧去赞哦~"}};
-
         // 根据起点终点获取数据
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithName(start, end);
+        String routeName = mActivity.getCurrentRoute().getRoute();
+        List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end);
 
         // groupList存放所有数据
         List<GroupTimelineEntity> groupList = new ArrayList<GroupTimelineEntity>();

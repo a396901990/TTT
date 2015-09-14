@@ -59,22 +59,16 @@ public class DBHelper {
     }
 
     /**
-     * 查询所有地理位置信息
+     * 根据路线，查询两个名字之间的地理位置信息
      */
-    public List<Geocode> getGeocodeList() {
+    public List<Geocode> getGeocodeListWithNameAndRoute(String route, String start, String end) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
-        return qb.list();
-    }
-
-    /**
-     * 查询两个名字之间的地理位置信息
-     */
-    public List<Geocode> getGeocodeListWithName(String start, String end) {
-        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(start));
         long startID = qb.list().get(0).getId();
 
         qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(end));
         long endID = qb.list().get(0).getId();
 
@@ -86,12 +80,14 @@ public class DBHelper {
     /**
      * 查询两个名字之间的地理位置信息
      */
-    public List<Geocode> getNonPathGeocodeListWithName(String start, String end) {
+    public List<Geocode> getNonPathGeocodeListWithNameAndRoute(String route, String start, String end) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(start));
         long startID = qb.list().get(0).getId();
 
         qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(end));
         long endID = qb.list().get(0).getId();
 

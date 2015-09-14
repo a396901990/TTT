@@ -87,7 +87,8 @@ public class ChartFragment extends BaseRouteFragment {
     public void updateChartRoute(String start, String end) {
 
         // 根据路线的起始和终点 获取数据
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithName(start, end);
+        String routeName = routeActivity.getCurrentRoute().getRoute();
+        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, start, end);
 
         series = new MountainSeries();
         indicatorSeries = new IndicatorSeries();
