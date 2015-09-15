@@ -61,39 +61,65 @@ public class DBHelper {
     /**
      * 根据路线，查询两个名字之间的地理位置信息
      */
-    public List<Geocode> getGeocodeListWithNameAndRoute(String route, String start, String end) {
+    public List<Geocode> getGeocodeListWithNameAndRoute(String route, String start, String end, boolean isForward) {
+        // 取出起始点id
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(start));
         long startID = qb.list().get(0).getId();
 
+        // 取出终点id
         qb = geocodeDao.queryBuilder();
         qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(end));
         long endID = qb.list().get(0).getId();
 
+        // 根据正反取出起点终点间的数据
         qb = geocodeDao.queryBuilder();
-        qb.where(Properties.Id.between(startID, endID));
+        if (startID < endID)
+            qb.where(Properties.Id.between(startID, endID));
+        else
+            qb.where(Properties.Id.between(endID, startID));
+
+        // 根据正反排序
+        if (isForward)
+            qb.orderAsc(Properties.Id);
+        else
+            qb.orderDesc(Properties.Id);
+
         return qb.list();
     }
 
     /**
      * 查询两个名字之间的地理位置信息
      */
-    public List<Geocode> getNonPathGeocodeListWithNameAndRoute(String route, String start, String end) {
+    public List<Geocode> getNonPathGeocodeListWithNameAndRoute(String route, String start, String end, boolean isForward) {
+        // 取出起始点id
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(start));
         long startID = qb.list().get(0).getId();
 
+        // 取出终点id
         qb = geocodeDao.queryBuilder();
         qb.where(Properties.Route.eq(route));
         qb.where(Properties.Name.eq(end));
         long endID = qb.list().get(0).getId();
 
+        // 取出起点终点间不是path的数据
         qb = geocodeDao.queryBuilder();
-        qb.where(Properties.Id.between(startID, endID));
+        if (startID < endID)
+            qb.where(Properties.Id.between(startID, endID));
+        else
+            qb.where(Properties.Id.between(endID, startID));
+
         qb.where(Properties.Types.notEq("PATH"));
+
+        // 根据正反排序
+        if (isForward)
+            qb.orderAsc(Properties.Id);
+        else
+            qb.orderDesc(Properties.Id);
 
         return qb.list();
     }
@@ -126,14 +152,24 @@ public class DBHelper {
 
     /**
      * 根据routeName获取路线信息
-     *
-     * @param routeName
-     * @return
      */
-    public Route getRouteWithName(String routeName) {
+    public Route getRouteWithName(String routeName, boolean isForward) {
         QueryBuilder<Route> qb = routeDao.queryBuilder();
         qb.where(Properties.Route.eq(routeName));
-        return qb.list().get(0);
+        Route route = qb.list().get(0);
+
+        // 根据正反设置起始和终点
+        String start = route.getStart();
+        String end = route.getEnd();
+        if (isForward) {
+            route.setStart(start);
+            route.setEnd(end);
+        } else {
+            route.setStart(end);
+            route.setEnd(start);
+        }
+
+        return route;
     }
 
     /**
@@ -171,8 +207,10 @@ public class DBHelper {
     /**
      * 查询所有计划信息
      */
-    public List<Plan> getPlanList() {
+    public List<Plan> getPlanList(boolean isForward) {
         QueryBuilder<Plan> qb = planDao.queryBuilder();
+        // 根据正反获取Plan
+        qb.where(PlanDao.Properties.Fr.eq(isForward ? "F" : "R"));
         return qb.list();
     }
 
@@ -228,12 +266,19 @@ public class DBHelper {
             Gson gson = new Gson();
             GeocodesJson geocodesJson = gson.fromJson(json_result, GeocodesJson.class);
 
-            for (GeocodeOld geocode : geocodesJson.getGeocodes()) {
+            for (int i = 0; i < geocodesJson.getGeocodes().size(); i++) {
+                GeocodeOld geocode = geocodesJson.getGeocodes().get(i);
+                double r_distance;
+                if (i == 0) {
+                    r_distance = 0;
+                } else {
+                    r_distance = geocodesJson.getGeocodes().get(i - 1).getDistance();
+                }
                 Geocode g = new Geocode(geocode.getId(), "XINZANG", geocode.getName(), geocode.getElevation(),
-                        geocode.getDistance(), geocode.getLatitude(), geocode.getLongitude(),
+                        geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
                         geocode.getRoad(), "正向攻略", "反向攻略"
-                        );
+                );
                 geocodeDao.insert(g);
             }
         }

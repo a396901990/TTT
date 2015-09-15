@@ -32,10 +32,11 @@ public class MyGenerator {
     private static void addGeocode(Schema schema) {
         Entity geocode = schema.addEntity("Geocode");
         geocode.addIdProperty();
-        geocode.addStringProperty("route");
+        geocode.addStringProperty("route").notNull();
         geocode.addStringProperty("name").notNull();
         geocode.addDoubleProperty("elevation").notNull();
-        geocode.addDoubleProperty("distance").notNull();
+        geocode.addDoubleProperty("f_distance").notNull();
+        geocode.addDoubleProperty("r_distance").notNull();
         geocode.addDoubleProperty("latitude").notNull();
         geocode.addDoubleProperty("longitude").notNull();
         geocode.addStringProperty("address").notNull();
@@ -58,6 +59,7 @@ public class MyGenerator {
         route.addStringProperty("type").notNull();
         route.addStringProperty("describe").notNull();
         route.addStringProperty("rank").notNull();
+        route.addStringProperty("fr").notNull();
     }
 
     // 路线表

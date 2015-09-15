@@ -27,7 +27,7 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
     private View root;
 
-    private RouteActivity mActivity;
+    private RouteActivity routeActivity;
 
     private TimelineExpandAdapter timelineAdapter;
 
@@ -48,7 +48,7 @@ public class GuideRouteFragment extends BaseRouteFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (RouteActivity) getActivity();
+        routeActivity = (RouteActivity) getActivity();
 
         initTimelineRouteListView();
     }
@@ -59,7 +59,7 @@ public class GuideRouteFragment extends BaseRouteFragment {
     private void initTimelineRouteListView() {
         timelineList = (ExpandableListView) root.findViewById(R.id.timeline_list);
         // 初始化数据adapter并赋值
-        timelineAdapter = new TimelineExpandAdapter(mActivity, getListData(mActivity.getPlanStart(), mActivity.getPlanEnd()));
+        timelineAdapter = new TimelineExpandAdapter(routeActivity, getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd()));
         timelineList.setAdapter(timelineAdapter);
         timelineList.expandGroup(0);
     }
@@ -67,8 +67,9 @@ public class GuideRouteFragment extends BaseRouteFragment {
     private List<GroupTimelineEntity> getListData(String start, String end) {
 
         // 根据起点终点获取数据
-        String routeName = mActivity.getCurrentRoute().getRoute();
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end);
+        String routeName = routeActivity.getCurrentRoute().getRoute();
+        boolean isForward = routeActivity.isForwrad();
+        List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end, isForward);
 
         // groupList存放所有数据
         List<GroupTimelineEntity> groupList = new ArrayList<GroupTimelineEntity>();
@@ -114,11 +115,15 @@ public class GuideRouteFragment extends BaseRouteFragment {
     }
 
     @Override
-    public void updateRoute(String start, String end, String date, String distance) {
-        updateTimelineView(start, end, distance);
+    public void updateRoute() {
+        updateTimelineView();
     }
 
-    private void updateTimelineView(String start, String end, String distance) {
+    private void updateTimelineView() {
+
+        String start = routeActivity.getPlanStart();
+        String end = routeActivity.getPlanEnd();
+
         timelineAdapter.setData(getListData(start, end));
         // 遍历所有group,将所有项设置成默认关闭
         int groupCount = timelineList.getCount();

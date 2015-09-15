@@ -32,6 +32,7 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         public final static Property Type = new Property(6, String.class, "type", false, "TYPE");
         public final static Property Describe = new Property(7, String.class, "describe", false, "DESCRIBE");
         public final static Property Rank = new Property(8, String.class, "rank", false, "RANK");
+        public final static Property Fr = new Property(9, String.class, "fr", false, "FR");
     };
 
 
@@ -55,7 +56,8 @@ public class PlanDao extends AbstractDao<Plan, Long> {
                 "'DISTANCE' TEXT NOT NULL ," + // 5: distance
                 "'TYPE' TEXT NOT NULL ," + // 6: type
                 "'DESCRIBE' TEXT NOT NULL ," + // 7: describe
-                "'RANK' TEXT NOT NULL );"); // 8: rank
+                "'RANK' TEXT NOT NULL ," + // 8: rank
+                "'FR' TEXT NOT NULL );"); // 9: fr
     }
 
     /** Drops the underlying database table. */
@@ -81,6 +83,7 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         stmt.bindString(7, entity.getType());
         stmt.bindString(8, entity.getDescribe());
         stmt.bindString(9, entity.getRank());
+        stmt.bindString(10, entity.getFr());
     }
 
     /** @inheritdoc */
@@ -101,7 +104,8 @@ public class PlanDao extends AbstractDao<Plan, Long> {
             cursor.getString(offset + 5), // distance
             cursor.getString(offset + 6), // type
             cursor.getString(offset + 7), // describe
-            cursor.getString(offset + 8) // rank
+            cursor.getString(offset + 8), // rank
+            cursor.getString(offset + 9) // fr
         );
         return entity;
     }
@@ -118,6 +122,7 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         entity.setType(cursor.getString(offset + 6));
         entity.setDescribe(cursor.getString(offset + 7));
         entity.setRank(cursor.getString(offset + 8));
+        entity.setFr(cursor.getString(offset + 9));
      }
     
     /** @inheritdoc */

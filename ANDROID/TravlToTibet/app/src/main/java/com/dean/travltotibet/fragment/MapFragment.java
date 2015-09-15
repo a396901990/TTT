@@ -24,7 +24,7 @@ public class MapFragment extends BaseRouteFragment {
 
     private View root;
 
-    private RouteActivity mActivity;
+    private RouteActivity routeActivity;
 
     private MapView mMapView = null;
 
@@ -38,10 +38,10 @@ public class MapFragment extends BaseRouteFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = (RouteActivity) getActivity();
+        routeActivity = (RouteActivity) getActivity();
         // 在使用SDK各组件之前初始化context信息，传入ApplicationContext
         // 注意该方法要再setContentView方法之前实现
-        SDKInitializer.initialize(mActivity.getApplicationContext());
+        SDKInitializer.initialize(routeActivity.getApplicationContext());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class MapFragment extends BaseRouteFragment {
         mMapView = (MapView) root.findViewById(R.id.id_bmapView);
         mBaiduMap = mMapView.getMap();
 
-        Location location = TTTApplication.getDbHelper().getLocationWithName(mActivity.getPlanStart());
+        Location location = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanStart());
         LatLng ll = new LatLng(location.getLatitude(),
                 location.getLongitude());
         MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
@@ -88,8 +88,8 @@ public class MapFragment extends BaseRouteFragment {
     }
 
     @Override
-    public void updateRoute(String start, String end, String date, String distance) {
-        super.updateRoute(start, end, date, distance);
+    public void updateRoute() {
+        super.updateRoute();
     }
 
     @Override

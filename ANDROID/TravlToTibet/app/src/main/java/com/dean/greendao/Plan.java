@@ -23,6 +23,8 @@ public class Plan {
     private String describe;
     /** Not-null value. */
     private String rank;
+    /** Not-null value. */
+    private String fr;
 
     public Plan() {
     }
@@ -31,7 +33,7 @@ public class Plan {
         this.id = id;
     }
 
-    public Plan(Long id, String name, String day, String start, String end, String distance, String type, String describe, String rank) {
+    public Plan(Long id, String name, String day, String start, String end, String distance, String type, String describe, String rank, String fr) {
         this.id = id;
         this.name = name;
         this.day = day;
@@ -41,6 +43,7 @@ public class Plan {
         this.type = type;
         this.describe = describe;
         this.rank = rank;
+        this.fr = fr;
     }
 
     public Long getId() {
@@ -129,6 +132,16 @@ public class Plan {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    /** Not-null value. */
+    public String getFr() {
+        return fr;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setFr(String fr) {
+        this.fr = fr;
     }
 
 }

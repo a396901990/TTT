@@ -92,10 +92,10 @@ public class PlanFragment extends Fragment {
         ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
 
         // 获取数据库路线
-        final List<Plan> plans = TTTApplication.getDbHelper().getPlanList();
+        final List<Plan> plans = TTTApplication.getDbHelper().getPlanList(routeActivity.isForwrad());
 
         for (Plan plan : plans) {
-            mPlans.add(new PlanListAdapter.PlanListItem("DAY" + plan.getId(), plan.getStart(), plan.getEnd(), plan.getDistance()));
+            mPlans.add(new PlanListAdapter.PlanListItem("DAY" + plan.getDay(), plan.getStart(), plan.getEnd(), plan.getDistance()));
         }
 
         PlanListAdapter adapter = new PlanListAdapter(getActivity());

@@ -58,7 +58,7 @@ public class ChartFragment extends BaseRouteFragment {
         mIndicatorView = (IndicatorChartView) root.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
 
-        updateChartRoute(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
+        updateChartRoute();
     }
 
 //     * 更新标题头
@@ -80,15 +80,16 @@ public class ChartFragment extends BaseRouteFragment {
 
     /**
      * 更新chart视图路线
-     *
-     * @param start 初始点
-     * @param end   终点
      */
-    public void updateChartRoute(String start, String end) {
+    public void updateChartRoute() {
 
         // 根据路线的起始和终点 获取数据
         String routeName = routeActivity.getCurrentRoute().getRoute();
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, start, end);
+        String planStart = routeActivity.getPlanStart();
+        String planEnd = routeActivity.getPlanEnd();
+        boolean isForward = routeActivity.isForwrad();
+
+        List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, planStart, planEnd, isForward);
 
         series = new MountainSeries();
         indicatorSeries = new IndicatorSeries();
@@ -103,7 +104,8 @@ public class ChartFragment extends BaseRouteFragment {
 
             // 最后一个位置不需要进行计算，根据距离计算每个点得距离长度
             if (i < geocodes.size() - 2) {
-                mileage = mileage + geocode.getDistance();
+                double distance = isForward ? geocode.getF_distance() : geocode.getR_distance();
+                mileage = mileage + distance;
             }
         }
 
@@ -150,8 +152,8 @@ public class ChartFragment extends BaseRouteFragment {
     }
 
     @Override
-    public void updateRoute(String start, String end, String date, String distance) {
-        super.updateRoute(start, end, date, distance);
-        updateChartRoute(start, end);
+    public void updateRoute() {
+        super.updateRoute();
+        updateChartRoute();
     }
 }

@@ -57,17 +57,27 @@ public class RouteActivity
     // 当前路线
     private Route currentRoute;
 
+    // 当前线路名称
+    private String routeName;
+
+    // 当前是否向前，也就是正向反向 f/r
+    private boolean isForwrad;
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+
+        routeName = "XINZANG";
+        isForwrad = false;
 
         initMenu();
         initHeader();
         initViewPager();
 
         // 设置路线信息
-        currentRoute = TTTApplication.getDbHelper().getRouteWithName("XINZANG");
+        currentRoute = TTTApplication.getDbHelper().getRouteWithName(routeName, isForwrad());
+        // 跟新信息
         updateHeader(currentRoute.getStart(), currentRoute.getEnd(), currentRoute.getName(), currentRoute.getDistance());
     }
 
@@ -273,25 +283,50 @@ public class RouteActivity
         header_date.setText(date);
         menuBtn.setText(start + "-" + end);
 
-        updateToAll(start, end, date, distance);
+        updateToAll();
     }
 
-    public void updateToAll(String start, String end, String date, String distance) {
+    /**
+     * 更新标题栏文字
+     * @param currentRoute
+     */
+    public void updateHeader(Route currentRoute) {
+        planDate = currentRoute.getName();
+        if (isForwrad) {
+            planStart = currentRoute.getStart();
+            planEnd = currentRoute.getEnd();
+        } else {
+            planStart = currentRoute.getEnd();
+            planEnd = currentRoute.getStart();
+        }
+        planDistance = currentRoute.getDistance();
+
+        TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
+        TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
+
+        header_date.setText(planDate);
+        menuBtn.setText(planStart + "-" + planEnd);
+
+        updateToAll();
+    }
+
+    public void updateToAll() {
         // update chartFragment
         if (chartFragment.isAdded()) {
-            chartFragment.updateRoute(start, end, date, distance);
+            chartFragment.updateRoute();
         }
 
         // update chartFragment
         if (mapFragment.isAdded()) {
-            mapFragment.updateRoute(start, end, date, distance);
+            mapFragment.updateRoute();
         }
 
         // update chartFragment
         if (guideRouteFragment.isAdded()) {
-            guideRouteFragment.updateRoute(start, end, date, distance);
+            guideRouteFragment.updateRoute();
         }
     }
+
     /**
      * 更新标题头
      */
@@ -354,6 +389,22 @@ public class RouteActivity
 
     public void showMenu() {
         slidingMenu.showMenu();
+    }
+
+    public boolean isForwrad() {
+        return isForwrad;
+    }
+
+    public void setIsForwrad(boolean isForwrad) {
+        this.isForwrad = isForwrad;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
     }
 
 }

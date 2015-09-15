@@ -3,7 +3,6 @@ package com.dean.greendao;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
@@ -28,15 +27,16 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         public final static Property Route = new Property(1, String.class, "route", false, "ROUTE");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
         public final static Property Elevation = new Property(3, double.class, "elevation", false, "ELEVATION");
-        public final static Property Distance = new Property(4, double.class, "distance", false, "DISTANCE");
-        public final static Property Latitude = new Property(5, double.class, "latitude", false, "LATITUDE");
-        public final static Property Longitude = new Property(6, double.class, "longitude", false, "LONGITUDE");
-        public final static Property Address = new Property(7, String.class, "address", false, "ADDRESS");
-        public final static Property Types = new Property(8, String.class, "types", false, "TYPES");
-        public final static Property Milestone = new Property(9, double.class, "milestone", false, "MILESTONE");
-        public final static Property Road = new Property(10, String.class, "road", false, "ROAD");
-        public final static Property F_detail = new Property(11, String.class, "f_detail", false, "F_DETAIL");
-        public final static Property R_detail = new Property(12, String.class, "r_detail", false, "R_DETAIL");
+        public final static Property F_distance = new Property(4, double.class, "f_distance", false, "F_DISTANCE");
+        public final static Property R_distance = new Property(5, double.class, "r_distance", false, "R_DISTANCE");
+        public final static Property Latitude = new Property(6, double.class, "latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(7, double.class, "longitude", false, "LONGITUDE");
+        public final static Property Address = new Property(8, String.class, "address", false, "ADDRESS");
+        public final static Property Types = new Property(9, String.class, "types", false, "TYPES");
+        public final static Property Milestone = new Property(10, double.class, "milestone", false, "MILESTONE");
+        public final static Property Road = new Property(11, String.class, "road", false, "ROAD");
+        public final static Property F_detail = new Property(12, String.class, "f_detail", false, "F_DETAIL");
+        public final static Property R_detail = new Property(13, String.class, "r_detail", false, "R_DETAIL");
     };
 
 
@@ -53,18 +53,19 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'GEOCODE' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
-                "'ROUTE' TEXT," + // 1: route
+                "'ROUTE' TEXT NOT NULL ," + // 1: route
                 "'NAME' TEXT NOT NULL ," + // 2: name
                 "'ELEVATION' REAL NOT NULL ," + // 3: elevation
-                "'DISTANCE' REAL NOT NULL ," + // 4: distance
-                "'LATITUDE' REAL NOT NULL ," + // 5: latitude
-                "'LONGITUDE' REAL NOT NULL ," + // 6: longitude
-                "'ADDRESS' TEXT NOT NULL ," + // 7: address
-                "'TYPES' TEXT NOT NULL ," + // 8: types
-                "'MILESTONE' REAL NOT NULL ," + // 9: milestone
-                "'ROAD' TEXT," + // 10: road
-                "'F_DETAIL' TEXT," + // 11: f_detail
-                "'R_DETAIL' TEXT);"); // 12: r_detail
+                "'F_DISTANCE' REAL NOT NULL ," + // 4: f_distance
+                "'R_DISTANCE' REAL NOT NULL ," + // 5: r_distance
+                "'LATITUDE' REAL NOT NULL ," + // 6: latitude
+                "'LONGITUDE' REAL NOT NULL ," + // 7: longitude
+                "'ADDRESS' TEXT NOT NULL ," + // 8: address
+                "'TYPES' TEXT NOT NULL ," + // 9: types
+                "'MILESTONE' REAL NOT NULL ," + // 10: milestone
+                "'ROAD' TEXT," + // 11: road
+                "'F_DETAIL' TEXT," + // 12: f_detail
+                "'R_DETAIL' TEXT);"); // 13: r_detail
     }
 
     /** Drops the underlying database table. */
@@ -82,33 +83,30 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-
-        String route = entity.getRoute();
-        if (route != null) {
-            stmt.bindString(2, route);
-        }
+        stmt.bindString(2, entity.getRoute());
         stmt.bindString(3, entity.getName());
         stmt.bindDouble(4, entity.getElevation());
-        stmt.bindDouble(5, entity.getDistance());
-        stmt.bindDouble(6, entity.getLatitude());
-        stmt.bindDouble(7, entity.getLongitude());
-        stmt.bindString(8, entity.getAddress());
-        stmt.bindString(9, entity.getTypes());
-        stmt.bindDouble(10, entity.getMilestone());
+        stmt.bindDouble(5, entity.getF_distance());
+        stmt.bindDouble(6, entity.getR_distance());
+        stmt.bindDouble(7, entity.getLatitude());
+        stmt.bindDouble(8, entity.getLongitude());
+        stmt.bindString(9, entity.getAddress());
+        stmt.bindString(10, entity.getTypes());
+        stmt.bindDouble(11, entity.getMilestone());
  
         String road = entity.getRoad();
         if (road != null) {
-            stmt.bindString(11, road);
+            stmt.bindString(12, road);
         }
  
         String f_detail = entity.getF_detail();
         if (f_detail != null) {
-            stmt.bindString(12, f_detail);
+            stmt.bindString(13, f_detail);
         }
  
         String r_detail = entity.getR_detail();
         if (r_detail != null) {
-            stmt.bindString(13, r_detail);
+            stmt.bindString(14, r_detail);
         }
     }
 
@@ -123,18 +121,19 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
     public Geocode readEntity(Cursor cursor, int offset) {
         Geocode entity = new Geocode( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // route
+            cursor.getString(offset + 1), // route
             cursor.getString(offset + 2), // name
             cursor.getDouble(offset + 3), // elevation
-            cursor.getDouble(offset + 4), // distance
-            cursor.getDouble(offset + 5), // latitude
-            cursor.getDouble(offset + 6), // longitude
-            cursor.getString(offset + 7), // address
-            cursor.getString(offset + 8), // types
-            cursor.getDouble(offset + 9), // milestone
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // road
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // f_detail
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // r_detail
+            cursor.getDouble(offset + 4), // f_distance
+            cursor.getDouble(offset + 5), // r_distance
+            cursor.getDouble(offset + 6), // latitude
+            cursor.getDouble(offset + 7), // longitude
+            cursor.getString(offset + 8), // address
+            cursor.getString(offset + 9), // types
+            cursor.getDouble(offset + 10), // milestone
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // road
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // f_detail
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // r_detail
         );
         return entity;
     }
@@ -143,18 +142,19 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
     @Override
     public void readEntity(Cursor cursor, Geocode entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setRoute(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setRoute(cursor.getString(offset + 1));
         entity.setName(cursor.getString(offset + 2));
         entity.setElevation(cursor.getDouble(offset + 3));
-        entity.setDistance(cursor.getDouble(offset + 4));
-        entity.setLatitude(cursor.getDouble(offset + 5));
-        entity.setLongitude(cursor.getDouble(offset + 6));
-        entity.setAddress(cursor.getString(offset + 7));
-        entity.setTypes(cursor.getString(offset + 8));
-        entity.setMilestone(cursor.getDouble(offset + 9));
-        entity.setRoad(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setF_detail(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setR_detail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setF_distance(cursor.getDouble(offset + 4));
+        entity.setR_distance(cursor.getDouble(offset + 5));
+        entity.setLatitude(cursor.getDouble(offset + 6));
+        entity.setLongitude(cursor.getDouble(offset + 7));
+        entity.setAddress(cursor.getString(offset + 8));
+        entity.setTypes(cursor.getString(offset + 9));
+        entity.setMilestone(cursor.getDouble(offset + 10));
+        entity.setRoad(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setF_detail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setR_detail(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     /** @inheritdoc */
