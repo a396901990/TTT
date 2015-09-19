@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_select_f"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="F" />
+
+    <Button
+        android:id="@+id/btn_select_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="R" />
+
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/card_gray_border">
+
+        <LinearLayout
+            android:id="@+id/from_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!--<TextView-->
+            <!--style="@style/TextAppearance.Small.Gray"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="from" />-->
+
+            <TextView
+                android:id="@+id/from_text"
+                style="@style/TextAppearance.XXXLarge.Black.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="叶城" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rotate_arrow" />
+
+        <LinearLayout
+            android:id="@+id/to_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!--<TextView-->
+            <!--style="@style/TextAppearance.Medium.Grey"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="to" />-->
+
+            <TextView
+                android:id="@+id/to_text"
+                style="@style/TextAppearance.XXXLarge.Black.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拉萨" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

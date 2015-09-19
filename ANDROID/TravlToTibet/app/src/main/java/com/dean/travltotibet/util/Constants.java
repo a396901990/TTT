@@ -1,7 +1,6 @@
 package com.dean.travltotibet.util;
 
-public final class Constants
-{
+public final class Constants {
     // 城市
     public static final int CITY = 1;
 
@@ -22,16 +21,16 @@ public final class Constants
 
     // 桥梁
     public static final int BRIDGE = 7;
-    
+
     // 风景区
     public static final int SCENIC_SPOT = 7;
 
     // 检查站
     public static final int CHECK_POINT = 8;
-    
+
     // 旅店
     public static final int HOTEL = 9;
-    
+
     // 商店
     public static final int STORE = 10;
 
@@ -39,22 +38,27 @@ public final class Constants
     public static final int PATH = 0;
 
     public static final String NAME_HEIGHT = "海拔：";
-    
+
     public static final String NAME_MILEAGE = "里程：";
 
     public static final String DB_NAME = "TTT_DB";
 
     // plan start end date
     public static final String INTENT_START = "intent_start";
-
     public static final String INTENT_END = "intent_end";
-
     public static final String INTENT_DATE = "intent_Date";
-
     public static final String INTENT_PLAN_BUNDLE = "intent_plan_bundle";
 
+    // route info intent
+    public static final String INTENT_ROUTE_NAME = "intent_route_name";
+    public static final String INTENT_ROUTE_TYPE = "intent_route_type";
+    public static final String INTENT_ROUTE_DAY = "intent_route_day";
+    public static final String INTENT_ROUTE_DIR = "intent_route_direction";
 
-    /** Default decimal format pattern **/
+
+    /**
+     * Default decimal format pattern *
+     */
     public static final String DECIMAL_FORMAT = "###,##0.00";
     public static final String STRING_INTEGER_FORMATTER = "#0";
     public static final String FOUR_INTEGER_FORMATTER = "###0";

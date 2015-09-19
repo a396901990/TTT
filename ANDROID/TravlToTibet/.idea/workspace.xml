@@ -17,19 +17,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c26a0a3b-9515-4a48-9112-0e573486ca2b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/database.db" afterPath="$PROJECT_DIR$/app/src/main/res/raw/database.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/BaseRouteFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/BaseRouteFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/ChartFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/ChartFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Geocode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Geocode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/GeocodeDao.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/GeocodeDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideRouteFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideRouteFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/MapFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/MapFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/greendaogenerator/src/main/java/com/dean/greendao/MyGenerator.java" afterPath="$PROJECT_DIR$/greendaogenerator/src/main/java/com/dean/greendao/MyGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Plan.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Plan.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/PlanDao.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/greendao/PlanDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PlanFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PlanFragment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/MainActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteDirFragment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteInfoActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/arrow_rotate.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/card_gray_border.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_route_detail.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/route_detail.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/route_dir_fragment.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/text_translate_left_anim.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/text_translate_right_anim.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow8.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/rotate_arrow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TravlToTibet.iws" />
@@ -67,148 +74,85 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ChartFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/ChartFragment.java">
+      <file leaf-file-name="route_dir_fragment.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_dir_fragment.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="86" column="56" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="56" />
+            <state vertical-scroll-proportion="-33.41379">
+              <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="card_gray_border.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/card_gray_border.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.21621622">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RouteActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java">
+      <file leaf-file-name="border_gray.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_gray.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4814816">
-              <caret line="78" column="68" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="68" />
-              <folding>
-                <element signature="e#7085#7111#0" expanded="true" />
-                <element signature="e#7271#7291#0" expanded="true" />
-                <element signature="e#10632#10633#0" expanded="true" />
-                <element signature="e#10663#10664#0" expanded="true" />
-                <element signature="e#10699#10700#0" expanded="true" />
-                <element signature="e#10731#10732#0" expanded="true" />
-                <element signature="e#10765#10766#0" expanded="true" />
-                <element signature="e#10795#10796#0" expanded="true" />
-                <element signature="e#10834#10835#0" expanded="true" />
-                <element signature="e#10869#10870#0" expanded="true" />
-                <element signature="e#10916#10917#0" expanded="true" />
-                <element signature="e#10952#10953#0" expanded="true" />
-                <element signature="e#10997#10998#0" expanded="true" />
-                <element signature="e#11032#11033#0" expanded="true" />
-                <element signature="e#11561#11562#0" expanded="true" />
-                <element signature="e#11593#11594#0" expanded="true" />
-                <element signature="e#11644#11645#0" expanded="true" />
-                <element signature="e#11686#11687#0" expanded="true" />
-                <element signature="e#11722#11723#0" expanded="true" />
-                <element signature="e#11754#11755#0" expanded="true" />
-                <element signature="e#11804#11805#0" expanded="true" />
-                <element signature="e#11846#11847#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="4.108108">
-              <caret line="176" column="6" selection-start-line="176" selection-start-column="6" selection-end-line="176" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="44" selection-start-line="5" selection-start-column="12" selection-end-line="6" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlanFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PlanFragment.java">
+      <file leaf-file-name="border_white_bottom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_white_bottom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GuideRouteFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideRouteFragment.java">
+      <file leaf-file-name="btn_click_background.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_click_background.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="132" selection-start-line="71" selection-start-column="132" selection-end-line="71" selection-end-column="132" />
-              <folding>
-                <element signature="e#4216#4217#0" expanded="true" />
-                <element signature="e#4252#4253#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GeocodeDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/greendao/GeocodeDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Plan.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Plan.java">
+      <file leaf-file-name="btn_green_background.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_green_background.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GeocodeOld.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/greendao/GeocodeOld.java">
+      <file leaf-file-name="btn_purple_background.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_purple_background.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="18" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="18" />
-              <folding>
-                <element signature="e#1274#1275#0" expanded="true" />
-                <element signature="e#1305#1306#0" expanded="true" />
-              </folding>
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Geocode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Geocode.java">
+      <file leaf-file-name="chart_header_btn.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/chart_header_btn.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="11" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
-              <folding>
-                <element signature="e#749#750#0" expanded="true" />
-                <element signature="e#777#778#0" expanded="true" />
-                <element signature="e#1502#1503#0" expanded="true" />
-                <element signature="e#1527#1528#0" expanded="true" />
-                <element signature="e#1561#1562#0" expanded="true" />
-                <element signature="e#1589#1590#0" expanded="true" />
-                <element signature="e#1648#1649#0" expanded="true" />
-                <element signature="e#1676#1677#0" expanded="true" />
-                <element signature="e#1812#1813#0" expanded="true" />
-                <element signature="e#1846#1847#0" expanded="true" />
-                <element signature="e#1904#1905#0" expanded="true" />
-                <element signature="e#1931#1932#0" expanded="true" />
-                <element signature="e#2065#2066#0" expanded="true" />
-                <element signature="e#2097#2098#0" expanded="true" />
-                <element signature="e#2133#2134#0" expanded="true" />
-                <element signature="e#2165#2166#0" expanded="true" />
-                <element signature="e#2215#2216#0" expanded="true" />
-                <element signature="e#2257#2258#0" expanded="true" />
-                <element signature="e#2294#2295#0" expanded="true" />
-                <element signature="e#2327#2328#0" expanded="true" />
-                <element signature="e#2379#2380#0" expanded="true" />
-                <element signature="e#2423#2424#0" expanded="true" />
-                <element signature="e#2460#2461#0" expanded="true" />
-                <element signature="e#2493#2494#0" expanded="true" />
-                <element signature="e#2545#2546#0" expanded="true" />
-                <element signature="e#2589#2590#0" expanded="true" />
-              </folding>
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -219,9 +163,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
-        <option value="resourceFile" />
         <option value="valueResourceFile" />
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -2465,37 +2409,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/guide_fragment_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/plan_list_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/BaseFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/ChartActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/GuideRouteActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/SystemUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/timeline_listview_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/timeline_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/ChildStatusEntity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/GroupTimelineEntity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/ChildTimelineEntity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui/TimelineListview.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/child_status_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/group_status_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/timeline_indicator.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_group_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/color.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/TimelineExpandAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/StringUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_child_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui/RouteChartView.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/armeabi.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/map/MapLocationListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/Location.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/border_green.xml" />
@@ -2514,8 +2435,31 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/ChartFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PlanFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideRouteFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_route_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteDetailActivityFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteDetailFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteInfoActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui/SwitchButton.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui/SlideSwitch.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_color.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/route_select_fragment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/text_anim.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteSelectFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/arrow_rotate.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteDirFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/text_translate_right_anim.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/text_translate_left_anim.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/card_gray_border.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/btn_blue_background.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/route_dir_fragment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/card_gray_border.xml" />
       </list>
     </option>
   </component>
@@ -2530,8 +2474,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3" />
-    <option name="y" value="29" />
+    <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="773" />
   </component>
@@ -2636,26 +2579,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TravlToTibet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TravlToTibet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -2747,24 +2670,6 @@
               <option name="myItemId" value="TravlToTibet" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greendaogenerator" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.NonAndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.NonAndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greendao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TravlToTibet" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2804,7 +2709,43 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="raw" />
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="anim" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2852,7 +2793,59 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dean" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="travltotibet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dean" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="travltotibet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2876,6 +2869,40 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="greendao" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TravlToTibet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2911,22 +2938,22 @@
       <recent name="com.dean.travltotibet.activity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res/raw" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/jniLibs" />
-      <recent name="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a" />
-      <recent name="$PROJECT_DIR$/app/libs/armeabi" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/anim" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-hdpi" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui" />
     </key>
     <key name="android.template.packageName">
       <recent name="com.dean.travltotibet.activity" />
       <recent name="com.dean.travltotibet" />
     </key>
+    <key name="android.template.parentActivityClass">
+      <recent name="" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="android.template.parentActivityClass">
-      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
@@ -3177,11 +3204,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="29" width="1280" height="773" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="773" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3204,7 +3232,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -3212,15 +3239,15 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60273975" sideWeight="0.50646204" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28917608" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.325723" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286119" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -3233,8 +3260,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724506" sideWeight="0.47415185" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.59969556" sideWeight="0.49353796" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -3302,7 +3329,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java</url>
-          <line>80</line>
+          <line>84</line>
           <properties />
           <option name="timeStamp" value="70" />
         </line-breakpoint>
@@ -3324,383 +3351,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7567568">
-          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7567568">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment_view.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.655172">
-          <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
-          <folding>
-            <element signature="e#425#458#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/StringUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="7" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#15132#15133#0" expanded="false" />
-            <element signature="e#15185#15186#0" expanded="false" />
-            <element signature="e#15288#15296#0" expanded="false" />
-            <element signature="e#15953#15961#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_timeline_child_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29166666">
-          <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
-          <folding>
-            <element signature="e#290#334#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_timeline_group_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53833336">
-          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/TimelineExpandAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1584#1585#0" expanded="false" />
-            <element signature="e#1635#1636#0" expanded="false" />
-            <element signature="e#5024#5025#0" expanded="false" />
-            <element signature="e#5069#5070#0" expanded="false" />
-            <element signature="e#5233#5234#0" expanded="false" />
-            <element signature="e#5273#5274#0" expanded="false" />
-            <element signature="e#5327#5328#0" expanded="false" />
-            <element signature="e#5377#5378#0" expanded="false" />
-            <element signature="e#5419#5420#0" expanded="false" />
-            <element signature="e#5461#5462#0" expanded="false" />
-            <element signature="e#5519#5520#0" expanded="false" />
-            <element signature="e#5573#5574#0" expanded="false" />
-            <element signature="e#5632#5633#0" expanded="false" />
-            <element signature="e#5672#5673#0" expanded="false" />
-            <element signature="e#6175#6176#0" expanded="false" />
-            <element signature="e#6217#6218#0" expanded="false" />
-            <element signature="e#6275#6276#0" expanded="false" />
-            <element signature="e#6329#6330#0" expanded="false" />
-            <element signature="e#6374#6375#0" expanded="false" />
-            <element signature="e#6419#6420#0" expanded="false" />
-            <element signature="e#6585#6586#0" expanded="false" />
-            <element signature="e#6627#6628#0" expanded="false" />
-            <element signature="e#6685#6686#0" expanded="false" />
-            <element signature="e#6739#6740#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/ChartIndicatorUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="157" column="44" selection-start-line="157" selection-start-column="26" selection-end-line="157" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1586#2524#0" expanded="false" />
-            <element signature="e#2523#2524#0" expanded="false" />
-            <element signature="e#2575#3524#0" expanded="false" />
-            <element signature="e#3523#3524#0" expanded="false" />
-            <element signature="e#3576#4845#0" expanded="false" />
-            <element signature="e#4844#4845#0" expanded="false" />
-            <element signature="e#4897#5804#0" expanded="false" />
-            <element signature="e#5803#5804#0" expanded="false" />
-            <element signature="e#8805#8806#0" expanded="false" />
-            <element signature="e#8835#8836#0" expanded="false" />
-            <element signature="e#10786#10787#0" expanded="false" />
-            <element signature="e#10822#10823#0" expanded="false" />
-            <element signature="e#10886#10887#0" expanded="false" />
-            <element signature="e#10923#10924#0" expanded="false" />
-            <element signature="e#11415#11416#0" expanded="false" />
-            <element signature="e#11454#11455#0" expanded="false" />
-            <element signature="e#11487#11488#0" expanded="false" />
-            <element signature="e#11515#11516#0" expanded="false" />
-            <element signature="e#11560#11561#0" expanded="false" />
-            <element signature="e#11594#11595#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/app/Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33227345">
-          <caret line="1324" column="16" selection-start-line="1324" selection-start-column="16" selection-end-line="1324" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/baidumapapi_v3_5_0.jar!/com/baidu/mapapi/map/MapView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.08">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/baidumapapi_v3_5_0.jar!/com/baidu/mapapi/SDKInitializer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="49" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/MenuFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="5" selection-start-line="23" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/Location.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3243243">
-          <caret line="12" column="35" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_white_bottom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_blue_background.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_gray.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/plan_list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.4827585">
-          <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/blue_btn_active.9.png">
-      <provider editor-type-id="images">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="ninepatcheditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/border_green.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/map_fragment_view.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.595">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/MountainSeries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="128" column="15" selection-start-line="128" selection-start-column="15" selection-end-line="128" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3090#3091#0" expanded="false" />
-            <element signature="e#3123#3124#0" expanded="false" />
-            <element signature="e#3239#3240#0" expanded="false" />
-            <element signature="e#3270#3271#0" expanded="false" />
-            <element signature="e#3332#3333#0" expanded="false" />
-            <element signature="e#3374#3375#0" expanded="false" />
-            <element signature="e#3449#3450#0" expanded="false" />
-            <element signature="e#3493#3494#0" expanded="false" />
-            <element signature="e#3691#3692#0" expanded="false" />
-            <element signature="e#3747#3748#0" expanded="false" />
-            <element signature="e#3800#3801#0" expanded="false" />
-            <element signature="e#3838#3839#0" expanded="false" />
-            <element signature="e#7293#7294#0" expanded="false" />
-            <element signature="e#7335#7336#0" expanded="false" />
-            <element signature="e#7386#7387#0" expanded="false" />
-            <element signature="e#7434#7435#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/greendao/DaoMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32771084">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/data2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="124129" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/dean/travltotibet/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34602648">
-          <caret line="1309" column="32" selection-start-line="1309" selection-start-column="32" selection-end-line="1309" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/database/sqlite/SQLiteProgram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/data.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="4645" selection-start-line="0" selection-start-column="4635" selection-end-line="0" selection-end-column="4645" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/graphics/RectF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33227345">
-          <caret line="197" column="16" selection-start-line="197" selection-start-column="16" selection-end-line="197" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui/IndicatorChartView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6486486">
-          <caret line="148" column="16" selection-start-line="148" selection-start-column="16" selection-end-line="148" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/model/AbstractSeries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33227345">
-          <caret line="71" column="16" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/data3.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="10" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.greenrobot/greendao/1.3.1/667fd2ef7296d4a157026a697d01748edfc85df7/greendao-1.3.1-sources.jar!/de/greenrobot/dao/AbstractDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33227345">
-          <caret line="291" column="16" selection-start-line="291" selection-start-column="16" selection-end-line="291" selection-end-column="16" />
-          <folding>
-            <element signature="e#9271#9272#0" expanded="false" />
-            <element signature="e#9348#9349#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/GeocodesJson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4054054">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/ui/TimelineListview.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16216215">
           <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3708,7 +3362,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="327" column="0" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3733,8 +3386,48 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="64" column="18" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="18" />
           <folding>
-            <element signature="e#1274#1275#0" expanded="true" />
-            <element signature="e#1305#1306#0" expanded="true" />
+            <element signature="e#554#555#0" expanded="false" />
+            <element signature="e#579#580#0" expanded="false" />
+            <element signature="e#613#614#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#672#673#0" expanded="false" />
+            <element signature="e#699#700#0" expanded="false" />
+            <element signature="e#739#740#0" expanded="false" />
+            <element signature="e#771#772#0" expanded="false" />
+            <element signature="e#805#806#0" expanded="false" />
+            <element signature="e#835#836#0" expanded="false" />
+            <element signature="e#881#882#0" expanded="false" />
+            <element signature="e#919#920#0" expanded="false" />
+            <element signature="e#955#956#0" expanded="false" />
+            <element signature="e#987#988#0" expanded="false" />
+            <element signature="e#1037#1038#0" expanded="false" />
+            <element signature="e#1079#1080#0" expanded="false" />
+            <element signature="e#1115#1116#0" expanded="false" />
+            <element signature="e#1147#1148#0" expanded="false" />
+            <element signature="e#1197#1198#0" expanded="false" />
+            <element signature="e#1239#1240#0" expanded="false" />
+            <element signature="e#1353#1354#0" expanded="false" />
+            <element signature="e#1393#1394#0" expanded="false" />
+            <element signature="e#1428#1429#0" expanded="false" />
+            <element signature="e#1459#1460#0" expanded="false" />
+            <element signature="e#1507#1508#0" expanded="false" />
+            <element signature="e#1547#1548#0" expanded="false" />
+            <element signature="e#1583#1584#0" expanded="false" />
+            <element signature="e#1615#1616#0" expanded="false" />
+            <element signature="e#1665#1666#0" expanded="false" />
+            <element signature="e#1707#1708#0" expanded="false" />
+            <element signature="e#1741#1742#0" expanded="false" />
+            <element signature="e#1771#1772#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1855#1856#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+            <element signature="e#1915#1916#0" expanded="false" />
+            <element signature="e#1957#1958#0" expanded="false" />
+            <element signature="e#1991#1992#0" expanded="false" />
+            <element signature="e#2022#2023#0" expanded="false" />
+            <element signature="e#2049#2050#0" expanded="false" />
+            <element signature="e#2089#2090#0" expanded="false" />
+            <element signature="e#2121#2122#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3744,32 +3437,38 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="11" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
           <folding>
-            <element signature="e#749#750#0" expanded="true" />
-            <element signature="e#777#778#0" expanded="true" />
-            <element signature="e#1502#1503#0" expanded="true" />
-            <element signature="e#1527#1528#0" expanded="true" />
-            <element signature="e#1561#1562#0" expanded="true" />
-            <element signature="e#1589#1590#0" expanded="true" />
-            <element signature="e#1648#1649#0" expanded="true" />
-            <element signature="e#1676#1677#0" expanded="true" />
-            <element signature="e#1812#1813#0" expanded="true" />
-            <element signature="e#1846#1847#0" expanded="true" />
-            <element signature="e#1904#1905#0" expanded="true" />
-            <element signature="e#1931#1932#0" expanded="true" />
-            <element signature="e#2065#2066#0" expanded="true" />
-            <element signature="e#2097#2098#0" expanded="true" />
-            <element signature="e#2133#2134#0" expanded="true" />
-            <element signature="e#2165#2166#0" expanded="true" />
-            <element signature="e#2215#2216#0" expanded="true" />
-            <element signature="e#2257#2258#0" expanded="true" />
-            <element signature="e#2294#2295#0" expanded="true" />
-            <element signature="e#2327#2328#0" expanded="true" />
-            <element signature="e#2379#2380#0" expanded="true" />
-            <element signature="e#2423#2424#0" expanded="true" />
-            <element signature="e#2460#2461#0" expanded="true" />
-            <element signature="e#2493#2494#0" expanded="true" />
-            <element signature="e#2545#2546#0" expanded="true" />
-            <element signature="e#2589#2590#0" expanded="true" />
+            <element signature="e#2624#2625#0" expanded="false" />
+            <element signature="e#2655#2656#0" expanded="false" />
+            <element signature="e#2703#2704#0" expanded="false" />
+            <element signature="e#2743#2744#0" expanded="false" />
+            <element signature="e#2779#2780#0" expanded="false" />
+            <element signature="e#2811#2812#0" expanded="false" />
+            <element signature="e#2861#2862#0" expanded="false" />
+            <element signature="e#2903#2904#0" expanded="false" />
+            <element signature="e#2964#2965#0" expanded="false" />
+            <element signature="e#2994#2995#0" expanded="false" />
+            <element signature="e#3134#3135#0" expanded="false" />
+            <element signature="e#3172#3173#0" expanded="false" />
+            <element signature="e#3231#3232#0" expanded="false" />
+            <element signature="e#3259#3260#0" expanded="false" />
+            <element signature="e#3395#3396#0" expanded="false" />
+            <element signature="e#3429#3430#0" expanded="false" />
+            <element signature="e#3465#3466#0" expanded="false" />
+            <element signature="e#3497#3498#0" expanded="false" />
+            <element signature="e#3547#3548#0" expanded="false" />
+            <element signature="e#3589#3590#0" expanded="false" />
+            <element signature="e#3620#3621#0" expanded="false" />
+            <element signature="e#3647#3648#0" expanded="false" />
+            <element signature="e#3687#3688#0" expanded="false" />
+            <element signature="e#3719#3720#0" expanded="false" />
+            <element signature="e#3754#3755#0" expanded="false" />
+            <element signature="e#3785#3786#0" expanded="false" />
+            <element signature="e#3833#3834#0" expanded="false" />
+            <element signature="e#3873#3874#0" expanded="false" />
+            <element signature="e#3908#3909#0" expanded="false" />
+            <element signature="e#3939#3940#0" expanded="false" />
+            <element signature="e#3987#3988#0" expanded="false" />
+            <element signature="e#4027#4028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3795,8 +3494,8 @@
         <state vertical-scroll-proportion="0.5675676">
           <caret line="90" column="28" selection-start-line="90" selection-start-column="28" selection-end-line="90" selection-end-column="28" />
           <folding>
-            <element signature="e#2744#2745#0" expanded="true" />
-            <element signature="e#2779#2780#0" expanded="true" />
+            <element signature="e#2744#2745#0" expanded="false" />
+            <element signature="e#2779#2780#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3805,7 +3504,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="false" />
+            <element signature="e#761#762#0" expanded="false" />
+            <element signature="e#1210#1211#0" expanded="false" />
+            <element signature="e#1235#1236#0" expanded="false" />
+            <element signature="e#1269#1270#0" expanded="false" />
+            <element signature="e#1297#1298#0" expanded="false" />
+            <element signature="e#1355#1356#0" expanded="false" />
+            <element signature="e#1382#1383#0" expanded="false" />
+            <element signature="e#1516#1517#0" expanded="false" />
+            <element signature="e#1548#1549#0" expanded="false" />
+            <element signature="e#1605#1606#0" expanded="false" />
+            <element signature="e#1631#1632#0" expanded="false" />
+            <element signature="e#1763#1764#0" expanded="false" />
+            <element signature="e#1793#1794#0" expanded="false" />
+            <element signature="e#1852#1853#0" expanded="false" />
+            <element signature="e#1880#1881#0" expanded="false" />
+            <element signature="e#2016#2017#0" expanded="false" />
+            <element signature="e#2050#2051#0" expanded="false" />
+            <element signature="e#2107#2108#0" expanded="false" />
+            <element signature="e#2133#2134#0" expanded="false" />
+            <element signature="e#2265#2266#0" expanded="false" />
+            <element signature="e#2295#2296#0" expanded="false" />
+            <element signature="e#2357#2358#0" expanded="false" />
+            <element signature="e#2388#2389#0" expanded="false" />
+            <element signature="e#2530#2531#0" expanded="false" />
+            <element signature="e#2570#2571#0" expanded="false" />
+            <element signature="e#2628#2629#0" expanded="false" />
+            <element signature="e#2655#2656#0" expanded="false" />
+            <element signature="e#2789#2790#0" expanded="false" />
+            <element signature="e#2821#2822#0" expanded="false" />
+            <element signature="e#2883#2884#0" expanded="false" />
+            <element signature="e#2914#2915#0" expanded="false" />
+            <element signature="e#3056#3057#0" expanded="false" />
+            <element signature="e#3096#3097#0" expanded="false" />
+            <element signature="e#3154#3155#0" expanded="false" />
+            <element signature="e#3181#3182#0" expanded="false" />
+            <element signature="e#3315#3316#0" expanded="false" />
+            <element signature="e#3347#3348#0" expanded="false" />
+            <element signature="e#3403#3404#0" expanded="false" />
+            <element signature="e#3428#3429#0" expanded="false" />
+            <element signature="e#3558#3559#0" expanded="false" />
+            <element signature="e#3586#3587#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3813,17 +3555,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideRouteFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="132" selection-start-line="71" selection-start-column="132" selection-end-line="71" selection-end-column="132" />
           <folding>
-            <element signature="e#4216#4217#0" expanded="true" />
-            <element signature="e#4252#4253#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2226#2227#0" expanded="false" />
+            <element signature="e#2255#2256#0" expanded="false" />
+            <element signature="e#2325#2326#0" expanded="false" />
+            <element signature="e#2366#2367#0" expanded="false" />
+            <element signature="e#7595#7596#0" expanded="false" />
+            <element signature="e#7622#7623#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3832,53 +3571,316 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="86" column="56" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PlanFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4814816">
-          <caret line="78" column="68" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="68" />
           <folding>
-            <element signature="e#7085#7111#0" expanded="true" />
-            <element signature="e#7271#7291#0" expanded="true" />
-            <element signature="e#10632#10633#0" expanded="true" />
-            <element signature="e#10663#10664#0" expanded="true" />
-            <element signature="e#10699#10700#0" expanded="true" />
-            <element signature="e#10731#10732#0" expanded="true" />
-            <element signature="e#10765#10766#0" expanded="true" />
-            <element signature="e#10795#10796#0" expanded="true" />
-            <element signature="e#10834#10835#0" expanded="true" />
-            <element signature="e#10869#10870#0" expanded="true" />
-            <element signature="e#10916#10917#0" expanded="true" />
-            <element signature="e#10952#10953#0" expanded="true" />
-            <element signature="e#10997#10998#0" expanded="true" />
-            <element signature="e#11032#11033#0" expanded="true" />
-            <element signature="e#11561#11562#0" expanded="true" />
-            <element signature="e#11593#11594#0" expanded="true" />
-            <element signature="e#11644#11645#0" expanded="true" />
-            <element signature="e#11686#11687#0" expanded="true" />
-            <element signature="e#11722#11723#0" expanded="true" />
-            <element signature="e#11754#11755#0" expanded="true" />
-            <element signature="e#11804#11805#0" expanded="true" />
-            <element signature="e#11846#11847#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1184#1185#0" expanded="false" />
+            <element signature="e#1226#1227#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.108108">
-          <caret line="176" column="6" selection-start-line="176" selection-start-column="6" selection-end-line="176" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="177" column="18" selection-start-line="177" selection-start-column="18" selection-end-line="177" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#5945#5946#0" expanded="false" />
+            <element signature="e#5988#5989#0" expanded="false" />
+            <element signature="e#6600#6601#0" expanded="false" />
+            <element signature="e#6638#6639#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/GuideRouteActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/MenuFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="5" selection-start-line="23" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideRouteFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/GuideFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="35" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="69" selection-start-line="54" selection-start-column="69" selection-end-line="54" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteInfoActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="259" column="25" selection-start-line="259" selection-start-column="25" selection-end-line="259" selection-end-column="25" />
+          <folding>
+            <element signature="e#8250#8392#0" expanded="true" />
+            <element signature="e#8391#8392#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/dean/travltotibet/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.16">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="48" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.448276">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/arrow_rotate.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="8" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_detail.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow3.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow4.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow5.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow6.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right_arrow7.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/rotate_arrow.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/TabFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10810811">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteDirFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48171702">
+          <caret line="102" column="19" selection-start-line="102" selection-start-column="19" selection-end-line="102" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1888#2263#0" expanded="true" />
+            <element signature="e#2262#2263#0" expanded="true" />
+            <element signature="e#2300#2676#0" expanded="true" />
+            <element signature="e#2675#2676#0" expanded="true" />
+            <element signature="e#2901#3066#0" expanded="true" />
+            <element signature="e#3065#3066#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PlanFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10810811">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="25" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/text_translate_right_anim.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10810811">
+          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/text_translate_left_anim.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10810811">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/border_green.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles_text.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="71" column="12" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_gray.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="44" selection-start-line="5" selection-start-column="12" selection-end-line="6" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_click_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_green_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_purple_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/chart_header_btn.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_blue_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_white_bottom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_dir_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-33.41379">
+          <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/card_gray_border.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21621622">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>

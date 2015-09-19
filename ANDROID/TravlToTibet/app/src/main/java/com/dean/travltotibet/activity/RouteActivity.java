@@ -10,11 +10,13 @@ import com.dean.travltotibet.fragment.MapFragment;
 import com.dean.travltotibet.fragment.PlanFragment;
 import com.dean.travltotibet.fragment.GuideFragment;
 import com.dean.travltotibet.model.Place;
+import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -63,13 +65,15 @@ public class RouteActivity
     // 当前是否向前，也就是正向反向 f/r
     private boolean isForwrad;
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
-        routeName = "XINZANG";
-        isForwrad = false;
+        Intent intent = getIntent();
+        if (intent != null) {
+            routeName = intent.getStringExtra(Constants.INTENT_ROUTE_NAME);
+            isForwrad = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
+        }
 
         initMenu();
         initHeader();
@@ -253,6 +257,7 @@ public class RouteActivity
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
             }
         });
 

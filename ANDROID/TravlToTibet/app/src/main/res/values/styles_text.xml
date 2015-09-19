@@ -84,4 +84,9 @@
         <item name="android:textSize">30sp</item>
     </style>
 
+    <style name="TextAppearance.XXXLarge.Black.Bold" parent="TextAppearance.XXXLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>
