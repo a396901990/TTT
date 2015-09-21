@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.dean.travltotibet.ui.SquareView
+            android:id="@+id/bike_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:activeSrc="@drawable/bike_active"
+            app:disableSrc="@drawable/bike_disable" />
+
+        <com.dean.travltotibet.ui.SquareView
+            android:id="@+id/hiking_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:activeSrc="@drawable/hiking_active"
+            app:disableSrc="@drawable/hiking_disable" />
+
+        <com.dean.travltotibet.ui.SquareView
+            android:id="@+id/moto_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:activeSrc="@drawable/moto_active"
+            app:disableSrc="@drawable/moto_disable" />
+
+        <com.dean.travltotibet.ui.SquareView
+            android:id="@+id/car_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:activeSrc="@drawable/car_active"
+            app:disableSrc="@drawable/car_disable" />
+    </LinearLayout>
+
+</LinearLayout>

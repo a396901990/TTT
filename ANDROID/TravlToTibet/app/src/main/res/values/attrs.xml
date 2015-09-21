@@ -14,6 +14,11 @@
         <attr name="imageSrc" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="SquareView">
+        <attr name="activeSrc" format="reference" />
+        <attr name="disableSrc" format="reference" />
+    </declare-styleable>
+
     <attr name="icon_bg" format="reference" />
     <attr name="color" format="color" />
     <attr name="text" format="string" />

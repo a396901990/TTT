@@ -1,5 +1,32 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
-    android:name="com.dean.travltotibet.fragment.RouteDirFragment"
-    tools:layout="@layout/route_dir_fragment" android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <!--方向-->
+    <fragment
+        android:id="@+id/dir_fragment"
+        android:name="com.dean.travltotibet.fragment.RouteDirFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/route_dir_fragment" />
+
+    <!--类型-->
+    <fragment
+        android:id="@+id/type_fragment"
+        android:name="com.dean.travltotibet.fragment.RouteTypeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/route_plan_fragment" />
+
+    <!--计划-->
+    <fragment
+        android:id="@+id/plan_fragment"
+        android:name="com.dean.travltotibet.fragment.RoutePlanFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/route_plan_fragment" />
+</LinearLayout>

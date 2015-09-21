@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.activity.RouteInfoActivity;
+import com.dean.travltotibet.ui.SquareView;
 import com.dean.travltotibet.util.Constants;
 
 /**
@@ -81,7 +82,7 @@ public class RouteDirFragment extends Fragment {
         });
 
         final Animation operatingAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.arrow_rotate);
-        operatingAnim.setAnimationListener(new DeleteAnimationListener());
+        operatingAnim.setAnimationListener(new SwitchAnimationListener());
 
         rotateArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +92,10 @@ public class RouteDirFragment extends Fragment {
         });
     }
 
-    private class DeleteAnimationListener implements Animation.AnimationListener {
+    /**
+     * 交换动画
+     */
+    private class SwitchAnimationListener implements Animation.AnimationListener {
         @Override
         public void onAnimationStart(Animation animation) {
             // 交换两边文字
