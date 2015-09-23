@@ -13,11 +13,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.activity.RouteInfoActivity;
+import com.dean.travltotibet.adapter.RoutePlanListAdapter;
 import com.dean.travltotibet.ui.SquareView;
 import com.dean.travltotibet.util.Constants;
+
+import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 9/19/15.
@@ -50,7 +55,12 @@ public class RoutePlanFragment extends Fragment {
     }
 
     private void initPlanList() {
-        ListView listView = (ListView) root.findViewById(R.id.plan_list);
+        ListView mListView = (ListView) root.findViewById(R.id.plan_list);
+        ArrayList<RoutePlan> plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(routeInfoActivity.getRouteName());
+        RoutePlanListAdapter mAdapter = new RoutePlanListAdapter(routeInfoActivity);
+        mAdapter.setData(plans);
+
+        mListView.setAdapter(mAdapter);
     }
 
 

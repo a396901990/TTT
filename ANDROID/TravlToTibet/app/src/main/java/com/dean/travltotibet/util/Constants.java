@@ -51,6 +51,7 @@ public final class Constants {
 
     // route info intent
     public static final String INTENT_ROUTE_NAME = "intent_route_name";
+    public static final String INTENT_ROUTE_PLAN_ID = "intent_route_plan_id";
     public static final String INTENT_ROUTE_TYPE = "intent_route_type";
     public static final String INTENT_ROUTE_DAY = "intent_route_day";
     public static final String INTENT_ROUTE_DIR = "intent_route_direction";

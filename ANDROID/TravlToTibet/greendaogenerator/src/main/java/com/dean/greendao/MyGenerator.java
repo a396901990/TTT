@@ -19,6 +19,7 @@ public class MyGenerator {
         addGeocode(schema);
         addPlan(schema);
         addRoute(schema);
+        addRoutePlan(schema);
 //        addZoneType(schema);
 //        addBuildingType(schema);
 
@@ -51,15 +52,13 @@ public class MyGenerator {
     private static void addPlan(Schema schema) {
         Entity route = schema.addEntity("Plan");
         route.addIdProperty();
-        route.addStringProperty("name").notNull();
+        route.addStringProperty("route_plan_id").notNull();
         route.addStringProperty("day").notNull();
         route.addStringProperty("start").notNull();
         route.addStringProperty("end").notNull();
         route.addStringProperty("distance").notNull();
-        route.addStringProperty("type").notNull();
         route.addStringProperty("describe").notNull();
         route.addStringProperty("rank").notNull();
-        route.addStringProperty("fr").notNull();
     }
 
     // 路线表
@@ -77,6 +76,18 @@ public class MyGenerator {
         route.addStringProperty("describe").notNull();
         route.addStringProperty("detail").notNull();
         route.addStringProperty("pic_url").notNull();
+    }
+
+
+    // 路线_计划表
+    private static void addRoutePlan(Schema schema) {
+        Entity route = schema.addEntity("RoutePlan");
+        route.addIdProperty();
+        route.addStringProperty("route").notNull();
+        route.addStringProperty("fr").notNull();
+        route.addStringProperty("plan_name").notNull();
+        route.addStringProperty("plan_days").notNull();
+        route.addStringProperty("describe").notNull();
     }
 
     // 区域类型表

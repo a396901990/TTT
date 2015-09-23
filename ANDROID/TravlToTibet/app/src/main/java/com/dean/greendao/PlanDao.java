@@ -24,15 +24,13 @@ public class PlanDao extends AbstractDao<Plan, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
+        public final static Property Route_plan_id = new Property(1, String.class, "route_plan_id", false, "ROUTE_PLAN_ID");
         public final static Property Day = new Property(2, String.class, "day", false, "DAY");
         public final static Property Start = new Property(3, String.class, "start", false, "START");
         public final static Property End = new Property(4, String.class, "end", false, "END");
         public final static Property Distance = new Property(5, String.class, "distance", false, "DISTANCE");
-        public final static Property Type = new Property(6, String.class, "type", false, "TYPE");
-        public final static Property Describe = new Property(7, String.class, "describe", false, "DESCRIBE");
-        public final static Property Rank = new Property(8, String.class, "rank", false, "RANK");
-        public final static Property Fr = new Property(9, String.class, "fr", false, "FR");
+        public final static Property Describe = new Property(6, String.class, "describe", false, "DESCRIBE");
+        public final static Property Rank = new Property(7, String.class, "rank", false, "RANK");
     };
 
 
@@ -49,15 +47,13 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'PLAN' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
-                "'NAME' TEXT NOT NULL ," + // 1: name
+                "'ROUTE_PLAN_ID' TEXT NOT NULL ," + // 1: route_plan_id
                 "'DAY' TEXT NOT NULL ," + // 2: day
                 "'START' TEXT NOT NULL ," + // 3: start
                 "'END' TEXT NOT NULL ," + // 4: end
                 "'DISTANCE' TEXT NOT NULL ," + // 5: distance
-                "'TYPE' TEXT NOT NULL ," + // 6: type
-                "'DESCRIBE' TEXT NOT NULL ," + // 7: describe
-                "'RANK' TEXT NOT NULL ," + // 8: rank
-                "'FR' TEXT NOT NULL );"); // 9: fr
+                "'DESCRIBE' TEXT NOT NULL ," + // 6: describe
+                "'RANK' TEXT NOT NULL );"); // 7: rank
     }
 
     /** Drops the underlying database table. */
@@ -75,15 +71,13 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getName());
+        stmt.bindString(2, entity.getRoute_plan_id());
         stmt.bindString(3, entity.getDay());
         stmt.bindString(4, entity.getStart());
         stmt.bindString(5, entity.getEnd());
         stmt.bindString(6, entity.getDistance());
-        stmt.bindString(7, entity.getType());
-        stmt.bindString(8, entity.getDescribe());
-        stmt.bindString(9, entity.getRank());
-        stmt.bindString(10, entity.getFr());
+        stmt.bindString(7, entity.getDescribe());
+        stmt.bindString(8, entity.getRank());
     }
 
     /** @inheritdoc */
@@ -97,15 +91,13 @@ public class PlanDao extends AbstractDao<Plan, Long> {
     public Plan readEntity(Cursor cursor, int offset) {
         Plan entity = new Plan( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getString(offset + 1), // name
+            cursor.getString(offset + 1), // route_plan_id
             cursor.getString(offset + 2), // day
             cursor.getString(offset + 3), // start
             cursor.getString(offset + 4), // end
             cursor.getString(offset + 5), // distance
-            cursor.getString(offset + 6), // type
-            cursor.getString(offset + 7), // describe
-            cursor.getString(offset + 8), // rank
-            cursor.getString(offset + 9) // fr
+            cursor.getString(offset + 6), // describe
+            cursor.getString(offset + 7) // rank
         );
         return entity;
     }
@@ -114,15 +106,13 @@ public class PlanDao extends AbstractDao<Plan, Long> {
     @Override
     public void readEntity(Cursor cursor, Plan entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setName(cursor.getString(offset + 1));
+        entity.setRoute_plan_id(cursor.getString(offset + 1));
         entity.setDay(cursor.getString(offset + 2));
         entity.setStart(cursor.getString(offset + 3));
         entity.setEnd(cursor.getString(offset + 4));
         entity.setDistance(cursor.getString(offset + 5));
-        entity.setType(cursor.getString(offset + 6));
-        entity.setDescribe(cursor.getString(offset + 7));
-        entity.setRank(cursor.getString(offset + 8));
-        entity.setFr(cursor.getString(offset + 9));
+        entity.setDescribe(cursor.getString(offset + 6));
+        entity.setRank(cursor.getString(offset + 7));
      }
     
     /** @inheritdoc */

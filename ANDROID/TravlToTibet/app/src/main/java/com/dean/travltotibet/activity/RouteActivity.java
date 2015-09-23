@@ -62,6 +62,9 @@ public class RouteActivity
     // 当前线路名称
     private String routeName;
 
+    // 当前路线计划的id
+    private int routePlanId;
+
     // 当前是否向前，也就是正向反向 f/r
     private boolean isForwrad;
 
@@ -72,6 +75,7 @@ public class RouteActivity
         Intent intent = getIntent();
         if (intent != null) {
             routeName = intent.getStringExtra(Constants.INTENT_ROUTE_NAME);
+            routePlanId = intent.getIntExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
             isForwrad = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
         }
 
@@ -293,6 +297,7 @@ public class RouteActivity
 
     /**
      * 更新标题栏文字
+     *
      * @param currentRoute
      */
     public void updateHeader(Route currentRoute) {
@@ -410,6 +415,14 @@ public class RouteActivity
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
+    }
+
+    public int getRoutePlanId() {
+        return routePlanId;
+    }
+
+    public void setRoutePlanId(int routePlanId) {
+        this.routePlanId = routePlanId;
     }
 
 }

@@ -11,6 +11,8 @@ import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
+import com.dean.greendao.RoutePlan;
+import com.dean.greendao.RoutePlanDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -21,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.dao.query.DeleteQuery;
@@ -39,6 +42,8 @@ public class DBHelper {
 
     private PlanDao planDao;
 
+    private RoutePlanDao routePlanDao;
+
     private DBHelper() {
     }
 
@@ -54,6 +59,7 @@ public class DBHelper {
             instance.geocodeDao = daoSession.getGeocodeDao();
             instance.routeDao = daoSession.getRouteDao();
             instance.planDao = daoSession.getPlanDao();
+            instance.routePlanDao = daoSession.getRoutePlanDao();
         }
         return instance;
     }
@@ -185,6 +191,17 @@ public class DBHelper {
     }
 
     /**
+     * 根据routeName获取routeplan数据
+     * @param routeName
+     * @return
+     */
+    public List<RoutePlan> getRoutePlans(String routeName) {
+        QueryBuilder<RoutePlan> qb = routePlanDao.queryBuilder();
+        qb.where(Properties.Route.eq(routeName));
+        return qb.list();
+    }
+
+    /**
      * 根据name获取里程碑
      *
      * @param name
@@ -207,10 +224,10 @@ public class DBHelper {
     /**
      * 查询所有计划信息
      */
-    public List<Plan> getPlanList(boolean isForward) {
+    public List<Plan> getPlanList(int routePlanId) {
         QueryBuilder<Plan> qb = planDao.queryBuilder();
         // 根据正反获取Plan
-        qb.where(PlanDao.Properties.Fr.eq(isForward ? "F" : "R"));
+        qb.where(PlanDao.Properties.Route_plan_id.eq(routePlanId));
         return qb.list();
     }
 

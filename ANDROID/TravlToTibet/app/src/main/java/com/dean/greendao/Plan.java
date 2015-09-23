@@ -8,7 +8,7 @@ public class Plan {
 
     private Long id;
     /** Not-null value. */
-    private String name;
+    private String route_plan_id;
     /** Not-null value. */
     private String day;
     /** Not-null value. */
@@ -18,13 +18,9 @@ public class Plan {
     /** Not-null value. */
     private String distance;
     /** Not-null value. */
-    private String type;
-    /** Not-null value. */
     private String describe;
     /** Not-null value. */
     private String rank;
-    /** Not-null value. */
-    private String fr;
 
     public Plan() {
     }
@@ -33,17 +29,15 @@ public class Plan {
         this.id = id;
     }
 
-    public Plan(Long id, String name, String day, String start, String end, String distance, String type, String describe, String rank, String fr) {
+    public Plan(Long id, String route_plan_id, String day, String start, String end, String distance, String describe, String rank) {
         this.id = id;
-        this.name = name;
+        this.route_plan_id = route_plan_id;
         this.day = day;
         this.start = start;
         this.end = end;
         this.distance = distance;
-        this.type = type;
         this.describe = describe;
         this.rank = rank;
-        this.fr = fr;
     }
 
     public Long getId() {
@@ -55,13 +49,13 @@ public class Plan {
     }
 
     /** Not-null value. */
-    public String getName() {
-        return name;
+    public String getRoute_plan_id() {
+        return route_plan_id;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setName(String name) {
-        this.name = name;
+    public void setRoute_plan_id(String route_plan_id) {
+        this.route_plan_id = route_plan_id;
     }
 
     /** Not-null value. */
@@ -105,16 +99,6 @@ public class Plan {
     }
 
     /** Not-null value. */
-    public String getType() {
-        return type;
-    }
-
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /** Not-null value. */
     public String getDescribe() {
         return describe;
     }
@@ -132,16 +116,6 @@ public class Plan {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setRank(String rank) {
         this.rank = rank;
-    }
-
-    /** Not-null value. */
-    public String getFr() {
-        return fr;
-    }
-
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setFr(String fr) {
-        this.fr = fr;
     }
 
 }

@@ -67,6 +67,7 @@ public class RouteDirFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), RouteActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, "XINZANG");
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, true);
+                intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, 1);
                 startActivity(intent);
             }
         });
