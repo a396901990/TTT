@@ -10,12 +10,13 @@ import com.dean.travltotibet.R;
 
 public class RouteInfoActivity extends Activity {
 
-    private String routeName;
+    private String routeName = "XINZANG";
+
+    private String routeType = "BIKE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        routeName = "XINZANG";
         setContentView(R.layout.route_detail);
     }
 
@@ -48,5 +49,13 @@ public class RouteInfoActivity extends Activity {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
     }
 }

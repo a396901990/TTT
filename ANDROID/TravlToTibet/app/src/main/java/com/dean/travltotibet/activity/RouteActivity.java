@@ -14,10 +14,8 @@ import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -62,6 +60,9 @@ public class RouteActivity
     // 当前线路名称
     private String routeName;
 
+    // 当前线路类型
+    private String routeType;
+
     // 当前路线计划的id
     private int routePlanId;
 
@@ -75,7 +76,8 @@ public class RouteActivity
         Intent intent = getIntent();
         if (intent != null) {
             routeName = intent.getStringExtra(Constants.INTENT_ROUTE_NAME);
-            routePlanId = intent.getIntExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
+            routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
+            routePlanId = (int)intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
             isForwrad = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
         }
 
@@ -84,7 +86,7 @@ public class RouteActivity
         initViewPager();
 
         // 设置路线信息
-        currentRoute = TTTApplication.getDbHelper().getRouteWithName(routeName, isForwrad());
+        currentRoute = TTTApplication.getDbHelper().getRouteInfo(routeName, routeType, isForwrad());
         // 跟新信息
         updateHeader(currentRoute.getStart(), currentRoute.getEnd(), currentRoute.getName(), currentRoute.getDistance());
     }
@@ -425,4 +427,11 @@ public class RouteActivity
         this.routePlanId = routePlanId;
     }
 
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
 }

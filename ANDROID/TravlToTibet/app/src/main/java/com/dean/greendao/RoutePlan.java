@@ -12,6 +12,8 @@ public class RoutePlan {
     /** Not-null value. */
     private String fr;
     /** Not-null value. */
+    private String type;
+    /** Not-null value. */
     private String plan_name;
     /** Not-null value. */
     private String plan_days;
@@ -25,10 +27,11 @@ public class RoutePlan {
         this.id = id;
     }
 
-    public RoutePlan(Long id, String route, String fr, String plan_name, String plan_days, String describe) {
+    public RoutePlan(Long id, String route, String fr, String type, String plan_name, String plan_days, String describe) {
         this.id = id;
         this.route = route;
         this.fr = fr;
+        this.type = type;
         this.plan_name = plan_name;
         this.plan_days = plan_days;
         this.describe = describe;
@@ -60,6 +63,16 @@ public class RoutePlan {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setFr(String fr) {
         this.fr = fr;
+    }
+
+    /** Not-null value. */
+    public String getType() {
+        return type;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setType(String type) {
+        this.type = type;
     }
 
     /** Not-null value. */

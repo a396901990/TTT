@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class RoutePlanListAdapter extends BaseAdapter {
 
         RoutePlan routePlan = mData.get(position);
         planName.setText(routePlan.getPlan_name());
-        planDay.setText(routePlan.getPlan_days());
+        planDay.setText(String.format(Constants.ROUTE_PLAN_DAY, routePlan.getPlan_days()));
         planDescribe.setText(routePlan.getDescribe());
 
         return convertView;

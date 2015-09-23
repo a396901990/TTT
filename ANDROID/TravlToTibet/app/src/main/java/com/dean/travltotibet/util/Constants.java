@@ -69,4 +69,6 @@ public final class Constants {
 
     public static final String GUIDE_OVERALL_MILESTONE_FORMAT = "位置: %s/%s";
 
+    public static final String ROUTE_PLAN_DAY = "预计天数: %s天";
+
 }

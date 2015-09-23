@@ -26,9 +26,10 @@ public class RoutePlanDao extends AbstractDao<RoutePlan, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Route = new Property(1, String.class, "route", false, "ROUTE");
         public final static Property Fr = new Property(2, String.class, "fr", false, "FR");
-        public final static Property Plan_name = new Property(3, String.class, "plan_name", false, "PLAN_NAME");
-        public final static Property Plan_days = new Property(4, String.class, "plan_days", false, "PLAN_DAYS");
-        public final static Property Describe = new Property(5, String.class, "describe", false, "DESCRIBE");
+        public final static Property Type = new Property(3, String.class, "type", false, "TYPE");
+        public final static Property Plan_name = new Property(4, String.class, "plan_name", false, "PLAN_NAME");
+        public final static Property Plan_days = new Property(5, String.class, "plan_days", false, "PLAN_DAYS");
+        public final static Property Describe = new Property(6, String.class, "describe", false, "DESCRIBE");
     };
 
 
@@ -47,9 +48,10 @@ public class RoutePlanDao extends AbstractDao<RoutePlan, Long> {
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'ROUTE' TEXT NOT NULL ," + // 1: route
                 "'FR' TEXT NOT NULL ," + // 2: fr
-                "'PLAN_NAME' TEXT NOT NULL ," + // 3: plan_name
-                "'PLAN_DAYS' TEXT NOT NULL ," + // 4: plan_days
-                "'DESCRIBE' TEXT NOT NULL );"); // 5: describe
+                "'TYPE' TEXT NOT NULL ," + // 3: type
+                "'PLAN_NAME' TEXT NOT NULL ," + // 4: plan_name
+                "'PLAN_DAYS' TEXT NOT NULL ," + // 5: plan_days
+                "'DESCRIBE' TEXT NOT NULL );"); // 6: describe
     }
 
     /** Drops the underlying database table. */
@@ -69,9 +71,10 @@ public class RoutePlanDao extends AbstractDao<RoutePlan, Long> {
         }
         stmt.bindString(2, entity.getRoute());
         stmt.bindString(3, entity.getFr());
-        stmt.bindString(4, entity.getPlan_name());
-        stmt.bindString(5, entity.getPlan_days());
-        stmt.bindString(6, entity.getDescribe());
+        stmt.bindString(4, entity.getType());
+        stmt.bindString(5, entity.getPlan_name());
+        stmt.bindString(6, entity.getPlan_days());
+        stmt.bindString(7, entity.getDescribe());
     }
 
     /** @inheritdoc */
@@ -87,9 +90,10 @@ public class RoutePlanDao extends AbstractDao<RoutePlan, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // route
             cursor.getString(offset + 2), // fr
-            cursor.getString(offset + 3), // plan_name
-            cursor.getString(offset + 4), // plan_days
-            cursor.getString(offset + 5) // describe
+            cursor.getString(offset + 3), // type
+            cursor.getString(offset + 4), // plan_name
+            cursor.getString(offset + 5), // plan_days
+            cursor.getString(offset + 6) // describe
         );
         return entity;
     }
@@ -100,9 +104,10 @@ public class RoutePlanDao extends AbstractDao<RoutePlan, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setRoute(cursor.getString(offset + 1));
         entity.setFr(cursor.getString(offset + 2));
-        entity.setPlan_name(cursor.getString(offset + 3));
-        entity.setPlan_days(cursor.getString(offset + 4));
-        entity.setDescribe(cursor.getString(offset + 5));
+        entity.setType(cursor.getString(offset + 3));
+        entity.setPlan_name(cursor.getString(offset + 4));
+        entity.setPlan_days(cursor.getString(offset + 5));
+        entity.setDescribe(cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */

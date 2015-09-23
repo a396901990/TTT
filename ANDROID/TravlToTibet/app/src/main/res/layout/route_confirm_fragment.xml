@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical"
+    android:padding="@dimen/route_plan_dialog_padding">
+
+    <TextView
+        style="@style/TextAppearance.Medium.Grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/route_plan_dialog_title_padding"
+        android:text="选择方向：" />
+
+    <!--方向视图-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/route_plan_dialog_dir_view_height"
+        android:background="@drawable/card_gray_border">
+
+        <LinearLayout
+            android:id="@+id/from_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/route_plan_dialog_dir_view_padding">
+
+            <!--<TextView-->
+            <!--style="@style/TextAppearance.Small.Gray"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="from" />-->
+
+            <TextView
+                android:id="@+id/from_text"
+                style="@style/TextAppearance.XXXLarge.Black.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/route_plan_dialog_dir_view_image"
+            android:layout_height="@dimen/route_plan_dialog_dir_view_image"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rotate_arrow" />
+
+        <LinearLayout
+            android:id="@+id/to_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/route_plan_dialog_dir_view_padding">
+
+            <!--<TextView-->
+            <!--style="@style/TextAppearance.Medium.Grey"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="to" />-->
+
+            <TextView
+                android:id="@+id/to_text"
+                style="@style/TextAppearance.XXXLarge.Black.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        style="@style/TextAppearance.Medium.Grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/route_plan_dialog_title_padding"
+        android:paddingTop="@dimen/route_plan_dialog_space_padding"
+        android:text="选择计划：" />
+
+    <!--列表视图-->
+    <ListView
+        android:id="@+id/plan_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/gray_background"
+        android:dividerHeight="3dip"></ListView>
+</LinearLayout>

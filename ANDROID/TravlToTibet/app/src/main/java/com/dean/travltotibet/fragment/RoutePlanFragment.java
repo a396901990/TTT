@@ -56,7 +56,7 @@ public class RoutePlanFragment extends Fragment {
 
     private void initPlanList() {
         ListView mListView = (ListView) root.findViewById(R.id.plan_list);
-        ArrayList<RoutePlan> plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(routeInfoActivity.getRouteName());
+        ArrayList<RoutePlan> plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(routeInfoActivity.getRouteName(),"", true);
         RoutePlanListAdapter mAdapter = new RoutePlanListAdapter(routeInfoActivity);
         mAdapter.setData(plans);
 

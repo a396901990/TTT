@@ -85,6 +85,7 @@ public class MyGenerator {
         route.addIdProperty();
         route.addStringProperty("route").notNull();
         route.addStringProperty("fr").notNull();
+        route.addStringProperty("type").notNull();
         route.addStringProperty("plan_name").notNull();
         route.addStringProperty("plan_days").notNull();
         route.addStringProperty("describe").notNull();

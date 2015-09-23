@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,13 +30,6 @@ public class RouteDirFragment extends Fragment {
 
     private View root;
 
-    private View fromView;
-    private View toView;
-
-    private TextView fromText;
-    private TextView toText;
-    private ImageView rotateArrow;
-
     public RouteDirFragment() {
     }
 
@@ -52,12 +46,6 @@ public class RouteDirFragment extends Fragment {
 
         routeInfoActivity = (RouteInfoActivity) getActivity();
 
-        fromView = root.findViewById(R.id.from_view);
-        toView = root.findViewById(R.id.to_view);
-        fromText = (TextView) root.findViewById(R.id.from_text);
-        toText = (TextView) root.findViewById(R.id.to_text);
-        rotateArrow = (ImageView) root.findViewById(R.id.arrow);
-
         Button btn_f = (Button) root.findViewById(R.id.btn_select_f);
         Button btn_r = (Button) root.findViewById(R.id.btn_select_r);
 
@@ -68,7 +56,14 @@ public class RouteDirFragment extends Fragment {
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, "XINZANG");
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, true);
                 intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, 1);
-                startActivity(intent);
+                //startActivity(intent);
+
+                DialogFragment dialogFragment = new RouteConfirmDialog();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.INTENT_ROUTE_NAME, routeInfoActivity.getRouteName());
+                bundle.putString(Constants.INTENT_ROUTE_TYPE, routeInfoActivity.getRouteType());
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(getFragmentManager(), RouteConfirmDialog.class.getName());
             }
         });
 
@@ -82,43 +77,6 @@ public class RouteDirFragment extends Fragment {
             }
         });
 
-        final Animation operatingAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.arrow_rotate);
-        operatingAnim.setAnimationListener(new SwitchAnimationListener());
-
-        rotateArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.startAnimation(operatingAnim);
-            }
-        });
-    }
-
-    /**
-     * 交换动画
-     */
-    private class SwitchAnimationListener implements Animation.AnimationListener {
-        @Override
-        public void onAnimationStart(Animation animation) {
-            // 交换两边文字
-            String from = (String) fromText.getText();
-            String to = (String) toText.getText();
-            fromText.setText(to);
-            toText.setText(from);
-
-            // 播放动画
-            fromView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.text_translate_left_anim));
-            toView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.text_translate_right_anim));
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
     }
 
 }

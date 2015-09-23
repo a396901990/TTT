@@ -13,6 +13,7 @@ import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
 import com.dean.greendao.RoutePlanDao;
+import com.dean.greendao.RoutesDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -159,9 +160,10 @@ public class DBHelper {
     /**
      * 根据routeName获取路线信息
      */
-    public Route getRouteWithName(String routeName, boolean isForward) {
+    public Route getRouteInfo(String routeName, String routeType, boolean isForward) {
         QueryBuilder<Route> qb = routeDao.queryBuilder();
-        qb.where(Properties.Route.eq(routeName));
+        qb.where(RouteDao.Properties.Route.eq(routeName));
+        qb.where(RouteDao.Properties.Type.eq(routeType));
         Route route = qb.list().get(0);
 
         // 根据正反设置起始和终点
@@ -179,6 +181,26 @@ public class DBHelper {
     }
 
     /**
+     * 获取方向中from得名字
+     */
+    public String getFromName(String routeName, boolean isForward) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(Properties.Route.eq(routeName));
+        Route route = qb.list().get(0);
+        return isForward ? route.getStart() : route.getEnd();
+    }
+
+    /**
+     * 获取方向中to得名字
+     */
+    public String getToName(String routeName, boolean isForward) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(Properties.Route.eq(routeName));
+        Route route = qb.list().get(0);
+        return isForward ? route.getEnd() : route.getStart();
+    }
+
+    /**
      * 根据name获取道路信息
      *
      * @param name
@@ -191,21 +213,18 @@ public class DBHelper {
     }
 
     /**
-     * 根据routeName获取routeplan数据
-     * @param routeName
-     * @return
+     * 根据routeName,type,isForward获取routeplan数据
      */
-    public List<RoutePlan> getRoutePlans(String routeName) {
+    public List<RoutePlan> getRoutePlans(String routeName, String type, Boolean isForward) {
         QueryBuilder<RoutePlan> qb = routePlanDao.queryBuilder();
-        qb.where(Properties.Route.eq(routeName));
+        qb.where(RoutePlanDao.Properties.Route.eq(routeName));
+        qb.where(RoutePlanDao.Properties.Type.eq(type));
+        qb.where(RoutePlanDao.Properties.Fr.eq(isForward?"F":"R"));
         return qb.list();
     }
 
     /**
      * 根据name获取里程碑
-     *
-     * @param name
-     * @return
      */
     public Double getMilestoneWithName(String name) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
