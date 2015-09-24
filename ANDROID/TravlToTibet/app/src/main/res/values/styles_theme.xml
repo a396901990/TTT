@@ -40,6 +40,7 @@
     
     <style name="Theme.Spinner" parent="android:Widget.Holo.Light.Spinner">
         <item name="android:background">@drawable/spinner_ab_holo_dark</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="ChartHeaderBar">
@@ -47,18 +48,16 @@
     </style>
 
     <style name="ChartHeaderBar.Text" parent="@style/TextAppearance.Small">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/light_blue</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">middle</item>
-        <item name="android:paddingLeft">@dimen/chart_header_text_padding_left</item>
     </style>
 
     <style name="ChartHeaderBar.Text.Title" parent="@style/TextAppearance.Medium">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/light_blue</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">middle</item>
-        <item name="android:paddingLeft">@dimen/chart_header_text_padding_left</item>
     </style>
 
     <style name="ChartHeaderBar.Button" parent="@style/ChartHeaderBar.Text">

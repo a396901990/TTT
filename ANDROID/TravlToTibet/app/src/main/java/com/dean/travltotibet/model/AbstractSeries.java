@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.Constants;
 
 public abstract class AbstractSeries
@@ -235,6 +236,23 @@ public abstract class AbstractSeries
             if (point.getPointRect() !=null && point.getPointRect().contains(X, Y))
             {
                 return point;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取当前点的名字
+     */
+    public String getPointName(AbstractPoint point) {
+        List<AbstractPoint> points = getPoints();
+
+        for (int i = 0; i < points.size(); i++) {
+            AbstractPoint p = points.get(i);
+            if (p.getCategory() == Constants.PATH) {
+                return null;
+            } else {
+                return point.getName();
             }
         }
         return null;

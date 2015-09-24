@@ -120,8 +120,6 @@ public class GuideFragment extends Fragment
     @Override
     public void onPageScrolled(int position, float positionOffset,
                                int positionOffsetPixels) {
-        // Log.e("TAG", "position = " + position + " , positionOffset = "
-        // + positionOffset);
 
         if (positionOffset > 0) {
             ChangeColorIconWithTextView left = mTabIndicator.get(position);

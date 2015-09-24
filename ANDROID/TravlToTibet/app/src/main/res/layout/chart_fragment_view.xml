@@ -26,4 +26,31 @@
             android:layout_height="@dimen/indicator_chartview_height"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
+    <!--悬浮显示细节-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header_position_name"
+            style="@style/ChartHeaderBar.Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:id="@+id/header_position_height"
+            style="@style/ChartHeaderBar.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:id="@+id/header_position_mileage"
+            style="@style/ChartHeaderBar.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
+
 </FrameLayout>

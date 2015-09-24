@@ -38,7 +38,6 @@ public final class Constants {
     public static final int PATH = 0;
 
     public static final String NAME_HEIGHT = "海拔：";
-
     public static final String NAME_MILEAGE = "里程：";
 
     public static final String DB_NAME = "TTT_DB";
@@ -56,19 +55,16 @@ public final class Constants {
     public static final String INTENT_ROUTE_DAY = "intent_route_day";
     public static final String INTENT_ROUTE_DIR = "intent_route_direction";
 
-
-    /**
-     * Default decimal format pattern *
-     */
     public static final String DECIMAL_FORMAT = "###,##0.00";
     public static final String STRING_INTEGER_FORMATTER = "#0";
     public static final String FOUR_INTEGER_FORMATTER = "###0";
 
-
     public static final String GUIDE_OVERALL_HEIGHT_FORMAT = "海拔: %sM";
-
-    public static final String GUIDE_OVERALL_MILESTONE_FORMAT = "位置: %s/%s";
+    public static final String GUIDE_OVERALL_MILESTONE_FORMAT = "里程碑: %s/%s";
 
     public static final String ROUTE_PLAN_DAY = "预计天数: %s天";
+
+    public static final String HEADER_START_END= "%s-%s";
+    public static final String HEADER_DISTANCE = "(%s)";
 
 }

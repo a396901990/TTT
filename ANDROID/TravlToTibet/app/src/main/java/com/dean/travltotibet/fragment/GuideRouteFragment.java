@@ -91,8 +91,9 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
             // 为子视图设置位置
             String road = geocode.getRoad();
-            if (!TextUtils.isEmpty(road))
+            if (!TextUtils.isEmpty(road)) {
                 road = road.split("/")[1];
+            }
 
             String milestone = StringUtil.formatDoubleToFourInteger(geocode.getMilestone());
             milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);

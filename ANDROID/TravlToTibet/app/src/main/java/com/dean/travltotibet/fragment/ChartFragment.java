@@ -1,11 +1,11 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
@@ -15,10 +15,11 @@ import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.AbstractSeries;
 import com.dean.travltotibet.model.IndicatorSeries;
 import com.dean.travltotibet.model.MountainSeries;
-import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
 import com.dean.travltotibet.util.ChartCrosshairUtil;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.StringUtil;
 
 import java.util.List;
 
@@ -61,22 +62,34 @@ public class ChartFragment extends BaseRouteFragment {
         updateChartRoute();
     }
 
-//     * 更新标题头
-//     */
-//    protected void updateHeader(AbstractPoint point) {
-//        TextView posName = (TextView) mHeaderView.findViewById(R.id.header_position_name);
-//        TextView posHeight = (TextView) mHeaderView.findViewById(R.id.header_position_height);
-//        TextView posMileage = (TextView) mHeaderView.findViewById(R.id.header_position_mileage);
-//
-//        Place place = series.getPlace(point);
-//
-//        if (place != null) {
-//            posHeight.setText(place.getHeight());
-//            posMileage.setText(place.getMileage());
-//            posName.setText(place.getName());
-//        }
-//
-//    }
+    /**
+     * 更新图标细节
+     */
+    public void updateChartDetail(String name) {
+        TextView posName = (TextView) root.findViewById(R.id.header_position_name);
+        TextView posHeight = (TextView) root.findViewById(R.id.header_position_height);
+        TextView posMilestone = (TextView) root.findViewById(R.id.header_position_mileage);
+
+        if (name != null) {
+            // 高度
+            String height = StringUtil.formatDoubleToInteger(TTTApplication.getDbHelper().getElevationWithName(name));
+            height = String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, height);
+
+            // 路牌
+            String road = TTTApplication.getDbHelper().getRoadWithName(name);
+            if (!TextUtils.isEmpty(road)) {
+                road = road.split("/")[1];
+            }
+
+            // 里程碑
+            String milestone = StringUtil.formatDoubleToFourInteger(TTTApplication.getDbHelper().getMilestoneWithName(name));
+            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+
+            posName.setText(name);
+            posHeight.setText(height);
+            posMilestone.setText(milestone);
+        }
+    }
 
     /**
      * 更新chart视图路线
@@ -133,20 +146,12 @@ public class ChartFragment extends BaseRouteFragment {
         mIndicatorView.setChartView(mChartView);
 
         // 设置监听
-        mChartView.addCrosshairPaintedListener(new ChartCrosshairUtil.OnCrosshairPainted() {
-
-            @Override
-            public void onCrosshairPainted(AbstractPoint point) {
-                Place place = series.getPlace(point);
-                routeActivity.updateHeader(place);
-            }
-        });
         mChartView.setPointListener(new AbstractSeries.PointListener() {
 
             @Override
             public void pointOnTouched(AbstractPoint point) {
-                Place place = series.getPlace(point);
-                routeActivity.updateHeader(place);
+                String placeName = series.getPointName(point);
+                updateChartDetail(placeName);
             }
         });
     }

@@ -11,6 +11,7 @@ import com.dean.travltotibet.fragment.PlanFragment;
 import com.dean.travltotibet.fragment.GuideFragment;
 import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.StringUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -290,9 +291,11 @@ public class RouteActivity
 
         TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
         TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
+        TextView header_distance = (TextView) this.findViewById(R.id.header_distance);
 
         header_date.setText(date);
-        menuBtn.setText(start + "-" + end);
+        menuBtn.setText(String.format(Constants.HEADER_START_END, start, end));
+        header_distance.setText(String.format(Constants.HEADER_DISTANCE, distance));
 
         updateToAll();
     }
@@ -337,21 +340,6 @@ public class RouteActivity
         if (guideRouteFragment.isAdded()) {
             guideRouteFragment.updateRoute();
         }
-    }
-
-    /**
-     * 更新标题头
-     */
-    public void updateHeader(Place place) {
-//        TextView posName = (TextView) this.findViewById(R.id.header_position_name);
-//        TextView posHeight = (TextView) this.findViewById(R.id.header_position_height);
-//        TextView posMileage = (TextView) this.findViewById(R.id.header_position_mileage);
-//
-//        if (place != null) {
-//            posHeight.setText(place.getHeight());
-//            posMileage.setText(place.getMileage());
-//            posName.setText(place.getName());
-//        }
     }
 
     public String getPlanDate() {
