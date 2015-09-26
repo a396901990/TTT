@@ -6,15 +6,35 @@
     android:orientation="vertical">
 
     <Button
+        style="@style/RedButton"
         android:id="@+id/btn_select_f"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="F" />
 
     <Button
+        style="@style/TransactButton"
         android:id="@+id/btn_select_r"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="R" />
+
+    <Button
+        style="@style/OrangeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="R" />
+
+    <Button
+        style="@style/LightGreenButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="R" />
+
+    <Button
+        style="@style/LightRedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出发" />
 
 </LinearLayout>

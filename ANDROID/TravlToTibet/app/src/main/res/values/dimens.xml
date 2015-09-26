@@ -40,4 +40,7 @@
     <dimen name="route_plan_dialog_dir_view_height">60dp</dimen>
     <dimen name="route_plan_dialog_dir_view_image">30dp</dimen>
 
+    <dimen name="transact_button_margin">20dp</dimen>
+    <dimen name="generic_padding">20dip</dimen>
+
 </resources>
