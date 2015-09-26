@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--route info header-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/chart_header_menu"
+    android:id="@+id/info_header_actionbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

@@ -47,5 +47,10 @@
     <!--route info -->
     <dimen name="info_header_height">60dip</dimen>
 
-
+    <!--bottom button-->
+    <dimen name="top_line_rule">1dp</dimen>
+    <dimen name="topLine_margin">10dip</dimen>
+    <dimen name="bottom_padding">10dip</dimen>
+    <dimen name="generic_button_padding">10dip</dimen>
+    <dimen name="bottom_button_margin">24dip</dimen>
 </resources>

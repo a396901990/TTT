@@ -1,32 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
-    android:orientation="vertical">
+    android:background="@drawable/transaction_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <!--header-->
-    <fragment
-        android:id="@+id/info_header_fragment"
-        android:name="com.dean.travltotibet.fragment.InfoHeaderFragment"
+    <ScrollView
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--header头视图-->
+            <fragment
+                android:id="@+id/info_header_fragment"
+                android:name="com.dean.travltotibet.fragment.InfoHeaderFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" />
+
+            <!--准备-->
+            <fragment
+                android:id="@+id/info_prepare_fragment"
+                android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_header_fragment" />
+
+            <!--控制最后距离-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/bottom_button_margin"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="@dimen/topLine_margin"
+                    android:background="@color/top_line_bg" />
+
+                <Button
+                    style="@style/TransactButton"
+                    android:layout_marginBottom="@dimen/bottom_padding"
+                    android:layout_marginLeft="@dimen/generic_button_padding"
+                    android:layout_marginRight="@dimen/generic_button_padding"
+                    android:text="haha" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!--出发按钮-->
+    <LinearLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/info_header_bar_view" />
+        android:layout_alignBottom="@+id/top"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/lock_button_background"
+        android:orientation="vertical">
 
-    <!--准备-->
-    <fragment
-        android:id="@+id/info_prepare_fragment"
-        android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
+        <TextView
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_line_rule"
+            android:layout_marginBottom="@dimen/topLine_margin"
+            android:background="@color/top_line_bg" />
+
+        <Button
+            android:id="@+id/goButton"
+            style="@style/LightRedButton"
+            android:layout_marginBottom="@dimen/bottom_padding"
+            android:layout_marginLeft="@dimen/generic_button_padding"
+            android:layout_marginRight="@dimen/generic_button_padding"
+            android:text="出发" />
+    </LinearLayout>
+
+    <!--顶部动作条-->
+    <include
+        layout="@layout/info_header_bar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/info_prepare_view" />
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"></include>
 
-    <!--&lt;!&ndash;计划&ndash;&gt;-->
-    <!--<fragment-->
-        <!--android:id="@+id/info_header_fragment"-->
-        <!--android:name="com.dean.travltotibet.fragment.InfoTypeFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--tools:layout="@layout/route_plan_fragment" />-->
-</LinearLayout>
+</RelativeLayout>

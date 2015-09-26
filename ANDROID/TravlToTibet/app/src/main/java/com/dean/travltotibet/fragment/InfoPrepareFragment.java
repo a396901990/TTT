@@ -40,21 +40,6 @@ public class InfoPrepareFragment extends BaseInfoFragment {
 
         infoRouteActivity = (InfoRouteActivity) getActivity();
 
-        Button btn_f = (Button) root.findViewById(R.id.btn_select_f);
-
-        btn_f.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DialogFragment dialogFragment = new InfoConfirmDialog();
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.INTENT_ROUTE, infoRouteActivity.getRoute());
-                bundle.putString(Constants.INTENT_ROUTE_NAME, infoRouteActivity.getRouteName());
-                bundle.putString(Constants.INTENT_ROUTE_TYPE, infoRouteActivity.getRouteType());
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), InfoConfirmDialog.class.getName());
-            }
-        });
     }
 
     @Override

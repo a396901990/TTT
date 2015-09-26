@@ -5,11 +5,56 @@
     android:background="@color/gray_background"
     android:orientation="vertical">
 
+
     <Button
-        android:id="@+id/btn_select_f"
         style="@style/LightRedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="出发" />
+    <Button
+        style="@style/LightRedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" /> <Button
+    style="@style/LightRedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="出发" />
 
 </LinearLayout>
