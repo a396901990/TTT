@@ -3,6 +3,7 @@ package com.dean.travltotibet.util;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.drawable.Drawable;
 
 import com.dean.travltotibet.R;
 
@@ -131,4 +132,7 @@ public class ResourceUtil
         return array;
     }
 
+    public Drawable getDrawableResourece(int id){
+        return mResources.getDrawable(id);
+    }
 }

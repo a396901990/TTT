@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dean.travltotibet" >
+    package="com.dean.travltotibet">
 
     <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -23,14 +23,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppBaseTheme" >
+        android:theme="@style/Theme.AppBaseTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="5GjuYFZGqzZDGB3UUkUa3hAq" />
 
         <activity
-            android:name=".activity.RouteInfoActivity"
-            android:label="@string/app_name" >
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,16 +40,13 @@
         </activity>
         <activity
             android:name=".activity.GuideRouteActivity"
-            android:label="@string/title_activity_guide_route"
             android:theme="@style/Theme.AppBaseTheme" />
         <activity
             android:name=".activity.RouteActivity"
-            android:label="@string/title_activity_main"
             android:theme="@style/Theme.NoActionBar" />
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/title_activity_route_detail" >
-        </activity>
+            android:name=".activity.InfoRouteActivity"
+            android:theme="@style/Theme.NoActionBar"></activity>
     </application>
 
 </manifest>

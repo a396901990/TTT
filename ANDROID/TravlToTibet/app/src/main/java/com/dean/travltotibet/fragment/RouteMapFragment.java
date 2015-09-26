@@ -20,7 +20,7 @@ import com.dean.travltotibet.model.Location;
 /**
  * Created by DeanGuo on 8/30/15.
  */
-public class MapFragment extends BaseRouteFragment {
+public class RouteMapFragment extends BaseRouteFragment {
 
     private View root;
 
@@ -30,8 +30,8 @@ public class MapFragment extends BaseRouteFragment {
 
     BaiduMap mBaiduMap;
 
-    public static MapFragment newInstance() {
-        return new MapFragment();
+    public static RouteMapFragment newInstance() {
+        return new RouteMapFragment();
     }
 
 

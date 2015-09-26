@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/30/15.
  */
-public class GuideRouteFragment extends BaseRouteFragment {
+public class RouteGuideFragment extends BaseRouteFragment {
 
     private View root;
 
@@ -33,8 +33,8 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
     private ExpandableListView timelineList;
 
-    public static GuideRouteFragment newInstance() {
-        GuideRouteFragment newFragment = new GuideRouteFragment();
+    public static RouteGuideFragment newInstance() {
+        RouteGuideFragment newFragment = new RouteGuideFragment();
         return newFragment;
     }
 
@@ -68,7 +68,7 @@ public class GuideRouteFragment extends BaseRouteFragment {
 
         // 根据起点终点获取数据
         String routeName = routeActivity.getCurrentRoute().getRoute();
-        boolean isForward = routeActivity.isForwrad();
+        boolean isForward = routeActivity.isForward();
         List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end, isForward);
 
         // groupList存放所有数据

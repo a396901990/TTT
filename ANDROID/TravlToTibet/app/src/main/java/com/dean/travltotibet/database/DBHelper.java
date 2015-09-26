@@ -232,6 +232,13 @@ public class DBHelper {
         return qb.list().get(0).getMilestone();
     }
 
+
+    public String getRouteFullName(String routeName) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(RouteDao.Properties.Route.eq(routeName));
+        return qb.list().get(0).getName();
+    }
+
     /**
      * 查询所有路线信息
      */

@@ -60,7 +60,7 @@ public class GuideFragment extends Fragment
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initDate() {
 
-        mTabs.add(GuideRouteFragment.newInstance());
+        mTabs.add(RouteGuideFragment.newInstance());
         mTabs.add(new TabFragment());
         mTabs.add(new TabFragment());
         mTabs.add(new TabFragment());

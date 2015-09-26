@@ -18,7 +18,7 @@ import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.activity.RouteInfoActivity;
+import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.adapter.RoutePlanListAdapter;
 import com.dean.travltotibet.util.Constants;
 
@@ -27,12 +27,14 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 9/23/15.
  */
-public class RouteConfirmDialog extends DialogFragment {
+public class InfoConfirmDialog extends DialogFragment {
 
-    private RouteInfoActivity routeInfoActivity;
+    private InfoRouteActivity infoRouteActivity;
 
     private View root;
     private boolean isForward = true;
+
+    private String route;
     private String routeName;
     private String routeType;
 
@@ -50,19 +52,22 @@ public class RouteConfirmDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        routeInfoActivity = (RouteInfoActivity) getActivity();
+        infoRouteActivity = (InfoRouteActivity) getActivity();
 
         root = LayoutInflater.from(getActivity()).inflate(R.layout.route_confirm_fragment, null);
 
-        routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
-        routeType = getArguments().getString(Constants.INTENT_ROUTE_TYPE);
+        if (getArguments() != null) {
+            route = getArguments().getString(Constants.INTENT_ROUTE);
+            routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
+            routeType = getArguments().getString(Constants.INTENT_ROUTE_TYPE);
+        }
 
         initDirection();
         initAnimation();
         initPlanList();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(root);
+        builder.setView(root).setTitle(routeName);
         return builder.create();
     }
 
@@ -76,8 +81,8 @@ public class RouteConfirmDialog extends DialogFragment {
         toText = (TextView) root.findViewById(R.id.to_text);
         rotateArrow = (ImageView) root.findViewById(R.id.arrow);
 
-        String from = TTTApplication.getDbHelper().getFromName(routeName, isForward);
-        String to = TTTApplication.getDbHelper().getToName(routeName, isForward);
+        String from = TTTApplication.getDbHelper().getFromName(route, isForward);
+        String to = TTTApplication.getDbHelper().getToName(route, isForward);
         fromText.setText(from);
         toText.setText(to);
     }
@@ -103,8 +108,8 @@ public class RouteConfirmDialog extends DialogFragment {
      */
     private void initPlanList() {
         mListView = (ListView) root.findViewById(R.id.plan_list);
-        plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(routeName, routeType, isForward);
-        mAdapter = new RoutePlanListAdapter(routeInfoActivity);
+        plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(route, routeType, isForward);
+        mAdapter = new RoutePlanListAdapter(infoRouteActivity);
         mAdapter.setData(plans);
 
         mListView.setAdapter(mAdapter);
@@ -114,7 +119,7 @@ public class RouteConfirmDialog extends DialogFragment {
 
                 dismiss();
                 Intent intent = new Intent(getActivity(), RouteActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE_NAME, routeName);
+                intent.putExtra(Constants.INTENT_ROUTE, route);
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, routeType);
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, isForward);
                 intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, plans.get(position).getId());
@@ -127,7 +132,7 @@ public class RouteConfirmDialog extends DialogFragment {
      * 重新设置list数据
      */
     private void resetListData() {
-        plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(routeName, routeType, isForward);
+        plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(route, routeType, isForward);
         mAdapter.setData(plans);
         mAdapter.notifyDataSetInvalidated();
     }

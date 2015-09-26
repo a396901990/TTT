@@ -1,27 +1,33 @@
 package com.dean.travltotibet.model;
 
+import android.graphics.drawable.Drawable;
+
+import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
+
 /**
  * Created by DeanGuo on 9/26/15.
  */
-public enum TravelType {
-    BIKE, HIKE, MOTO, CAR;
+public class TravelType {
 
-    public static String getTypeValue(TravelType type) {
-        String value = null;
-        switch (type) {
-            case BIKE:
-                value = "BIKE";
-                break;
-            case HIKE:
-                value = "HIKE";
-                break;
-            case MOTO:
-                value = "MOTO";
-                break;
-            case CAR:
-                value = "CAR";
-                break;
+    public final static String BIKE = "BIKE";
+    public final static String HIKE = "HIKE";
+    public final static String MOTO = "MOTO";
+    public final static String CAR = "CAR";
+
+
+    public static Drawable getTypeImageSrc(String type) {
+        Drawable src = null;
+        if (type.equals(BIKE)) {
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.bike_disable);
+        } else if (type.equals(HIKE)) {
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.hiking_disable);
+        } else if (type.equals(MOTO)) {
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.moto_disable);
+        } else if (type.equals(CAR)) {
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.car_disable);
         }
-        return value;
+        return src;
     }
+
 }

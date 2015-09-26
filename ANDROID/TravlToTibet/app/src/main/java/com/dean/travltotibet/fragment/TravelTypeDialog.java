@@ -3,24 +3,14 @@ package com.dean.travltotibet.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.activity.RouteInfoActivity;
-import com.dean.travltotibet.adapter.RoutePlanListAdapter;
+import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 
@@ -32,8 +22,17 @@ import java.util.ArrayList;
  */
 public class TravelTypeDialog extends DialogFragment {
 
+    public final static String FROM_FIRST = "from_first";
+    public final static String FROM_SECOND = "from_itself";
+
     private View root;
+
+    private String fromType;
+
     private ArrayList<RoutePlan> plans;
+
+    private String route;
+    private String routeName;
 
     private View bike;
     private View hike;
@@ -44,6 +43,11 @@ public class TravelTypeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         root = LayoutInflater.from(getActivity()).inflate(R.layout.travel_type_fragment, null);
+        if (getArguments() != null) {
+            route = getArguments().getString(Constants.INTENT_ROUTE);
+            routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
+            fromType = getArguments().getString(Constants.INTENT_FROM_WHERE);
+        }
 
         initButton();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -86,11 +90,20 @@ public class TravelTypeDialog extends DialogFragment {
         });
     }
 
-    protected void notifyItemClicked(final View item, final Object obj, final TravelType type) {
-        Intent intent = new Intent(getActivity(), RouteInfoActivity.class);
-        intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.getTypeValue(type));
-        intent.putExtra(Constants.INTENT_ROUTE_NAME, "XINZANG");
-        startActivity(intent);
-        getActivity().finish();
+    protected void notifyItemClicked(final View item, final Object obj, final String type) {
+
+        // 如果是开始视图则关闭对话框进行跳转，如果是info视图则更新type类型
+        if (fromType.equals(FROM_FIRST)) {
+            // 跳转到InfoRouteActivity
+            Intent intent = new Intent(getActivity(), InfoRouteActivity.class);
+            intent.putExtra(Constants.INTENT_ROUTE, route);
+            intent.putExtra(Constants.INTENT_ROUTE_NAME, routeName);
+            intent.putExtra(Constants.INTENT_ROUTE_TYPE, type);
+            startActivity(intent);
+            dismiss();
+        } else if (fromType.equals(FROM_SECOND)) {
+            ((InfoRouteActivity) getActivity()).updateType(type);
+            dismiss();
+        }
     }
 }

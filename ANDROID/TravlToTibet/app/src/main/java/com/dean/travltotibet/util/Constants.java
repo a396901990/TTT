@@ -47,8 +47,11 @@ public final class Constants {
     public static final String INTENT_END = "intent_end";
     public static final String INTENT_DATE = "intent_Date";
     public static final String INTENT_PLAN_BUNDLE = "intent_plan_bundle";
+    public static final String INTENT_FROM_WHERE = "intent_from_where";
 
     // route info intent
+    public static final String INTENT_ROUTE_BUNDLE = "intent_route_bundle";
+    public static final String INTENT_ROUTE = "intent_route";
     public static final String INTENT_ROUTE_NAME = "intent_route_name";
     public static final String INTENT_ROUTE_PLAN_ID = "intent_route_plan_id";
     public static final String INTENT_ROUTE_TYPE = "intent_route_type";

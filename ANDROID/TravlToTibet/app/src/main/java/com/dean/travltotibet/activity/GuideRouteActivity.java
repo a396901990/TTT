@@ -7,15 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.fragment.GuideRouteFragment;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.fragment.RouteGuideFragment;
 
 /**
  * Created by DeanGuo on 8/30/15.
  */
 public class GuideRouteActivity extends Activity {
 
-    GuideRouteFragment guideRouteFragment;
+    RouteGuideFragment routeGuideFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +28,13 @@ public class GuideRouteActivity extends Activity {
     }
 
     private void initFragment() {
-        // guideRouteFragment
+        // routeGuideFragment
         Fragment fragment = getFragmentManager().findFragmentById(R.id.route_guide_fragment);
         if (fragment == null) {
-            guideRouteFragment = GuideRouteFragment.newInstance();
-            getFragmentManager().beginTransaction().replace(R.id.route_guide_fragment, guideRouteFragment).commit();
+            routeGuideFragment = RouteGuideFragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.route_guide_fragment, routeGuideFragment).commit();
         } else {
-            guideRouteFragment = (GuideRouteFragment) fragment;
+            routeGuideFragment = (RouteGuideFragment) fragment;
         }
     }
 

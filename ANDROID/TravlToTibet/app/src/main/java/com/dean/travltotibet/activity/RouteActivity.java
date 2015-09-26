@@ -4,14 +4,12 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
-import com.dean.travltotibet.fragment.ChartFragment;
-import com.dean.travltotibet.fragment.GuideRouteFragment;
-import com.dean.travltotibet.fragment.MapFragment;
-import com.dean.travltotibet.fragment.PlanFragment;
+import com.dean.travltotibet.fragment.RouteChartFragment;
+import com.dean.travltotibet.fragment.RouteGuideFragment;
+import com.dean.travltotibet.fragment.RouteMapFragment;
+import com.dean.travltotibet.fragment.RoutePlanFragment;
 import com.dean.travltotibet.fragment.GuideFragment;
-import com.dean.travltotibet.model.Place;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.StringUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -24,18 +22,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Created by DeanGuo on 7/19/15.
+ * RouteActivity控制路线
+ */
 public class RouteActivity
         extends SlidingFragmentActivity {
 
-    private ChartFragment chartFragment;
+    private RouteChartFragment routeChartFragment;
 
-    private PlanFragment planFragment;
+    private RoutePlanFragment planFragment;
 
     private GuideFragment guideFragment;
 
-    private MapFragment mapFragment;
+    private RouteMapFragment mapFragment;
 
-    private GuideRouteFragment guideRouteFragment;
+    private RouteGuideFragment routeGuideFragment;
 
     private SlidingMenu slidingMenu;
 
@@ -68,18 +70,18 @@ public class RouteActivity
     private int routePlanId;
 
     // 当前是否向前，也就是正向反向 f/r
-    private boolean isForwrad;
+    private boolean isForward;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
+        setContentView(R.layout.route_main_layout);
 
         Intent intent = getIntent();
         if (intent != null) {
-            routeName = intent.getStringExtra(Constants.INTENT_ROUTE_NAME);
+            routeName = intent.getStringExtra(Constants.INTENT_ROUTE);
             routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
             routePlanId = (int)intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
-            isForwrad = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
+            isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
         }
 
         initMenu();
@@ -87,7 +89,7 @@ public class RouteActivity
         initViewPager();
 
         // 设置路线信息
-        currentRoute = TTTApplication.getDbHelper().getRouteInfo(routeName, routeType, isForwrad());
+        currentRoute = TTTApplication.getDbHelper().getRouteInfo(routeName, routeType, isForward());
         // 跟新信息
         updateHeader(currentRoute.getStart(), currentRoute.getEnd(), currentRoute.getName(), currentRoute.getDistance());
     }
@@ -97,14 +99,14 @@ public class RouteActivity
 
         fragmentsList = new ArrayList<Fragment>();
 
-        chartFragment = ChartFragment.newInstance();
-        mapFragment = MapFragment.newInstance();
+        routeChartFragment = RouteChartFragment.newInstance();
+        mapFragment = RouteMapFragment.newInstance();
         guideFragment = GuideFragment.newInstance();
-        guideRouteFragment = GuideRouteFragment.newInstance();
+        routeGuideFragment = RouteGuideFragment.newInstance();
 
-        fragmentsList.add(chartFragment);
+        fragmentsList.add(routeChartFragment);
         fragmentsList.add(mapFragment);
-        fragmentsList.add(guideRouteFragment);
+        fragmentsList.add(routeGuideFragment);
 
         mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
 
@@ -218,10 +220,10 @@ public class RouteActivity
         // route fragment
         Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
         if (rightFragment == null) {
-            planFragment = new PlanFragment();
+            planFragment = new RoutePlanFragment();
             getFragmentManager().beginTransaction().replace(R.id.routeFragment, planFragment).commit();
         } else {
-            planFragment = (PlanFragment) rightFragment;
+            planFragment = (RoutePlanFragment) rightFragment;
         }
 
         // 设置主菜单
@@ -307,7 +309,7 @@ public class RouteActivity
      */
     public void updateHeader(Route currentRoute) {
         planDate = currentRoute.getName();
-        if (isForwrad) {
+        if (isForward) {
             planStart = currentRoute.getStart();
             planEnd = currentRoute.getEnd();
         } else {
@@ -326,19 +328,19 @@ public class RouteActivity
     }
 
     public void updateToAll() {
-        // update chartFragment
-        if (chartFragment.isAdded()) {
-            chartFragment.updateRoute();
+        // update routeChartFragment
+        if (routeChartFragment.isAdded()) {
+            routeChartFragment.updateRoute();
         }
 
-        // update chartFragment
+        // update routeChartFragment
         if (mapFragment.isAdded()) {
             mapFragment.updateRoute();
         }
 
-        // update chartFragment
-        if (guideRouteFragment.isAdded()) {
-            guideRouteFragment.updateRoute();
+        // update routeChartFragment
+        if (routeGuideFragment.isAdded()) {
+            routeGuideFragment.updateRoute();
         }
     }
 
@@ -358,11 +360,11 @@ public class RouteActivity
         return planDistance;
     }
 
-    public ChartFragment getChartFragment() {
-        return chartFragment;
+    public RouteChartFragment getRouteChartFragment() {
+        return routeChartFragment;
     }
 
-    public PlanFragment getPlanFragment() {
+    public RoutePlanFragment getPlanFragment() {
         return planFragment;
     }
 
@@ -370,7 +372,7 @@ public class RouteActivity
         return guideFragment;
     }
 
-    public MapFragment getMapFragment() {
+    public RouteMapFragment getMapFragment() {
         return mapFragment;
     }
 
@@ -391,12 +393,12 @@ public class RouteActivity
         slidingMenu.showMenu();
     }
 
-    public boolean isForwrad() {
-        return isForwrad;
+    public boolean isForward() {
+        return isForward;
     }
 
     public void setIsForwrad(boolean isForwrad) {
-        this.isForwrad = isForwrad;
+        this.isForward = isForwrad;
     }
 
     public String getRouteName() {

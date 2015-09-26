@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.RouteInfoActivity;
+import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.ui.SquareView;
 
 /**
@@ -15,9 +15,9 @@ import com.dean.travltotibet.ui.SquareView;
  * <p/>
  * 用来控制route类型和计划
  */
-public class RouteTypeFragment extends Fragment {
+public class InfoTypeFragment extends Fragment {
 
-    private RouteInfoActivity routeInfoActivity;
+    private InfoRouteActivity infoRouteActivity;
 
     private View root;
 
@@ -29,7 +29,7 @@ public class RouteTypeFragment extends Fragment {
 
     private SquareView car;
 
-    public RouteTypeFragment() {
+    public InfoTypeFragment() {
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RouteTypeFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        routeInfoActivity = (RouteInfoActivity) getActivity();
+        infoRouteActivity = (InfoRouteActivity) getActivity();
 
         bike = (SquareView) root.findViewById(R.id.bike_btn);
         hiking = (SquareView) root.findViewById(R.id.hiking_btn);

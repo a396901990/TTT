@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <!--header-->
+    <fragment
+        android:id="@+id/info_header_fragment"
+        android:name="com.dean.travltotibet.fragment.InfoHeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/info_header_bar_view" />
+
+    <!--准备-->
+    <fragment
+        android:id="@+id/info_prepare_fragment"
+        android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/info_prepare_view" />
+
+    <!--&lt;!&ndash;计划&ndash;&gt;-->
+    <!--<fragment-->
+        <!--android:id="@+id/info_header_fragment"-->
+        <!--android:name="com.dean.travltotibet.fragment.InfoTypeFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--tools:layout="@layout/route_plan_fragment" />-->
+</LinearLayout>

@@ -17,7 +17,6 @@ import com.dean.travltotibet.model.IndicatorSeries;
 import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
-import com.dean.travltotibet.util.ChartCrosshairUtil;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.StringUtil;
 
@@ -26,7 +25,7 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class ChartFragment extends BaseRouteFragment {
+public class RouteChartFragment extends BaseRouteFragment {
 
     private View root;
 
@@ -40,8 +39,8 @@ public class ChartFragment extends BaseRouteFragment {
 
     private RouteActivity routeActivity;
 
-    public static ChartFragment newInstance() {
-        return new ChartFragment();
+    public static RouteChartFragment newInstance() {
+        return new RouteChartFragment();
     }
 
     @Override
@@ -100,7 +99,7 @@ public class ChartFragment extends BaseRouteFragment {
         String routeName = routeActivity.getCurrentRoute().getRoute();
         String planStart = routeActivity.getPlanStart();
         String planEnd = routeActivity.getPlanEnd();
-        boolean isForward = routeActivity.isForwrad();
+        boolean isForward = routeActivity.isForward();
 
         List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, planStart, planEnd, isForward);
 

@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_select_f"
+        style="@style/LightRedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出发" />
+
+</LinearLayout>

@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/main_header_view"
+        layout="@layout/route_header_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 
