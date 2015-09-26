@@ -6,13 +6,13 @@
     android:background="@color/gray_background"
     android:orientation="vertical">
 
-    <!--方向-->
+    <!--准备-->
     <fragment
         android:id="@+id/dir_fragment"
-        android:name="com.dean.travltotibet.fragment.RouteDirFragment"
+        android:name="com.dean.travltotibet.fragment.RoutePrepareFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/route_dir_fragment" />
+        tools:layout="@layout/route_perpare_fragment" />
 
     <!--类型-->
     <fragment

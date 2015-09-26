@@ -7,36 +7,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.activity.RouteInfoActivity;
-import com.dean.travltotibet.ui.SquareView;
 import com.dean.travltotibet.util.Constants;
 
 /**
  * Created by DeanGuo on 9/19/15.
  * <p/>
- * 用来控制route方向
+ * 用来显示route准备视图
  */
-public class RouteDirFragment extends Fragment {
+public class RoutePrepareFragment extends Fragment {
 
     private RouteInfoActivity routeInfoActivity;
 
     private View root;
 
-    public RouteDirFragment() {
+    public RoutePrepareFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.route_dir_fragment, container, false);
+        root = inflater.inflate(R.layout.route_perpare_fragment, container, false);
         return root;
     }
 
@@ -55,6 +50,7 @@ public class RouteDirFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), RouteActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, "XINZANG");
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, true);
+                intent.putExtra(Constants.INTENT_ROUTE_TYPE, "BIKE");
                 intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, 1);
                 //startActivity(intent);
 
@@ -70,10 +66,8 @@ public class RouteDirFragment extends Fragment {
         btn_r.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RouteActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE_NAME, "XINZANG");
-                intent.putExtra(Constants.INTENT_ROUTE_DIR, false);
-                startActivity(intent);
+                DialogFragment dialogFragment = new TravelTypeDialog();
+                dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
             }
         });
 

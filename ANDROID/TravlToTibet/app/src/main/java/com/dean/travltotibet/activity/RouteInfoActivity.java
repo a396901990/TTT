@@ -1,12 +1,15 @@
 package com.dean.travltotibet.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.util.Constants;
 
 public class RouteInfoActivity extends Activity {
 
@@ -18,6 +21,11 @@ public class RouteInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.route_detail);
+
+//        if (getIntent() != null) {
+//            routeType = getIntent().getStringExtra(Constants.INTENT_ROUTE_TYPE);
+//            routeName = getIntent().getStringExtra(Constants.INTENT_ROUTE_NAME);
+//        }
     }
 
 

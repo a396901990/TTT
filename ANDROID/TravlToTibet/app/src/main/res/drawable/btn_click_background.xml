@@ -3,6 +3,6 @@
 
     <item android:drawable="@color/light_gray" android:state_pressed="true"/>
     <item android:drawable="@color/light_gray" android:state_selected="true"/>
-    <item android:drawable="@color/black"/>
+    <item android:drawable="@color/white_background"/>
 
 </selector>

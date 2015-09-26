@@ -67,4 +67,6 @@ public final class Constants {
     public static final String HEADER_START_END= "%s-%s";
     public static final String HEADER_DISTANCE = "(%s)";
 
+    public static final String TRAVEL_TYPE_TITLE = "请选择旅行方式";
+
 }
