@@ -11,6 +11,7 @@
         android:orientation="horizontal">
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:background="@drawable/btn_click_background"
             android:id="@+id/travel_bike"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
             app:labelTextColor="@color/gray" />
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:background="@drawable/btn_click_background"
             android:id="@+id/travel_hike"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,6 +37,7 @@
         android:orientation="horizontal">
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:background="@drawable/btn_click_background"
             android:id="@+id/travel_moto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -44,6 +47,7 @@
             app:labelTextColor="@color/gray" />
 
         <com.dean.travltotibet.ui.SquareImageView
+            android:background="@drawable/btn_click_background"
             android:id="@+id/travel_car"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

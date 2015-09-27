@@ -25,9 +25,9 @@ public class SquareImageView extends RelativeLayout {
 
     int imageSrc;
 
-    int labelColor;
+    int labelColor = Color.WHITE;
 
-    float labelSize;
+    float labelSize = 10;
 
     public SquareImageView(Context context) {
         super(context);
@@ -47,8 +47,6 @@ public class SquareImageView extends RelativeLayout {
     }
 
     private void initView(Context context, AttributeSet attrs) {
-        setBackgroundResource(R.drawable.btn_click_background);
-
         imageView = new ImageView(context, attrs);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setBackgroundResource(imageSrc);
@@ -111,10 +109,18 @@ public class SquareImageView extends RelativeLayout {
             int height = text.getMeasuredHeight();
 
             int mLeft = ((r - l) - width) / 2;
-            int mTop = (((b - t) - height) / 5 ) * 4;
+            int mTop = (((b - t) - height) / 5) * 4;
 
             text.layout(mLeft, mTop, mLeft + width, mTop + height);
         }
+    }
+
+    public void setLabelText(String labelText) {
+        this.labelText = labelText;
+    }
+
+    public void setImageSrc(int imageSrc) {
+        this.imageSrc = imageSrc;
     }
 
 }

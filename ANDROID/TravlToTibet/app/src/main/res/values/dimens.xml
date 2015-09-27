@@ -53,4 +53,5 @@
     <dimen name="bottom_padding">10dip</dimen>
     <dimen name="generic_button_padding">10dip</dimen>
     <dimen name="bottom_button_margin">24dip</dimen>
+
 </resources>

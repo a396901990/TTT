@@ -1,60 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
+    android:background="@color/white_background"
     android:orientation="vertical">
 
-
-    <Button
-        style="@style/LightRedButton"
+    <TextView
+        style="@style/TextAppearance.Medium.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="出发" />
-    <Button
-        style="@style/LightRedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" /> <Button
-    style="@style/LightRedButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="出发" />
+        android:background="@color/gray"
+        android:text="准备信息：" />
 
+    <com.dean.travltotibet.ui.ScrollGridView
+        android:id="@+id/gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@color/white_background"
+        android:horizontalSpacing="1dp"
+        android:numColumns="4"
+        android:verticalSpacing="1dp"></com.dean.travltotibet.ui.ScrollGridView>
 </LinearLayout>
