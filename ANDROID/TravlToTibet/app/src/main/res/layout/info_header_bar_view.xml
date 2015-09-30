@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?><!--route info header-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/info_header_actionbar"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--最左边按钮-->
-    <TextView
-        android:id="@+id/header_return_btn"
-        style="@style/TextAppearance.Header.Title"
-        android:layout_width="wrap_content"
+    <!--背景（用于颜色变换）-->
+    <LinearLayout
+        android:id="@+id/header_actionbar_background"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:drawableLeft="@drawable/ic_ab_back_icon"
-        android:gravity="center"
-        android:paddingLeft="5dp"
-        android:text="新藏线" />
+        android:background="@color/orange_red"
+        android:orientation="horizontal" />
 
-    <!--最右边按钮-->
-    <ImageView
-        android:id="@+id/header_travel_type"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:paddingRight="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/bike_active" />
+    <RelativeLayout
+        android:id="@+id/info_header_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <!--最左边按钮-->
+        <TextView
+            android:id="@+id/header_return_btn"
+            style="@style/TextAppearance.Header.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/ic_ab_back_icon"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="新藏线" />
+
+        <!--最右边按钮-->
+        <ImageView
+            android:id="@+id/header_travel_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bike_active" />
+
+    </RelativeLayout>
+</FrameLayout>

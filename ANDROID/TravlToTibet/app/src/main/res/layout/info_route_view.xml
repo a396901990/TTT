@@ -6,8 +6,8 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <ScrollView
-        android:id="@+id/top"
+    <com.dean.travltotibet.ui.InfoScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdge="none"
@@ -18,6 +18,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/gray_background"
             android:orientation="vertical">
             <!--header头视图-->
             <fragment
@@ -57,14 +58,14 @@
                     android:text="haha" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.dean.travltotibet.ui.InfoScrollView>
 
     <!--出发按钮-->
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/top"
+        android:layout_alignBottom="@+id/scroll_view"
         android:layout_alignParentBottom="true"
         android:background="@drawable/lock_button_background"
         android:orientation="vertical">
@@ -89,7 +90,7 @@
     <include
         layout="@layout/info_header_bar_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/info_header_height"
         android:layout_alignParentTop="true"></include>
 
 </RelativeLayout>

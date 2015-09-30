@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
@@ -44,6 +45,14 @@ public class InfoPrepareFragment extends BaseInfoFragment {
 
     private void initGridView() {
         ArrayList<SquareImageView> mdata = new ArrayList<SquareImageView>();
+        mdata.add(getOne());
+        mdata.add(getOne());
+        mdata.add(getOne());
+        mdata.add(getOne());
+        mdata.add(getOne());
+        mdata.add(getOne());
+        mdata.add(getOne());
+        mdata.add(getOne());
         mdata.add(getOne());
         mdata.add(getOne());
         mdata.add(getOne());

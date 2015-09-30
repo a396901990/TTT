@@ -3,18 +3,23 @@ package com.dean.travltotibet.activity;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.fragment.InfoHeaderFragment;
 import com.dean.travltotibet.fragment.InfoPrepareFragment;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.ui.InfoScrollView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.ScreenUtil;
 
 public class InfoRouteActivity extends Activity {
 
@@ -29,6 +34,14 @@ public class InfoRouteActivity extends Activity {
     private ImageView typeBtn;
 
     private View headerBar;
+    private View headerBackground;
+    private InfoScrollView scrollView;
+
+    public interface ScrollViewListener {
+
+        void onScrollChanged(InfoScrollView scrollView, int x, int y, int oldx, int oldy);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +57,26 @@ public class InfoRouteActivity extends Activity {
         prepareFragment = (InfoPrepareFragment) getFragmentManager().findFragmentById(R.id.info_prepare_fragment);
 
         initHeaderBar();
+        initScrollView();
         initGoButton();
+    }
+
+    private void initScrollView() {
+
+        // header高度
+        final int headerHeight = ScreenUtil.dip2px(this, 200);
+        // 透明度比率
+        final float alphaRate = (float)1 / (float)500;
+
+        scrollView = (InfoScrollView) findViewById(R.id.scroll_view);
+        scrollView.setScrollListener(new ScrollViewListener() {
+            @Override
+            public void onScrollChanged(InfoScrollView scrollView, int x, int y, int oldx, int oldy) {
+                if (y <= headerHeight) {
+                    headerBackground.setAlpha(y * alphaRate);
+                }
+            }
+        });
     }
 
     /**
@@ -52,6 +84,9 @@ public class InfoRouteActivity extends Activity {
      */
     private void initHeaderBar() {
         headerBar = this.findViewById(R.id.info_header_actionbar);
+        headerBackground = findViewById(R.id.header_actionbar_background);
+
+        headerBackground.setAlpha(0);
         returnBtn = (TextView)this.findViewById(R.id.header_return_btn);
         typeBtn = (ImageView) this.findViewById(R.id.header_travel_type);
 
@@ -90,7 +125,6 @@ public class InfoRouteActivity extends Activity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DialogFragment dialogFragment = new InfoConfirmDialog();
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.INTENT_ROUTE, getRoute());
