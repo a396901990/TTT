@@ -31,6 +31,7 @@ public class SquareImageView extends RelativeLayout {
 
     public SquareImageView(Context context) {
         super(context);
+        initView(context);
     }
 
     public SquareImageView(Context context, AttributeSet attrs) {
@@ -43,15 +44,15 @@ public class SquareImageView extends RelativeLayout {
         labelSize = typedArray.getDimension(R.styleable.SquareImageView_labelSize, 10);
         typedArray.recycle();
 
-        initView(context, attrs);
+        initView(context);
     }
 
-    private void initView(Context context, AttributeSet attrs) {
-        imageView = new ImageView(context, attrs);
+    private void initView(Context context) {
+        imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setBackgroundResource(imageSrc);
 
-        textView = new TextView(context, attrs);
+        textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setText(labelText);
         textView.setTextColor(labelColor);
@@ -117,10 +118,12 @@ public class SquareImageView extends RelativeLayout {
 
     public void setLabelText(String labelText) {
         this.labelText = labelText;
+        textView.setText(labelText);
     }
 
     public void setImageSrc(int imageSrc) {
         this.imageSrc = imageSrc;
+        imageView.setImageResource(imageSrc);
     }
 
 }

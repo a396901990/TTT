@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--https://github.com/a396901990/InfiniteIndicator-->
     <cn.lightsky.infiniteindicator.InfiniteIndicatorLayout
         android:id="@+id/indicator_default_circle"
         android:layout_width="match_parent"

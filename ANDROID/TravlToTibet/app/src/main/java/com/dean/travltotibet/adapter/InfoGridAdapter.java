@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.SquareImageView;
 
 import java.util.ArrayList;
@@ -17,7 +19,8 @@ import java.util.ArrayList;
 public class InfoGridAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<SquareImageView> mData;
+
+    private InfoType[] mData;
 
     public InfoGridAdapter(Context mContext) {
         this.mContext = mContext;
@@ -25,12 +28,12 @@ public class InfoGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mData.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return mData.get(position);
+        return mData[position];
     }
 
     @Override
@@ -40,16 +43,19 @@ public class InfoGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        if (convertView == null) {
-            LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.grid_item, null);
-        }
 
-        return v;
+        SquareImageView content = new SquareImageView(mContext);
+        content.setImageSrc(InfoType.INFO_IMAGE.get(getItem(position)));
+        content.setLabelText(InfoType.INFO_TEXT.get(getItem(position)));
+        //content.setBackgroundResource(InfoType.INFO_COLOR.get(getItem(position)));
+        content.setBackgroundResource(R.color.light_blue);
+        content.setClickable(false);
+        content.setFocusable(false);
+        content.setFocusableInTouchMode(false);
+        return content;
     }
 
-    public void setData(ArrayList<SquareImageView> mData) {
+    public void setData(InfoType[] mData) {
         this.mData = mData;
         notifyDataSetInvalidated();
     }

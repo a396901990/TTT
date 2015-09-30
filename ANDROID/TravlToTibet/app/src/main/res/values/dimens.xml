@@ -53,7 +53,7 @@
     <dimen name="info_card_rule_margin">10dip</dimen>
     <dimen name="info_card_rule_height">2dip</dimen>
     <dimen name="info_card_grid_margin">1dip</dimen>
-    <dimen name="info_card_grid_space">3ip</dimen>
+    <dimen name="info_card_grid_space">3dip</dimen>
 
     <!--bottom button-->
     <dimen name="top_line_rule">1dp</dimen>
