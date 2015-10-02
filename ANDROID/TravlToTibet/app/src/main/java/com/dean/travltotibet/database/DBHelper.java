@@ -10,6 +10,10 @@ import com.dean.greendao.GeocodeDao.Properties;
 import com.dean.greendao.GeocodeOld;
 import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
+import com.dean.greendao.PrepareDetail;
+import com.dean.greendao.PrepareDetailDao;
+import com.dean.greendao.PrepareInfo;
+import com.dean.greendao.PrepareInfoDao;
 import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
@@ -46,6 +50,10 @@ public class DBHelper {
 
     private RoutePlanDao routePlanDao;
 
+    private PrepareInfoDao prepareInfoDao;
+
+    private PrepareDetailDao prepareDetailDao;
+
     private DBHelper() {
     }
 
@@ -62,6 +70,8 @@ public class DBHelper {
             instance.routeDao = daoSession.getRouteDao();
             instance.planDao = daoSession.getPlanDao();
             instance.routePlanDao = daoSession.getRoutePlanDao();
+            instance.prepareInfoDao = daoSession.getPrepareInfoDao();
+            instance.prepareDetailDao = daoSession.getPrepareDetailDao();
         }
         return instance;
     }
@@ -263,6 +273,25 @@ public class DBHelper {
      */
     public List<Geocode> getGeocode() {
         return geocodeDao.loadAll();
+    }
+
+    /**
+     * 根据路线名称，获取准备信息
+     */
+    public PrepareInfo getPrepareInfo(String routeName) {
+        QueryBuilder<PrepareInfo> qb = prepareInfoDao.queryBuilder();
+        qb.where(PrepareInfoDao.Properties.Route.eq(routeName));
+        return qb.list().get(0);
+    }
+
+    /**
+     * 根据路线名称，获取准备信息
+     */
+    public List<PrepareDetail> getPrepareDetails(String name, String type) {
+        QueryBuilder<PrepareDetail> qb = prepareDetailDao.queryBuilder();
+        qb.where(PrepareDetailDao.Properties.Name.eq(name));
+        qb.where(PrepareDetailDao.Properties.Type.eq(type));
+        return qb.list();
     }
 
     /**

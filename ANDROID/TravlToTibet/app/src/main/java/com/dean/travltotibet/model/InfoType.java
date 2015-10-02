@@ -1,5 +1,6 @@
 package com.dean.travltotibet.model;
 
+import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.Constants;
 
@@ -26,6 +27,8 @@ public enum InfoType {
     public static final Map<InfoType, String> INFO_TEXT = new HashMap<InfoType, String>();
     public static final Map<InfoType, Integer> INFO_IMAGE = new HashMap<InfoType, Integer>();
     public static final Map<InfoType, Integer> INFO_COLOR = new HashMap<InfoType, Integer>();
+
+    public static final Map<InfoType, String> INFO_NAME = new HashMap<InfoType, String>();
 
     static {
         INFO_TEXT.put(InfoType.ROUTE_DETAIL, "路线详情");
@@ -67,5 +70,49 @@ public enum InfoType {
         INFO_COLOR.put(InfoType.PERSONAL, R.color.orange_red);
         INFO_COLOR.put(InfoType.OTHER, R.color.teal);
 
+        INFO_NAME.put(InfoType.ROUTE_DETAIL, "ROUTE_DETAIL");
+        INFO_NAME.put(InfoType.BUDGET, "BUDGET");
+        INFO_NAME.put(InfoType.MEDICINE, "MEDICINE");
+        INFO_NAME.put(InfoType.EQUIP_BIKE, "EQUIP_BIKE");
+        INFO_NAME.put(InfoType.EQUIP_HIKE, "EQUIP_HIKE");
+        INFO_NAME.put(InfoType.EQUIP_MOTO, "EQUIP_MOTO");
+        INFO_NAME.put(InfoType.EQUIP_CAR, "EQUIP_CAR");
+        INFO_NAME.put(InfoType.CLOTHING, "CLOTHING");
+        INFO_NAME.put(InfoType.OUTDOOR_EQUIP, "OUTDOOR_EQUIP");
+        INFO_NAME.put(InfoType.CREDENTIALS, "CREDENTIALS");
+        INFO_NAME.put(InfoType.PERSONAL, "PERSONAL");
+        INFO_NAME.put(InfoType.OTHER, "OTHER");
+
     }
+
+    public static String getInfoResult(InfoType type, PrepareInfo prepareInfo) {
+        switch (type) {
+            case ROUTE_DETAIL:
+                return prepareInfo.getRoute_detail();
+            case BUDGET:
+                return prepareInfo.getBudget();
+            case MEDICINE:
+                return prepareInfo.getMedicine();
+            case EQUIP_BIKE:
+                return prepareInfo.getEquip_bike();
+            case EQUIP_HIKE:
+                return prepareInfo.getEquip_hike();
+            case EQUIP_MOTO:
+                return prepareInfo.getEquip_moto();
+            case EQUIP_CAR:
+                return prepareInfo.getEquip_car();
+            case CLOTHING:
+                return prepareInfo.getEquip_clothing();
+            case OUTDOOR_EQUIP:
+                return prepareInfo.getOutdoor_equip();
+            case CREDENTIALS:
+                return prepareInfo.getCredential();
+            case PERSONAL:
+                return prepareInfo.getPersonal();
+            case OTHER:
+                return prepareInfo.getOther();
+        }
+        return null;
+    }
+
 }

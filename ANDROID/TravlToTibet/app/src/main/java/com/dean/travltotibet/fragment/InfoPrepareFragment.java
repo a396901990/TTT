@@ -10,7 +10,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import com.dean.greendao.PrepareDetail;
+import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
@@ -74,7 +77,18 @@ public class InfoPrepareFragment extends BaseInfoFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 InfoType type = (InfoType) adapter.getItem(position);
-                Log.e("hfhf",type.toString());
+
+                // 获取该路段信息
+                PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(infoRouteActivity.getRoute());
+
+                String prepareName = InfoType.getInfoResult(type, prepareInfo);
+
+                ArrayList<PrepareDetail> prepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, type.toString());
+
+                for(PrepareDetail prepareDetail : prepareDetails) {
+                    Log.e("getTitle", prepareDetail.getTitle());
+                    Log.e("getDetail", prepareDetail.getDetail());
+                }
             }
         });
 

@@ -20,6 +20,8 @@ public class MyGenerator {
         addPlan(schema);
         addRoute(schema);
         addRoutePlan(schema);
+        addPrepareInfo(schema);
+        addPrepareDetail(schema);
 //        addZoneType(schema);
 //        addBuildingType(schema);
 
@@ -78,7 +80,6 @@ public class MyGenerator {
         route.addStringProperty("pic_url").notNull();
     }
 
-
     // 路线_计划表
     private static void addRoutePlan(Schema schema) {
         Entity route = schema.addEntity("RoutePlan");
@@ -89,6 +90,35 @@ public class MyGenerator {
         route.addStringProperty("plan_name").notNull();
         route.addStringProperty("plan_days").notNull();
         route.addStringProperty("describe").notNull();
+    }
+
+    // 准备信息
+    private static void addPrepareInfo(Schema schema) {
+        Entity route = schema.addEntity("PrepareInfo");
+        route.addIdProperty();
+        route.addStringProperty("route").notNull();
+        route.addStringProperty("route_detail");
+        route.addStringProperty("budget");
+        route.addStringProperty("medicine");
+        route.addStringProperty("equip_bike");
+        route.addStringProperty("equip_hike");
+        route.addStringProperty("equip_moto");
+        route.addStringProperty("equip_car");
+        route.addStringProperty("equip_clothing");
+        route.addStringProperty("outdoor_equip");
+        route.addStringProperty("credential");
+        route.addStringProperty("personal");
+        route.addStringProperty("other");
+    }
+
+    // 准备细节
+    private static void addPrepareDetail(Schema schema) {
+        Entity route = schema.addEntity("PrepareDetail");
+        route.addIdProperty();
+        route.addStringProperty("name").notNull();
+        route.addStringProperty("type");
+        route.addStringProperty("title");
+        route.addStringProperty("detail");
     }
 
     // 区域类型表
