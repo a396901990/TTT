@@ -1,6 +1,7 @@
 package com.dean.travltotibet.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
@@ -325,6 +326,41 @@ public class DBHelper {
                 geocodeDao.insert(g);
             }
         }
+    }
+
+    public void initDataBase(){
+        initGeocodeData();
+        Gson gson = new Gson();
+
+        RoutesJson routesJsons = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.route), RoutesJson.class);
+        for (Route route : routesJsons.getRoutes()) {
+            routeDao.insert(route);
+        }
+
+        PlansJson plansJsons = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.plan), PlansJson.class);
+        for (Plan plan : plansJsons.getPlans()) {
+            planDao.insert(plan);
+        }
+
+        RoutePlansJson routesplanJsons = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.routeplan), RoutePlansJson.class);
+        for (RoutePlan route : routesplanJsons.getRoutePlan()) {
+            routePlanDao.insert(route);
+        }
+
+    }
+
+    public void intoFileData() {
+
+        String plan = ParseUtil.planParseToFile((ArrayList<Plan>) planDao.loadAll());
+        Log.e("plan", plan);
+        String route = ParseUtil.routeParseToFile((ArrayList<Route>) routeDao.loadAll());
+        Log.e("route", route);
+
+        String routePlan = ParseUtil.routePlansParseToFile((ArrayList<RoutePlan>) routePlanDao.loadAll());
+        Log.e("routePlan", routePlan);
+        String geocode = ParseUtil.geocodeToFile((ArrayList<Geocode>) geocodeDao.loadAll());
+        Log.e("geocode", geocode);
+
     }
 
     // 初始化读入数据库内容

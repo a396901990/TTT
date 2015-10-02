@@ -5,6 +5,9 @@ import android.os.Environment;
 
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeOld;
+import com.dean.greendao.Plan;
+import com.dean.greendao.Route;
+import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.google.gson.Gson;
 
@@ -41,6 +44,17 @@ public class ParseUtil {
         return "";
     }
 
+    public static String readFromRaw(Context mContext, int resourse) {
+        try {
+            InputStream is = mContext.getResources().openRawResource(resourse);
+            String result = readInputStream(is);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static String readInputStream(InputStream is) throws Exception {
         InputStreamReader reader = new InputStreamReader(is, "gbk");
         BufferedReader bufferedReader = new BufferedReader(reader);
@@ -61,6 +75,37 @@ public class ParseUtil {
         writefile(OUTPUT_FILE_PATH, result);
     }
 
+    public static String geocodeToFile(ArrayList<Geocode> geocodes) {
+        Gson gson = new Gson();
+        GeocodesNewJson gj = new GeocodesNewJson();
+        gj.setGeocodes(geocodes);
+        String result = gson.toJson(gj, GeocodesNewJson.class);
+        return result;
+    }
+
+    public static String routeParseToFile(ArrayList<Route> routes) {
+        Gson gson = new Gson();
+        RoutesJson gj = new RoutesJson();
+        gj.setRoutes(routes);
+        String result = gson.toJson(gj, RoutesJson.class);
+        return result;
+    }
+
+    public static String planParseToFile(ArrayList<Plan> plans) {
+        Gson gson = new Gson();
+        PlansJson gj = new PlansJson();
+        gj.setPlans(plans);
+        String result = gson.toJson(gj, PlansJson.class);
+        return result;
+    }
+
+    public static String routePlansParseToFile(ArrayList<RoutePlan> routes) {
+        Gson gson = new Gson();
+        RoutePlansJson gj = new RoutePlansJson();
+        gj.setRoutePlan(routes);
+        String result = gson.toJson(gj, RoutePlansJson.class);
+        return result;
+    }
 
     public static boolean writefile(String path, String content) {
         try {
