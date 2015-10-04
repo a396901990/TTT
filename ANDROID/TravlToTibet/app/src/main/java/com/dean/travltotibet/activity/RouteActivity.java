@@ -157,7 +157,7 @@ public class RouteActivity
      */
     public void btnSelected(View v, int index) {
 
-        v.setBackgroundResource(R.drawable.btn_write_background);
+        v.setBackgroundResource(R.color.white_background);
 
         switch (index) {
             case 0:
@@ -182,25 +182,25 @@ public class RouteActivity
             case 0:
                 headerView.setBackgroundResource(R.color.light_blue);
 
-                heightTab.setBackgroundResource(R.drawable.btn_blue_background);
-                mapTab.setBackgroundResource(R.drawable.btn_blue_background);
-                guideTab.setBackgroundResource(R.drawable.btn_blue_background);
+                heightTab.setBackgroundResource(R.color.light_blue);
+                mapTab.setBackgroundResource(R.color.light_blue);
+                guideTab.setBackgroundResource(R.color.light_blue);
 
                 break;
             case 1:
                 headerView.setBackgroundResource(R.color.light_green);
 
-                heightTab.setBackgroundResource(R.drawable.btn_green_background);
-                mapTab.setBackgroundResource(R.drawable.btn_green_background);
-                guideTab.setBackgroundResource(R.drawable.btn_green_background);
+                heightTab.setBackgroundResource(R.color.light_green);
+                mapTab.setBackgroundResource(R.color.light_green);
+                guideTab.setBackgroundResource(R.color.light_green);
 
                 break;
             case 2:
                 headerView.setBackgroundResource(R.color.light_orange);
 
-                heightTab.setBackgroundResource(R.drawable.btn_purple_background);
-                mapTab.setBackgroundResource(R.drawable.btn_purple_background);
-                guideTab.setBackgroundResource(R.drawable.btn_purple_background);
+                heightTab.setBackgroundResource(R.color.light_orange);
+                mapTab.setBackgroundResource(R.color.light_orange);
+                guideTab.setBackgroundResource(R.color.light_orange);
 
                 break;
             default:
