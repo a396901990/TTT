@@ -19,13 +19,13 @@ public class TravelType {
     public static Drawable getTypeImageSrc(String type) {
         Drawable src = null;
         if (type.equals(BIKE)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.bike_disable);
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_bike_white);
         } else if (type.equals(HIKE)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.hiking_disable);
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_hiking_white);
         } else if (type.equals(MOTO)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.moto_disable);
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_moto_white);
         } else if (type.equals(CAR)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.car_disable);
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_car_white);
         }
         return src;
     }

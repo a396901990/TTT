@@ -47,8 +47,8 @@ public class InfoGridAdapter extends BaseAdapter {
         SquareImageView content = new SquareImageView(mContext);
         content.setImageSrc(InfoType.INFO_IMAGE.get(getItem(position)));
         content.setLabelText(InfoType.INFO_TEXT.get(getItem(position)));
-        //content.setBackgroundResource(InfoType.INFO_COLOR.get(getItem(position)));
-        content.setBackgroundResource(R.color.light_blue);
+        content.setBackgroundResource(InfoType.INFO_COLOR.get(getItem(position)));
+        //content.setBackgroundResource(R.color.light_blue);
         content.setClickable(false);
         content.setFocusable(false);
         content.setFocusableInTouchMode(false);

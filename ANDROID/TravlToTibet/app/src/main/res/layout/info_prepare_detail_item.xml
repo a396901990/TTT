@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_gray"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/detail_title"
+        style="@style/TextAppearance.Large.Black.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正常（推荐）" />
+
+    <!--标题分割-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/info_card_rule_height"
+        android:layout_marginBottom="@dimen/info_card_rule_margin"
+        android:layout_marginTop="@dimen/info_card_rule_margin"
+        android:background="@color/rule"></View>
+
+    <TextView
+        android:id="@+id/detail_item"
+        style="@style/TextAppearance.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预计天数：31天\n预计天数：31天" />
+
+</LinearLayout>

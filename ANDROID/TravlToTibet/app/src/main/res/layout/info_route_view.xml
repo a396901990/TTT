@@ -26,7 +26,8 @@
                 android:name="com.dean.travltotibet.fragment.InfoHeaderFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="@dimen/info_fragment_margin_bottom" />
 
             <!--准备-->
             <fragment
@@ -54,8 +55,7 @@
                     style="@style/TransactButton"
                     android:layout_marginBottom="@dimen/bottom_padding"
                     android:layout_marginLeft="@dimen/generic_button_padding"
-                    android:layout_marginRight="@dimen/generic_button_padding"
-                    android:text="haha" />
+                    android:layout_marginRight="@dimen/generic_button_padding" />
             </LinearLayout>
         </LinearLayout>
     </com.dean.travltotibet.ui.InfoScrollView>
@@ -75,15 +75,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/top_line_rule"
             android:layout_marginBottom="@dimen/topLine_margin"
-            android:background="@color/top_line_bg" />
+            android:background="@color/orange_red" />
 
         <Button
             android:id="@+id/goButton"
-            style="@style/LightRedButton"
+            style="@style/OrangeRedButton"
             android:layout_marginBottom="@dimen/bottom_padding"
             android:layout_marginLeft="@dimen/generic_button_padding"
             android:layout_marginRight="@dimen/generic_button_padding"
-            android:text="出发" />
+            android:text="@string/info_prepare_go" />
     </LinearLayout>
 
     <!--顶部动作条-->

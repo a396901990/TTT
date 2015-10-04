@@ -58,6 +58,10 @@ public final class Constants {
     public static final String INTENT_ROUTE_DAY = "intent_route_day";
     public static final String INTENT_ROUTE_DIR = "intent_route_direction";
 
+    // prepare intent
+    public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";
+    public static final String INTENT_PREPARE_TYPE = "intent_prepare_type";
+
     public static final String DECIMAL_FORMAT = "###,##0.00";
     public static final String STRING_INTEGER_FORMATTER = "#0";
     public static final String FOUR_INTEGER_FORMATTER = "###0";

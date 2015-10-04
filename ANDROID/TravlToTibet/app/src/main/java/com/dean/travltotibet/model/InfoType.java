@@ -2,7 +2,6 @@ package com.dean.travltotibet.model;
 
 import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,18 +43,18 @@ public enum InfoType {
         INFO_TEXT.put(InfoType.PERSONAL, "个人物品");
         INFO_TEXT.put(InfoType.OTHER, "其他");
 
-        INFO_IMAGE.put(InfoType.ROUTE_DETAIL, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.BUDGET, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.EQUIP_BIKE, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.EQUIP_HIKE, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.EQUIP_MOTO, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.EQUIP_CAR, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.OUTDOOR_EQUIP, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.bike_active);
-        INFO_IMAGE.put(InfoType.OTHER, R.drawable.bike_active);
+        INFO_IMAGE.put(InfoType.ROUTE_DETAIL, R.drawable.icon_route_detail);
+        INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget);
+        INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine);
+        INFO_IMAGE.put(InfoType.EQUIP_BIKE, R.drawable.icon_bike_white);
+        INFO_IMAGE.put(InfoType.EQUIP_HIKE, R.drawable.icon_hiking_white);
+        INFO_IMAGE.put(InfoType.EQUIP_MOTO, R.drawable.icon_moto_white);
+        INFO_IMAGE.put(InfoType.EQUIP_CAR, R.drawable.icon_car_white);
+        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing);
+        INFO_IMAGE.put(InfoType.OUTDOOR_EQUIP, R.drawable.icon_outdoor);
+        INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.icon_card);
+        INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.icon_person);
+        INFO_IMAGE.put(InfoType.OTHER, R.drawable.icon_other);
 
         INFO_COLOR.put(InfoType.ROUTE_DETAIL, R.color.orange_red);
         INFO_COLOR.put(InfoType.BUDGET, R.color.light_blue);

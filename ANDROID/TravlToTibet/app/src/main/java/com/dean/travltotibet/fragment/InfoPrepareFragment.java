@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ScrollGridView;
 import com.dean.travltotibet.ui.SquareImageView;
+import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
 
@@ -78,17 +80,11 @@ public class InfoPrepareFragment extends BaseInfoFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 InfoType type = (InfoType) adapter.getItem(position);
 
-                // 获取该路段信息
-                PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(infoRouteActivity.getRoute());
-
-                String prepareName = InfoType.getInfoResult(type, prepareInfo);
-
-                ArrayList<PrepareDetail> prepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, type.toString());
-
-                for(PrepareDetail prepareDetail : prepareDetails) {
-                    Log.e("getTitle", prepareDetail.getTitle());
-                    Log.e("getDetail", prepareDetail.getDetail());
-                }
+                DialogFragment dialogFragment = new PrepareDetailDialog();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.INTENT_PREPARE_TYPE, type);
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(getFragmentManager(), PrepareDetailDialog.class.getName());
             }
         });
 
