@@ -22,6 +22,7 @@ public class MyGenerator {
         addRoutePlan(schema);
         addPrepareInfo(schema);
         addPrepareDetail(schema);
+        addRecentRoute(schema);
 //        addZoneType(schema);
 //        addBuildingType(schema);
 
@@ -119,6 +120,17 @@ public class MyGenerator {
         route.addStringProperty("type");
         route.addStringProperty("title");
         route.addStringProperty("detail");
+    }
+
+    // 记录最近路线
+    private static void addRecentRoute(Schema schema) {
+        Entity route = schema.addEntity("RecentRoute");
+        route.addIdProperty();
+        route.addStringProperty("route").notNull();
+        route.addStringProperty("route_name");
+        route.addStringProperty("type");
+        route.addStringProperty("FR");
+        route.addStringProperty("route_plan_id");
     }
 
     // 区域类型表

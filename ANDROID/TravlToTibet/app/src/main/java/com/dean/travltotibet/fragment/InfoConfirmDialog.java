@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -60,6 +62,7 @@ public class InfoConfirmDialog extends DialogFragment {
             route = getArguments().getString(Constants.INTENT_ROUTE);
             routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
             routeType = getArguments().getString(Constants.INTENT_ROUTE_TYPE);
+            isForward = true;
         }
 
         initDirection();
@@ -118,12 +121,29 @@ public class InfoConfirmDialog extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 dismiss();
+
+                // 跳转到RouteActivity
                 Intent intent = new Intent(getActivity(), RouteActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE, route);
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, routeType);
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, isForward);
                 intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, plans.get(position).getId());
                 startActivity(intent);
+
+                // 插入最近路线数据
+                RecentRoute recentRoute = new RecentRoute();
+                recentRoute.setRoute(route);
+                recentRoute.setRoute_name(routeName);
+                recentRoute.setType(routeType);
+                recentRoute.setFR(isForward ? "F" : "R");
+                recentRoute.setRoute_plan_id(plans.get(position).getId() + "");
+                TTTApplication.getDbHelper().insertRecentRoute(recentRoute);
+
+
+//                ArrayList<RecentRoute> recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
+//                for (RecentRoute recentRoute : recentRoutes) {
+//                    Log.e("recentRoute", recentRoute.toString());
+//                }
             }
         });
     }

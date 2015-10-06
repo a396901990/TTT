@@ -14,11 +14,12 @@ import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.PrepareDetailDao;
 import com.dean.greendao.PrepareInfo;
 import com.dean.greendao.PrepareInfoDao;
+import com.dean.greendao.RecentRoute;
+import com.dean.greendao.RecentRouteDao;
 import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
 import com.dean.greendao.RoutePlanDao;
-import com.dean.greendao.RoutesDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -54,6 +55,8 @@ public class DBHelper {
 
     private PrepareDetailDao prepareDetailDao;
 
+    private RecentRouteDao recentRouteDao;
+
     private DBHelper() {
     }
 
@@ -72,6 +75,7 @@ public class DBHelper {
             instance.routePlanDao = daoSession.getRoutePlanDao();
             instance.prepareInfoDao = daoSession.getPrepareInfoDao();
             instance.prepareDetailDao = daoSession.getPrepareDetailDao();
+            instance.recentRouteDao = daoSession.getRecentRouteDao();
         }
         return instance;
     }
@@ -177,18 +181,19 @@ public class DBHelper {
         qb.where(RouteDao.Properties.Type.eq(routeType));
         Route route = qb.list().get(0);
 
-        // 根据正反设置起始和终点
+        // 创建一个新对象防止引用错误，根据正反设置起始和终点
         String start = route.getStart();
         String end = route.getEnd();
+        Route currentRoute = new Route(route.getId(), route.getRoute(), route.getName(), route.getDay(), route.getStart(), route.getEnd(), route.getDistance(), route.getType(), route.getRank(), route.getDescribe(), route.getDetail(), route.getPic_url());
         if (isForward) {
-            route.setStart(start);
-            route.setEnd(end);
+            currentRoute.setStart(start);
+            currentRoute.setEnd(end);
         } else {
-            route.setStart(end);
-            route.setEnd(start);
+            currentRoute.setStart(end);
+            currentRoute.setEnd(start);
         }
 
-        return route;
+        return currentRoute;
     }
 
     /**
@@ -304,6 +309,15 @@ public class DBHelper {
         return qb.buildCount().count() > 0 ? true : false;// 查找收藏表
     }
 
+    public void insertRecentRoute(RecentRoute recentRoute) {
+        recentRouteDao.insert(recentRoute);
+    }
+
+    public List<RecentRoute> getRecentRoute() {
+        return recentRouteDao.loadAll();
+    }
+
+
     /**
      * 删除
      */
@@ -376,19 +390,37 @@ public class DBHelper {
             routePlanDao.insert(route);
         }
 
+        PrepareDetailJson prepareDetailJson = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.preparedetail), PrepareDetailJson.class);
+        for (PrepareDetail detail : prepareDetailJson.getPrepareDetails()) {
+            prepareDetailDao.insert(detail);
+        }
+
+        PrepareInfoJson prepareInfoJson = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.prepareinfo), PrepareInfoJson.class);
+        for (PrepareInfo info : prepareInfoJson.getPrepareInfos()) {
+            prepareInfoDao.insert(info);
+        }
+
     }
 
     public void intoFileData() {
 
         String plan = ParseUtil.planParseToFile((ArrayList<Plan>) planDao.loadAll());
         Log.e("plan", plan);
+
         String route = ParseUtil.routeParseToFile((ArrayList<Route>) routeDao.loadAll());
         Log.e("route", route);
 
         String routePlan = ParseUtil.routePlansParseToFile((ArrayList<RoutePlan>) routePlanDao.loadAll());
         Log.e("routePlan", routePlan);
+
         String geocode = ParseUtil.geocodeToFile((ArrayList<Geocode>) geocodeDao.loadAll());
         Log.e("geocode", geocode);
+
+        String prepareInfo = ParseUtil.prepareInfoToFile((ArrayList<PrepareInfo>) prepareInfoDao.loadAll());
+        Log.e("prepareinfo", prepareInfo);
+
+        String prepareDetail = ParseUtil.prepareDetailToFile((ArrayList<PrepareDetail>) prepareDetailDao.loadAll());
+        Log.e("preparedetail", prepareDetail);
 
     }
 

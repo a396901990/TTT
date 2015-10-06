@@ -1,0 +1,1 @@
+{"prepareInfos":[{"budget":"XINZANG","credential":"COMMON","equip_bike":"COMMON","equip_car":"COMMON","equip_clothing":"COMMON","equip_hike":"COMMON","equip_moto":"COMMON","id":1,"medicine":"COMMON","other":"COMMON","outdoor_equip":"COMMON","personal":"COMMON","route":"XINZANG","route_detail":"XINZANG"}]}

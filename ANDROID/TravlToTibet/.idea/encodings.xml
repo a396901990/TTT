@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/data.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/geocode.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/plan.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/preparedetail.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/prepareinfo.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/route.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/routeplan.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/HttpHelper.java" charset="UTF-8" />

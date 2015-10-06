@@ -33,6 +33,11 @@ public class Route {
     public Route() {
     }
 
+    @Override
+    public String toString() {
+        return getRoute()+","+getStart()+","+getEnd()+","+getDistance();
+    }
+
     public Route(Long id) {
         this.id = id;
     }

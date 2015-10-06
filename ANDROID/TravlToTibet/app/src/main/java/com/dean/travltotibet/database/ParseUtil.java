@@ -6,6 +6,8 @@ import android.os.Environment;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeOld;
 import com.dean.greendao.Plan;
+import com.dean.greendao.PrepareDetail;
+import com.dean.greendao.PrepareInfo;
 import com.dean.greendao.Route;
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
@@ -80,6 +82,22 @@ public class ParseUtil {
         GeocodesNewJson gj = new GeocodesNewJson();
         gj.setGeocodes(geocodes);
         String result = gson.toJson(gj, GeocodesNewJson.class);
+        return result;
+    }
+
+    public static String prepareInfoToFile(ArrayList<PrepareInfo> geocodes) {
+        Gson gson = new Gson();
+        PrepareInfoJson gj = new PrepareInfoJson();
+        gj.setPrepareInfos(geocodes);
+        String result = gson.toJson(gj, PrepareInfoJson.class);
+        return result;
+    }
+
+    public static String prepareDetailToFile(ArrayList<PrepareDetail> geocodes) {
+        Gson gson = new Gson();
+        PrepareDetailJson gj = new PrepareDetailJson();
+        gj.setPrepareDetails(geocodes);
+        String result = gson.toJson(gj, PrepareDetailJson.class);
         return result;
     }
 

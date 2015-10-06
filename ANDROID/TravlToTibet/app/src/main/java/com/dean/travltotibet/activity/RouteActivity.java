@@ -1,5 +1,6 @@
 package com.dean.travltotibet.activity;
 
+import com.dean.greendao.RecentRoute;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -17,6 +18,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
