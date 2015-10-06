@@ -3,6 +3,7 @@ package com.dean.travltotibet;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
@@ -22,6 +23,8 @@ public class TTTApplication extends Application
 
     private static DBHelper dbHelper;
 
+    private static SharedPreferences mSharedPreferences;
+
     @Override
     public void onCreate()
     {
@@ -33,6 +36,19 @@ public class TTTApplication extends Application
 
         // 初始化数据库
         initDB();
+
+        // 初始化SharedPreferences
+        initPreferences();
+    }
+
+    private void initPreferences()
+    {
+        mSharedPreferences = getSharedPreferences(getResources().getString(R.string.preference), MODE_PRIVATE);
+    }
+
+    public static SharedPreferences getSharedPreferences()
+    {
+        return mSharedPreferences;
     }
 
     private void initDB() {
