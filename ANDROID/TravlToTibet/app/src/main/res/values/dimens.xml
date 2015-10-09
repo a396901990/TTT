@@ -63,4 +63,11 @@
     <dimen name="generic_button_padding">10dip</dimen>
     <dimen name="bottom_button_margin">24dip</dimen>
 
+    <!--recent route-->
+    <dimen name="recent_item_margin">20dp</dimen>
+    <dimen name="recent_item_title_left_line">20dp</dimen>
+    <dimen name="recent_item_title_line_height">2dp</dimen>
+    <dimen name="recent_item_content_padding">10dp</dimen>
+    <dimen name="recent_item_content_title_padding_bottom">3dp</dimen>
+    <dimen name="recent_item_content_item_padding">10dp</dimen>
 </resources>

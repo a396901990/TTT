@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,7 +20,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.activity.InfoRouteActivity;
-import com.dean.travltotibet.adapter.RoutePlanListAdapter;
+import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class InfoConfirmDialog extends DialogFragment {
     private ImageView rotateArrow;
 
     private ListView mListView;
-    private RoutePlanListAdapter mAdapter;
+    private PrepareRoutePlanListAdapter mAdapter;
     private Animation switchAnim;
     private ArrayList<RoutePlan> plans;
 
@@ -56,7 +55,7 @@ public class InfoConfirmDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         infoRouteActivity = (InfoRouteActivity) getActivity();
 
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.route_confirm_fragment, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_confirm_dialog_fragment, null);
 
         if (getArguments() != null) {
             route = getArguments().getString(Constants.INTENT_ROUTE);
@@ -112,7 +111,7 @@ public class InfoConfirmDialog extends DialogFragment {
     private void initPlanList() {
         mListView = (ListView) root.findViewById(R.id.plan_list);
         plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(route, routeType, isForward);
-        mAdapter = new RoutePlanListAdapter(infoRouteActivity);
+        mAdapter = new PrepareRoutePlanListAdapter(infoRouteActivity);
         mAdapter.setData(plans);
 
         mListView.setAdapter(mAdapter);
@@ -138,12 +137,6 @@ public class InfoConfirmDialog extends DialogFragment {
                 recentRoute.setFR(isForward ? "F" : "R");
                 recentRoute.setRoute_plan_id(plans.get(position).getId() + "");
                 TTTApplication.getDbHelper().insertRecentRoute(recentRoute);
-
-
-//                ArrayList<RecentRoute> recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
-//                for (RecentRoute recentRoute : recentRoutes) {
-//                    Log.e("recentRoute", recentRoute.toString());
-//                }
             }
         });
     }

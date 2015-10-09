@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/gray_background"
     android:layout_height="match_parent"
+    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <include
-        android:layout_margin="8dp"
         android:id="@+id/overall_route"
-        layout="@layout/plan_list_item"
+        layout="@layout/route_plan_list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></include>
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"></include>
 
     <ListView
-        android:layout_margin="8dp"
         android:id="@+id/plan_list"
-        android:dividerHeight="8dip"
-        android:divider="@color/gray_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:divider="@color/gray_background"
+        android:dividerHeight="8dip"></ListView>
 </LinearLayout>
 

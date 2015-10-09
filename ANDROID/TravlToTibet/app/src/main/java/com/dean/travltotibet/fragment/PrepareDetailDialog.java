@@ -3,27 +3,18 @@ package com.dean.travltotibet.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.PrepareInfo;
-import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoRouteActivity;
-import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.InfoPrepareDetailAdapter;
-import com.dean.travltotibet.adapter.RoutePlanListAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.util.Constants;
 

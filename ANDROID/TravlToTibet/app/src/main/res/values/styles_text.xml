@@ -26,6 +26,10 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearance.Regular.White" parent="TextAppearance.Regular">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="TextAppearance.Regular.Bold" parent="TextAppearance.Regular">
         <item name="android:textStyle">bold</item>
     </style>
@@ -60,6 +64,11 @@
     </style>
 
     <style name="TextAppearance.Large.Withe" parent="TextAppearance.Large">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.Large.Withe.Bold" parent="TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

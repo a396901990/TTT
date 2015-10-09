@@ -39,7 +39,7 @@ public class SquareView extends RelativeLayout {
     }
 
     private void initView(Context context, AttributeSet attrs) {
-        setBackgroundResource(R.drawable.click_waite_background);
+        setBackgroundResource(R.drawable.btn_click_background);
 
         imageView = new ImageView(context, attrs);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

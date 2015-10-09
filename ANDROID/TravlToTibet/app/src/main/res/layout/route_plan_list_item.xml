@@ -2,45 +2,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_gray"
-    android:minHeight="60dp"
+    android:background="@drawable/border_white"
     android:padding="6dip">
 
+    <TextView
+        android:id="@+id/plan_date"
+        style="@style/TextAppearance.Large.Black.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="DAY1" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/plan_name"
-            style="@style/TextAppearance.Large"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="正常（推荐）" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/plan_day"
-            style="@style/TextAppearance.Medium"
+            <TextView
+                android:id="@+id/plan_detail_start"
+                style="@style/TextAppearance.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/right_arrow" />
+
+            <TextView
+                android:id="@+id/plan_detail_end"
+                style="@style/TextAppearance.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="预计天数：31天" />
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/plan_distance"
+                style="@style/TextAppearance.Small.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <!--介绍-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:gravity="right|bottom">
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/plan_describe"
-            style="@style/TextAppearance.Regular.Gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="适合大多数骑友人" />
     </LinearLayout>
 
 </RelativeLayout>

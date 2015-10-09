@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.dean.greendao.Plan;
 import com.dean.greendao.Route;
-import com.dean.greendao.Routes;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
@@ -39,7 +38,7 @@ public class RoutePlanFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.route_view, null);
+        root = inflater.inflate(R.layout.route_plan_fragment_view, null);
         return root;
     }
 

@@ -4,14 +4,9 @@
     android:background="@color/gray_background"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/recent_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"></ListView>
 
-        <ListView
-            android:id="@+id/plan_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
-    </LinearLayout>
 </LinearLayout>

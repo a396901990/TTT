@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.Constants;
@@ -14,23 +15,19 @@ import com.dean.travltotibet.util.Constants;
 import java.util.ArrayList;
 
 /**
- * Created by DeanGuo on 9/22/15.
+ * Created by DeanGuo on 9/10/15.
  */
-public class RoutePlanListAdapter extends BaseAdapter {
+public class RecentListAdapter extends BaseAdapter {
 
-    private ArrayList<RoutePlan> mData;
+    private ArrayList<RecentRoute> mData;
     private Context mContext;
 
-    private TextView planName;
-    private TextView planDay;
-    private TextView planDescribe;
-
-    public RoutePlanListAdapter(Context context) {
+    public RecentListAdapter(Context context) {
         super();
         this.mContext = context;
     }
 
-    public void setData(ArrayList<RoutePlan> data) {
+    public void setData(ArrayList<RecentRoute> data) {
         this.mData = data;
     }
 
@@ -53,17 +50,8 @@ public class RoutePlanListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = LayoutInflater.from(mContext);
-            convertView = mInflater.inflate(R.layout.route_plan_list_item, null);
+            convertView = mInflater.inflate(R.layout.recent_list_item, null);
         }
-
-        planName = (TextView) convertView.findViewById(R.id.plan_name);
-        planDay = (TextView) convertView.findViewById(R.id.plan_day);
-        planDescribe = (TextView) convertView.findViewById(R.id.plan_describe);
-
-        RoutePlan routePlan = mData.get(position);
-        planName.setText(routePlan.getPlan_name());
-        planDay.setText(String.format(Constants.ROUTE_PLAN_DAY, routePlan.getPlan_days()));
-        planDescribe.setText(routePlan.getDescribe());
 
         return convertView;
     }

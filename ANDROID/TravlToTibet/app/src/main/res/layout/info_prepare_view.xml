@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/info_card_margin"
-        android:background="@drawable/border_gray"
+        android:background="@drawable/border_white"
         android:orientation="vertical"
         android:padding="@dimen/info_card_padding">
 

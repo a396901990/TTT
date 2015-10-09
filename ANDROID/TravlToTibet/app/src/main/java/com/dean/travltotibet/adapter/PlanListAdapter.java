@@ -56,7 +56,7 @@ public class PlanListAdapter
         if (convertView == null)
         {
             LayoutInflater mInflater = LayoutInflater.from(context);
-            convertView = mInflater.inflate(R.layout.plan_list_item, null);
+            convertView = mInflater.inflate(R.layout.route_plan_list_item, null);
         }
 
         data = (TextView) convertView.findViewById(R.id.plan_date);
