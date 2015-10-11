@@ -205,6 +205,12 @@ public class DBHelper {
         Route route = qb.list().get(0);
         return isForward ? route.getStart() : route.getEnd();
     }
+    public String getFromName(String routeName, String FR) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(Properties.Route.eq(routeName));
+        Route route = qb.list().get(0);
+        return FR.equals("F") ? route.getStart() : route.getEnd();
+    }
 
     /**
      * 获取方向中to得名字
@@ -214,6 +220,12 @@ public class DBHelper {
         qb.where(Properties.Route.eq(routeName));
         Route route = qb.list().get(0);
         return isForward ? route.getEnd() : route.getStart();
+    }
+    public String getToName(String routeName, String FR) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(Properties.Route.eq(routeName));
+        Route route = qb.list().get(0);
+        return FR.equals("F") ? route.getEnd() : route.getStart();
     }
 
     /**
@@ -237,6 +249,12 @@ public class DBHelper {
         qb.where(RoutePlanDao.Properties.Type.eq(type));
         qb.where(RoutePlanDao.Properties.Fr.eq(isForward?"F":"R"));
         return qb.list();
+    }
+
+    public RoutePlan getRoutePlanWithPlanID(String planID) {
+        QueryBuilder<RoutePlan> qb = routePlanDao.queryBuilder();
+        qb.where(RoutePlanDao.Properties.Id.eq(planID));
+        return qb.list().get(0);
     }
 
     /**

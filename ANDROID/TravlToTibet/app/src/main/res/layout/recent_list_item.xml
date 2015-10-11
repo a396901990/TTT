@@ -66,18 +66,21 @@
                 android:text="路线：" />
 
             <TextView
+                android:id="@+id/route_name"
                 style="@style/TextAppearance.Large.Withe.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="新藏线" />
 
             <TextView
+                android:id="@+id/route_start"
                 style="@style/TextAppearance.Regular.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="起点：叶城县" />
 
             <TextView
+                android:id="@+id/route_end"
                 style="@style/TextAppearance.Regular.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,12 +104,14 @@
                 android:text="计划：" />
 
             <TextView
+                android:id="@+id/plan_name"
                 style="@style/TextAppearance.Large.Withe.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="中等难度" />
 
             <TextView
+                android:id="@+id/plan_days"
                 style="@style/TextAppearance.Medium.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

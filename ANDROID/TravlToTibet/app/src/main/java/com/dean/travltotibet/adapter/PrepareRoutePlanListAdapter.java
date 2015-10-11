@@ -58,7 +58,7 @@ public class PrepareRoutePlanListAdapter extends BaseAdapter {
 
         planName = (TextView) convertView.findViewById(R.id.plan_name);
         planDay = (TextView) convertView.findViewById(R.id.plan_day);
-        planDescribe = (TextView) convertView.findViewById(R.id.plan_describe);
+        planDescribe = (TextView) convertView.findViewById(R.id.plan_name);
 
         RoutePlan routePlan = mData.get(position);
         planName.setText(routePlan.getPlan_name());
