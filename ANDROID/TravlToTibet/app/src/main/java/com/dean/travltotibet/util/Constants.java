@@ -76,4 +76,6 @@ public final class Constants {
 
     public static final String TRAVEL_TYPE_TITLE = "请选择旅行方式";
 
+    public static final String RECENT_PLAN_NAME_DAY = "%s，%s天";
+
 }

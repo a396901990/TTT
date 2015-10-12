@@ -1,6 +1,7 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
 
@@ -28,8 +30,7 @@ public class RecentListAdapter extends BaseAdapter {
     private TextView mRouteName;
     private TextView mRouteStart;
     private TextView mRouteEnd;
-    private TextView mPlanName;
-    private TextView mPlanDays;
+    private TextView mPlanNameDay;
 
     public RecentListAdapter(Context context) {
         super();
@@ -62,25 +63,29 @@ public class RecentListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.recent_list_item, null);
         }
 
+        mTitleView = (ImageView) convertView.findViewById(R.id.type_icon);
+        mRouteName = (TextView) convertView.findViewById(R.id.route_name);
+        mRouteStart = (TextView) convertView.findViewById(R.id.route_start);
+        mRouteEnd = (TextView) convertView.findViewById(R.id.route_end);
+        mPlanNameDay = (TextView) convertView.findViewById(R.id.route_plan_name_day);
+
         RecentRoute recentRoute = mData.get(position);
         // 类型图片
         mTitleView.setImageDrawable(TravelType.getTypeImageSrc(recentRoute.getType()));
 
         // 路线名称
         mRouteName.setText(recentRoute.getRoute_name());
-        // 路线起点
+        // 路线起点,终点
         String start = TTTApplication.getDbHelper().getFromName(recentRoute.getRoute(), recentRoute.getFR());
-        mRouteStart.setText(start);
-        // 路线终点
         String end = TTTApplication.getDbHelper().getToName(recentRoute.getRoute(), recentRoute.getFR());
+        mRouteStart.setText(start);
         mRouteEnd.setText(end);
 
-
+        // 计划描述，天数
         RoutePlan curRoutePlan = TTTApplication.getDbHelper().getRoutePlanWithPlanID(recentRoute.getRoute_plan_id());
-        // 计划描述
-        mPlanName.setText(curRoutePlan.getPlan_name());
-        // 计划天数
-        mPlanDays.setText(curRoutePlan.getPlan_days());
+        String name = curRoutePlan.getPlan_name();
+        String day = curRoutePlan.getPlan_days();
+        mPlanNameDay.setText(String.format(Constants.RECENT_PLAN_NAME_DAY, name, day));
 
         return convertView;
     }

@@ -56,6 +56,8 @@ public class RecentFragment extends Fragment {
     private void initList() {
         mListView = (ListView) root.findViewById(R.id.recent_list);
         mAdapter = new RecentListAdapter(getActivity());
+        Log.e("recentRoutes.size()", recentRoutes.size()+"");
+
         if (recentRoutes != null) {
             mAdapter.setData(recentRoutes);
             mListView.setAdapter(mAdapter);

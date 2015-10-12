@@ -1,12 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
+    android:background="@color/white_background"
     android:orientation="vertical">
 
     <ListView
         android:id="@+id/recent_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:divider="@color/white_background"
+        android:dividerHeight="@dimen/recent_list_divide_height"
+        android:padding="@dimen/recent_list_padding"></ListView>
 
 </LinearLayout>

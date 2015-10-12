@@ -5,66 +5,28 @@
     android:layout_margin="6dp"
     android:background="@drawable/border_green">
 
-    <!--标题-->
+    <!--标题（空白+标题 : 空白+类型图标 = 3:1）-->
     <LinearLayout
         android:id="@+id/item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <View
-            android:layout_width="@dimen/recent_item_title_left_line"
-            android:layout_height="@dimen/recent_item_title_line_height"
-            android:layout_gravity="center_vertical"
-            android:background="@color/white"></View>
-
-        <ImageView
-            android:id="@+id/type_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/icon_bike_white" />
-
-        <!-- 标题线-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/recent_item_title_line_height"
-            android:layout_gravity="center_vertical"
-            android:background="@color/white"></View>
-    </LinearLayout>
-
-    <!--内容（空白:路线:计划=1:1.5:1）-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_title"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/recent_item_content_padding"
-        android:paddingRight="@dimen/recent_item_content_padding">
-
-        <!--空白(隐藏)-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="invisible"></LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <!--路线-->
-        <LinearLayout
-            android:id="@+id/item_route"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:orientation="vertical"
-            android:paddingRight="@dimen/recent_item_content_item_padding">
+            <!--左边一小段-->
+            <View
+                android:layout_width="@dimen/recent_item_title_left_line"
+                android:layout_height="@dimen/recent_item_title_line_height"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"></View>
 
-            <TextView
-                style="@style/TextAppearance.Regular.White"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/recent_item_content_title_padding_bottom"
-                android:text="路线：" />
-
+            <!--线路标题-->
             <TextView
                 android:id="@+id/route_name"
                 style="@style/TextAppearance.Large.Withe.Bold"
@@ -72,51 +34,121 @@
                 android:layout_height="wrap_content"
                 android:text="新藏线" />
 
-            <TextView
-                android:id="@+id/route_start"
-                style="@style/TextAppearance.Regular.White"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="起点：叶城县" />
-
-            <TextView
-                android:id="@+id/route_end"
-                style="@style/TextAppearance.Regular.White"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="终点：拉萨市" />
-
+            <!-- 剩余标题线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recent_item_title_line_height"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"></View>
         </LinearLayout>
 
-        <!--计划-->
         <LinearLayout
-            android:id="@+id/item_plan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/recent_item_title_left_line"
+                android:layout_height="@dimen/recent_item_title_line_height"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"></View>
+
+            <ImageView
+                android:id="@+id/type_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/icon_bike_white" />
+
+            <!-- 标题线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recent_item_title_line_height"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"></View>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--内容（路线:空白 = 3:1）-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_title"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/recent_item_content_padding"
+        android:paddingLeft="@dimen/recent_item_content_padding">
+
+        <!--路线-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/TextAppearance.Regular.White"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/recent_item_content_title_padding_bottom"
-                android:text="计划：" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/plan_name"
-                style="@style/TextAppearance.Large.Withe.Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="中等难度" />
+                <TextView
+                    style="@style/TextAppearance.Regular.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="路线：" />
 
-            <TextView
-                android:id="@+id/plan_days"
-                style="@style/TextAppearance.Medium.White"
+                <TextView
+                    android:id="@+id/route_start"
+                    style="@style/TextAppearance.Regular.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="拉萨" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/right_arrow_white_black" />
+
+                <TextView
+                    android:id="@+id/route_end"
+                    style="@style/TextAppearance.Regular.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="叶城县" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="26-28天" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.Regular.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="计划：" />
+
+                <TextView
+                    android:id="@+id/route_plan_name_day"
+                    style="@style/TextAppearance.Regular.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="中等难度（推荐），38天" />
+            </LinearLayout>
 
         </LinearLayout>
+        <!--空白(隐藏)-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"></LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>
