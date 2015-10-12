@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    android:background="@drawable/border_green">
+    android:background="@drawable/border_transparent_white">
 
     <!--标题（空白+标题 : 空白+类型图标 = 3:1）-->
     <LinearLayout
@@ -29,7 +28,7 @@
             <!--线路标题-->
             <TextView
                 android:id="@+id/route_name"
-                style="@style/TextAppearance.Large.Withe.Bold"
+                style="@style/TextAppearance.Large.Withe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="新藏线" />
@@ -63,11 +62,12 @@
 
             <!-- 标题线-->
             <View
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/recent_item_title_line_height"
                 android:layout_gravity="center_vertical"
                 android:background="@color/white"></View>
         </LinearLayout>
+
     </LinearLayout>
 
     <!--内容（路线:空白 = 3:1）-->
@@ -92,7 +92,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/TextAppearance.Regular.White"
+                    style="@style/TextAppearance.Regular.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/route_start"
-                    style="@style/TextAppearance.Regular.White"
+                    style="@style/TextAppearance.Regular.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -115,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/route_end"
-                    style="@style/TextAppearance.Regular.White"
+                    style="@style/TextAppearance.Regular.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -128,7 +128,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/TextAppearance.Regular.White"
+                    style="@style/TextAppearance.Regular.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -136,7 +136,7 @@
 
                 <TextView
                     android:id="@+id/route_plan_name_day"
-                    style="@style/TextAppearance.Regular.White"
+                    style="@style/TextAppearance.Regular.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="中等难度（推荐），38天" />

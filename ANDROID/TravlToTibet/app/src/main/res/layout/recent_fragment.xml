@@ -1,14 +1,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_background"
+    android:background="@color/light_black"
     android:orientation="vertical">
+
+    <TextView
+        style="@style/TextAppearance.XXLarge.Gray.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recent_title_padding"
+        android:text="@string/action_recent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recent_item_title_line_height"
+        android:background="@color/black"
+        android:paddingBottom="@dimen/recent_item_content_padding"
+        android:paddingTop="@dimen/recent_item_content_padding" />
 
     <ListView
         android:id="@+id/recent_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/white_background"
+        android:divider="@android:color/transparent"
         android:dividerHeight="@dimen/recent_list_divide_height"
         android:padding="@dimen/recent_list_padding"></ListView>
 

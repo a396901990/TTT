@@ -50,6 +50,12 @@ public class RecentFragment extends Fragment {
         initList();
     }
 
+    public void updateRecentData() {
+        recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
+        mAdapter.setData(recentRoutes);
+        mAdapter.notifyDataSetInvalidated();
+    }
+
     /**
      * 初始化列表
      */

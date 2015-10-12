@@ -93,6 +93,11 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <style name="TextAppearance.XXLarge.Gray.Bold" parent="TextAppearance.XXLarge">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.XXLarge.Black.Bold" parent="TextAppearance.XXLarge">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>

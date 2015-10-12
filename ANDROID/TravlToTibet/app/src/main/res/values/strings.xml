@@ -2,6 +2,7 @@
     <string name="app_name">TravelToTibet</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_recent">最近查询</string>
 
     <string name="guide_route_name">行程攻略</string>
     <string name="guide_hotel_name">食宿休息</string>
