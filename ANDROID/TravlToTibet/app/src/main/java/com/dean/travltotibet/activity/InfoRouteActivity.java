@@ -21,6 +21,9 @@ import com.dean.travltotibet.ui.InfoScrollView;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.ScreenUtil;
 
+/**
+ * Created by DeanGuo on 9/30/15.
+ */
 public class InfoRouteActivity extends Activity {
 
     private String route;

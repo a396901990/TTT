@@ -327,12 +327,42 @@ public class DBHelper {
         return qb.buildCount().count() > 0 ? true : false;// 查找收藏表
     }
 
+    /**
+     * 检查是否存在相同，如果有相同的则删除
+     */
+    public void checkRecentRoute(RecentRoute recentRoute) {
+        QueryBuilder<RecentRoute> qb = recentRouteDao.queryBuilder();
+        qb.where(RecentRouteDao.Properties.Route.eq(recentRoute.getRoute()));
+        qb.where(RecentRouteDao.Properties.Route_name.eq(recentRoute.getRoute_name()));
+        qb.where(RecentRouteDao.Properties.Route_plan_id.eq(recentRoute.getRoute_plan_id()));
+        qb.where(RecentRouteDao.Properties.FR.eq(recentRoute.getFR()));
+        if (qb.buildCount().count() > 0 ) {
+            recentRouteDao.deleteByKey(qb.list().get(0).getId());
+        }
+    }
+
+    /**
+     * 清空RecentRoute数据
+     */
+    public void cleanRecentRoutes() {
+        recentRouteDao.deleteAll();
+    }
+
+    /**
+     * 插入数据到RecentRoute
+     */
     public void insertRecentRoute(RecentRoute recentRoute) {
         recentRouteDao.insert(recentRoute);
     }
 
+    /**
+     * 获取RecentRoute数据，根据ID从大到小排列（逆序）
+     * @return
+     */
     public List<RecentRoute> getRecentRoute() {
-        return recentRouteDao.loadAll();
+        QueryBuilder<RecentRoute> qb = recentRouteDao.queryBuilder();
+        qb.orderDesc(RecentRouteDao.Properties.Id);
+        return qb.list();
     }
 
 

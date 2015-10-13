@@ -130,15 +130,27 @@ public class InfoConfirmDialog extends DialogFragment {
                 startActivity(intent);
 
                 // 插入最近路线数据
-                RecentRoute recentRoute = new RecentRoute();
-                recentRoute.setRoute(route);
-                recentRoute.setRoute_name(routeName);
-                recentRoute.setType(routeType);
-                recentRoute.setFR(isForward ? "F" : "R");
-                recentRoute.setRoute_plan_id(plans.get(position).getId() + "");
-                TTTApplication.getDbHelper().insertRecentRoute(recentRoute);
+                insertRecentData(position);
+
             }
         });
+    }
+
+    /**
+     * 插入最近数据
+     */
+    private void insertRecentData(int position) {
+        // 初始化对象
+        RecentRoute recentRoute = new RecentRoute();
+        recentRoute.setRoute(route);
+        recentRoute.setRoute_name(routeName);
+        recentRoute.setType(routeType);
+        recentRoute.setFR(isForward ? "F" : "R");
+        recentRoute.setRoute_plan_id(plans.get(position).getId() + "");
+        // 先查看是否含有该数据，有则删除
+        TTTApplication.getDbHelper().checkRecentRoute(recentRoute);
+        // 添加数据
+        TTTApplication.getDbHelper().insertRecentRoute(recentRoute);
     }
 
     /**

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.fragment.RecentFragment;
 import com.dean.travltotibet.fragment.RoutePlanFragment;
@@ -21,6 +22,9 @@ import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+/**
+ * Created by DeanGuo on 9/30/15.
+ */
 public class MainActivity extends SlidingFragmentActivity {
 
     private String route = "XINZANG";
@@ -113,7 +117,7 @@ public class MainActivity extends SlidingFragmentActivity {
             slidingMenu.showMenu();
         }
         else if (id == android.R.id.home) {
-            slidingMenu.showMenu();
+            TTTApplication.getDbHelper().cleanRecentRoutes();
         }
 
         return super.onOptionsItemSelected(item);

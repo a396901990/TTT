@@ -4,12 +4,26 @@
     android:background="@color/light_black"
     android:orientation="vertical">
 
-    <TextView
-        style="@style/TextAppearance.XXLarge.Gray.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/recent_title_padding"
-        android:text="@string/action_recent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextAppearance.XXLarge.Gray.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/recent_title_padding"
+            android:text="@string/action_recent" />
+
+        <ImageView
+            android:id="@+id/recent_delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/recent_title_padding"
+            android:src="@android:drawable/ic_delete" />
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

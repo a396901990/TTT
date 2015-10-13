@@ -16,6 +16,8 @@
     <!--setting-->
     <string name="preference">private preference</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="delete_recent_msg">是否要清空所有浏览记录？</string>
+    <string name="delete_recent_title">清空记录</string>
 </resources>
