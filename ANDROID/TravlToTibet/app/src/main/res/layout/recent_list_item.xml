@@ -1,154 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_transparent_white">
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
-    <!--标题（空白+标题 : 空白+类型图标 = 3:1）-->
-    <LinearLayout
+    <!--标题-->
+    <RelativeLayout
         android:id="@+id/item_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/recent_title_height">
 
+        <!--左侧半高边框-->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <!--左边一小段-->
-            <View
-                android:layout_width="@dimen/recent_item_title_left_line"
-                android:layout_height="@dimen/recent_item_title_line_height"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"></View>
-
-            <!--线路标题-->
-            <TextView
-                android:id="@+id/route_name"
-                style="@style/TextAppearance.Large.Withe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="新藏线" />
-
-            <!-- 剩余标题线-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/recent_item_title_line_height"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"></View>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical">
 
             <View
-                android:layout_width="@dimen/recent_item_title_left_line"
-                android:layout_height="@dimen/recent_item_title_line_height"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"></View>
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-            <ImageView
-                android:id="@+id/type_icon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+            <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white" />
+        </LinearLayout>
+
+        <!--边框+文字+边框+图标+边框-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!--左侧边框加文字-->
+            <LinearLayout
+                android:id="@+id/border_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/icon_bike_white" />
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
 
-            <!-- 标题线-->
+                <!--左边一小段-->
+                <View
+                    android:layout_width="@dimen/recent_item_title_left_line"
+                    android:layout_height="@dimen/recent_item_title_line_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/white"></View>
+
+                <!--线路标题-->
+                <TextView
+                    android:id="@+id/route_name"
+                    style="@style/TextAppearance.Large.Withe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="新藏线" />
+
+            </LinearLayout>
+
+            <!--中间边框-->
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/recent_item_title_line_height"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/border_right"
+                android:layout_toRightOf="@+id/border_left"
                 android:background="@color/white"></View>
+
+            <!--右侧图标加边框-->
+            <LinearLayout
+                android:id="@+id/border_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <!--图标-->
+                <ImageView
+                    android:id="@+id/type_icon"
+                    android:layout_width="@dimen/recent_image_length"
+                    android:layout_height="@dimen/recent_image_length"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_bike_white" />
+
+                <!-- 标题线-->
+                <View
+                    android:layout_width="@dimen/recent_item_title_right_line"
+                    android:layout_height="@dimen/recent_item_title_line_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/white"></View>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--右侧半高边框-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white" />
         </LinearLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <!--内容（路线:空白 = 3:1）-->
+    <!--内容-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_title"
-        android:orientation="horizontal"
+        android:background="@drawable/border_transparent_white"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/recent_item_content_padding"
         android:paddingLeft="@dimen/recent_item_content_padding">
 
         <!--路线-->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                style="@style/TextAppearance.Regular.Gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:text="路线：" />
 
-                <TextView
-                    style="@style/TextAppearance.Regular.Gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="路线：" />
-
-                <TextView
-                    android:id="@+id/route_start"
-                    style="@style/TextAppearance.Regular.Gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="拉萨" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:src="@drawable/right_arrow_white_black" />
-
-                <TextView
-                    android:id="@+id/route_end"
-                    style="@style/TextAppearance.Regular.Gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="叶城县" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/route_start"
+                style="@style/TextAppearance.Regular.Gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:text="拉萨" />
 
-                <TextView
-                    style="@style/TextAppearance.Regular.Gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="计划：" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/right_arrow_white_black" />
 
-                <TextView
-                    android:id="@+id/route_plan_name_day"
-                    style="@style/TextAppearance.Regular.Gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="中等难度（推荐），38天" />
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/route_end"
+                style="@style/TextAppearance.Regular.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="叶城县" />
         </LinearLayout>
-        <!--空白(隐藏)-->
+
+        <!--计划-->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="invisible"></LinearLayout>
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextAppearance.Regular.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="计划：" />
+
+            <TextView
+                android:id="@+id/route_plan_name_day"
+                style="@style/TextAppearance.Regular.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中等难度（推荐），38天" />
+        </LinearLayout>
 
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>
