@@ -49,7 +49,7 @@
     <dimen name="info_header_view_page_height">200dip</dimen>
 
     <dimen name="info_card_margin">10dip</dimen>
-    <dimen name="info_fragment_margin_bottom">15dip</dimen>
+    <dimen name="info_fragment_margin_bottom">10dip</dimen>
     <dimen name="info_card_padding">10dip</dimen>
     <dimen name="info_card_rule_margin">10dip</dimen>
     <dimen name="info_card_rule_height">2dip</dimen>

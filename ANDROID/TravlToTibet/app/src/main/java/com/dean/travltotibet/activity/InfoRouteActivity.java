@@ -33,7 +33,7 @@ public class InfoRouteActivity extends Activity {
     private InfoHeaderFragment headerFragment;
     private InfoPrepareFragment prepareFragment;
 
-    private TextView returnBtn;
+    private ImageView returnBtn;
     private ImageView typeBtn;
 
     private View headerBar;
@@ -90,11 +90,10 @@ public class InfoRouteActivity extends Activity {
         headerBackground = findViewById(R.id.header_actionbar_background);
 
         headerBackground.setAlpha(0);
-        returnBtn = (TextView)this.findViewById(R.id.header_return_btn);
+        returnBtn = (ImageView)this.findViewById(R.id.header_return_btn);
         typeBtn = (ImageView) this.findViewById(R.id.header_travel_type);
 
         // 设置按钮文字和按钮图片
-        returnBtn.setText(getRouteName());
         typeBtn.setImageDrawable(TravelType.getTypeImageSrc(getRouteType()));
 
         // 设置监听

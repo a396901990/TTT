@@ -62,7 +62,7 @@ public class InfoHeaderFragment extends BaseInfoFragment {
                     .image(url_maps.get(name))
                     .setScaleType(BaseSliderView.ScaleType.Fit)
                     .showImageResForEmpty(R.drawable.right_arrow)
-                    .showImageResForError(R.drawable.right_arrow1);
+                    .showImageResForError(R.drawable.right_arrow);
             textSliderView.getBundle()
                     .putString("extra",name);
             mDefaultIndicator.addSlider(textSliderView);

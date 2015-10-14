@@ -48,7 +48,7 @@ public class InfoGridAdapter extends BaseAdapter {
         content.setImageSrc(InfoType.INFO_IMAGE.get(getItem(position)));
         content.setLabelText(InfoType.INFO_TEXT.get(getItem(position)));
         content.setBackgroundResource(InfoType.INFO_COLOR.get(getItem(position)));
-        //content.setBackgroundResource(R.color.light_blue);
+        //content.setBackgroundResource(R.color.gray);
         content.setClickable(false);
         content.setFocusable(false);
         content.setFocusableInTouchMode(false);

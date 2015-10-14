@@ -30,4 +30,9 @@
         <attr name="text" />
         <attr name="text_size" />
     </declare-styleable>
+
+    <declare-styleable name="ExpandableTextView">
+        <attr name="expanded" format="boolean" />
+        <attr name="minLines" format="integer" />
+    </declare-styleable>
 </resources>

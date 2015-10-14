@@ -26,8 +26,15 @@
                 android:name="com.dean.travltotibet.fragment.InfoHeaderFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="@dimen/info_fragment_margin_bottom" />
+                android:layout_alignParentTop="true" />
+
+            <!--详细-->
+            <fragment
+                android:id="@+id/info_detail_fragment"
+                android:name="com.dean.travltotibet.fragment.InfoDetailFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_header_fragment" />
 
             <!--准备-->
             <fragment
@@ -35,7 +42,7 @@
                 android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/info_header_fragment" />
+                android:layout_below="@+id/info_detail_fragment" />
 
             <!--控制最后距离-->
             <LinearLayout
@@ -75,11 +82,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/top_line_rule"
             android:layout_marginBottom="@dimen/topLine_margin"
-            android:background="@color/orange_red" />
+            android:background="@color/gray" />
 
         <Button
             android:id="@+id/goButton"
-            style="@style/OrangeRedButton"
+            style="@style/DarkGrayButton"
             android:layout_marginBottom="@dimen/bottom_padding"
             android:layout_marginLeft="@dimen/generic_button_padding"
             android:layout_marginRight="@dimen/generic_button_padding"

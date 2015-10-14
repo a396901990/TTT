@@ -15,8 +15,8 @@
 
         <!--标题-->
         <TextView
-            style="@style/TextAppearance.Medium.Bold"
-            android:textColor="@color/orange_red"
+            style="@style/TextAppearance.Medium"
+            android:textColor="@color/dark_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/info_prepare_title" />
@@ -27,7 +27,7 @@
             android:layout_height="@dimen/info_card_rule_height"
             android:layout_marginBottom="@dimen/info_card_rule_margin"
             android:layout_marginTop="@dimen/info_card_rule_margin"
-            android:background="@color/orange_red"></View>
+            android:background="@color/gray"></View>
 
         <!--内容视图-->
         <com.dean.travltotibet.ui.ScrollGridView

@@ -98,6 +98,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextAppearance.XXLarge.Gray" parent="TextAppearance.XXLarge">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="TextAppearance.XXLarge.Black.Bold" parent="TextAppearance.XXLarge">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>

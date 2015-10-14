@@ -30,6 +30,7 @@
     <color name="head_line_bg">#cccccc</color>
     <color name="nav_row_divider">#4C4C4C</color>
     <color name="light_black">#212121</color>
+    <color name="dark_gray">#424242</color>
 
     <!-- lock button -->
     <color name="top_line_bg">#CCC</color>

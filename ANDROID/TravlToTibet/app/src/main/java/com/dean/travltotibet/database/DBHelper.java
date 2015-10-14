@@ -282,6 +282,24 @@ public class DBHelper {
     }
 
     /**
+     * 获取route距离
+     */
+    public String getRouteDistance(String route) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(RouteDao.Properties.Route.eq(route));
+        return qb.list().get(0).getDistance();
+    }
+
+    /**
+     * 获取route详细介绍
+     */
+    public String getRouteDetail(String route) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(RouteDao.Properties.Route.eq(route));
+        return qb.list().get(0).getDetail();
+    }
+
+    /**
      * 查询所有计划信息
      */
     public List<Plan> getPlanList(int routePlanId) {

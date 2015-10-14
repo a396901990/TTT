@@ -39,19 +39,19 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     private InfoGridAdapter adapter;
 
     private InfoType[] BIKES = new InfoType[] {
-            InfoType.ROUTE_DETAIL, InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_BIKE, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
+            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_BIKE, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
     };
 
     private InfoType[] HIKES = new InfoType[] {
-            InfoType.ROUTE_DETAIL, InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_HIKE, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
+            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_HIKE, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
     };
 
     private InfoType[] MOTOS = new InfoType[] {
-            InfoType.ROUTE_DETAIL, InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_MOTO, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
+            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_MOTO, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
     };
 
     private InfoType[] CARS = new InfoType[] {
-            InfoType.ROUTE_DETAIL, InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_CAR, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
+            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_CAR, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
     };
 
     @Override
