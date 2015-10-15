@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.dean.greendao.RecentRoute;
-import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.MainActivity;
+import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
 import com.dean.travltotibet.adapter.RecentListAdapter;
 import com.dean.travltotibet.util.Constants;
 
@@ -35,7 +32,7 @@ public class RecentFragment extends Fragment {
     private RecentListAdapter mAdapter;
     private ArrayList<RecentRoute> recentRoutes;
     private View deleteBtn;
-    private MainActivity mActivity;
+    private HomeActivity mActivity;
 
     public RecentFragment() {
     }
@@ -55,7 +52,7 @@ public class RecentFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (MainActivity)getActivity();
+        mActivity = (HomeActivity)getActivity();
 
         getRecentData();
         initList();

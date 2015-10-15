@@ -49,20 +49,28 @@ public class InfoHeaderFragment extends BaseInfoFragment {
 
         infoRouteActivity = (InfoRouteActivity) getActivity();
         mDefaultIndicator = (InfiniteIndicatorLayout) root.findViewById(R.id.indicator_default_circle);
-        HashMap<String,Integer> url_maps = new HashMap<String, Integer>();
-        url_maps = new HashMap<String, Integer>();
-        url_maps.put("Page A", R.drawable.show_temp);
-        url_maps.put("Page B", R.drawable.show_temp);
-        url_maps.put("Page C", R.drawable.show_temp);
-        url_maps.put("Page D", R.drawable.show_temp);
+//        HashMap<String,Integer> url_maps = new HashMap<String, Integer>();
+//        url_maps = new HashMap<String, Integer>();
+//        url_maps.put("Page A", R.drawable.show_temp);
+//        url_maps.put("Page B", R.drawable.show_temp);
+//        url_maps.put("Page C", R.drawable.show_temp);
+//        url_maps.put("Page D", R.drawable.show_temp);
+
+        HashMap<String,String> url_maps = new HashMap<String, String>();
+        url_maps = new HashMap<String, String>();
+        url_maps.put("Page A", "http://img0.ph.126.net/-S17SIiZT09Vu27xZ6m0jQ==/6630696130768649889.jpg");
+        url_maps.put("Page B", "http://img1.ph.126.net/M1Xy4XT4uEFnDpg7WrbUNQ==/6630275017815117694.jpg");
+        url_maps.put("Page C", "http://img5.uutuu.com/data5/a/ph/large/071128/e64b9d80bce2a44326daf788af28fb8c.jpg");
+        url_maps.put("Page D", "http://s1.sinaimg.cn/mw690/005DAgR4ty6NBXTJCSY50&690");
+        url_maps.put("Page E", "http://s1.doyouhike.net/files/2010/02/02/0/09e851076feaa8fba7957b739b36b65b.jpg");
 
         for(String name : url_maps.keySet()) {
             DefaultSliderView textSliderView = new DefaultSliderView(getActivity());
             textSliderView
                     .image(url_maps.get(name))
                     .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .showImageResForEmpty(R.drawable.right_arrow)
-                    .showImageResForError(R.drawable.right_arrow);
+                    .showImageResForEmpty(R.color.gray)
+                    .showImageResForError(R.color.gray);
             textSliderView.getBundle()
                     .putString("extra",name);
             mDefaultIndicator.addSlider(textSliderView);

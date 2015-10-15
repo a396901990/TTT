@@ -1,24 +1,18 @@
 package com.dean.travltotibet.activity;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.volley.RequestQueue;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.fragment.RecentFragment;
-import com.dean.travltotibet.fragment.RoutePlanFragment;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -26,7 +20,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 /**
  * Created by DeanGuo on 9/30/15.
  */
-public class MainActivity extends SlidingFragmentActivity {
+public class HomeActivity extends SlidingFragmentActivity {
 
     private String route = "XINZANG";
 
@@ -39,27 +33,12 @@ public class MainActivity extends SlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.home_view);
 
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setIcon(getResources().getDrawable(R.drawable.car_disable));
         initMenu();
-
-        Button b = (Button) findViewById(R.id.btn);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialogFragment = new TravelTypeDialog();
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.INTENT_ROUTE, route);
-                bundle.putString(Constants.INTENT_ROUTE_NAME, routeName);
-                bundle.putString(Constants.INTENT_FROM_WHERE, TravelTypeDialog.FROM_FIRST);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
-            }
-        });
-
     }
 
     private void initMenu() {
@@ -118,7 +97,6 @@ public class MainActivity extends SlidingFragmentActivity {
             slidingMenu.showMenu();
         }
         else if (id == android.R.id.home) {
-            TTTApplication.getDbHelper().cleanRecentRoutes();
         }
 
         return super.onOptionsItemSelected(item);
