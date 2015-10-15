@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_black"
+    android:background="@color/dark_gray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -28,7 +28,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/recent_item_title_line_height"
-        android:background="@color/black"
+        android:background="@color/light_black"
         android:paddingBottom="@dimen/recent_item_content_padding"
         android:paddingTop="@dimen/recent_item_content_padding" />
 

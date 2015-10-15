@@ -247,7 +247,7 @@ public class RouteActivity
         slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
         // 设置滑动方向
         slidingMenu.setMode(SlidingMenu.RIGHT);
-        //slidingMenu.setMenu(R.layout.menu_layout);
+        //slidingMenu.setMenu(R.layout.menu_fragment_layout);
 
 //        // slidingMenu.setBehindScrollScale(1.0f);
 //        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);

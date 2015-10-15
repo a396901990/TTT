@@ -11,13 +11,21 @@ import com.dean.travltotibet.R;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class MenuFragment extends Fragment {
+public class HomeMenuFragment extends Fragment {
 
     private View root;
 
+    public HomeMenuFragment() {
+    }
+
+    public static HomeMenuFragment newInstance() {
+        HomeMenuFragment fragment = new HomeMenuFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.main_tab_01, null);
+        root = inflater.inflate(R.layout.menu_layout, null);
         return root;
     }
 

@@ -1,19 +1,14 @@
 package com.dean.travltotibet.activity;
 
 import android.app.ActionBar;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.RecentFragment;
-import com.dean.travltotibet.fragment.TravelTypeDialog;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.fragment.HomeMenuFragment;
+import com.dean.travltotibet.fragment.HomeRecentFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -28,7 +23,8 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private SlidingMenu slidingMenu;
 
-    private RecentFragment recentFragment;
+    private HomeRecentFragment homeRecentFragment;
+    private HomeMenuFragment homeMenuFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,22 +39,31 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private void initMenu() {
 
-        // recent fragment
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.recentFragment);
-        if (fragment == null) {
-            recentFragment = RecentFragment.newInstance();
-            getFragmentManager().beginTransaction().replace(R.id.recentFragment, recentFragment).commit();
+        // menu fragment
+        Fragment menuFragment = getFragmentManager().findFragmentById(R.id.menuFragment);
+        if (menuFragment == null) {
+            homeMenuFragment = HomeMenuFragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.menuFragment, homeMenuFragment).commit();
         } else {
-            recentFragment = (RecentFragment) fragment;
+            homeMenuFragment = (HomeMenuFragment) menuFragment;
+        }
+
+        // recent fragment
+        Fragment recentFragment = getFragmentManager().findFragmentById(R.id.recentFragment);
+        if (recentFragment == null) {
+            homeRecentFragment = HomeRecentFragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.recentFragment, homeRecentFragment).commit();
+        } else {
+            homeRecentFragment = (HomeRecentFragment) recentFragment;
         }
 
         // 设置主菜单
-        setBehindContentView(R.layout.recent_fragment_layout);
+        setBehindContentView(R.layout.menu_fragment_layout);
         // 初始化menu
         slidingMenu = super.getSlidingMenu();
 
         // 设置触摸屏幕的模式 全屏：TOUCHMODE_FULLSCREEN ；边缘：TOUCHMODE_MARGIN ；不打开：TOUCHMODE_NONE
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         // 设置是否淡入淡出
         slidingMenu.setFadeEnabled(true);
         // 设置淡入淡出的值，只在setFadeEnabled设置为true时有效
@@ -70,13 +75,13 @@ public class HomeActivity extends SlidingFragmentActivity {
         // 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
         slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
         // 设置滑动方向
-        slidingMenu.setMode(SlidingMenu.RIGHT);
-        //slidingMenu.setMenu(R.layout.menu_layout);
+        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
+        //slidingMenu.setMenu(R.layout.menu_fragment_layout);
 
-//        // slidingMenu.setBehindScrollScale(1.0f);
-//        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
-//        //设置右边（二级）侧滑菜单
-//        slidingMenu.setSecondaryMenu(R.layout.route_fragment_layout);
+        // slidingMenu.setBehindScrollScale(1.0f);
+        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
+        //设置右边（二级）侧滑菜单
+        slidingMenu.setSecondaryMenu(R.layout.recent_fragment_layout);
 
         // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
         // menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
@@ -93,10 +98,11 @@ public class HomeActivity extends SlidingFragmentActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_recent) {
-            recentFragment.updateRecentData();
-            slidingMenu.showMenu();
+            homeRecentFragment.updateRecentData();
+            slidingMenu.showSecondaryMenu();
         }
         else if (id == android.R.id.home) {
+            slidingMenu.showMenu();
         }
 
         return super.onOptionsItemSelected(item);

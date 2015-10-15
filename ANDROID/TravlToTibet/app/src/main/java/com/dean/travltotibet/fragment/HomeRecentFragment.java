@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 10/10/15.
  */
-public class RecentFragment extends Fragment {
+public class HomeRecentFragment extends Fragment {
 
     private View root;
     private ListView mListView;
@@ -34,18 +34,18 @@ public class RecentFragment extends Fragment {
     private View deleteBtn;
     private HomeActivity mActivity;
 
-    public RecentFragment() {
+    public HomeRecentFragment() {
     }
 
-    public static RecentFragment newInstance() {
-        RecentFragment fragment = new RecentFragment();
+    public static HomeRecentFragment newInstance() {
+        HomeRecentFragment fragment = new HomeRecentFragment();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.recent_fragment, container, false);
+        root = inflater.inflate(R.layout.recent_layout, container, false);
         return root;
     }
 
@@ -120,7 +120,7 @@ public class RecentFragment extends Fragment {
                     startActivity(intent);
 
                     // 关闭菜单
-                    if (mActivity.getSlidingMenu().isMenuShowing()) {
+                    if (mActivity.getSlidingMenu().isSecondaryMenuShowing()) {
                         mActivity.getSlidingMenu().toggle();
                     }
 
