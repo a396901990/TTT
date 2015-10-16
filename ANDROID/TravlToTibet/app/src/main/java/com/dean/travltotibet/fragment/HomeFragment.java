@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,21 +16,26 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.HomeGridAdapter;
-import com.dean.travltotibet.ui.ScrollGridView;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
 
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.DefaultHeaderTransformer;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
 /**
  * Created by DeanGuo on 10/15/15.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnRefreshListener {
 
     private View root;
     private GridView gridView;
     private HomeGridAdapter adapter;
     private ArrayList<Route> routes;
     private HomeActivity mActivity;
+    private PullToRefreshLayout mPullToRefreshLayout;
 
     public HomeFragment() {
     }
@@ -49,10 +55,23 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (HomeActivity)getActivity();
+        mActivity = (HomeActivity) getActivity();
 
         getRouteData();
         initGridView();
+        initPullToRefresh();
+    }
+
+    private void initPullToRefresh() {
+        mPullToRefreshLayout = (PullToRefreshLayout) root.findViewById(R.id.pull_to_refresh_view);
+        ActionBarPullToRefresh.from(getActivity())
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
+
+        // 设置ProgressBar颜色为白色
+        DefaultHeaderTransformer transformer = (DefaultHeaderTransformer) mPullToRefreshLayout.getHeaderTransformer();
+        transformer.setProgressBarColor(getResources().getColor(R.color.white_background));
     }
 
     private void initGridView() {
@@ -84,5 +103,19 @@ public class HomeFragment extends Fragment {
         }
     }
 
-
+    /**
+     * 刷新视图
+     */
+    @Override
+    public void onRefreshStarted(View view) {
+        mPullToRefreshLayout.setRefreshing(true);
+        // Simulate a long running activity
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.setData(routes);
+                mPullToRefreshLayout.setRefreshing(false);
+            }
+        }, 3000);
+    }
 }

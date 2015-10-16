@@ -22,4 +22,8 @@
     <string name="delete_recent_msg">是否要清空所有浏览记录？</string>
     <string name="delete_recent_title">清空记录</string>
     <string name="title_activity_home_setting">设置</string>
+
+    <string name="ptr_pull_text">下拉刷新</string>
+    <string name="ptr_refreshing_text">加载中...</string>
+    <string name="ptr_release_text">加载完成</string>
 </resources>

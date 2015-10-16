@@ -35,4 +35,5 @@ dependencies {
     compile files('libs/baidumapapi_v3_5_0.jar')
     compile 'cn.lightsky.infiniteindicator:library:1.0.3'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 }
