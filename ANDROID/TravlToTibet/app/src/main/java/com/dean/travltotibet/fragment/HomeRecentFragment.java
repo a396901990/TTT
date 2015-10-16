@@ -120,7 +120,7 @@ public class HomeRecentFragment extends Fragment {
                     startActivity(intent);
 
                     // 关闭菜单
-                    if (mActivity.getSlidingMenu().isSecondaryMenuShowing()) {
+                    if (mActivity.getSlidingMenu().isMenuShowing()) {
                         mActivity.getSlidingMenu().toggle();
                     }
 

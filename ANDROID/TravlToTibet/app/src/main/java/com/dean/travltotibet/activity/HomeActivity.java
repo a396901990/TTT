@@ -1,13 +1,13 @@
 package com.dean.travltotibet.activity;
 
-import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.fragment.HomeMenuFragment;
+import com.dean.travltotibet.fragment.HomeSettingFragment;
 import com.dean.travltotibet.fragment.HomeRecentFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -17,38 +17,27 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
  */
 public class HomeActivity extends SlidingFragmentActivity {
 
-    private String route = "XINZANG";
+    private String route;
 
-    private String routeName = "新藏线";
+    private String routeName;
 
     private SlidingMenu slidingMenu;
 
     private HomeRecentFragment homeRecentFragment;
-    private HomeMenuFragment homeMenuFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_view);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setIcon(getResources().getDrawable(R.drawable.car_disable));
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setIcon(getResources().getDrawable(R.drawable.car_disable));
         initMenu();
     }
 
     private void initMenu() {
 
-        // menu fragment
-        Fragment menuFragment = getFragmentManager().findFragmentById(R.id.menuFragment);
-        if (menuFragment == null) {
-            homeMenuFragment = HomeMenuFragment.newInstance();
-            getFragmentManager().beginTransaction().replace(R.id.menuFragment, homeMenuFragment).commit();
-        } else {
-            homeMenuFragment = (HomeMenuFragment) menuFragment;
-        }
-
-        // recent fragment
         Fragment recentFragment = getFragmentManager().findFragmentById(R.id.recentFragment);
         if (recentFragment == null) {
             homeRecentFragment = HomeRecentFragment.newInstance();
@@ -58,7 +47,7 @@ public class HomeActivity extends SlidingFragmentActivity {
         }
 
         // 设置主菜单
-        setBehindContentView(R.layout.menu_fragment_layout);
+        setBehindContentView(R.layout.recent_fragment_layout);
         // 初始化menu
         slidingMenu = super.getSlidingMenu();
 
@@ -75,13 +64,13 @@ public class HomeActivity extends SlidingFragmentActivity {
         // 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
         slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
         // 设置滑动方向
-        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
+        slidingMenu.setMode(SlidingMenu.RIGHT);
         //slidingMenu.setMenu(R.layout.menu_fragment_layout);
 
-        // slidingMenu.setBehindScrollScale(1.0f);
-        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
-        //设置右边（二级）侧滑菜单
-        slidingMenu.setSecondaryMenu(R.layout.recent_fragment_layout);
+//        // slidingMenu.setBehindScrollScale(1.0f);
+//        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
+//        //设置右边（二级）侧滑菜单
+//        slidingMenu.setSecondaryMenu(R.layout.recent_fragment_layout);
 
         // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
         // menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
@@ -97,9 +86,13 @@ public class HomeActivity extends SlidingFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_recent) {
+        if (id == R.id.action_history) {
             homeRecentFragment.updateRecentData();
-            slidingMenu.showSecondaryMenu();
+            slidingMenu.showMenu();
+        }
+        else if (id == R.id.action_setting) {
+            Intent intent = new Intent(this, HomeSettingActivity.class);
+            startActivity(intent);
         }
         else if (id == android.R.id.home) {
             slidingMenu.showMenu();

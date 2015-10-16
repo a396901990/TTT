@@ -86,7 +86,7 @@
 
         <Button
             android:id="@+id/goButton"
-            style="@style/DarkGrayButton"
+            style="@style/DarkBlueButton"
             android:layout_marginBottom="@dimen/bottom_padding"
             android:layout_marginLeft="@dimen/generic_button_padding"
             android:layout_marginRight="@dimen/generic_button_padding"
@@ -97,7 +97,7 @@
     <include
         layout="@layout/info_header_bar_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/info_header_height"
+        android:layout_height="@dimen/header_bar_height"
         android:layout_alignParentTop="true"></include>
 
 </RelativeLayout>

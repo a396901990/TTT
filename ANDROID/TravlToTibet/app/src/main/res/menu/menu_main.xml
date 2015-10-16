@@ -1,7 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/action_recent"
-        android:icon="@drawable/recent_history"
+        android:id="@+id/action_setting"
+        android:icon="@drawable/setting_icon_white"
+        android:showAsAction="always"
+        android:title="@string/action_setting" />
+
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/history_icon_white"
         android:showAsAction="always"
         android:title="@string/action_recent" />
 

@@ -8,7 +8,7 @@
         android:id="@+id/header_actionbar_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_gray"
+        android:background="@color/dark_blue"
         android:orientation="horizontal" />
 
     <RelativeLayout
@@ -24,8 +24,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
-            android:paddingLeft="8dp"
-            android:src="@drawable/left_back_arrow" />
+            android:paddingLeft="15dp"
+            android:src="@drawable/header_return_back_btn" />
 
         <!--最右边按钮-->
         <ImageView
@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingRight="10dp"
+            android:paddingRight="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_bike_white" />
 
