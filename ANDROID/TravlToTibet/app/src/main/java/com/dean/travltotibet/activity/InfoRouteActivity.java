@@ -94,7 +94,7 @@ public class InfoRouteActivity extends Activity {
         typeBtn = (ImageView) this.findViewById(R.id.header_travel_type);
 
         // 设置按钮文字和按钮图片
-        typeBtn.setImageDrawable(TravelType.getTypeImageSrc(getRouteType()));
+        typeBtn.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
 
         // 设置监听
         returnBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +142,7 @@ public class InfoRouteActivity extends Activity {
         // 更新routeType
         setRouteType(routeType);
         // 更新图标
-        typeBtn.setImageDrawable(TravelType.getTypeImageSrc(getRouteType()));
+        typeBtn.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
 
         // update headerFragment
         if (headerFragment.isAdded()) {

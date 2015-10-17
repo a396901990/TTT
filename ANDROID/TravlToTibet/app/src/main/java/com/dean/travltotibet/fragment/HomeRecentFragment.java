@@ -141,9 +141,6 @@ public class HomeRecentFragment extends Fragment {
      */
     private void getRecentData() {
         recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
-        for (RecentRoute recentRoute : recentRoutes) {
-            Log.e("recentRoute", recentRoute.toString());
-        }
     }
 
 

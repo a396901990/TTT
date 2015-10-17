@@ -16,9 +16,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:imageSrc="@drawable/bike_disable"
+            app:imageSrc="@drawable/icon_bike_dark_blue"
             app:labelText="骑行"
-            app:labelTextColor="@color/gray" />
+            app:labelTextColor="@color/dark_blue" />
 
         <com.dean.travltotibet.ui.SquareImageView
             android:background="@drawable/btn_click_background"
@@ -26,9 +26,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:imageSrc="@drawable/hiking_disable"
+            app:imageSrc="@drawable/icon_hike_dark_blue"
             app:labelText="徒步"
-            app:labelTextColor="@color/gray" />
+            app:labelTextColor="@color/dark_blue" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,9 +42,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:imageSrc="@drawable/moto_disable"
+            app:imageSrc="@drawable/icon_moto_dark_blue"
             app:labelText="摩托"
-            app:labelTextColor="@color/gray" />
+            app:labelTextColor="@color/dark_blue" />
 
         <com.dean.travltotibet.ui.SquareImageView
             android:background="@drawable/btn_click_background"
@@ -52,9 +52,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:imageSrc="@drawable/car_disable"
+            app:imageSrc="@drawable/icon_car_dark_blue"
             app:labelText="自驾"
-            app:labelTextColor="@color/gray" />
+            app:labelTextColor="@color/dark_blue" />
     </LinearLayout>
 
 </LinearLayout>

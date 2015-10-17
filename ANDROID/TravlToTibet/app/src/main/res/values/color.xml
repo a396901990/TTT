@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green">#3F7E0A</color>
     <color name="light_green">#9CCC65</color>
+    <color name="dark_green">#43A047</color>
+    <color name="teal">#009688</color>
+
+    <color name="sky_blue">#87CEEB</color>
+    <color name="light_blue">#87CEFA</color>
+    <color name="less_dark_blue">#2196F3</color>
+    <color name="dark_blue">#1E88E5</color>
+    <color name="blue">#0F57C2</color>
+
+    <color name="orange_red">#FF4500</color>
+    <color name="orange">#FFA726</color>
+    <color name="light_lime">#D4E157</color>
+    <color name="light_orange">#FFC107</color>
+    <color name="dark_orange">#FB8C00</color>
+    <color name="lime">#CDDC39</color>
+
     <color name="white_gray">#E0E0E0</color>
     <color name="white_background">#FFF</color>
     <color name="gray_background">#EFEFEF</color>
     <color name="gray">#999</color>
     <color name="light_gray">#CCCCCC</color>
     <color name="dark_gray_background">#DDD</color>
-    <color name="green">#3F7E0A</color>
     <color name="red">#961E26</color>
-    <color name="blue">#0F57C2</color>
     <color name="opaque">#80000000</color>
     <color name="rule">#DDD</color>
-    <color name="sky_blue">#87CEEB</color>
-    <color name="light_blue">#87CEFA</color>
-    <color name="dark_blue">#1E88E5</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="orange_red">#FF4500</color>
     <color name="brown">#795548</color>
-    <color name="teal">#009688</color>
-    <color name="lime">#CDDC39</color>
     <color name="blue_gray">#607D8B</color>
     <color name="plan_row_divider">#4C4C4C</color>
-    <color name="orange">#FFA726</color>
-    <color name="light_lime">#D4E157</color>
-    <color name="light_orange">#FFC107</color>
     <color name="background_selected">#545454</color>
     <color name="time_line_bg">#b3b3b3</color>
     <color name="head_line_bg">#cccccc</color>

@@ -163,13 +163,13 @@ public class RouteActivity
 
         switch (index) {
             case 0:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.light_blue));
+                ((TextView) v).setTextColor(getResources().getColor(R.color.dark_blue));
                 break;
             case 1:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.light_green));
+                ((TextView) v).setTextColor(getResources().getColor(R.color.dark_green));
                 break;
             case 2:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.light_orange));
+                ((TextView) v).setTextColor(getResources().getColor(R.color.dark_orange));
                 break;
             default:
                 break;
@@ -182,27 +182,27 @@ public class RouteActivity
     private void resetColorAndBackground(int index) {
         switch (index) {
             case 0:
-                headerView.setBackgroundResource(R.color.light_blue);
+                headerView.setBackgroundResource(R.color.dark_blue);
 
-                heightTab.setBackgroundResource(R.color.light_blue);
-                mapTab.setBackgroundResource(R.color.light_blue);
-                guideTab.setBackgroundResource(R.color.light_blue);
+                heightTab.setBackgroundResource(R.color.dark_blue);
+                mapTab.setBackgroundResource(R.color.dark_blue);
+                guideTab.setBackgroundResource(R.color.dark_blue);
 
                 break;
             case 1:
-                headerView.setBackgroundResource(R.color.light_green);
+                headerView.setBackgroundResource(R.color.dark_green);
 
-                heightTab.setBackgroundResource(R.color.light_green);
-                mapTab.setBackgroundResource(R.color.light_green);
-                guideTab.setBackgroundResource(R.color.light_green);
+                heightTab.setBackgroundResource(R.color.dark_green);
+                mapTab.setBackgroundResource(R.color.dark_green);
+                guideTab.setBackgroundResource(R.color.dark_green);
 
                 break;
             case 2:
-                headerView.setBackgroundResource(R.color.light_orange);
+                headerView.setBackgroundResource(R.color.dark_orange);
 
-                heightTab.setBackgroundResource(R.color.light_orange);
-                mapTab.setBackgroundResource(R.color.light_orange);
-                guideTab.setBackgroundResource(R.color.light_orange);
+                heightTab.setBackgroundResource(R.color.dark_orange);
+                mapTab.setBackgroundResource(R.color.dark_orange);
+                guideTab.setBackgroundResource(R.color.dark_orange);
 
                 break;
             default:

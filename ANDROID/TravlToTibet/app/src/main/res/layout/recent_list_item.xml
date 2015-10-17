@@ -27,7 +27,7 @@
                 android:layout_width="2dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/white" />
+                android:background="@color/dark_blue" />
         </LinearLayout>
 
         <!--边框+文字+边框+图标+边框-->
@@ -49,12 +49,12 @@
                     android:layout_width="@dimen/recent_item_title_left_line"
                     android:layout_height="@dimen/recent_item_title_line_height"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/white"></View>
+                    android:background="@color/dark_blue"></View>
 
                 <!--线路标题-->
                 <TextView
                     android:id="@+id/route_name"
-                    style="@style/TextAppearance.Large.Withe"
+                    style="@style/TextAppearance.Large.Blue.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -69,7 +69,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/border_right"
                 android:layout_toRightOf="@+id/border_left"
-                android:background="@color/white"></View>
+                android:background="@color/dark_blue"></View>
 
             <!--右侧图标加边框-->
             <LinearLayout
@@ -93,7 +93,7 @@
                     android:layout_width="@dimen/recent_item_title_right_line"
                     android:layout_height="@dimen/recent_item_title_line_height"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/white"></View>
+                    android:background="@color/dark_blue"></View>
             </LinearLayout>
         </RelativeLayout>
 
@@ -113,7 +113,7 @@
                 android:layout_width="2dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/white" />
+                android:background="@color/dark_blue" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -121,7 +121,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_transparent_white"
+        android:background="@drawable/border_transparent_blue"
         android:orientation="vertical"
         android:paddingBottom="@dimen/recent_item_content_padding"
         android:paddingLeft="@dimen/recent_item_content_padding">
@@ -133,7 +133,7 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/TextAppearance.Regular.Gray"
+                style="@style/TextAppearance.Regular.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -141,7 +141,7 @@
 
             <TextView
                 android:id="@+id/route_start"
-                style="@style/TextAppearance.Regular.Gray"
+                style="@style/TextAppearance.Regular.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -152,11 +152,11 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:src="@drawable/right_arrow_white_black" />
+                android:src="@drawable/right_arrow_blue" />
 
             <TextView
                 android:id="@+id/route_end"
-                style="@style/TextAppearance.Regular.Gray"
+                style="@style/TextAppearance.Regular.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -170,7 +170,7 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/TextAppearance.Regular.Gray"
+                style="@style/TextAppearance.Regular.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -178,7 +178,7 @@
 
             <TextView
                 android:id="@+id/route_plan_name_day"
-                style="@style/TextAppearance.Regular.Gray"
+                style="@style/TextAppearance.Regular.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="中等难度（推荐），38天" />

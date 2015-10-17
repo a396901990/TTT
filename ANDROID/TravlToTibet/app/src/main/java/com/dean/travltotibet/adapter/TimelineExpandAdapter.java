@@ -103,9 +103,9 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         }
 
         ImageView indicatorImage =(ImageView)convertView.findViewById(R.id.title_indicator);
-        indicatorImage.setImageResource(R.drawable.orange_circle_blank);
+        indicatorImage.setImageResource(R.drawable.dark_orange_circle_blank);
         if(!isExpanded){
-            indicatorImage.setImageResource(R.drawable.orange_circle);
+            indicatorImage.setImageResource(R.drawable.dark_orange_circle);
         }
 
         holder.titleName = (TextView) convertView

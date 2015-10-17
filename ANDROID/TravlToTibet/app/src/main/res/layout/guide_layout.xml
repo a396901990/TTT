@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_above="@+id/bottom_tool"
-        android:background="@color/light_orange" />
+        android:background="@color/dark_orange" />
 
     <LinearLayout
         android:id="@+id/bottom_tool"
-        android:background="@color/light_orange"
+        android:background="@color/dark_orange"
         android:layout_width="match_parent"
         android:layout_height="@dimen/indicator_chartview_height"
         android:layout_alignParentBottom="true"

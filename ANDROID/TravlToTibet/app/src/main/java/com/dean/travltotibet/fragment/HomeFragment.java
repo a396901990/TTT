@@ -98,9 +98,6 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
      */
     private void getRouteData() {
         routes = (ArrayList<Route>) TTTApplication.getDbHelper().getRoutsList();
-        for (Route route : routes) {
-            Log.e("route", route.toString());
-        }
     }
 
     /**

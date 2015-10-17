@@ -22,7 +22,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            app:color="@color/light_orange"
+            app:color="@color/dark_orange"
             app:icon_bg="@drawable/route_map_gray"
             app:text="@string/guide_route_name"
             app:text_size="8sp" />
@@ -33,7 +33,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            app:color="@color/light_orange"
+            app:color="@color/dark_orange"
             app:icon_bg="@drawable/hotel_gray"
             app:text="@string/guide_hotel_name"
             app:text_size="8sp" />
@@ -44,7 +44,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            app:color="@color/light_orange"
+            app:color="@color/dark_orange"
             app:icon_bg="@drawable/weather_gray"
             app:text="@string/guide_weather_name"
             app:text_size="8sp" />
@@ -55,7 +55,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            app:color="@color/light_orange"
+            app:color="@color/dark_orange"
             app:icon_bg="@drawable/view_gray"
             app:text="@string/guide_view_name"
             app:text_size="8sp" />

@@ -47,7 +47,7 @@ public enum InfoType {
         INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget);
         INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine);
         INFO_IMAGE.put(InfoType.EQUIP_BIKE, R.drawable.icon_bike_white);
-        INFO_IMAGE.put(InfoType.EQUIP_HIKE, R.drawable.icon_hiking_white);
+        INFO_IMAGE.put(InfoType.EQUIP_HIKE, R.drawable.icon_hike_white);
         INFO_IMAGE.put(InfoType.EQUIP_MOTO, R.drawable.icon_moto_white);
         INFO_IMAGE.put(InfoType.EQUIP_CAR, R.drawable.icon_car_white);
         INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing);
