@@ -5,6 +5,8 @@
     <string name="action_recent">最近查询</string>
     <string name="action_setting">设置</string>
 
+    <string name="travel_type_dialog_title">请选择旅行类型：</string>
+
     <string name="guide_route_name">行程攻略</string>
     <string name="guide_hotel_name">食宿休息</string>
     <string name="guide_food_name">饮食补给</string>

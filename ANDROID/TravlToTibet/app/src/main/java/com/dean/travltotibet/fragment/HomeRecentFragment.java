@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.RecentListAdapter;
+import com.dean.travltotibet.ui.NormalDialog;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class HomeRecentFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (HomeActivity)getActivity();
+        mActivity = (HomeActivity) getActivity();
 
         getRecentData();
         initList();
@@ -67,20 +69,26 @@ public class HomeRecentFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.delete_recent_title)
-                        .setMessage(R.string.delete_recent_msg)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                TTTApplication.getDbHelper().cleanRecentRoutes();
-                                updateRecentData();
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, null);
-                builder.setCancelable(true);
-                builder.create().show();
+
+                final NormalDialog mDialog = new NormalDialog(getActivity(), R.style.Transparent_Dialog);
+                // 对话框视图
+                mDialog.setTitle(getString(R.string.delete_recent_title));
+                mDialog.setMsg(getString(R.string.delete_recent_msg));
+                mDialog.setOKListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TTTApplication.getDbHelper().cleanRecentRoutes();
+                        updateRecentData();
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.setCancelListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.show();
             }
         });
     }

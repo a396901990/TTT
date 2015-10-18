@@ -2,12 +2,15 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
@@ -18,26 +21,31 @@ import com.dean.travltotibet.R;
 public abstract class ThemeDialogFragment extends DialogFragment {
 
     private Dialog mDialog;
+    private Context mContext;
     private View root;
 
-    private TextView title;
+    private TextView mTitle;
     private ImageView closeIcon;
     private Button okButton;
     private Button cancelButton;
 
-    private View mContentView;
+    private LinearLayout mContentView;
     private View mButtonView;
 
+    public ThemeDialogFragment(Context mContext) {
+        this.mContext = mContext;
+    }
+
     public void setDialogTitle(String title) {
-
+        mTitle.setText(title);
     }
 
-    public void setDialogContentView(int resourece) {
-        mDialog.setContentView(resourece);
+    public void setDialogContentView(View view) {
+        mContentView.addView(view);
     }
 
-    public void setDialogCloseButton(DialogInterface.OnClickListener onClickListener) {
-
+    public void setDialogCloseButton(View.OnClickListener onClickListener) {
+        closeIcon.setOnClickListener(onClickListener);
     }
 
     public void setDialogOKButton(String title, DialogInterface.OnClickListener onClickListener) {
@@ -51,18 +59,24 @@ public abstract class ThemeDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mDialog = new Dialog(getActivity(), R.style.Transparent_Dialog);
-//        LayoutInflater inflater = LayoutInflater.from(getActivity());
-//        root = inflater.inflate(R.layout.theme_dialog_layout, null);
-//
-//        title = (TextView) root.findViewById(R.id.dialog_title);
-//        closeIcon = (ImageView) root.findViewById(R.id.dialog_close);
+        mDialog = new Dialog(mContext, R.style.Transparent_Dialog);
+        mDialog.setContentView(R.layout.theme_dialog_layout);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        root = inflater.inflate(R.layout.theme_dialog_layout, null);
 
+        mTitle = (TextView) root.findViewById(R.id.dialog_title);
+        closeIcon = (ImageView) root.findViewById(R.id.dialog_close);
+        closeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+        mContentView = (LinearLayout) root.findViewById(R.id.dialog_content);
     }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        return super.onCreateDialog(savedInstanceState);
+    public Dialog getDialog() {
+        return mDialog;
     }
+
 }

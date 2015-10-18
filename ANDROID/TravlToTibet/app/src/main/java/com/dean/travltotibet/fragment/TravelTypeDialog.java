@@ -1,10 +1,14 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
@@ -18,12 +22,13 @@ import java.util.ArrayList;
  * Created by DeanGuo on 9/23/15.
  * 选择旅行类型
  */
-public class TravelTypeDialog extends ThemeDialogFragment {
+public class TravelTypeDialog extends DialogFragment {
 
     public final static String FROM_FIRST = "from_first";
     public final static String FROM_SECOND = "from_itself";
 
-    private View root;
+    private View contentLayout;
+    private View dialogLayout;
 
     private String fromType;
 
@@ -37,27 +42,55 @@ public class TravelTypeDialog extends ThemeDialogFragment {
     private View moto;
     private View car;
 
+    private TextView mTitle;
+    private ImageView mCloseIcon;
+
+    private Dialog mDialog;
+    private ViewGroup mContentView;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.theme_dialog_layout, null);
+        // 内容视图
+        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.travel_dialog_layout, null);
+        // 对话框视图
+        dialogLayout = LayoutInflater.from(getActivity()).inflate(R.layout.theme_dialog_layout, null);
+
         if (getArguments() != null) {
             route = getArguments().getString(Constants.INTENT_ROUTE);
             routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
             fromType = getArguments().getString(Constants.INTENT_FROM_WHERE);
         }
 
-        initButton();
-        Dialog dialog = new Dialog(getActivity(), R.style.Transparent_Dialog);
-        dialog.setContentView(root);
-        return dialog;
+        initContentView();
+        initDialogView();
+
+        mDialog = new Dialog(getActivity(), R.style.Transparent_Dialog);
+        mDialog.setContentView(dialogLayout);
+        return mDialog;
     }
 
-    private void initButton() {
-        bike = root.findViewById(R.id.travel_bike);
-        hike = root.findViewById(R.id.travel_hike);
-        moto = root.findViewById(R.id.travel_moto);
-        car = root.findViewById(R.id.travel_car);
+    private void initDialogView() {
+        mTitle = (TextView) dialogLayout.findViewById(R.id.dialog_title);
+        mTitle.setText(getString(R.string.travel_type_dialog_title));
+
+        mCloseIcon = (ImageView) dialogLayout.findViewById(R.id.dialog_close);
+        mCloseIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+
+        mContentView = (ViewGroup) dialogLayout.findViewById(R.id.dialog_content);
+        mContentView.addView(contentLayout);
+    }
+
+    private void initContentView() {
+        bike = contentLayout.findViewById(R.id.travel_bike);
+        hike = contentLayout.findViewById(R.id.travel_hike);
+        moto = contentLayout.findViewById(R.id.travel_moto);
+        car = contentLayout.findViewById(R.id.travel_car);
 
         bike.setOnClickListener(new View.OnClickListener() {
             @Override
