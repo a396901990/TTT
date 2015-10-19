@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/route_plan_dialog_padding">
 
@@ -27,15 +27,9 @@
             android:orientation="vertical"
             android:padding="@dimen/route_plan_dialog_dir_view_padding">
 
-            <!--<TextView-->
-            <!--style="@style/TextAppearance.Small.Gray"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="from" />-->
-
             <TextView
                 android:id="@+id/from_text"
-                style="@style/TextAppearance.XXXLarge.Black.Bold"
+                style="@style/TextAppearance.XXLarge.DarkBlue.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -46,7 +40,7 @@
             android:layout_height="@dimen/route_plan_dialog_dir_view_image"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/rotate_arrow" />
+            android:src="@drawable/rotate_arrow_blue" />
 
         <LinearLayout
             android:id="@+id/to_view"
@@ -57,15 +51,9 @@
             android:orientation="vertical"
             android:padding="@dimen/route_plan_dialog_dir_view_padding">
 
-            <!--<TextView-->
-            <!--style="@style/TextAppearance.Medium.Grey"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="to" />-->
-
             <TextView
                 android:id="@+id/to_text"
-                style="@style/TextAppearance.XXXLarge.Black.Bold"
+                style="@style/TextAppearance.XXLarge.DarkBlue.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -82,8 +70,9 @@
     <!--列表视图-->
     <ListView
         android:id="@+id/plan_list"
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/gray_background"
-        android:dividerHeight="3dip"></ListView>
+        android:layout_height="match_parent"
+        android:divider="@color/light_gray"
+        android:dividerHeight="1dip"></ListView>
 </LinearLayout>

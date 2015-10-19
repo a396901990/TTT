@@ -10,6 +10,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="TextAppearance.Small.LightBlue" parent="TextAppearance.Small">
+        <item name="android:textColor">@color/less_dark_blue</item>
+    </style>
+
     <style name="TextAppearance.Small.White" parent="TextAppearance.Small">
         <item name="android:textColor">@color/white</item>
     </style>
@@ -48,7 +52,7 @@
     </style>
 
     <style name="TextAppearance.Medium.Blue" parent="TextAppearance.Medium">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/dark_blue</item>
     </style>
 
     <style name="TextAppearance.Medium.White" parent="TextAppearance.Medium">

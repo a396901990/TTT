@@ -56,9 +56,10 @@ public class TravelTypeDialog extends DialogFragment {
 
         initContentView();
 
-        final CustomDialog dialog = new CustomDialog(getActivity(), R.style.Transparent_Dialog);
-        dialog.setCustomContentView(contentLayout);
+        // 创建对话框，设置标题，布局，关闭响应
+        final CustomDialog dialog = new CustomDialog(getActivity());
         dialog.setTitle(getString(R.string.travel_type_dialog_title));
+        dialog.setCustomContentView(contentLayout);
         dialog.setCloseListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

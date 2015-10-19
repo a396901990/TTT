@@ -21,6 +21,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
+import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class InfoConfirmDialog extends DialogFragment {
 
     private InfoRouteActivity infoRouteActivity;
 
-    private View root;
+    private View contentLayout;
     private boolean isForward = true;
 
     private String route;
@@ -55,7 +56,7 @@ public class InfoConfirmDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         infoRouteActivity = (InfoRouteActivity) getActivity();
 
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_confirm_dialog_fragment, null);
+        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_confirm_dialog_fragment, null);
 
         if (getArguments() != null) {
             route = getArguments().getString(Constants.INTENT_ROUTE);
@@ -68,20 +69,28 @@ public class InfoConfirmDialog extends DialogFragment {
         initAnimation();
         initPlanList();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(root).setTitle(routeName);
-        return builder.create();
+        // 创建对话框，设置标题，布局，关闭响应
+        CustomDialog dialog = new CustomDialog(getActivity());
+        dialog.setTitle(routeName);
+        dialog.setCustomContentView(contentLayout);
+        dialog.setCloseListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        return dialog;
     }
 
     /**
      * 初始化方向
      */
     private void initDirection() {
-        fromView = root.findViewById(R.id.from_view);
-        toView = root.findViewById(R.id.to_view);
-        fromText = (TextView) root.findViewById(R.id.from_text);
-        toText = (TextView) root.findViewById(R.id.to_text);
-        rotateArrow = (ImageView) root.findViewById(R.id.arrow);
+        fromView = contentLayout.findViewById(R.id.from_view);
+        toView = contentLayout.findViewById(R.id.to_view);
+        fromText = (TextView) contentLayout.findViewById(R.id.from_text);
+        toText = (TextView) contentLayout.findViewById(R.id.to_text);
+        rotateArrow = (ImageView) contentLayout.findViewById(R.id.arrow);
 
         String from = TTTApplication.getDbHelper().getFromName(route, isForward);
         String to = TTTApplication.getDbHelper().getToName(route, isForward);
@@ -109,7 +118,7 @@ public class InfoConfirmDialog extends DialogFragment {
      * 初始化计划列表
      */
     private void initPlanList() {
-        mListView = (ListView) root.findViewById(R.id.plan_list);
+        mListView = (ListView) contentLayout.findViewById(R.id.plan_list);
         plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(route, routeType, isForward);
         mAdapter = new PrepareRoutePlanListAdapter(infoRouteActivity);
         mAdapter.setData(plans);
