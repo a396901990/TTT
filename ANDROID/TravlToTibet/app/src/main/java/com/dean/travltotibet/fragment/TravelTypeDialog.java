@@ -14,6 +14,7 @@ import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class TravelTypeDialog extends DialogFragment {
     public final static String FROM_SECOND = "from_itself";
 
     private View contentLayout;
-    private View dialogLayout;
 
     private String fromType;
 
@@ -42,19 +42,11 @@ public class TravelTypeDialog extends DialogFragment {
     private View moto;
     private View car;
 
-    private TextView mTitle;
-    private ImageView mCloseIcon;
-
-    private Dialog mDialog;
-    private ViewGroup mContentView;
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // 内容视图
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.travel_dialog_layout, null);
-        // 对话框视图
-        dialogLayout = LayoutInflater.from(getActivity()).inflate(R.layout.theme_dialog_layout, null);
 
         if (getArguments() != null) {
             route = getArguments().getString(Constants.INTENT_ROUTE);
@@ -63,27 +55,17 @@ public class TravelTypeDialog extends DialogFragment {
         }
 
         initContentView();
-        initDialogView();
 
-        mDialog = new Dialog(getActivity(), R.style.Transparent_Dialog);
-        mDialog.setContentView(dialogLayout);
-        return mDialog;
-    }
-
-    private void initDialogView() {
-        mTitle = (TextView) dialogLayout.findViewById(R.id.dialog_title);
-        mTitle.setText(getString(R.string.travel_type_dialog_title));
-
-        mCloseIcon = (ImageView) dialogLayout.findViewById(R.id.dialog_close);
-        mCloseIcon.setOnClickListener(new View.OnClickListener() {
+        final CustomDialog dialog = new CustomDialog(getActivity(), R.style.Transparent_Dialog);
+        dialog.setCustomContentView(contentLayout);
+        dialog.setTitle(getString(R.string.travel_type_dialog_title));
+        dialog.setCloseListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog.dismiss();
+                dismiss();
             }
         });
-
-        mContentView = (ViewGroup) dialogLayout.findViewById(R.id.dialog_content);
-        mContentView.addView(contentLayout);
+        return dialog;
     }
 
     private void initContentView() {
