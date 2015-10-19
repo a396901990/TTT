@@ -85,4 +85,13 @@
     <dimen name="theme_dialog_content_padding">10dp</dimen>
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
+    <!--setting-->
+    <dimen name="setting_item_height">44dp</dimen>
+    <dimen name="setting_item_icon_right">10dp</dimen>
+    <dimen name="setting_item_pad_left">10dp</dimen>
+    <dimen name="setting_divide_height">20dp</dimen>
+    <dimen name="setting_arrow_icon_padding">10dp</dimen>
+    <dimen name="setting_icon_padding">10dp</dimen>
+    <dimen name="setting_sub_item_divide_height">1dp</dimen>
+
 </resources>

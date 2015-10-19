@@ -147,4 +147,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="Setting.Item.Title" parent="TextAppearance.Medium">
+    </style>
 </resources>

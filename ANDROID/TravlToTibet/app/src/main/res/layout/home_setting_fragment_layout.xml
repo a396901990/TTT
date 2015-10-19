@@ -1,170 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/black"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_divide_height"></View>
+
+        <!--版本检查-->
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:id="@+id/setting_version_check"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:background="@drawable/nav_row_bg"
+            android:clickable="true">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/center_view_feedback"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_bike_white" />
-
-            <View
-                android:id="@+id/center_view_feedback"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                style="@style/TextAppearance.Large.Withe"
+                android:id="@+id/setting_version_check_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/center_view_feedback"
+                android:padding="@dimen/setting_icon_padding"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_version_check_blue" />
+
+            <TextView
+                style="@style/Setting.Item.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/setting_version_check_icon"
+                android:gravity="center_vertical"
+                android:text="更新检查" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_arrow_icon_padding"
+                android:src="@drawable/row_chevron" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_divide_height"></View>
+
+        <!--意见反馈-->
+        <RelativeLayout
+            android:id="@+id/setting_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:background="@drawable/nav_row_bg"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/setting_feedback_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_icon_padding"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_feedback_blue" />
+
+            <TextView
+                style="@style/Setting.Item.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/setting_feedback_icon"
+                android:gravity="center_vertical"
                 android:text="反馈" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"></View>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/center_view_opinion"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_bike_white" />
-
-            <View
-                android:id="@+id/center_view_opinion"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                style="@style/TextAppearance.Large.Withe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/center_view_opinion"
-                android:text="意见" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@color/white" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/center_view_rate"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_bike_white" />
-
-            <View
-                android:id="@+id/center_view_rate"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                style="@style/TextAppearance.Large.Withe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/center_view_rate"
-                android:text="评分" />
+                android:padding="@dimen/setting_arrow_icon_padding"
+                android:src="@drawable/row_chevron" />
         </RelativeLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"></View>
+        <include
+            layout="@layout/setting_item_divide_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_sub_item_divide_height"></include>
 
+        <!--评价-->
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:id="@+id/setting_rate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:background="@drawable/nav_row_bg"
+            android:clickable="true">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/center_view_about"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_bike_white" />
-
-            <View
-                android:id="@+id/center_view_about"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                style="@style/TextAppearance.Large.Withe"
+                android:id="@+id/setting_rate_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/center_view_about"
+                android:padding="@dimen/setting_icon_padding"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_rate_blue" />
+
+            <TextView
+                style="@style/Setting.Item.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/setting_rate_icon"
+                android:gravity="center_vertical"
+                android:text="评价" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_arrow_icon_padding"
+                android:src="@drawable/row_chevron" />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/setting_item_divide_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_sub_item_divide_height"></include>
+
+        <!--分享-->
+        <RelativeLayout
+            android:id="@+id/setting_share"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:background="@drawable/nav_row_bg"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/setting_share_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_icon_padding"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_share_blue" />
+
+            <TextView
+                style="@style/Setting.Item.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/setting_share_icon"
+                android:gravity="center_vertical"
+                android:text="分享" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_arrow_icon_padding"
+                android:src="@drawable/row_chevron" />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/setting_item_divide_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_sub_item_divide_height"></include>
+
+        <!--关于-->
+        <RelativeLayout
+            android:id="@+id/setting_about"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:background="@drawable/nav_row_bg"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/setting_about_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_icon_padding"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_about_blue" />
+
+            <TextView
+                style="@style/Setting.Item.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/setting_about_icon"
+                android:gravity="center_vertical"
                 android:text="关于" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/setting_arrow_icon_padding"
+                android:src="@drawable/row_chevron" />
         </RelativeLayout>
+
     </LinearLayout>
 </LinearLayout>
 
