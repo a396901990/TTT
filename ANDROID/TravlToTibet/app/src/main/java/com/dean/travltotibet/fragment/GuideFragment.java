@@ -18,6 +18,9 @@ import com.dean.travltotibet.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by DeanGuo on 10/15/15.
+ */
 public class GuideFragment extends Fragment
         implements
         ViewPager.OnPageChangeListener, View.OnClickListener {
