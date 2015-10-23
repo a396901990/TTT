@@ -30,10 +30,10 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.HomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,13 +45,16 @@
             android:theme="@style/Theme.NoActionBar" />
         <activity
             android:name=".activity.InfoRouteActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.NoActionBar" />
         <activity
             android:name=".activity.HomeSettingActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_home_setting"
             android:theme="@style/Theme.HomeSettingTheme"></activity>
         <activity
             android:name=".activity.FeedbackActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_setting_feedback"
             android:theme="@style/Theme.HomeSettingTheme"></activity>
     </application>

@@ -7,7 +7,9 @@ import android.support.v13.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 public class ChartPagerAdapter extends FragmentPagerAdapter {
+
     private ArrayList<Fragment> fragmentsList;
+
     private boolean isCanScroll = true;
 
     public ChartPagerAdapter(FragmentManager fm) {
@@ -19,7 +21,7 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
         this.fragmentsList = fragments;
     }
 
-    public void setScanScroll(boolean isCanScroll){
+    public void setScanScroll(boolean isCanScroll) {
         this.isCanScroll = isCanScroll;
     }
 
@@ -38,4 +40,8 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
         return super.getItemPosition(object);
     }
 
+    public void setData(ArrayList<Fragment> fragmentsList) {
+        this.fragmentsList = fragmentsList;
+        notifyDataSetChanged();
+    }
 }

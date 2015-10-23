@@ -1,6 +1,5 @@
 package com.dean.travltotibet.activity;
 
-import com.dean.greendao.RecentRoute;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -9,7 +8,6 @@ import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.fragment.RoutePlanFragment;
-import com.dean.travltotibet.fragment.GuideFragment;
 import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -18,7 +16,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,21 +28,21 @@ import java.util.ArrayList;
 public class RouteActivity
         extends SlidingFragmentActivity {
 
-    private RouteChartFragment routeChartFragment;
+    private RouteChartFragment chartFragment;
 
     private RoutePlanFragment planFragment;
 
-    private GuideFragment guideFragment;
-
     private RouteMapFragment mapFragment;
 
-    private RouteGuideFragment routeGuideFragment;
+    private RouteGuideFragment guideFragment;
 
     private SlidingMenu slidingMenu;
 
     private ViewPager mPager;
 
     private ArrayList<Fragment> fragmentsList;
+
+    private ChartPagerAdapter mAdapter;
 
     private View headerView;
 
@@ -82,11 +79,11 @@ public class RouteActivity
         if (intent != null) {
             routeName = intent.getStringExtra(Constants.INTENT_ROUTE);
             routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
-            routePlanId = (int)intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
+            routePlanId = (int) intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
             isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
         }
 
-        initMenu();
+        initPlanMenu();
         initHeader();
         initViewPager();
 
@@ -98,19 +95,44 @@ public class RouteActivity
 
     private void initViewPager() {
         mPager = (ViewPager) findViewById(R.id.vPager);
-
+        mAdapter = new ChartPagerAdapter(getFragmentManager());
         fragmentsList = new ArrayList<Fragment>();
 
-        routeChartFragment = RouteChartFragment.newInstance();
+//        // chart fragment
+//        Fragment routeChartFragment = getFragmentManager().findFragmentById(R.id.routeChartFragment);
+//        if (routeChartFragment == null) {
+//            chartFragment = RouteChartFragment.newInstance();
+//            getFragmentManager().beginTransaction().replace(R.id.routeChartFragment, chartFragment).commit();
+//        } else {
+//            chartFragment = (RouteChartFragment) routeChartFragment;
+//        }
+//
+//        // map fragment
+//        Fragment routeMapFragment = getFragmentManager().findFragmentById(R.id.routeMapFragment);
+//        if (routeMapFragment == null) {
+//            mapFragment = RouteMapFragment.newInstance();
+//            getFragmentManager().beginTransaction().replace(R.id.routeMapFragment, mapFragment).commit();
+//        } else {
+//            mapFragment = (RouteMapFragment) routeMapFragment;
+//        }
+//
+//        // guide fragment
+//        Fragment routeGuideFragment = getFragmentManager().findFragmentById(R.id.routeGuideFragment);
+//        if (routeGuideFragment == null) {
+//            guideFragment = RouteGuideFragment.newInstance();
+//            getFragmentManager().beginTransaction().replace(R.id.routeGuideFragment, guideFragment).commit();
+//        } else {
+//            guideFragment = (RouteGuideFragment) routeGuideFragment;
+//        }
+
+        chartFragment = RouteChartFragment.newInstance();
         mapFragment = RouteMapFragment.newInstance();
-        guideFragment = GuideFragment.newInstance();
-        routeGuideFragment = RouteGuideFragment.newInstance();
-
-        fragmentsList.add(routeChartFragment);
+        guideFragment = RouteGuideFragment.newInstance();
+        fragmentsList.add(chartFragment);
         fragmentsList.add(mapFragment);
-        fragmentsList.add(routeGuideFragment);
-
-        mPager.setAdapter(new ChartPagerAdapter(getFragmentManager(), fragmentsList));
+        fragmentsList.add(guideFragment);
+        mAdapter.setData(fragmentsList);
+        mPager.setAdapter(mAdapter);
 
         // 设置默认点击btn
         btnSelected(heightTab, 0);
@@ -124,9 +146,9 @@ public class RouteActivity
         // 初始化header menu两侧按钮
         initHeaderButton();
 
-        heightTab = (TextView) findViewById(R.id.bt1);
-        mapTab = (TextView) findViewById(R.id.bt2);
-        guideTab = (TextView) findViewById(R.id.bt3);
+        heightTab = (TextView) findViewById(R.id.height_tab);
+        mapTab = (TextView) findViewById(R.id.map_tab);
+        guideTab = (TextView) findViewById(R.id.guide_tab);
 
         heightTab.setOnClickListener(new TabBtnOnClickListener(0));
         mapTab.setOnClickListener(new TabBtnOnClickListener(1));
@@ -217,19 +239,19 @@ public class RouteActivity
     /**
      * 初始化侧滑菜单
      */
-    private void initMenu() {
+    private void initPlanMenu() {
 
-        // route fragment
-        Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routeFragment);
+        // plan fragment
+        Fragment rightFragment = getFragmentManager().findFragmentById(R.id.routePlanFragment);
         if (rightFragment == null) {
             planFragment = new RoutePlanFragment();
-            getFragmentManager().beginTransaction().replace(R.id.routeFragment, planFragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.routePlanFragment, planFragment).commit();
         } else {
             planFragment = (RoutePlanFragment) rightFragment;
         }
 
         // 设置主菜单
-        setBehindContentView(R.layout.route_fragment_layout);
+        setBehindContentView(R.layout.route_plan_fragment_layout);
         // 初始化menu
         slidingMenu = super.getSlidingMenu();
 
@@ -252,7 +274,7 @@ public class RouteActivity
 //        // slidingMenu.setBehindScrollScale(1.0f);
 //        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
 //        //设置右边（二级）侧滑菜单
-//        slidingMenu.setSecondaryMenu(R.layout.route_fragment_layout);
+//        slidingMenu.setSecondaryMenu(R.layout.route_plan_fragment_layout);
 
         // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
         //menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
@@ -330,20 +352,21 @@ public class RouteActivity
     }
 
     public void updateToAll() {
-        // update routeChartFragment
-        if (routeChartFragment.isAdded()) {
-            routeChartFragment.updateRoute();
+        // update chartFragment
+        if (chartFragment.isAdded()) {
+            chartFragment.updateRoute();
         }
 
-        // update routeChartFragment
+        // update chartFragment
         if (mapFragment.isAdded()) {
             mapFragment.updateRoute();
         }
 
-        // update routeChartFragment
-        if (routeGuideFragment.isAdded()) {
-            routeGuideFragment.updateRoute();
+        // update chartFragment
+        if (guideFragment.isAdded()) {
+            guideFragment.updateRoute();
         }
+
     }
 
     public String getPlanDate() {
@@ -362,15 +385,15 @@ public class RouteActivity
         return planDistance;
     }
 
-    public RouteChartFragment getRouteChartFragment() {
-        return routeChartFragment;
+    public RouteChartFragment getChartFragment() {
+        return chartFragment;
     }
 
     public RoutePlanFragment getPlanFragment() {
         return planFragment;
     }
 
-    public GuideFragment getGuideFragment() {
+    public RouteGuideFragment getGuideFragment() {
         return guideFragment;
     }
 

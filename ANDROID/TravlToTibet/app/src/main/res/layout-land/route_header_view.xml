@@ -23,7 +23,7 @@
             android:gravity="center"
             android:text="新藏线" />
 
-        <!--左侧按钮旁边显示距离-->
+        <!--左侧按钮旁边显示距离 distance-->
         <TextView
             android:id="@+id/header_distance"
             style="@style/TextAppearance.Header.Title"
@@ -33,47 +33,14 @@
             android:layout_toRightOf="@+id/menu_btn"
             android:gravity="center" />
 
-        <!--最右边按钮-->
-        <TextView
-            android:id="@+id/header_menu_date"
-            style="@style/Theme.Spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:textColor="@color/white_background" />
-
-    </RelativeLayout>
-
-    <!--Tab标签栏 & 内容栏-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/chart_header_content_height">
-
-        <!--内容栏(路程长度)-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal">
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_ab_back_icon"
-                android:visibility="invisible" />
-
-        </LinearLayout>
-
         <!--Tab标签栏-->
         <LinearLayout
             android:layout_width="@dimen/header_tab_btn_width"
             android:layout_height="@dimen/header_tab_btn_height"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
+            android:layout_toLeftOf="@+id/header_menu_date"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/header_land_padding_right">
 
             <TextView
                 android:id="@+id/height_tab"
@@ -101,9 +68,17 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:text="攻略" />
-
         </LinearLayout>
 
-    </RelativeLayout>
+        <!--最右边按钮-->
+        <TextView
+            android:id="@+id/header_menu_date"
+            style="@style/Theme.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textColor="@color/white_background" />
 
+    </RelativeLayout>
 </LinearLayout>

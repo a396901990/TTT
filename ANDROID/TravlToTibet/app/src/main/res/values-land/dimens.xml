@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="indicator_chartview_height">40dip</dimen>
+    <dimen name="header_land_padding_right">20dip</dimen>
+    <dimen name="slidingmenu_offset">280dp</dimen>
+</resources>
