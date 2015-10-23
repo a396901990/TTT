@@ -3,11 +3,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/return_header_bar_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/header_bar_height"></include>
-
     <fragment
         android:id="@+id/home_setting_fragment"
         android:name="com.dean.travltotibet.fragment.HomeSettingFragment"

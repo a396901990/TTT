@@ -16,19 +16,5 @@ public class FeedbackActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_back_layout);
-        initHeader();
-    }
-
-    private void initHeader() {
-        TextView headerTitle = (TextView) this.findViewById(R.id.header_title);
-        headerTitle.setText(getText(R.string.feedback_title));
-
-        View headerReturn = this.findViewById(R.id.header_return_btn);
-        headerReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 }

@@ -1,14 +1,93 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:background="@color/gray_background"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/feedback_space_height"></View>
+
+    <EditText
+        android:id="@+id/note"
+        style="@style/TextAppearance.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/feeding_edit_text_height"
+        android:background="@color/white_background"
+        android:gravity="top"
+        android:hint="@string/feedback_hint"
+        android:padding="@dimen/feeding_item_padding" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/feedback_space_height"></View>
+
+    <!--电子邮件-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/feeding_item_height"
+        android:background="@color/white_background"
+        android:paddingLeft="@dimen/feeding_item_padding"
+        android:paddingRight="@dimen/feeding_item_padding">
+
+        <TextView
+            android:id="@+id/email_address_title"
+            style="@style/TextAppearance.Medium.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="电子邮件：" />
+
+        <EditText
+            android:id="@+id/email_address"
+            style="@style/TextAppearance.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/email_address_title"
+            android:background="@null"
+            android:hint="（可选）"
+            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="@color/gray_background" />
+
+    <!--手机-->
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:background="@color/white_background"
+        android:minHeight="@dimen/feeding_item_height"
+        android:paddingLeft="@dimen/feeding_item_padding"
+        android:paddingRight="@dimen/feeding_item_padding">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/phone_number_title"
+            style="@style/TextAppearance.Medium.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="手机号：" />
+
+        <EditText
+            android:id="@+id/phone_number"
+            style="@style/TextAppearance.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/phone_number_title"
+            android:background="@null"
+            android:hint="（可选）"
+            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/gray_background" />
+
+</LinearLayout>

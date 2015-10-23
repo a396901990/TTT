@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_recent">最近查询</string>
     <string name="action_setting">设置</string>
+    <string name="action_submit">提交</string>
 
     <string name="travel_type_dialog_title">请选择旅行类型：</string>
 
@@ -24,6 +25,7 @@
     <string name="delete_recent_msg">是否要清空所有浏览记录？</string>
     <string name="delete_recent_title">清空记录</string>
     <string name="title_activity_home_setting">设置</string>
+    <string name="title_setting_feedback">反馈</string>
 
     <string name="ptr_pull_text">下拉刷新</string>
     <string name="ptr_refreshing_text">加载中...</string>
@@ -31,4 +33,6 @@
 
     <!--home setting-->
     <string name="feedback_title">反馈</string>
+    <string name="feedback_hint">您的反馈将帮助我们成长！</string>
+    <string name="submit_feedback">提交意见反馈</string>
 </resources>

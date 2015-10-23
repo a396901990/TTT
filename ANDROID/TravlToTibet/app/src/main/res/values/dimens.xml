@@ -25,6 +25,8 @@
 
     <!--header_bar高度-->
     <dimen name="header_bar_height">48dp</dimen>
+    <dimen name="header_bar_padding">15dp</dimen>
+    <dimen name="action_back_icon_padding">48dp</dimen>
 
     <!--padding + margin_left + margin_right-->
     <dimen name="guide_time_line_content_margin_left">35dp</dimen>
@@ -93,5 +95,12 @@
     <dimen name="setting_arrow_icon_padding">10dp</dimen>
     <dimen name="setting_icon_padding">10dp</dimen>
     <dimen name="setting_sub_item_divide_height">1dp</dimen>
+    <!--setting_feedback-->
+    <dimen name="feeding_edit_text_height">200dp</dimen>
+    <dimen name="feeding_item_height">44dp</dimen>
+    <dimen name="feeding_item_padding">15dp</dimen>
+    <dimen name="feeding_item_edit_text_padding_left">5dp</dimen>
+    <dimen name="feedback_space_height">20dp</dimen>
+
 
 </resources>

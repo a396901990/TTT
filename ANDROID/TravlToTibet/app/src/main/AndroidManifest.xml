@@ -49,10 +49,11 @@
         <activity
             android:name=".activity.HomeSettingActivity"
             android:label="@string/title_activity_home_setting"
-            android:theme="@style/Theme.NoActionBar"></activity>
+            android:theme="@style/Theme.HomeSettingTheme"></activity>
         <activity
             android:name=".activity.FeedbackActivity"
-            android:theme="@style/Theme.NoActionBar"></activity>
+            android:label="@string/title_setting_feedback"
+            android:theme="@style/Theme.HomeSettingTheme"></activity>
     </application>
 
 </manifest>

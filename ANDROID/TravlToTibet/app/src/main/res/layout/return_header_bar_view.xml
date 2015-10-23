@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="@dimen/header_bar_padding"
+            android:paddingRight="@dimen/header_bar_padding"
             android:scaleType="fitCenter"
             android:src="@drawable/header_return_back_btn" />
 
@@ -30,6 +30,20 @@
             android:layout_toRightOf="@+id/header_return_icon"
             android:gravity="center_vertical"
             android:text="设置" />
+
+        <!--旁边文字-->
+        <ImageView
+            android:id="@+id/header_submit"
+            style="@style/TextAppearance.XLarge.White"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/action_bar_check"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/header_bar_padding"
+            android:paddingRight="@dimen/header_bar_padding"
+            android:text="提交"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </LinearLayout>
