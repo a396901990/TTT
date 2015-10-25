@@ -97,7 +97,6 @@ public class HomeActivity extends SlidingFragmentActivity {
         else if (id == android.R.id.home) {
             slidingMenu.showMenu();
         }
-
         return super.onOptionsItemSelected(item);
     }
 

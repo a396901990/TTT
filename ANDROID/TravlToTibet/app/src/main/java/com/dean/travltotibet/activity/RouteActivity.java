@@ -4,6 +4,8 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ChartPagerAdapter;
+import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
+import com.dean.travltotibet.fragment.BaseRouteFragment;
 import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
@@ -19,8 +21,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 /**
  * Created by DeanGuo on 7/19/15.
  * RouteActivity控制路线
@@ -28,21 +28,13 @@ import java.util.ArrayList;
 public class RouteActivity
         extends SlidingFragmentActivity {
 
-    private RouteChartFragment chartFragment;
-
     private RoutePlanFragment planFragment;
-
-    private RouteMapFragment mapFragment;
-
-    private RouteGuideFragment guideFragment;
 
     private SlidingMenu slidingMenu;
 
     private ViewPager mPager;
 
-    private ArrayList<Fragment> fragmentsList;
-
-    private ChartPagerAdapter mAdapter;
+    private ViewPageFragmentAdapter mAdapter;
 
     private View headerView;
 
@@ -95,48 +87,30 @@ public class RouteActivity
 
     private void initViewPager() {
         mPager = (ViewPager) findViewById(R.id.vPager);
-        mAdapter = new ChartPagerAdapter(getFragmentManager());
-        fragmentsList = new ArrayList<Fragment>();
+        mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
 
-//        // chart fragment
-//        Fragment routeChartFragment = getFragmentManager().findFragmentById(R.id.routeChartFragment);
-//        if (routeChartFragment == null) {
-//            chartFragment = RouteChartFragment.newInstance();
-//            getFragmentManager().beginTransaction().replace(R.id.routeChartFragment, chartFragment).commit();
-//        } else {
-//            chartFragment = (RouteChartFragment) routeChartFragment;
-//        }
-//
-//        // map fragment
-//        Fragment routeMapFragment = getFragmentManager().findFragmentById(R.id.routeMapFragment);
-//        if (routeMapFragment == null) {
-//            mapFragment = RouteMapFragment.newInstance();
-//            getFragmentManager().beginTransaction().replace(R.id.routeMapFragment, mapFragment).commit();
-//        } else {
-//            mapFragment = (RouteMapFragment) routeMapFragment;
-//        }
-//
-//        // guide fragment
-//        Fragment routeGuideFragment = getFragmentManager().findFragmentById(R.id.routeGuideFragment);
-//        if (routeGuideFragment == null) {
-//            guideFragment = RouteGuideFragment.newInstance();
-//            getFragmentManager().beginTransaction().replace(R.id.routeGuideFragment, guideFragment).commit();
-//        } else {
-//            guideFragment = (RouteGuideFragment) routeGuideFragment;
-//        }
-
-        chartFragment = RouteChartFragment.newInstance();
-        mapFragment = RouteMapFragment.newInstance();
-        guideFragment = RouteGuideFragment.newInstance();
-        fragmentsList.add(chartFragment);
-        fragmentsList.add(mapFragment);
-        fragmentsList.add(guideFragment);
-        mAdapter.setData(fragmentsList);
+        // 为adapter添加数据
+        mAdapter.add(RouteChartFragment.class, null);
+        mAdapter.add(RouteMapFragment.class, null);
+        mAdapter.add(RouteGuideFragment.class, null);
         mPager.setAdapter(mAdapter);
 
+        mPager.setOffscreenPageLimit(1);
         // 设置默认点击btn
         btnSelected(heightTab, 0);
         mPager.setCurrentItem(0);
+        //设置viewpager改变监听，当点击新fragment时，更新路线视图
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(final int i) {
+//                if (mAdapter.getAllFragments().size() > 0) {
+//                    BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(i);
+//                    if (fragment.isAdded()) {
+//                        fragment.updateRoute();
+//                    }
+//                }
+            }
+        });
     }
 
     private void initHeader() {
@@ -323,50 +297,19 @@ public class RouteActivity
         menuBtn.setText(String.format(Constants.HEADER_START_END, start, end));
         header_distance.setText(String.format(Constants.HEADER_DISTANCE, distance));
 
-        updateToAll();
+        updateRoute();
     }
 
     /**
-     * 更新标题栏文字
-     *
-     * @param currentRoute
+     * 更新当前fragment的路线
      */
-    public void updateHeader(Route currentRoute) {
-        planDate = currentRoute.getName();
-        if (isForward) {
-            planStart = currentRoute.getStart();
-            planEnd = currentRoute.getEnd();
-        } else {
-            planStart = currentRoute.getEnd();
-            planEnd = currentRoute.getStart();
+    public void updateRoute() {
+        if (mAdapter.getAllFragments().size() > 0) {
+            BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            if (fragment.isAdded()) {
+                fragment.updateRoute();
+            }
         }
-        planDistance = currentRoute.getDistance();
-
-        TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
-        TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
-
-        header_date.setText(planDate);
-        menuBtn.setText(planStart + "-" + planEnd);
-
-        updateToAll();
-    }
-
-    public void updateToAll() {
-        // update chartFragment
-        if (chartFragment.isAdded()) {
-            chartFragment.updateRoute();
-        }
-
-        // update chartFragment
-        if (mapFragment.isAdded()) {
-            mapFragment.updateRoute();
-        }
-
-        // update chartFragment
-        if (guideFragment.isAdded()) {
-            guideFragment.updateRoute();
-        }
-
     }
 
     public String getPlanDate() {
@@ -385,20 +328,8 @@ public class RouteActivity
         return planDistance;
     }
 
-    public RouteChartFragment getChartFragment() {
-        return chartFragment;
-    }
-
     public RoutePlanFragment getPlanFragment() {
         return planFragment;
-    }
-
-    public RouteGuideFragment getGuideFragment() {
-        return guideFragment;
-    }
-
-    public RouteMapFragment getMapFragment() {
-        return mapFragment;
     }
 
     public Route getCurrentRoute() {

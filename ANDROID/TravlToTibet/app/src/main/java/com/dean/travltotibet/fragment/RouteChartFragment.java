@@ -1,5 +1,7 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.ProgressUtil;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.List;
@@ -46,6 +49,7 @@ public class RouteChartFragment extends BaseRouteFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.chart_fragment_view, container, false);
+        lazyLoad();
         return root;
     }
 
@@ -156,8 +160,11 @@ public class RouteChartFragment extends BaseRouteFragment {
     }
 
     @Override
+    protected void lazyLoad() {
+    }
+
+    @Override
     public void updateRoute() {
-        super.updateRoute();
         updateChartRoute();
     }
 }

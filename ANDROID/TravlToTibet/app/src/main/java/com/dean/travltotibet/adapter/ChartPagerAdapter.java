@@ -2,46 +2,88 @@ package com.dean.travltotibet.adapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.os.Bundle;
+import android.support.v13.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ChartPagerAdapter extends FragmentPagerAdapter {
+public class ChartPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<Fragment> fragmentsList;
+    private java.util.List<Class<? extends Fragment>> frags = new ArrayList<Class<? extends Fragment>>();
 
-    private boolean isCanScroll = true;
+    private List<Bundle> fragArguments = new ArrayList<Bundle>();
+
+    public SparseArray<Fragment> getAllFragments() {
+        return instances;
+    }
+
+    private SparseArray<Fragment> instances = new SparseArray<Fragment>();
 
     public ChartPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public ChartPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
-        super(fm);
-        this.fragmentsList = fragments;
+    public void add(Class<? extends Fragment> clazz, Bundle arguments) {
+        frags.add(clazz);
+        fragArguments.add(arguments);
     }
 
-    public void setScanScroll(boolean isCanScroll) {
-        this.isCanScroll = isCanScroll;
+    public int remove(Class<? extends Fragment> clazz) {
+        int index = frags.indexOf(clazz);
+        if (index >= 0) {
+            frags.remove(index);
+            notifyDataSetChanged();
+        }
+        return index;
+    }
+
+    public Fragment getFragment(int position) {
+        return instances.get(position);
     }
 
     @Override
-    public int getCount() {
-        return fragmentsList.size();
+    public Fragment getItem(int position) {
+        Class<? extends Fragment> clazz = frags.get(position);
+        Fragment frag = null;
+        try {
+            frag = clazz.newInstance();
+            Bundle args = fragArguments.get(position);
+            if (args != null) {
+                frag.setArguments(args);
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        instances.put(position, frag);
+        return frag;
     }
 
     @Override
-    public Fragment getItem(int arg0) {
-        return fragmentsList.get(arg0);
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        instances.remove(position);
     }
 
     @Override
     public int getItemPosition(Object object) {
-        return super.getItemPosition(object);
+        if (object != null) {
+            for (int i = 0; i < frags.size(); i++) {
+                if (frags.get(i).isAssignableFrom(object.getClass())) {
+                    return i;
+                }
+            }
+        }
+        return POSITION_NONE;
     }
 
-    public void setData(ArrayList<Fragment> fragmentsList) {
-        this.fragmentsList = fragmentsList;
-        notifyDataSetChanged();
+    @Override
+    public int getCount() {
+        return frags.size();
     }
+
 }

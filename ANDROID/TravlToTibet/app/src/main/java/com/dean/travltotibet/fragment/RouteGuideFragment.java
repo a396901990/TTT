@@ -1,5 +1,7 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import com.dean.travltotibet.adapter.TimelineExpandAdapter;
 import com.dean.travltotibet.adapter.TimelineExpandAdapter.ChildTimelineEntity;
 import com.dean.travltotibet.adapter.TimelineExpandAdapter.GroupTimelineEntity;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.ProgressUtil;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.guide_route_fragment_view, container, false);
+        lazyLoad();
         return root;
     }
 
@@ -113,6 +117,10 @@ public class RouteGuideFragment extends BaseRouteFragment {
         }
 
         return groupList;
+    }
+
+    @Override
+    protected void lazyLoad() {
     }
 
     @Override

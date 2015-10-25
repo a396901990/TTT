@@ -1,5 +1,7 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.Location;
+import com.dean.travltotibet.util.ProgressUtil;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -30,10 +33,14 @@ public class RouteMapFragment extends BaseRouteFragment {
 
     BaiduMap mBaiduMap;
 
+    /** 标志位，标志已经初始化完成 */
+    private boolean isPrepared;
+    /** 是否已被加载过一次，第二次就不再去请求数据了 */
+    private boolean mHasLoadedOnce;
+
     public static RouteMapFragment newInstance() {
         return new RouteMapFragment();
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class RouteMapFragment extends BaseRouteFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.map_fragment_view, container, false);
+        isPrepared = true;
         return root;
     }
 
@@ -88,8 +96,11 @@ public class RouteMapFragment extends BaseRouteFragment {
     }
 
     @Override
+    protected void lazyLoad() {
+    }
+
+    @Override
     public void updateRoute() {
-        super.updateRoute();
     }
 
     @Override
