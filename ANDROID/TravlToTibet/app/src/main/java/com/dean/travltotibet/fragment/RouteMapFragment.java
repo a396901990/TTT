@@ -52,6 +52,21 @@ public class RouteMapFragment extends BaseRouteFragment {
     }
 
     @Override
+    protected void onLoadPrepared() {
+
+    }
+
+    @Override
+    protected void onLoading() {
+
+    }
+
+    @Override
+    protected void onLoadFinished() {
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.map_fragment_view, container, false);
         isPrepared = true;
@@ -93,10 +108,6 @@ public class RouteMapFragment extends BaseRouteFragment {
                 mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
             }
         });
-    }
-
-    @Override
-    protected void lazyLoad() {
     }
 
     @Override

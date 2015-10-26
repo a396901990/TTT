@@ -49,7 +49,6 @@ public class RouteChartFragment extends BaseRouteFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.chart_fragment_view, container, false);
-        lazyLoad();
         return root;
     }
 
@@ -160,7 +159,18 @@ public class RouteChartFragment extends BaseRouteFragment {
     }
 
     @Override
-    protected void lazyLoad() {
+    protected void onLoadPrepared() {
+
+    }
+
+    @Override
+    protected void onLoading() {
+
+    }
+
+    @Override
+    protected void onLoadFinished() {
+
     }
 
     @Override

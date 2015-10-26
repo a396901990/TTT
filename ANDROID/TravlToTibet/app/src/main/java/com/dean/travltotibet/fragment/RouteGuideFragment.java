@@ -1,7 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import com.dean.travltotibet.adapter.TimelineExpandAdapter;
 import com.dean.travltotibet.adapter.TimelineExpandAdapter.ChildTimelineEntity;
 import com.dean.travltotibet.adapter.TimelineExpandAdapter.GroupTimelineEntity;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.ProgressUtil;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.ArrayList;
@@ -28,7 +25,9 @@ import java.util.List;
  */
 public class RouteGuideFragment extends BaseRouteFragment {
 
-    private View root;
+    private View rootView;
+
+    private View contentView;
 
     private RouteActivity routeActivity;
 
@@ -44,9 +43,8 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.guide_route_fragment_view, container, false);
-        lazyLoad();
-        return root;
+        rootView = inflater.inflate(R.layout.layout_content_frame, container, false);
+        return rootView;
     }
 
     @Override
@@ -54,14 +52,14 @@ public class RouteGuideFragment extends BaseRouteFragment {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
 
-        initTimelineRouteListView();
+        //initTimelineRouteListView();
     }
 
     /**
      * 初始化路线时间轴列表
      */
     private void initTimelineRouteListView() {
-        timelineList = (ExpandableListView) root.findViewById(R.id.timeline_list);
+        timelineList = (ExpandableListView) contentView.findViewById(R.id.timeline_list);
         // 初始化数据adapter并赋值
         timelineAdapter = new TimelineExpandAdapter(routeActivity, getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd()));
         timelineList.setAdapter(timelineAdapter);
@@ -120,7 +118,19 @@ public class RouteGuideFragment extends BaseRouteFragment {
     }
 
     @Override
-    protected void lazyLoad() {
+    protected void onLoadPrepared() {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
+    }
+
+    @Override
+    protected void onLoading() {
+        initTimelineRouteListView();
+    }
+
+    @Override
+    protected void onLoadFinished() {
+        ((ViewGroup)rootView).addView(contentView);
     }
 
     @Override
