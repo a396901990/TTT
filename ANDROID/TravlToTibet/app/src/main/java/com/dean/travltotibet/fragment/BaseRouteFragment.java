@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
 import com.dean.travltotibet.util.ProgressUtil;
 
@@ -12,11 +14,23 @@ import com.dean.travltotibet.util.ProgressUtil;
  */
 public abstract class BaseRouteFragment extends Fragment {
 
+    public final static int LOADING_PREPARED = 0;
+    public final static int LOADING = 1;
+    public final static int LOADING_SUCCESS = 2;
+    public final static int LOADING_FAILED = 3;
+
+    private Handler mHandler;
+
+    // 标志位，标志是否可见
+    private boolean isVisible = false;
+    // 标志位，标志是否初始化完成
+    private boolean isPrepared = false;
+    // 是否已被加载过一次，第二次就不再去请求数据了
+    private boolean mHasLoadedOnce = false;
+
     /**
      * Fragment当前状态是否可见
      */
-    protected boolean isVisible;
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -26,30 +40,49 @@ public abstract class BaseRouteFragment extends Fragment {
         } else {
             isVisible = false;
         }
+
+        lazyLoad();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isVisible) {
-            onVisible();
-        } else {
-            onInvisible();
-        }
-    }
 
-    /**
-     * 可见
-     */
-    protected void onVisible() {
+        isPrepared = true;
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+
+                    // 准备加载
+                    case LOADING_PREPARED:
+                        ProgressUtil.setLastShown(ProgressDialog.show(getActivity(), null, null));
+                        onLoadPrepared();
+                        break;
+
+                    // 加载中
+                    case LOADING:
+                        onLoading();
+                        break;
+
+                    // 加载成功
+                    case LOADING_SUCCESS:
+                        ProgressUtil.dismissLast();
+                        onLoadFinished();
+                        break;
+
+                    // 加载失败
+                    case LOADING_FAILED:
+                        ProgressUtil.dismissLast();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        };
         lazyLoad();
-    }
-
-    /**
-     * 不可见
-     */
-    protected void onInvisible() {
-
     }
 
     /**
@@ -57,40 +90,49 @@ public abstract class BaseRouteFragment extends Fragment {
      * 子类必须重写此方法
      */
     protected void lazyLoad() {
-        new AsyncTask<Void, Void, Boolean>() {
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //显示加载进度对话框
-                ProgressUtil.setLastShown(ProgressDialog.show(getActivity(), null, null));
-                onLoadPrepared();
-            }
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
 
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            protected Boolean doInBackground(Void... params) {
-                try {
-                    Thread.sleep(1000);
-                    onLoading();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return true;
-            }
+            public void run() {
+                new AsyncTask<Void, Void, Boolean>() {
 
-            @Override
-            protected void onPostExecute(Boolean isSuccess) {
-                if (isSuccess) {
-                    // 加载成功
-                    onLoadFinished();
-                } else {
-                    // 加载失败
-                }
-                //关闭对话框
-                ProgressUtil.dismissLast();
-                //DialogUtil.hideDialogForLoading();
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        // 准备加载
+                        mHandler.sendEmptyMessage(LOADING_PREPARED);
+                    }
+
+                    @Override
+                    protected Boolean doInBackground(Void... params) {
+                        // 加载中
+                        try {
+                            Thread.sleep(600);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        mHandler.sendEmptyMessage(LOADING);
+                        return true;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean isSuccess) {
+                        if (isSuccess) {
+                            mHasLoadedOnce = true;
+                            // 加载成功
+                            mHandler.sendEmptyMessage(LOADING_SUCCESS);
+                        } else {
+                            // 加载失败
+                            mHandler.sendEmptyMessage(LOADING_FAILED);
+                        }
+                    }
+                }.execute();
             }
-        }.execute();
+        });
     }
 
     protected abstract void onLoadPrepared();

@@ -1,7 +1,9 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.dean.travltotibet.adapter.TimelineExpandAdapter;
 import com.dean.travltotibet.adapter.TimelineExpandAdapter.ChildTimelineEntity;
 import com.dean.travltotibet.adapter.TimelineExpandAdapter.GroupTimelineEntity;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.ProgressUtil;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private ExpandableListView timelineList;
 
+    private List<GroupTimelineEntity> dataList;
+
     public static RouteGuideFragment newInstance() {
         RouteGuideFragment newFragment = new RouteGuideFragment();
         return newFragment;
@@ -51,19 +56,6 @@ public class RouteGuideFragment extends BaseRouteFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-
-        //initTimelineRouteListView();
-    }
-
-    /**
-     * 初始化路线时间轴列表
-     */
-    private void initTimelineRouteListView() {
-        timelineList = (ExpandableListView) contentView.findViewById(R.id.timeline_list);
-        // 初始化数据adapter并赋值
-        timelineAdapter = new TimelineExpandAdapter(routeActivity, getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd()));
-        timelineList.setAdapter(timelineAdapter);
-        timelineList.expandGroup(0);
     }
 
     private List<GroupTimelineEntity> getListData(String start, String end) {
@@ -118,19 +110,32 @@ public class RouteGuideFragment extends BaseRouteFragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
     protected void onLoadPrepared() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
+
+        timelineList = (ExpandableListView) contentView.findViewById(R.id.timeline_list);
+        timelineAdapter = new TimelineExpandAdapter(getActivity());
     }
 
     @Override
     protected void onLoading() {
-        initTimelineRouteListView();
+        // 初始化数据adapter并赋值
+        dataList = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
     }
 
     @Override
     protected void onLoadFinished() {
-        ((ViewGroup)rootView).addView(contentView);
+        timelineAdapter.setData(dataList);
+        timelineList.setAdapter(timelineAdapter);
+        timelineList.expandGroup(0);
+
+        ((ViewGroup) rootView).addView(contentView);
     }
 
     @Override
@@ -139,7 +144,6 @@ public class RouteGuideFragment extends BaseRouteFragment {
     }
 
     private void updateTimelineView() {
-
         String start = routeActivity.getPlanStart();
         String end = routeActivity.getPlanEnd();
 

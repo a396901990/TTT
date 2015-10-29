@@ -3,7 +3,6 @@ package com.dean.travltotibet.activity;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseRouteFragment;
 import com.dean.travltotibet.fragment.RouteChartFragment;
@@ -99,18 +98,6 @@ public class RouteActivity
         // 设置默认点击btn
         btnSelected(heightTab, 0);
         mPager.setCurrentItem(0);
-        //设置viewpager改变监听，当点击新fragment时，更新路线视图
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(final int i) {
-//                if (mAdapter.getAllFragments().size() > 0) {
-//                    BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(i);
-//                    if (fragment.isAdded()) {
-//                        fragment.updateRoute();
-//                    }
-//                }
-            }
-        });
     }
 
     private void initHeader() {

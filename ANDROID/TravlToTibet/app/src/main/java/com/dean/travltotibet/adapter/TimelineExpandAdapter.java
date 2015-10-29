@@ -20,9 +20,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
     /**
      * 构造方法
      */
-    public TimelineExpandAdapter(Context context,
-                                 List<GroupTimelineEntity> group_list) {
-        this.groupList = group_list;
+    public TimelineExpandAdapter(Context context) {
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -102,9 +100,9 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.route_timeline_group_item, null);
         }
 
-        ImageView indicatorImage =(ImageView)convertView.findViewById(R.id.title_indicator);
+        ImageView indicatorImage = (ImageView) convertView.findViewById(R.id.title_indicator);
         indicatorImage.setImageResource(R.drawable.dark_orange_circle_blank);
-        if(!isExpanded){
+        if (!isExpanded) {
             indicatorImage.setImageResource(R.drawable.dark_orange_circle);
         }
 
