@@ -27,6 +27,10 @@ import android.widget.TextView;
 public class RouteActivity
         extends SlidingFragmentActivity {
 
+    private final static int PAGE_HEIGHT = 0;
+    private final static int PAGE_MAP = 1;
+    private final static int PAGE_GUIDE = 2;
+
     private RoutePlanFragment planFragment;
 
     private SlidingMenu slidingMenu;
@@ -62,9 +66,17 @@ public class RouteActivity
     // 当前是否向前，也就是正向反向 f/r
     private boolean isForward;
 
+    // mPage当前页码
+    private int currentPage = 0;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.route_main_layout);
+
+        // 恢复数据
+        if (savedInstanceState != null) {
+            currentPage = savedInstanceState.getInt(Constants.ROUTE_ACTIVITY_CURRENT_PAGE_STATUS_KEY);
+        }
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -74,14 +86,32 @@ public class RouteActivity
             isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
         }
 
+        // 设置路线信息
+        currentRoute = TTTApplication.getDbHelper().getRouteInfo(routeName, routeType, isForward());
+        initPlan(savedInstanceState);
         initPlanMenu();
         initHeader();
         initViewPager();
 
-        // 设置路线信息
-        currentRoute = TTTApplication.getDbHelper().getRouteInfo(routeName, routeType, isForward());
         // 跟新信息
-        updateHeader(currentRoute.getStart(), currentRoute.getEnd(), currentRoute.getName(), currentRoute.getDistance());
+        updateHeader(planStart, planEnd, planDate, planDistance);
+    }
+
+    private void initPlan(Bundle savedInstanceState) {
+        // 恢复数据
+        if (savedInstanceState != null) {
+            planStart = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_START_STATUS_KEY);
+            planEnd = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY);
+            planDate = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY);
+            planDistance = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY);
+        }
+        // 默认总路线数据
+        else {
+            planStart = currentRoute.getStart();
+            planEnd = currentRoute.getEnd();
+            planDate = currentRoute.getName();
+            planDistance = currentRoute.getDistance();
+        }
     }
 
     private void initViewPager() {
@@ -95,9 +125,22 @@ public class RouteActivity
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);
-        // 设置默认点击btn
-        btnSelected(heightTab, 0);
-        mPager.setCurrentItem(0);
+        // 设置页面变化监听
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                // 每次点击不同按钮式重置所有按钮颜色和背景
+                resetColorAndBackground(position);
+
+                // 设置新颜色
+                btnSelected(position);
+            }
+        });
+
+        // 设置当前页面，设置默认点击
+        btnSelected(currentPage);
+        mPager.setCurrentItem(currentPage);
     }
 
     private void initHeader() {
@@ -116,6 +159,9 @@ public class RouteActivity
         guideTab.setOnClickListener(new TabBtnOnClickListener(2));
     }
 
+    /**
+     * Tab按钮监听
+     */
     public class TabBtnOnClickListener implements View.OnClickListener {
         private int index = 0;
 
@@ -125,13 +171,6 @@ public class RouteActivity
 
         @Override
         public void onClick(View v) {
-
-            // 每次点击不同按钮式重置所有按钮颜色和背景
-            resetColorAndBackground(index);
-
-            // 设置新颜色
-            btnSelected(v, index);
-
             // 变换fragment
             mPager.setCurrentItem(index);
         }
@@ -140,19 +179,20 @@ public class RouteActivity
     /**
      * 选中btn变换颜色和背景
      */
-    public void btnSelected(View v, int index) {
-
-        v.setBackgroundResource(R.color.white_background);
+    public void btnSelected(int index) {
 
         switch (index) {
-            case 0:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.dark_blue));
+            case PAGE_HEIGHT:
+                heightTab.setBackgroundResource(R.color.white_background);
+                heightTab.setTextColor(getResources().getColor(R.color.dark_blue));
                 break;
-            case 1:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.dark_green));
+            case PAGE_MAP:
+                mapTab.setBackgroundResource(R.color.white_background);
+                mapTab.setTextColor(getResources().getColor(R.color.dark_green));
                 break;
-            case 2:
-                ((TextView) v).setTextColor(getResources().getColor(R.color.dark_orange));
+            case PAGE_GUIDE:
+                guideTab.setBackgroundResource(R.color.white_background);
+                guideTab.setTextColor(getResources().getColor(R.color.dark_orange));
                 break;
             default:
                 break;
@@ -164,7 +204,7 @@ public class RouteActivity
      */
     private void resetColorAndBackground(int index) {
         switch (index) {
-            case 0:
+            case PAGE_HEIGHT:
                 headerView.setBackgroundResource(R.color.dark_blue);
 
                 heightTab.setBackgroundResource(R.color.dark_blue);
@@ -172,7 +212,7 @@ public class RouteActivity
                 guideTab.setBackgroundResource(R.color.dark_blue);
 
                 break;
-            case 1:
+            case PAGE_MAP:
                 headerView.setBackgroundResource(R.color.dark_green);
 
                 heightTab.setBackgroundResource(R.color.dark_green);
@@ -180,7 +220,7 @@ public class RouteActivity
                 guideTab.setBackgroundResource(R.color.dark_green);
 
                 break;
-            case 2:
+            case PAGE_GUIDE:
                 headerView.setBackgroundResource(R.color.dark_orange);
 
                 heightTab.setBackgroundResource(R.color.dark_orange);
@@ -299,6 +339,25 @@ public class RouteActivity
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // current page
+        outState.putInt(Constants.ROUTE_ACTIVITY_CURRENT_PAGE_STATUS_KEY, currentPage);
+
+        // plan status
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_START_STATUS_KEY, planStart);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY, planEnd);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY, planDate);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY, planDistance);
+
+    }
+
+    @Override
+    public SlidingMenu getSlidingMenu() {
+        return slidingMenu;
+    }
+
     public String getPlanDate() {
         return planDate;
     }
@@ -325,11 +384,6 @@ public class RouteActivity
 
     public void setCurrentRoute(Route currentRoute) {
         this.currentRoute = currentRoute;
-    }
-
-    @Override
-    public SlidingMenu getSlidingMenu() {
-        return slidingMenu;
     }
 
     public void showMenu() {
