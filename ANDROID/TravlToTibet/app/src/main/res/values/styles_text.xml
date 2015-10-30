@@ -3,11 +3,11 @@
 
     <!-- Base TextAppearance styles -->
     <style name="TextAppearance.Micro" parent="@android:style/TextAppearance">
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">@dimen/text_micro</item>
     </style>
 
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/text_small</item>
     </style>
 
     <style name="TextAppearance.Small.LightBlue" parent="TextAppearance.Small">
@@ -23,7 +23,7 @@
     </style>
 
     <style name="TextAppearance.Regular" parent="@android:style/TextAppearance">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_regular</item>
     </style>
 
     <style name="TextAppearance.Regular.Gray" parent="TextAppearance.Regular">
@@ -43,7 +43,7 @@
     </style>
 
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/text_medium</item>
     </style>
 
     <style name="TextAppearance.Medium.Bold" parent="TextAppearance.Medium">
@@ -68,7 +68,7 @@
     </style>
 
     <style name="TextAppearance.Large" parent="@android:style/TextAppearance">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/text_large</item>
     </style>
 
     <style name="TextAppearance.Large.Withe" parent="TextAppearance.Large">
@@ -91,7 +91,7 @@
     </style>
 
     <style name="TextAppearance.XLarge" parent="@android:style/TextAppearance">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">@dimen/text_Xlarge</item>
     </style>
 
     <style name="TextAppearance.XLarge.White" parent="TextAppearance.XLarge">
@@ -108,7 +108,7 @@
     </style>
 
     <style name="TextAppearance.XXLarge" parent="@android:style/TextAppearance">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/text_XXlarge</item>
     </style>
 
     <style name="TextAppearance.XXLarge.White" parent="TextAppearance.XXLarge">
@@ -135,7 +135,7 @@
     </style>
 
     <style name="TextAppearance.XXXLarge" parent="@android:style/TextAppearance">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">@dimen/text_XXXlarge</item>
     </style>
 
     <style name="TextAppearance.XXXLarge.Black.Bold" parent="TextAppearance.XXXLarge">
@@ -143,11 +143,9 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="TextAppearance.Header.Title" parent="@android:style/TextAppearance">
+    <style name="TextAppearance.Header.Title" parent="TextAppearance.Large">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="Setting.Item.Title" parent="TextAppearance.Medium">
-    </style>
+    <style name="Setting.Item.Title" parent="TextAppearance.Medium"></style>
 </resources>

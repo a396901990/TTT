@@ -6,7 +6,7 @@
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/background_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/home_item_height"
         android:scaleType="fitXY"
         android:layout_gravity="center" />
 

@@ -110,11 +110,6 @@ public class RouteGuideFragment extends BaseRouteFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-    }
-
-    @Override
     protected void onLoadPrepared() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);

@@ -1,7 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.ProgressUtil;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.List;
@@ -30,7 +27,9 @@ import java.util.List;
  */
 public class RouteChartFragment extends BaseRouteFragment {
 
-    private View root;
+    private View rootView;
+
+    private View contentView;
 
     private RouteChartView mChartView;
 
@@ -48,29 +47,42 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.chart_fragment_view, container, false);
-        return root;
+        rootView = inflater.inflate(R.layout.layout_content_frame, container, false);
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-        // 初始化视图
-        mChartView = (RouteChartView) root.findViewById(R.id.chart);
-        mIndicatorView = (IndicatorChartView) root.findViewById(R.id.indicator);
-        mIndicatorView.setChartView(mChartView);
+    }
 
+    @Override
+    protected void onLoadPrepared() {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        contentView = inflater.inflate(R.layout.chart_fragment_view, null, false);
+        mChartView = (RouteChartView) contentView.findViewById(R.id.chart);
+        mIndicatorView = (IndicatorChartView) contentView.findViewById(R.id.indicator);
+        mIndicatorView.setChartView(mChartView);
+    }
+
+    @Override
+    protected void onLoading() {
         updateChartRoute();
+    }
+
+    @Override
+    protected void onLoadFinished() {
+        ((ViewGroup) rootView).addView(contentView);
     }
 
     /**
      * 更新图标细节
      */
     public void updateChartDetail(String name) {
-        TextView posName = (TextView) root.findViewById(R.id.header_position_name);
-        TextView posHeight = (TextView) root.findViewById(R.id.header_position_height);
-        TextView posMilestone = (TextView) root.findViewById(R.id.header_position_mileage);
+        TextView posName = (TextView) rootView.findViewById(R.id.header_position_name);
+        TextView posHeight = (TextView) rootView.findViewById(R.id.header_position_height);
+        TextView posMilestone = (TextView) rootView.findViewById(R.id.header_position_mileage);
 
         if (name != null) {
             // 高度
@@ -156,21 +168,6 @@ public class RouteChartFragment extends BaseRouteFragment {
                 updateChartDetail(placeName);
             }
         });
-    }
-
-    @Override
-    protected void onLoadPrepared() {
-
-    }
-
-    @Override
-    protected void onLoading() {
-
-    }
-
-    @Override
-    protected void onLoadFinished() {
-
     }
 
     @Override
