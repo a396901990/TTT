@@ -14,8 +14,8 @@
 
         <!--最左边按钮-->
         <TextView
-            android:id="@+id/menu_btn"
-            style="@style/TextAppearance.Header.Title"
+            android:id="@+id/back_btn"
+            style="@style/TextAppearance.Large.Withe"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -26,15 +26,41 @@
         <!--左侧按钮旁边显示距离 distance-->
         <TextView
             android:id="@+id/header_distance"
-            style="@style/TextAppearance.Header.Title"
+            style="@style/TextAppearance.Large.Withe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/menu_btn"
+            android:layout_toRightOf="@+id/back_btn"
             android:gravity="center" />
+
+        <!--菜单栏-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/header_distance"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/rotate_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/rotate" />
+
+            <ImageView
+                android:id="@+id/setting_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_icon_white" />
+
+        </LinearLayout>
 
         <!--Tab标签栏-->
         <LinearLayout
+            android:id="@+id/tab_content"
             android:layout_width="@dimen/header_tab_btn_width"
             android:layout_height="@dimen/header_tab_btn_height"
             android:layout_alignParentBottom="true"

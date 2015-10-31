@@ -42,6 +42,7 @@
             android:theme="@style/Theme.AppBaseTheme" />
         <activity
             android:name=".activity.RouteActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.NoActionBar" />
         <activity
             android:name=".activity.InfoRouteActivity"
@@ -49,13 +50,13 @@
             android:theme="@style/Theme.NoActionBar" />
         <activity
             android:name=".activity.HomeSettingActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_home_setting"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.HomeSettingTheme"></activity>
         <activity
             android:name=".activity.FeedbackActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_setting_feedback"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.HomeSettingTheme"></activity>
     </application>
 

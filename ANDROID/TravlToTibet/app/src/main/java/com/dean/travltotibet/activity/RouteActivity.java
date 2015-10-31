@@ -9,12 +9,15 @@ import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.fragment.RoutePlanFragment;
+import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -30,6 +33,8 @@ public class RouteActivity
     private final static int PAGE_HEIGHT = 0;
     private final static int PAGE_MAP = 1;
     private final static int PAGE_GUIDE = 2;
+
+    private Activity activity;
 
     private RoutePlanFragment planFragment;
 
@@ -72,6 +77,7 @@ public class RouteActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.route_main_layout);
+        activity = this;
 
         // 恢复数据
         if (savedInstanceState != null) {
@@ -154,9 +160,9 @@ public class RouteActivity
         mapTab = (TextView) findViewById(R.id.map_tab);
         guideTab = (TextView) findViewById(R.id.guide_tab);
 
-        heightTab.setOnClickListener(new TabBtnOnClickListener(0));
-        mapTab.setOnClickListener(new TabBtnOnClickListener(1));
-        guideTab.setOnClickListener(new TabBtnOnClickListener(2));
+        heightTab.setOnClickListener(new TabBtnOnClickListener(PAGE_HEIGHT));
+        mapTab.setOnClickListener(new TabBtnOnClickListener(PAGE_MAP));
+        guideTab.setOnClickListener(new TabBtnOnClickListener(PAGE_GUIDE));
     }
 
     /**
@@ -282,13 +288,19 @@ public class RouteActivity
     }
 
     /**
-     * 初始化header左右两侧按钮
+     * 初始化header按钮
      */
     private void initHeaderButton() {
-        TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
-        TextView routeBtn = (TextView) this.findViewById(R.id.header_menu_date);
+        // 返回
+        View backBtn = this.findViewById(R.id.back_btn);
+        // 选择plan
+        View routeBtn = this.findViewById(R.id.header_menu_date);
+        // 旋转
+        View rotateBtn = this.findViewById(R.id.rotate_btn);
+        // 设置
+        View settingBtn = this.findViewById(R.id.setting_btn);
 
-        menuBtn.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -299,6 +311,20 @@ public class RouteActivity
             @Override
             public void onClick(View v) {
                 showMenu();
+            }
+        });
+
+        rotateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CompatHelper.rotateScreen(activity);
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -317,7 +343,7 @@ public class RouteActivity
         planDistance = distance;
 
         TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
-        TextView menuBtn = (TextView) this.findViewById(R.id.menu_btn);
+        TextView menuBtn = (TextView) this.findViewById(R.id.back_btn);
         TextView header_distance = (TextView) this.findViewById(R.id.header_distance);
 
         header_date.setText(date);
@@ -350,7 +376,6 @@ public class RouteActivity
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY, planEnd);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY, planDate);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY, planDistance);
-
     }
 
     @Override

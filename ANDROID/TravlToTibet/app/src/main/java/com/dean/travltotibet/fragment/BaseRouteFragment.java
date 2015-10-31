@@ -6,7 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import com.dean.travltotibet.ui.CustomProgress;
 import com.dean.travltotibet.util.ProgressUtil;
 
 /**
@@ -57,7 +60,8 @@ public abstract class BaseRouteFragment extends Fragment {
 
                     // 准备加载
                     case LOADING_PREPARED:
-                        ProgressUtil.setLastShown(ProgressDialog.show(getActivity(), null, null));
+                        CustomProgress.show(getActivity(), false);
+                        //ProgressUtil.setLastShown(new ProgressDialog(getActivity(), android.R.style.Theme_Holo_Light_DialogWhenLarge).show(getActivity(), null, null));
                         onLoadPrepared();
                         break;
 
@@ -68,7 +72,8 @@ public abstract class BaseRouteFragment extends Fragment {
 
                     // 加载成功
                     case LOADING_SUCCESS:
-                        ProgressUtil.dismissLast();
+                        //ProgressUtil.dismissLast();
+                        CustomProgress.dismissDialog();
                         onLoadFinished();
                         break;
 
