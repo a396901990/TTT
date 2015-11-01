@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/content_detail"
-            style="@style/TextAppearance.Regular"
+            style="@style/TextAppearance.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

@@ -22,6 +22,15 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearance.Small.Gray.Bold" parent="TextAppearance.Small">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Small.DarkOrange" parent="TextAppearance.Small">
+        <item name="android:textColor">@color/dark_orange</item>
+    </style>
+
     <style name="TextAppearance.Regular" parent="@android:style/TextAppearance">
         <item name="android:textSize">@dimen/text_regular</item>
     </style>
@@ -32,6 +41,10 @@
 
     <style name="TextAppearance.Regular.Blue" parent="TextAppearance.Regular">
         <item name="android:textColor">@color/less_dark_blue</item>
+    </style>
+
+    <style name="TextAppearance.Regular.DarkOrange" parent="TextAppearance.Regular">
+        <item name="android:textColor">@color/dark_orange</item>
     </style>
 
     <style name="TextAppearance.Regular.White" parent="TextAppearance.Regular">
@@ -63,6 +76,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearance.Medium.Grey.Bold" parent="TextAppearance.Medium">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Medium.Bold.Blue" parent="TextAppearance.Medium.Blue">
         <item name="android:textStyle">bold</item>
     </style>
@@ -88,6 +106,11 @@
     <style name="TextAppearance.Large.Black.Bold" parent="TextAppearance.Large">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.Large.DarkOrange.Bold" parent="TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dark_orange</item>
     </style>
 
     <style name="TextAppearance.XLarge" parent="@android:style/TextAppearance">

@@ -1,22 +1,23 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_background"
-    android:fadingEdgeLength="0dip"
-    android:orientation="vertical"
-    android:scrollbars="none">
+    android:padding="@dimen/guide_route_view_padding">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!--简介-->
+    <ScrollView
+        android:id="@+id/briefContent"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white_background"
+        android:fadingEdgeLength="0dip"
         android:orientation="vertical"
-        android:padding="@dimen/guide_route_view_padding">
+        android:scrollbars="none">
 
-        <!--简介-->
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <!--标题-->
@@ -178,30 +179,43 @@
                     android:layout_alignBottom="@+id/expandable_text_view"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/bottom_shade_background"></View>
-
             </RelativeLayout>
 
-
         </LinearLayout>
+    </ScrollView>
 
-        <!--分割线-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:layout_marginBottom="@dimen/guide_divide_line_padding"
-            android:layout_marginTop="@dimen/guide_divide_line_padding"
-            android:background="@color/dark_orange" />
+    <!--分割线-->
+    <View
+        android:id="@+id/divide_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/guide_divide_line_padding"
+        android:layout_marginRight="@dimen/guide_divide_line_padding"
+        android:layout_toRightOf="@+id/briefContent"
+        android:background="@color/dark_orange" />
+
+    <ScrollView
+        android:id="@+id/guide_line_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/divide_line"
+        android:background="@color/white_background"
+        android:fadingEdgeLength="0dip"
+        android:orientation="vertical"
+        android:scrollbars="none">
 
         <!--行程timeline-->
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <!--标题-->
             <TextView
                 android:id="@+id/route_title"
                 style="@style/TextAppearance.Large.DarkOrange.Bold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/guide_title_view_padding"
                 android:text="行程" />
@@ -209,15 +223,13 @@
             <!--行程时间线列表-->
             <com.dean.travltotibet.ui.TimelineListview
                 android:id="@+id/timeline_list"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_below="@+id/route_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@null"
                 android:cacheColorHint="#00000000"
                 android:divider="@null"
                 android:groupIndicator="@null" />
-        </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
-
+</RelativeLayout>

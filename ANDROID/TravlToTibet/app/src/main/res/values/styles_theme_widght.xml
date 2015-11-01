@@ -48,6 +48,12 @@
         <item name="android:paddingRight">@dimen/generic_padding</item>
     </style>
 
+    <style name="star_rating_bar_style" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/star_rating_bar</item>
+        <item name="android:minHeight">15dip</item>
+        <item name="android:maxHeight">15dip</item>
+    </style>
+
     <style name="RedButton" parent="TransactButton">
         <item name="android:background">@drawable/red_btn</item>
     </style>

@@ -27,11 +27,17 @@
 
     <!--路线视图的padding-->
     <dimen name="guide_route_view_padding">15dp</dimen>
+    <dimen name="guide_title_view_padding">10dp</dimen>
 
     <dimen name="guide_time_line_title_image_width">20dp</dimen>
     <dimen name="guide_time_line_title_image_height">20dp</dimen>
     <dimen name="guide_time_line_title_margin_left">5dp</dimen>
     <dimen name="guide_time_line_title_margin_right">10dp</dimen>
+
+    <dimen name="guide_brief_icon_size">20dp</dimen>
+    <dimen name="guide_brief_icon_padding">5dp</dimen>
+    <dimen name="guide_divide_line_padding">20dp</dimen>
+
 
     <!--header_bar高度-->
     <dimen name="header_bar_height">48dp</dimen>
@@ -109,12 +115,12 @@
     <dimen name="setting_arrow_icon_padding">10dp</dimen>
     <dimen name="setting_icon_padding">10dp</dimen>
     <dimen name="setting_sub_item_divide_height">1dp</dimen>
+
     <!--setting_feedback-->
     <dimen name="feeding_edit_text_height">200dp</dimen>
     <dimen name="feeding_item_height">44dp</dimen>
     <dimen name="feeding_item_padding">15dp</dimen>
     <dimen name="feeding_item_edit_text_padding_left">5dp</dimen>
     <dimen name="feedback_space_height">20dp</dimen>
-
 
 </resources>

@@ -3,7 +3,6 @@ package com.dean.travltotibet.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,14 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 
-public class TimelineExpandAdapter extends BaseExpandableListAdapter {
+public class GuidelineExpandAdapter extends BaseExpandableListAdapter {
     private LayoutInflater inflater = null;
-    private List<GroupTimelineEntity> groupList;
+    private List<GroupGuidelineEntity> groupList;
 
     /**
      * 构造方法
      */
-    public TimelineExpandAdapter(Context context) {
+    public GuidelineExpandAdapter(Context context) {
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -30,7 +29,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
      *
      * @param groupList
      */
-    public void setData(List<GroupTimelineEntity> groupList) {
+    public void setData(List<GroupGuidelineEntity> groupList) {
         this.groupList = groupList;
         notifyDataSetChanged();
     }
@@ -118,7 +117,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         ChildViewHolder viewHolder;
-        ChildTimelineEntity entity = (ChildTimelineEntity) getChild(groupPosition,
+        ChildGuidelineEntity entity = (ChildGuidelineEntity) getChild(groupPosition,
                 childPosition);
         if (convertView != null) {
             viewHolder = (ChildViewHolder) convertView.getTag();
@@ -161,7 +160,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
     /**
      * timeline list 一级Item实体类
      */
-    public static class GroupTimelineEntity {
+    public static class GroupGuidelineEntity {
 
         private String titleName;
         private String titleHeight;
@@ -169,7 +168,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
         /**
          * 二级Item数据列表 *
          */
-        private List<ChildTimelineEntity> childList;
+        private List<ChildGuidelineEntity> childList;
 
         public String getTitleMilestone() {
             return titleMilestone;
@@ -195,11 +194,11 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
             this.titleHeight = titleHeight;
         }
 
-        public List<ChildTimelineEntity> getChildList() {
+        public List<ChildGuidelineEntity> getChildList() {
             return childList;
         }
 
-        public void setChildList(List<ChildTimelineEntity> childList) {
+        public void setChildList(List<ChildGuidelineEntity> childList) {
             this.childList = childList;
         }
 
@@ -209,7 +208,7 @@ public class TimelineExpandAdapter extends BaseExpandableListAdapter {
     /**
      * timeline list 二级Item实体类
      */
-    public static class ChildTimelineEntity {
+    public static class ChildGuidelineEntity {
         /**
          * 详细内容 *
          */

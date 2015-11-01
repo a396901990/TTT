@@ -11,6 +11,7 @@
         android:id="@+id/title_indicator"
         android:layout_width="@dimen/guide_time_line_title_image_width"
         android:layout_height="@dimen/guide_time_line_title_image_height"
+        android:padding="3dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/guide_time_line_title_margin_left"
         android:layout_marginRight="@dimen/guide_time_line_title_margin_right" />
