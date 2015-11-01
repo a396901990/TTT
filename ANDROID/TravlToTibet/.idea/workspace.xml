@@ -37,21 +37,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c26a0a3b-9515-4a48-9112-0e573486ca2b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/plan_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/route_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_ratingbar.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_ratingbar_pressed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/guide_route_fragment_view.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/star_rating_bar.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/TimelineExpandAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/GuidelineExpandAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/HomeRecentFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/HomeRecentFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoConfirmDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoConfirmDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RoutePlanFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RoutePlanFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_child_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_child_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_group_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_group_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles_theme_widght.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles_theme_widght.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/guide_route_fragment_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/guide_route_fragment_view.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TravlToTibet.iws" />
@@ -93,33 +86,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="guide_route_fragment_view.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RouteGuideFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+              <folding>
+                <element signature="e#4173#4195#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="guide_route_fragment_view.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment_view.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49">
-              <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
-              <folding>
-                <element signature="e#530#563#0" expanded="true" />
-                <element signature="e#1054#1087#0" expanded="true" />
-                <element signature="e#2658#2688#0" expanded="true" />
-                <element signature="e#2731#2761#0" expanded="true" />
-                <element signature="e#2802#2835#0" expanded="true" />
-                <element signature="e#2877#2910#0" expanded="true" />
-                <element signature="e#3979#4009#0" expanded="true" />
-                <element signature="e#4052#4082#0" expanded="true" />
-                <element signature="e#4123#4156#0" expanded="true" />
-                <element signature="e#4198#4231#0" expanded="true" />
-                <element signature="e#5292#5322#0" expanded="true" />
-                <element signature="e#5365#5395#0" expanded="true" />
-                <element signature="e#5436#5469#0" expanded="true" />
-                <element signature="e#5511#5544#0" expanded="true" />
-                <element signature="e#8032#8066#0" expanded="true" />
-                <element signature="e#8104#8138#0" expanded="true" />
-                <element signature="e#8644#8677#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-11.310345">
+              <caret line="142" column="53" selection-start-line="142" selection-start-column="37" selection-end-line="142" selection-end-column="53" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,129 +117,101 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.275862">
-              <caret line="159" column="37" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="37" />
-              <folding>
-                <element signature="e#232#265#0" expanded="true" />
-                <element signature="e#1104#1137#0" expanded="true" />
-                <element signature="e#2708#2738#0" expanded="true" />
-                <element signature="e#2781#2811#0" expanded="true" />
-                <element signature="e#2852#2885#0" expanded="true" />
-                <element signature="e#2927#2960#0" expanded="true" />
-                <element signature="e#4029#4059#0" expanded="true" />
-                <element signature="e#4102#4132#0" expanded="true" />
-                <element signature="e#4173#4206#0" expanded="true" />
-                <element signature="e#4248#4281#0" expanded="true" />
-                <element signature="e#5342#5372#0" expanded="true" />
-                <element signature="e#5415#5445#0" expanded="true" />
-                <element signature="e#5486#5519#0" expanded="true" />
-                <element signature="e#5561#5594#0" expanded="true" />
-                <element signature="e#8113#8147#0" expanded="true" />
-                <element signature="e#8183#8217#0" expanded="true" />
-                <element signature="e#9231#9264#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="route_plan_list_item.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_plan_list_item.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.931034">
-              <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="route_timeline_child_item.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_timeline_child_item.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.448277">
-              <caret line="40" column="46" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="route_timeline_group_item.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/route_timeline_group_item.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-11.137931">
-              <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+              <caret line="143" column="53" selection-start-line="143" selection-start-column="53" selection-end-line="143" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RouteActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="360" column="79" selection-start-line="360" selection-start-column="8" selection-end-line="360" selection-end-column="79" />
               <folding>
-                <element signature="e#481#523#0" expanded="true" />
-                <element signature="e#554#597#0" expanded="true" />
-                <element signature="e#711#753#0" expanded="true" />
-                <element signature="e#789#832#0" expanded="true" />
+                <element signature="e#4802#5104#0" expanded="true" />
+                <element signature="e#5103#5104#0" expanded="true" />
+                <element signature="e#5957#5958#0" expanded="true" />
+                <element signature="e#5990#5991#0" expanded="true" />
+                <element signature="e#9366#9392#0" expanded="true" />
+                <element signature="e#9552#9572#0" expanded="true" />
+                <element signature="e#10493#10635#0" expanded="true" />
+                <element signature="e#10634#10635#0" expanded="true" />
+                <element signature="e#10675#10819#0" expanded="true" />
+                <element signature="e#10818#10819#0" expanded="true" />
+                <element signature="e#10860#11029#0" expanded="true" />
+                <element signature="e#11028#11029#0" expanded="true" />
+                <element signature="e#13270#13271#0" expanded="true" />
+                <element signature="e#13304#13305#0" expanded="true" />
+                <element signature="e#13339#13340#0" expanded="true" />
+                <element signature="e#13370#13371#0" expanded="true" />
+                <element signature="e#13406#13407#0" expanded="true" />
+                <element signature="e#13438#13439#0" expanded="true" />
+                <element signature="e#13544#13545#0" expanded="true" />
+                <element signature="e#13579#13580#0" expanded="true" />
+                <element signature="e#13619#13620#0" expanded="true" />
+                <element signature="e#13655#13656#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScrollView.java" pinned="false" current-in-tab="false">
-        <entry file="file:///Applications/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/widget/ScrollView.java">
+      <file leaf-file-name="HomeRecentFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/HomeRecentFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+              <caret line="123" column="68" selection-start-line="123" selection-start-column="46" selection-end-line="123" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dimens.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <file leaf-file-name="RoutePlanFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RoutePlanFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
+              <caret line="63" column="47" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RouteGuideFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java">
+      <file leaf-file-name="TravelTypeDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/TravelTypeDialog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="144" column="28" selection-start-line="144" selection-start-column="28" selection-end-line="144" selection-end-column="28" />
-              <folding>
-                <element signature="e#2762#2763#0" expanded="true" />
-                <element signature="e#2798#2799#0" expanded="true" />
-                <element signature="e#3251#3273#0" expanded="true" />
-                <element signature="e#5585#5816#0" expanded="true" />
-                <element signature="e#5815#5816#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="info_detail_view.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/info_detail_view.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5862069">
-              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="55" />
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InfoDetailFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoDetailFragment.java">
+      <file leaf-file-name="PrepareDetailDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PrepareDetailDialog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="0" selection-start-line="75" selection-start-column="4" selection-end-line="109" selection-end-column="0" />
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoConfirmDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoConfirmDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2590799">
+              <caret line="53" column="61" selection-start-line="53" selection-start-column="61" selection-end-line="53" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -2945,10 +2904,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/route_map_fragment_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/route_guide_fragment_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/route_plan_fragment_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/HomeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/HomeSettingActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/ChartPagerAdapter.java" />
@@ -2957,7 +2912,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_content_frame.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity2.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/TimelineExpandAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-land/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-w820dp-land/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-w820dp/styles_text.xml" />
@@ -2984,18 +2938,23 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/route_header_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/CompatHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/progress_custom_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/GuidelineExpandAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles_theme_widght.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/star_rating_bar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles_text.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_group_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/route_timeline_child_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/guide_route_fragment_view.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/guide_route_fragment_view.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/guide_route_fragment_view.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RoutePlanFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoConfirmDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/HomeRecentFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java" />
       </list>
     </option>
   </component>
@@ -3955,7 +3914,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5403349" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60273975" sideWeight="0.50646204" order="7" side_tool="true" content_ui="tabs" />
@@ -4091,7 +4050,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java</url>
-          <line>319</line>
+          <line>323</line>
           <properties />
           <option name="timeStamp" value="199" />
         </line-breakpoint>
@@ -4108,90 +4067,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.lightsky.infiniteindicator/library/1.0.3/res/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6208696">
-          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/home_fragment_view.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.068966">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#779#808#0" expanded="true" />
-            <element signature="e#840#872#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/info_header_view.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.862069">
-          <caret line="10" column="66" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-sw600dp/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="56" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/home_grid_view_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.6896553">
-          <caret line="8" column="54" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/home_setting_fragment_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.5172415">
-          <caret line="28" column="53" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
-          <folding>
-            <element signature="e#1261#1290#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/travel_dialog_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/RecordUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/ScreenUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4357,14 +4232,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.027027028">
-          <caret line="60" column="21" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/content/pm/ActivityInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4400,23 +4267,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="356" column="22" selection-start-line="356" selection-start-column="22" selection-end-line="356" selection-end-column="22" />
-          <folding>
-            <element signature="e#8871#8897#0" expanded="true" />
-            <element signature="e#9057#9077#0" expanded="true" />
-            <element signature="e#9998#10140#0" expanded="true" />
-            <element signature="e#10139#10140#0" expanded="true" />
-            <element signature="e#10180#10324#0" expanded="true" />
-            <element signature="e#10323#10324#0" expanded="true" />
-            <element signature="e#10365#10534#0" expanded="true" />
-            <element signature="e#10533#10534#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/progress_custom_layout.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -4435,14 +4285,6 @@
           <folding>
             <marker date="1446321866000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RoutePlanFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4507,7 +4349,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5862069">
+        <state vertical-scroll-proportion="0.028333334">
           <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="55" />
           <folding />
         </state>
@@ -4515,29 +4357,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoDetailFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.7297297">
           <caret line="109" column="0" selection-start-line="75" selection-start-column="4" selection-end-line="109" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="144" column="28" selection-start-line="144" selection-start-column="28" selection-end-line="144" selection-end-column="28" />
-          <folding>
-            <element signature="e#2762#2763#0" expanded="true" />
-            <element signature="e#2798#2799#0" expanded="true" />
-            <element signature="e#3251#3273#0" expanded="true" />
-            <element signature="e#5585#5816#0" expanded="true" />
-            <element signature="e#5815#5816#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/widget/ScrollView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.33227345">
           <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
           <folding />
         </state>
@@ -4548,7 +4376,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.931034">
+        <state vertical-scroll-proportion="0.915">
           <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
           <folding />
         </state>
@@ -4556,7 +4384,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.7647059">
           <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
           <folding />
         </state>
@@ -4567,7 +4395,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.137931">
+        <state vertical-scroll-proportion="0.53833336">
           <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
           <folding>
             <element signature="e#481#523#0" expanded="true" />
@@ -4583,8 +4411,42 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.448277">
+        <state vertical-scroll-proportion="1.1333333">
           <caret line="40" column="46" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/database/DBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="307" column="24" selection-start-line="307" selection-start-column="24" selection-end-line="307" selection-end-column="24" />
+          <folding>
+            <marker date="1446406271000" expanded="true" signature="-1:-1" placeholder="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/adapter/PlanListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/greendao/Plan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/dean/travltotibet/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.740741">
+          <caret line="1771" column="32" selection-start-line="1771" selection-start-column="32" selection-end-line="1771" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -4594,27 +4456,9 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.275862">
-          <caret line="159" column="37" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="37" />
-          <folding>
-            <element signature="e#232#265#0" expanded="true" />
-            <element signature="e#1104#1137#0" expanded="true" />
-            <element signature="e#2708#2738#0" expanded="true" />
-            <element signature="e#2781#2811#0" expanded="true" />
-            <element signature="e#2852#2885#0" expanded="true" />
-            <element signature="e#2927#2960#0" expanded="true" />
-            <element signature="e#4029#4059#0" expanded="true" />
-            <element signature="e#4102#4132#0" expanded="true" />
-            <element signature="e#4173#4206#0" expanded="true" />
-            <element signature="e#4248#4281#0" expanded="true" />
-            <element signature="e#5342#5372#0" expanded="true" />
-            <element signature="e#5415#5445#0" expanded="true" />
-            <element signature="e#5486#5519#0" expanded="true" />
-            <element signature="e#5561#5594#0" expanded="true" />
-            <element signature="e#8113#8147#0" expanded="true" />
-            <element signature="e#8183#8217#0" expanded="true" />
-            <element signature="e#9231#9264#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-11.137931">
+          <caret line="143" column="53" selection-start-line="143" selection-start-column="53" selection-end-line="143" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4623,27 +4467,98 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49">
-          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.310345">
+          <caret line="142" column="53" selection-start-line="142" selection-start-column="37" selection-end-line="142" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/TravelTypeDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/PrepareDetailDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RoutePlanFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="47" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/InfoConfirmDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/RouteGuideFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding>
-            <element signature="e#530#563#0" expanded="true" />
-            <element signature="e#1054#1087#0" expanded="true" />
-            <element signature="e#2658#2688#0" expanded="true" />
-            <element signature="e#2731#2761#0" expanded="true" />
-            <element signature="e#2802#2835#0" expanded="true" />
-            <element signature="e#2877#2910#0" expanded="true" />
-            <element signature="e#3979#4009#0" expanded="true" />
-            <element signature="e#4052#4082#0" expanded="true" />
-            <element signature="e#4123#4156#0" expanded="true" />
-            <element signature="e#4198#4231#0" expanded="true" />
-            <element signature="e#5292#5322#0" expanded="true" />
-            <element signature="e#5365#5395#0" expanded="true" />
-            <element signature="e#5436#5469#0" expanded="true" />
-            <element signature="e#5511#5544#0" expanded="true" />
-            <element signature="e#8032#8066#0" expanded="true" />
-            <element signature="e#8104#8138#0" expanded="true" />
-            <element signature="e#8644#8677#0" expanded="true" />
+            <element signature="e#4173#4195#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/activity/RouteActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="360" column="79" selection-start-line="360" selection-start-column="8" selection-end-line="360" selection-end-column="79" />
+          <folding>
+            <element signature="e#4802#5104#0" expanded="true" />
+            <element signature="e#5103#5104#0" expanded="true" />
+            <element signature="e#5957#5958#0" expanded="true" />
+            <element signature="e#5990#5991#0" expanded="true" />
+            <element signature="e#9366#9392#0" expanded="true" />
+            <element signature="e#9552#9572#0" expanded="true" />
+            <element signature="e#10493#10635#0" expanded="true" />
+            <element signature="e#10634#10635#0" expanded="true" />
+            <element signature="e#10675#10819#0" expanded="true" />
+            <element signature="e#10818#10819#0" expanded="true" />
+            <element signature="e#10860#11029#0" expanded="true" />
+            <element signature="e#11028#11029#0" expanded="true" />
+            <element signature="e#13270#13271#0" expanded="true" />
+            <element signature="e#13304#13305#0" expanded="true" />
+            <element signature="e#13339#13340#0" expanded="true" />
+            <element signature="e#13370#13371#0" expanded="true" />
+            <element signature="e#13406#13407#0" expanded="true" />
+            <element signature="e#13438#13439#0" expanded="true" />
+            <element signature="e#13544#13545#0" expanded="true" />
+            <element signature="e#13579#13580#0" expanded="true" />
+            <element signature="e#13619#13620#0" expanded="true" />
+            <element signature="e#13655#13656#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/fragment/HomeRecentFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="123" column="68" selection-start-line="123" selection-start-column="46" selection-end-line="123" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dean/travltotibet/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2590799">
+          <caret line="53" column="61" selection-start-line="53" selection-start-column="61" selection-end-line="53" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>

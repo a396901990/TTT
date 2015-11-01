@@ -63,6 +63,8 @@ public class RoutePlanFragment extends Fragment {
         final String end = route.getEnd();
         final String dis = route.getDistance();
         final String name = route.getName();
+        final String rank = route.getRank();
+        final String des = route.getDescribe();
 
         RelativeLayout overall = (RelativeLayout) root.findViewById(R.id.overall_route);
 
@@ -79,7 +81,7 @@ public class RoutePlanFragment extends Fragment {
         overall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateChart(start, end, name, dis);
+                updateChart(start, end, name, dis, rank, des);
             }
         });
     }
@@ -88,7 +90,7 @@ public class RoutePlanFragment extends Fragment {
      * 初始化列表菜单
      */
     private void initPlanList() {
-        ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
+        final ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
 
         // 获取数据库路线
         final List<Plan> plans = TTTApplication.getDbHelper().getPlanList(routeActivity.getRoutePlanId());
@@ -105,14 +107,10 @@ public class RoutePlanFragment extends Fragment {
         planList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PlanListAdapter.PlanListItem planItem = (PlanListAdapter.PlanListItem) parent.getItemAtPosition(position);
-                String start = planItem.getPlanDetailStart();
-                String end = planItem.getPlanDetailEnd();
-                String date = planItem.getPlanDate();
-                String distance = planItem.getPlanDistance();
+                Plan plan = plans.get(position);
 
                 // 更新chart视图
-                updateChart(start, end, date, distance);
+                updateChart(plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getRank(), plan.getDescribe());
             }
         });
     }
@@ -123,10 +121,10 @@ public class RoutePlanFragment extends Fragment {
      * @param start 初始地点
      * @param end   终点
      */
-    public void updateChart(String start, String end, String date, String distance) {
+    public void updateChart(String start, String end, String date, String distance, String rank, String describe) {
 
         // 更新标题栏文字
-        routeActivity.updateHeader(start, end, date, distance);
+        routeActivity.updateHeader(start, end, date, distance, rank, describe);
 
         // 关闭菜单
         if (routeActivity.getSlidingMenu().isMenuShowing()) {

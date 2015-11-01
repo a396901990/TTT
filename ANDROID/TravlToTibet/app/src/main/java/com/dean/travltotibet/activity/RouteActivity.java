@@ -17,7 +17,6 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -55,6 +54,8 @@ public class RouteActivity
     private String planStart;
     private String planEnd;
     private String planDistance;
+    private String planDescribe;
+    private String planRank;
 
     // 当前路线
     private Route currentRoute;
@@ -67,6 +68,9 @@ public class RouteActivity
 
     // 当前路线计划的id
     private int routePlanId;
+
+    // 当前路线计划的days
+    private String routePlanDays;
 
     // 当前是否向前，也就是正向反向 f/r
     private boolean isForward;
@@ -90,6 +94,7 @@ public class RouteActivity
             routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
             routePlanId = (int) intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
             isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
+            routePlanDays = intent.getStringExtra(Constants.INTENT_ROUTE_PLAN_DAYS);
         }
 
         // 设置路线信息
@@ -100,7 +105,7 @@ public class RouteActivity
         initViewPager();
 
         // 跟新信息
-        updateHeader(planStart, planEnd, planDate, planDistance);
+        updateHeader(planStart, planEnd, planDate, planDistance, planRank, planDescribe);
     }
 
     private void initPlan(Bundle savedInstanceState) {
@@ -110,6 +115,8 @@ public class RouteActivity
             planEnd = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY);
             planDate = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY);
             planDistance = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY);
+            planDescribe = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY);
+            planRank = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY);
         }
         // 默认总路线数据
         else {
@@ -117,6 +124,8 @@ public class RouteActivity
             planEnd = currentRoute.getEnd();
             planDate = currentRoute.getName();
             planDistance = currentRoute.getDistance();
+            planDescribe = currentRoute.getDescribe();
+            planRank = currentRoute.getRank();
         }
     }
 
@@ -336,17 +345,19 @@ public class RouteActivity
      * @param end
      * @param date
      */
-    public void updateHeader(String start, String end, String date, String distance) {
+    public void updateHeader(String start, String end, String date, String distance, String rank, String describe) {
         planDate = date;
         planStart = start;
         planEnd = end;
         planDistance = distance;
+        planRank = rank;
+        planDescribe = describe;
 
         TextView header_date = (TextView) this.findViewById(R.id.header_menu_date);
         TextView menuBtn = (TextView) this.findViewById(R.id.back_btn);
         TextView header_distance = (TextView) this.findViewById(R.id.header_distance);
 
-        header_date.setText(date);
+        header_date.setText(String.format(Constants.HEADER_DAY, date));
         menuBtn.setText(String.format(Constants.HEADER_START_END, start, end));
         header_distance.setText(String.format(Constants.HEADER_DISTANCE, distance));
 
@@ -376,6 +387,8 @@ public class RouteActivity
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY, planEnd);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY, planDate);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY, planDistance);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY, planDescribe);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY, planRank);
     }
 
     @Override
@@ -389,6 +402,19 @@ public class RouteActivity
 
     public String getPlanStart() {
         return planStart;
+    }
+
+
+    public String getPlanRank() {
+        return planRank;
+    }
+
+    public String getPlanDescribe() {
+        return planDescribe;
+    }
+
+    public String getRoutePlanDays() {
+        return routePlanDays;
     }
 
     public String getPlanEnd() {

@@ -140,7 +140,7 @@
                     android:text="难度" />
 
                 <RatingBar
-                    android:id="@+id/rb_rateNum"
+                    android:id="@+id/guide_brief_rank"
                     style="@style/star_rating_bar_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

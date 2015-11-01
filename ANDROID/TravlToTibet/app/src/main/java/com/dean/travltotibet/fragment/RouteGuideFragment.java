@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
@@ -74,7 +75,24 @@ public class RouteGuideFragment extends BaseRouteFragment {
     protected void onLoading() {
         // 初始化数据adapter并赋值
         dataList = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
-        initExpandableTextView();
+        initBriefView();
+    }
+
+    private void initBriefView() {
+        TextView start = (TextView) contentView.findViewById(R.id.guide_brief_start);
+        TextView end = (TextView) contentView.findViewById(R.id.guide_brief_end);
+        TextView date = (TextView) contentView.findViewById(R.id.guide_brief_plan);
+        TextView distance = (TextView) contentView.findViewById(R.id.guide_brief_distance);
+        RatingBar rank = (RatingBar) contentView.findViewById(R.id.guide_brief_rank);
+
+        start.setText(routeActivity.getPlanStart());
+        end.setText(routeActivity.getPlanEnd());
+
+        date.setText(String.format(Constants.BRIEF_DAY, routeActivity.getPlanDate(), routeActivity.getRoutePlanDays()));
+        distance.setText(routeActivity.getPlanDistance());
+        rank.setNumStars(Integer.parseInt(routeActivity.getPlanRank()));
+
+        initDescribeExpandableTextView();
     }
 
     @Override
@@ -89,7 +107,9 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public void updateRoute() {
         updateTimelineView();
+        initBriefView();
     }
+
     private List<GroupGuidelineEntity> getListData(String start, String end) {
 
         // 根据起点终点获取数据
@@ -144,15 +164,12 @@ public class RouteGuideFragment extends BaseRouteFragment {
     /**
      * 初始化ExpandableTextView
      */
-    private void initExpandableTextView() {
+    private void initDescribeExpandableTextView() {
         briefDescribe = (ExpandableTextView) contentView.findViewById(R.id.guide_brief_describe);
         shadeView = contentView.findViewById(R.id.bottom_shade);
 
         // 设置文字
-        //String detail = TTTApplication.getDbHelper().getRouteDetail(infoRouteActivity.getRoute());
-        //expandableTextView.setText(detail);
-        briefDescribe.setText("下面说下思路吧，就是先获取TextView完全展开时的最大maxLines记录下来，让后再把TextView的maxLine设置为你想指定的任何值，我这里指定的是1，这样加载完成VIew之后我们看到的TextView就不是完全展开的，这样做的主要目的是拿到完全展开的maxLines，让后用户点击的时候不断的更新maxLine大小即可"
-        );
+        briefDescribe.setText(routeActivity.getPlanDescribe());
 
         // 设置监听状态
         briefDescribe.setOnExpandListener(new ExpandableTextView.OnExpandListener() {

@@ -1,12 +1,8 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +121,7 @@ public class HomeRecentFragment extends Fragment {
                     intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
                     intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR().equals("F") ? true : false);
                     intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
+                    intent.putExtra(Constants.INTENT_ROUTE_PLAN_DAYS, 32+"");
                     startActivity(intent);
 
                     // 关闭菜单
