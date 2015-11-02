@@ -24,8 +24,8 @@ public final class HttpHelper {
     public static String sendGet(String url) throws Exception {
 
         URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection(proxy);
-
+        //HttpURLConnection con = (HttpURLConnection) obj.openConnection(proxy);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         // optional default is GET
         con.setRequestMethod("GET");
 

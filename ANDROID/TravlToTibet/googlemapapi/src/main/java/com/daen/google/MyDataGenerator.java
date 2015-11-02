@@ -15,42 +15,42 @@ public class MyDataGenerator {
 
         final ArrayList<Geocode> geocodes = new ArrayList<Geocode>();
 
-        geocodes.add(new Geocode("Ò¶³ÇÏØ", 0, Constants.COUNTY));
-        geocodes.add(new Geocode("¿Â¿ËÑÇÏç", 62, Constants.VILLAGE));
-        geocodes.add(new Geocode("ÆÕÈø´å", 72, Constants.VILLAGE));
-        geocodes.add(new Geocode("°¢¿ËÃÀÆäÌØ´å", 100, "Ò¶³ÇÏØ", Constants.VILLAGE));
-        geocodes.add(new Geocode("¿âµØ", 160, Constants.TOWN));
-        geocodes.add(new Geocode("ÈüÍ¼À­", 355, Constants.VILLAGE));
-        geocodes.add(new Geocode("´óºìÁøÌ²", 487, Constants.VILLAGE));
-        //geocodes.add(new Geocode("ÈÕÍÁÏØËÉÎ÷´å", 732, Constants.VILLAGE));
-        geocodes.add(new Geocode("¶àÂêÏç", 829, "ÈÕÍÁÏØ", Constants.TOWN));
-        geocodes.add(new Geocode("ÈÕÍÁÏØ", 932, Constants.COUNTY));
-        geocodes.add(new Geocode("ÈÕËÉÏç", 965, Constants.VILLAGE));
-        geocodes.add(new Geocode("Ê¨ÈªºÓÕò", 1058, Constants.COUNTY));
-        geocodes.add(new Geocode("Ë÷¶Ñ´å", 1202, Constants.VILLAGE));
-        geocodes.add(new Geocode("°Í¸Â", 1321, "ÆÕÀ¼ÏØ", Constants.TOWN));
-        geocodes.add(new Geocode("»ô¶ûÏç", 1364, Constants.VILLAGE));
-        geocodes.add(new Geocode("ÅÁÑòÕò", 1585, Constants.TOWN));
-        geocodes.add(new Geocode("ÖÙ°ÍÏØ", 1652, Constants.COUNTY));
-        geocodes.add(new Geocode("À­²ØÏç", 1760, Constants.VILLAGE));
-        geocodes.add(new Geocode("´ï¼ªÁëÏç", 1819, Constants.VILLAGE));
-        geocodes.add(new Geocode("Èø¸ÂÏØ", 1846, Constants.COUNTY));
-        geocodes.add(new Geocode("ÇĞÈÈÏç", 1940, Constants.VILLAGE));
-        geocodes.add(new Geocode("É£É£Õò", 2025, Constants.TOWN));
-        geocodes.add(new Geocode("¿¨¸ÂÕò", 2087, Constants.TOWN));
-        geocodes.add(new Geocode("²éÎñÏç", 2139, Constants.VILLAGE));
-        geocodes.add(new Geocode("À­×ÎÏØ", 2146, Constants.COUNTY));
-        geocodes.add(new Geocode("ÈÈÈøÏç", 2189, Constants.VILLAGE));
-        geocodes.add(new Geocode("ÁøÏç", 2213, Constants.VILLAGE));
-        geocodes.add(new Geocode("¼ª¶¨Õò", 2236, Constants.TOWN));
-        geocodes.add(new Geocode("ÈÕ¿¦Ôò", 2291, Constants.CITY));
-        geocodes.add(new Geocode("°×ÀÊÏØ", 2341, Constants.COUNTY));
-        geocodes.add(new Geocode("½­×ÎÏØ", 2382, Constants.COUNTY));
-        geocodes.add(new Geocode("¼ÓÈÈ´å", 2407,"½­×ÎÏØ", Constants.VILLAGE));
-        geocodes.add(new Geocode("ÈÈÁúÏç", 2437, Constants.VILLAGE));
-        geocodes.add(new Geocode("ÀË¿¨×ÓÏØ", 2485, Constants.COUNTY));
-        geocodes.add(new Geocode("´ï¸ÂÏç", 2577, Constants.VILLAGE));
-        geocodes.add(new Geocode("À­Èø", 2651, Constants.CITY));
+        geocodes.add(new Geocode("å¶åŸå¿", 0, Constants.COUNTY));
+        geocodes.add(new Geocode("æŸ¯å…‹äºšä¹¡", 62, Constants.VILLAGE));
+//        geocodes.add(new Geocode("æ™®è¨æ‘", 72, Constants.VILLAGE));
+//        geocodes.add(new Geocode("é˜¿å…‹ç¾å…¶ç‰¹æ‘", 100, "å¶åŸå¿", Constants.VILLAGE));
+//        geocodes.add(new Geocode("åº“åœ°", 160, Constants.TOWN));
+//        geocodes.add(new Geocode("èµ›å›¾æ‹‰", 355, Constants.VILLAGE));
+//        geocodes.add(new Geocode("å¤§çº¢æŸ³æ»©", 487, Constants.VILLAGE));
+//        //geocodes.add(new Geocode("æ—¥åœŸå¿æ¾è¥¿æ‘", 732, Constants.VILLAGE));
+//        geocodes.add(new Geocode("å¤šç›ä¹¡", 829, "æ—¥åœŸå¿", Constants.TOWN));
+//        geocodes.add(new Geocode("æ—¥åœŸå¿", 932, Constants.COUNTY));
+//        geocodes.add(new Geocode("æ—¥æ¾ä¹¡", 965, Constants.VILLAGE));
+//        geocodes.add(new Geocode("ç‹®æ³‰æ²³é•‡", 1058, Constants.COUNTY));
+//        geocodes.add(new Geocode("ç´¢å †æ‘", 1202, Constants.VILLAGE));
+//        geocodes.add(new Geocode("å·´å˜", 1321, "æ™®å…°å¿", Constants.TOWN));
+//        geocodes.add(new Geocode("éœå°”ä¹¡", 1364, Constants.VILLAGE));
+//        geocodes.add(new Geocode("å¸•ç¾Šé•‡", 1585, Constants.TOWN));
+//        geocodes.add(new Geocode("ä»²å·´å¿", 1652, Constants.COUNTY));
+//        geocodes.add(new Geocode("æ‹‰è—ä¹¡", 1760, Constants.VILLAGE));
+//        geocodes.add(new Geocode("è¾¾å‰å²­ä¹¡", 1819, Constants.VILLAGE));
+//        geocodes.add(new Geocode("è¨å˜å¿", 1846, Constants.COUNTY));
+//        geocodes.add(new Geocode("åˆ‡çƒ­ä¹¡", 1940, Constants.VILLAGE));
+//        geocodes.add(new Geocode("æ¡‘æ¡‘é•‡", 2025, Constants.TOWN));
+//        geocodes.add(new Geocode("å¡å˜é•‡", 2087, Constants.TOWN));
+//        geocodes.add(new Geocode("æŸ¥åŠ¡ä¹¡", 2139, Constants.VILLAGE));
+//        geocodes.add(new Geocode("æ‹‰å­œå¿", 2146, Constants.COUNTY));
+//        geocodes.add(new Geocode("çƒ­è¨ä¹¡", 2189, Constants.VILLAGE));
+//        geocodes.add(new Geocode("æŸ³ä¹¡", 2213, Constants.VILLAGE));
+//        geocodes.add(new Geocode("å‰å®šé•‡", 2236, Constants.TOWN));
+//        geocodes.add(new Geocode("æ—¥å–€åˆ™", 2291, Constants.CITY));
+//        geocodes.add(new Geocode("ç™½æœ—å¿", 2341, Constants.COUNTY));
+//        geocodes.add(new Geocode("æ±Ÿå­œå¿", 2382, Constants.COUNTY));
+//        geocodes.add(new Geocode("åŠ çƒ­æ‘", 2407,"æ±Ÿå­œå¿", Constants.VILLAGE));
+//        geocodes.add(new Geocode("çƒ­é¾™ä¹¡", 2437, Constants.VILLAGE));
+//        geocodes.add(new Geocode("æµªå¡å­å¿", 2485, Constants.COUNTY));
+//        geocodes.add(new Geocode("è¾¾å˜ä¹¡", 2577, Constants.VILLAGE));
+//        geocodes.add(new Geocode("æ‹‰è¨", 2651, Constants.CITY));
 
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override
@@ -72,7 +72,7 @@ public class MyDataGenerator {
                     @Override
                     public void fetchFinished(ArrayList<Geocode> geocodes) {
                         Collections.sort(geocodes, Geocode.MileageComparator);
-                        ParseJson.parseToFile(geocodes);
+                        //ParseJson.parseToFile(geocodes);
                     }
 
                     @Override
