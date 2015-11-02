@@ -81,7 +81,7 @@ public class RoutePlanFragment extends Fragment {
         overall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateChart(start, end, name, dis, rank, des);
+                updateChart(true, start, end, name, dis, rank, des);
             }
         });
     }
@@ -110,7 +110,7 @@ public class RoutePlanFragment extends Fragment {
                 Plan plan = plans.get(position);
 
                 // 更新chart视图
-                updateChart(plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getRank(), plan.getDescribe());
+                updateChart(false, plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getRank(), plan.getDescribe());
             }
         });
     }
@@ -121,10 +121,10 @@ public class RoutePlanFragment extends Fragment {
      * @param start 初始地点
      * @param end   终点
      */
-    public void updateChart(String start, String end, String date, String distance, String rank, String describe) {
+    public void updateChart(boolean isRoute, String start, String end, String date, String distance, String rank, String describe) {
 
         // 更新标题栏文字
-        routeActivity.updateHeader(start, end, date, distance, rank, describe);
+        routeActivity.updateHeader(isRoute, start, end, date, distance, rank, describe);
 
         // 关闭菜单
         if (routeActivity.getSlidingMenu().isMenuShowing()) {

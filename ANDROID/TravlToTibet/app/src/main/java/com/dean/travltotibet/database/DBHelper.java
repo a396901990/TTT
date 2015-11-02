@@ -310,6 +310,16 @@ public class DBHelper {
     }
 
     /**
+     * 根据routePlanId查询planDays
+     */
+    public String getPlanDays(int routePlanId) {
+        QueryBuilder<RoutePlan> qb = routePlanDao.queryBuilder();
+        // 根据正反获取Plan
+        qb.where(RoutePlanDao.Properties.Id.eq(routePlanId));
+        return qb.list().get(0).getPlan_days();
+    }
+
+    /**
      * 查询
      */
     public List<Geocode> getGeocode() {

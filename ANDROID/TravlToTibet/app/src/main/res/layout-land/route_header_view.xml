@@ -15,7 +15,7 @@
         <!--最左边按钮-->
         <TextView
             android:id="@+id/back_btn"
-            style="@style/TextAppearance.Large.Withe"
+            style="@style/TextAppearance.Large.White"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -26,7 +26,7 @@
         <!--左侧按钮旁边显示距离 distance-->
         <TextView
             android:id="@+id/header_distance"
-            style="@style/TextAppearance.Large.Withe"
+            style="@style/TextAppearance.Large.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -70,7 +70,7 @@
 
             <TextView
                 android:id="@+id/height_tab"
-                style="@style/TextAppearance.Large.Withe"
+                style="@style/TextAppearance.Large.White"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
@@ -79,7 +79,7 @@
 
             <TextView
                 android:id="@+id/map_tab"
-                style="@style/TextAppearance.Large.Withe"
+                style="@style/TextAppearance.Large.White"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
@@ -88,7 +88,7 @@
 
             <TextView
                 android:id="@+id/guide_tab"
-                style="@style/TextAppearance.Large.Withe"
+                style="@style/TextAppearance.Large.White"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"

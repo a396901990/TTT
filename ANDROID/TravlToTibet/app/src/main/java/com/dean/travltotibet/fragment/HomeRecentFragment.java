@@ -121,7 +121,6 @@ public class HomeRecentFragment extends Fragment {
                     intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
                     intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR().equals("F") ? true : false);
                     intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
-                    intent.putExtra(Constants.INTENT_ROUTE_PLAN_DAYS, 32+"");
                     startActivity(intent);
 
                     // 关闭菜单

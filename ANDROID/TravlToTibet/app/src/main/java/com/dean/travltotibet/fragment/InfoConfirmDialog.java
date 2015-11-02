@@ -135,7 +135,6 @@ public class InfoConfirmDialog extends DialogFragment {
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, routeType);
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, isForward);
                 intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, plans.get(position).getId());
-                intent.putExtra(Constants.INTENT_ROUTE_PLAN_DAYS, plans.get(position).getPlan_days());
                 startActivity(intent);
 
                 // 插入最近路线数据

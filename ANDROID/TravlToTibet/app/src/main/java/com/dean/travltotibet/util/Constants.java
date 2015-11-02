@@ -57,7 +57,6 @@ public final class Constants {
     public static final String INTENT_ROUTE_TYPE = "intent_route_type";
     public static final String INTENT_ROUTE_DAY = "intent_route_day";
     public static final String INTENT_ROUTE_DIR = "intent_route_direction";
-    public static final String INTENT_ROUTE_PLAN_DAYS = "intent_route_days";
 
     // prepare intent
     public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";
@@ -74,9 +73,10 @@ public final class Constants {
 
     public static final String HEADER_START_END= "%s-%s";
     public static final String HEADER_DISTANCE = "(%s)";
-    public static final String HEADER_DAY = "Day%s";
+    public static final String HEADER_DAY = "DAY%s";
 
-    public static final String BRIEF_DAY = "%s/%s天";
+    public static final String BRIEF_DAY = "DAY%s / %s天";
+    public static final String BRIEF_DAY_ROUTE = "%s / %s天";
 
     public static final String TRAVEL_TYPE_TITLE = "请选择旅行方式";
 

@@ -75,10 +75,10 @@ public class RouteGuideFragment extends BaseRouteFragment {
     protected void onLoading() {
         // 初始化数据adapter并赋值
         dataList = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
-        initBriefView();
+        updateBriefView();
     }
 
-    private void initBriefView() {
+    private void updateBriefView() {
         TextView start = (TextView) contentView.findViewById(R.id.guide_brief_start);
         TextView end = (TextView) contentView.findViewById(R.id.guide_brief_end);
         TextView date = (TextView) contentView.findViewById(R.id.guide_brief_plan);
@@ -88,7 +88,14 @@ public class RouteGuideFragment extends BaseRouteFragment {
         start.setText(routeActivity.getPlanStart());
         end.setText(routeActivity.getPlanEnd());
 
-        date.setText(String.format(Constants.BRIEF_DAY, routeActivity.getPlanDate(), routeActivity.getRoutePlanDays()));
+        String planDate = routeActivity.getPlanDate();
+        String planDays = TTTApplication.getDbHelper().getPlanDays(routeActivity.getRoutePlanId());
+        if (routeActivity.isRoute()) {
+            date.setText(String.format(Constants.BRIEF_DAY_ROUTE, planDate, planDays));
+        } else {
+            date.setText(String.format(Constants.BRIEF_DAY, planDate, planDays));
+        }
+
         distance.setText(routeActivity.getPlanDistance());
         rank.setNumStars(Integer.parseInt(routeActivity.getPlanRank()));
 
@@ -107,7 +114,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public void updateRoute() {
         updateTimelineView();
-        initBriefView();
+        updateBriefView();
     }
 
     private List<GroupGuidelineEntity> getListData(String start, String end) {

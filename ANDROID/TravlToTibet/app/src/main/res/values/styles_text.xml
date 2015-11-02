@@ -89,7 +89,7 @@
         <item name="android:textSize">@dimen/text_large</item>
     </style>
 
-    <style name="TextAppearance.Large.Withe" parent="TextAppearance.Large">
+    <style name="TextAppearance.Large.White" parent="TextAppearance.Large">
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -98,7 +98,7 @@
         <item name="android:textColor">@color/dark_blue</item>
     </style>
 
-    <style name="TextAppearance.Large.Withe.Bold" parent="TextAppearance.Large">
+    <style name="TextAppearance.Large.White.Bold" parent="TextAppearance.Large">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>

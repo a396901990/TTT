@@ -23,10 +23,12 @@
             <!--标题-->
             <TextView
                 android:id="@+id/guide_brief_title"
-                style="@style/TextAppearance.Large.DarkOrange.Bold"
+                style="@style/TextAppearance.Medium.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/guide_title_view_padding"
+                android:layout_marginBottom="@dimen/guide_title_view_margin_bottom"
+                android:background="@drawable/border_orange"
+                android:padding="@dimen/guide_title_view_padding"
                 android:text="简介" />
 
             <!--地点： 叶城-拉萨-->
@@ -187,7 +189,7 @@
     <!--分割线-->
     <View
         android:id="@+id/divide_line"
-        android:layout_width="1dp"
+        android:layout_width="@dimen/guide_divide_line_height"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/guide_divide_line_padding"
         android:layout_marginRight="@dimen/guide_divide_line_padding"
@@ -207,17 +209,19 @@
 
         <!--行程timeline-->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!--标题-->
             <TextView
                 android:id="@+id/route_title"
-                style="@style/TextAppearance.Large.DarkOrange.Bold"
-                android:layout_width="match_parent"
+                style="@style/TextAppearance.Medium.White"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/guide_title_view_padding"
+                android:layout_marginBottom="@dimen/guide_title_view_margin_bottom"
+                android:background="@drawable/border_orange"
+                android:padding="@dimen/guide_title_view_padding"
                 android:text="行程" />
 
             <!--行程时间线列表-->

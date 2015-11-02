@@ -70,7 +70,7 @@ public class RouteActivity
     private int routePlanId;
 
     // 当前路线计划的days
-    private String routePlanDays;
+    private boolean isRoute;
 
     // 当前是否向前，也就是正向反向 f/r
     private boolean isForward;
@@ -94,7 +94,6 @@ public class RouteActivity
             routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
             routePlanId = (int) intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
             isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
-            routePlanDays = intent.getStringExtra(Constants.INTENT_ROUTE_PLAN_DAYS);
         }
 
         // 设置路线信息
@@ -105,7 +104,7 @@ public class RouteActivity
         initViewPager();
 
         // 跟新信息
-        updateHeader(planStart, planEnd, planDate, planDistance, planRank, planDescribe);
+        updateHeader(true, planStart, planEnd, planDate, planDistance, planRank, planDescribe);
     }
 
     private void initPlan(Bundle savedInstanceState) {
@@ -345,7 +344,8 @@ public class RouteActivity
      * @param end
      * @param date
      */
-    public void updateHeader(String start, String end, String date, String distance, String rank, String describe) {
+    public void updateHeader(boolean isRoute, String start, String end, String date, String distance, String rank, String describe) {
+        this.isRoute = isRoute;
         planDate = date;
         planStart = start;
         planEnd = end;
@@ -357,7 +357,11 @@ public class RouteActivity
         TextView menuBtn = (TextView) this.findViewById(R.id.back_btn);
         TextView header_distance = (TextView) this.findViewById(R.id.header_distance);
 
-        header_date.setText(String.format(Constants.HEADER_DAY, date));
+        if (isRoute)
+            header_date.setText(date);
+        else
+            header_date.setText(String.format(Constants.HEADER_DAY, date));
+
         menuBtn.setText(String.format(Constants.HEADER_START_END, start, end));
         header_distance.setText(String.format(Constants.HEADER_DISTANCE, distance));
 
@@ -411,10 +415,6 @@ public class RouteActivity
 
     public String getPlanDescribe() {
         return planDescribe;
-    }
-
-    public String getRoutePlanDays() {
-        return routePlanDays;
     }
 
     public String getPlanEnd() {
@@ -471,5 +471,9 @@ public class RouteActivity
 
     public void setRouteType(String routeType) {
         this.routeType = routeType;
+    }
+
+    public boolean isRoute() {
+        return isRoute;
     }
 }
