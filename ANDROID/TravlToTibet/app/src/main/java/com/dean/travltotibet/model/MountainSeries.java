@@ -2,6 +2,7 @@ package com.dean.travltotibet.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,13 +17,17 @@ import android.graphics.Shader;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.dean.travltotibet.ui.PointDetailPaint;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.DetailPaint;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.PointManager;
 
+/**
+ * Created by DeanGuo on 6/13/15.
+ */
 public class MountainSeries
-    extends AbstractSeries
-{
+        extends AbstractSeries {
     private Paint mMountainPaint;
 
     public Paint mLinePaint;
@@ -31,29 +36,14 @@ public class MountainSeries
 
     private int mMountainColor;
 
-    private DetailPaint cityPaint;
-
-    private DetailPaint countyPaint;
-
-    private DetailPaint townPaint;
-
-    private DetailPaint villagePaint;
-
-    private DetailPaint mountainPaint;
-
-    private DetailPaint hotelPaint;
-
-    private DetailPaint viewPaint;
-    
-    public MountainSeries()
-    {
+    public MountainSeries() {
         mMountainPaint = new Paint();
         mMountainPaint.setAntiAlias(true);
         mMountainPaint.setColor(TTTApplication.getResourceUtil().chart_mountain);
         mMountainPaint.setAlpha(TTTApplication.getResourceUtil().chart_mountain_alpha);
 
         mMountainColor = TTTApplication.getResourceUtil().chart_mountain_shader;
-        
+
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
         mLinePaint.setStyle(Style.FILL);
@@ -62,40 +52,28 @@ public class MountainSeries
     }
 
     public void initPaint() {
-        cityPaint = new DetailPaint(Constants.CITY, calcPoint());
-        countyPaint = new DetailPaint(Constants.COUNTY, calcPoint());
-        townPaint = new DetailPaint(Constants.TOWN, calcPoint());
-        villagePaint = new DetailPaint(Constants.VILLAGE, calcPoint());
-        mountainPaint = new DetailPaint(Constants.MOUNTAIN, calcPoint());
-        hotelPaint = new DetailPaint(Constants.HOTEL, calcPoint());
-        viewPaint = new DetailPaint(Constants.SCENIC_SPOT, calcPoint());
+        PointManager.initPointDetailPaint(calcPoint());
     }
 
     public int calcPoint() {
         List<AbstractPoint> points = getPoints();
         int count = 0;
         for (AbstractPoint p : points) {
-            if (p.getCategory() != 0) {
-                count ++;
+            if (!PointManager.PATH.equals(p.getCategory())) {
+                count++;
             }
         }
-//        Log.e("points:  ", points.size()+"");
-//        Log.e("count:  ", count+"");
         return count;
     }
 
     @Override
-    public void drawPoint( Canvas canvas, AbstractPoint point, Rect contentRect, RectF currentViewPoint )
-    {
+    public void drawPoint(Canvas canvas, AbstractPoint point, Rect contentRect, RectF currentViewPoint) {
         float x = point.getX(contentRect, currentViewPoint);
         float y = point.getY(contentRect, currentViewPoint);
 
-        if (mLastPoint != null)
-        {
+        if (mLastPoint != null) {
             canvas.drawLine(mLastPoint.x, mLastPoint.y, x, y, mLinePaint);
-        }
-        else
-        {
+        } else {
             mLastPoint = new PointF();
         }
 
@@ -103,86 +81,49 @@ public class MountainSeries
     }
 
     @Override
-    protected void onDrawingComplete()
-    {
+    protected void onDrawingComplete() {
         mLastPoint = null;
     }
 
     public static class MountainPoint
-        extends AbstractPoint
-    {
-        public MountainPoint()
-        {
+            extends AbstractPoint {
+        public MountainPoint() {
             super();
         }
 
-        public MountainPoint( double x, double y )
-        {
-            super(x, y, "", 0);
+        public MountainPoint(double x, double y) {
+            super(x, y, "", PointManager.PATH);
         }
 
-        public MountainPoint( double x, double y, String name )
-        {
-            super(x, y, name, 0);
+        public MountainPoint(double x, double y, String name) {
+            super(x, y, name, PointManager.PATH);
         }
 
-        public MountainPoint( double x, double y, String name, int category )
-        {
+        public MountainPoint(double x, double y, String name, String category) {
             super(x, y, name, category);
         }
     }
 
-    public void setMountainAlpha( double d )
-    {
+    public void setMountainAlpha(double d) {
         mMountainPaint.setAlpha((int) (255 * d));
     }
 
-    public void setMountainColor( int color )
-    {
+    public void setMountainColor(int color) {
         mMountainColor = color;
     }
 
     @Override
-    public void drawText( Canvas canvas, Rect contentRect, RectF currentViewPoint )
-    {
+    public void drawText(Canvas canvas, Rect contentRect, RectF currentViewPoint) {
         List<AbstractPoint> mPoints = getPoints();
         sortPoints();
-        DetailPaint mPaint = null;
+        PointDetailPaint mPaint;
 
-        for (AbstractPoint point : mPoints)
-        {
-            if (!TextUtils.isEmpty(point.getName()) && point.getCategory() != Constants.PATH)
-            {
-                mPaint = new DetailPaint(point.getCategory(), calcPoint());
-                switch (point.getCategory())
-                {
-                case Constants.CITY:
-                    mPaint = cityPaint;
-                    break;
-                case Constants.COUNTY:
-                    mPaint = countyPaint;
-                    break;
-                case Constants.TOWN:
-                    mPaint = townPaint;
-                    break;
-                case Constants.VILLAGE:
-                    mPaint = villagePaint;
-                    break;
-                case Constants.MOUNTAIN:
-                    mPaint = mountainPaint;
-                    break;
-                case Constants.HOTEL:
-                    mPaint = hotelPaint;
-                    break;
-                case Constants.SCENIC_SPOT:
-                    mPaint = viewPaint;
-                    break;
-                default:
-                    break;
-                }
+        for (AbstractPoint point : mPoints) {
+            if (!TextUtils.isEmpty(point.getName())) {
+                // 获取画笔
+                mPaint = PointManager.getPaint(point.getCategory());
 
-                if (mPaint != null)
-                {
+                if (mPaint != null) {
                     float x = point.getX(contentRect, currentViewPoint);
                     float y = point.getY(contentRect, currentViewPoint);
 
@@ -196,22 +137,19 @@ public class MountainSeries
     }
 
     @Override
-    public void drawLine( Canvas canvas, Rect contentRect, RectF currentViewPoint )
-    {
+    public void drawLine(Canvas canvas, Rect contentRect, RectF currentViewPoint) {
         List<AbstractPoint> mPoints = getPoints();
         // mPoints.add(0, new MountainPoint(mPoints.get(0).getX(),0));
         // mPoints.add(mPoints.size(),new
         // MountainPoint(mPoints.get(mPoints.size()-1).getX(),0));
-        for (AbstractPoint point : mPoints)
-        {
+        for (AbstractPoint point : mPoints) {
             drawPoint(canvas, point, contentRect, currentViewPoint);
         }
         onDrawingComplete();
     }
 
     @Override
-    public void drawMountain( Canvas canvas, Rect contentRect, RectF currentViewPoint )
-    {
+    public void drawMountain(Canvas canvas, Rect contentRect, RectF currentViewPoint) {
         List<AbstractPoint> mPoints = getPoints();
         Collections.sort(mPoints);
 
@@ -220,8 +158,7 @@ public class MountainSeries
         AbstractPoint fistPoint = mPoints.get(0);
         path.moveTo(fistPoint.getX(contentRect, currentViewPoint), contentRect.bottom);
 
-        for (AbstractPoint point : mPoints)
-        {
+        for (AbstractPoint point : mPoints) {
             float x = point.getX(contentRect, currentViewPoint);
             float y = point.getY(contentRect, currentViewPoint);
             path.lineTo(x, y);
@@ -237,14 +174,12 @@ public class MountainSeries
         mMountainPaint.setShader(mShader);
         canvas.drawPath(path, mMountainPaint);
     }
-    
-    public void setLineColor( int color )
-    {
+
+    public void setLineColor(int color) {
         mLinePaint.setColor(color);
     }
 
-    public void setLineWidth( float width )
-    {
+    public void setLineWidth(float width) {
         mLinePaint.setStrokeWidth(width);
     }
 }

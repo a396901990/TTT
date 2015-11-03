@@ -2,6 +2,9 @@ package com.dean.travltotibet.model;
 
 import com.dean.travltotibet.util.Constants;
 
+/**
+ * Created by DeanGuo on 7/13/15.
+ */
 public class Place
 {
     private String name;

@@ -14,6 +14,9 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.AbstractSeries;
 
+/**
+ * Created by DeanGuo on 6/13/15.
+ */
 public class IndicatorSeries
     extends AbstractSeries
 {

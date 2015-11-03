@@ -12,7 +12,11 @@ import android.view.MotionEvent;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.PointManager;
 
+/**
+ * Created by DeanGuo on 6/13/15.
+ */
 public abstract class AbstractSeries
 {
     public static interface PointListener
@@ -249,7 +253,7 @@ public abstract class AbstractSeries
 
         for (int i = 0; i < points.size(); i++) {
             AbstractPoint p = points.get(i);
-            if (p.getCategory() == Constants.PATH) {
+            if (PointManager.PATH.equals(p.getCategory())) {
                 return null;
             } else {
                 return point.getName();
@@ -270,7 +274,7 @@ public abstract class AbstractSeries
         for (int i = 0; i < points.size(); i++)
         {
             AbstractPoint p = points.get(i);
-            if (p.getCategory() == Constants.PATH) {
+            if (PointManager.PATH.equals(p.getCategory())) {
                 return null;
             } else {
                 place.setName(point.getName());

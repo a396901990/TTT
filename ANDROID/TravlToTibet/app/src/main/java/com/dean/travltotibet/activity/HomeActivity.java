@@ -2,13 +2,17 @@ package com.dean.travltotibet.activity;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.HomeSettingFragment;
 import com.dean.travltotibet.fragment.HomeRecentFragment;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.PointManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -34,6 +38,19 @@ public class HomeActivity extends SlidingFragmentActivity {
 //        actionBar.setHomeButtonEnabled(true);
 //        actionBar.setIcon(getResources().getDrawable(R.drawable.car_disable));
         initMenu();
+        persistConfigurationData();
+    }
+
+    private void persistConfigurationData() {
+        SharedPreferences sp = TTTApplication.getSharedPreferences();
+        String[] default_points = getResources().getStringArray(R.array.default_points);
+        StringBuffer sb = new StringBuffer();
+        for (String point : default_points) {
+            sb.append(point);
+            sb.append(Constants.POINT_DIVIDE_MARK);
+        }
+
+        sp.edit().putString(Constants.CURRENT_POINTS, sb.toString()).commit();
     }
 
     private void initMenu() {
@@ -89,12 +106,10 @@ public class HomeActivity extends SlidingFragmentActivity {
         if (id == R.id.action_history) {
             homeRecentFragment.updateRecentData();
             slidingMenu.showMenu();
-        }
-        else if (id == R.id.action_setting) {
+        } else if (id == R.id.action_setting) {
             Intent intent = new Intent(this, HomeSettingActivity.class);
             startActivity(intent);
-        }
-        else if (id == android.R.id.home) {
+        } else if (id == android.R.id.home) {
             slidingMenu.showMenu();
         }
         return super.onOptionsItemSelected(item);

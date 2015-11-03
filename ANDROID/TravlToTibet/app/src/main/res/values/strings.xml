@@ -35,4 +35,18 @@
     <string name="feedback_title">反馈</string>
     <string name="feedback_hint">您的反馈将帮助我们成长！</string>
     <string name="submit_feedback">提交意见反馈</string>
+
+    <!--point-->
+    <string name="point_city">城市</string>
+    <string name="point_county">县城</string>
+    <string name="point_town">乡镇</string>
+    <string name="point_vallage">村庄</string>
+    <string name="point_mountain">山峰、垭口、达坂</string>
+    <string name="point_camp">露营点</string>
+    <string name="point_scenic">风景点</string>
+    <string name="point_tunnel">隧道</string>
+    <string name="point_bridge">桥梁</string>
+    <string name="point_gas_station">加油站</string>
+    <string name="point_other">其他（兵站，道班等）</string>
+    <string name="point_check_point">检查点</string>
 </resources>

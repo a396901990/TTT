@@ -9,6 +9,7 @@ import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
 import com.dean.travltotibet.database.DBHelper;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.PointManager;
 import com.dean.travltotibet.util.ResourceUtil;
 
 public class TTTApplication extends Application
@@ -39,6 +40,9 @@ public class TTTApplication extends Application
 
         // 初始化SharedPreferences
         initPreferences();
+
+        // 初始化PointManager
+        PointManager.init(instance);
     }
 
     private void initPreferences()
