@@ -1,8 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,12 +25,14 @@ public class ChartSettingFragment extends ListFragment {
 
     private ChartSettingListAdapter mAdapter;
 
-    public ChartSettingFragment() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_chart_setting, container, false);
     }
 
     @Override
-    public void onActivityCreated( Bundle savedInstanceState )
-    {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
         DragSortListView list = (DragSortListView) getListView();
@@ -40,9 +44,29 @@ public class ChartSettingFragment extends ListFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chart_setting, container, false);
+    public void onResume() {
+        super.onResume();
+        /**
+         * 设置返回按钮监听
+         */
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+
+                    PointManager.setAllPoints(mAdapter.getAllPoints());
+                    PointManager.setCurrentPoints(mAdapter.getSelectedPoints());
+                    getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    getActivity().finish();
+                    return true;
+                }
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -56,8 +80,7 @@ public class ChartSettingFragment extends ListFragment {
             getActivity().finish();
         }
         // 重置按钮
-        else if (item.getItemId() == R.id.action_reset)
-        {
+        else if (item.getItemId() == R.id.action_reset) {
             final NormalDialog mDialog = new NormalDialog(getActivity(), R.style.Transparent_Dialog);
             // 对话框视图
             mDialog.setTitle(getString(R.string.reset_dialog_title));
@@ -81,10 +104,15 @@ public class ChartSettingFragment extends ListFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu( Menu menu, MenuInflater inflater )
-    {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_chart_setting, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public void onDestroy() {
+        PointManager.setAllPoints(mAdapter.getAllPoints());
+        PointManager.setCurrentPoints(mAdapter.getSelectedPoints());
+        super.onDestroy();
+    }
 }
