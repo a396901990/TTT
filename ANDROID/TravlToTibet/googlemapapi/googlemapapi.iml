@@ -30,5 +30,6 @@
     <orderEntry type="library" exported="" name="json-org" level="project" />
     <orderEntry type="library" exported="" name="_Users_DeanGuo_Github_Workspace_ANDROID_TravlToTibet_googlemapapi_libs_gson_2_3_1_jar" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="googlemapapi.googlemapapi" level="project" />
   </component>
 </module>

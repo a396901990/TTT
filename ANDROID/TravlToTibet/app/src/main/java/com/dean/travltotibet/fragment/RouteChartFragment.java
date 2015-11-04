@@ -102,6 +102,16 @@ public class RouteChartFragment extends BaseRouteFragment {
             posName.setText(name);
             posHeight.setText(height);
             posMilestone.setText(milestone);
+        } else {
+            if (posName != null) {
+                posName.setText("");
+            }
+            if (posHeight != null) {
+                posHeight.setText("");
+            }
+            if (posMilestone != null) {
+                posMilestone.setText("");
+            }
         }
     }
 
@@ -172,6 +182,7 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     @Override
     public void updateRoute() {
+        updateChartDetail(null);
         updateChartRoute();
     }
 }

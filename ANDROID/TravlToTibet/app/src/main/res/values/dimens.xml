@@ -125,4 +125,9 @@
     <dimen name="feeding_item_edit_text_padding_left">5dp</dimen>
     <dimen name="feedback_space_height">20dp</dimen>
 
+    <!--chart setting-->
+    <dimen name="chart_setting_checkbox_margin">10dp</dimen>
+    <dimen name="chart_setting_drag_padding_left">12dp</dimen>
+    <dimen name="chart_setting_drag_padding_right">10dp</dimen>
+
 </resources>

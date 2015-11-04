@@ -5,6 +5,7 @@
     <string name="action_recent">最近查询</string>
     <string name="action_setting">设置</string>
     <string name="action_submit">提交</string>
+    <string name="action_reset">恢复默认</string>
 
     <string name="travel_type_dialog_title">请选择旅行类型：</string>
 
@@ -20,12 +21,18 @@
     <!--setting-->
     <string name="preference">private preference</string>
 
+    <!--recent dialog-->
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="delete_recent_msg">是否要清空所有浏览记录？</string>
     <string name="delete_recent_title">清空记录</string>
     <string name="title_activity_home_setting">设置</string>
     <string name="title_setting_feedback">反馈</string>
+    <string name="title_chart_setting">设置</string>
+
+    <!--chart setting dialog-->
+    <string name="reset_dialog_msg">是否要恢复默认设置？</string>
+    <string name="reset_dialog_title">恢复默认</string>
 
     <string name="ptr_pull_text">下拉刷新</string>
     <string name="ptr_refreshing_text">加载中...</string>
@@ -49,4 +56,5 @@
     <string name="point_gas_station">加油站</string>
     <string name="point_other">其他（兵站，道班等）</string>
     <string name="point_check_point">检查点</string>
+    <string name="title_activity_chart_setting">ChartSettingActivity</string>
 </resources>

@@ -135,4 +135,9 @@ public class ResourceUtil
     public Drawable getDrawableResourece(int id){
         return mResources.getDrawable(id);
     }
+
+    public Resources getResources() {
+        return mResources;
+    }
+
 }

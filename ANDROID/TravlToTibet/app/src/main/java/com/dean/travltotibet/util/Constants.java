@@ -95,5 +95,7 @@ public final class Constants {
     public static final String ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY = "route_activity_plan_rank";
 
     public static final String CURRENT_POINTS = "current_points";
+    public static final String ALL_POINTS = "all_points";
     public static final String POINT_DIVIDE_MARK = ",";
+    public static final String POINT_DEFAULT = "default";
 }

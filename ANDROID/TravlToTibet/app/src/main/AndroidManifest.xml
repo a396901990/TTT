@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dean.travltotibet">
+    package="com.dean.travltotibet" >
 
     <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -16,13 +16,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".TTTApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppBaseTheme">
+        android:theme="@style/Theme.AppBaseTheme" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="5GjuYFZGqzZDGB3UUkUa3hAq" />
@@ -31,9 +30,10 @@
             android:name=".activity.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HomeTheme">
+            android:theme="@style/Theme.HomeTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,12 +52,17 @@
             android:name=".activity.HomeSettingActivity"
             android:label="@string/title_activity_home_setting"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HomeSettingTheme"></activity>
+            android:theme="@style/Theme.HomeSettingTheme" />
         <activity
             android:name=".activity.FeedbackActivity"
             android:label="@string/title_setting_feedback"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HomeSettingTheme"></activity>
+            android:theme="@style/Theme.HomeSettingTheme" />
+        <activity
+            android:name=".activity.ChartSettingActivity"
+            android:label="@string/title_chart_setting"
+            android:theme="@style/Theme.HomeSettingTheme" >
+        </activity>
     </application>
 
 </manifest>

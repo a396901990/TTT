@@ -4,6 +4,7 @@ package com.dean.travltotibet;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
@@ -26,6 +27,8 @@ public class TTTApplication extends Application
 
     private static SharedPreferences mSharedPreferences;
 
+    private static Resources resources;
+
     @Override
     public void onCreate()
     {
@@ -34,6 +37,8 @@ public class TTTApplication extends Application
 
         // 初始化颜色
         resourceUtil = new ResourceUtil(getApplicationContext());
+
+        resources = getResources();
 
         // 初始化数据库
         initDB();
@@ -98,5 +103,10 @@ public class TTTApplication extends Application
 
     public static DBHelper getDbHelper() {
         return dbHelper;
+    }
+
+
+    public static Resources getMyResources() {
+        return resources;
     }
 }

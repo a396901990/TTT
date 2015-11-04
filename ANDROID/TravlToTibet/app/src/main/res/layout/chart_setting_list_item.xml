@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/row"
+        android:gravity="center_vertical" >
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/chart_setting_checkbox_margin"
+            android:layout_marginRight="@dimen/chart_setting_checkbox_margin" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/TextAppearance.Regular.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/drag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginLeft="@dimen/chart_setting_drag_padding_left"
+        android:layout_marginRight="@dimen/chart_setting_drag_padding_right"
+        android:scaleType="center"
+        android:src="@drawable/gripper" />
+
+</FrameLayout>

@@ -6,4 +6,19 @@
         <item>TOWN</item>
         <item>MOUNTAIN</item>
     </string-array>
+
+    <string-array name="default_all_points">
+        <item>CITY</item>
+        <item>COUNTY</item>
+        <item>TOWN</item>
+        <item>VILLAGE</item>
+        <item>MOUNTAIN</item>
+        <item>CAMP_SPOT</item>
+        <item>SCENIC_SPOT</item>
+        <item>CHECK_POINT</item>
+        <item>GAS_STATION</item>
+        <item>TUNNEL</item>
+        <item>BRIDGE</item>
+        <item>OTHERS</item>
+    </string-array>
 </resources>

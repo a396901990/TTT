@@ -72,6 +72,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/TravlToTibet/SlidingMenu@library/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/asia.ivity.android/drag-sort-listview/1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/cn.lightsky.infiniteindicator/library/1.0.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v13/22.2.1/jars" />
@@ -105,6 +106,7 @@
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="greendao-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="library-0.9.9" level="project" />
+    <orderEntry type="library" exported="" name="drag-sort-listview-1.0" level="project" />
     <orderEntry type="library" exported="" name="library-0.4.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.4.0" level="project" />

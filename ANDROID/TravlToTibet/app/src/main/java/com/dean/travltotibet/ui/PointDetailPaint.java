@@ -7,7 +7,6 @@ import android.graphics.RectF;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.PointManager;
 
 /**
@@ -47,7 +46,7 @@ public class PointDetailPaint extends Paint {
 
         // 设置中央字体画笔
         textRectPaint.setAntiAlias(true);
-        textRectPaint.setColor(PointManager.getColor(category));
+        textRectPaint.setColor(TTTApplication.getResourceUtil().getResources().getColor(PointManager.getColor(category)));
         textRectPaint.setStyle(Style.FILL);
         textRectPaint.setAlpha(TTTApplication.getResourceUtil().chart_text_rect_aplha);
     }

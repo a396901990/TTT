@@ -78,21 +78,21 @@ public final class PointManager {
 
     static {
         COLORS.put(CITY, R.color.blue);
-        COLORS.put(COUNTY, R.color.blue);
+        COLORS.put(COUNTY, R.color.red);
         COLORS.put(TOWN, R.color.blue);
-        COLORS.put(VILLAGE, R.color.blue);
+        COLORS.put(VILLAGE, R.color.red);
         COLORS.put(MOUNTAIN, R.color.blue);
-        COLORS.put(CAMP_SPOT, R.color.blue);
+        COLORS.put(CAMP_SPOT, R.color.red);
         COLORS.put(SCENIC_SPOT, R.color.blue);
-        COLORS.put(CHECK_POINT, R.color.blue);
+        COLORS.put(CHECK_POINT, R.color.red);
         COLORS.put(TUNNEL, R.color.blue);
-        COLORS.put(BRIDGE, R.color.blue);
+        COLORS.put(BRIDGE, R.color.red);
         COLORS.put(GAS_STATION, R.color.blue);
-        COLORS.put(OTHERS, R.color.blue);
+        COLORS.put(OTHERS, R.color.red);
     }
 
     // 颜色
-    private static final Map<String, PointDetailPaint> PAINTS = new HashMap<String, PointDetailPaint>();
+    private static Map<String, PointDetailPaint> PAINTS;
 
     /**
      * 根据当前设置的显示点，初始化画笔
@@ -100,12 +100,17 @@ public final class PointManager {
      * @param pointCount 所有点的数量
      */
     public static void initPointDetailPaint(int pointCount) {
-        for (String point : getCurrentPoints()) {
-            PointDetailPaint pointDetailPaint = new PointDetailPaint(point);
-            pointDetailPaint.setCount(pointCount);
-            pointDetailPaint.setSize(20, 28);
-            pointDetailPaint.setDisplayPercent(0.5d, 0.8d);
-            PAINTS.put(point, pointDetailPaint);
+        PAINTS = new HashMap<String, PointDetailPaint>();
+
+        String[] currentPoints = getCurrentPoints();
+        for (String point : currentPoints) {
+            if (!TextUtils.isEmpty(point)) {
+                PointDetailPaint pointDetailPaint = new PointDetailPaint(point);
+                pointDetailPaint.setCount(pointCount);
+                pointDetailPaint.setSize(20, 28);
+                pointDetailPaint.setDisplayPercent(0.5d, 0.8d);
+                PAINTS.put(point, pointDetailPaint);
+            }
         }
     }
 
@@ -131,12 +136,42 @@ public final class PointManager {
      */
     public static String[] getCurrentPoints() {
         SharedPreferences sp = TTTApplication.getSharedPreferences();
-        String pointsValue = sp.getString(Constants.CURRENT_POINTS, "");
-        if (!TextUtils.isEmpty(pointsValue)) {
+        String pointsValue = sp.getString(Constants.CURRENT_POINTS, Constants.POINT_DEFAULT);
+        if (!Constants.POINT_DEFAULT.equals(pointsValue)) {
             return pointsValue.split(Constants.POINT_DIVIDE_MARK);
         }
 
         return TTTApplication.getResourceUtil().getStringArray(R.array.default_points);
+    }
+
+    /**
+     * 设置所有点
+     *
+     * @param points 所有点数组
+     */
+    public static void setAllPoints(String[] points) {
+
+        SharedPreferences sp = TTTApplication.getSharedPreferences();
+        StringBuffer sb = new StringBuffer();
+        for (String point : points) {
+            sb.append(point);
+            sb.append(Constants.POINT_DIVIDE_MARK);
+        }
+
+        sp.edit().putString(Constants.ALL_POINTS, sb.toString()).commit();
+    }
+
+    /**
+     * 获取所有点
+     */
+    public static String[] getAllPoints() {
+        SharedPreferences sp = TTTApplication.getSharedPreferences();
+        String pointsValue = sp.getString(Constants.ALL_POINTS, Constants.POINT_DEFAULT);
+        if (!Constants.POINT_DEFAULT.equals(pointsValue)) {
+            return pointsValue.split(Constants.POINT_DIVIDE_MARK);
+        }
+
+        return TTTApplication.getResourceUtil().getStringArray(R.array.default_all_points);
     }
 
     public static Map<String, PointDetailPaint> getPaints() {

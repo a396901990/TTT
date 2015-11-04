@@ -36,4 +36,5 @@ dependencies {
     compile 'cn.lightsky.infiniteindicator:library:1.0.3'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
+    compile 'asia.ivity.android:drag-sort-listview:1.0'
 }
