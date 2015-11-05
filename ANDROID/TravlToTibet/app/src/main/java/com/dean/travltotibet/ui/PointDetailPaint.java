@@ -2,7 +2,6 @@ package com.dean.travltotibet.ui;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 import com.dean.travltotibet.TTTApplication;
@@ -25,6 +24,21 @@ public class PointDetailPaint extends Paint {
 
     // 一共有多少点
     private int count;
+
+    // 当前点下标位置（优先级）
+    private int currentPointIndex;
+
+    // 显示点类型得总数量
+    private int currentPointsSize;
+
+    // 字体最大值
+    private final static int TEXT_MAX_SIZE = 20;
+
+    // 字体最小值
+    private final static int TEXT_MIN_SIZE = 10;
+
+    // 当所有点得扩大距离到达比例时不再显示 (0-1, 越大显示间距越大)
+    private final static Double TEXT_DISPLAY_PRECENT = 0.6;
 
     private static int POINT_MIN = 10;
 
@@ -54,13 +68,16 @@ public class PointDetailPaint extends Paint {
     /**
      * 计算字体大小 当currentViewPoint扩大到displayPercent时显示并放大字体，当扩大到stopPercent时停止放大
      *
-     * @param point            点
-     * @param contentRect      屏幕
      * @param currentViewPoint 视口
      */
-    public void calcSize(AbstractPoint point, Rect contentRect, RectF currentViewPoint) {
+    public void calcSize(RectF currentViewPoint) {
         // 重新计算当前屏幕大小
         mRect = new RectF(RouteChartView.AXIS_X_MIN, RouteChartView.AXIS_Y_MIN, RouteChartView.AXIS_X_MAX, RouteChartView.AXIS_Y_MAX);
+
+        maxSize = TEXT_MAX_SIZE;
+        minSize = TEXT_MIN_SIZE;
+        displayPercent = 1 - currentPointIndex * (TEXT_DISPLAY_PRECENT / currentPointsSize);
+        stopPercent = 1 - (currentPointIndex + 1) * (TEXT_DISPLAY_PRECENT / currentPointsSize);
 
         if (currentViewPoint.width() <= mRect.width() * displayPercent) {
             if (currentViewPoint.width() > mRect.width() * stopPercent) {
@@ -141,4 +158,11 @@ public class PointDetailPaint extends Paint {
         this.count = count;
     }
 
+    public void setCurrentPointIndex(int currentPointIndex) {
+        this.currentPointIndex = currentPointIndex;
+    }
+
+    public void setCurrentPointsSize(int currentPointsSize) {
+        this.currentPointsSize = currentPointsSize;
+    }
 }

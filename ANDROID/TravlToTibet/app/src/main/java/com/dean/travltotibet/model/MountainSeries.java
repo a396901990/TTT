@@ -53,6 +53,7 @@ public class MountainSeries
 
     public void initPaint() {
         PointManager.initPointDetailPaint(calcPoint());
+
     }
 
     public int calcPoint() {
@@ -127,7 +128,7 @@ public class MountainSeries
                     float x = point.getX(contentRect, currentViewPoint);
                     float y = point.getY(contentRect, currentViewPoint);
 
-                    mPaint.calcSize(point, contentRect, currentViewPoint);
+                    mPaint.calcSize(currentViewPoint);
                     mPaint.drawText(canvas, point, x, y);
                 }
             }

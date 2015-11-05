@@ -103,12 +103,14 @@ public final class PointManager {
         PAINTS = new HashMap<String, PointDetailPaint>();
 
         String[] currentPoints = getCurrentPoints();
-        for (String point : currentPoints) {
+
+        for (int i=0; i<currentPoints.length; i++) {
+            String point = currentPoints[i];
             if (!TextUtils.isEmpty(point)) {
                 PointDetailPaint pointDetailPaint = new PointDetailPaint(point);
                 pointDetailPaint.setCount(pointCount);
-                pointDetailPaint.setSize(20, 28);
-                pointDetailPaint.setDisplayPercent(0.5d, 0.8d);
+                pointDetailPaint.setCurrentPointIndex(i);
+                pointDetailPaint.setCurrentPointsSize(currentPoints.length);
                 PAINTS.put(point, pointDetailPaint);
             }
         }
