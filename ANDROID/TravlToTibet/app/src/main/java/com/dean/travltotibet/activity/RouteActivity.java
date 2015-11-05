@@ -17,6 +17,11 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -335,6 +340,7 @@ public class RouteActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChartSettingActivity.class);
+                intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(activity));
                 startActivityForResult(intent, CHART_SETTING);
             }
         });
@@ -399,8 +405,7 @@ public class RouteActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CHART_SETTING:

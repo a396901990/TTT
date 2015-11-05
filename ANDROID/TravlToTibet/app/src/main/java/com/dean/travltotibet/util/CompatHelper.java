@@ -43,12 +43,14 @@ public class CompatHelper {
     }
 
     public static void rotateScreen(Activity activity) {
-        int origin = activity.getRequestedOrientation();
+        int origin = getActivityRotationInfo(activity);
 
         if (origin == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         } else if (origin == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
     }
 
