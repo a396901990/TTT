@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public final class PointManager {
 
+    // 起点，终点
+    public static final String START_END = "START_END";
     // 城市
     public static final String CITY = "CITY";
     // 县城
@@ -59,6 +61,7 @@ public final class PointManager {
     private static final Map<String, Integer> TITLES = new HashMap<String, Integer>();
 
     static {
+        TITLES.put(START_END, R.string.point_start_end);
         TITLES.put(CITY, R.string.point_city);
         TITLES.put(COUNTY, R.string.point_county);
         TITLES.put(TOWN, R.string.point_town);
@@ -77,11 +80,12 @@ public final class PointManager {
     private static final Map<String, Integer> COLORS = new HashMap<String, Integer>();
 
     static {
-        COLORS.put(CITY, R.color.blue);
-        COLORS.put(COUNTY, R.color.red);
+        COLORS.put(START_END, R.color.red);
+        COLORS.put(CITY, R.color.orange_red);
+        COLORS.put(COUNTY, R.color.blue_gray);
         COLORS.put(TOWN, R.color.blue);
-        COLORS.put(VILLAGE, R.color.red);
-        COLORS.put(MOUNTAIN, R.color.blue);
+        COLORS.put(VILLAGE, R.color.dark_green);
+        COLORS.put(MOUNTAIN, R.color.brown);
         COLORS.put(CAMP_SPOT, R.color.red);
         COLORS.put(SCENIC_SPOT, R.color.blue);
         COLORS.put(CHECK_POINT, R.color.red);
@@ -104,7 +108,9 @@ public final class PointManager {
 
         String[] currentPoints = getCurrentPoints();
 
-        for (int i=0; i<currentPoints.length; i++) {
+        PAINTS.put(PointManager.START_END, new PointDetailPaint(PointManager.START_END));
+
+        for (int i = 0; i < currentPoints.length; i++) {
             String point = currentPoints[i];
             if (!TextUtils.isEmpty(point)) {
                 PointDetailPaint pointDetailPaint = new PointDetailPaint(point);

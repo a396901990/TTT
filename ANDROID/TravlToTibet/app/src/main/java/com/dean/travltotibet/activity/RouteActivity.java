@@ -111,12 +111,14 @@ public class RouteActivity
         initViewPager();
 
         // 跟新信息
-        updateHeader(true, planStart, planEnd, planDate, planDistance, planRank, planDescribe);
+        updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planRank, planDescribe);
     }
 
     private void initPlan(Bundle savedInstanceState) {
         // 恢复数据
         if (savedInstanceState != null) {
+            isRoute = savedInstanceState.getBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE);
+
             planStart = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_START_STATUS_KEY);
             planEnd = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY);
             planDate = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY);
@@ -126,6 +128,7 @@ public class RouteActivity
         }
         // 默认总路线数据
         else {
+            isRoute = true;
             planStart = currentRoute.getStart();
             planEnd = currentRoute.getEnd();
             planDate = currentRoute.getName();
@@ -394,6 +397,9 @@ public class RouteActivity
         super.onSaveInstanceState(outState);
         // current page
         outState.putInt(Constants.ROUTE_ACTIVITY_CURRENT_PAGE_STATUS_KEY, currentPage);
+
+        // isRoute
+        outState.putBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE, isRoute);
 
         // plan status
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_START_STATUS_KEY, planStart);

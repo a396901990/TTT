@@ -88,6 +88,8 @@ public final class Constants {
      */
     public static final String ROUTE_ACTIVITY_CURRENT_PAGE_STATUS_KEY = "route_activity_current_page";
 
+    public static final String ROUTE_ACTIVITY_IS_ROUTE = "route_activity_is_route";
+
     public static final String ROUTE_ACTIVITY_PLAN_START_STATUS_KEY = "route_activity_plan_start";
     public static final String ROUTE_ACTIVITY_PLAN_END_STATUS_KEY = "route_activity_plan_end";
     public static final String ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY = "route_activity_plan_date";

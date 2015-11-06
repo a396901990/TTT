@@ -32,13 +32,16 @@ public class PointDetailPaint extends Paint {
     private int currentPointsSize;
 
     // 字体最大值
-    private final static int TEXT_MAX_SIZE = 20;
+    private final static int TEXT_MAX_SIZE = 22;
 
     // 字体最小值
-    private final static int TEXT_MIN_SIZE = 10;
+    private final static int TEXT_MIN_SIZE = 11;
+
+    // 起点终点字体
+    private final static int START_END_SIZE = 25;
 
     // 当所有点得扩大距离到达比例时不再显示 (0-1, 越大显示间距越大)
-    private final static Double TEXT_DISPLAY_PRECENT = 0.6;
+    private final static Double TEXT_DISPLAY_PERCENT = 0.6;
 
     private static int POINT_MIN = 10;
 
@@ -71,25 +74,37 @@ public class PointDetailPaint extends Paint {
      * @param currentViewPoint 视口
      */
     public void calcSize(RectF currentViewPoint) {
-        // 重新计算当前屏幕大小
-        mRect = new RectF(RouteChartView.AXIS_X_MIN, RouteChartView.AXIS_Y_MIN, RouteChartView.AXIS_X_MAX, RouteChartView.AXIS_Y_MAX);
-
-        maxSize = TEXT_MAX_SIZE;
-        minSize = TEXT_MIN_SIZE;
-        displayPercent = 1 - currentPointIndex * (TEXT_DISPLAY_PRECENT / currentPointsSize);
-        stopPercent = 1 - (currentPointIndex + 1) * (TEXT_DISPLAY_PRECENT / currentPointsSize);
-
-        if (currentViewPoint.width() <= mRect.width() * displayPercent) {
-            if (currentViewPoint.width() > mRect.width() * stopPercent) {
-                double p = (mRect.width() - currentViewPoint.width()) / (mRect.width() * (1.0d - stopPercent));
-                float textSize = (float) (minSize + (maxSize - minSize) * p);
-                setTextSize(textSize);
-            } else {
-                setTextSize(maxSize);
-            }
-        } else {
-            setTextSize(0);
+        // start end point
+        if (category.equals(PointManager.START_END)) {
+            setTextSize(START_END_SIZE);
         }
+
+        // others point
+        if (count > POINT_MIN) {
+            // 重新计算当前屏幕大小
+            mRect = new RectF(RouteChartView.AXIS_X_MIN, RouteChartView.AXIS_Y_MIN, RouteChartView.AXIS_X_MAX, RouteChartView.AXIS_Y_MAX);
+
+            maxSize = TEXT_MAX_SIZE;
+            minSize = TEXT_MIN_SIZE;
+            displayPercent = 1 - currentPointIndex * (TEXT_DISPLAY_PERCENT / currentPointsSize);
+            stopPercent = 1 - (currentPointIndex + 1) * (TEXT_DISPLAY_PERCENT / currentPointsSize);
+
+            if (currentViewPoint.width() <= mRect.width() * displayPercent) {
+                if (currentViewPoint.width() > mRect.width() * stopPercent) {
+                    double p = (mRect.width() - currentViewPoint.width()) / (mRect.width() * (1.0d - stopPercent));
+                    float textSize = (float) (minSize + (maxSize - minSize) * p);
+                    setTextSize(textSize);
+                } else {
+                    setTextSize(maxSize);
+                }
+            } else {
+                setTextSize(0);
+            }
+        }
+        else {
+            setTextSize(TEXT_MAX_SIZE);
+        }
+
     }
 
     /**

@@ -18,6 +18,7 @@ import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.PointManager;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.List;
@@ -26,6 +27,8 @@ import java.util.List;
  * Created by DeanGuo on 8/13/15.
  */
 public class RouteChartFragment extends BaseRouteFragment {
+
+    private final static int BORDER_EXTRA_LENGTH = 15;
 
     private View rootView;
 
@@ -102,7 +105,9 @@ public class RouteChartFragment extends BaseRouteFragment {
             posName.setText(name);
             posHeight.setText(height);
             posMilestone.setText(milestone);
-        } else {
+        }
+        // 切换时清空
+        else {
             if (posName != null) {
                 posName.setText("");
             }
@@ -136,7 +141,11 @@ public class RouteChartFragment extends BaseRouteFragment {
         for (int i = 0; i < geocodes.size(); i++) {
             Geocode geocode = geocodes.get(i);
 
-            series.addPoint(new MountainSeries.MountainPoint((int) mileage, (int) geocode.getElevation(), geocode.getName(), geocode.getTypes()));
+            if (i == 0 || i == geocodes.size() - 1) {
+                series.addPoint(new MountainSeries.MountainPoint((int) mileage, (int) geocode.getElevation(), geocode.getName(), PointManager.START_END));
+            } else {
+                series.addPoint(new MountainSeries.MountainPoint((int) mileage, (int) geocode.getElevation(), geocode.getName(), geocode.getTypes()));
+            }
             indicatorSeries.addPoint(new IndicatorSeries.IndicatorPoint((int) mileage, (int) geocode.getElevation()));
 
             // 最后一个位置不需要进行计算，根据距离计算每个点得距离长度
@@ -156,11 +165,13 @@ public class RouteChartFragment extends BaseRouteFragment {
             public void run() {
                 // 重置图标视图数据
                 // 远离屏幕左右间隔是起点终点长的1/10
-                mChartView.setAxisRange(-border / 10, 0, border + border / 10, 6500);
+                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6500);
+                //mChartView.setAxisRange(-5, 0, border + 5, 6500);
                 //mIndicatorView.setCurrentViewport(mChartView.getCurrentViewport()); // ??????????????????
             }
         });
-        mChartView.setAxisRange(-border / 10, 0, border + border / 10, 6500);
+        //mChartView.setAxisRange(-5, 0, border+5, 6500);
+        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6500);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 

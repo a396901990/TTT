@@ -57,4 +57,5 @@
     <string name="point_other">其他（兵站，道班等）</string>
     <string name="point_check_point">检查点</string>
     <string name="title_activity_chart_setting">ChartSettingActivity</string>
+    <string name="point_start_end">起/终点</string>
 </resources>
