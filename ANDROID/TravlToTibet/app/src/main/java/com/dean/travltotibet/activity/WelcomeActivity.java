@@ -170,6 +170,7 @@ public class WelcomeActivity extends Activity {
 
     public void finishTour() {
         //saveVersion();
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -217,7 +218,8 @@ public class WelcomeActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (pager.getCurrentItem() == 0) {
-            super.onBackPressed();
+            setResult(RESULT_CANCELED);
+            finish();
         } else {
             pager.setCurrentItem(pager.getCurrentItem() - 1);
         }

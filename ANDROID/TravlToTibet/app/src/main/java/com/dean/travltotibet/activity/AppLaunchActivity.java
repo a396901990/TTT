@@ -97,7 +97,11 @@ public class AppLaunchActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_WHATSNEW) {
-            goToHome();
+            if (resultCode == RESULT_OK) {
+                goToHome();
+            } else {
+                finish();
+            }
         }
     }
 
