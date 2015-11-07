@@ -9,6 +9,10 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.PointManager;
 
+
+/**
+ * Created by DeanGuo on 11/3/15.
+ */
 public class ChartSettingActivity extends Activity {
 
     @Override

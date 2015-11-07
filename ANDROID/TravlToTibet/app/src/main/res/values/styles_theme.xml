@@ -11,6 +11,10 @@
         <item name="android:windowBackground">@color/gray_background</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_view</item>
+    </style>
+
     <style name="Theme.HomeTheme" parent="Theme.AppBaseTheme">
         <item name="android:actionBarStyle">@style/HomeActionBar</item>
         <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>

@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 
+
+/**
+ * Created by DeanGuo on 10/25/15.
+ */
 public class FeedbackActivity extends Activity {
 
     @Override

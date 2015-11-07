@@ -34,9 +34,6 @@ public class HomeActivity extends SlidingFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_view);
 
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setIcon(getResources().getDrawable(R.drawable.car_disable));
         initMenu();
         persistConfigurationData();
     }

@@ -29,11 +29,14 @@ public class TTTApplication extends Application
 
     private static Resources resources;
 
+    private static Context context;
+
     @Override
     public void onCreate()
     {
         super.onCreate();
         instance = this;
+        context = getApplicationContext();
 
         // 初始化颜色
         resourceUtil = new ResourceUtil(getApplicationContext());
@@ -105,8 +108,11 @@ public class TTTApplication extends Application
         return dbHelper;
     }
 
-
     public static Resources getMyResources() {
         return resources;
+    }
+
+    public static Resources.Theme getMyTheme() {
+        return context.getTheme();
     }
 }
