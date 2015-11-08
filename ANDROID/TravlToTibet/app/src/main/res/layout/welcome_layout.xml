@@ -17,19 +17,21 @@
     <RelativeLayout
         android:id="@+id/button_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/welcome_bottom_height"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent">
 
         <ImageButton
             android:id="@+id/btn_pre"
-            android:layout_width="80dp"
-            android:layout_height="48dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/welcome_bottom_btn_width"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:scaleType="fitCenter"
             android:gravity="center"
-            android:src="@drawable/ic_action_pan_left"
-            />
+            android:paddingBottom="@dimen/welcome_bottom_btn_padding"
+            android:paddingTop="@dimen/welcome_bottom_btn_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_pan_left" />
 
         <LinearLayout
             android:id="@+id/circles"
@@ -42,20 +44,25 @@
 
         <Button
             android:id="@+id/done"
-            android:layout_width="80dp"
-            android:layout_height="48dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/welcome_bottom_btn_width"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="DONE"
-            android:textSize="18sp"
+            android:text="@string/welcome_done"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
             android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/btn_next"
-            android:layout_width="80dp"
-            android:layout_height="48dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/welcome_bottom_btn_width"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center"
+            android:paddingBottom="@dimen/welcome_bottom_btn_padding"
+            android:paddingTop="@dimen/welcome_bottom_btn_padding"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_action_pan_right" />
     </RelativeLayout>

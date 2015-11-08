@@ -26,9 +26,12 @@
     <string name="cancel">取消</string>
     <string name="delete_recent_msg">是否要清空所有浏览记录？</string>
     <string name="delete_recent_title">清空记录</string>
+
+    <!--activity title-->
     <string name="title_activity_home_setting">设置</string>
     <string name="title_setting_feedback">反馈</string>
     <string name="title_chart_setting">设置</string>
+    <string name="title_activity_about_setting">关于</string>
 
     <!--chart setting dialog-->
     <string name="reset_dialog_msg">是否要恢复默认设置？</string>
@@ -68,5 +71,8 @@
     <string name="screen2_desc">Create your own own group and share Photos, Videos etc. </string>
     <string name="screen3_title">Synchronize with your laptop</string>
     <string name="screen3_desc">Get notified with your calls and messages to your laptop</string>
+    <string name="welcome_done">开始</string>
+    <string name="app_copyright_en">Copyright \u00A9 2010-2015 FIRE. All Rights Reserved</string>
+    <string name="app_copyright_cn">燃烧科技 版权所有</string>
 
 </resources>

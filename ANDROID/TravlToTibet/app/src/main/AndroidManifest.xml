@@ -59,6 +59,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HomeSettingTheme" />
         <activity
+            android:name=".activity.AboutSettingActivity"
+            android:label="@string/title_activity_about_setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.HomeSettingTheme" />
+        <activity
             android:name=".activity.FeedbackActivity"
             android:label="@string/title_setting_feedback"
             android:screenOrientation="portrait"

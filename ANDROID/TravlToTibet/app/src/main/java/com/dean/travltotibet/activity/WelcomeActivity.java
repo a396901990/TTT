@@ -3,6 +3,7 @@ package com.dean.travltotibet.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v13.app.FragmentStatePagerAdapter;
@@ -44,10 +45,15 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Window window = getWindow();
-        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
 
-        setContentView(R.layout.whats_new_layout);
+        setContentView(R.layout.welcome_layout);
 
         initButton();
         initViewPager();

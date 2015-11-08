@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 
 /**
@@ -93,7 +94,7 @@ public class HomeSettingFragment extends Fragment {
         aboutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), AboutSettingActivity.class));
             }
         });
     }

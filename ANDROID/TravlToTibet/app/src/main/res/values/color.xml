@@ -43,6 +43,6 @@
     <color name="top_line_bg">#CCC</color>
 
     <!--what's new page-->
-    <color name="text_selected">#888</color>
-    <color name="transparent_bg">#fff</color>
+    <color name="text_selected">#fff</color>
+    <color name="transparent_bg">#b3b3b3</color>
 </resources>

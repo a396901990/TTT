@@ -1,6 +1,7 @@
 package com.dean.travltotibet.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.RecordUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
@@ -20,6 +22,8 @@ public class AppLaunchActivity extends Activity {
 
     private String currentAppVersion = RecordUtil.VERSION_DEFAULT;
 
+    private String remoteAppVersion = RecordUtil.VERSION_DEFAULT;
+
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     static final int REQUEST_WHATSNEW = 0;
@@ -28,8 +32,13 @@ public class AppLaunchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Window window = getWindow();
-        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
 
         // 跟新启动次数
         RecordUtil.updateLaunchCount();
@@ -40,6 +49,8 @@ public class AppLaunchActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                remoteAppVersion = "2.0";
 
                 if (!WelcomeActivity.hasShown(currentAppVersion)) {
                     goToWhatsNew();
@@ -57,6 +68,11 @@ public class AppLaunchActivity extends Activity {
      */
     public void goToHome() {
         Intent intent = new Intent(getApplication(), HomeActivity.class);
+
+        // 有新版本
+        if (RecordUtil.isNewVersion(currentAppVersion, remoteAppVersion)){
+            intent.putExtra(Constants.APP_LAUNCH_VERSION, remoteAppVersion);
+        }
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);

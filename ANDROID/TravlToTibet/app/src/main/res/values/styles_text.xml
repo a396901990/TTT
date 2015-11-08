@@ -93,6 +93,10 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="TextAppearance.Large.Gray" parent="TextAppearance.Large">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="TextAppearance.Large.Blue.Bold" parent="TextAppearance.Large">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/dark_blue</item>
@@ -124,6 +128,11 @@
     <style name="TextAppearance.XLarge.Blue.Bold" parent="TextAppearance.XLarge">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="TextAppearance.XLarge.DarkBlue.Bold" parent="TextAppearance.XLarge">
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.XLarge.Bold" parent="TextAppearance.XLarge">
