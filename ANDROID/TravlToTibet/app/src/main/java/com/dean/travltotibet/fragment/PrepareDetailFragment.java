@@ -1,31 +1,29 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoPrepareDetailAdapter;
 import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
 
 /**
- * Created by DeanGuo on 4/10/15.
+ * Created by DeanGuo on 11/8/15.
  */
-public class PrepareDetailDialog extends DialogFragment {
+public class PrepareDetailFragment extends Fragment {
 
-    private InfoRouteActivity infoRouteActivity;
+    private PrepareDetailActivity mActivity;
 
     private View root;
 
@@ -36,19 +34,25 @@ public class PrepareDetailDialog extends DialogFragment {
     private InfoPrepareDetailAdapter mAdapter;
     private ArrayList<PrepareDetail> prepareDetails;
 
+    public PrepareDetailFragment() {
+    }
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        infoRouteActivity = (InfoRouteActivity) getActivity();
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.info_prepare_dialog, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_detail_fragment, null);
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mActivity = (PrepareDetailActivity) getActivity();
 
         // 初始化数据
         initData();
         // 初始化列表
         initList();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(root).setTitle(InfoType.INFO_TEXT.get(type));
-        return builder.create();
     }
 
     /**
@@ -57,15 +61,12 @@ public class PrepareDetailDialog extends DialogFragment {
     private void initData() {
 
         // 类型
-        if (getArguments() != null) {
-            type = (InfoType) getArguments().getSerializable(Constants.INTENT_PREPARE_TYPE);
-        }
-
+        type = mActivity.getType();
         // 路线
-        route = infoRouteActivity.getRoute();
+        route = mActivity.getRoute();
 
         // 从PrepareInfo表中获取该路段的准备信息
-        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(infoRouteActivity.getRoute());
+        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mActivity.getRoute());
 
         // 获取条目名字
         String prepareName = InfoType.getInfoResult(type, prepareInfo);
@@ -75,6 +76,7 @@ public class PrepareDetailDialog extends DialogFragment {
 
         for(PrepareDetail prepareDetail : prepareDetails) {
             Log.e("getTitle", prepareDetail.getTitle());
+            Log.e("getSummary", prepareDetail.getSummary());
             Log.e("getDetail", prepareDetail.getDetail());
         }
 
@@ -85,7 +87,7 @@ public class PrepareDetailDialog extends DialogFragment {
      */
     private void initList() {
         mListView = (ListView) root.findViewById(R.id.detail_list);
-        mAdapter = new InfoPrepareDetailAdapter(infoRouteActivity);
+        mAdapter = new InfoPrepareDetailAdapter(mActivity);
         mAdapter.setData(prepareDetails);
         mListView.setAdapter(mAdapter);
     }

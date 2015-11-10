@@ -2,7 +2,6 @@ package com.dean.travltotibet.model;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,11 +14,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.dean.travltotibet.ui.PointDetailPaint;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.ui.DetailPaint;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.PointManager;
 

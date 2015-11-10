@@ -31,7 +31,8 @@
             android:paddingBottom="@dimen/welcome_bottom_btn_padding"
             android:paddingTop="@dimen/welcome_bottom_btn_padding"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_pan_left" />
+            android:src="@drawable/ic_action_pan_left"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/circles"

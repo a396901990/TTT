@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.model.TravelType;
@@ -80,11 +82,10 @@ public class InfoPrepareFragment extends BaseInfoFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 InfoType type = (InfoType) adapter.getItem(position);
 
-                DialogFragment dialogFragment = new PrepareDetailDialog();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.INTENT_PREPARE_TYPE, type);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), PrepareDetailDialog.class.getName());
+                Intent intent = new Intent(getActivity(), PrepareDetailActivity.class);
+                intent.putExtra(Constants.INTENT_PREPARE_TYPE, type);
+                intent.putExtra(Constants.INTENT_ROUTE, infoRouteActivity.getRoute());
+                startActivity(intent);
             }
         });
 

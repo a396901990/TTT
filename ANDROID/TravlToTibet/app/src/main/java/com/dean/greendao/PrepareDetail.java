@@ -11,6 +11,7 @@ public class PrepareDetail {
     private String name;
     private String type;
     private String title;
+    private String summary;
     private String detail;
 
     public PrepareDetail() {
@@ -20,11 +21,12 @@ public class PrepareDetail {
         this.id = id;
     }
 
-    public PrepareDetail(Long id, String name, String type, String title, String detail) {
+    public PrepareDetail(Long id, String name, String type, String title, String summary, String detail) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.title = title;
+        this.summary = summary;
         this.detail = detail;
     }
 
@@ -60,6 +62,14 @@ public class PrepareDetail {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getDetail() {

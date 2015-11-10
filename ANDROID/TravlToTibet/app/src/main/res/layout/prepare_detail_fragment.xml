@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <!--列表视图-->
@@ -9,7 +9,7 @@
         android:id="@+id/detail_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/gray_background"
+        android:divider="@null"
         android:dividerHeight="6dip"
         android:padding="10dp"
         android:scrollbars="none"></ListView>

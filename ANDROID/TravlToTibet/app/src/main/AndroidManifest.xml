@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dean.travltotibet" >
+    package="com.dean.travltotibet">
 
     <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -21,7 +21,7 @@
         android:name=".TTTApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppBaseTheme" >
+        android:theme="@style/Theme.AppBaseTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="5GjuYFZGqzZDGB3UUkUa3hAq" />
@@ -30,7 +30,7 @@
             android:name=".activity.AppLaunchActivity"
             android:label="@string/title_activity_app_init"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,10 +75,13 @@
             android:theme="@style/Theme.HomeSettingTheme" />
         <activity
             android:name=".activity.WelcomeActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_whats_new"
-            android:theme="@style/Theme.NoActionBar">
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.PrepareDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.HomeSettingTheme"></activity>
     </application>
 
 </manifest>

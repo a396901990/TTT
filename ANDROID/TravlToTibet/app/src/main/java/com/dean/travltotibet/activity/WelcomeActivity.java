@@ -110,15 +110,26 @@ public class WelcomeActivity extends Activity {
             @Override
             public void onPageSelected(int position) {
                 setIndicator(position);
-                if (position == TOTAL_PAGES - 2) {
+                // 第一页
+                if (position == 0) {
+                    btnPre.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.VISIBLE);
+                    btnDone.setVisibility(View.GONE);
+                }
+                // 倒数第二页
+                else if (position == TOTAL_PAGES - 2) {
                     btnPre.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.GONE);
                     btnDone.setVisibility(View.VISIBLE);
-                } else if (position < TOTAL_PAGES - 2) {
+                }
+                // 中间页
+                else if (position < TOTAL_PAGES - 2) {
                     btnPre.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                     btnDone.setVisibility(View.GONE);
-                } else if (position == TOTAL_PAGES - 1) {
+                }
+                // 最后一页
+                else if (position == TOTAL_PAGES - 1) {
                     finishTour();
                 }
             }

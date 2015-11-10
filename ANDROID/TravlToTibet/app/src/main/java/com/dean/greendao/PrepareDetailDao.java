@@ -27,7 +27,8 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Type = new Property(2, String.class, "type", false, "TYPE");
         public final static Property Title = new Property(3, String.class, "title", false, "TITLE");
-        public final static Property Detail = new Property(4, String.class, "detail", false, "DETAIL");
+        public final static Property Summary = new Property(4, String.class, "summary", false, "SUMMARY");
+        public final static Property Detail = new Property(5, String.class, "detail", false, "DETAIL");
     };
 
 
@@ -47,7 +48,8 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
                 "'NAME' TEXT NOT NULL ," + // 1: name
                 "'TYPE' TEXT," + // 2: type
                 "'TITLE' TEXT," + // 3: title
-                "'DETAIL' TEXT);"); // 4: detail
+                "'SUMMARY' TEXT," + // 4: summary
+                "'DETAIL' TEXT);"); // 5: detail
     }
 
     /** Drops the underlying database table. */
@@ -77,9 +79,14 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
             stmt.bindString(4, title);
         }
  
+        String summary = entity.getSummary();
+        if (summary != null) {
+            stmt.bindString(5, summary);
+        }
+ 
         String detail = entity.getDetail();
         if (detail != null) {
-            stmt.bindString(5, detail);
+            stmt.bindString(6, detail);
         }
     }
 
@@ -97,7 +104,8 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
             cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // type
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // title
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // detail
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // summary
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // detail
         );
         return entity;
     }
@@ -109,7 +117,8 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
         entity.setName(cursor.getString(offset + 1));
         entity.setType(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setTitle(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setDetail(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setSummary(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setDetail(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     /** @inheritdoc */

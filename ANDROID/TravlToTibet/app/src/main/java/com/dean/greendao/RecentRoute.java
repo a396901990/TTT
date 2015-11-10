@@ -80,8 +80,4 @@ public class RecentRoute {
         this.route_plan_id = route_plan_id;
     }
 
-    @Override
-    public String toString() {
-        return getRoute()+","+getRoute_name()+","+getType()+","+getFR()+","+getRoute_plan_id();
-    }
 }

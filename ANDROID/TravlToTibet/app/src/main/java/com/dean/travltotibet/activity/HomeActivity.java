@@ -34,8 +34,11 @@ public class HomeActivity extends SlidingFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_view);
 
+        checkForUpdate();
         initMenu();
-        persistConfigurationData();
+    }
+
+    private void checkForUpdate() {
     }
 
     private void persistConfigurationData() {

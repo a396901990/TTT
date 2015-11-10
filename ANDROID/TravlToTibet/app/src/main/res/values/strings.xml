@@ -74,5 +74,6 @@
     <string name="welcome_done">开始</string>
     <string name="app_copyright_en">Copyright \u00A9 2010-2015 FIRE. All Rights Reserved</string>
     <string name="app_copyright_cn">燃烧科技 版权所有</string>
+    <string name="title_activity_prepare_detail">PrepareDetailActivity</string>
 
 </resources>

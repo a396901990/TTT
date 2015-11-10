@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_white"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="10dp">
 
     <TextView
         android:id="@+id/detail_title"
-        style="@style/TextAppearance.Large.Black.Bold"
+        style="@style/TextAppearance.Large.Blue.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="正常（推荐）" />
+        android:text="感冒药" />
 
     <!--标题分割-->
     <View
@@ -22,10 +22,18 @@
         android:background="@color/rule"></View>
 
     <TextView
-        android:id="@+id/detail_item"
-        style="@style/TextAppearance.Medium"
+        android:id="@+id/detail_summary"
+        style="@style/TextAppearance.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="预计天数：31天\n预计天数：31天" />
+        android:text="感冒药是非常重要的，如果在高原感冒后果不堪设想，所以下面的几种感冒药可以多几份。" />
+
+    <TextView
+        android:id="@+id/detail_item"
+        style="@style/TextAppearance.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="诶壁纸\n小儿止咳\n新康泰克" />
 
 </LinearLayout>

@@ -119,6 +119,7 @@ public class MyGenerator {
         route.addStringProperty("name").notNull();
         route.addStringProperty("type");
         route.addStringProperty("title");
+        route.addStringProperty("summary");
         route.addStringProperty("detail");
     }
 
