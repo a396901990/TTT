@@ -82,10 +82,14 @@ public class InfoPrepareFragment extends BaseInfoFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 InfoType type = (InfoType) adapter.getItem(position);
 
+                // 打开详细页面
                 Intent intent = new Intent(getActivity(), PrepareDetailActivity.class);
                 intent.putExtra(Constants.INTENT_PREPARE_TYPE, type);
                 intent.putExtra(Constants.INTENT_ROUTE, infoRouteActivity.getRoute());
                 startActivity(intent);
+
+                // 设置动画
+                getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             }
         });
 
