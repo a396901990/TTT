@@ -6,19 +6,20 @@ import com.dean.travltotibet.TTTApplication;
 
 /**
  * Created by DeanGuo on 10/7/15.
- * <p/>
  * 记录工具
  */
-public final class RecordUtil {
+public final class AppUtil {
 
     // 启动次数
     public static final String LAUNCH_COUNT = "launch_count";
 
-    public static final String FIRST_LAUNCH = "first_lauch";
-
     public static final String VERSION_DEFAULT = "0.0";
 
+    public static final int VERSION_CODE_DEFAULT = 0;
+
     public static final String CURRENT_VERSION = "CURRENT_VERSION";
+
+    public static final String CURRENT_VERSION_CODE = "CURRENT_VERSION_CODE";
 
 
     public static boolean isFirstLaunch() {
@@ -41,6 +42,14 @@ public final class RecordUtil {
 
     public static void saveVersionNumber(String verNum) {
         TTTApplication.getSharedPreferences().edit().putString(CURRENT_VERSION, verNum).commit();
+    }
+
+    public static void saveVersionCode(int verCode) {
+        TTTApplication.getSharedPreferences().edit().putInt(CURRENT_VERSION_CODE, verCode).commit();
+    }
+
+    public static void getRemoteVersionCode(int verCode) {
+        TTTApplication.getSharedPreferences().getInt(CURRENT_VERSION_CODE, VERSION_CODE_DEFAULT);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.dean.travltotibet.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
@@ -10,9 +11,12 @@ import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.RecordUtil;
 import com.dean.travltotibet.util.SystemUtil;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 
 /**
@@ -20,13 +24,13 @@ import com.dean.travltotibet.util.SystemUtil;
  */
 public class AppLaunchActivity extends Activity {
 
-    private String currentAppVersion = RecordUtil.VERSION_DEFAULT;
+    private String currentAppVersion = AppUtil.VERSION_DEFAULT;
 
-    private String remoteAppVersion = RecordUtil.VERSION_DEFAULT;
+    private final static String BMOB_APPLICATION_ID = "1ac4c82c189eb0d80711885ed3ad05ba";
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
-    static final int REQUEST_WHATSNEW = 0;
+    static final int REQUEST_WELCOME = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,12 @@ public class AppLaunchActivity extends Activity {
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
+        // 初始化Bmob
+        Bmob.initialize(this, BMOB_APPLICATION_ID);
+        BmobUpdateAgent.initAppVersion(getApplication());
+
         // 跟新启动次数
-        RecordUtil.updateLaunchCount();
+        AppUtil.updateLaunchCount();
 
         // 获取当前app版本
         this.currentAppVersion = SystemUtil.getAppVersion(this);
@@ -49,8 +57,6 @@ public class AppLaunchActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                remoteAppVersion = "2.0";
 
                 if (!WelcomeActivity.hasShown(currentAppVersion)) {
                     goToWhatsNew();
@@ -68,11 +74,6 @@ public class AppLaunchActivity extends Activity {
      */
     public void goToHome() {
         Intent intent = new Intent(getApplication(), HomeActivity.class);
-
-        // 有新版本
-        if (RecordUtil.isNewVersion(currentAppVersion, remoteAppVersion)){
-            intent.putExtra(Constants.APP_LAUNCH_VERSION, remoteAppVersion);
-        }
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
@@ -80,31 +81,32 @@ public class AppLaunchActivity extends Activity {
 
     public void goToWhatsNew() {
         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-        startActivityForResult(intent, REQUEST_WHATSNEW);
+        startActivityForResult(intent, REQUEST_WELCOME);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }
 
-    public void checkUpdate() {
-
-        // 获取app version number
-        String remoteAppVersion = "?";
-        String currentAppVersion = TTTApplication.getSharedPreferences().getString(RecordUtil.CURRENT_VERSION, RecordUtil.VERSION_DEFAULT);
-
-        // 是否新版本
-        if (RecordUtil.isNewVersion(currentAppVersion, remoteAppVersion)) {
-            RecordUtil.saveVersionNumber(remoteAppVersion);
+    private void persistConfigurationData() {
+        SharedPreferences sp = TTTApplication.getSharedPreferences();
+        String[] default_points = getResources().getStringArray(R.array.default_points);
+        StringBuffer sb = new StringBuffer();
+        for (String point : default_points) {
+            sb.append(point);
+            sb.append(Constants.POINT_DIVIDE_MARK);
         }
+
+        sp.edit().putString(Constants.CURRENT_POINTS, sb.toString()).commit();
     }
+
 
     @Override
     protected void onResume() {
-        // 注册eventbus
+        // 注册event bus
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        // 注销eventbus
+        // 注销event bus
         super.onPause();
     }
 
@@ -112,7 +114,7 @@ public class AppLaunchActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_WHATSNEW) {
+        if (requestCode == REQUEST_WELCOME) {
             if (resultCode == RESULT_OK) {
                 goToHome();
             } else {
@@ -120,5 +122,4 @@ public class AppLaunchActivity extends Activity {
             }
         }
     }
-
 }

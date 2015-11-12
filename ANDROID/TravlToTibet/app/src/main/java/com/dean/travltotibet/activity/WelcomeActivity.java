@@ -173,9 +173,6 @@ public class WelcomeActivity extends Activity {
         }
     }
 
-    /**
-     * Helper method which indicates if the "What's New" items have already displayed
-     */
     public static boolean hasShown(String appVersion) {
         return appVersion != null && appVersion.equals(TTTApplication.getSharedPreferences().getString(KEY_SHOWN, null));
     }
@@ -186,7 +183,7 @@ public class WelcomeActivity extends Activity {
     }
 
     public void finishTour() {
-        //saveVersion();
+        saveVersion();
         setResult(RESULT_OK);
         finish();
     }

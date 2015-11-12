@@ -16,6 +16,9 @@ import com.dean.travltotibet.util.PointManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.update.BmobUpdateAgent;
+
 /**
  * Created by DeanGuo on 9/30/15.
  */
@@ -39,18 +42,8 @@ public class HomeActivity extends SlidingFragmentActivity {
     }
 
     private void checkForUpdate() {
-    }
-
-    private void persistConfigurationData() {
-        SharedPreferences sp = TTTApplication.getSharedPreferences();
-        String[] default_points = getResources().getStringArray(R.array.default_points);
-        StringBuffer sb = new StringBuffer();
-        for (String point : default_points) {
-            sb.append(point);
-            sb.append(Constants.POINT_DIVIDE_MARK);
-        }
-
-        sp.edit().putString(Constants.CURRENT_POINTS, sb.toString()).commit();
+        // only wifi
+        BmobUpdateAgent.update(this);
     }
 
     private void initMenu() {

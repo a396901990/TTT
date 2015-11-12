@@ -37,4 +37,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
+    compile files('/Users/DeanGuo/Github_Workspace/ANDROID/TravlToTibet/Bmob/BmobSDK_V3.4.5_1111.jar')
 }

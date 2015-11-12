@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/nav_badge_middle"
                     android:gravity="center"
-                    android:text="发现新版本" />
+                    android:text="NEW" />
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -28,7 +28,6 @@ public class MyGenerator {
 
         //生成Dao文件路径
         new DaoGenerator().generateAll(schema, DAO_PATH);
-
     }
 
 

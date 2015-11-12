@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,14 @@ import android.view.ViewGroup;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
+import com.dean.travltotibet.util.SystemUtil;
+
+import org.json.JSONArray;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.update.BmobUpdateAgent;
+import cn.bmob.v3.update.UpdateResponse;
 
 /**
  * Created by DeanGuo on 8/13/15.
@@ -50,8 +59,8 @@ public class HomeSettingFragment extends Fragment {
         lastVersionView = root.findViewById(R.id.version_check_last);
         newVersionView = root.findViewById(R.id.version_check_new);
 
-        updateVersionCheck();
         initSettingItemView();
+        updateVersionCheck(getActivity());
     }
 
     private void initSettingItemView() {
@@ -60,7 +69,7 @@ public class HomeSettingFragment extends Fragment {
         versionCheckView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                BmobUpdateAgent.forceUpdate(getActivity());
             }
         });
         // 反馈视图
@@ -99,17 +108,36 @@ public class HomeSettingFragment extends Fragment {
         });
     }
 
-    public void updateVersionCheck() {
-        // 发现新版本
-        if (isNewVersion) {
-            lastVersionView.setVisibility(View.INVISIBLE);
-            newVersionView.setVisibility(View.VISIBLE);
-        }
-        // 已经是最后版本
-        else {
-            lastVersionView.setVisibility(View.VISIBLE);
-            newVersionView.setVisibility(View.INVISIBLE);
-        }
+    public void updateVersionCheck(final Context mContext) {
+
+        final int currentVersion = SystemUtil.getAppVersionCode(mContext);
+
+        BmobQuery bmobQuery;
+        (bmobQuery = new BmobQuery("AppVersion")).addWhereEqualTo("platform", "Android");
+        bmobQuery.order("-version_i");
+        bmobQuery.findObjects(mContext, new FindCallback() {
+            @Override
+            public void onFailure(int i, String s) {
+                // 已经是最后版本
+                lastVersionView.setVisibility(View.VISIBLE);
+                newVersionView.setVisibility(View.INVISIBLE);
+                versionCheckView.setClickable(false);
+            }
+
+            @Override
+            public void onSuccess(JSONArray jsonArray) {
+                if (jsonArray.length() > 0) {
+                    UpdateResponse updateInfo = new UpdateResponse(mContext, jsonArray.optJSONObject(0));
+                    if (updateInfo.version_i > currentVersion) {
+
+                        // 发现新版本
+                        lastVersionView.setVisibility(View.INVISIBLE);
+                        newVersionView.setVisibility(View.VISIBLE);
+                        versionCheckView.setClickable(true);
+                    }
+                }
+            }
+        });
     }
 
 }

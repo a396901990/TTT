@@ -35,6 +35,20 @@ public final class SystemUtil {
         }
     }
 
+    public static int getAppVersionCode( Context context )
+    {
+        try
+        {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
     public static String[] getStringArray( Context context, int id )
     {
 
