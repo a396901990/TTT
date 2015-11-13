@@ -8,78 +8,107 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.graphics.Color;
+import android.media.Image;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.fragment.ChartSettingFragment;
+import com.dean.travltotibet.model.PointCheck;
+import com.dean.travltotibet.ui.SwitchButton;
 import com.dean.travltotibet.util.PointManager;
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.DragSortListView.DropListener;
 
 /**
- * Adapter for watch list position columns
- *
- * @author Bob Qi (a483334)
+ * Created by DeanGuo on 11/10/15.
  */
-public class ChartSettingListAdapter
+public class ChartSettingSelectedListAdapter
         extends BaseAdapter
         implements DropListener {
 
     private final DragSortListView mListView;
 
+    private ChartSettingFragment mController;
+
     private List<PointCheck> mAllPoints = new LinkedList<PointCheck>();
 
-    public ChartSettingListAdapter(final DragSortListView list) {
-        mListView = list;
+    public ChartSettingSelectedListAdapter(ChartSettingFragment controller) {
+        mController = controller;
+
+        mListView = mController.getmSelectedList();
         mListView.setDropListener(this);
 
-        // 获取默认点击点
-        List<String> default_points = new ArrayList<String>();
+        // 获取当前击点
         String[] currentPoints = PointManager.getCurrentPoints();
         for (String point : currentPoints) {
-            default_points.add(point);
-        }
-
-        // 所有点
-        String[] allPoints = PointManager.getAllPoints();
-        for (String point : allPoints) {
-            if (default_points.contains(point)) {
+            if (!TextUtils.isEmpty(point)) {
                 mAllPoints.add(new PointCheck(point, true));
-            } else {
-                mAllPoints.add(new PointCheck(point, false));
             }
         }
     }
 
     private void bindData(final View root, final int position) {
         final PointCheck pointCheck = getItem(position);
+        if (pointCheck == null || TextUtils.isEmpty(pointCheck.getName())) {
+            return;
+        }
 
         TextView name = (TextView) root.findViewById(R.id.name);
         name.setText(PointManager.getTitle(pointCheck.getName()));
-        name.setTextColor(TTTApplication.getResourceUtil().getResources().getColor(PointManager.getColor(pointCheck.getName())));
+        //name.setTextColor(TTTApplication.getResourceUtil().getResources().getColor(PointManager.getColor(pointCheck.getName())));
 
-        CheckBox check = (CheckBox) root.findViewById(R.id.checkbox);
-        // have to clear the listener when reset state
-        check.setOnCheckedChangeListener(null);
-        check.setChecked(pointCheck.isChecked);
+//        final CheckBox check = (CheckBox) root.findViewById(R.id.checkbox);
+//        // have to clear the listener when reset state
+//        check.setOnCheckedChangeListener(null);
+//        check.setChecked(pointCheck.isChecked);
+//
+//        check.setTag(pointCheck);
+//        check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (buttonView.getTag() instanceof PointCheck) {
+//                    ((PointCheck) buttonView.getTag()).setIsChecked(isChecked);
+//                }
+//
+//            }
+//
+//        });
 
-        check.setTag(pointCheck);
-        check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        final SwitchButton switchButton = (SwitchButton) root.findViewById(R.id.switch_btn);
+        switchButton.setSelectedBGColor(TTTApplication.getResourceUtil().getResources().getColor(PointManager.getColor(pointCheck.getName())));
+        switchButton.setOnStatusChangeListener(null);
+        switchButton.setStatus(SwitchButton.STATUS.ON);
+        switchButton.setOnStatusChangeListener(new SwitchButton.OnStatusChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.getTag() instanceof PointCheck) {
-                    ((PointCheck) buttonView.getTag()).setIsChecked(isChecked);
+            public void onChange(SwitchButton.STATUS status) {
+
+                switch (status) {
+                    case ON:
+                        break;
+                    case OFF:
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mController.setToUnselectedList(pointCheck);
+                            }
+                        }, SwitchButton.DEFAULT_DURATION);
+                        break;
                 }
-
             }
-
         });
     }
 
@@ -113,7 +142,9 @@ public class ChartSettingListAdapter
             v = convertView;
         }
 
-        bindData(v, position);
+        if (getCount() != 0) {
+            bindData(v, position);
+        }
         return v;
     }
 
@@ -126,21 +157,10 @@ public class ChartSettingListAdapter
 
         mAllPoints = new LinkedList<PointCheck>();
 
-        // 获取默认点击点
-        List<String> default_points = new ArrayList<String>();
+        // 获取点击点
         String[] currentPoints = PointManager.getCurrentPoints();
         for (String point : currentPoints) {
-            default_points.add(point);
-        }
-
-        // 所有点
-        String[] allPoints = PointManager.getAllPoints();
-        for (String point : allPoints) {
-            if (default_points.contains(point)) {
-                mAllPoints.add(new PointCheck(point, true));
-            } else {
-                mAllPoints.add(new PointCheck(point, false));
-            }
+            mAllPoints.add(new PointCheck(point, true));
         }
 
         notifyDataSetChanged();
@@ -149,9 +169,7 @@ public class ChartSettingListAdapter
     public String[] getSelectedPoints() {
         ArrayList<String> selectedPoints = new ArrayList<String>();
         for (PointCheck pointCheck : mAllPoints) {
-            if (pointCheck.isChecked) {
-                selectedPoints.add(pointCheck.getName());
-            }
+            selectedPoints.add(pointCheck.getName());
         }
         return selectedPoints.toArray(new String[0]);
     }
@@ -164,30 +182,11 @@ public class ChartSettingListAdapter
         return mPoints.toArray(new String[0]);
     }
 
-    public class PointCheck {
+    public List<PointCheck> getData() {
+        return mAllPoints;
+    }
 
-        private String name;
-        private boolean isChecked;
-
-        public PointCheck(String name, boolean isChecked) {
-            this.name = name;
-            this.isChecked = isChecked;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public boolean isChecked() {
-            return isChecked;
-        }
-
-        public void setIsChecked(boolean isChecked) {
-            this.isChecked = isChecked;
-        }
+    public void setData(List<PointCheck> mAllPoints) {
+        this.mAllPoints = mAllPoints;
     }
 }

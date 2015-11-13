@@ -3,7 +3,7 @@
     package="com.dean.travltotibet"
     android:versionCode="1"
     android:versionName="1.0">
-
+    <!--B4:09:E9:69:39:42:D2:63:A4:3C:4E:92:51:DF:B1:12:85:4A:2F:3B;com.dean.travltotibet-->
     <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -28,7 +28,7 @@
         android:theme="@style/Theme.AppBaseTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="5GjuYFZGqzZDGB3UUkUa3hAq" />
+            android:value="6lGdfKEpe1ZVLpyGWTMeyQrF" />
 
         <activity
             android:name=".activity.AppLaunchActivity"

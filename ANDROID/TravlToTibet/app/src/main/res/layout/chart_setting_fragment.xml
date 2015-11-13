@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_background"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.Small.Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="点击条目可以进行拖拽，排序" />
+
+        <com.dean.travltotibet.ui.InsideScrollDragSoftListView
+            android:id="@+id/selected_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:cacheColorHint="#00000000"
+            android:choiceMode="none"
+            android:dividerHeight="0dip"
+            android:fadingEdgeLength="0dip"
+            android:focusable="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="#00000000"
+            android:overScrollFooter="@null"
+            android:overScrollHeader="@null"
+            android:scrollbars="none" />
+
+        <TextView
+            style="@style/TextAppearance.Small.Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="未选择" />
+
+        <com.dean.travltotibet.ui.InsideScrollListView
+            android:id="@+id/unselected_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="30dp"
+            android:layout_marginRight="10dp"
+            android:cacheColorHint="#00000000"
+            android:choiceMode="none"
+            android:dividerHeight="0dip"
+            android:fadingEdgeLength="0dip"
+            android:focusable="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="#00000000"
+            android:overScrollFooter="@null"
+            android:overScrollHeader="@null"
+            android:scrollbars="none"></com.dean.travltotibet.ui.InsideScrollListView>
+
+    </LinearLayout>
+</ScrollView>

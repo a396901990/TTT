@@ -128,8 +128,8 @@
 
     <!--chart setting-->
     <dimen name="chart_setting_checkbox_margin">10dp</dimen>
-    <dimen name="chart_setting_drag_padding_left">12dp</dimen>
-    <dimen name="chart_setting_drag_padding_right">10dp</dimen>
+    <dimen name="chart_setting_switch_padding_left">10dp</dimen>
+    <dimen name="chart_setting_switch_padding_right">10dp</dimen>
 
     <!--Welcome sliding page  -->
     <dimen name="welcome_images_size">360dp</dimen>

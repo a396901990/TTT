@@ -2,36 +2,47 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical" >
+    android:gravity="center_vertical">
 
     <LinearLayout
+        android:id="@+id/item_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/row"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical">
 
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/chart_setting_checkbox_margin"
-            android:layout_marginRight="@dimen/chart_setting_checkbox_margin" />
+        <!--<CheckBox-->
+            <!--android:id="@+id/checkbox"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/chart_setting_checkbox_margin"-->
+            <!--android:layout_marginRight="@dimen/chart_setting_checkbox_margin" />-->
 
         <TextView
+            android:layout_marginLeft="@dimen/chart_setting_checkbox_margin"
             android:id="@+id/name"
             style="@style/TextAppearance.Regular.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/drag"
+    <com.dean.travltotibet.ui.SwitchButton
+        android:id="@+id/switch_btn"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/chart_setting_switch_padding_right"
         android:layout_gravity="center_vertical|right"
-        android:layout_marginLeft="@dimen/chart_setting_drag_padding_left"
-        android:layout_marginRight="@dimen/chart_setting_drag_padding_right"
-        android:scaleType="center"
-        android:src="@drawable/gripper" />
+        app:cursor="@drawable/cursor"
+        app:selectedBG="@color/dark_blue"
+        app:unselectedBG="#eeeeee"
+        app:trackWidth="50dp"
+        app:trackPadding="1dp"
+        app:status="OFF"
+        app:shadowXDiff="0dp"
+        app:shadowYDiff="3dp"
+        app:shadow="@drawable/switch_button_shadow"
+        app:shadowExpand="3dp"
+        app:moveDuration="50" />
 
 </FrameLayout>
