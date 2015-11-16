@@ -140,6 +140,10 @@ public abstract class BaseRouteFragment extends Fragment {
         });
     }
 
+    public boolean isLoaded() {
+        return isPrepared && isVisible && mHasLoadedOnce;
+    }
+
     protected abstract void onLoadPrepared();
 
     protected abstract void onLoading();

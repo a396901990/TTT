@@ -159,6 +159,9 @@ public class RouteActivity
 
                 // 设置新颜色
                 btnSelected(position);
+
+                // 更新路线
+                updateRoute();
             }
         });
 
@@ -386,7 +389,7 @@ public class RouteActivity
     public void updateRoute() {
         if (mAdapter.getAllFragments().size() > 0) {
             BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
-            if (fragment.isAdded()) {
+            if (fragment.isAdded() && fragment.isLoaded()) {
                 fragment.updateRoute();
             }
         }
