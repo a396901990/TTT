@@ -1,14 +1,10 @@
 package com.dean.travltotibet.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -16,18 +12,13 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
-import com.baidu.mapapi.overlayutil.OverlayManager;
-import com.baidu.mapapi.search.core.RouteLine;
 import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.route.DrivingRouteLine;
 import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
@@ -58,14 +49,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     Button normail, satile;
 
-    private TextView popupText = null;//泡泡view
-
-    int nodeIndex = -1;//节点索引,供浏览节点时使用
-    private RouteLine route = null;
-    private OverlayManager routeOverlay = null;
-
-    // 是否使用默认图标
-    private boolean useDefaultIcon = false;
+    private Marker mMarkerA;
+    private Marker mMarkerB;
+    private InfoWindow mInfoWindow;
 
     // 搜索模块，也可去掉地图模块独立使用
     private RoutePlanSearch mSearch = null;
@@ -93,10 +79,21 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        contentView = inflater.inflate(R.layout.map_fragment_view, null, false);
+        contentView = inflater.inflate(R.layout.route_map_fragment_view, null, false);
 
         // 获取地图控件引用
         mMapView = (MapView) contentView.findViewById(R.id.id_bmapView);
+    }
+
+    @Override
+    protected void onLoadPrepared() {
+        initMap();
+        initBtn();
+        initMarkerClickEvent();
+    }
+
+    /** 初始化地图数据 */
+    private void initMap() {
         mBaiduMap = mMapView.getMap();
 
         //地图点击事件处理
@@ -107,26 +104,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     }
 
     @Override
-    protected void onLoadPrepared() {
-        initBtn();
-    }
-
-    //    @Override
-//    protected void onLoading() {
-//        BitmapDescriptor  bitmapdes = BitmapDescriptorFactory.fromResource(R.drawable.bike_active);
-//
-//        Location location = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanStart());
-//        LatLng ll = new LatLng(location.getLatitude(),
-//                location.getLongitude());
-//
-//        OverlayOptions overlayOptions = null;
-//        overlayOptions = new MarkerOptions().position(ll)
-//                .icon(bitmapdes).zIndex(5);
-//        mBaiduMap.addOverlay(overlayOptions);
-//        MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-//        mBaiduMap.animateMapStatus(u);
-//    }
-    @Override
     protected void onLoading() {
         searchRoute();
     }
@@ -136,26 +113,96 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         ((ViewGroup) rootView).addView(contentView);
     }
 
+    /** 搜索路线 */
     public void searchRoute() {
         //重置浏览节点的路线数据
-        route = null;
         mBaiduMap.clear();
 
         Location startLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanStart());
-        LatLng startLL = new LatLng(startLocation.getLatitude(),
-                startLocation.getLongitude());
+        LatLng startLL = new LatLng(startLocation.getLatitude(), startLocation.getLongitude());
 
         Location endLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanEnd());
-        LatLng endLL = new LatLng(endLocation.getLatitude(),
-                endLocation.getLongitude());
+        LatLng endLL = new LatLng(endLocation.getLatitude(), endLocation.getLongitude());
 
-        //设置起终点信息，对于tranist search 来说，城市名无意义
+        // 初始化start，end图标
+        initStartEndMarkIcon(startLL, endLL);
+
+        //设置起终点信息
         PlanNode stNode = PlanNode.withLocation(startLL);
         PlanNode enNode = PlanNode.withLocation(endLL);
         // 实际使用中请对起点终点城市进行正确的设定
         mSearch.drivingSearch((new DrivingRoutePlanOption())
                 .from(stNode)
                 .to(enNode));
+    }
+
+    /** 初始化start，end图标 */
+    private void initStartEndMarkIcon(LatLng startLL, LatLng endLL) {
+        BitmapDescriptor bdStart = BitmapDescriptorFactory.fromResource(R.drawable.start_icon);
+        BitmapDescriptor bdEnd = BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
+
+        OverlayOptions ooStart = new MarkerOptions().position(startLL).icon(bdStart).zIndex(9);
+        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooStart));
+        OverlayOptions ooEnd = new MarkerOptions().position(endLL).icon(bdEnd).zIndex(5);
+        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooEnd));
+    }
+
+    /** 添加覆盖物点击事件 */
+    private void initMarkerClickEvent() {
+
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+
+            public boolean onMarkerClick(Marker marker) {
+                Button button = new Button(getActivity());
+                button.setBackgroundResource(R.drawable.popup);
+                InfoWindow.OnInfoWindowClickListener listener = null;
+                // start
+                if (marker == mMarkerA) {
+                    button.setText("起点");
+                    listener = new InfoWindow.OnInfoWindowClickListener() {
+                        public void onInfoWindowClick() {
+                            mBaiduMap.hideInfoWindow();
+                        }
+                    };
+                    LatLng ll = marker.getPosition();
+                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                } else if (marker == mMarkerB) {
+                    button.setText("终点");
+                    listener = new InfoWindow.OnInfoWindowClickListener() {
+                        public void onInfoWindowClick() {
+                            mBaiduMap.hideInfoWindow();
+                        }
+                    };
+                    LatLng ll = marker.getPosition();
+                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void addMarkIcon() {
+//        OverlayOptions overlayOptions = null;
+//        overlayOptions = new MarkerOptions().position(startLL)
+//                .icon(bitmapdes).zIndex(5);
+//        mBaiduMap.addOverlay(overlayOptions);
+//
+//        OverlayOptions aoverlayOptions = null;
+//        aoverlayOptions = new MarkerOptions().position(endLL)
+//                .icon(bitmapdes).zIndex(5);
+//        mBaiduMap.addOverlay(aoverlayOptions);
+
+//构建文字Option对象，用于在地图上添加文字
+//        OverlayOptions textOption = new TextOptions()
+//                .bgColor(0xAAFFFF00)
+//                .fontSize(24)
+//                .fontColor(0xFFFF00FF)
+//                .text("库地达坂")
+//                .position(ll);
+//在地图上添加该文字对象并显示
+//        mBaiduMap.addOverlay(textOption);
     }
 
     private void initBtn() {
@@ -209,14 +256,11 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         }
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
-            //result.getSuggestAddrInfo()
+            result.getSuggestAddrInfo();
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            nodeIndex = -1;
-            route = result.getRouteLines().get(0);
             DrivingRouteOverlay overlay = new MyDrivingRouteOverlay(mBaiduMap);
-            routeOverlay = overlay;
             mBaiduMap.setOnMarkerClickListener(overlay);
             overlay.setData(result.getRouteLines().get(0));
             overlay.addToMap();
@@ -224,7 +268,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         }
     }
 
-    //定制RouteOverly
+    /** 定制RouteOverly */
     private class MyDrivingRouteOverlay extends DrivingRouteOverlay {
 
         public MyDrivingRouteOverlay(BaiduMap baiduMap) {
@@ -233,18 +277,17 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
         @Override
         public BitmapDescriptor getStartMarker() {
-            if (useDefaultIcon) {
-                return BitmapDescriptorFactory.fromResource(R.drawable.icon_st);
-            }
-            return null;
+            return BitmapDescriptorFactory.fromResource(R.drawable.transparent_mask_icon);
+        }
+
+        @Override
+        public int getLineColor() {
+            return TTTApplication.getColor(R.color.dark_green);
         }
 
         @Override
         public BitmapDescriptor getTerminalMarker() {
-            if (useDefaultIcon) {
-                return BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
-            }
-            return null;
+            return BitmapDescriptorFactory.fromResource(R.drawable.transparent_mask_icon);
         }
     }
 

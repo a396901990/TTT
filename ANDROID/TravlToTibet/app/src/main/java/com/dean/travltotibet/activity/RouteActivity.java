@@ -373,7 +373,7 @@ public class RouteActivity
         TextView header_distance = (TextView) this.findViewById(R.id.header_distance);
 
         if (isRoute)
-            header_date.setText(date);
+            header_date.setText(getString(R.string.route_plan_title));
         else
             header_date.setText(String.format(Constants.HEADER_DAY, date));
 
