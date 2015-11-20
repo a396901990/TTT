@@ -25,6 +25,9 @@ import java.util.List;
  */
 public class DrivingRouteOverlay extends OverlayManager {
 
+    public static String START_MARKER = "start_marker";
+    public static String END_MARKER = "end_marker";
+            ;
     private DrivingRouteLine mRouteLine = null;
     boolean focus = false;
 
@@ -45,52 +48,54 @@ public class DrivingRouteOverlay extends OverlayManager {
         }
 
         List<OverlayOptions> overlayOptionses = new ArrayList<OverlayOptions>();
-        // step node
-        if (mRouteLine.getAllStep() != null
-                && mRouteLine.getAllStep().size() > 0) {
-            
-            for (DrivingStep step : mRouteLine.getAllStep()) {
-                Bundle b = new Bundle();
-                b.putInt("index", mRouteLine.getAllStep().indexOf(step));
-                if (step.getEntrance() != null) {
-                    overlayOptionses.add((new MarkerOptions())
-                            .position(step.getEntrance().getLocation())
-                                    .anchor(0.5f, 0.5f)
-                                            .zIndex(10)
-                                                    .rotate((360 - step.getDirection()))
-                                                            .extraInfo(b)
-                                                                    .icon(BitmapDescriptorFactory
-                                                                            .fromAssetWithDpi("Icon_line_node.png")));
-                }
-                // 最后路段绘制出口点
-                if (mRouteLine.getAllStep().indexOf(step) == (mRouteLine
-                        .getAllStep().size() - 1) && step.getExit() != null) {
-                    overlayOptionses.add((new MarkerOptions())
-                            .position(step.getExit().getLocation())
-                                    .anchor(0.5f, 0.5f)
-                                            .zIndex(10)
-                                                    .icon(BitmapDescriptorFactory
-                                                            .fromAssetWithDpi("Icon_line_node.png")));
 
-                }
-            }
-        }
+        // 画节点，暂时用不上
+//        // step node
+//        if (mRouteLine.getAllStep() != null
+//                && mRouteLine.getAllStep().size() > 0) {
+//
+//            for (DrivingStep step : mRouteLine.getAllStep()) {
+//                Bundle b = new Bundle();
+//                b.putInt("index", mRouteLine.getAllStep().indexOf(step));
+//                if (step.getEntrance() != null) {
+//                    overlayOptionses.add((new MarkerOptions())
+//                            .position(step.getEntrance().getLocation())
+//                                    .anchor(0.5f, 0.5f)
+//                                            .zIndex(10)
+//                                                    .rotate((360 - step.getDirection()))
+//                                                            .extraInfo(b)
+//                                                                    .icon(BitmapDescriptorFactory
+//                                                                            .fromAssetWithDpi("Icon_line_node.png")));
+//                }
+//                // 最后路段绘制出口点
+//                if (mRouteLine.getAllStep().indexOf(step) == (mRouteLine
+//                        .getAllStep().size() - 1) && step.getExit() != null) {
+//                    overlayOptionses.add((new MarkerOptions())
+//                            .position(step.getExit().getLocation())
+//                                    .anchor(0.5f, 0.5f)
+//                                            .zIndex(10)
+//                                                    .icon(BitmapDescriptorFactory
+//                                                            .fromAssetWithDpi("Icon_line_node.png")));
+//
+//                }
+//            }
+//        }
 
         if (mRouteLine.getStarting() != null) {
             overlayOptionses.add((new MarkerOptions())
-                    .position(mRouteLine.getStarting().getLocation())
-                            .icon(getStartMarker() != null ? getStartMarker() :
-                                    BitmapDescriptorFactory
-                                            .fromAssetWithDpi("Icon_start.png")).zIndex(10));
+                    .position(mRouteLine.getStarting().getLocation()).title(START_MARKER)
+                    .icon(getStartMarker() != null ? getStartMarker() :
+                            BitmapDescriptorFactory
+                                    .fromAssetWithDpi("Icon_start.png")).zIndex(10));
         }
         if (mRouteLine.getTerminal() != null) {
             overlayOptionses
                     .add((new MarkerOptions())
-                            .position(mRouteLine.getTerminal().getLocation())
-                                    .icon(getTerminalMarker() != null ? getTerminalMarker() :
-                                            BitmapDescriptorFactory
-                                                    .fromAssetWithDpi("Icon_end.png"))
-                                                            .zIndex(10));
+                            .position(mRouteLine.getTerminal().getLocation()).title(END_MARKER)
+                            .icon(getTerminalMarker() != null ? getTerminalMarker() :
+                                    BitmapDescriptorFactory
+                                            .fromAssetWithDpi("Icon_end.png"))
+                            .zIndex(10));
         }
         // poly line
         if (mRouteLine.getAllStep() != null
@@ -204,14 +209,14 @@ public class DrivingRouteOverlay extends OverlayManager {
     }
 
     @Override
-    public final boolean onMarkerClick(Marker marker) {
-        for (Overlay mMarker : mOverlayList) {
-            if (mMarker instanceof Marker && mMarker.equals(marker)) {
-                if (marker.getExtraInfo() != null) {
-                    onRouteNodeClick(marker.getExtraInfo().getInt("index"));
-                }
-            }
-        }
+    public boolean onMarkerClick(Marker marker) {
+//        for (Overlay mMarker : mOverlayList) {
+//            if (mMarker instanceof Marker && mMarker.equals(marker)) {
+//                if (marker.getExtraInfo() != null) {
+//                    onRouteNodeClick(marker.getExtraInfo().getInt("index"));
+//                }
+//            }
+//        }
         return true;
     }
 

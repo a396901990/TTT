@@ -8,14 +8,11 @@ import android.widget.Button;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
@@ -111,12 +108,19 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     @Override
     protected void onLoadFinished() {
         ((ViewGroup) rootView).addView(contentView);
+        View view = rootView.findViewById(R.id.map_loading_bar);
+        view.setVisibility(View.VISIBLE);
     }
 
     /** 搜索路线 */
     public void searchRoute() {
         //重置浏览节点的路线数据
         mBaiduMap.clear();
+        // show loading bar
+        View loadingBar = rootView.findViewById(R.id.map_loading_bar);
+        if (loadingBar != null) {
+            loadingBar.setVisibility(View.VISIBLE);
+        }
 
         Location startLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanStart());
         LatLng startLL = new LatLng(startLocation.getLatitude(), startLocation.getLongitude());
@@ -125,7 +129,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         LatLng endLL = new LatLng(endLocation.getLatitude(), endLocation.getLongitude());
 
         // 初始化start，end图标
-        initStartEndMarkIcon(startLL, endLL);
+        initMarkIcon(startLL, endLL);
 
         //设置起终点信息
         PlanNode stNode = PlanNode.withLocation(startLL);
@@ -136,15 +140,15 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 .to(enNode));
     }
 
-    /** 初始化start，end图标 */
-    private void initStartEndMarkIcon(LatLng startLL, LatLng endLL) {
-        BitmapDescriptor bdStart = BitmapDescriptorFactory.fromResource(R.drawable.start_icon);
-        BitmapDescriptor bdEnd = BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
-
-        OverlayOptions ooStart = new MarkerOptions().position(startLL).icon(bdStart).zIndex(9);
-        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooStart));
-        OverlayOptions ooEnd = new MarkerOptions().position(endLL).icon(bdEnd).zIndex(5);
-        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooEnd));
+    /** 初始化图标 */
+    private void initMarkIcon(LatLng startLL, LatLng endLL) {
+//        BitmapDescriptor bdStart = BitmapDescriptorFactory.fromResource(R.drawable.start_icon);
+//        BitmapDescriptor bdEnd = BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
+//
+////        OverlayOptions ooStart = new MarkerOptions().position(startLL).icon(bdStart).zIndex(9);
+////        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooStart));
+////        OverlayOptions ooEnd = new MarkerOptions().position(endLL).icon(bdEnd).zIndex(5);
+////        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooEnd));
     }
 
     /** 添加覆盖物点击事件 */
@@ -157,7 +161,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 button.setBackgroundResource(R.drawable.popup);
                 InfoWindow.OnInfoWindowClickListener listener = null;
                 // start
-                if (marker == mMarkerA) {
+                if (DrivingRouteOverlay.START_MARKER.equals(marker.getTitle())) {
                     button.setText("起点");
                     listener = new InfoWindow.OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
@@ -167,7 +171,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                     LatLng ll = marker.getPosition();
                     mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
                     mBaiduMap.showInfoWindow(mInfoWindow);
-                } else if (marker == mMarkerB) {
+                }
+                // end
+                else if (DrivingRouteOverlay.END_MARKER.equals(marker.getTitle())) {
                     button.setText("终点");
                     listener = new InfoWindow.OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
@@ -207,19 +213,19 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private void initBtn() {
         normail = (Button) contentView.findViewById(R.id.normal);
-        satile = (Button) contentView.findViewById(R.id.normal);
+        satile = (Button) contentView.findViewById(R.id.saitlite);
 
         normail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
             }
         });
 
         satile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
             }
         });
     }
@@ -266,6 +272,10 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             overlay.addToMap();
             overlay.zoomToSpan();
         }
+
+        // hidden loading bar
+        View loadingBar = rootView.findViewById(R.id.map_loading_bar);
+        loadingBar.setVisibility(View.GONE);
     }
 
     /** 定制RouteOverly */
@@ -276,18 +286,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         }
 
         @Override
-        public BitmapDescriptor getStartMarker() {
-            return BitmapDescriptorFactory.fromResource(R.drawable.transparent_mask_icon);
-        }
-
-        @Override
         public int getLineColor() {
             return TTTApplication.getColor(R.color.dark_green);
-        }
-
-        @Override
-        public BitmapDescriptor getTerminalMarker() {
-            return BitmapDescriptorFactory.fromResource(R.drawable.transparent_mask_icon);
         }
     }
 
@@ -305,7 +305,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     public void onDestroy() {
-        mSearch.destroy();
+        if (mSearch != null) {
+            mSearch.destroy();
+        }
         mMapView.onDestroy();
         super.onDestroy();
     }

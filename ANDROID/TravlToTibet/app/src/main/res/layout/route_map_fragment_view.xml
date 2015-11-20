@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn"
-        android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
-        android:background="@drawable/border_green"
-        android:padding="3dp">
-
-        <com.baidu.mapapi.map.MapView
-            android:id="@+id/id_bmapView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btn"
-        android:visibility="gone"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:background="#FFFFFF">
 
-        <Button
-            android:id="@+id/normal"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/border_green"
+            android:padding="3dp">
+
+            <com.baidu.mapapi.map.MapView
+                android:id="@+id/id_bmapView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="normail" />
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/saitlite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="saitlite" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="normail" />
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/saitlite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="saitlite" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/map_loading_bar"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>
