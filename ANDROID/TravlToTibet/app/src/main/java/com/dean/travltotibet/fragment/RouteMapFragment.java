@@ -8,11 +8,16 @@ import android.widget.Button;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
@@ -44,14 +49,14 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private BaiduMap mBaiduMap;
 
-    Button normail, satile;
-
     private Marker mMarkerA;
     private Marker mMarkerB;
     private InfoWindow mInfoWindow;
 
     // 搜索模块，也可去掉地图模块独立使用
     private RoutePlanSearch mSearch = null;
+
+    private UiSettings mUiSettings;
 
     public static RouteMapFragment newInstance() {
         return new RouteMapFragment();
@@ -79,7 +84,14 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         contentView = inflater.inflate(R.layout.route_map_fragment_view, null, false);
 
         // 获取地图控件引用
-        mMapView = (MapView) contentView.findViewById(R.id.id_bmapView);
+        BaiduMapOptions mapOptions = new BaiduMapOptions();
+        //mapOptions.scaleControlEnabled(false); // 隐藏比例尺控件
+        mapOptions.zoomControlsEnabled(false);//隐藏缩放按钮
+        mMapView = new MapView(getActivity(), mapOptions);
+        mMapView.setClickable(true);
+
+        ViewGroup mapViewContent = (ViewGroup) contentView.findViewById(R.id.map_view_content);
+        mapViewContent.addView(mMapView);
     }
 
     @Override
@@ -92,12 +104,22 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     /** 初始化地图数据 */
     private void initMap() {
         mBaiduMap = mMapView.getMap();
+        mUiSettings = mBaiduMap.getUiSettings();
+
+        // 开启指南针
+        mUiSettings.setCompassEnabled(true);
+        // mBaiduMap.showMapPoi(false);
 
         //地图点击事件处理
         mBaiduMap.setOnMapClickListener(this);
         // 初始化搜索模块，注册事件监听
         mSearch = RoutePlanSearch.newInstance();
         mSearch.setOnGetRoutePlanResultListener(this);
+
+        // 俯视
+//        MapStatus ms = new MapStatus.Builder().overlook(-30).build();
+//        MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(ms);
+//        mBaiduMap.animateMapStatus(u, 1000);
     }
 
     @Override
@@ -212,22 +234,42 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     }
 
     private void initBtn() {
-        normail = (Button) contentView.findViewById(R.id.normal);
-        satile = (Button) contentView.findViewById(R.id.saitlite);
-
-        normail.setOnClickListener(new View.OnClickListener() {
+        // 放大
+        View zoomIn = contentView.findViewById(R.id.zoom_in_btn);
+        zoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                MapStatusUpdate u = MapStatusUpdateFactory.zoomIn();
+                mBaiduMap.animateMapStatus(u);
             }
         });
 
-        satile.setOnClickListener(new View.OnClickListener() {
+        // 缩小
+        View zoomOut = contentView.findViewById(R.id.zoom_out_btn);
+        zoomOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                MapStatusUpdate u = MapStatusUpdateFactory.zoomOut();
+                mBaiduMap.animateMapStatus(u);
             }
         });
+
+//        normail = (Button) contentView.findViewById(R.id.normal);
+//        satile = (Button) contentView.findViewById(R.id.saitlite);
+//
+//        normail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+//            }
+//        });
+//
+//        satile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+//            }
+//        });
     }
 
     @Override
