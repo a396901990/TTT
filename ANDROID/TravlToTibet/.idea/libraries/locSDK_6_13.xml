@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="baidumapapi_v3_5_0">
+  <library name="locSDK_6.13">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/baidumapapi_v3_5_0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/libs/locSDK_6.13.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
