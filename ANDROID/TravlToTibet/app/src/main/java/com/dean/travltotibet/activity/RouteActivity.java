@@ -38,8 +38,6 @@ public class RouteActivity
     private final static int PAGE_MAP = 1;
     private final static int PAGE_GUIDE = 2;
 
-    public static final int CHART_SETTING = 0;
-
     private Activity activity;
 
     private RoutePlanFragment planFragment;
@@ -318,8 +316,6 @@ public class RouteActivity
         View routeBtn = this.findViewById(R.id.header_menu_date);
         // 旋转
         View rotateBtn = this.findViewById(R.id.rotate_btn);
-        // 设置
-        View settingBtn = this.findViewById(R.id.setting_btn);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,15 +335,6 @@ public class RouteActivity
             @Override
             public void onClick(View v) {
                 CompatHelper.rotateScreen(activity);
-            }
-        });
-
-        settingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChartSettingActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(activity));
-                startActivityForResult(intent, CHART_SETTING);
             }
         });
     }
@@ -411,16 +398,6 @@ public class RouteActivity
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY, planDistance);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY, planDescribe);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY, planRank);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CHART_SETTING:
-                updateRoute();
-                break;
-        }
     }
 
     @Override

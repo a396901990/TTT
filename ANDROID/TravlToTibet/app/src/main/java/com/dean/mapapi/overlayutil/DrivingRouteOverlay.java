@@ -16,6 +16,8 @@ import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.DrivingRouteLine;
 import com.baidu.mapapi.search.route.DrivingRouteLine.DrivingStep;
+import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,7 +175,7 @@ public class DrivingRouteOverlay extends OverlayManager {
      * @return 线颜色
      */
     public int getLineColor() {
-        return 0;
+        return TTTApplication.getColor(R.color.dark_green);
     }
     public List<BitmapDescriptor> getCustomTextureList() {
         ArrayList<BitmapDescriptor> list = new ArrayList<BitmapDescriptor>();

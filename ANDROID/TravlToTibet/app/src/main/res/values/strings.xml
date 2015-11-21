@@ -77,4 +77,10 @@
     <string name="title_activity_prepare_detail">PrepareDetailActivity</string>
     <string name="route_plan_title">选择计划</string>
 
+    <!--map-->
+    <string name="normal_text">2D平面图</string>
+    <string name="satellite_text">卫星图</string>
+    <string name="overlook_text">3D俯视图</string>
+    <string name="route_mark_text">底图标注</string>
+
 </resources>

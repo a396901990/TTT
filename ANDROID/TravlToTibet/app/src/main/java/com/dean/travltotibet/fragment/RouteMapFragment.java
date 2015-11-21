@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -32,6 +33,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.Location;
+import com.dean.travltotibet.ui.SwitchButton;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -49,14 +51,14 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private BaiduMap mBaiduMap;
 
-    private Marker mMarkerA;
-    private Marker mMarkerB;
     private InfoWindow mInfoWindow;
 
     // 搜索模块，也可去掉地图模块独立使用
     private RoutePlanSearch mSearch = null;
 
     private UiSettings mUiSettings;
+
+    private final static int OVERLOOK_ANGLE = -45;
 
     public static RouteMapFragment newInstance() {
         return new RouteMapFragment();
@@ -101,7 +103,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         initMarkerClickEvent();
     }
 
-    /** 初始化地图数据 */
+    /**
+     * 初始化地图数据
+     */
     private void initMap() {
         mBaiduMap = mMapView.getMap();
         mUiSettings = mBaiduMap.getUiSettings();
@@ -115,11 +119,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         // 初始化搜索模块，注册事件监听
         mSearch = RoutePlanSearch.newInstance();
         mSearch.setOnGetRoutePlanResultListener(this);
-
-        // 俯视
-//        MapStatus ms = new MapStatus.Builder().overlook(-30).build();
-//        MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(ms);
-//        mBaiduMap.animateMapStatus(u, 1000);
     }
 
     @Override
@@ -134,7 +133,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         view.setVisibility(View.VISIBLE);
     }
 
-    /** 搜索路线 */
+    /**
+     * 搜索路线
+     */
     public void searchRoute() {
         //重置浏览节点的路线数据
         mBaiduMap.clear();
@@ -162,7 +163,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 .to(enNode));
     }
 
-    /** 初始化图标 */
+    /**
+     * 初始化图标
+     */
     private void initMarkIcon(LatLng startLL, LatLng endLL) {
 //        BitmapDescriptor bdStart = BitmapDescriptorFactory.fromResource(R.drawable.start_icon);
 //        BitmapDescriptor bdEnd = BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
@@ -173,7 +176,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 ////        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooEnd));
     }
 
-    /** 添加覆盖物点击事件 */
+    /**
+     * 添加覆盖物点击事件
+     */
     private void initMarkerClickEvent() {
 
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
@@ -254,22 +259,89 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             }
         });
 
-//        normail = (Button) contentView.findViewById(R.id.normal);
-//        satile = (Button) contentView.findViewById(R.id.saitlite);
-//
-//        normail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-//            }
-//        });
-//
-//        satile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
-//            }
-//        });
+        // 转换视图
+        final View changeViewBtn = contentView.findViewById(R.id.change_view_btn);
+        // 转换视图，取消
+        final View changeViewCancelBtn = contentView.findViewById(R.id.change_view_cancel_btn);
+        // 扩展视图
+        final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
+
+        changeViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeViewBtn.setVisibility(View.INVISIBLE);
+                changeViewCancelBtn.setVisibility(View.VISIBLE);
+                changeExtendView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        changeViewCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeViewBtn.setVisibility(View.VISIBLE);
+                changeViewCancelBtn.setVisibility(View.INVISIBLE);
+                changeExtendView.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        // 三个视图按钮
+        final ImageButton satellite = (ImageButton) contentView.findViewById(R.id.satellite);
+        final ImageButton normal = (ImageButton) contentView.findViewById(R.id.normal);
+        final ImageButton overlook = (ImageButton) contentView.findViewById(R.id.overlook);
+
+        satellite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                satellite.setActivated(true);
+                normal.setActivated(false);
+                overlook.setActivated(false);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+            }
+        });
+
+        normal.setActivated(true);
+        normal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                normal.setActivated(true);
+                satellite.setActivated(false);
+                overlook.setActivated(false);
+                MapStatus ms = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(0).build();
+                MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(ms);
+                mBaiduMap.animateMapStatus(u);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+            }
+        });
+
+        overlook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                overlook.setActivated(true);
+                normal.setActivated(false);
+                satellite.setActivated(false);
+                MapStatus ms = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(OVERLOOK_ANGLE).build();
+                MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(ms);
+                mBaiduMap.animateMapStatus(u);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+            }
+        });
+
+        // 底图标注
+        SwitchButton switchButton = (SwitchButton) contentView.findViewById(R.id.switch_btn);
+        switchButton.setOnStatusChangeListener(new SwitchButton.OnStatusChangeListener() {
+            @Override
+            public void onChange(SwitchButton.STATUS status) {
+
+                switch (status) {
+                    case ON:
+                        mBaiduMap.showMapPoi(true);
+                        break;
+                    case OFF:
+                        mBaiduMap.showMapPoi(false);
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -308,7 +380,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            DrivingRouteOverlay overlay = new MyDrivingRouteOverlay(mBaiduMap);
+            DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaiduMap);
             mBaiduMap.setOnMarkerClickListener(overlay);
             overlay.setData(result.getRouteLines().get(0));
             overlay.addToMap();
@@ -318,19 +390,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         // hidden loading bar
         View loadingBar = rootView.findViewById(R.id.map_loading_bar);
         loadingBar.setVisibility(View.GONE);
-    }
-
-    /** 定制RouteOverly */
-    private class MyDrivingRouteOverlay extends DrivingRouteOverlay {
-
-        public MyDrivingRouteOverlay(BaiduMap baiduMap) {
-            super(baiduMap);
-        }
-
-        @Override
-        public int getLineColor() {
-            return TTTApplication.getColor(R.color.dark_green);
-        }
     }
 
     @Override

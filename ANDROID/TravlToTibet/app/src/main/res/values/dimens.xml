@@ -144,4 +144,10 @@
     <dimen name="welcome_bottom_btn_width">80dp</dimen>
     <dimen name="welcome_bottom_btn_padding">12dp</dimen>
 
+    <!--map view-->
+    <dimen name="map_change_view_image_margin">15dp</dimen>
+    <dimen name="map_extended_view_height">100dp</dimen>
+    <dimen name="map_btn_padding_length">10dp</dimen>
+    <dimen name="map_btn_width">40dp</dimen>
+
 </resources>

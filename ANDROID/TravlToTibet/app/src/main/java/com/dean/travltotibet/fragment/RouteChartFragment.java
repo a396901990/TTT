@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.ChartSettingActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.AbstractPoint;
 import com.dean.travltotibet.model.AbstractSeries;
@@ -17,6 +19,7 @@ import com.dean.travltotibet.model.IndicatorSeries;
 import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.PointManager;
 import com.dean.travltotibet.util.StringUtil;
@@ -28,7 +31,9 @@ import java.util.List;
  */
 public class RouteChartFragment extends BaseRouteFragment {
 
-    private final static int BORDER_EXTRA_LENGTH = 15;
+    public static final int CHART_SETTING = 0;
+
+    private static final int BORDER_EXTRA_LENGTH = 15;
 
     private View rootView;
 
@@ -67,6 +72,20 @@ public class RouteChartFragment extends BaseRouteFragment {
         mChartView = (RouteChartView) contentView.findViewById(R.id.chart);
         mIndicatorView = (IndicatorChartView) contentView.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
+
+        initBtn();
+    }
+
+    private void initBtn() {
+        View settingBtn = contentView.findViewById(R.id.chart_setting_btn);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChartSettingActivity.class);
+                intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
+                startActivityForResult(intent, CHART_SETTING);
+            }
+        });
     }
 
     @Override
@@ -189,6 +208,16 @@ public class RouteChartFragment extends BaseRouteFragment {
                 updateChartDetail(placeName);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CHART_SETTING:
+                updateRoute();
+                break;
+        }
     }
 
     @Override
