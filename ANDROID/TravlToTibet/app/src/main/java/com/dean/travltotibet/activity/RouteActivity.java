@@ -13,7 +13,9 @@ import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -22,9 +24,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 /**
@@ -208,15 +213,15 @@ public class RouteActivity
 
         switch (index) {
             case PAGE_HEIGHT:
-                heightTab.setBackgroundResource(R.color.white_background);
+                heightTab.setBackgroundResource(R.drawable.header_border_activited);
                 heightTab.setTextColor(getResources().getColor(R.color.dark_blue));
                 break;
             case PAGE_MAP:
-                mapTab.setBackgroundResource(R.color.white_background);
+                mapTab.setBackgroundResource(R.drawable.header_border_activited);
                 mapTab.setTextColor(getResources().getColor(R.color.dark_green));
                 break;
             case PAGE_GUIDE:
-                guideTab.setBackgroundResource(R.color.white_background);
+                guideTab.setBackgroundResource(R.drawable.header_border_activited);
                 guideTab.setTextColor(getResources().getColor(R.color.dark_orange));
                 break;
             default:
@@ -376,8 +381,9 @@ public class RouteActivity
     public void updateRoute() {
         if (mAdapter.getAllFragments().size() > 0) {
             BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
-            if (fragment.isAdded() && fragment.isLoaded()) {
+            if (fragment.isAdded() && fragment.isLoaded() && !fragment.isCurrentPlan(planStart, planEnd)) {
                 fragment.updateRoute();
+                fragment.setCurrentPlan(planStart, planEnd);
             }
         }
     }

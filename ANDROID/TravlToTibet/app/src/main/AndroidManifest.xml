@@ -51,7 +51,7 @@
             android:theme="@style/Theme.AppBaseTheme" />
         <activity
             android:name=".activity.RouteActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensor"
             android:theme="@style/Theme.NoActionBar" />
         <activity
             android:name=".activity.InfoRouteActivity"

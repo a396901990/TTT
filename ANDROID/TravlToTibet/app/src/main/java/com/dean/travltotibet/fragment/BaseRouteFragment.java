@@ -9,6 +9,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.CustomProgress;
 import com.dean.travltotibet.util.ProgressUtil;
 
@@ -31,11 +32,7 @@ public abstract class BaseRouteFragment extends Fragment {
     // 是否已被加载过一次，第二次就不再去请求数据了
     private boolean mHasLoadedOnce = false;
 
-    // 是否是map视图
-    private boolean isMapLoading = false;
-
-    // map线程，控制map视图加载
-    private MapLoadingThread mapThread;
+    private String currentPlan;
 
     /**
      * Fragment当前状态是否可见
@@ -115,6 +112,7 @@ public abstract class BaseRouteFragment extends Fragment {
                     protected void onPreExecute() {
                         super.onPreExecute();
                         // 准备加载
+                        currentPlan = ((RouteActivity) getActivity()).getPlanStart();
                         mHandler.sendEmptyMessage(LOADING_PREPARED);
                     }
 
@@ -122,7 +120,7 @@ public abstract class BaseRouteFragment extends Fragment {
                     protected Boolean doInBackground(Void... params) {
                         // 加载中
                         try {
-                            Thread.sleep(600);
+                            Thread.sleep(800);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -146,32 +144,8 @@ public abstract class BaseRouteFragment extends Fragment {
         });
     }
 
-    private void mapLoading() {
-        mapThread = new MapLoadingThread();
-        synchronized (mapThread) {
-            try {
-                // 启动“线程”
-                mapThread.start();
-                // 主线程等待, 通过notify()唤醒
-                mapThread.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void mapLoadingFinished() {
-        synchronized (mapThread) {
-            mapThread.notify();
-        }
-    }
-
     public boolean isLoaded() {
         return isPrepared && isVisible && mHasLoadedOnce;
-    }
-
-    public void setMapLoading(boolean isMapLoading) {
-        this.isMapLoading = isMapLoading;
     }
 
     protected abstract void onLoadPrepared();
@@ -185,10 +159,11 @@ public abstract class BaseRouteFragment extends Fragment {
      */
     public abstract void updateRoute();
 
-    public class MapLoadingThread extends Thread {
-        public void run() {
-            // 死循环，不断运行
-            while (true) ;
-        }
+    public void setCurrentPlan(String currentPlan, String end) {
+        this.currentPlan = currentPlan + end;
+    }
+
+    public boolean isCurrentPlan(String planStart, String planEnd) {
+        return currentPlan.equals(planStart + planEnd);
     }
 }

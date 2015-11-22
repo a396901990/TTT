@@ -68,7 +68,6 @@ public class AppLaunchActivity extends Activity {
         }, SPLASH_DISPLAY_LENGTH);
 
     }
-
     /**
      * 进入home界面
      */

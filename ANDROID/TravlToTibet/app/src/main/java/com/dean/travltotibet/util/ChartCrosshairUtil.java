@@ -9,6 +9,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -33,7 +34,7 @@ public class ChartCrosshairUtil
 
     private static final int CENTER_BLANK = 15;
 
-    private final Handler mHandler = new Handler();
+    private final Handler mHandler;
 
     private final RouteChartView mChart;
 
@@ -104,6 +105,8 @@ public class ChartCrosshairUtil
         mSeries = series;
 
         initPaint();
+
+        mHandler = new Handler();
     }
 
     private void initPaint()
@@ -189,7 +192,6 @@ public class ChartCrosshairUtil
             }
             break;
         }
-
         return handled;
     }
 

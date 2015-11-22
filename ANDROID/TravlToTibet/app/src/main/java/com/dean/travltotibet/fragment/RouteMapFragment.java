@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,8 +138,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
      * 搜索路线
      */
     public void searchRoute() {
-        //重置浏览节点的路线数据
+
         mBaiduMap.clear();
+
         // show loading bar
         View loadingBar = rootView.findViewById(R.id.map_loading_bar);
         if (loadingBar != null) {
@@ -155,12 +157,18 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         initMarkIcon(startLL, endLL);
 
         //设置起终点信息
-        PlanNode stNode = PlanNode.withLocation(startLL);
-        PlanNode enNode = PlanNode.withLocation(endLL);
-        // 实际使用中请对起点终点城市进行正确的设定
-        mSearch.drivingSearch((new DrivingRoutePlanOption())
-                .from(stNode)
-                .to(enNode));
+        final PlanNode stNode = PlanNode.withLocation(startLL);
+        final PlanNode enNode = PlanNode.withLocation(endLL);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // 实际使用中请对起点终点城市进行正确的设定
+                mSearch.drivingSearch((new DrivingRoutePlanOption())
+                        .from(stNode)
+                        .to(enNode));
+            }
+        });
     }
 
     /**
