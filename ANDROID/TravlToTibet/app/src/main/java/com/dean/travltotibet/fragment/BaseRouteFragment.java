@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,13 +18,6 @@ import com.dean.travltotibet.util.ProgressUtil;
  * Created by DeanGuo on 8/31/15.
  */
 public abstract class BaseRouteFragment extends Fragment {
-
-    public final static int LOADING_PREPARED = 0;
-    public final static int LOADING = 1;
-    public final static int LOADING_SUCCESS = 2;
-    public final static int LOADING_FAILED = 3;
-
-    private Handler mHandler;
 
     // 标志位，标志是否可见
     private boolean isVisible = false;
@@ -56,40 +50,6 @@ public abstract class BaseRouteFragment extends Fragment {
 
         isPrepared = true;
 
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-
-                    // 准备加载
-                    case LOADING_PREPARED:
-                        CustomProgress.show(getActivity(), false);
-                        //ProgressUtil.setLastShown(new ProgressDialog(getActivity(), android.R.style.Theme_Holo_Light_DialogWhenLarge).show(getActivity(), null, null));
-                        onLoadPrepared();
-                        break;
-
-                    // 加载中
-                    case LOADING:
-                        onLoading();
-                        break;
-
-                    // 加载成功
-                    case LOADING_SUCCESS:
-                        //ProgressUtil.dismissLast();
-                        CustomProgress.dismissDialog();
-                        onLoadFinished();
-                        break;
-
-                    // 加载失败
-                    case LOADING_FAILED:
-                        ProgressUtil.dismissLast();
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        };
         lazyLoad();
     }
 
@@ -113,18 +73,18 @@ public abstract class BaseRouteFragment extends Fragment {
                         super.onPreExecute();
                         // 准备加载
                         currentPlan = ((RouteActivity) getActivity()).getPlanStart();
-                        mHandler.sendEmptyMessage(LOADING_PREPARED);
+                        CustomProgress.show(getActivity(), false);
+                        onLoadPrepared();
                     }
 
                     @Override
                     protected Boolean doInBackground(Void... params) {
-                        // 加载中
                         try {
-                            Thread.sleep(800);
+                            Thread.sleep(600);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        mHandler.sendEmptyMessage(LOADING);
+                        onLoading();
                         return true;
                     }
 
@@ -133,10 +93,11 @@ public abstract class BaseRouteFragment extends Fragment {
                         if (isSuccess) {
                             mHasLoadedOnce = true;
                             // 加载成功
-                            mHandler.sendEmptyMessage(LOADING_SUCCESS);
+                            onLoadFinished();
+                            CustomProgress.dismissDialog();
                         } else {
                             // 加载失败
-                            mHandler.sendEmptyMessage(LOADING_FAILED);
+                            CustomProgress.dismissDialog();
                         }
                     }
                 }.execute();

@@ -39,8 +39,17 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearance.Regular.DarkGray" parent="TextAppearance.Regular">
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
     <style name="TextAppearance.Regular.Blue" parent="TextAppearance.Regular">
         <item name="android:textColor">@color/less_dark_blue</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Blue.Bold" parent="TextAppearance.Regular">
+        <item name="android:textColor">@color/less_dark_blue</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.Regular.DarkOrange" parent="TextAppearance.Regular">
@@ -68,15 +77,24 @@
         <item name="android:textColor">@color/dark_blue</item>
     </style>
 
+    <style name="TextAppearance.Medium.Blue.Bold" parent="TextAppearance.Medium">
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Medium.White" parent="TextAppearance.Medium">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="TextAppearance.Medium.Grey" parent="TextAppearance.Medium">
+    <style name="TextAppearance.Medium.DarkGray" parent="TextAppearance.Medium">
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="TextAppearance.Medium.Gray" parent="TextAppearance.Medium">
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <style name="TextAppearance.Medium.Grey.Bold" parent="TextAppearance.Medium">
+    <style name="TextAppearance.Medium.Gray.Bold" parent="TextAppearance.Medium">
         <item name="android:textColor">@color/gray</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -99,6 +117,10 @@
 
     <style name="TextAppearance.Large.Blue.Bold" parent="TextAppearance.Large">
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="TextAppearance.Large.Blue" parent="TextAppearance.Large">
         <item name="android:textColor">@color/dark_blue</item>
     </style>
 

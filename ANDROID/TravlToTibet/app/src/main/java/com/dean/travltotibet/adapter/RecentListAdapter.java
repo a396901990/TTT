@@ -71,7 +71,7 @@ public class RecentListAdapter extends BaseAdapter {
 
         RecentRoute recentRoute = mData.get(position);
         // 类型图片
-        mTitleView.setImageDrawable(TravelType.getBlueTypeImageSrc(recentRoute.getType()));
+        mTitleView.setImageDrawable(TravelType.getWhiteTypeImageSrc(recentRoute.getType()));
 
         // 路线名称
         mRouteName.setText(recentRoute.getRoute_name());

@@ -104,9 +104,9 @@ public class ChartCrosshairUtil
         mChart = chart;
         mSeries = series;
 
-        initPaint();
+        mHandler = new Handler(Looper.getMainLooper());
 
-        mHandler = new Handler();
+        initPaint();
     }
 
     private void initPaint()

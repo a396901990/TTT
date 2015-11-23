@@ -6,7 +6,7 @@
     android:padding="@dimen/route_plan_dialog_padding">
 
     <TextView
-        style="@style/TextAppearance.Medium.Grey"
+        style="@style/TextAppearance.Medium.Gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/route_plan_dialog_title_padding"
@@ -60,7 +60,7 @@
     </RelativeLayout>
 
     <TextView
-        style="@style/TextAppearance.Medium.Grey"
+        style="@style/TextAppearance.Medium.Gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/route_plan_dialog_title_padding"

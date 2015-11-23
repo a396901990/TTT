@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 
 import com.dean.travltotibet.model.AbstractSeries;
@@ -63,7 +64,7 @@ public class ChartIndicatorUtil
 
     private float limit;
 
-    private final Handler mHandler = new Handler();
+    private final Handler mHandler;
 
     private final Runnable mMoveLeftRunnbale = new Runnable()
         {
@@ -190,7 +191,7 @@ public class ChartIndicatorUtil
     public ChartIndicatorUtil( final IndicatorChartView indicatorChartView )
     {
         mIndicator = indicatorChartView;
-
+        mHandler = new Handler(Looper.getMainLooper());
         initRect();
         initPaint();
     }

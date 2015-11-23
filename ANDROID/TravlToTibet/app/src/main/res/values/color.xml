@@ -27,6 +27,7 @@
     <color name="half_dark_gray">#7F4C4C4C</color>
     <color name="light_gray">#CCCCCC</color>
     <color name="half_light_gray">#CCCCCCCC</color>
+    <color name="less_light_gray">#99CCCCCC</color>
     <color name="dark_gray_background">#DDD</color>
     <color name="red">#961E26</color>
     <color name="opaque">#80000000</color>

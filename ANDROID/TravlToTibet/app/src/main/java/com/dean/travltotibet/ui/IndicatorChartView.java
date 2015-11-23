@@ -20,6 +20,8 @@ import android.view.View;
 public class IndicatorChartView
     extends View
 {
+    private IndicatorChartView mView;
+
     private ArrayList<AbstractSeries> mSeries = new ArrayList<AbstractSeries>();
 
     private ChartIndicatorUtil mIndicatorUtil;
@@ -107,7 +109,8 @@ public class IndicatorChartView
 
     public void initIndicator()
     {
-        mIndicatorUtil = new ChartIndicatorUtil(this);
+        mView = this;
+        mIndicatorUtil = new ChartIndicatorUtil(mView);
 
         addIndicatorListener(mChartView.getIndicatorListener());
         mChartView.setChartListener(mChartListener);

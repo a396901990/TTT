@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
@@ -34,6 +32,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.Location;
+import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.SwitchButton;
 
 /**
@@ -125,8 +124,14 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     @Override
     protected void onLoadFinished() {
         ((ViewGroup) rootView).addView(contentView);
-        View view = rootView.findViewById(R.id.map_loading_bar);
-        view.setVisibility(View.VISIBLE);
+
+        // start loading view
+        View viewContent = rootView.findViewById(R.id.loading_content_view);
+        if (viewContent != null) {
+            viewContent.setVisibility(View.VISIBLE);
+            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
+            loadingView.start();
+        }
     }
 
     /**
@@ -139,10 +144,12 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 //        }
         mBaiduMap.clear();
 
-        // show loading bar
-        View loadingBar = rootView.findViewById(R.id.map_loading_bar);
-        if (loadingBar != null) {
-            loadingBar.setVisibility(View.VISIBLE);
+        // start loading view
+        View viewContent = rootView.findViewById(R.id.loading_content_view);
+        if (viewContent != null) {
+            viewContent.setVisibility(View.VISIBLE);
+            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
+            loadingView.start();
         }
 
         Location startLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanStart());
@@ -394,9 +401,13 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             overlay.zoomToSpan();
         }
 
-        // hidden loading bar
-        View loadingBar = rootView.findViewById(R.id.map_loading_bar);
-        loadingBar.setVisibility(View.GONE);
+        // stop loading view
+        View viewContent = rootView.findViewById(R.id.loading_content_view);
+        if (viewContent != null) {
+            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
+            loadingView.stop();
+            viewContent.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

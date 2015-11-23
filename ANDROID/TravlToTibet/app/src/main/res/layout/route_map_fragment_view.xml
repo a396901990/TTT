@@ -55,15 +55,15 @@
 
     <!--展开视图-->
     <LinearLayout
-        android:visibility="invisible"
         android:id="@+id/change_extended_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/change_view_btn"
         android:layout_marginLeft="@dimen/map_btn_padding_length"
         android:layout_marginRight="@dimen/map_btn_padding_length"
+        android:background="@drawable/map_btn_border_green"
         android:orientation="vertical"
-        android:background="@drawable/map_btn_border_green">
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,12 +161,11 @@
                 style="@style/TextAppearance.Small"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="@string/route_mark_text"
                 android:layout_marginLeft="@dimen/chart_setting_checkbox_margin"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:text="@string/route_mark_text" />
 
-            <com.dean.travltotibet.ui.SwitchButton
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.dean.travltotibet.ui.SwitchButton xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/switch_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -241,10 +240,20 @@
     </LinearLayout>
 
     <!--加载条-->
-    <ProgressBar
-        android:id="@+id/map_loading_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+    <RelativeLayout
+        android:id="@+id/loading_content_view"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:background="@color/less_light_gray"
+        android:layout_height="match_parent">
+
+        <com.dean.travltotibet.ui.RotateLoading xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/rotate_loading"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            app:loading_color="@color/dark_green"
+            app:loading_width="6dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

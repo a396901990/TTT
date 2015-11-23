@@ -68,7 +68,7 @@
                     android:src="@drawable/nav_badge_left" />
 
                 <TextView
-                    style="@style/TextAppearance.Medium.White"
+                    style="@style/TextAppearance.Small.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/nav_badge_middle"

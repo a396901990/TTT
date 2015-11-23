@@ -54,15 +54,15 @@ public class RouteChartFragment extends BaseRouteFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.layout_content_frame, container, false);
-        return rootView;
+    public void onCreate(Bundle savedInstanceState) {
+        routeActivity = (RouteActivity) getActivity();
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        routeActivity = (RouteActivity) getActivity();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.layout_content_frame, container, false);
+        return rootView;
     }
 
     @Override
@@ -95,7 +95,12 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     @Override
     protected void onLoadFinished() {
-        ((ViewGroup) rootView).addView(contentView);
+        rootView.post(new Runnable() {
+            @Override
+            public void run() {
+                ((ViewGroup) rootView).addView(contentView);
+            }
+        });
     }
 
     /**
