@@ -57,7 +57,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     // 搜索模块，也可去掉地图模块独立使用
     private RoutePlanSearch mSearch = null;
 
-    private UiSettings mUiSettings;
+    private DrivingRouteOverlay overlay;
 
     private final static int OVERLOOK_ANGLE = -45;
 
@@ -89,6 +89,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         // 获取地图控件引用
         BaiduMapOptions mapOptions = new BaiduMapOptions();
         //mapOptions.scaleControlEnabled(false); // 隐藏比例尺控件
+        mapOptions.compassEnabled(true);
         mapOptions.zoomControlsEnabled(false);//隐藏缩放按钮
         mMapView = new MapView(getActivity(), mapOptions);
         mMapView.setClickable(true);
@@ -109,12 +110,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
      */
     private void initMap() {
         mBaiduMap = mMapView.getMap();
-        mUiSettings = mBaiduMap.getUiSettings();
-
-        // 开启指南针
-        mUiSettings.setCompassEnabled(true);
-        // mBaiduMap.showMapPoi(false);
-
         //地图点击事件处理
         mBaiduMap.setOnMapClickListener(this);
         // 初始化搜索模块，注册事件监听
@@ -139,6 +134,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
      */
     public void searchRoute() {
 
+//        if (overlay != null) {
+//            overlay.removeFromMap();
+//        }
         mBaiduMap.clear();
 
         // show loading bar
@@ -193,7 +191,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
             public boolean onMarkerClick(Marker marker) {
                 Button button = new Button(getActivity());
-                button.setBackgroundResource(R.drawable.popup);
+                button.setBackgroundResource(R.drawable.location_tips);
+                button.setTextColor(getResources().getColor(R.color.white));
                 InfoWindow.OnInfoWindowClickListener listener = null;
                 // start
                 if (DrivingRouteOverlay.START_MARKER.equals(marker.getTitle())) {
@@ -388,7 +387,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaiduMap);
+            overlay = new DrivingRouteOverlay(mBaiduMap);
             mBaiduMap.setOnMarkerClickListener(overlay);
             overlay.setData(result.getRouteLines().get(0));
             overlay.addToMap();

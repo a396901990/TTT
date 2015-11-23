@@ -128,7 +128,7 @@ public class PointDetailPaint extends Paint {
         // 文字Y坐标
         float textY;
 
-        // 如果点数大于10，倒着显示
+        // 如果点数大于10，倒着显示(village, town)
         if (count > POINT_MIN && (PointManager.VILLAGE.equals(getCategory()) || PointManager.TOWN.equals(getCategory()))) {
 
             top = y + padding + padding;
