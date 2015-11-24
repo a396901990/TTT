@@ -239,21 +239,20 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!--加载条-->
+    <!--加载背景-->
     <RelativeLayout
         android:id="@+id/loading_content_view"
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:background="@color/less_light_gray"
         android:layout_height="match_parent">
-
-        <com.dean.travltotibet.ui.RotateLoading xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/rotate_loading"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            app:loading_color="@color/dark_green"
-            app:loading_width="6dp" />
     </RelativeLayout>
-
+    <!--加载条-->
+    <com.dean.travltotibet.ui.RotateLoading xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rotate_loading"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        app:loading_color="@color/dark_green"
+        app:loading_width="6dp" />
 </RelativeLayout>

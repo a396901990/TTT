@@ -149,5 +149,8 @@
     <dimen name="map_extended_view_height">100dp</dimen>
     <dimen name="map_btn_padding_length">10dp</dimen>
     <dimen name="map_btn_width">40dp</dimen>
+    <dimen name="map_show_icon_size">20dp</dimen>
+    <dimen name="map_show_icon_padding">5dp</dimen>
+    <dimen name="map_show_detail_padding">5dp</dimen>
 
 </resources>

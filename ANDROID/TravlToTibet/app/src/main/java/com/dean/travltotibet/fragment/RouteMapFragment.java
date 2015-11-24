@@ -1,11 +1,14 @@
 package com.dean.travltotibet.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -34,6 +37,8 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.SwitchButton;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.StringUtil;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -158,9 +163,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         Location endLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanEnd());
         LatLng endLL = new LatLng(endLocation.getLatitude(), endLocation.getLongitude());
 
-        // 初始化start，end图标
-        initMarkIcon(startLL, endLL);
-
         //设置起终点信息
         final PlanNode stNode = PlanNode.withLocation(startLL);
         final PlanNode enNode = PlanNode.withLocation(endLL);
@@ -179,7 +181,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     /**
      * 初始化图标
      */
-    private void initMarkIcon(LatLng startLL, LatLng endLL) {
+    private void initMarkIcon() {
 //        BitmapDescriptor bdStart = BitmapDescriptorFactory.fromResource(R.drawable.start_icon);
 //        BitmapDescriptor bdEnd = BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
 //
@@ -197,32 +199,44 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
 
             public boolean onMarkerClick(Marker marker) {
-                Button button = new Button(getActivity());
-                button.setBackgroundResource(R.drawable.location_tips);
-                button.setTextColor(getResources().getColor(R.color.white));
+
+                LayoutInflater layoutInflater = LayoutInflater.from(routeActivity);
+                ViewGroup showLayout = (ViewGroup) layoutInflater.inflate(R.layout.map_show_detail_layout, null);
                 InfoWindow.OnInfoWindowClickListener listener = null;
+                TextView title = (TextView) showLayout.findViewById(R.id.map_show_title);
+                TextView height = (TextView) showLayout.findViewById(R.id.map_show_height);
+                TextView mile = (TextView) showLayout.findViewById(R.id.map_show_mile);
+
                 // start
                 if (DrivingRouteOverlay.START_MARKER.equals(marker.getTitle())) {
-                    button.setText("起点");
                     listener = new InfoWindow.OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
                             mBaiduMap.hideInfoWindow();
                         }
                     };
                     LatLng ll = marker.getPosition();
-                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+
+                    title.setText(routeActivity.getPlanStart());
+                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getPlanStart()));
+                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getPlanStart()));
+
+                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(showLayout), ll, -47, listener);
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 }
                 // end
                 else if (DrivingRouteOverlay.END_MARKER.equals(marker.getTitle())) {
-                    button.setText("终点");
                     listener = new InfoWindow.OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
                             mBaiduMap.hideInfoWindow();
                         }
                     };
                     LatLng ll = marker.getPosition();
-                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+
+                    title.setText(routeActivity.getPlanEnd());
+                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getPlanEnd()));
+                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getPlanEnd()));
+
+                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(showLayout), ll, -47, listener);
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 }
                 return true;

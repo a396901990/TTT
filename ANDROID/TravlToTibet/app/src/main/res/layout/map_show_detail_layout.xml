@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/location_tips"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/map_show_title"
+        style="@style/TextAppearance.Regular.White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/map_show_icon_padding"
+        android:text="叶城县" />
+
+    <!--全长-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/map_show_detail_padding"
+        android:paddingRight="@dimen/map_show_detail_padding">
+
+        <ImageView
+            android:layout_width="@dimen/map_show_icon_size"
+            android:layout_height="@dimen/map_show_icon_size"
+            android:paddingRight="@dimen/map_show_icon_padding"
+            android:src="@drawable/icon_mountain"
+            android:visibility="gone" />
+
+        <TextView
+            style="@style/TextAppearance.Micro.LightBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="海拔：" />
+
+        <TextView
+            android:id="@+id/map_show_height"
+            style="@style/TextAppearance.Micro.LightGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2865KM" />
+    </LinearLayout>
+
+    <!--全长-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/map_show_detail_padding"
+        android:paddingRight="@dimen/map_show_detail_padding">
+
+        <ImageView
+            android:layout_width="@dimen/map_show_icon_size"
+            android:layout_height="@dimen/map_show_icon_size"
+            android:paddingRight="@dimen/map_show_icon_padding"
+            android:src="@drawable/icon_route"
+            android:visibility="gone" />
+
+        <TextView
+            style="@style/TextAppearance.Micro.LightBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="里程：" />
+
+        <TextView
+            android:id="@+id/map_show_mile"
+            style="@style/TextAppearance.Micro.LightGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2865KM" />
+    </LinearLayout>
+</LinearLayout>

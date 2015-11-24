@@ -1,6 +1,7 @@
 package com.dean.travltotibet.database;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.dean.greendao.DaoSession;
@@ -24,6 +25,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.StringUtil;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -476,6 +478,22 @@ public class DBHelper {
             prepareInfoDao.insert(info);
         }
 
+    }
+
+    public String getElevationWithNameString(String name) {
+        return StringUtil.formatDoubleToInteger(getElevationWithName(name));
+    }
+
+    public String getRoadMileWithName(String name) {
+        // 路线名
+        String road = getRoadWithName(name);
+        if (!TextUtils.isEmpty(road)) {
+            road = road.split("/")[1];
+        }
+        // 公里
+        String milestone = StringUtil.formatDoubleToFourInteger(getMilestoneWithName(name));
+
+        return String.format(Constants.GUIDE_OVERALL_MILESTONE_WITHOUT_TITLE_FORMAT, road, milestone);
     }
 
     public void intoFileData() {

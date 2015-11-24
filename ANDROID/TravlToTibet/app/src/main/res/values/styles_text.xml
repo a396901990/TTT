@@ -6,6 +6,14 @@
         <item name="android:textSize">@dimen/text_micro</item>
     </style>
 
+    <style name="TextAppearance.Micro.LightBlue" parent="TextAppearance.Micro">
+        <item name="android:textColor">@color/light_blue</item>
+    </style>
+
+    <style name="TextAppearance.Micro.LightGreen" parent="TextAppearance.Micro">
+        <item name="android:textColor">@color/light_green</item>
+    </style>
+
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance">
         <item name="android:textSize">@dimen/text_small</item>
     </style>
@@ -20,6 +28,14 @@
 
     <style name="TextAppearance.Small.Gray" parent="TextAppearance.Small">
         <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="TextAppearance.Small.DarkBlue" parent="TextAppearance.Small">
+        <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="TextAppearance.Small.DarkGreen" parent="TextAppearance.Small">
+        <item name="android:textColor">@color/dark_green</item>
     </style>
 
     <style name="TextAppearance.Small.Gray.Bold" parent="TextAppearance.Small">
