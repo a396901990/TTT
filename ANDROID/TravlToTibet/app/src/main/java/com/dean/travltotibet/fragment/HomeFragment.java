@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
+import com.dean.travltotibet.activity.WhereGoActivity;
 import com.dean.travltotibet.adapter.HomeGridAdapter;
 import com.dean.travltotibet.util.Constants;
 
@@ -60,6 +62,18 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
         getRouteData();
         initGridView();
         initPullToRefresh();
+        initWhereGo();
+    }
+
+    private void initWhereGo() {
+        View whereGoBtn = root.findViewById(R.id.where_go);
+        whereGoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WhereGoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initPullToRefresh() {

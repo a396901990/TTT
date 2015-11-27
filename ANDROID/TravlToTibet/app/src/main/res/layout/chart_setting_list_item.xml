@@ -20,16 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
         android:paddingRight="@dimen/chart_setting_switch_padding_right"
-        app:cursor="@drawable/cursor"
+        app:cursor="@drawable/circle_filled"
         app:moveDuration="50"
         app:selectedBG="@color/dark_blue"
         app:shadow="@drawable/switch_button_shadow"
-        app:shadowExpand="3dp"
-        app:shadowXDiff="0dp"
-        app:shadowYDiff="3dp"
         app:status="OFF"
         app:trackPadding="1dp"
-        app:trackWidth="50dp"
+        app:trackWidth="40dp"
         app:unselectedBG="#eeeeee" />
 
 </FrameLayout>

@@ -106,7 +106,7 @@
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
     <!--home-->
-    <dimen name="home_item_height">200dp</dimen>
+    <dimen name="home_item_height">300dp</dimen>
     <integer name="home_page_columns_num">1</integer>
 
     <!--setting-->

@@ -8,6 +8,7 @@
     <string name="action_reset">恢复默认</string>
 
     <string name="travel_type_dialog_title">请选择旅行类型：</string>
+    <string name="title_activity_where_go">选择目的地</string>
 
     <string name="guide_route_name">行程攻略</string>
     <string name="guide_hotel_name">食宿休息</string>
