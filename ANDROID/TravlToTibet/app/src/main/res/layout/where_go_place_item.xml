@@ -8,38 +8,36 @@
 
     <TextView
         android:id="@+id/place_title"
-        style="@style/TextAppearance.Large"
-        android:paddingBottom="5dp"
+        style="@style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="新藏线" />
 
     <TextView
         android:id="@+id/place_distance"
-        style="@style/TextAppearance.Regular.Gray"
+        style="@style/TextAppearance.Small.Gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2355KM" />
 
     <TextView
-        style="@style/TextAppearance.Regular.Gray"
+        style="@style/TextAppearance.Small.Gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="---------" />
 
     <TextView
-        style="@style/TextAppearance.Regular.Gray"
+        style="@style/TextAppearance.Small.Gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="------" />
 
 
     <TextView
-        style="@style/TextAppearance.Regular.Gray"
+        style="@style/TextAppearance.Small.Gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--------" />
-
 
 
 </LinearLayout>

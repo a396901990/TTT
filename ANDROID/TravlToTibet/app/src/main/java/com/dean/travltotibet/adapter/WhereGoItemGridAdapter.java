@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.dean.greendao.PrepareDetail;
+import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  */
 public class WhereGoItemGridAdapter extends BaseAdapter {
 
-    private ArrayList<PlaceItem> mData;
+    private ArrayList<Route> mData;
     private Context mContext;
 
     public WhereGoItemGridAdapter(Context context) {
@@ -26,7 +27,7 @@ public class WhereGoItemGridAdapter extends BaseAdapter {
         this.mContext = context;
     }
 
-    public void setData(ArrayList<PlaceItem> data) {
+    public void setData(ArrayList<Route> data) {
         this.mData = data;
     }
 
@@ -55,9 +56,9 @@ public class WhereGoItemGridAdapter extends BaseAdapter {
         TextView placeTitle = (TextView) convertView.findViewById(R.id.place_title);
         TextView placeDistance = (TextView) convertView.findViewById(R.id.place_distance);
 
-        PlaceItem placeItem = mData.get(position);
-        String title = placeItem.getPlaceName();
-        String distance = placeItem.getPlaceDistance();
+        Route routeItem = mData.get(position);
+        String title = routeItem.getName();
+        String distance = routeItem.getDistance();
 
         placeTitle.setText(title);
         placeDistance.setText(distance);

@@ -16,8 +16,10 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
+import com.dean.travltotibet.activity.InfoRouteActivity;
 import com.dean.travltotibet.activity.WhereGoActivity;
 import com.dean.travltotibet.adapter.HomeGridAdapter;
+import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -96,13 +98,21 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DialogFragment dialogFragment = new TravelTypeDialog();
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.INTENT_ROUTE, routes.get(position).getRoute());
-                bundle.putString(Constants.INTENT_ROUTE_NAME, routes.get(position).getName());
-                bundle.putString(Constants.INTENT_FROM_WHERE, TravelTypeDialog.FROM_FIRST);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
+//                // 显示选择类型对话框
+//                DialogFragment dialogFragment = new TravelTypeDialog();
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.INTENT_ROUTE, routes.get(position).getRoute());
+//                bundle.putString(Constants.INTENT_ROUTE_NAME, routes.get(position).getName());
+//                bundle.putString(Constants.INTENT_FROM_WHERE, TravelTypeDialog.FROM_FIRST);
+//                dialogFragment.setArguments(bundle);
+//                dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
+
+                // 跳转到InfoRouteActivity(类型BIKE)
+                Intent intent = new Intent(getActivity(), InfoRouteActivity.class);
+                intent.putExtra(Constants.INTENT_ROUTE, routes.get(position).getRoute());
+                intent.putExtra(Constants.INTENT_ROUTE_NAME, routes.get(position).getName());
+                intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
+                startActivity(intent);
             }
         });
     }

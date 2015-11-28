@@ -1,39 +1,122 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/gray_background"
+    android:fadingEdgeLength="0dip"
+    android:scrollbars="none">
 
-    <!--长线-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--title-->
+        <!--长线-->
         <LinearLayout
-            android:padding="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/where_go_content_padding">
 
-            <View
-                android:layout_width="6dp"
-                android:layout_height="match_parent"
-                android:background="@color/dark_blue"></View>
-
-            <TextView
-                android:paddingLeft="5dp"
-                style="@style/TextAppearance.Large"
+            <!--title-->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="长线"/>
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/where_go_title_icon_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/dark_blue"></View>
+
+                <TextView
+                    style="@style/TextAppearance.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/where_go_title_padding"
+                    android:text="长线" />
+            </LinearLayout>
+
+            <com.dean.travltotibet.ui.ScrollGridView
+                android:id="@+id/lang_distance_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="@dimen/where_go_item_padding"
+                android:numColumns="@integer/where_go_grid_columns_num"
+                android:padding="@dimen/where_go_card_padding"
+                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.ScrollGridView>
         </LinearLayout>
 
-        <GridView
-            android:padding="15dp"
-            android:id="@+id/lang_distance"
+        <!--中线-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></GridView>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/where_go_content_padding">
 
-</LinearLayout>
+            <!--title-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/where_go_title_icon_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/dark_blue"></View>
+
+                <TextView
+                    style="@style/TextAppearance.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/where_go_title_padding"
+                    android:text="中线" />
+            </LinearLayout>
+
+            <com.dean.travltotibet.ui.ScrollGridView
+                android:id="@+id/middle_distance_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="@dimen/where_go_item_padding"
+                android:numColumns="@integer/where_go_grid_columns_num"
+                android:padding="@dimen/where_go_card_padding"
+                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.ScrollGridView>
+        </LinearLayout>
+
+        <!--短线-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/where_go_content_padding">
+
+            <!--title-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/where_go_title_icon_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/dark_blue"></View>
+
+                <TextView
+                    style="@style/TextAppearance.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/where_go_title_padding"
+                    android:text="短线" />
+            </LinearLayout>
+
+            <com.dean.travltotibet.ui.ScrollGridView
+                android:id="@+id/short_distance_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="@dimen/where_go_item_padding"
+                android:numColumns="@integer/where_go_grid_columns_num"
+                android:padding="@dimen/where_go_card_padding"
+                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.ScrollGridView>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
