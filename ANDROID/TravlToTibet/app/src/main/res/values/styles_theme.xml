@@ -24,6 +24,15 @@
         <item name="android:windowBackground">@color/white_background</item>
     </style>
 
+    <style name="Theme.HomeTheme.White" parent="Theme.AppBaseTheme">
+        <item name="android:actionBarStyle">@style/HomeActionBar.White</item>
+        <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:windowBackground">@color/white_background</item>
+    </style>
+
     <style name="Theme.SettingTheme" parent="Theme.AppBaseTheme">
         <item name="android:actionBarStyle">@style/HomeActionBar</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
@@ -38,6 +47,16 @@
         <item name="android:actionBarStyle">@style/SettingActionBar</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:windowBackground">@color/white_background</item>
+    </style>
+
+    <!--白色主题，白色actionbar-->
+    <style name="Theme.WhiteTheme" parent="Theme.AppBaseTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:homeAsUpIndicator">@drawable/actionbar_back_icon_blue</item>
+        <item name="android:actionBarStyle">@style/WhiteActionBar</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:actionMenuTextColor">@color/dark_gray</item>
         <item name="android:windowBackground">@color/white_background</item>
     </style>
 
@@ -63,11 +82,26 @@
         <item name="android:icon">@android:color/transparent</item>
     </style>
 
+    <style name="HomeActionBar.White" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/white</item>
+        <item name="android:titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
+        <item name="android:icon">@android:color/transparent</item>
+    </style>
+
     <style name="SettingActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/dark_blue</item>
         <item name="android:displayOptions">showHome|homeAsUp|showTitle</item>
         <item name="displayOptions">showHome|homeAsUp|showTitle</item>
         <item name="android:titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
+        <item name="android:icon">@android:color/transparent</item>
+    </style>
+
+    <!--白色actionbar主题-->
+    <style name="WhiteActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/white</item>
+        <item name="android:displayOptions">showHome|homeAsUp|showTitle</item>
+        <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+        <item name="android:titleTextStyle">@style/White.Theme.ActionBar.TitleTextStyle</item>
         <item name="android:icon">@android:color/transparent</item>
     </style>
 
@@ -80,6 +114,11 @@
 
     <style name="Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="White.Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Theme.Translucent.NoTitleBar" parent="Theme.AppBaseTheme">

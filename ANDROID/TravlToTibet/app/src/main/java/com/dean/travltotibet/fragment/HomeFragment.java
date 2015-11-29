@@ -32,7 +32,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 /**
  * Created by DeanGuo on 10/15/15.
  */
-public class HomeFragment extends Fragment implements OnRefreshListener {
+public class HomeFragment extends BaseHomeFragment implements OnRefreshListener {
 
     private View root;
     private GridView gridView;
@@ -138,5 +138,10 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
                 mPullToRefreshLayout.setRefreshing(false);
             }
         }, 3000);
+    }
+
+    @Override
+    public void update() {
+
     }
 }

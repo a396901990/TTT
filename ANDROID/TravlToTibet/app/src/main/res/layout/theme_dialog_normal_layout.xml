@@ -22,11 +22,11 @@
 
     <LinearLayout
         android:id="@+id/dialog_content"
-        android:layout_width="280dp"
+        android:layout_width="@dimen/dialog_width"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="20dp">
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/dialog_content_msg"
@@ -40,28 +40,28 @@
         android:id="@+id/dialog_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:layout_margin="10dp"
+        android:gravity="right"
         android:orientation="horizontal">
 
         <TextView
-            android:background="@drawable/white_btn_background"
             android:id="@+id/dialog_cancel_btn"
             style="@style/TextAppearance.Regular.Blue.Bold"
             android:layout_width="wrap_content"
-            android:padding="10dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/white_btn_background"
             android:gravity="center"
+            android:padding="10dp"
             android:text="@string/cancel" />
 
         <TextView
-            android:background="@drawable/white_btn_background"
             android:id="@+id/dialog_ok_btn"
             style="@style/TextAppearance.Regular.Blue.Bold"
             android:layout_width="wrap_content"
-            android:padding="10dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/white_btn_background"
             android:gravity="center"
+            android:padding="10dp"
             android:text="@string/ok" />
     </LinearLayout>
 </LinearLayout>

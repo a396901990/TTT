@@ -23,7 +23,8 @@
     <dimen name="slidingmenu_offset">60dp</dimen>
     <dimen name="shadow_width">5dp</dimen>
     <dimen name="header_tab_btn_width">180dp</dimen>
-    <dimen name="header_tab_btn_height">30dp</dimen>
+    <dimen name="header_tab_btn_height">40dp</dimen>
+    <dimen name="header_tab_padding">5dp</dimen>
 
     <!--路线视图的padding-->
     <dimen name="guide_route_view_padding">15dp</dimen>
@@ -77,7 +78,7 @@
     <dimen name="info_card_rule_margin">10dip</dimen>
     <dimen name="info_card_rule_height">2dip</dimen>
     <dimen name="info_card_grid_margin">1dip</dimen>
-    <dimen name="info_card_grid_space">1dip</dimen>
+    <dimen name="info_card_grid_space">2dip</dimen>
 
     <!--bottom button-->
     <dimen name="top_line_rule">1dp</dimen>
@@ -106,7 +107,7 @@
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
     <!--home-->
-    <dimen name="home_item_height">300dp</dimen>
+    <dimen name="home_item_height">250dp</dimen>
     <integer name="home_page_columns_num">1</integer>
 
     <!--setting-->
@@ -159,6 +160,7 @@
     <dimen name="where_go_title_padding">5dp</dimen>
     <dimen name="where_go_content_padding">10dp</dimen>
     <dimen name="where_go_card_padding">10dp</dimen>
+    <dimen name="dialog_width">280dp</dimen>
     <integer name="where_go_grid_columns_num">3</integer>
 
 </resources>

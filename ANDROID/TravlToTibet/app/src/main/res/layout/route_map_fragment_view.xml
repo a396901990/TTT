@@ -2,17 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:padding="5dp">
+    android:background="@color/gray_background">
 
     <LinearLayout
         android:id="@+id/map_view_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:background="@drawable/border_green"
-        android:orientation="vertical"
-        android:padding="3dp"></LinearLayout>
+        android:orientation="vertical"></LinearLayout>
 
     <!--切换视图按钮（右上）-->
     <RelativeLayout
@@ -42,7 +39,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/map_btn_padding_length"
         android:layout_marginTop="@dimen/map_btn_padding_length"
-        android:background="@drawable/map_btn_border_green"
+        android:background="@drawable/map_btn_border_blue"
         android:visibility="invisible">
 
         <ImageView
@@ -61,7 +58,7 @@
         android:layout_below="@+id/change_view_btn"
         android:layout_marginLeft="@dimen/map_btn_padding_length"
         android:layout_marginRight="@dimen/map_btn_padding_length"
-        android:background="@drawable/map_btn_border_green"
+        android:background="@drawable/map_btn_border_blue"
         android:orientation="vertical"
         android:visibility="invisible">
 
@@ -149,7 +146,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/half_dark_green"></View>
+            android:background="@color/dark_blue"></View>
 
         <!--底图标注-->
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -173,7 +170,7 @@
                 android:paddingRight="@dimen/chart_setting_switch_padding_right"
                 app:cursor="@drawable/circle_filled"
                 app:moveDuration="50"
-                app:selectedBG="@color/dark_green"
+                app:selectedBG="@color/dark_blue"
                 app:shadow="@drawable/switch_button_shadow"
                 app:status="ON"
                 app:trackPadding="1dp"
@@ -239,17 +236,16 @@
     <!--加载背景-->
     <RelativeLayout
         android:id="@+id/loading_content_view"
-        android:visibility="invisible"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/less_light_gray"
-        android:layout_height="match_parent">
-    </RelativeLayout>
+        android:visibility="invisible"></RelativeLayout>
     <!--加载条-->
     <com.dean.travltotibet.ui.RotateLoading xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rotate_loading"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_centerInParent="true"
-        app:loading_color="@color/dark_green"
+        app:loading_color="@color/dark_blue"
         app:loading_width="6dp" />
 </RelativeLayout>

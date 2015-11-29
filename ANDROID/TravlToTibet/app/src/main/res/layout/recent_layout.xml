@@ -4,36 +4,38 @@
     android:background="@color/gray_background"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/header_bar_height">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/header_bar_height">-->
 
-        <TextView
-            style="@style/TextAppearance.XLarge.DarkBlue.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/recent_title_padding"
-            android:text="@string/action_recent" />
+        <!--<TextView-->
+            <!--style="@style/TextAppearance.XLarge.DarkBlue.Bold"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:paddingLeft="@dimen/recent_title_padding"-->
+            <!--android:text="@string/action_recent" />-->
 
-        <ImageView
-            android:id="@+id/recent_delete_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/recent_title_padding"
-            android:src="@android:drawable/ic_delete" />
-    </RelativeLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/recent_delete_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:padding="@dimen/recent_title_padding"-->
+            <!--android:src="@android:drawable/ic_delete" />-->
+    <!--</RelativeLayout>-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dark_blue"
-        android:paddingBottom="@dimen/recent_item_content_padding"
-        android:paddingTop="@dimen/recent_item_content_padding" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/dark_blue"-->
+        <!--android:paddingBottom="@dimen/recent_item_content_padding"-->
+        <!--android:paddingTop="@dimen/recent_item_content_padding" />-->
 
     <ListView
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/recent_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

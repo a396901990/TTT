@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -18,7 +16,9 @@ import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.HomeRecentFragment;
+import com.dean.travltotibet.fragment.BaseHomeFragment;
+import com.dean.travltotibet.fragment.BaseRouteFragment;
+import com.dean.travltotibet.fragment.HomeSettingFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -36,7 +36,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private SlidingMenu slidingMenu;
 
-    private HomeRecentFragment homeRecentFragment;
+    private HomeSettingFragment homeRecentFragment;
 
     private HomePageAdapter mAdapter;
     private ViewPager mPager;
@@ -53,16 +53,30 @@ public class HomeActivity extends SlidingFragmentActivity {
 //        }
         setContentView(R.layout.home_view);
 
+        initViewPager();
         initHomeTab();
         checkForUpdate();
         initMenu();
     }
 
-    private void initHomeTab() {
+    private void initViewPager() {
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pagerContent);
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(3);
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (mAdapter.getAllFragments().size() > 0) {
+                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+                    fragment.update();
+                }
+            }
+        });
+    }
+
+    private void initHomeTab() {
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View v = inflater.inflate(R.layout.home_tabs, null);
@@ -72,10 +86,9 @@ public class HomeActivity extends SlidingFragmentActivity {
         mTabs.setViewPager(mPager);
 
         // 字体颜色大小
-        mTabs.setTextSize(45);
-        mTabs.setTextColor(TTTApplication.getColor(R.color.white));
+        mTabs.setTextColor(TTTApplication.getColor(R.color.dark_blue));
         // 指示器颜色，大小
-        mTabs.setIndicatorColor(TTTApplication.getColor(R.color.white));
+        mTabs.setIndicatorColor(TTTApplication.getColor(R.color.dark_blue));
         mTabs.setUnderlineColor(TTTApplication.getColor(android.R.color.transparent));
         mTabs.setIndicatorHeight(10);
         mTabs.setUnderlineHeight(10);
@@ -113,16 +126,16 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private void initMenu() {
 
-        Fragment recentFragment = getFragmentManager().findFragmentById(R.id.recentFragment);
-        if (recentFragment == null) {
-            homeRecentFragment = HomeRecentFragment.newInstance();
-            getFragmentManager().beginTransaction().replace(R.id.recentFragment, homeRecentFragment).commit();
+        Fragment menuFragment = getFragmentManager().findFragmentById(R.id.menuFragment);
+        if (menuFragment == null) {
+            homeRecentFragment = HomeSettingFragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.menuFragment, homeRecentFragment).commit();
         } else {
-            homeRecentFragment = (HomeRecentFragment) recentFragment;
+            homeRecentFragment = (HomeSettingFragment) menuFragment;
         }
 
         // 设置主菜单
-        setBehindContentView(R.layout.recent_fragment_layout);
+        setBehindContentView(R.layout.menu_fragment_layout);
         // 初始化menu
         slidingMenu = super.getSlidingMenu();
 
@@ -145,7 +158,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 //        // slidingMenu.setBehindScrollScale(1.0f);
 //        slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
 //        //设置右边（二级）侧滑菜单
-//        slidingMenu.setSecondaryMenu(R.layout.recent_fragment_layout);
+//        slidingMenu.setSecondaryMenu(R.layout.menu_fragment_layout);
 
         // 设置滑动时actionbar是否跟着移动，SLIDING_WINDOW=跟着移动;SLIDING_CONTENT=不跟着移动
         // menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
@@ -161,12 +174,14 @@ public class HomeActivity extends SlidingFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_history) {
-            homeRecentFragment.updateRecentData();
+//        if (id == R.id.action_history) {
+//            homeRecentFragment.updateRecentData();
+//            slidingMenu.showMenu();
+//        } else
+        if (id == R.id.action_setting) {
             slidingMenu.showMenu();
-        } else if (id == R.id.action_setting) {
-            Intent intent = new Intent(this, HomeSettingActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, HomeSettingActivity.class);
+//            startActivity(intent);
         } else if (id == android.R.id.home) {
             slidingMenu.showMenu();
         }

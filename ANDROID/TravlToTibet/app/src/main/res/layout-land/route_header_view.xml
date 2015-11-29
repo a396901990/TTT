@@ -65,6 +65,7 @@
             android:id="@+id/tab_content"
             android:layout_width="@dimen/header_tab_btn_width"
             android:layout_height="@dimen/header_tab_btn_height"
+            android:padding="@dimen/header_tab_padding"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/header_menu_date"
             android:orientation="horizontal"

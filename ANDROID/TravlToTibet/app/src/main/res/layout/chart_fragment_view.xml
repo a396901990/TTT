@@ -61,7 +61,7 @@
         android:layout_height="@dimen/map_btn_width"
         android:layout_marginRight="@dimen/map_btn_padding_length"
         android:layout_marginTop="@dimen/map_btn_padding_length"
-        android:background="@drawable/chart_btn_border">
+        android:background="@drawable/map_btn_border">
 
         <ImageView
             android:layout_width="wrap_content"

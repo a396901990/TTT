@@ -158,7 +158,7 @@ public class RouteActivity
             @Override
             public void onPageSelected(int position) {
                 // 每次点击不同按钮式重置所有按钮颜色和背景
-                resetColorAndBackground(position);
+                resetColorAndBackground();
 
                 // 设置新颜色
                 btnSelected(position);
@@ -218,11 +218,11 @@ public class RouteActivity
                 break;
             case PAGE_MAP:
                 mapTab.setBackgroundResource(R.drawable.header_border_activited);
-                mapTab.setTextColor(getResources().getColor(R.color.dark_green));
+                mapTab.setTextColor(getResources().getColor(R.color.dark_blue));
                 break;
             case PAGE_GUIDE:
                 guideTab.setBackgroundResource(R.drawable.header_border_activited);
-                guideTab.setTextColor(getResources().getColor(R.color.dark_orange));
+                guideTab.setTextColor(getResources().getColor(R.color.dark_blue));
                 break;
             default:
                 break;
@@ -232,36 +232,11 @@ public class RouteActivity
     /**
      * 每次点击不同按钮式重置所有按钮颜色和背景
      */
-    private void resetColorAndBackground(int index) {
-        switch (index) {
-            case PAGE_HEIGHT:
-                headerView.setBackgroundResource(R.color.dark_blue);
-
-                heightTab.setBackgroundResource(R.color.dark_blue);
-                mapTab.setBackgroundResource(R.color.dark_blue);
-                guideTab.setBackgroundResource(R.color.dark_blue);
-
-                break;
-            case PAGE_MAP:
-                headerView.setBackgroundResource(R.color.dark_green);
-
-                heightTab.setBackgroundResource(R.color.dark_green);
-                mapTab.setBackgroundResource(R.color.dark_green);
-                guideTab.setBackgroundResource(R.color.dark_green);
-
-                break;
-            case PAGE_GUIDE:
-                headerView.setBackgroundResource(R.color.dark_orange);
-
-                heightTab.setBackgroundResource(R.color.dark_orange);
-                mapTab.setBackgroundResource(R.color.dark_orange);
-                guideTab.setBackgroundResource(R.color.dark_orange);
-
-                break;
-            default:
-                break;
-        }
-
+    private void resetColorAndBackground() {
+        headerView.setBackgroundResource(R.color.dark_blue);
+        heightTab.setBackgroundResource(R.color.dark_blue);
+        mapTab.setBackgroundResource(R.color.dark_blue);
+        guideTab.setBackgroundResource(R.color.dark_blue);
         heightTab.setTextColor(getResources().getColor(R.color.white_background));
         mapTab.setTextColor(getResources().getColor(R.color.white_background));
         guideTab.setTextColor(getResources().getColor(R.color.white_background));

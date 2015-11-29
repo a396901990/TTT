@@ -60,12 +60,6 @@ public class TravelTypeDialog extends DialogFragment {
         final CustomDialog dialog = new CustomDialog(getActivity());
         dialog.setTitle(getString(R.string.travel_type_dialog_title));
         dialog.setCustomContentView(contentLayout);
-        dialog.setCloseListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
         return dialog;
     }
 

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 10/10/15.
  */
-public class HomeRecentFragment extends Fragment {
+public class HomeRecentFragment extends BaseHomeFragment {
 
     private View root;
     private ListView mListView;
@@ -54,40 +54,40 @@ public class HomeRecentFragment extends Fragment {
 
         getRecentData();
         initList();
-        initDeleteBtn();
+        //initDeleteBtn();
     }
 
     /**
      * 初始化删除按钮，并设置监听
      */
-    private void initDeleteBtn() {
-        deleteBtn = root.findViewById(R.id.recent_delete_btn);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final NormalDialog mDialog = new NormalDialog(getActivity(), R.style.Transparent_Dialog);
-                // 对话框视图
-                mDialog.setTitle(getString(R.string.delete_recent_title));
-                mDialog.setMsg(getString(R.string.delete_recent_msg));
-                mDialog.setOKListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TTTApplication.getDbHelper().cleanRecentRoutes();
-                        updateRecentData();
-                        mDialog.dismiss();
-                    }
-                });
-                mDialog.setCancelListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDialog.dismiss();
-                    }
-                });
-                mDialog.show();
-            }
-        });
-    }
+//    private void initDeleteBtn() {
+//        deleteBtn = root.findViewById(R.id.recent_delete_btn);
+//        deleteBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                final NormalDialog mDialog = new NormalDialog(getActivity(), R.style.Transparent_Dialog);
+//                // 对话框视图
+//                mDialog.setTitle(getString(R.string.delete_recent_title));
+//                mDialog.setMsg(getString(R.string.delete_recent_msg));
+//                mDialog.setOKListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        TTTApplication.getDbHelper().cleanRecentRoutes();
+//                        updateRecentData();
+//                        mDialog.dismiss();
+//                    }
+//                });
+//                mDialog.setCancelListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mDialog.dismiss();
+//                    }
+//                });
+//                mDialog.show();
+//            }
+//        });
+//    }
 
     /**
      * 更新recentRoutes数据
@@ -148,4 +148,8 @@ public class HomeRecentFragment extends Fragment {
     }
 
 
+    @Override
+    public void update() {
+        updateRecentData();
+    }
 }

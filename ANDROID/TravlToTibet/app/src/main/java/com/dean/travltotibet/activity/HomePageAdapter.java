@@ -53,6 +53,13 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
         return mFragments.get(position);
     }
 
+    public SparseArray<Fragment> getAllFragments() {
+        return mFragments;
+    }
+
+    public Fragment getFragment(int position) {
+        return mFragments.get(position);
+    }
 //    @Override public int getPageIconResId(int i) {
 //        if (i == 0) {
 //            return R.drawable.icon_budget;

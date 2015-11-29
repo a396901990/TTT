@@ -72,12 +72,6 @@ public class InfoConfirmDialog extends DialogFragment {
         CustomDialog dialog = new CustomDialog(getActivity());
         dialog.setTitle(routeName);
         dialog.setCustomContentView(contentLayout);
-        dialog.setCloseListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
         return dialog;
     }
 

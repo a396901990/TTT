@@ -4,9 +4,8 @@
     android:background="@android:color/transparent">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dialog_width"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/theme_dialog_close_icon_margin"
         android:background="@drawable/border_dialog_white"
         android:orientation="vertical">
 
@@ -34,13 +33,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/dialog_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/blue_delete_icon" />
 
 </RelativeLayout>

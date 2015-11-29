@@ -17,7 +17,6 @@ public class CustomDialog extends Dialog {
 
     private TextView mTitle;
     private ViewGroup mContentView;
-    private ImageView mCloseBtn;
 
     private Context mContext;
 
@@ -33,17 +32,12 @@ public class CustomDialog extends Dialog {
         mContentView = (ViewGroup) root.findViewById(R.id.dialog_content);
 
         mTitle = (TextView) root.findViewById(R.id.dialog_title);
-        mCloseBtn = (ImageView) root.findViewById(R.id.dialog_close);
         setContentView(root);
     }
 
     @Override
     public void setTitle(CharSequence title) {
         mTitle.setText(title);
-    }
-
-    public void setCloseListener(View.OnClickListener listener) {
-        mCloseBtn.setOnClickListener(listener);
     }
 
     public void setCustomContentView(View view) {

@@ -87,6 +87,11 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        initMapView();
+    }
+
+    private void initMapView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.route_map_fragment_view, null, false);
 
@@ -113,6 +118,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
      * 初始化地图数据
      */
     private void initMap() {
+        if (mMapView == null) {
+            initMapView();
+        }
         mBaiduMap = mMapView.getMap();
         //地图点击事件处理
         mBaiduMap.setOnMapClickListener(this);
