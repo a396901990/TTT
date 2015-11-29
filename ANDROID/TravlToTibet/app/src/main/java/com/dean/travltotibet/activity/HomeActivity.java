@@ -1,27 +1,28 @@
 package com.dean.travltotibet.activity;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.HomeSettingFragment;
 import com.dean.travltotibet.fragment.HomeRecentFragment;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.PointManager;
+import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
@@ -37,6 +38,10 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private HomeRecentFragment homeRecentFragment;
 
+    private HomePageAdapter mAdapter;
+    private ViewPager mPager;
+    private PagerSlidingTabStrip mTabs;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +52,45 @@ public class HomeActivity extends SlidingFragmentActivity {
 //            tintManager.setStatusBarTintResource(R.color.dark_blue);
 //        }
         setContentView(R.layout.home_view);
+
+        initHomeTab();
         checkForUpdate();
         initMenu();
+    }
+
+    private void initHomeTab() {
+        mAdapter = new HomePageAdapter(getFragmentManager());
+        mPager = (ViewPager) findViewById(R.id.pagerContent);
+        mPager.setAdapter(mAdapter);
+        mPager.setOffscreenPageLimit(3);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View v = inflater.inflate(R.layout.home_tabs, null);
+        assert v != null;
+        v.setLayoutParams(new ViewGroup.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+        mTabs = (PagerSlidingTabStrip) v.findViewById(R.id.home_tabs);
+        mTabs.setViewPager(mPager);
+
+        // 字体颜色大小
+        mTabs.setTextSize(45);
+        mTabs.setTextColor(TTTApplication.getColor(R.color.white));
+        // 指示器颜色，大小
+        mTabs.setIndicatorColor(TTTApplication.getColor(R.color.white));
+        mTabs.setUnderlineColor(TTTApplication.getColor(android.R.color.transparent));
+        mTabs.setIndicatorHeight(10);
+        mTabs.setUnderlineHeight(10);
+        // 是否拉伸
+        mTabs.setShouldExpand(false);
+        // tab间的分割线 -- 透明表示没有
+        mTabs.setDividerColor(android.R.color.transparent);
+
+        // 设置actionbar
+        final ActionBar mActionBar = getActionBar();
+        mActionBar.setTitle("");
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        mActionBar.setDisplayShowCustomEnabled(true);
+        mActionBar.setCustomView(v);
     }
 
     @TargetApi(19)
@@ -85,7 +127,7 @@ public class HomeActivity extends SlidingFragmentActivity {
         slidingMenu = super.getSlidingMenu();
 
         // 设置触摸屏幕的模式 全屏：TOUCHMODE_FULLSCREEN ；边缘：TOUCHMODE_MARGIN ；不打开：TOUCHMODE_NONE
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         // 设置是否淡入淡出
         slidingMenu.setFadeEnabled(true);
         // 设置淡入淡出的值，只在setFadeEnabled设置为true时有效

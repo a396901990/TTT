@@ -9,7 +9,8 @@
     <color name="sky_blue">#87CEEB</color>
     <color name="light_blue">#87CEFA</color>
     <color name="less_dark_blue">#2196F3</color>
-    <color name="dark_blue">#1E88E5</color>
+    <color name="dark_blue">#065fb9</color>
+    <color name="less_blue">#1E88E5</color>
     <color name="half_dark_blue">#CC1E88E5</color>
     <color name="blue">#0F57C2</color>
 
@@ -21,6 +22,7 @@
     <color name="lime">#CDDC39</color>
 
     <color name="white_gray">#E0E0E0</color>
+    <color name="half_white">#7FFFFFFF</color>
     <color name="white_background">#FFF</color>
     <color name="gray_background">#EFEFEF</color>
     <color name="gray">#999</color>
