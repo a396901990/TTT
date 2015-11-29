@@ -83,5 +83,7 @@
     <string name="satellite_text">卫星图</string>
     <string name="overlook_text">3D俯视图</string>
     <string name="route_mark_text">底图标注</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
 
 </resources>

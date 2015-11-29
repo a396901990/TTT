@@ -52,7 +52,7 @@ public class ExpandableTextView extends TextView {
 
     private void init(Context context, AttributeSet attrs) {
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView);
-        mExpanded = typedArray.getBoolean(R.styleable.ExpandableTextView_expanded, DEFAULT_EXPANDED);
+        mExpanded = typedArray.getBoolean(R.styleable.ExpandableTextView_text_expanded, DEFAULT_EXPANDED);
         mMinLines = typedArray.getInteger(R.styleable.ExpandableTextView_minLines, DEFAULT_MIN_LINES);
         typedArray.recycle();
     }

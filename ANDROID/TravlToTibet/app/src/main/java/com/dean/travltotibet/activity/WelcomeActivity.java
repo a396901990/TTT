@@ -101,7 +101,7 @@ public class WelcomeActivity extends Activity {
                     }
                 } else {
                     if (!isOpaque) {
-                        //pager.setBackgroundColor(getResources().getColor(R.color.primary_material_light));
+                        pager.setBackgroundColor(getResources().getColor(R.color.primary_material_light));
                         isOpaque = true;
                     }
                 }

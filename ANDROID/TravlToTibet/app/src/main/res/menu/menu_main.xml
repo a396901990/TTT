@@ -1,15 +1,12 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
 
     <item
         android:id="@+id/action_setting"
         android:icon="@drawable/setting_icon"
-        android:showAsAction="always"
-        android:title="@string/action_setting" />
-
-    <!--<item-->
-        <!--android:id="@+id/action_history"-->
-        <!--android:icon="@drawable/history_icon_white"-->
-        <!--android:showAsAction="always"-->
-        <!--android:title="@string/action_recent" />-->
+        android:title="@string/action_setting"
+        app:showAsAction="always" />
 
 </menu>

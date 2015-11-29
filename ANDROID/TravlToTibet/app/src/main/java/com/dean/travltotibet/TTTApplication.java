@@ -112,7 +112,7 @@ public class TTTApplication extends Application
         return resources;
     }
 
-    public static int getColor(int resoureceId) {
+    public static int getMyColor(int resoureceId) {
         return resources.getColor(resoureceId);
     }
 

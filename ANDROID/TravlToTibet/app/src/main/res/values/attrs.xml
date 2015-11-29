@@ -19,10 +19,12 @@
         <attr name="disableSrc" format="reference" />
     </declare-styleable>
 
-    <attr name="icon_bg" format="reference" />
-    <attr name="color" format="color" />
-    <attr name="text" format="string" />
-    <attr name="text_size" format="dimension" />
+    <declare-styleable name="ChangeColorIconWithTextView">
+        <attr name="icon_bg" format="reference" />
+        <attr name="text_color" format="color" />
+        <attr name="text" format="string" />
+        <attr name="text_size" format="dimension" />
+    </declare-styleable>
 
     <declare-styleable name="ChangeColorIconView">
         <attr name="icon_bg" />
@@ -32,7 +34,7 @@
     </declare-styleable>
 
     <declare-styleable name="ExpandableTextView">
-        <attr name="expanded" format="boolean" />
+        <attr name="text_expanded" format="boolean" />
         <attr name="minLines" format="integer" />
     </declare-styleable>
 
@@ -59,9 +61,9 @@
     </declare-styleable>
 
     <declare-styleable name="RotateLoading">
-        <attr name="loading_width" format="dimension"/>
-        <attr name="loading_color" format="color"/>
-        <attr name="shadow_position" format="integer"/>
+        <attr name="loading_width" format="dimension" />
+        <attr name="loading_color" format="color" />
+        <attr name="shadow_position" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="PagerSlidingTabStrip">

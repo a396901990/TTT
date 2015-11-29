@@ -69,7 +69,7 @@ public class ChartSettingSelectedListAdapter
 
         TextView name = (TextView) root.findViewById(R.id.name);
         name.setText(PointManager.getTitle(pointCheck.getName()));
-        //name.setTextColor(TTTApplication.getResourceUtil().getResources().getColor(PointManager.getColor(pointCheck.getName())));
+        //name.setTextColor(TTTApplication.getResourceUtil().getResources().getMyColor(PointManager.getMyColor(pointCheck.getName())));
 
 //        final CheckBox check = (CheckBox) root.findViewById(R.id.checkbox);
 //        // have to clear the listener when reset state

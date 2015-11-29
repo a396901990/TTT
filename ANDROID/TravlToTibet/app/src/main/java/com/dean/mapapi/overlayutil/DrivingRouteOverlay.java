@@ -1,7 +1,6 @@
 package com.dean.mapapi.overlayutil;
 
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -175,7 +174,7 @@ public class DrivingRouteOverlay extends OverlayManager {
      * @return 线颜色
      */
     public int getLineColor() {
-        return TTTApplication.getColor(R.color.dark_blue);
+        return TTTApplication.getMyColor(R.color.dark_blue);
     }
     public List<BitmapDescriptor> getCustomTextureList() {
         ArrayList<BitmapDescriptor> list = new ArrayList<BitmapDescriptor>();

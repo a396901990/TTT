@@ -13,7 +13,6 @@
 
         <!--内容视图-->
         <com.dean.travltotibet.ui.ScrollGridView
-            android:padding="@dimen/info_card_grid_space"
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

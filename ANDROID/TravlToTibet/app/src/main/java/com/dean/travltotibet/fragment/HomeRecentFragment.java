@@ -123,10 +123,10 @@ public class HomeRecentFragment extends BaseHomeFragment {
                     intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
                     startActivity(intent);
 
-                    // 关闭菜单
-                    if (mActivity.getSlidingMenu().isMenuShowing()) {
-                        mActivity.getSlidingMenu().toggle();
-                    }
+//                    // 关闭菜单
+//                    if (mActivity.getSlidingMenu().isMenuShowing()) {
+//                        mActivity.getSlidingMenu().toggle();
+//                    }
 
                 }
             });
