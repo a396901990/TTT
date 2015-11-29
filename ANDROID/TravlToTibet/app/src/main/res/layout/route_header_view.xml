@@ -3,12 +3,13 @@
     android:id="@+id/chart_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dark_blue"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <!--顶部菜单（actionbar）-->
     <RelativeLayout
         android:id="@+id/chart_header_menu"
+        android:background="@color/dark_blue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_header_menu_height">
 
@@ -36,12 +37,12 @@
         <!--最右边按钮-->
         <TextView
             android:id="@+id/header_menu_date"
-            style="@style/Theme.Spinner"
+            style="@style/TextAppearance.Large.White"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:textColor="@color/white_background" />
+            android:background="@drawable/spinner_ab_holo_dark"
+            android:gravity="center" />
 
     </RelativeLayout>
 
@@ -51,8 +52,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_header_content_height">
 
+        <!--阴影-->
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_height="5dp"
+            android:background="@drawable/top_shade_background"></View>
         <!--菜单栏-->
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -60,22 +69,22 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/rotate_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/rotate" />
+                android:src="@drawable/rotate"
+                android:visibility="gone" />
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/setting_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/setting_icon_white" />
+                android:src="@drawable/setting_icon_white"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -83,14 +92,14 @@
         <LinearLayout
             android:layout_width="@dimen/header_tab_btn_width"
             android:layout_height="@dimen/header_tab_btn_height"
-            android:padding="@dimen/header_tab_padding"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/header_tab_padding">
 
             <TextView
                 android:id="@+id/height_tab"
-                style="@style/TextAppearance.Large.White"
+                style="@style/TextAppearance.Large.HalfGray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
@@ -99,7 +108,7 @@
 
             <TextView
                 android:id="@+id/map_tab"
-                style="@style/TextAppearance.Large.White"
+                style="@style/TextAppearance.Large.HalfGray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
@@ -108,7 +117,7 @@
 
             <TextView
                 android:id="@+id/guide_tab"
-                style="@style/TextAppearance.Large.White"
+                style="@style/TextAppearance.Large.HalfGray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
@@ -119,4 +128,10 @@
 
     </RelativeLayout>
 
+    <!--阴影-->
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/top_shade_background"></View>
 </LinearLayout>

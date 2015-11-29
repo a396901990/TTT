@@ -131,6 +131,14 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearance.Large.DarkGray" parent="TextAppearance.Large">
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="TextAppearance.Large.HalfGray" parent="TextAppearance.Large">
+        <item name="android:textColor">@color/half_dark_gray</item>
+    </style>
+
     <style name="TextAppearance.Large.Blue.Bold" parent="TextAppearance.Large">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/dark_blue</item>

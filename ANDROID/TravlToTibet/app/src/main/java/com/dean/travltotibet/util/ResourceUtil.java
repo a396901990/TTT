@@ -39,7 +39,7 @@ public class ResourceUtil
 
     public int chart_backgroud;
 
-    public int indicator_backgroud;
+    public int indicator_background;
 
     public int indicator_indicator;
 
@@ -91,7 +91,7 @@ public class ResourceUtil
         chart_cross_text = mResources.getColor(R.color.white);
         chart_arrow = mResources.getColor(R.color.orange_red);
 
-        chart_label_text = mResources.getColor(R.color.blue);
+        chart_label_text = mResources.getColor(R.color.dark_blue);
 
         chart_grid = mResources.getColor(R.color.dark_blue);
         chart_grid_alpha = (int) (255 * 0.6);
@@ -99,7 +99,7 @@ public class ResourceUtil
 
         chart_backgroud = mResources.getColor(R.color.white_background);
 
-        indicator_backgroud = mResources.getColor(R.color.dark_blue);
+        indicator_background = mResources.getColor(R.color.dark_blue);
         indicator_mountain = mResources.getColor(R.color.white);
         indicator_mountain_line = mResources.getColor(R.color.white);
 

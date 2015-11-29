@@ -25,6 +25,7 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -268,6 +269,7 @@ public class RouteChartView
         mLabelTextPaint.setAntiAlias(true);
         mLabelTextPaint.setTextSize(mLabelTextSize);
         mLabelTextPaint.setColor(TTTApplication.getResourceUtil().chart_label_text);
+        mLabelTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
         mLabelHeight = (int) Math.abs(mLabelTextPaint.getFontMetrics().top);
         mMaxLabelWidth = (int) mLabelTextPaint.measureText("0000");

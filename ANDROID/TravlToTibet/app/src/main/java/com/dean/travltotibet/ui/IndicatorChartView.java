@@ -12,7 +12,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,7 +44,7 @@ public class IndicatorChartView
     public IndicatorChartView( Context context, AttributeSet attrs, int defStyle )
     {
         super(context, attrs, defStyle);
-        this.setBackgroundColor(TTTApplication.getResourceUtil().indicator_backgroud);
+        this.setBackgroundColor(TTTApplication.getResourceUtil().indicator_background);
     }
 
     @Override

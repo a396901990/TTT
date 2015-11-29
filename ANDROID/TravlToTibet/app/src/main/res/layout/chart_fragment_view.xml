@@ -5,13 +5,17 @@
 
     <RelativeLayout
         android:id="@+id/chartContents"
+        android:background="@color/gray_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.dean.travltotibet.ui.RouteChartView
             android:id="@+id/chart"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/indicator"
             android:background="@color/white_background"
             android:paddingTop="5dip"

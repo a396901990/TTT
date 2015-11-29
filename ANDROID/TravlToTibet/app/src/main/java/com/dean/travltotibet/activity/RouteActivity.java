@@ -214,15 +214,15 @@ public class RouteActivity
         switch (index) {
             case PAGE_HEIGHT:
                 heightTab.setBackgroundResource(R.drawable.header_border_activited);
-                heightTab.setTextColor(getResources().getColor(R.color.dark_blue));
+                heightTab.setTextColor(getResources().getColor(R.color.white));
                 break;
             case PAGE_MAP:
                 mapTab.setBackgroundResource(R.drawable.header_border_activited);
-                mapTab.setTextColor(getResources().getColor(R.color.dark_blue));
+                mapTab.setTextColor(getResources().getColor(R.color.white));
                 break;
             case PAGE_GUIDE:
                 guideTab.setBackgroundResource(R.drawable.header_border_activited);
-                guideTab.setTextColor(getResources().getColor(R.color.dark_blue));
+                guideTab.setTextColor(getResources().getColor(R.color.white));
                 break;
             default:
                 break;
@@ -233,13 +233,13 @@ public class RouteActivity
      * 每次点击不同按钮式重置所有按钮颜色和背景
      */
     private void resetColorAndBackground() {
-        headerView.setBackgroundResource(R.color.dark_blue);
-        heightTab.setBackgroundResource(R.color.dark_blue);
-        mapTab.setBackgroundResource(R.color.dark_blue);
-        guideTab.setBackgroundResource(R.color.dark_blue);
-        heightTab.setTextColor(getResources().getColor(R.color.white_background));
-        mapTab.setTextColor(getResources().getColor(R.color.white_background));
-        guideTab.setTextColor(getResources().getColor(R.color.white_background));
+//        headerView.setBackgroundResource(R.color.dark_blue);
+        heightTab.setBackgroundResource(R.color.white);
+        mapTab.setBackgroundResource(R.color.white);
+        guideTab.setBackgroundResource(R.color.white);
+        heightTab.setTextColor(getResources().getColor(R.color.half_dark_gray));
+        mapTab.setTextColor(getResources().getColor(R.color.half_dark_gray));
+        guideTab.setTextColor(getResources().getColor(R.color.half_dark_gray));
     }
 
     /**
