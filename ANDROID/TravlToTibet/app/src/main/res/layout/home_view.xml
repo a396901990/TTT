@@ -1,14 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:gravity="center">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize">
-    </android.support.v7.widget.Toolbar>
+        android:elevation="5dp"
+        android:minHeight="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -17,6 +19,7 @@
         android:layout_below="@+id/toolbar"
         android:fitsSystemWindows="true">
 
+        <!--主视图-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -27,13 +30,22 @@
                 android:layout_height="match_parent" />
         </RelativeLayout>
 
+        <!--导航-->
         <LinearLayout
             android:id="@+id/left_drawer"
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="#006064"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/home_setting_fragment"
+                android:name="com.dean.travltotibet.fragment.HomeSettingFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
     <!--&lt;!&ndash;阴影&ndash;&gt;-->

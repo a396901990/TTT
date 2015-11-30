@@ -1,22 +1,19 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.dean.greendao.RecentRoute;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
-import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.adapter.RecentListAdapter;
-import com.dean.travltotibet.ui.NormalDialog;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.adapter.RecentAdapter;
+import com.dean.travltotibet.animator.CustomItemAnimator;
 
 import java.util.ArrayList;
 
@@ -27,7 +24,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
     private View root;
     private ListView mListView;
-    private RecentListAdapter mAdapter;
+    private RecentAdapter mAdapter;
     private ArrayList<RecentRoute> recentRoutes;
     private View deleteBtn;
     private HomeActivity mActivity;
@@ -53,8 +50,25 @@ public class HomeRecentFragment extends BaseHomeFragment {
         mActivity = (HomeActivity) getActivity();
 
         getRecentData();
-        initList();
+        //initList();
+        setUpList();
         //initDeleteBtn();
+    }
+
+    private void setUpList() {
+        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.fragment_list_rv);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemAnimator(new CustomItemAnimator());
+
+        mAdapter = new RecentAdapter();
+
+        if (recentRoutes != null) {
+            mAdapter.setData(recentRoutes);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     /**
@@ -95,50 +109,50 @@ public class HomeRecentFragment extends BaseHomeFragment {
     public void updateRecentData() {
         recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
         mAdapter.setData(recentRoutes);
-        mAdapter.notifyDataSetInvalidated();
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
      * 初始化列表
      */
-    private void initList() {
-        mListView = (ListView) root.findViewById(R.id.recent_list);
-        mAdapter = new RecentListAdapter(getActivity());
-
-        if (recentRoutes != null) {
-            mAdapter.setData(recentRoutes);
-            mListView.setAdapter(mAdapter);
-
-            // 设置列表点击监听事件
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    RecentRoute recentRoute = recentRoutes.get(position);
-
-                    // 跳转到RouteActivity
-                    Intent intent = new Intent(getActivity(), RouteActivity.class);
-                    intent.putExtra(Constants.INTENT_ROUTE, recentRoute.getRoute());
-                    intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
-                    intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR().equals("F") ? true : false);
-                    intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
-                    startActivity(intent);
-
-//                    // 关闭菜单
-//                    if (mActivity.getSlidingMenu().isMenuShowing()) {
-//                        mActivity.getSlidingMenu().toggle();
-//                    }
-
-                }
-            });
-            mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    // 长按删除单个视图
-                    return false;
-                }
-            });
-        }
-    }
+//    private void initList() {
+//        mListView = (ListView) root.findViewById(R.id.recent_list);
+//        mAdapter = new RecentListAdapter(getActivity());
+//
+//        if (recentRoutes != null) {
+//            mAdapter.setData(recentRoutes);
+//            mListView.setAdapter(mAdapter);
+//
+//            // 设置列表点击监听事件
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    RecentRoute recentRoute = recentRoutes.get(position);
+//
+//                    // 跳转到RouteActivity
+//                    Intent intent = new Intent(getActivity(), RouteActivity.class);
+//                    intent.putExtra(Constants.INTENT_ROUTE, recentRoute.getRoute());
+//                    intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
+//                    intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR().equals("F") ? true : false);
+//                    intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
+//                    startActivity(intent);
+//
+////                    // 关闭菜单
+////                    if (mActivity.getSlidingMenu().isMenuShowing()) {
+////                        mActivity.getSlidingMenu().toggle();
+////                    }
+//
+//                }
+//            });
+//            mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//                @Override
+//                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                    // 长按删除单个视图
+//                    return false;
+//                }
+//            });
+//        }
+//    }
 
     /**
      * 获取最近显示数据

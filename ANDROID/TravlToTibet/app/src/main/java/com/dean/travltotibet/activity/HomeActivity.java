@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(1);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -85,9 +87,6 @@ public class HomeActivity extends AppCompatActivity {
 
         View v = inflater.inflate(R.layout.home_tabs, null);
         assert v != null;
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        //v.setLayoutParams(params);
         mTabs = (PagerSlidingTabStrip) v.findViewById(R.id.home_tabs);
         mTabs.setViewPager(mPager);
 
@@ -104,11 +103,16 @@ public class HomeActivity extends AppCompatActivity {
         mTabs.setDividerColor(android.R.color.transparent);
 
         // 设置actionbar
-        //getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setCustomView(v);
-        toolbar.addView(v, params);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
+                android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.RIGHT;
+        actionBar.setCustomView(v, layoutParams);
 
     }
 

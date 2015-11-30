@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_background"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <!--<RelativeLayout-->
@@ -33,14 +34,23 @@
         <!--android:paddingBottom="@dimen/recent_item_content_padding"-->
         <!--android:paddingTop="@dimen/recent_item_content_padding" />-->
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:id="@+id/recent_list"
+        android:id="@+id/fragment_list_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/recent_list_divide_height"
-        android:padding="@dimen/recent_list_padding"></ListView>
+        android:padding="@dimen/recent_list_padding"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_item"/>
+
+    <!--<ListView-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:id="@+id/recent_list"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:divider="@android:color/transparent"-->
+        <!--android:dividerHeight="@dimen/recent_list_divide_height"-->
+        <!--android:padding="@dimen/recent_list_padding"></ListView>-->
 
 </LinearLayout>

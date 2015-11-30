@@ -33,8 +33,8 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
         mTitles.put(2, "历史记录");
 
         mFragments = new SparseArray<Fragment>();
-        mFragments.put(0, HomeFragment.newInstance());
-        mFragments.put(1, HomeRecentFragment.newInstance());
+        mFragments.put(0, HomeRecentFragment.newInstance());
+        mFragments.put(1, HomeFragment.newInstance());
         mFragments.put(2, HomeRecentFragment.newInstance());
     }
 

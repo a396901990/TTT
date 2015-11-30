@@ -16,7 +16,7 @@
         <!-- Actionbar color -->
         <item name="colorPrimary">@color/white</item>
         <!-- Status bar color -->
-        <item name="colorPrimaryDark">@color/white</item>
+        <!--<item name="colorPrimaryDark">@color/less_light_gray</item>-->
         <!-- Window color -->
         <item name="android:windowBackground">@color/dim_foreground_material_dark</item>
         <!-- 將新加入的風格 AppTheme.MyDrawerStyle 設定給 drawerArrowStyle 這個屬性 -->
