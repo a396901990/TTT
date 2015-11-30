@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -9,26 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:elevation="5dp"
-        android:minHeight="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
+        android:minHeight="?attr/actionBarSize"
+        android:transitionName="actionBar"
+        ></android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        >
 
         <!--主视图-->
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+                android:layout_height="match_parent">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <!--加载条-->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="72dp"
+                android:visibility="invisible" />
+        </FrameLayout>
 
         <!--导航-->
         <LinearLayout
@@ -48,11 +68,27 @@
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
-    <!--&lt;!&ndash;阴影&ndash;&gt;-->
-    <!--<View-->
-    <!--android:visibility="gone"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="5dp"-->
-    <!--android:background="@drawable/top_shade_background"></View>-->
+    <!--浮动按钮-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:elevation="8dp"
+        android:stateListAnimator="@anim/fab_anim"
+        android:transitionName="fab"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp" />
+
+    <!--阴影、去空白-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_toolbar_shadow_height"
+        android:layout_marginTop="-4dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/top_shade_background" />
 
 </RelativeLayout>

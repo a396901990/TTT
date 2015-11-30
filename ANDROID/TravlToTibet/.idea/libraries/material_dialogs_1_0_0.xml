@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="material-dialogs-1.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.robbypond/material-dialogs/1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.robbypond/material-dialogs/1.0.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.robbypond/material-dialogs/1.0.0/c5c8170724cc184a25cea523e38c85372c09164e/material-dialogs-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

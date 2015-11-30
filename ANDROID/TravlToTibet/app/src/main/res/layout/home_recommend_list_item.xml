@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recent_card_list_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/recommend_view_item_margin"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:contentPadding="-5dp">
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/background_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_item_height"
         android:layout_gravity="center"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +26,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/front_title"
+            android:id="@+id/main_title"
             style="@style/TextAppearance.XXLarge.White.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +35,7 @@
             android:text="川藏线" />
 
         <TextView
-            android:id="@+id/front_sub_title"
+            android:id="@+id/sub_title"
             style="@style/TextAppearance.Large.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,4 +43,4 @@
             android:text="CHENGDU-TIBET" />
     </LinearLayout>
 
-</FrameLayout>
+</android.support.v7.widget.CardView>

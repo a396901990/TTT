@@ -14,8 +14,6 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.ui.SquareImageView;
 
 import java.util.ArrayList;
 
@@ -73,11 +71,11 @@ public class HomeGridAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-            convertView = layoutInflater.inflate(R.layout.home_grid_view_item, null);
+            convertView = layoutInflater.inflate(R.layout.home_recommend_list_item, null);
         }
 
         backgroundView = (NetworkImageView) convertView.findViewById(R.id.background_view);
-        frontTitle = (TextView) convertView.findViewById(R.id.front_title);
+        frontTitle = (TextView) convertView.findViewById(R.id.main_title);
 
         backgroundView.setDefaultImageResId(R.color.light_gray);
         backgroundView.setErrorImageResId(R.color.gray);

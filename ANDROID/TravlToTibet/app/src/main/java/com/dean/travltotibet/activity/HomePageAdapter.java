@@ -5,11 +5,8 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 
-import com.dean.travltotibet.R;
-import com.dean.travltotibet.fragment.HomeFragment;
+import com.dean.travltotibet.fragment.HomeRecommendFragment;
 import com.dean.travltotibet.fragment.HomeRecentFragment;
-
-import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 11/28/15.
@@ -33,8 +30,8 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
         mTitles.put(2, "历史记录");
 
         mFragments = new SparseArray<Fragment>();
-        mFragments.put(0, HomeRecentFragment.newInstance());
-        mFragments.put(1, HomeFragment.newInstance());
+        mFragments.put(0, HomeRecommendFragment.newInstance());
+        mFragments.put(1, HomeRecentFragment.newInstance());
         mFragments.put(2, HomeRecentFragment.newInstance());
     }
 

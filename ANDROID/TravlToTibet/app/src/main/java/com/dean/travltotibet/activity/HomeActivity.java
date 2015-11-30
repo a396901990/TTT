@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,15 +15,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 
@@ -41,6 +46,9 @@ public class HomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private FloatingActionButton mFabButton;
+    private ProgressBar mProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,18 +62,26 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.home_view);
 
         setUpToolBar();
-        setUpViewPager();
+        setUpView();
         setUpHomeTab();
         setUpNavigationDrawer();
         checkForUpdate();
     }
 
+    public void update() {
+        if (mAdapter.getAllFragments().size() > 0) {
+
+        }
+    }
+
     private void setUpToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
-    private void setUpViewPager() {
+    private void setUpView() {
+        // 设置viewpager
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
@@ -76,6 +92,61 @@ public class HomeActivity extends AppCompatActivity {
                 if (mAdapter.getAllFragments().size() > 0) {
                     BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
                     fragment.update();
+                }
+
+                // 根据不同页面改变mFabButton图标
+                if (mFabButton != null) {
+                    int page = mPager.getCurrentItem();
+                    if (page == 0) {
+                        mFabButton.setImageDrawable(new IconicsDrawable(getApplicationContext(), GoogleMaterial.Icon.gmd_delete).color(Color.WHITE).actionBar());
+                    } else if (page == 1) {
+                        mFabButton.setImageDrawable(new IconicsDrawable(getApplicationContext(), GoogleMaterial.Icon.gmd_open_in_new).color(Color.WHITE).actionBar());
+                    } else if (page == 2) {
+                        mFabButton.setImageDrawable(new IconicsDrawable(getApplicationContext(), GoogleMaterial.Icon.gmd_play_for_work).color(Color.WHITE).actionBar());
+                    }
+                }
+            }
+        });
+        // 解决Viewpager和SwipeRefreshLayout滑动冲突
+        mPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        mSwipeRefreshLayout.setEnabled(false);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        mSwipeRefreshLayout.setEnabled(true);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        // 设置下拉刷新
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        //mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (mAdapter.getAllFragments().size() > 0) {
+                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+                    fragment.refresh();
+                }
+            }
+        });
+
+        // Fab Button
+        mFabButton = (FloatingActionButton) findViewById(R.id.fab_normal);
+        mFabButton.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_delete).color(Color.WHITE).actionBar());
+        mFabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAdapter.getAllFragments().size() > 0) {
+                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+                    fragment.fabEvent();
                 }
             }
         });
@@ -181,6 +252,14 @@ public class HomeActivity extends AppCompatActivity {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
+    }
+
+    public void startUpdate() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    public void finishUpdate() {
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 }

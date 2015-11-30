@@ -109,6 +109,8 @@
     <!--home-->
     <dimen name="home_item_height">250dp</dimen>
     <integer name="home_page_columns_num">1</integer>
+    <dimen name="home_toolbar_shadow_height">6dp</dimen>
+    <dimen name="recommend_view_item_margin">0dp</dimen>
 
     <!--setting-->
     <dimen name="setting_item_height">44dp</dimen>
@@ -160,7 +162,7 @@
     <dimen name="where_go_title_padding">5dp</dimen>
     <dimen name="where_go_content_padding">10dp</dimen>
     <dimen name="where_go_card_padding">10dp</dimen>
-    <dimen name="dialog_width">280dp</dimen>
     <integer name="where_go_grid_columns_num">3</integer>
 
+    <dimen name="dialog_width">280dp</dimen>
 </resources>

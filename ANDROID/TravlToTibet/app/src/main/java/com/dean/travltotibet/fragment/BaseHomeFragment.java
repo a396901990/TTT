@@ -12,8 +12,10 @@ import com.dean.travltotibet.ui.CustomProgress;
  */
 public abstract class BaseHomeFragment extends Fragment {
 
-    /**
-     * 跟新fragment
-     */
     public abstract void update();
+
+    public abstract void refresh();
+
+    public abstract void fabEvent();
+
 }

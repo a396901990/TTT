@@ -1,7 +1,6 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,7 @@ public class RecentListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = LayoutInflater.from(mContext);
-            convertView = mInflater.inflate(R.layout.recent_list_item, null);
+            convertView = mInflater.inflate(R.layout.home_recent_list_item, null);
         }
 
         mTitleView = (ImageView) convertView.findViewById(R.id.type_icon);

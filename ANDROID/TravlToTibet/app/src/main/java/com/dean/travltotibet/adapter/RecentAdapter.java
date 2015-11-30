@@ -25,8 +25,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
     @Override
     public RecentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recent_list_item,
-                parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recent_list_item, parent, false);
         return new RecentViewHolder(view);
     }
 
@@ -59,9 +58,22 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
     public void setData(ArrayList<RecentRoute> data) {
         this.mData = data;
+        this.notifyItemRangeInserted(0, mData.size() - 1);
     }
 
-    class RecentViewHolder extends RecyclerView.ViewHolder {
+    public void clearData() {
+        int size = this.mData.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                mData.remove(0);
+            }
+
+            this.notifyItemRangeRemoved(0, size);
+        }
+    }
+
+
+    public static class RecentViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mTitleView;
         private TextView mRouteName;
