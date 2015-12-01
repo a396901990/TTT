@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Micro theme styles -->
+    <style name="TextAppearance.Theme.Micro" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_micro</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Micro.Bold" parent="TextAppearance.Theme.Micro">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Micro.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_micro</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Micro.Bold.Light" parent="TextAppearance.Theme.Micro.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Micro.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_micro</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Micro.Bold.Dark" parent="TextAppearance.Theme.Micro.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Small theme styles -->
+    <style name="TextAppearance.Theme.Small" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Small.Bold" parent="TextAppearance.Theme.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Small.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Small.Bold.Light" parent="TextAppearance.Theme.Small.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Small.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Small.Bold.Dark" parent="TextAppearance.Theme.Small.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Regular theme styles -->
+    <style name="TextAppearance.Theme.Regular" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Regular.Bold" parent="TextAppearance.Theme.Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Regular.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Regular.Bold.Light" parent="TextAppearance.Theme.Regular.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Regular.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Regular.Bold.Dark" parent="TextAppearance.Theme.Regular.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Medium theme styles -->
+    <style name="TextAppearance.Theme.Medium" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Medium.Bold" parent="TextAppearance.Theme.Medium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Medium.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Medium.Bold.Light" parent="TextAppearance.Theme.Medium.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Medium.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Medium.Bold.Dark" parent="TextAppearance.Theme.Medium.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!-- Large theme styles -->
+    <style name="TextAppearance.Theme.Large" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Large.Bold" parent="TextAppearance.Theme.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Large.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Large.Bold.Light" parent="TextAppearance.Theme.Large.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Large.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.Large.Bold.Dark" parent="TextAppearance.Theme.Large.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- XLarge theme styles -->
+    <style name="TextAppearance.Theme.XLarge" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_Xlarge</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XLarge.Bold" parent="TextAppearance.Theme.XLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XLarge.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_Xlarge</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XLarge.Bold.Light" parent="TextAppearance.Theme.XLarge.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XLarge.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_Xlarge</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XLarge.Bold.Dark" parent="TextAppearance.Theme.XLarge.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!-- XXLarge theme styles -->
+    <style name="TextAppearance.Theme.XXLarge" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_XXlarge</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXLarge.Bold" parent="TextAppearance.Theme.XXLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXLarge.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_XXlarge</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXLarge.Bold.Light" parent="TextAppearance.Theme.XXLarge.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXLarge.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_XXlarge</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXLarge.Bold.Dark" parent="TextAppearance.Theme.XXLarge.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- XXXLarge theme styles -->
+    <style name="TextAppearance.Theme.XXXLarge" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_XXXlarge</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXXLarge.Bold" parent="TextAppearance.Theme.XXXLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXXLarge.Light" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_XXXlarge</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXXLarge.Bold.Light" parent="TextAppearance.Theme.XXXLarge.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXXLarge.Dark" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_XXXlarge</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Theme.XXXLarge.Bold.Dark" parent="TextAppearance.Theme.XXXLarge.Dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

@@ -59,7 +59,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
 
-        mAdapter = new RecentAdapter();
+        mAdapter = new RecentAdapter(getActivity());
         mAdapter.setData(recentRoutes);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -95,7 +95,6 @@ public class HomeRecentFragment extends BaseHomeFragment {
     public void fabEvent() {
 
         new MaterialDialog.Builder(getActivity())
-                .positiveColorRes(R.color.md_red_600)
                 .title(getString(R.string.delete_recent_title))
                 .content(getString(R.string.delete_recent_msg))
                 .positiveText(getString(R.string.cancel))

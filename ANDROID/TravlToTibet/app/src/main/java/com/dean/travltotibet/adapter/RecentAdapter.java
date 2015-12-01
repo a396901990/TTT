@@ -1,5 +1,7 @@
 package com.dean.travltotibet.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.InfoActivity;
+import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 
@@ -21,7 +25,13 @@ import java.util.ArrayList;
  */
 public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentViewHolder> {
 
+    private Context mContext;
+
     private ArrayList<RecentRoute> mData;
+
+    public RecentAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
 
     @Override
     public RecentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,7 +42,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
     @Override
     public void onBindViewHolder(RecentViewHolder holder, int position) {
 
-        RecentRoute recentRoute = mData.get(position);
+        final RecentRoute recentRoute = mData.get(position);
         // 类型图片
         holder.mTitleView.setImageDrawable(TravelType.getWhiteTypeImageSrc(recentRoute.getType()));
 
@@ -49,6 +59,21 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         String name = curRoutePlan.getPlan_name();
         String day = curRoutePlan.getPlan_days();
         holder.mPlanNameDay.setText(String.format(Constants.RECENT_PLAN_NAME_DAY, name, day));
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 跳转到RouteActivity
+                Intent intent = new Intent(mContext, RouteActivity.class);
+                intent.putExtra(Constants.INTENT_ROUTE, recentRoute.getRoute());
+                intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
+                intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR());
+                intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, recentRoute.getRoute_plan_id());
+                mContext.startActivity(intent);
+
+            }
+        });
     }
 
     @Override
