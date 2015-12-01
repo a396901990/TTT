@@ -16,10 +16,10 @@
 
         <TextView
             android:id="@+id/detail_route_name"
-            style="@style/TextAppearance.XXLarge"
+            style="@style/TextAppearance.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="新藏线"
+            android:text="简介："
             android:textColor="@color/dark_gray" />
 
         <TextView

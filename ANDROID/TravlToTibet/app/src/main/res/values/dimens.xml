@@ -70,7 +70,7 @@
 
     <!--route info -->
     <dimen name="info_header_height">40dip</dimen>
-    <dimen name="info_header_view_page_height">200dip</dimen>
+    <dimen name="info_header_view_page_height">250dip</dimen>
 
     <dimen name="info_card_margin">10dip</dimen>
     <dimen name="info_fragment_margin_bottom">10dip</dimen>

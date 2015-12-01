@@ -1,18 +1,13 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.InfoRouteActivity;
-import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.activity.InfoActivity;
+import com.dean.travltotibet.activity.InfoActivitynew;
 
 import java.util.HashMap;
 
@@ -27,7 +22,7 @@ import cn.lightsky.infiniteindicator.slideview.DefaultSliderView;
  */
 public class InfoHeaderFragment extends BaseInfoFragment {
 
-    private InfoRouteActivity infoRouteActivity;
+    private InfoActivitynew infoActivity;
 
     private InfiniteIndicatorLayout mDefaultIndicator;
 
@@ -47,7 +42,7 @@ public class InfoHeaderFragment extends BaseInfoFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        infoRouteActivity = (InfoRouteActivity) getActivity();
+        infoActivity = (InfoActivitynew) getActivity();
         mDefaultIndicator = (InfiniteIndicatorLayout) root.findViewById(R.id.indicator_default_circle);
 //        HashMap<String,Integer> url_maps = new HashMap<String, Integer>();
 //        url_maps = new HashMap<String, Integer>();

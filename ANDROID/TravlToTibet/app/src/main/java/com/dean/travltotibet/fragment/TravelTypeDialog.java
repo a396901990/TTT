@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
@@ -103,14 +100,14 @@ public class TravelTypeDialog extends DialogFragment {
         // 如果是开始视图则关闭对话框进行跳转，如果是info视图则更新type类型
         if (fromType.equals(FROM_FIRST)) {
             // 跳转到InfoRouteActivity
-            Intent intent = new Intent(getActivity(), InfoRouteActivity.class);
+            Intent intent = new Intent(getActivity(), InfoActivity.class);
             intent.putExtra(Constants.INTENT_ROUTE, route);
             intent.putExtra(Constants.INTENT_ROUTE_NAME, routeName);
             intent.putExtra(Constants.INTENT_ROUTE_TYPE, type);
             startActivity(intent);
             dismiss();
         } else if (fromType.equals(FROM_SECOND)) {
-            ((InfoRouteActivity) getActivity()).updateType(type);
+            ((InfoActivity) getActivity()).updateType(type);
             dismiss();
         }
     }

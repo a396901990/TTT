@@ -3,15 +3,11 @@ package com.dean.travltotibet.activity;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.fragment.InfoHeaderFragment;
 import com.dean.travltotibet.fragment.InfoPrepareFragment;
@@ -24,7 +20,7 @@ import com.dean.travltotibet.util.ScreenUtil;
 /**
  * Created by DeanGuo on 9/30/15.
  */
-public class InfoRouteActivity extends Activity {
+public class InfoActivity extends Activity {
 
     private String route;
     private String routeName;
@@ -49,7 +45,7 @@ public class InfoRouteActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.info_route_view);
+        setContentView(R.layout.info_view);
 
         if (getIntent() != null) {
             route = getIntent().getStringExtra(Constants.INTENT_ROUTE);

@@ -55,9 +55,9 @@
             android:screenOrientation="sensor"
             android:theme="@style/Theme.NoActionBar" />
         <activity
-            android:name=".activity.InfoRouteActivity"
+            android:name=".activity.InfoActivitynew"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NoActionBar" />
+            android:theme="@style/AppTheme.Base" />
         <activity
             android:name=".activity.HomeSettingActivity"
             android:label="@string/title_activity_home_setting"

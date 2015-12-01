@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +12,12 @@ import android.widget.GridView;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.adapter.WhereGoItemGridAdapter;
-import com.dean.travltotibet.adapter.WhereGoItemGridAdapter.PlaceItem;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by DeanGuo on 11/28/15.
@@ -90,7 +87,7 @@ public class WhereGoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 跳转到InfoRouteActivity(类型BIKE)
-                Intent intent = new Intent(getActivity(), InfoRouteActivity.class);
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE, longData.get(position).getRoute());
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, longData.get(position).getName());
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
@@ -103,7 +100,7 @@ public class WhereGoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 跳转到InfoRouteActivity(类型BIKE)
-                Intent intent = new Intent(getActivity(), InfoRouteActivity.class);
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE, middleData.get(position).getRoute());
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, middleData.get(position).getName());
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
@@ -116,7 +113,7 @@ public class WhereGoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 跳转到InfoRouteActivity(类型BIKE)
-                Intent intent = new Intent(getActivity(), InfoRouteActivity.class);
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE, shortData.get(position).getRoute());
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, shortData.get(position).getName());
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);

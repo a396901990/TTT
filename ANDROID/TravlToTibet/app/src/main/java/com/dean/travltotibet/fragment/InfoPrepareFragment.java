@@ -1,31 +1,21 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 
-import com.dean.greendao.PrepareDetail;
-import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.InfoActivity;
+import com.dean.travltotibet.activity.InfoActivitynew;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ScrollGridView;
-import com.dean.travltotibet.ui.SquareImageView;
 import com.dean.travltotibet.util.Constants;
-
-import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 9/19/15.
@@ -34,7 +24,7 @@ import java.util.ArrayList;
  */
 public class InfoPrepareFragment extends BaseInfoFragment {
 
-    private InfoRouteActivity infoRouteActivity;
+    private InfoActivitynew infoActivity;
 
     private View root;
 
@@ -67,8 +57,8 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        infoRouteActivity = (InfoRouteActivity) getActivity();
-        
+        infoActivity = (InfoActivitynew) getActivity();
+
         initGridView();
     }
 
@@ -85,7 +75,7 @@ public class InfoPrepareFragment extends BaseInfoFragment {
                 // 打开详细页面
                 Intent intent = new Intent(getActivity(), PrepareDetailActivity.class);
                 intent.putExtra(Constants.INTENT_PREPARE_TYPE, type);
-                intent.putExtra(Constants.INTENT_ROUTE, infoRouteActivity.getRoute());
+                intent.putExtra(Constants.INTENT_ROUTE, infoActivity.getRoute());
                 startActivity(intent);
 
                 // 设置动画

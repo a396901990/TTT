@@ -18,7 +18,7 @@ import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
 import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class InfoConfirmDialog extends DialogFragment {
 
-    private InfoRouteActivity infoRouteActivity;
+    private InfoActivity infoActivity;
 
     private View contentLayout;
     private boolean isForward = true;
@@ -53,7 +53,7 @@ public class InfoConfirmDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        infoRouteActivity = (InfoRouteActivity) getActivity();
+        infoActivity = (InfoActivity) getActivity();
 
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_confirm_dialog_fragment, null);
 
@@ -113,7 +113,7 @@ public class InfoConfirmDialog extends DialogFragment {
     private void initPlanList() {
         mListView = (ListView) contentLayout.findViewById(R.id.plan_list);
         plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(route, routeType, isForward);
-        mAdapter = new PrepareRoutePlanListAdapter(infoRouteActivity);
+        mAdapter = new PrepareRoutePlanListAdapter(infoActivity);
         mAdapter.setData(plans);
 
         mListView.setAdapter(mAdapter);

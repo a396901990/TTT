@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
-import com.dean.travltotibet.activity.InfoRouteActivity;
+import com.dean.travltotibet.activity.InfoActivity;
 
 /**
  * Created by DeanGuo on 9/30/15.
  */
 public class InfoScrollView extends ScrollView {
 
-    private InfoRouteActivity.ScrollViewListener mScrollListener;
+    private InfoActivity.ScrollViewListener mScrollListener;
 
     public InfoScrollView(Context context) {
         super(context);
@@ -33,11 +33,11 @@ public class InfoScrollView extends ScrollView {
         }
     }
 
-    public InfoRouteActivity.ScrollViewListener getScrollListener() {
+    public InfoActivity.ScrollViewListener getScrollListener() {
         return mScrollListener;
     }
 
-    public void setScrollListener(InfoRouteActivity.ScrollViewListener mScrollListener) {
+    public void setScrollListener(InfoActivity.ScrollViewListener mScrollListener) {
         this.mScrollListener = mScrollListener;
     }
 }
