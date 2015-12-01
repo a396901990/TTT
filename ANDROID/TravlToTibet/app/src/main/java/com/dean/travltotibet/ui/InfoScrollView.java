@@ -11,7 +11,11 @@ import com.dean.travltotibet.activity.InfoActivity;
  */
 public class InfoScrollView extends ScrollView {
 
-    private InfoActivity.ScrollViewListener mScrollListener;
+    private interface ScrollViewListener {
+        public void onScrollChanged(int l, int t, int oldl, int oldt);
+    }
+
+    private ScrollViewListener mScrollListener;
 
     public InfoScrollView(Context context) {
         super(context);
@@ -29,15 +33,15 @@ public class InfoScrollView extends ScrollView {
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
         if (mScrollListener != null) {
-            mScrollListener.onScrollChanged(this, l, t, oldl, oldt);
+            mScrollListener.onScrollChanged(l, t, oldl, oldt);
         }
     }
 
-    public InfoActivity.ScrollViewListener getScrollListener() {
+    public ScrollViewListener getScrollListener() {
         return mScrollListener;
     }
 
-    public void setScrollListener(InfoActivity.ScrollViewListener mScrollListener) {
+    public void setScrollListener(ScrollViewListener mScrollListener) {
         this.mScrollListener = mScrollListener;
     }
 }

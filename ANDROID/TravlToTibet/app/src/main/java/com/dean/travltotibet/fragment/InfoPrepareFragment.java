@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.activity.InfoActivitynew;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
@@ -24,7 +23,7 @@ import com.dean.travltotibet.util.Constants;
  */
 public class InfoPrepareFragment extends BaseInfoFragment {
 
-    private InfoActivitynew infoActivity;
+    private InfoActivity infoActivity;
 
     private View root;
 
@@ -57,7 +56,7 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        infoActivity = (InfoActivitynew) getActivity();
+        infoActivity = (InfoActivity) getActivity();
 
         initGridView();
     }

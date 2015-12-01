@@ -54,7 +54,8 @@
     <color name="transparent_bg">#b3b3b3</color>
 
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#1E88E5</color>
+    <color name="colorPrimaryLight">#87CEFA</color>
+    <color name="colorPrimaryDark">#065fb9</color>
+    <color name="colorAccent">#9CCC65</color>
 </resources>

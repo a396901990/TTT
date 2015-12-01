@@ -16,7 +16,6 @@ import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.activity.InfoActivitynew;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 
@@ -72,7 +71,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             @Override
             public void onClick(View v) {
                 // 跳转到InfoRouteActivity(类型BIKE)
-                Intent intent = new Intent(mContext, InfoActivitynew.class);
+                Intent intent = new Intent(mContext, InfoActivity.class);
                 intent.putExtra(Constants.INTENT_ROUTE, route.getRoute());
                 intent.putExtra(Constants.INTENT_ROUTE_NAME, route.getName());
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);

@@ -78,6 +78,10 @@
         <item name="android:background">@drawable/dark_blue_btn</item>
     </style>
 
+    <style name="ThemeButton" parent="TransactButton">
+        <item name="android:background">@drawable/theme_btn_background</item>
+    </style>
+
     <style name="OrangeButton" parent="TransactButton">
         <item name="android:background">@drawable/yellow_btn</item>
     </style>

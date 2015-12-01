@@ -1,11 +1,14 @@
 package com.dean.travltotibet.activity;
 
-import android.app.Activity;
 import android.app.DialogFragment;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.InfoConfirmDialog;
@@ -13,14 +16,14 @@ import com.dean.travltotibet.fragment.InfoHeaderFragment;
 import com.dean.travltotibet.fragment.InfoPrepareFragment;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.ui.InfoScrollView;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.ScreenUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 /**
  * Created by DeanGuo on 9/30/15.
  */
-public class InfoActivity extends Activity {
+public class InfoActivity extends AppCompatActivity {
 
     private String route;
     private String routeName;
@@ -29,78 +32,39 @@ public class InfoActivity extends Activity {
     private InfoHeaderFragment headerFragment;
     private InfoPrepareFragment prepareFragment;
 
-    private ImageView returnBtn;
-    private ImageView typeBtn;
-
-    private View headerBar;
-    private View headerBackground;
-    private InfoScrollView scrollView;
-
-    public interface ScrollViewListener {
-
-        void onScrollChanged(InfoScrollView scrollView, int x, int y, int oldx, int oldy);
-
-    }
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_view);
-
         if (getIntent() != null) {
             route = getIntent().getStringExtra(Constants.INTENT_ROUTE);
             routeName = getIntent().getStringExtra(Constants.INTENT_ROUTE_NAME);
             routeType = getIntent().getStringExtra(Constants.INTENT_ROUTE_TYPE);
         }
+
         headerFragment = (InfoHeaderFragment) getFragmentManager().findFragmentById(R.id.info_header_fragment);
         prepareFragment = (InfoPrepareFragment) getFragmentManager().findFragmentById(R.id.info_prepare_fragment);
 
-        initHeaderBar();
-        initScrollView();
+        initView();
         initGoButton();
     }
 
-    private void initScrollView() {
+    private void initView() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
 
-        // header高度
-        final int headerHeight = ScreenUtil.dip2px(this, 200);
-        // 透明度比率
-        final float alphaRate = (float)1 / (float)500;
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(routeName);
 
-        scrollView = (InfoScrollView) findViewById(R.id.scroll_view);
-        scrollView.setScrollListener(new ScrollViewListener() {
-            @Override
-            public void onScrollChanged(InfoScrollView scrollView, int x, int y, int oldx, int oldy) {
-                if (y <= headerHeight) {
-                    headerBackground.setAlpha(y * alphaRate);
-                }
-            }
-        });
-    }
-
-    /**
-     * 初始化header左右两侧按钮
-     */
-    private void initHeaderBar() {
-        headerBar = this.findViewById(R.id.info_header_actionbar);
-        headerBackground = findViewById(R.id.header_actionbar_background);
-
-        headerBackground.setAlpha(0);
-        returnBtn = (ImageView)this.findViewById(R.id.header_return_btn);
-        typeBtn = (ImageView) this.findViewById(R.id.header_travel_type);
-
-        // 设置按钮文字和按钮图片
-        typeBtn.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
-
-        // 设置监听
-        returnBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        typeBtn.setOnClickListener(new View.OnClickListener() {
+        fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
+        //fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_directions_run).actionBar().color(Color.WHITE));
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment dialogFragment = new TravelTypeDialog();
@@ -138,7 +102,7 @@ public class InfoActivity extends Activity {
         // 更新routeType
         setRouteType(routeType);
         // 更新图标
-        typeBtn.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
+        fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
 
         // update headerFragment
         if (headerFragment.isAdded()) {

@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.activity.InfoActivitynew;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.util.Constants;
@@ -20,7 +19,7 @@ import com.dean.travltotibet.util.Constants;
  */
 public class InfoDetailFragment extends BaseInfoFragment {
 
-    private InfoActivitynew infoActivity;
+    private InfoActivity infoActivity;
 
     private View root;
 
@@ -45,7 +44,7 @@ public class InfoDetailFragment extends BaseInfoFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        infoActivity = (InfoActivitynew) getActivity();
+        infoActivity = (InfoActivity) getActivity();
 
         initDetail();
         initExpandableTextView();
