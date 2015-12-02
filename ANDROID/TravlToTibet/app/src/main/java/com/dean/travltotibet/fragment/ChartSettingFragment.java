@@ -24,6 +24,8 @@ import com.dean.travltotibet.util.PointManager;
 
 import java.util.List;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 /**
  * Created by DeanGuo on 11/5/15.
  */
@@ -123,25 +125,47 @@ public class ChartSettingFragment extends Fragment implements PointCheck.PointCh
         }
         // 重置按钮
         else if (item.getItemId() == R.id.action_reset) {
-            final NormalDialog mDialog = new NormalDialog(getActivity(), R.style.Transparent_Dialog);
-            // 对话框视图
-            mDialog.setTitle(getString(R.string.reset_dialog_title));
-            mDialog.setMsg(getString(R.string.reset_dialog_msg));
-            mDialog.setOKListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSelectedAdapter.resetToDefault();
-                    mUnSelectedAdapter.resetToDefault();
-                    mDialog.dismiss();
-                }
-            });
-            mDialog.setCancelListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mDialog.dismiss();
-                }
-            });
-            mDialog.show();
+//
+//            final NormalDialog mDialog = new NormalDialog(getActivity(), R.style.Transparent_Dialog);
+//            // 对话框视图
+//            mDialog.setTitle(getString(R.string.reset_dialog_title));
+//            mDialog.setMsg(getString(R.string.reset_dialog_msg));
+//            mDialog.setOKListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mSelectedAdapter.resetToDefault();
+//                    mUnSelectedAdapter.resetToDefault();
+//                    mDialog.dismiss();
+//                }
+//            });
+//            mDialog.setCancelListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mDialog.dismiss();
+//                }
+//            });
+//            mDialog.show();
+
+            new com.afollestad.materialdialogs.MaterialDialog.Builder(getActivity())
+                    .title(getString(R.string.reset_dialog_title))
+                    .content(getString(R.string.reset_dialog_msg))
+                    .positiveText(getString(R.string.cancel))
+                    .negativeText(getString(R.string.ok))
+                    .callback(new com.afollestad.materialdialogs.MaterialDialog.Callback() {
+                        @Override
+                        public void onPositive(com.afollestad.materialdialogs.MaterialDialog dialog) {
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onNegative(com.afollestad.materialdialogs.MaterialDialog dialog) {
+                            mSelectedAdapter.resetToDefault();
+                            mUnSelectedAdapter.resetToDefault();
+                            dialog.dismiss();
+                        }
+                    })
+                    .build()
+                    .show();
         }
         return super.onOptionsItemSelected(item);
     }

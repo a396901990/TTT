@@ -1,35 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Base application theme. -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
-        <!--action bar颜色-->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <!--status bar颜色-->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!--控件颜色-->
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--背景颜色-->
-        <item name="android:windowBackground">@color/gray_background</item>
-    </style>
-
-    <!-- 修改style -->
-    <style name="AppTheme.Base" parent="AppBaseTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- 將新加入的風格 AppTheme.MyDrawerStyle 設定給 drawerArrowStyle 這個屬性 -->
-        <item name="drawerArrowStyle">@style/AppTheme.MyDrawerArrowStyle</item>
-    </style>
-
-    <style name="AppBaseTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <!-- 加入一個新的 navigation drarwer 的風格 -->
-    <style name="AppTheme.MyDrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <!-- 設定 drawer arrow 的顏色 -->
-        <item name="color">@color/half_dark_gray</item>
-    </style>
 </resources>

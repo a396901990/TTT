@@ -44,20 +44,19 @@
         </activity>
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Base" />
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.GuideRouteActivity"
             android:theme="@style/Theme.AppBaseTheme" />
         <activity
             android:name=".activity.RouteActivity"
-            android:screenOrientation="sensor"
-            android:theme="@style/AppTheme.Base" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.InfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Base" />
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.HomeSettingActivity"
             android:label="@string/title_activity_home_setting"
@@ -77,7 +76,7 @@
             android:name=".activity.ChartSettingActivity"
             android:label="@string/title_chart_setting"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.WhiteTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/title_activity_whats_new"

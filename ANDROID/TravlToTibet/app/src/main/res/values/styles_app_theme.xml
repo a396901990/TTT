@@ -14,11 +14,30 @@
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
     </style>
 
-    <!-- 修改style -->
-    <style name="AppTheme.Base" parent="AppBaseTheme">
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary_light</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
+        <item name="colorAccent">@color/colorAccent_light</item>
+        <item name="android:windowBackground">@color/gray_background</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!-- 將新加入的風格 AppTheme.MyDrawerStyle 設定給 drawerArrowStyle 這個屬性 -->
+        <item name="toolbarStyle">@style/light_toolbar</item>
+    </style>
+
+    <style name="light_toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/colorAccent_light</item>
+        <item name="android:actionMenuTextColor">@color/colorAccent_light</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/gray_background</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="drawerArrowStyle">@style/AppTheme.MyDrawerArrowStyle</item>
     </style>
 

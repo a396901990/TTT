@@ -58,4 +58,9 @@
     <color name="colorPrimaryLight">#87CEFA</color>
     <color name="colorPrimaryDark">#065fb9</color>
     <color name="colorAccent">#9CCC65</color>
+
+    <color name="colorPrimary_light">#FFFFFF</color>
+    <color name="colorPrimaryLight_light">#7FFFFFFF</color>
+    <color name="colorPrimaryDark_light">#424242</color>
+    <color name="colorAccent_light">#424242</color>
 </resources>
