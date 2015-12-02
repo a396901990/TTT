@@ -27,14 +27,16 @@ public class PrepareDetailFragment extends Fragment {
 
     private View root;
 
-    private String route;
-    private InfoType type;
+    private String mRoute;
 
     private ListView mListView;
     private InfoPrepareDetailAdapter mAdapter;
-    private ArrayList<PrepareDetail> prepareDetails;
+    private ArrayList<PrepareDetail> mPrepareDetails;
+    private InfoType mInfoType;
 
-    public PrepareDetailFragment() {
+    public PrepareDetailFragment(InfoType infoType, String route) {
+        this.mInfoType = infoType;
+        this.mRoute = route;
     }
 
     @Override
@@ -60,25 +62,20 @@ public class PrepareDetailFragment extends Fragment {
      */
     private void initData() {
 
-        // 类型
-        type = mActivity.getType();
-        // 路线
-        route = mActivity.getRoute();
-
         // 从PrepareInfo表中获取该路段的准备信息
-        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mActivity.getRoute());
+        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute);
 
         // 获取条目名字
-        String prepareName = InfoType.getInfoResult(type, prepareInfo);
+        String prepareName = InfoType.getInfoResult(mInfoType, prepareInfo);
 
         // 根据名字从PrepareDetail表中获取详细数据
-        prepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, type.toString());
+        mPrepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, mInfoType.toString());
 
-        for(PrepareDetail prepareDetail : prepareDetails) {
-            Log.e("getTitle", prepareDetail.getTitle());
-            Log.e("getSummary", prepareDetail.getSummary());
-            Log.e("getDetail", prepareDetail.getDetail());
-        }
+//        for(PrepareDetail prepareDetail : mPrepareDetails) {
+//            Log.e("getTitle", prepareDetail.getTitle());
+//            Log.e("getSummary", prepareDetail.getSummary());
+//            Log.e("getDetail", prepareDetail.getDetail());
+//        }
 
     }
 
@@ -88,8 +85,10 @@ public class PrepareDetailFragment extends Fragment {
     private void initList() {
         mListView = (ListView) root.findViewById(R.id.detail_list);
         mAdapter = new InfoPrepareDetailAdapter(mActivity);
-        mAdapter.setData(prepareDetails);
-        mListView.setAdapter(mAdapter);
+        if (mPrepareDetails != null) {
+            mAdapter.setData(mPrepareDetails);
+            mListView.setAdapter(mAdapter);
+        }
     }
 
 }

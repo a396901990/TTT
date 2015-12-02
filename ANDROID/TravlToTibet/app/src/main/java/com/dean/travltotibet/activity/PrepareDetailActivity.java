@@ -1,22 +1,40 @@
 package com.dean.travltotibet.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.adapter.PrepareDetailPageAdapter;
 import com.dean.travltotibet.model.InfoType;
+import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.Constants;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+
+import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 11/8/15.
  */
-public class PrepareDetailActivity extends Activity {
+public class PrepareDetailActivity extends BaseActivity {
 
-    private String route;
+    private String mRoute;
 
-    private InfoType type;
+    private String mType;
+
+    private InfoType mInfoType;
+
+    private ViewPager mPager;
+
+    private PrepareDetailPageAdapter mAdapter;
+
+    private PagerSlidingTabStrip mTabs;
+
+    private ArrayList<InfoType> mInfoTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +43,33 @@ public class PrepareDetailActivity extends Activity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            route = intent.getStringExtra(Constants.INTENT_ROUTE);
-            type = (InfoType) intent.getSerializableExtra(Constants.INTENT_PREPARE_TYPE);
+            mRoute = intent.getStringExtra(Constants.INTENT_ROUTE);
+            mType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
+            mInfoType = (InfoType) intent.getSerializableExtra(Constants.INTENT_PREPARE_TYPE);
         }
 
+        mInfoTypes = InfoType.getInfoTypes(mType);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setUpToolBar(toolbar);
+        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
         // 设置标题
-        getActionBar().setTitle(InfoType.INFO_TEXT.get(type));
+        initViewPagerAndTab();
+
+    }
+
+    private void initViewPagerAndTab() {
+        mPager = (ViewPager) findViewById(R.id.view_pager);
+        mAdapter = new PrepareDetailPageAdapter(getFragmentManager());
+        mAdapter.setData(mInfoTypes, mRoute);
+        mPager.setAdapter(mAdapter);
+
+        mPager.setOffscreenPageLimit(1);
+
+        mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.home_tabs);
+        mTabs.setViewPager(mPager);
+
+        mPager.setCurrentItem(mInfoTypes.indexOf(mInfoType), true);
     }
 
     @Override
@@ -40,13 +79,5 @@ public class PrepareDetailActivity extends Activity {
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public InfoType getType() {
-        return type;
     }
 }

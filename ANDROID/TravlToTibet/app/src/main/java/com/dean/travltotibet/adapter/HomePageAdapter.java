@@ -1,4 +1,4 @@
-package com.dean.travltotibet.activity;
+package com.dean.travltotibet.adapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;

@@ -334,6 +334,9 @@ public class DBHelper {
     public PrepareInfo getPrepareInfo(String routeName) {
         QueryBuilder<PrepareInfo> qb = prepareInfoDao.queryBuilder();
         qb.where(PrepareInfoDao.Properties.Route.eq(routeName));
+        if (qb.list() == null){
+            return null;
+        }
         return qb.list().get(0);
     }
 

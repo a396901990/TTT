@@ -20,7 +20,7 @@ public class InfoGridAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    private InfoType[] mData;
+    private ArrayList<InfoType> mData;
 
     public InfoGridAdapter(Context mContext) {
         this.mContext = mContext;
@@ -28,12 +28,12 @@ public class InfoGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.length;
+        return mData.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mData[position];
+        return mData.get(position);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class InfoGridAdapter extends BaseAdapter {
         return content;
     }
 
-    public void setData(InfoType[] mData) {
+    public void setData(ArrayList<InfoType> mData) {
         this.mData = mData;
         notifyDataSetInvalidated();
     }

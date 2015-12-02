@@ -66,9 +66,9 @@
     </FrameLayout>
 
     <View
-        android:layout_below="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_toolbar_shadow_height"
+        android:layout_below="@+id/content_view"
         android:background="@drawable/top_shade_background" />
 
 </RelativeLayout>

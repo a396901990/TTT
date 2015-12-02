@@ -12,7 +12,6 @@ import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ScrollGridView;
 import com.dean.travltotibet.util.Constants;
 
@@ -28,22 +27,6 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     private View root;
 
     private InfoGridAdapter adapter;
-
-    private InfoType[] BIKES = new InfoType[] {
-            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_BIKE, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
-    };
-
-    private InfoType[] HIKES = new InfoType[] {
-            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_HIKE, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
-    };
-
-    private InfoType[] MOTOS = new InfoType[] {
-            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_MOTO, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
-    };
-
-    private InfoType[] CARS = new InfoType[] {
-            InfoType.BUDGET, InfoType.MEDICINE, InfoType.EQUIP_CAR, InfoType.CLOTHING, InfoType.OUTDOOR_EQUIP, InfoType.CREDENTIALS, InfoType.PERSONAL, InfoType.OTHER
-    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,17 +47,18 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     private void initGridView() {
         ScrollGridView gridView = (ScrollGridView) root.findViewById(R.id.gridView);
         adapter = new InfoGridAdapter(getActivity());
-        adapter.setData(BIKES);
+        adapter.setData(InfoType.BIKES);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InfoType type = (InfoType) adapter.getItem(position);
+                InfoType infoType = (InfoType) adapter.getItem(position);
 
                 // 打开详细页面
                 Intent intent = new Intent(getActivity(), PrepareDetailActivity.class);
-                intent.putExtra(Constants.INTENT_PREPARE_TYPE, type);
+                intent.putExtra(Constants.INTENT_PREPARE_TYPE, infoType);
                 intent.putExtra(Constants.INTENT_ROUTE, infoActivity.getRoute());
+                intent.putExtra(Constants.INTENT_ROUTE_TYPE, infoActivity.getRouteType());
                 startActivity(intent);
 
                 // 设置动画
@@ -87,19 +71,6 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     @Override
     public void updateType(String type) {
         super.updateType(type);
-
-        if (type.equals(TravelType.BIKE)) {
-            adapter.setData(BIKES);
-        }
-        else if (type.equals(TravelType.HIKE)) {
-            adapter.setData(HIKES);
-        }
-        else if (type.equals(TravelType.MOTO)) {
-            adapter.setData(MOTOS);
-        }
-        else if (type.equals(TravelType.CAR)) {
-            adapter.setData(CARS);
-        }
-
+        adapter.setData(InfoType.getInfoTypes(type));
     }
 }

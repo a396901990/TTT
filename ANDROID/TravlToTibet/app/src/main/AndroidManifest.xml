@@ -85,7 +85,8 @@
         <activity
             android:name=".activity.PrepareDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.WhiteTheme" />
+            android:label="@string/title_activity_prepare_detail"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

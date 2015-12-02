@@ -3,6 +3,7 @@ package com.dean.travltotibet.model;
 import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,49 @@ public enum InfoType {
 
     public static final Map<InfoType, String> INFO_NAME = new HashMap<InfoType, String>();
 
+    public static final ArrayList<InfoType> BIKES = new ArrayList<InfoType>();
+    public static final ArrayList<InfoType> HIKES = new ArrayList<InfoType>();
+    public static final ArrayList<InfoType> MOTOS = new ArrayList<InfoType>();
+    public static final ArrayList<InfoType> CARS = new ArrayList<InfoType>();
+
     static {
+
+        BIKES.add(InfoType.BUDGET);
+        BIKES.add(InfoType.MEDICINE);
+        BIKES.add(InfoType.EQUIP_BIKE);
+        BIKES.add(InfoType.CLOTHING);
+        BIKES.add(InfoType.OUTDOOR_EQUIP);
+        BIKES.add(InfoType.CREDENTIALS);
+        BIKES.add(InfoType.PERSONAL);
+        BIKES.add(InfoType.OTHER);
+
+        HIKES.add(InfoType.BUDGET);
+        HIKES.add(InfoType.MEDICINE);
+        HIKES.add(InfoType.EQUIP_HIKE);
+        HIKES.add(InfoType.CLOTHING);
+        HIKES.add(InfoType.OUTDOOR_EQUIP);
+        HIKES.add(InfoType.CREDENTIALS);
+        HIKES.add(InfoType.PERSONAL);
+        HIKES.add(InfoType.OTHER);
+
+        MOTOS.add(InfoType.BUDGET);
+        MOTOS.add(InfoType.MEDICINE);
+        MOTOS.add(InfoType.EQUIP_MOTO);
+        MOTOS.add(InfoType.CLOTHING);
+        MOTOS.add(InfoType.OUTDOOR_EQUIP);
+        MOTOS.add(InfoType.CREDENTIALS);
+        MOTOS.add(InfoType.PERSONAL);
+        MOTOS.add(InfoType.OTHER);
+
+        CARS.add(InfoType.BUDGET);
+        CARS.add(InfoType.MEDICINE);
+        CARS.add(InfoType.EQUIP_CAR);
+        CARS.add(InfoType.CLOTHING);
+        CARS.add(InfoType.OUTDOOR_EQUIP);
+        CARS.add(InfoType.CREDENTIALS);
+        CARS.add(InfoType.PERSONAL);
+        CARS.add(InfoType.OTHER);
+
         INFO_TEXT.put(InfoType.ROUTE_DETAIL, "路线详情");
         INFO_TEXT.put(InfoType.BUDGET, "预算");
         INFO_TEXT.put(InfoType.MEDICINE, "药品");
@@ -114,4 +157,19 @@ public enum InfoType {
         return null;
     }
 
+    public static ArrayList<InfoType> getInfoTypes(String type) {
+        if (type.equals(TravelType.BIKE)) {
+            return BIKES;
+        }
+        else if (type.equals(TravelType.HIKE)) {
+            return HIKES;
+        }
+        else if (type.equals(TravelType.MOTO)) {
+            return MOTOS;
+        }
+        else if (type.equals(TravelType.CAR)) {
+            return CARS;
+        }
+        return null;
+    }
 }

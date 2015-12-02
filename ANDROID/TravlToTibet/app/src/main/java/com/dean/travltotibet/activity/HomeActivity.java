@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.adapter.HomePageAdapter;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
