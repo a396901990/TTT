@@ -32,10 +32,9 @@
     <!-- Button styles -->
     <style name="BaseButton" parent="android:Widget.Holo.Light.Button">
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">@dimen/transact_button_margin</item>
-        <item name="android:layout_marginRight">@dimen/transact_button_margin</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="TransactButton" parent="BaseButton">
@@ -84,6 +83,21 @@
 
     <style name="OrangeButton" parent="TransactButton">
         <item name="android:background">@drawable/yellow_btn</item>
+    </style>
+
+    <!-- Ripple related styles -->
+    <style name="RippleStyle">
+        <item name="rippleOverlay">true</item>
+        <item name="rippleColor_mr">@color/less_light_gray</item>
+        <item name="rippleAlpha">0.3</item>
+        <item name="rippleDimension">45dp</item>
+        <item name="rippleHover">true</item>
+        <item name="rippleDuration">200</item>
+        <item name="rippleFadeDuration">50</item>
+        <item name="rippleBackground">@android:color/transparent</item>
+        <item name="rippleDelayClick">true</item>
+        <item name="ripplePersistent">false</item>
+        <item name="rippleInAdapter">false</item>
     </style>
 
 </resources>

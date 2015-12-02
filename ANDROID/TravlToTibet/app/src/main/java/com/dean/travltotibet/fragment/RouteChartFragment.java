@@ -1,7 +1,9 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.PointManager;
 import com.dean.travltotibet.util.StringUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.List;
 
@@ -77,8 +81,9 @@ public class RouteChartFragment extends BaseRouteFragment {
     }
 
     private void initBtn() {
-        View settingBtn = contentView.findViewById(R.id.chart_setting_btn);
-        settingBtn.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton mFabButton = (FloatingActionButton) contentView.findViewById(R.id.chart_setting_btn);
+        mFabButton.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_settings).color(Color.WHITE).actionBar());
+        mFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChartSettingActivity.class);

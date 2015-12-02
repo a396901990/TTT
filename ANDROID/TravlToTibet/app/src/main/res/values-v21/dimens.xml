@@ -1,5 +1,4 @@
 <resources>
     <!--home-->
-    <dimen name="home_toolbar_shadow_height">8dp</dimen>
     <dimen name="recommend_view_item_margin">2dp</dimen>
 </resources>

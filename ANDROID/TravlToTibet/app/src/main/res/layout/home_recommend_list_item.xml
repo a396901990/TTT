@@ -12,12 +12,19 @@
     card_view:cardPreventCornerOverlap="false"
     card_view:contentPadding="-5dp">
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/background_view"
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        android:id="@+id/ripple_view"
+        style="@style/RippleStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_item_height"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/background_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_item_height"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop" />
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

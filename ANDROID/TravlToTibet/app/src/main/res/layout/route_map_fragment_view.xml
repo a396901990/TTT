@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:background="@color/gray_background">
 
@@ -11,24 +12,21 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"></LinearLayout>
 
-    <!--切换视图按钮（右上）-->
-    <RelativeLayout
-        android:id="@+id/change_view_btn"
-        android:layout_width="@dimen/map_btn_width"
-        android:layout_height="@dimen/map_btn_width"
+    <!--浮动按钮-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/map_setting_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/map_btn_padding_length"
         android:layout_marginTop="@dimen/map_btn_padding_length"
-        android:background="@drawable/map_btn_border">
+        android:elevation="8dp"
+        android:stateListAnimator="@anim/fab_anim"
+        android:transitionName="fab"
+        app:fabSize="mini"
+        app:pressedTranslationZ="6dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="5dp"
-            android:src="@drawable/map_square_white" />
-    </RelativeLayout>
 
     <!--切换视图按钮（右上/隐藏关闭按钮）-->
     <RelativeLayout
@@ -55,7 +53,7 @@
         android:id="@+id/change_extended_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/change_view_btn"
+        android:layout_below="@+id/map_setting_btn"
         android:layout_marginLeft="@dimen/map_btn_padding_length"
         android:layout_marginRight="@dimen/map_btn_padding_length"
         android:background="@drawable/map_btn_border_blue"
@@ -246,6 +244,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_centerInParent="true"
-        app:loading_color="@color/dark_blue"
+        app:loading_color="@color/colorPrimaryDark"
         app:loading_width="6dp" />
 </RelativeLayout>

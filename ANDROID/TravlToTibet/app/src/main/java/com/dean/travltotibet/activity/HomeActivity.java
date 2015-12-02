@@ -155,9 +155,8 @@ public class HomeActivity extends AppCompatActivity {
     private void setUpHomeTab() {
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         View v = inflater.inflate(R.layout.home_tabs, null);
-        assert v != null;
+
         mTabs = (PagerSlidingTabStrip) v.findViewById(R.id.home_tabs);
         mTabs.setViewPager(mPager);
 
@@ -190,7 +189,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpNavigationDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+        //mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             @Override

@@ -7,8 +7,7 @@ import android.graphics.drawable.Drawable;
 
 import com.dean.travltotibet.R;
 
-public class ResourceUtil
-{
+public class ResourceUtil {
     private final Context mContext;
 
     private final Resources mResources;
@@ -52,25 +51,24 @@ public class ResourceUtil
     public int indicator_shadow;
 
     public int indicator_shadow_alpha;
-    
+
     public int chart_text_paint;
-    
+
     public int chart_text_rect_city_paint;
-    
+
     public int chart_text_rect_town_paint;
 
     public int chart_text_rect_village_paint;
-    
+
     public int chart_text_rect_mountain_paint;
 
     public int chart_text_rect_hotel_paint;
 
     public int chart_text_rect_view_paint;
-    
+
     public int chart_text_rect_aplha;
 
-    public ResourceUtil( Context context )
-    {
+    public ResourceUtil(Context context) {
         super();
         this.mContext = context;
         this.mResources = mContext.getResources();
@@ -78,28 +76,27 @@ public class ResourceUtil
         initColor();
     }
 
-    private void initColor()
-    {
+    private void initColor() {
         chart_mountain = mResources.getColor(R.color.dark_blue);
         chart_mountain_shader = mResources.getColor(R.color.dark_blue);
         chart_mountain_alpha = (int) (255 * 0.6);
 
-        chart_line = mResources.getColor(R.color.dark_blue);
+        chart_line = mResources.getColor(R.color.colorPrimaryDark);
 
         chart_cross = mResources.getColor(R.color.orange_red);
         chart_cross_dialog_alpha = (int) (255 * 0.8);
         chart_cross_text = mResources.getColor(R.color.white);
         chart_arrow = mResources.getColor(R.color.orange_red);
 
-        chart_label_text = mResources.getColor(R.color.dark_blue);
+        chart_label_text = mResources.getColor(R.color.colorPrimaryDark);
 
-        chart_grid = mResources.getColor(R.color.dark_blue);
+        chart_grid = mResources.getColor(R.color.colorPrimaryDark);
         chart_grid_alpha = (int) (255 * 0.6);
-        chart_axis = mResources.getColor(R.color.dark_blue);
+        chart_axis = mResources.getColor(R.color.colorPrimaryDark);
 
         chart_backgroud = mResources.getColor(R.color.white_background);
 
-        indicator_background = mResources.getColor(R.color.dark_blue);
+        indicator_background = mResources.getColor(R.color.colorPrimary);
         indicator_mountain = mResources.getColor(R.color.white);
         indicator_mountain_line = mResources.getColor(R.color.white);
 
@@ -108,7 +105,7 @@ public class ResourceUtil
 
         indicator_shadow = mResources.getColor(R.color.white_gray);
         indicator_shadow_alpha = (int) (255 * 0.8);
-        
+
         chart_text_paint = mResources.getColor(R.color.white);
         chart_text_rect_aplha = (int) (255 * 0.8);
         chart_text_rect_city_paint = mResources.getColor(R.color.brown);
@@ -118,21 +115,17 @@ public class ResourceUtil
         chart_text_rect_hotel_paint = mResources.getColor(R.color.lime);
         chart_text_rect_view_paint = mResources.getColor(R.color.blue);
     }
-    
-    public String[] getStringArray( int id )
-    {
+
+    public String[] getStringArray(int id) {
         String[] array = null;
-        try
-        {
+        try {
             array = mResources.getStringArray(id);
-        }
-        catch (NotFoundException e)
-        {
+        } catch (NotFoundException e) {
         }
         return array;
     }
 
-    public Drawable getDrawableResourece(int id){
+    public Drawable getDrawableResourece(int id) {
         return mResources.getDrawable(id);
     }
 

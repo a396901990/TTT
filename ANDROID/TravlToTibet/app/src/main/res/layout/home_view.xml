@@ -48,6 +48,21 @@
                 android:layout_gravity="center"
                 android:padding="72dp"
                 android:visibility="invisible" />
+
+            <!--浮动按钮-->
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:elevation="8dp"
+                android:stateListAnimator="@anim/fab_anim"
+                android:transitionName="fab"
+                app:fabSize="normal"
+                app:pressedTranslationZ="12dp" />
         </FrameLayout>
 
         <!--导航-->
@@ -68,26 +83,10 @@
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
-    <!--浮动按钮-->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:elevation="8dp"
-        android:stateListAnimator="@anim/fab_anim"
-        android:transitionName="fab"
-        app:fabSize="normal"
-        app:pressedTranslationZ="12dp" />
-
     <!--阴影、去空白-->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_toolbar_shadow_height"
-        android:layout_marginTop="-4dp"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/top_shade_background" />
 

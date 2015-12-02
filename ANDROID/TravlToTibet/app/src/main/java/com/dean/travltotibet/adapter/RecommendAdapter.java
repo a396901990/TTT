@@ -17,6 +17,7 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         holder.mainTitle.setText(route.getName());
         holder.subTitle.setText(route.getRoute());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 跳转到InfoRouteActivity(类型BIKE)
@@ -109,7 +110,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     public static class RecommendViewHolder extends RecyclerView.ViewHolder {
 
-        NetworkImageView backgroundView;
+        private MaterialRippleLayout rippleLayout;
+        private NetworkImageView backgroundView;
         private TextView mainTitle;
         private TextView subTitle;
 
@@ -118,6 +120,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             backgroundView = (NetworkImageView) itemView.findViewById(R.id.background_view);
             mainTitle = (TextView) itemView.findViewById(R.id.main_title);
             subTitle = (TextView) itemView.findViewById(R.id.sub_title);
+            rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }
 }

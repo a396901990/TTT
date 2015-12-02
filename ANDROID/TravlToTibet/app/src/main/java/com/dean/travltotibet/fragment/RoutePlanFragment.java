@@ -16,6 +16,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.PlanListAdapter;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class RoutePlanFragment extends Fragment {
         final String rank = route.getRank();
         final String des = route.getDescribe();
 
-        RelativeLayout overall = (RelativeLayout) root.findViewById(R.id.overall_route);
+        View overall = root.findViewById(R.id.overall_route);
 
         TextView date = (TextView) overall.findViewById(R.id.plan_date);
         TextView detail_start = (TextView) overall.findViewById(R.id.plan_detail_start);

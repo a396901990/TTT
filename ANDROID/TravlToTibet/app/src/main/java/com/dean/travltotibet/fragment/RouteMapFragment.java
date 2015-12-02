@@ -1,7 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +36,16 @@ import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.ChartSettingActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.SwitchButton;
+import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.StringUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -296,11 +303,20 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         });
 
         // 转换视图
-        final View changeViewBtn = contentView.findViewById(R.id.change_view_btn);
+        final View changeViewBtn = contentView.findViewById(R.id.change_view_cancel_btn);
         // 转换视图，取消
         final View changeViewCancelBtn = contentView.findViewById(R.id.change_view_cancel_btn);
         // 扩展视图
         final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
+
+        FloatingActionButton mFabButton = (FloatingActionButton) contentView.findViewById(R.id.map_setting_btn);
+        mFabButton.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_settings).color(Color.WHITE).actionBar());
+        mFabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeExtendView.setVisibility(View.VISIBLE);
+            }
+        });
 
         changeViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -416,7 +432,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            overlay = new DrivingRouteOverlay(mBaiduMap);
+            overlay = new CustomDrivingRouteOverlay(mBaiduMap);
             mBaiduMap.setOnMarkerClickListener(overlay);
             overlay.setData(result.getRouteLines().get(0));
             overlay.addToMap();
@@ -429,6 +445,18 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
             loadingView.stop();
             viewContent.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public class CustomDrivingRouteOverlay extends DrivingRouteOverlay {
+
+        public CustomDrivingRouteOverlay(BaiduMap baiduMap) {
+            super(baiduMap);
+        }
+
+        @Override
+        public int getLineColor() {
+            return TTTApplication.getMyColor(R.color.colorPrimaryDark);
         }
     }
 

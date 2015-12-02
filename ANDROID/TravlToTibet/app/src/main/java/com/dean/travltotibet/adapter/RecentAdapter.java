@@ -16,6 +16,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         holder.mPlanNameDay.setText(String.format(Constants.RECENT_PLAN_NAME_DAY, name, day));
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 跳转到RouteActivity
@@ -69,7 +70,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
                 intent.putExtra(Constants.INTENT_ROUTE, recentRoute.getRoute());
                 intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
                 intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR());
-                intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, recentRoute.getRoute_plan_id());
+                intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
                 mContext.startActivity(intent);
 
             }
@@ -100,6 +101,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
     public static class RecentViewHolder extends RecyclerView.ViewHolder {
 
+        private MaterialRippleLayout rippleLayout;
         private ImageView mTitleView;
         private TextView mRouteName;
         private TextView mRouteStart;
@@ -113,6 +115,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
             mRouteStart = (TextView) itemView.findViewById(R.id.route_start);
             mRouteEnd = (TextView) itemView.findViewById(R.id.route_end);
             mPlanNameDay = (TextView) itemView.findViewById(R.id.route_plan_name_day);
+            rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }
 }

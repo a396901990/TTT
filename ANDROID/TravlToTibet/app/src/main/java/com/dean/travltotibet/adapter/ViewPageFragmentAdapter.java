@@ -21,6 +21,7 @@ public class ViewPageFragmentAdapter extends FragmentStatePagerAdapter {
     private final FragmentManager mFragmentManager;
     private SparseArray<Fragment> mFragments;
     private FragmentTransaction mCurTransaction;
+    private ArrayList<String> mTitle = new ArrayList<>();
 
     private java.util.List<Class<? extends Fragment>> frags = new ArrayList<Class<? extends Fragment>>();
     private List<Bundle> fragArguments = new ArrayList<Bundle>();
@@ -60,9 +61,11 @@ public class ViewPageFragmentAdapter extends FragmentStatePagerAdapter {
         return ((Fragment) fragment).getView() == view;
     }
 
-    public void add(Class<? extends Fragment> clazz, Bundle arguments) {
+    public void add(Class<? extends Fragment> clazz, Bundle arguments, String title) {
         frags.add(clazz);
         fragArguments.add(arguments);
+        mTitle.add(title);
+
         notifyDataSetChanged();
     }
 
@@ -113,5 +116,10 @@ public class ViewPageFragmentAdapter extends FragmentStatePagerAdapter {
 
     public SparseArray<Fragment> getAllFragments() {
         return mFragments;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitle.get(position);
     }
 }

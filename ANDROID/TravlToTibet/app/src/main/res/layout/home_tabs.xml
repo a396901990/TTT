@@ -9,9 +9,22 @@
     <com.dean.travltotibet.ui.PagerSlidingTabStrip xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/home_tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
         android:background="@color/white"
         app:pstsActivateTextColor="@color/dark_blue"
         app:pstsDeactivateTextColor="@color/half_dark_gray"
         app:pstsTabSwitch="true" />
+
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/home_tabs"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--app:tabGravity="fill"-->
+    <!--app:tabIndicatorHeight="4dp"-->
+    <!--app:tabTextColor="@color/half_dark_gray"-->
+    <!--app:tabSelectedTextColor="@color/dark_blue"-->
+    <!--app:tabIndicatorColor="@color/dark_blue" />-->
 </LinearLayout>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,25 +71,25 @@
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <!--详细-->
                 <fragment
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/info_detail_fragment"
                     android:name="com.dean.travltotibet.fragment.InfoDetailFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/info_header_fragment" />
+                    android:layout_below="@+id/info_header_fragment"
+                    android:layout_marginBottom="10dp" />
 
                 <!--准备-->
                 <fragment
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/info_prepare_fragment"
                     android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
 
                 <!--控制最后距离-->
                 <LinearLayout
@@ -142,12 +143,27 @@
             android:layout_marginBottom="@dimen/topLine_margin"
             android:background="@color/gray" />
 
-        <Button
-            android:id="@+id/goButton"
-            style="@style/ThemeButton"
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/bottom_padding"
-            android:layout_marginLeft="@dimen/generic_button_padding"
-            android:layout_marginRight="@dimen/generic_button_padding"
-            android:text="@string/info_prepare_go" />
+            android:layout_marginLeft="@dimen/transact_button_margin"
+            android:layout_marginRight="@dimen/transact_button_margin">
+
+            <Button
+
+                android:id="@+id/goButton"
+                style="@style/BaseButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="@string/info_prepare_go" />
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+
     </LinearLayout>
+
+
 </RelativeLayout>

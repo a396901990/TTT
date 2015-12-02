@@ -3,5 +3,12 @@
     android:id="@+id/routePlanFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <!--详细-->
+    <fragment
+        android:id="@+id/route_plan_fragment"
+        android:name="com.dean.travltotibet.fragment.RoutePlanFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </FrameLayout>
 
