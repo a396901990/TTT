@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ListView;
 
 import com.dean.greendao.PrepareDetail;
@@ -15,6 +16,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoPrepareDetailAdapter;
 import com.dean.travltotibet.model.InfoType;
+import com.dean.travltotibet.ui.animation.SwitchAnimationUtil;
 
 import java.util.ArrayList;
 
@@ -70,13 +72,6 @@ public class PrepareDetailFragment extends Fragment {
 
         // 根据名字从PrepareDetail表中获取详细数据
         mPrepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, mInfoType.toString());
-
-//        for(PrepareDetail prepareDetail : mPrepareDetails) {
-//            Log.e("getTitle", prepareDetail.getTitle());
-//            Log.e("getSummary", prepareDetail.getSummary());
-//            Log.e("getDetail", prepareDetail.getDetail());
-//        }
-
     }
 
     /**

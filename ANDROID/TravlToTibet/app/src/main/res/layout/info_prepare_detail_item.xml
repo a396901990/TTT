@@ -1,39 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/detail_title"
-        style="@style/TextAppearance.Large.Blue.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="感冒药" />
-
-    <!--标题分割-->
-    <View
+    <!--延展view-->
+    <LinearLayout
+        android:id="@+id/toggle_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/info_card_rule_height"
-        android:layout_marginBottom="@dimen/info_card_rule_margin"
-        android:layout_marginTop="@dimen/info_card_rule_margin"
-        android:background="@color/rule"></View>
-
-    <TextView
-        android:id="@+id/detail_summary"
-        style="@style/TextAppearance.Regular"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="感冒药是非常重要的，如果在高原感冒后果不堪设想，所以下面的几种感冒药可以多几份。" />
+        android:layout_below="@+id/header_card_view"
+        android:layout_margin="10dp"
+        android:background="@color/less_light_gray"
+        android:minHeight="50dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
 
-    <TextView
-        android:id="@+id/detail_item"
-        style="@style/TextAppearance.Small"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/detail_summary"
+            style="@style/TextAppearance.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="感冒药是非常重要的，如果在高原感冒后果不堪设想，所以下面的几种感冒药可以多几份。" />
+
+        <TextView
+            android:id="@+id/detail_item"
+            style="@style/TextAppearance.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="诶壁纸\n小儿止咳\n新康泰克" />
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/header_card_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:text="诶壁纸\n小儿止咳\n新康泰克" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="5dp">
 
-</LinearLayout>
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/header_layout"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <ToggleButton
+                    android:id="@+id/expand_collapse"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/togglearrow"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <TextView
+                    android:id="@+id/detail_title"
+                    style="@style/TextAppearance.Theme.Large.Bold.Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/expand_collapse"
+                    android:paddingLeft="15dp"
+                    android:text="药品" />
+
+            </RelativeLayout>
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

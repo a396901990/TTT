@@ -42,6 +42,7 @@ public class InfoPrepareFragment extends BaseInfoFragment {
         infoActivity = (InfoActivity) getActivity();
 
         initGridView();
+
     }
 
     private void initGridView() {
@@ -65,7 +66,6 @@ public class InfoPrepareFragment extends BaseInfoFragment {
                 getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             }
         });
-
     }
 
     @Override
