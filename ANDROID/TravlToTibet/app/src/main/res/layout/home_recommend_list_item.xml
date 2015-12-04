@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/recent_card_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/recommend_view_item_margin"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="5dp"
+    card_view:cardElevation="1dp"
     card_view:cardPreventCornerOverlap="false"
-    card_view:contentPadding="-5dp">
+    card_view:cardUseCompatPadding="true">
 
     <com.dean.travltotibet.ui.MaterialRippleLayout
         android:id="@+id/ripple_view"

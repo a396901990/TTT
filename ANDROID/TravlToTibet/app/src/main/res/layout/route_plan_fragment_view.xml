@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <include
@@ -10,14 +9,21 @@
         layout="@layout/route_plan_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"></include>
+        android:layout_margin="6dp"></include>
 
-    <ListView
-        android:id="@+id/plan_list"
+    <!--<ListView-->
+    <!--android:id="@+id/plan_list"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="8dp"-->
+    <!--android:padding="10dp"-->
+    <!--android:dividerHeight="2dip"></ListView>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/plan_fragment_list_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:divider="@color/gray_background"
-        android:dividerHeight="8dip"></ListView>
+        android:layout_height="match_parent"
+        android:layout_margin="12dp" />
+
 </LinearLayout>
 

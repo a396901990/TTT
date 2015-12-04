@@ -1,4 +1,3 @@
 <resources>
     <!--home-->
-    <dimen name="recommend_view_item_margin">2dp</dimen>
 </resources>

@@ -7,9 +7,10 @@
         android:id="@+id/recent_fragment_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:clipToPadding="false"
-        android:padding="@dimen/recent_list_padding" />
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:clipToPadding="false" />
 
 </LinearLayout>

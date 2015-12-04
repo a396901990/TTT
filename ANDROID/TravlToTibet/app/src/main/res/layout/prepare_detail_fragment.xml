@@ -1,32 +1,17 @@
-<!--列表视图-->
-<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <!--<com.dean.travltotibet.ui.InsideScrollListView-->
-        <!--android:id="@+id/detail_list"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:divider="@null"-->
-        <!--android:dividerHeight="2dip"-->
-        <!--android:scrollbars="none"></com.dean.travltotibet.ui.InsideScrollListView>-->
-<!--</ScrollView>-->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical" >
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/prepare_detail_fragment_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
 
-<ListView
-    android:id="@+id/detail_list"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:dividerHeight="2dp"
-    android:background="#f4f4f4"
-    android:childDivider="#00000000"
-    android:cacheColorHint="#00000000"
-    android:scrollbarSize="0dp"
-    android:divider="#00000000"/>
+        />
 
 </RelativeLayout>

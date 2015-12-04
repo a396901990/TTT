@@ -2,6 +2,8 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoPrepareDetailAdapter;
+import com.dean.travltotibet.adapter.PrepareDetailAdapter;
+import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.animation.SwitchAnimationUtil;
 
@@ -31,8 +35,7 @@ public class PrepareDetailFragment extends Fragment {
 
     private String mRoute;
 
-    private ListView mListView;
-    private InfoPrepareDetailAdapter mAdapter;
+    private PrepareDetailAdapter mAdapter;
     private ArrayList<PrepareDetail> mPrepareDetails;
     private InfoType mInfoType;
 
@@ -78,11 +81,15 @@ public class PrepareDetailFragment extends Fragment {
      * 初始化列表
      */
     private void initList() {
-        mListView = (ListView) root.findViewById(R.id.detail_list);
-        mAdapter = new InfoPrepareDetailAdapter(mActivity);
+        mAdapter = new PrepareDetailAdapter(mActivity);
+
+        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.prepare_detail_fragment_list_rv);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
+
         if (mPrepareDetails != null) {
             mAdapter.setData(mPrepareDetails);
-            mListView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(mAdapter);
         }
     }
 

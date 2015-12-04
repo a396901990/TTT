@@ -2,12 +2,11 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dean.greendao.Plan;
@@ -15,16 +14,15 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.adapter.PlanListAdapter;
-import com.dean.travltotibet.ui.MaterialRippleLayout;
+import com.dean.travltotibet.adapter.PlanAdapter;
+import com.dean.travltotibet.animator.ReboundItemAnimator;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class RoutePlanFragment extends Fragment {
+public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemListener{
 
     private View root;
 
@@ -91,29 +89,20 @@ public class RoutePlanFragment extends Fragment {
      * 初始化列表菜单
      */
     private void initPlanList() {
-        final ArrayList<PlanListAdapter.PlanListItem> mPlans = new ArrayList<PlanListAdapter.PlanListItem>();
+        final ArrayList<Plan> mPlans = new ArrayList<Plan>();
 
         // 获取数据库路线
-        final List<Plan> plans = TTTApplication.getDbHelper().getPlanList(routeActivity.getRoutePlanId());
+        final ArrayList<Plan> plans = (ArrayList<Plan>) TTTApplication.getDbHelper().getPlanList(routeActivity.getRoutePlanId());
 
-        for (Plan plan : plans) {
-            mPlans.add(new PlanListAdapter.PlanListItem("DAY" + plan.getDay(), plan.getStart(), plan.getEnd(), plan.getDistance()));
-        }
+        PlanAdapter adapter = new PlanAdapter(getActivity());
+        adapter.setPlanListener(this);
+        adapter.setData(plans);
 
-        PlanListAdapter adapter = new PlanListAdapter(getActivity());
-        adapter.setData(mPlans);
+        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.plan_fragment_list_rv);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
 
-        ListView planList = (ListView) root.findViewById(R.id.plan_list);
-        planList.setAdapter(adapter);
-        planList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Plan plan = plans.get(position);
-
-                // 更新chart视图
-                updateChart(false, plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getRank(), plan.getDescribe());
-            }
-        });
+        mRecyclerView.setAdapter(adapter);
     }
 
     /**
@@ -131,6 +120,11 @@ public class RoutePlanFragment extends Fragment {
         if (routeActivity.getSlidingMenu().isMenuShowing()) {
             routeActivity.getSlidingMenu().toggle();
         }
+    }
+
+    @Override
+    public void onPlanClick(Plan plan) {
+        updateChart(false, plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getRank(), plan.getDescribe());
     }
 
 }
