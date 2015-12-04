@@ -19,12 +19,9 @@ import com.dean.travltotibet.adapter.ChartSettingUnSelectedListAdapter;
 import com.dean.travltotibet.model.PointCheck;
 import com.dean.travltotibet.ui.InsideScrollDragSoftListView;
 import com.dean.travltotibet.ui.InsideScrollListView;
-import com.dean.travltotibet.ui.NormalDialog;
 import com.dean.travltotibet.util.PointManager;
 
 import java.util.List;
-
-import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by DeanGuo on 11/5/15.

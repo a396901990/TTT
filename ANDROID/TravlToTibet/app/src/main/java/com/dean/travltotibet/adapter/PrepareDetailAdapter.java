@@ -36,15 +36,15 @@ public class PrepareDetailAdapter extends RecyclerView.Adapter<PrepareDetailAdap
 
     @Override
     public PrepareDetailHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_prepare_detail_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.prepare_detail_list_item_view, parent, false);
         return new PrepareDetailHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final PrepareDetailHolder holder, int position) {
 
-        final Animation slidedown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
-        final Animation slideup = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
+        final Animation slidedown = AnimationUtils.loadAnimation(mContext, R.anim.card_slide_down);
+        final Animation slideup = AnimationUtils.loadAnimation(mContext, R.anim.card_slide_up);
 
         holder.toggleButton.setFocusable(false);
         slidedown.setInterpolator(new BounceInterpolator());

@@ -53,5 +53,4 @@ dependencies {
     compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
     compile 'com.facebook.rebound:rebound:0.3.6'
     compile 'com.robbypond:material-dialogs:1.0.0'
-    compile 'me.drakeet.materialdialog:library:1.2.8'
 }

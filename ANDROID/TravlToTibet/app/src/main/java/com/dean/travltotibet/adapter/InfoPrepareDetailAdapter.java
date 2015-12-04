@@ -1,7 +1,6 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.animation.BounceInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -58,11 +56,11 @@ public class InfoPrepareDetailAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = LayoutInflater.from(mContext);
-            convertView = mInflater.inflate(R.layout.info_prepare_detail_item, null);
+            convertView = mInflater.inflate(R.layout.prepare_detail_list_item_view, null);
         }
 
-        final Animation slidedown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
-        final Animation slideup = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
+        final Animation slidedown = AnimationUtils.loadAnimation(mContext, R.anim.card_slide_down);
+        final Animation slideup = AnimationUtils.loadAnimation(mContext, R.anim.card_slide_up);
 
         final ViewHolder holder = new ViewHolder(convertView);
         holder.toggleButton.setFocusable(false);

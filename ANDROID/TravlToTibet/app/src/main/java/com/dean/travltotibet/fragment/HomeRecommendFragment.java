@@ -52,11 +52,11 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         mActivity = (HomeActivity) getActivity();
 
         getRouteData();
-        setUpList();
+        initList();
         initWhereGo();
     }
 
-    private void setUpList() {
+    private void initList() {
         RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.recommend_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());

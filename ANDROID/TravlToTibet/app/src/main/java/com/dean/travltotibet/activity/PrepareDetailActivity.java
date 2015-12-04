@@ -39,7 +39,7 @@ public class PrepareDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prepare_detail_layout);
+        setContentView(R.layout.prepare_detail_view);
 
         Intent intent = getIntent();
         if (intent != null) {

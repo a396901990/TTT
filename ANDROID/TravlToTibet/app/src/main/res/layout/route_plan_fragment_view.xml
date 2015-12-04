@@ -9,15 +9,9 @@
         layout="@layout/route_plan_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"></include>
-
-    <!--<ListView-->
-    <!--android:id="@+id/plan_list"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="8dp"-->
-    <!--android:padding="10dp"-->
-    <!--android:dividerHeight="2dip"></ListView>-->
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"></include>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/plan_fragment_list_rv"

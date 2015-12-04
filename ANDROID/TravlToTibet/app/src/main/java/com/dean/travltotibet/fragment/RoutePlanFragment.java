@@ -45,7 +45,6 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-//        initDropdownNavigation();
         updatePlanOverall();
         initPlanList();
     }
@@ -65,7 +64,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         final String rank = route.getRank();
         final String des = route.getDescribe();
 
-        View overall = root.findViewById(R.id.overall_route);
+        View overall = root.findViewById(R.id.ripple_view);
 
         TextView date = (TextView) overall.findViewById(R.id.plan_date);
         TextView detail_start = (TextView) overall.findViewById(R.id.plan_detail_start);

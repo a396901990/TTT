@@ -4,23 +4,18 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ListView;
 
 import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
-import com.dean.travltotibet.adapter.InfoPrepareDetailAdapter;
 import com.dean.travltotibet.adapter.PrepareDetailAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.ui.animation.SwitchAnimationUtil;
 
 import java.util.ArrayList;
 
@@ -47,7 +42,7 @@ public class PrepareDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_detail_fragment, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_detail_fragment_view, null);
         return root;
     }
 
