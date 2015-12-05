@@ -128,6 +128,11 @@ public class RouteGuideFragment extends BaseRouteFragment {
         updateBriefView();
     }
 
+    @Override
+    public void fabBtnEvent() {
+        
+    }
+
     private ArrayList<Geocode> getListData(String start, String end) {
 
         // 根据起点终点获取数据

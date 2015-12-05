@@ -309,15 +309,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         // 扩展视图
         final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
 
-        FloatingActionButton mFabButton = (FloatingActionButton) contentView.findViewById(R.id.map_setting_btn);
-        mFabButton.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_settings).color(Color.WHITE).actionBar());
-        mFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeExtendView.setVisibility(View.VISIBLE);
-            }
-        });
-
         changeViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -399,6 +390,12 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     @Override
     public void updateRoute() {
         searchRoute();
+    }
+
+    @Override
+    public void fabBtnEvent() {
+        final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
+        changeExtendView.setVisibility(View.VISIBLE);
     }
 
     @Override

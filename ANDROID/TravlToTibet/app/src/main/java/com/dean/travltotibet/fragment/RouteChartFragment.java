@@ -76,21 +76,6 @@ public class RouteChartFragment extends BaseRouteFragment {
         mChartView = (RouteChartView) contentView.findViewById(R.id.chart);
         mIndicatorView = (IndicatorChartView) contentView.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
-
-        initBtn();
-    }
-
-    private void initBtn() {
-        FloatingActionButton mFabButton = (FloatingActionButton) contentView.findViewById(R.id.chart_setting_btn);
-        mFabButton.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_settings).color(Color.WHITE).actionBar());
-        mFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChartSettingActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
-                startActivityForResult(intent, CHART_SETTING);
-            }
-        });
     }
 
     @Override
@@ -234,5 +219,12 @@ public class RouteChartFragment extends BaseRouteFragment {
     public void updateRoute() {
         updateChartDetail(null);
         updateChartRoute();
+    }
+
+    @Override
+    public void fabBtnEvent() {
+        Intent intent = new Intent(getActivity(), ChartSettingActivity.class);
+        intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
+        startActivityForResult(intent, CHART_SETTING);
     }
 }

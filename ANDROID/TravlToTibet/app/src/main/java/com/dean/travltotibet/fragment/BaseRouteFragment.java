@@ -120,6 +120,11 @@ public abstract class BaseRouteFragment extends Fragment {
      */
     public abstract void updateRoute();
 
+    /**
+     * fragment菜单按钮
+     */
+    public abstract void fabBtnEvent();
+
     public void setCurrentPlan(String currentPlan, String end) {
         this.currentPlan = currentPlan + end;
     }

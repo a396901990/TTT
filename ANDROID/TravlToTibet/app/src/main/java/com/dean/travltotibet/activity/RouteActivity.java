@@ -8,6 +8,7 @@ import com.dean.travltotibet.fragment.BaseRouteFragment;
 import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
+import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -17,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -97,6 +99,7 @@ public class RouteActivity
         initPlan(savedInstanceState);
         initMenu();
         initViewPagerAndTab();
+        initFabBtn();
 
         // 跟新信息
         updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planRank, planDescribe);
@@ -106,12 +109,8 @@ public class RouteActivity
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
 
-        //actionBar.setHomeAsUpIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
         actionBar.setTitle("叶城县-拉萨");
         actionBar.setSubtitle("2525KM");
 
@@ -199,8 +198,18 @@ public class RouteActivity
             }
         });
 
-        TabLayout mTabs = (TabLayout) this.findViewById(R.id.tabs);
-        mTabs.setupWithViewPager(mPager);
+        PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
+        mTabs.setViewPager(mPager);
+    }
+
+    private void initFabBtn() {
+        FloatingActionButton mFabButton = (FloatingActionButton) this.findViewById(R.id.floating_action_button);
+        mFabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fabBtnEvent();
+            }
+        });
     }
 
     /**
@@ -239,6 +248,18 @@ public class RouteActivity
             if (fragment.isAdded() && fragment.isLoaded() && !fragment.isCurrentPlan(planStart, planEnd)) {
                 fragment.updateRoute();
                 fragment.setCurrentPlan(planStart, planEnd);
+            }
+        }
+    }
+
+    /**
+     * 点击当前fragment的菜单
+     */
+    public void fabBtnEvent() {
+        if (mAdapter.getAllFragments().size() > 0) {
+            BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            if (fragment.isAdded() && fragment.isLoaded()) {
+                fragment.fabBtnEvent();
             }
         }
     }
