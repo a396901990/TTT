@@ -15,7 +15,4 @@ public abstract class BaseHomeFragment extends Fragment {
     public abstract void update();
 
     public abstract void refresh();
-
-    public abstract void fabEvent();
-
 }

@@ -48,7 +48,6 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private FloatingActionButton mFabButton;
     private ProgressBar mProgressBar;
 
     @Override
@@ -94,18 +93,6 @@ public class HomeActivity extends AppCompatActivity {
                     BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
                     fragment.update();
                 }
-
-                // 根据不同页面改变mFabButton图标
-                if (mFabButton != null) {
-                    int page = mPager.getCurrentItem();
-                    if (page == 0) {
-                        mFabButton.setImageDrawable(new IconicsDrawable(getApplicationContext(), GoogleMaterial.Icon.gmd_delete).color(Color.WHITE).actionBar());
-                    } else if (page == 1) {
-                        mFabButton.setImageDrawable(new IconicsDrawable(getApplicationContext(), GoogleMaterial.Icon.gmd_open_in_new).color(Color.WHITE).actionBar());
-                    } else if (page == 2) {
-                        mFabButton.setImageDrawable(new IconicsDrawable(getApplicationContext(), GoogleMaterial.Icon.gmd_play_for_work).color(Color.WHITE).actionBar());
-                    }
-                }
             }
         });
         // 解决Viewpager和SwipeRefreshLayout滑动冲突
@@ -135,19 +122,6 @@ public class HomeActivity extends AppCompatActivity {
                 if (mAdapter.getAllFragments().size() > 0) {
                     BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
                     fragment.refresh();
-                }
-            }
-        });
-
-        // Fab Button
-        mFabButton = (FloatingActionButton) findViewById(R.id.fab_normal);
-        mFabButton.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_delete).color(Color.WHITE).actionBar());
-        mFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAdapter.getAllFragments().size() > 0) {
-                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
-                    fragment.fabEvent();
                 }
             }
         });

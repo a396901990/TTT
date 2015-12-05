@@ -164,5 +164,9 @@
     <dimen name="where_go_card_padding">10dp</dimen>
     <integer name="where_go_grid_columns_num">3</integer>
 
+    <!---->
     <dimen name="dialog_width">280dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="labels_text_size">14sp</dimen>
 </resources>

@@ -1,12 +1,17 @@
 package com.dean.travltotibet.fragment;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.greendao.RecentRoute;
@@ -15,6 +20,9 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.RecentAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.ui.fab.FloatingActionButton;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.ArrayList;
 
@@ -26,8 +34,8 @@ public class HomeRecentFragment extends BaseHomeFragment {
     private View root;
     private RecentAdapter mAdapter;
     private ArrayList<RecentRoute> recentRoutes;
-    private View deleteBtn;
     private HomeActivity mActivity;
+    private RecyclerView mRecyclerView;
 
     public HomeRecentFragment() {
     }
@@ -51,11 +59,11 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
         getRecentData();
         setUpList();
-        //initDeleteBtn();
+        initFabBtn();
     }
 
     private void setUpList() {
-        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.recent_fragment_list_rv);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.recent_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
 
@@ -71,6 +79,44 @@ public class HomeRecentFragment extends BaseHomeFragment {
         recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
         mAdapter.setData(recentRoutes);
         mAdapter.notifyDataSetChanged();
+    }
+
+    private void initFabBtn() {
+        final FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_delete).color(Color.WHITE).actionBar());
+        fab.hide(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fab.show(true);
+                fab.setShowAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom));
+                fab.setHideAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.hide_to_bottom));
+            }
+        }, 300);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fabEvent();
+            }
+        });
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    fab.hide(true);
+                } else {
+                    fab.show(true);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     /**
@@ -91,7 +137,6 @@ public class HomeRecentFragment extends BaseHomeFragment {
         new refreshTask().execute();
     }
 
-    @Override
     public void fabEvent() {
 
         new MaterialDialog.Builder(getActivity())

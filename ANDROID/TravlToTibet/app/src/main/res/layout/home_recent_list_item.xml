@@ -4,6 +4,8 @@
     android:id="@+id/recent_card_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardBackgroundColor="@color/colorPrimary"
     card_view:cardUseCompatPadding="true"

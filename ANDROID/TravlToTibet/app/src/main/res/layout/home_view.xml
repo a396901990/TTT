@@ -49,20 +49,6 @@
                 android:padding="72dp"
                 android:visibility="invisible" />
 
-            <!--浮动按钮-->
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="20dp"
-                android:elevation="8dp"
-                android:stateListAnimator="@anim/fab_anim"
-                android:transitionName="fab"
-                app:fabSize="normal"
-                app:pressedTranslationZ="12dp" />
         </FrameLayout>
 
         <!--导航-->
