@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,12 @@ import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.adapter.GuidelineExpandAdapter;
-import com.dean.travltotibet.adapter.GuidelineExpandAdapter.ChildGuidelineEntity;
-import com.dean.travltotibet.adapter.GuidelineExpandAdapter.GroupGuidelineEntity;
+import com.dean.travltotibet.adapter.GuideDetailAdapter;
 import com.dean.travltotibet.ui.ExpandableTextView;
+import com.dean.travltotibet.ui.InsideScrollAnimatedExpandableListView;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.StringUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -34,11 +30,11 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private RouteActivity routeActivity;
 
-    private GuidelineExpandAdapter timelineAdapter;
+    private GuideDetailAdapter mAdapter;
 
-    private ExpandableListView timelineList;
+    private InsideScrollAnimatedExpandableListView mListView;
 
-    private List<GroupGuidelineEntity> dataList;
+    private ArrayList<Geocode> mDataResult;
 
     private ExpandableTextView briefDescribe;
 
@@ -67,14 +63,14 @@ public class RouteGuideFragment extends BaseRouteFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
 
-        timelineList = (ExpandableListView) contentView.findViewById(R.id.timeline_list);
-        timelineAdapter = new GuidelineExpandAdapter(getActivity());
+        mListView = (InsideScrollAnimatedExpandableListView) contentView.findViewById(R.id.guide_list);
+        mAdapter = new GuideDetailAdapter(getActivity());
     }
 
     @Override
     protected void onLoading() {
         // 初始化数据adapter并赋值
-        dataList = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
+        mDataResult = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
         updateBriefView();
     }
 
@@ -104,10 +100,25 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     @Override
     protected void onLoadFinished() {
-        timelineAdapter.setData(dataList);
-        timelineList.setAdapter(timelineAdapter);
-        timelineList.expandGroup(0);
+        if (mDataResult != null) {
+            mAdapter.setData(mDataResult);
+            mListView.setAdapter(mAdapter);
+            mListView.expandGroupWithAnimation(0);
+            mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v,
+                                            int groupPosition, long id) {
+                    if (mListView.isGroupExpanded(groupPosition)) {
+                        mListView.collapseGroupWithAnimation(groupPosition);
+                    } else {
+                        mListView.expandGroupWithAnimation(groupPosition);
+                    }
+                    return true;
+                }
+
+            });
+        }
         ((ViewGroup) rootView).addView(contentView);
     }
 
@@ -117,55 +128,14 @@ public class RouteGuideFragment extends BaseRouteFragment {
         updateBriefView();
     }
 
-    private List<GroupGuidelineEntity> getListData(String start, String end) {
+    private ArrayList<Geocode> getListData(String start, String end) {
 
         // 根据起点终点获取数据
         String routeName = routeActivity.getCurrentRoute().getRoute();
         boolean isForward = routeActivity.isForward();
-        List<Geocode> geocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end, isForward);
+        ArrayList<Geocode> geocodes = (ArrayList<Geocode>) TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end, isForward);
 
-        // groupList存放所有数据
-        List<GroupGuidelineEntity> groupList = new ArrayList<GroupGuidelineEntity>();
-
-        for (Geocode geocode : geocodes) {
-            // title模型对象
-            GroupGuidelineEntity groupStatusEntity = new GroupGuidelineEntity();
-            // 为title设置值
-            groupStatusEntity.setTitleName(geocode.getName());
-
-            List<ChildGuidelineEntity> childList = new ArrayList<ChildGuidelineEntity>();
-            // child子view的模型
-            ChildGuidelineEntity childStatusEntity = new ChildGuidelineEntity();
-
-            // 为子视图设置高度
-            String height = StringUtil.formatDoubleToInteger(geocode.getElevation());
-            height = String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, height);
-            childStatusEntity.setTitleHeight(height);
-
-            // 为子视图设置位置
-            String road = geocode.getRoad();
-            if (!TextUtils.isEmpty(road)) {
-                road = road.split("/")[1];
-            }
-
-            String milestone = StringUtil.formatDoubleToFourInteger(geocode.getMilestone());
-            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
-            childStatusEntity.setTitleMilestone(milestone);
-
-            // 为子视图设置详细攻略信息
-            childStatusEntity.setRouteDetail(geocode.getAddress());
-//            StringBuffer sb = new StringBuffer();
-//            for (int j = 0; j < childTimeArray[i].length; j++) {
-//                sb.append(childTimeArray[i][j]);
-//                sb.append("\n");
-//            }
-
-            childList.add(childStatusEntity);
-            groupStatusEntity.setChildList(childList);
-            groupList.add(groupStatusEntity);
-        }
-
-        return groupList;
+        return geocodes;
     }
 
     /**
@@ -201,18 +171,17 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     }
 
-
     private void updateTimelineView() {
         String start = routeActivity.getPlanStart();
         String end = routeActivity.getPlanEnd();
 
-        timelineAdapter.setData(getListData(start, end));
+        mAdapter.setData(getListData(start, end));
         // 遍历所有group,将所有项设置成默认关闭
-        int groupCount = timelineList.getCount();
+        int groupCount = mListView.getCount();
         for (int i = 0; i < groupCount; i++) {
-            timelineList.collapseGroup(i);
+            mListView.collapseGroup(i);
         }
         // 打开第一个
-        timelineList.expandGroup(0);
+        mListView.expandGroupWithAnimation(0);
     }
 }

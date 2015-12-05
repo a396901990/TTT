@@ -211,8 +211,8 @@
                 android:text="行程" />
 
             <!--行程时间线列表-->
-            <com.dean.travltotibet.ui.TimelineListview
-                android:id="@+id/timeline_list"
+            <com.dean.travltotibet.ui.InsideScrollAnimatedExpandableListView
+                android:id="@+id/guide_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_below="@+id/route_title"

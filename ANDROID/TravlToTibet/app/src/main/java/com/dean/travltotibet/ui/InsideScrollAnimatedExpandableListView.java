@@ -10,12 +10,12 @@ import android.widget.ExpandableListView;
  * ExpandableListView 可适应scrollview，
  * 原理就是设置高度为最大的一半，然后在匹配父控件
  */
-public class TimelineListview extends ExpandableListView{
-    public TimelineListview(Context context) {
+public class InsideScrollAnimatedExpandableListView extends AnimatedExpandableListView{
+    public InsideScrollAnimatedExpandableListView(Context context) {
         super(context);
     }
 
-    public TimelineListview(Context context, AttributeSet attrs) {
+    public InsideScrollAnimatedExpandableListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
