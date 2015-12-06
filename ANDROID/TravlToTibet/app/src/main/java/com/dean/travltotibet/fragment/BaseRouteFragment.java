@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.CustomProgress;
+import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.ProgressUtil;
 
 /**
@@ -35,10 +37,12 @@ public abstract class BaseRouteFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (getUserVisibleHint()) {
-            isVisible = true;
-        } else {
-            isVisible = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            if (getUserVisibleHint()) {
+                isVisible = true;
+            } else {
+                isVisible = false;
+            }
         }
 
         lazyLoad();
@@ -124,6 +128,8 @@ public abstract class BaseRouteFragment extends Fragment {
      * fragment菜单按钮
      */
     public abstract void fabBtnEvent();
+
+    public abstract void initMenu(FloatingActionMenu menu);
 
     public void setCurrentPlan(String currentPlan, String end) {
         this.currentPlan = currentPlan + end;

@@ -9,15 +9,21 @@ import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -28,7 +34,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by DeanGuo on 7/19/15.
@@ -75,6 +83,8 @@ public class RouteActivity
     private Toolbar mToolbar;
     private TextView mMenuDate;
 
+    private FloatingActionMenu mFloatingActionMenu;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.route_view);
@@ -98,12 +108,66 @@ public class RouteActivity
         initToolBar();
         initPlan(savedInstanceState);
         initMenu();
+        initFabActionMenu();
         initViewPagerAndTab();
-        initFabBtn();
+        // initFabBtn();
+
 
         // 跟新信息
         updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planRank, planDescribe);
     }
+
+    private void initFabActionMenu() {
+        mFloatingActionMenu = (FloatingActionMenu) findViewById(R.id.menu_down);
+        mFloatingActionMenu.setMenuButtonColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        mFloatingActionMenu.setMenuButtonColorPressed(TTTApplication.getMyColor(R.color.colorAccentDark));
+        // fab动画
+        createCustomAnimation();
+
+        // 延迟加载
+        mFloatingActionMenu.hideMenuButton(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mFloatingActionMenu.showMenuButton(true);
+            }
+        }, 700);
+
+        // 点击外侧关闭
+        mFloatingActionMenu.setClosedOnTouchOutside(true);
+    }
+
+    private void createCustomAnimation() {
+        final FloatingActionMenu mMenu = (FloatingActionMenu) findViewById(R.id.menu_down);
+        AnimatorSet set = new AnimatorSet();
+
+        ObjectAnimator scaleOutX = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleX", 1.0f, 0.2f);
+        final ObjectAnimator scaleOutY = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleY", 1.0f, 0.2f);
+
+        ObjectAnimator scaleInX = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleX", 0.2f, 1.0f);
+        ObjectAnimator scaleInY = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleY", 0.2f, 1.0f);
+
+        scaleOutX.setDuration(50);
+        scaleOutY.setDuration(50);
+
+        scaleInX.setDuration(150);
+        scaleInY.setDuration(150);
+
+        scaleInX.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mMenu.getMenuIconView().setImageResource(mMenu.isOpened()
+                        ? R.drawable.ic_close : R.drawable.ic_star);
+            }
+        });
+
+        set.play(scaleOutX).with(scaleOutY);
+        set.play(scaleInX).with(scaleInY).after(scaleOutX);
+        set.setInterpolator(new OvershootInterpolator(2));
+
+        mMenu.setIconToggleAnimatorSet(set);
+    }
+
 
     private void initToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -195,11 +259,15 @@ public class RouteActivity
             public void onPageSelected(int position) {
                 // 更新路线
                 updateRoute();
+
+                // 初始化菜单
+                initFABMenu();
             }
         });
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
+        initFABMenu();
     }
 
     private void initFabBtn() {
@@ -264,6 +332,19 @@ public class RouteActivity
         }
     }
 
+    /**
+     * 根据不同fragment设置menu
+     */
+    public void initFABMenu() {
+        if (mAdapter.getAllFragments().size() > 0) {
+            BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            if (fragment.isAdded()) {
+                mFloatingActionMenu.removeAllMenuButtons();
+                fragment.initMenu(mFloatingActionMenu);
+            }
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -289,6 +370,10 @@ public class RouteActivity
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public FloatingActionMenu getFloatingActionMenu() {
+        return mFloatingActionMenu;
     }
 
     public String getPlanDate() {

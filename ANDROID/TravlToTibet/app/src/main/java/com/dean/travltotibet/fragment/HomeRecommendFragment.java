@@ -20,6 +20,7 @@ import com.dean.travltotibet.activity.WhereGoActivity;
 import com.dean.travltotibet.adapter.HomeGridAdapter;
 import com.dean.travltotibet.adapter.RecommendAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.recommend_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
+        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(1));
 
         mAdapter = new RecommendAdapter(getActivity());
         mAdapter.setData(routes);

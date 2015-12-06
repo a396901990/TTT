@@ -1,15 +1,9 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -36,22 +30,26 @@ import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ChartSettingActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.SwitchButton;
-import com.dean.travltotibet.util.CompatHelper;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.StringUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
+import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.util.MenuUtil;
 
 /**
  * Created by DeanGuo on 8/30/15.
  */
 public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMapClickListener,
         OnGetRoutePlanResultListener {
+
+    private final static int SATELLITE = 0;
+
+    private final static int NORMAL = 1;
+
+    private final static int OVERVIEW = 2;
+
+    private int currentShowType = 1;
 
     private View rootView;
 
@@ -71,6 +69,10 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     private DrivingRouteOverlay overlay;
 
     private final static int OVERLOOK_ANGLE = -45;
+
+    private com.dean.travltotibet.ui.fab.FloatingActionButton satellite;
+    private com.dean.travltotibet.ui.fab.FloatingActionButton normalMap;
+    private com.dean.travltotibet.ui.fab.FloatingActionButton overViewMap;
 
     public static RouteMapFragment newInstance() {
         return new RouteMapFragment();
@@ -397,6 +399,93 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
         changeExtendView.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void initMenu(final FloatingActionMenu menu) {
+        menu.removeAllMenuButtons();
+
+        // 卫星地图
+        satellite = MenuUtil.initFAB(getActivity(), "卫星地图", R.drawable.ic_ab_back_icon);
+        menu.addMenuButton(satellite);
+        // 2D平面图
+        normalMap = MenuUtil.initFAB(getActivity(), "2D平面图", R.drawable.ic_ab_back_icon);
+        menu.addMenuButton(normalMap);
+        // 3D俯视图
+        overViewMap = MenuUtil.initFAB(getActivity(), "3D俯视图", R.drawable.ic_ab_back_icon);
+        menu.addMenuButton(overViewMap);
+
+
+        // 设置默认点击
+        setCurrentShowType(currentShowType);
+
+        satellite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentShowType(SATELLITE);
+            }
+        });
+
+        normalMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentShowType(NORMAL);
+            }
+        });
+
+        overViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentShowType(OVERVIEW);
+            }
+        });
+    }
+
+    public void setCurrentShowType(int currentShowType) {
+        this.currentShowType = currentShowType;
+
+        resetShowType();
+
+        MapStatus ms;
+        MapStatusUpdate u;
+
+        switch (currentShowType) {
+            case SATELLITE:
+                satellite.setImageResource(R.drawable.action_bar_check);
+                satellite.setColorNormal(TTTApplication.getMyColor(R.color.colorAccentDark));
+
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                break;
+            case NORMAL:
+                normalMap.setImageResource(R.drawable.action_bar_check);
+                normalMap.setColorNormal(TTTApplication.getMyColor(R.color.colorAccentDark));
+
+                ms = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(0).build();
+                u = MapStatusUpdateFactory.newMapStatus(ms);
+                mBaiduMap.animateMapStatus(u);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                break;
+            case OVERVIEW:
+                overViewMap.setImageResource(R.drawable.action_bar_check);
+                overViewMap.setColorNormal(TTTApplication.getMyColor(R.color.colorAccentDark));
+
+                ms = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(OVERLOOK_ANGLE).build();
+                u = MapStatusUpdateFactory.newMapStatus(ms);
+                mBaiduMap.animateMapStatus(u);
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                break;
+        }
+    }
+
+    public void resetShowType() {
+        satellite.setImageResource(R.drawable.ic_ab_back_icon);
+        normalMap.setImageResource(R.drawable.ic_ab_back_icon);
+        overViewMap.setImageResource(R.drawable.ic_ab_back_icon);
+
+        satellite.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        normalMap.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        overViewMap.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+    }
+
 
     @Override
     public void onMapClick(LatLng point) {

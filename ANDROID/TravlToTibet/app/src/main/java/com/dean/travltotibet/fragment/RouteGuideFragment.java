@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
@@ -13,8 +14,10 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.GuideDetailAdapter;
+import com.dean.travltotibet.ui.AnimatedExpandableListView;
 import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.ui.InsideScrollAnimatedExpandableListView;
+import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private GuideDetailAdapter mAdapter;
 
-    private InsideScrollAnimatedExpandableListView mListView;
+    private AnimatedExpandableListView mListView;
 
     private ArrayList<Geocode> mDataResult;
 
@@ -63,7 +66,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
 
-        mListView = (InsideScrollAnimatedExpandableListView) contentView.findViewById(R.id.guide_list);
+        mListView = (AnimatedExpandableListView) contentView.findViewById(R.id.guide_list);
         mAdapter = new GuideDetailAdapter(getActivity());
     }
 
@@ -103,16 +106,16 @@ public class RouteGuideFragment extends BaseRouteFragment {
         if (mDataResult != null) {
             mAdapter.setData(mDataResult);
             mListView.setAdapter(mAdapter);
-            mListView.expandGroupWithAnimation(0);
+            mListView.expandGroup(0);
             mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
                 @Override
                 public boolean onGroupClick(ExpandableListView parent, View v,
                                             int groupPosition, long id) {
                     if (mListView.isGroupExpanded(groupPosition)) {
-                        mListView.collapseGroupWithAnimation(groupPosition);
+                        mListView.collapseGroup(groupPosition);
                     } else {
-                        mListView.expandGroupWithAnimation(groupPosition);
+                        mListView.expandGroup(groupPosition);
                     }
                     return true;
                 }
@@ -131,6 +134,11 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public void fabBtnEvent() {
         
+    }
+
+    @Override
+    public void initMenu(FloatingActionMenu menu) {
+
     }
 
     private ArrayList<Geocode> getListData(String start, String end) {
@@ -187,6 +195,6 @@ public class RouteGuideFragment extends BaseRouteFragment {
             mListView.collapseGroup(i);
         }
         // 打开第一个
-        mListView.expandGroupWithAnimation(0);
+        mListView.expandGroup(0);
     }
 }

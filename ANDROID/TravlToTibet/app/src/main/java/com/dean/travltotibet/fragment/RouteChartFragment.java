@@ -1,9 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +19,12 @@ import com.dean.travltotibet.model.IndicatorSeries;
 import com.dean.travltotibet.model.MountainSeries;
 import com.dean.travltotibet.ui.IndicatorChartView;
 import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.PointManager;
 import com.dean.travltotibet.util.StringUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.List;
 
@@ -60,6 +58,8 @@ public class RouteChartFragment extends BaseRouteFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         routeActivity = (RouteActivity) getActivity();
+        // 默认第一个视图先初始化菜单（设计的不好以后再改。。。）
+        initMenu(routeActivity.getFloatingActionMenu());
         super.onCreate(savedInstanceState);
     }
 
@@ -226,5 +226,26 @@ public class RouteChartFragment extends BaseRouteFragment {
         Intent intent = new Intent(getActivity(), ChartSettingActivity.class);
         intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
         startActivityForResult(intent, CHART_SETTING);
+    }
+
+    @Override
+    public void initMenu(final FloatingActionMenu menu) {
+        menu.removeAllMenuButtons();
+
+        final FloatingActionButton placeSettingBtn = new FloatingActionButton(getActivity());
+        placeSettingBtn.setButtonSize(FloatingActionButton.SIZE_MINI);
+        placeSettingBtn.setLabelText("显示设置");
+        placeSettingBtn.setImageResource(R.drawable.ic_ab_back_icon);
+        placeSettingBtn.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        placeSettingBtn.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
+
+        menu.addMenuButton(placeSettingBtn);
+        placeSettingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu.close(true);
+                fabBtnEvent();
+            }
+        });
     }
 }
