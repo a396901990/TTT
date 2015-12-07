@@ -6,16 +6,17 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -39,45 +40,46 @@
                 app:pstsShouldExpand="false"
                 app:pstsTabSwitch="true"
                 app:pstsUnderlineColor="@android:color/transparent" />
+        </android.support.design.widget.AppBarLayout>
 
-            <FrameLayout
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appbar">
+
+            <com.dean.travltotibet.ui.NoSlidingViewPager
+                android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/tabs">
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation"></com.dean.travltotibet.ui.NoSlidingViewPager>
 
-                <com.dean.travltotibet.ui.NoSlidingViewPager
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:flipInterval="30"
-                    android:persistentDrawingCache="animation"></com.dean.travltotibet.ui.NoSlidingViewPager>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_toolbar_shadow_height"
-                    android:background="@drawable/top_shade_background" />
-
-            </FrameLayout>
-
-            <com.dean.travltotibet.ui.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/menu_down"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tabs"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="@dimen/fab_normal_margin_top"
-                fab:fab_elevationCompat="6dp"
-                fab:menu_animationDelayPerItem="0"
-                fab:menu_fab_size="normal"
-                fab:menu_icon="@drawable/ic_star"
-                fab:menu_labels_ellipsize="end"
-                fab:menu_labels_singleLine="true"
-                fab:menu_openDirection="down">
-            </com.dean.travltotibet.ui.fab.FloatingActionMenu>
-        </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+                android:layout_height="@dimen/home_toolbar_shadow_height"
+                android:background="@drawable/top_shade_background" />
+
+        </FrameLayout>
+
+        <com.dean.travltotibet.ui.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/menu_down"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appbar"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="@dimen/fab_normal_margin_top"
+            fab:fab_elevationCompat="6dp"
+            fab:menu_animationDelayPerItem="0"
+            fab:menu_fab_size="normal"
+            fab:menu_icon="@drawable/ic_star"
+            fab:menu_labels_ellipsize="end"
+            fab:menu_labels_singleLine="true"
+            fab:menu_openDirection="down"></com.dean.travltotibet.ui.fab.FloatingActionMenu>
+
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floating_action_button"

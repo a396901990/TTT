@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,9 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.GuideDetailAdapter;
 import com.dean.travltotibet.ui.AnimatedExpandableListView;
 import com.dean.travltotibet.ui.ExpandableTextView;
-import com.dean.travltotibet.ui.InsideScrollAnimatedExpandableListView;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.MenuUtil;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,21 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private ExpandableTextView briefDescribe;
 
+    private ScrollView mScrollView;
+
     private View shadeView;
+
+    private com.dean.travltotibet.ui.fab.FloatingActionButton satellite;
+    private com.dean.travltotibet.ui.fab.FloatingActionButton detail;
+    private com.dean.travltotibet.ui.fab.FloatingActionButton overView;
+
+    private final static int SATELLITE = 0;
+
+    private final static int DETAIL = 1;
+
+    private final static int OVERVIEW = 2;
+
+    private int currentShowType = 1;
 
     public static RouteGuideFragment newInstance() {
         RouteGuideFragment newFragment = new RouteGuideFragment();
@@ -68,16 +83,17 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
         mListView = (AnimatedExpandableListView) contentView.findViewById(R.id.guide_list);
         mAdapter = new GuideDetailAdapter(getActivity());
+        mScrollView = (ScrollView) contentView.findViewById(R.id.scroll_view);
     }
 
     @Override
     protected void onLoading() {
         // 初始化数据adapter并赋值
         mDataResult = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
-        updateBriefView();
+        updateOverView();
     }
 
-    private void updateBriefView() {
+    private void updateOverView() {
         TextView start = (TextView) contentView.findViewById(R.id.guide_brief_start);
         TextView end = (TextView) contentView.findViewById(R.id.guide_brief_end);
         TextView date = (TextView) contentView.findViewById(R.id.guide_brief_plan);
@@ -113,9 +129,9 @@ public class RouteGuideFragment extends BaseRouteFragment {
                 public boolean onGroupClick(ExpandableListView parent, View v,
                                             int groupPosition, long id) {
                     if (mListView.isGroupExpanded(groupPosition)) {
-                        mListView.collapseGroup(groupPosition);
+                        mListView.collapseGroupWithAnimation(groupPosition);
                     } else {
-                        mListView.expandGroup(groupPosition);
+                        mListView.expandGroupWithAnimation(groupPosition);
                     }
                     return true;
                 }
@@ -128,7 +144,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public void updateRoute() {
         updateTimelineView();
-        updateBriefView();
+        updateOverView();
     }
 
     @Override
@@ -137,8 +153,65 @@ public class RouteGuideFragment extends BaseRouteFragment {
     }
 
     @Override
-    public void initMenu(FloatingActionMenu menu) {
+    public void initMenu(final FloatingActionMenu menu) {
+        menu.removeAllMenuButtons();
 
+        // 住宿
+        satellite = MenuUtil.initFAB(getActivity(), "住宿", R.drawable.ic_ab_back_icon);
+        menu.addMenuButton(satellite);
+        // 攻略
+        detail = MenuUtil.initFAB(getActivity(), "行程", R.drawable.ic_ab_back_icon);
+        menu.addMenuButton(detail);
+        // 简介
+        overView = MenuUtil.initFAB(getActivity(), "简介", R.drawable.ic_ab_back_icon);
+        menu.addMenuButton(overView);
+
+        // 设置默认点击
+        setCurrentShowType(currentShowType);
+
+        satellite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentShowType(OVERVIEW);
+                menu.close(true);
+            }
+        });
+
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentShowType(DETAIL);
+                menu.close(true);
+            }
+        });
+
+        overView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentShowType(OVERVIEW);
+                menu.close(true);
+            }
+        });
+    }
+
+    public void setCurrentShowType(int currentShowType) {
+        this.currentShowType = currentShowType;
+
+        switch (currentShowType) {
+            case SATELLITE:
+                break;
+            case DETAIL:
+                break;
+            case OVERVIEW:
+                final TextView textView = (TextView) contentView.findViewById(R.id.guide_brief_title);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mScrollView.smoothScrollTo(0, textView.getTop());
+                    }
+                });
+                break;
+        }
     }
 
     private ArrayList<Geocode> getListData(String start, String end) {
