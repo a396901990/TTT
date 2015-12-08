@@ -71,8 +71,7 @@
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <!--详细-->
                 <fragment
@@ -81,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/info_header_fragment"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginTop="@dimen/card_margin" />
 
                 <!--准备-->
                 <fragment
@@ -89,7 +88,7 @@
                     android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginTop="@dimen/card_margin" />
 
                 <!--控制最后距离-->
                 <LinearLayout

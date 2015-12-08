@@ -37,7 +37,7 @@
     <dimen name="guide_time_line_title_margin_right">10dp</dimen>
 
     <dimen name="guide_brief_icon_size">20dp</dimen>
-    <dimen name="guide_brief_icon_padding">5dp</dimen>
+    <dimen name="guide_brief_icon_padding">4dp</dimen>
     <dimen name="guide_divide_line_padding">20dp</dimen>
     <dimen name="guide_divide_line_height">2dp</dimen>
 
@@ -74,7 +74,7 @@
 
     <dimen name="info_card_margin">10dip</dimen>
     <dimen name="info_fragment_margin_bottom">10dip</dimen>
-    <dimen name="info_card_padding">10dip</dimen>
+    <dimen name="info_card_padding">15dip</dimen>
     <dimen name="info_card_rule_margin">10dip</dimen>
     <dimen name="info_card_rule_height">2dip</dimen>
     <dimen name="info_card_grid_margin">1dip</dimen>
@@ -109,7 +109,7 @@
     <!--home-->
     <dimen name="home_item_height">250dp</dimen>
     <integer name="home_page_columns_num">1</integer>
-    <dimen name="home_toolbar_shadow_height">6dp</dimen>
+    <dimen name="home_toolbar_shadow_height">3dp</dimen>
     <dimen name="recommend_view_item_margin">0dp</dimen>
 
     <!--setting-->
@@ -170,4 +170,7 @@
     <dimen name="fab_size_mini">40dp</dimen>
     <dimen name="labels_text_size">14sp</dimen>
     <dimen name="fab_normal_margin_top">-33dp</dimen>
+
+    <dimen name="card_margin">15dp</dimen>
+    <dimen name="card_padding">10dp</dimen>
 </resources>

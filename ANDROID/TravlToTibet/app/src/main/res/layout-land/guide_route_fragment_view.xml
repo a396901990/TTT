@@ -22,7 +22,7 @@
 
             <!--标题-->
             <TextView
-                android:id="@+id/guide_brief_title"
+                android:id="@+id/overview_title"
                 style="@style/TextAppearance.Medium.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/guide_brief_start"
+                    android:id="@+id/overview_start"
                     style="@style/TextAppearance.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:src="@drawable/right_arrow" />
 
                 <TextView
-                    android:id="@+id/guide_brief_end"
+                    android:id="@+id/overview_end"
                     style="@style/TextAppearance.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                     android:text="全长" />
 
                 <TextView
-                    android:id="@+id/guide_brief_distance"
+                    android:id="@+id/overview_distance"
                     style="@style/TextAppearance.Small.Gray.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:text="计划" />
 
                 <TextView
-                    android:id="@+id/guide_brief_plan"
+                    android:id="@+id/overview_plan"
                     style="@style/TextAppearance.Small.Gray.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
                     android:text="难度" />
 
                 <RatingBar
-                    android:id="@+id/guide_brief_rank"
+                    android:id="@+id/overview_rank"
                     style="@style/star_rating_bar_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
 
                 <!--扩展文字视图-->
                 <com.dean.travltotibet.ui.ExpandableTextView
-                    android:id="@+id/guide_brief_describe"
+                    android:id="@+id/overview_describe"
                     style="@style/TextAppearance.Small.Gray.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
 
             <!--标题-->
             <TextView
-                android:id="@+id/route_title"
+                android:id="@+id/detail_title"
                 style="@style/TextAppearance.Medium.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
 
             <!--行程时间线列表-->
             <com.dean.travltotibet.ui.InsideScrollAnimatedExpandableListView
-                android:id="@+id/guide_list"
+                android:id="@+id/detail_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"

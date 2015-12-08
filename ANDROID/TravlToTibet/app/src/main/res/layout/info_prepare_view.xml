@@ -1,43 +1,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/card_padding">
 
-    <!--准备视图卡片-->
-    <LinearLayout
+    <!--标题-->
+    <TextView
+        style="@style/TextAppearance.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_white"
-        android:orientation="vertical"
-        android:padding="@dimen/info_card_padding">
+        android:text="@string/info_prepare_title"
+        android:paddingBottom="10dp"
+        android:textColor="@color/dark_gray" />
 
-        <!--标题-->
-        <TextView
-            style="@style/TextAppearance.Medium"
-            android:textColor="@color/dark_gray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/info_prepare_title" />
-
-        <!--标题分割-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/info_card_rule_height"
-            android:layout_marginBottom="@dimen/info_card_rule_margin"
-            android:layout_marginTop="@dimen/info_card_rule_margin"
-            android:background="@color/gray"></View>
-
-        <!--内容视图-->
-        <com.dean.travltotibet.ui.ScrollGridView
-            android:id="@+id/gridView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/info_card_grid_margin"
-            android:background="@color/white_background"
-            android:horizontalSpacing="@dimen/info_card_grid_space"
-            android:numColumns="4"
-            android:verticalSpacing="@dimen/info_card_grid_space"></com.dean.travltotibet.ui.ScrollGridView>
-    </LinearLayout>
-
-
+    <!--内容视图-->
+    <com.dean.travltotibet.ui.ScrollGridView
+        android:id="@+id/gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/info_card_grid_margin"
+        android:background="@color/white_background"
+        android:horizontalSpacing="@dimen/info_card_grid_space"
+        android:numColumns="4"
+        android:verticalSpacing="@dimen/info_card_grid_space"></com.dean.travltotibet.ui.ScrollGridView>
 </LinearLayout>
+

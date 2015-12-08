@@ -51,12 +51,8 @@ public class InfoDetailFragment extends BaseInfoFragment {
     }
 
     private void initDetail() {
-        routeName = (TextView) root.findViewById(R.id.detail_route_name);
         routeStartEnd = (TextView) root.findViewById(R.id.detail_route_start_end);
         routeDistance = (TextView) root.findViewById(R.id.detail_route_distance);
-
-        // 设置路线名称
-//        routeName.setText(infoActivity.getRouteName());
 
         // 设置路线起始终点
         String start = TTTApplication.getDbHelper().getFromName(infoActivity.getRoute(), true);

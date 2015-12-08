@@ -5,16 +5,19 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.ui.AnimatedExpandableListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.StringUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
 
@@ -117,7 +120,7 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
             holder.headerTitle = (TextView) convertView
                     .findViewById(R.id.header_title);
             holder.headerLayout = (MaterialRippleLayout) convertView.findViewById(R.id.header_layout);
-            holder.toggleButton = (ToggleButton) convertView.findViewById(R.id.expand_collapse);
+            holder.toggleButton = (ImageView) convertView.findViewById(R.id.expand_collapse);
             convertView.setTag(holder);
         } else {
             holder = (GuideDetailHolder) convertView.getTag();
@@ -128,9 +131,9 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
         holder.headerTitle.setText(item.getName());
 
         if (isExpanded) {
-            holder.toggleButton.setChecked(true);
+            holder.toggleButton.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_remove_circle_outline, TTTApplication.getMyColor(R.color.colorPrimary)));
         } else {
-            holder.toggleButton.setChecked(false);
+            holder.toggleButton.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_add_circle, TTTApplication.getMyColor(R.color.colorPrimary)));
         }
 
         return convertView;
@@ -152,7 +155,7 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
         TextView detailMileage;
         TextView detailGuide;
 
-        ToggleButton toggleButton;
+        ImageView toggleButton;
         LinearLayout toggleLayout;
         MaterialRippleLayout headerLayout;
         LinearLayout positionLayout;

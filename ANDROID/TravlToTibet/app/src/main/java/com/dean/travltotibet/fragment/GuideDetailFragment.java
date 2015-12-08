@@ -4,32 +4,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
 
+import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.ui.ExpandableTextView;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.adapter.GuideDetailAdapter;
+import com.dean.travltotibet.ui.AnimatedExpandableListView;
+
+import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 12/8/15.
  */
 public class GuideDetailFragment extends BaseGuideFragment {
 
-    private RouteActivity routeActivity;
-
     private View root;
 
-    private ExpandableTextView overviewDescribe;
+    private RouteActivity routeActivity;
 
-    private View shadeView;
+    private GuideDetailAdapter mAdapter;
+
+    private AnimatedExpandableListView mListView;
+
+    private ArrayList<Geocode> mDataResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.guide_overview_view, container, false);
+        root = inflater.inflate(R.layout.guide_detail_view, container, false);
         return root;
     }
 
@@ -37,68 +41,63 @@ public class GuideDetailFragment extends BaseGuideFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-        updateOverView();
+        initView();
     }
 
-    private void updateOverView() {
-        TextView start = (TextView) root.findViewById(R.id.overview_start);
-        TextView end = (TextView) root.findViewById(R.id.overview_end);
-        TextView date = (TextView) root.findViewById(R.id.overview_plan);
-        TextView distance = (TextView) root.findViewById(R.id.overview_distance);
-        RatingBar rank = (RatingBar) root.findViewById(R.id.overview_rank);
+    private void initView() {
+        mListView = (AnimatedExpandableListView) root.findViewById(R.id.detail_list);
+        mAdapter = new GuideDetailAdapter(getActivity());
 
-        start.setText(routeActivity.getPlanStart());
-        end.setText(routeActivity.getPlanEnd());
+        // 初始化数据adapter并赋值
+        mDataResult = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
 
-        String planDate = routeActivity.getPlanDate();
-        String planDays = TTTApplication.getDbHelper().getPlanDays(routeActivity.getRoutePlanId());
-        if (routeActivity.isRoute()) {
-            date.setText(String.format(Constants.BRIEF_DAY_ROUTE, planDate, planDays));
-        } else {
-            date.setText(String.format(Constants.BRIEF_DAY, planDate, planDays));
+        if (mDataResult != null) {
+            mAdapter.setData(mDataResult);
+            mListView.setAdapter(mAdapter);
+            mListView.expandGroup(0);
+            mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v,
+                                            int groupPosition, long id) {
+                    if (mListView.isGroupExpanded(groupPosition)) {
+                        mListView.collapseGroupWithAnimation(groupPosition);
+                    } else {
+                        mListView.expandGroupWithAnimation(groupPosition);
+                    }
+                    return true;
+                }
+
+            });
         }
-
-        distance.setText(routeActivity.getPlanDistance());
-        rank.setNumStars(Integer.parseInt(routeActivity.getPlanRank()));
-
-        initDescribeExpandableTextView();
     }
 
-    /**
-     * 初始化ExpandableTextView
-     */
-    private void initDescribeExpandableTextView() {
-        overviewDescribe = (ExpandableTextView) root.findViewById(R.id.overview_describe);
-        shadeView = root.findViewById(R.id.bottom_shade);
+    private ArrayList<Geocode> getListData(String start, String end) {
 
-        // 设置文字
-        overviewDescribe.setText(routeActivity.getPlanDescribe());
+        // 根据起点终点获取数据
+        String routeName = routeActivity.getCurrentRoute().getRoute();
+        boolean isForward = routeActivity.isForward();
+        ArrayList<Geocode> geocodes = (ArrayList<Geocode>) TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end, isForward);
 
-        // 设置监听状态
-        overviewDescribe.setOnExpandListener(new ExpandableTextView.OnExpandListener() {
-            // 展开时显示阴影
-            @Override
-            public void onExpand(ExpandableTextView parent) {
-                shadeView.setVisibility(View.INVISIBLE);
-            }
-        }).setOnCollapseListener(new ExpandableTextView.OnCollapseListener() {
-            // 收起时关闭阴影
-            @Override
-            public void onCollapse(ExpandableTextView parent) {
-                shadeView.setVisibility(View.VISIBLE);
-            }
-        }).setOnClickListener(new View.OnClickListener() {
-            @Override
-            // 点击打开关闭阴影
-            public void onClick(View v) {
-                overviewDescribe.toggle();
-            }
-        });
+        return geocodes;
+    }
 
+    private void updateTimelineView() {
+        String start = routeActivity.getPlanStart();
+        String end = routeActivity.getPlanEnd();
+
+        mAdapter.setData(getListData(start, end));
+        // 遍历所有group,将所有项设置成默认关闭
+        int groupCount = mListView.getCount();
+        for (int i = 0; i < groupCount; i++) {
+            mListView.collapseGroup(i);
+        }
+        // 打开第一个
+        mListView.expandGroup(0);
     }
 
     @Override
     public void update() {
-        updateOverView();
+        updateTimelineView();
     }
 }

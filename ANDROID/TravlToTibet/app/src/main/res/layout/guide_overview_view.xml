@@ -1,67 +1,180 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/overview_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/card_padding">
 
-    <!--准备视图卡片-->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!--标题-->
+    <TextView
+        android:id="@+id/overview_title"
+        style="@style/TextAppearance.Medium.White"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_white"
-        android:orientation="vertical"
-        android:padding="@dimen/info_card_padding">
+        android:layout_marginBottom="@dimen/guide_title_view_margin_bottom"
+        android:background="@drawable/border_theme"
+        android:padding="@dimen/guide_title_view_padding"
+        android:text="简介" />
+
+    <!--地点： 叶城-拉萨-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
-            android:id="@+id/detail_route_name"
-            style="@style/TextAppearance.Large"
+            android:id="@+id/overview_start"
+            style="@style/TextAppearance.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="简介："
-            android:textColor="@color/dark_gray" />
+            android:layout_gravity="center"
+            android:text="叶城" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/right_arrow" />
 
         <TextView
-            android:id="@+id/detail_route_start_end"
-            style="@style/TextAppearance.Small.Gray"
+            android:id="@+id/overview_end"
+            style="@style/TextAppearance.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="成都-拉萨" />
-
-        <TextView
-            android:id="@+id/detail_route_distance"
-            style="@style/TextAppearance.Small.Gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2382M" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--扩展文字视图-->
-            <com.dean.travltotibet.ui.ExpandableTextView
-                android:id="@+id/expandable_text_view"
-                style="@style/TextAppearance.Small.Gray"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:ellipsize="end"
-                android:paddingTop="10dp"
-                app:expanded="false"
-                app:minLines="3" />
-
-            <!--阴影-->
-            <View
-                android:id="@+id/bottom_shade"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_alignBottom="@+id/expandable_text_view"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/bottom_shade_background"></View>
-
-        </RelativeLayout>
-
+            android:layout_gravity="center"
+            android:text="拉萨" />
     </LinearLayout>
 
+    <!--全长-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:layout_width="@dimen/guide_brief_icon_size"
+            android:layout_height="@dimen/guide_brief_icon_size"
+            android:paddingLeft="@dimen/guide_brief_icon_padding"
+            android:paddingRight="@dimen/guide_brief_icon_padding"
+            app:iiv_color="@color/dark_blue"
+            app:iiv_icon="gmd_confirmation_number" />
+
+        <TextView
+            style="@style/TextAppearance.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="全长"
+            android:textColor="@color/dark_blue" />
+
+        <TextView
+            android:id="@+id/overview_distance"
+            style="@style/TextAppearance.Small.Gray.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="2865KM" />
+    </LinearLayout>
+
+    <!--计划-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:layout_width="@dimen/guide_brief_icon_size"
+            android:layout_height="@dimen/guide_brief_icon_size"
+            android:paddingLeft="@dimen/guide_brief_icon_padding"
+            android:paddingRight="@dimen/guide_brief_icon_padding"
+            app:iiv_color="@color/dark_green"
+            app:iiv_icon="gmd_event_note" />
+
+        <TextView
+            style="@style/TextAppearance.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="计划"
+            android:textColor="@color/dark_green" />
+
+        <TextView
+            android:id="@+id/overview_plan"
+            style="@style/TextAppearance.Small.Gray.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="32天" />
+    </LinearLayout>
+
+    <!--难度-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:layout_width="@dimen/guide_brief_icon_size"
+            android:layout_height="@dimen/guide_brief_icon_size"
+            android:paddingLeft="@dimen/guide_brief_icon_padding"
+            android:paddingRight="@dimen/guide_brief_icon_padding"
+            app:iiv_color="@color/dark_orange"
+            app:iiv_icon="gmd_stars" />
+
+        <TextView
+            style="@style/TextAppearance.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="难度"
+            android:textColor="@color/dark_orange" />
+
+        <RatingBar
+            android:id="@+id/overview_rank"
+            style="@style/star_rating_bar_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="3.5" />
+    </LinearLayout>
+
+    <!--描述-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:paddingTop="5dp">
+
+        <!--扩展文字视图-->
+        <com.dean.travltotibet.ui.ExpandableTextView
+            android:id="@+id/overview_describe"
+            style="@style/TextAppearance.Small.Gray.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:ellipsize="end"
+            android:text="难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向。。。。。"
+            app:expanded="false"
+            app:minLines="3" />
+
+        <!--阴影-->
+        <View
+            android:id="@+id/bottom_shade"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/expandable_text_view"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_shade_background"></View>
+
+    </RelativeLayout>
 
 </LinearLayout>
