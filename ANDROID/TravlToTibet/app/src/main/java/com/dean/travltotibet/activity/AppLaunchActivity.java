@@ -1,18 +1,22 @@
 package com.dean.travltotibet.activity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.ui.kbv.KenBurnsView;
 import com.dean.travltotibet.util.AppUtil;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.SystemUtil;
 
 import cn.bmob.v3.Bmob;
@@ -32,9 +36,15 @@ public class AppLaunchActivity extends Activity {
 
     static final int REQUEST_WELCOME = 0;
 
+    private KenBurnsView mKenBurns;
+    private ImageView mLogo;
+    private TextView welcomeText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.app_luanch_splash_screen);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
@@ -54,48 +64,85 @@ public class AppLaunchActivity extends Activity {
         // 获取当前app版本
         this.currentAppVersion = SystemUtil.getAppVersion(this);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        // 初始化视图
+        initView();
+    }
 
-                if (!WelcomeActivity.hasShown(currentAppVersion)) {
-                    goToWhatsNew();
-                } else {
-                    goToHome();
-                }
+    private void initView() {
+
+        mKenBurns = (KenBurnsView) findViewById(R.id.ken_burns_images);
+        mLogo = (ImageView) findViewById(R.id.logo);
+        welcomeText = (TextView) findViewById(R.id.welcome_text);
+
+        mKenBurns.setImageResource(R.drawable.splash_screen_background);
+
+        logoAnimation();
+        welcomeAnimation();
+    }
+
+    private void logoAnimation() {
+        mLogo.setAlpha(1.0F);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.translate_top_to_center);
+        mLogo.startAnimation(anim);
+    }
+
+    private void welcomeAnimation() {
+        ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(welcomeText, "alpha", 0.0F, 1.0F);
+        alphaAnimation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
             }
-        }, SPLASH_DISPLAY_LENGTH);
 
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (!WelcomeActivity.hasShown(currentAppVersion)) {
+                            gotoWhatsNew();
+                        } else {
+                            gotoHome();
+                        }
+
+                    }
+                }, SPLASH_DISPLAY_LENGTH);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        alphaAnimation.setStartDelay(1700);
+        alphaAnimation.setDuration(500);
+        alphaAnimation.start();
     }
+
     /**
      * 进入home界面
      */
-    public void goToHome() {
+    public void gotoHome() {
         Intent intent = new Intent(getApplication(), HomeActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }
 
-    public void goToWhatsNew() {
+    /**
+     * 进入WhatsNew界面
+     */
+    public void gotoWhatsNew() {
         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
         startActivityForResult(intent, REQUEST_WELCOME);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }
-
-    private void persistConfigurationData() {
-        SharedPreferences sp = TTTApplication.getSharedPreferences();
-        String[] default_points = getResources().getStringArray(R.array.default_points);
-        StringBuffer sb = new StringBuffer();
-        for (String point : default_points) {
-            sb.append(point);
-            sb.append(Constants.POINT_DIVIDE_MARK);
-        }
-
-        sp.edit().putString(Constants.CURRENT_POINTS, sb.toString()).commit();
-    }
-
 
     @Override
     protected void onResume() {
@@ -115,7 +162,7 @@ public class AppLaunchActivity extends Activity {
 
         if (requestCode == REQUEST_WELCOME) {
             if (resultCode == RESULT_OK) {
-                goToHome();
+                gotoHome();
             } else {
                 finish();
             }
