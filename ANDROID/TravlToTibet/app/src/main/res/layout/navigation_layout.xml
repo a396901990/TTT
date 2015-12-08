@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/item_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray_background">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            app:iiv_color="@color/white"
+            app:iiv_icon="gmd_stars" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="7dp">
+        <!--版本检查-->
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/setting_version_check"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/navigation_item_padding"
+                    android:text="更新检查"
+                    android:textColor="@color/dark_gray" />
+
+                <!--最新版本-->
+                <TextView
+                    android:id="@+id/version_check_last"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/setting_arrow_icon_padding"
+                    android:text="已是最新版本"
+                    android:visibility="gone" />
+
+                <!--发现新版本-->
+                <LinearLayout
+                    android:id="@+id/version_check_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/setting_arrow_icon_padding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/nav_badge_left" />
+
+                    <TextView
+                        style="@style/TextAppearance.Small.White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/nav_badge_middle"
+                        android:gravity="center"
+                        android:text="NEW" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/nav_badge_right" />
+                </LinearLayout>
+            </RelativeLayout>
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+        <!--意见反馈-->
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/setting_feedback"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center_vertical"
+                android:padding="@dimen/navigation_item_padding"
+                android:text="反馈"
+                android:textColor="@color/dark_gray" />
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+        <!--评价-->
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/setting_rate"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center_vertical"
+                android:padding="@dimen/navigation_item_padding"
+                android:text="评价"
+                android:textColor="@color/dark_gray" />
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+        <!--分享-->
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/setting_share"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center_vertical"
+                android:padding="@dimen/navigation_item_padding"
+                android:text="分享"
+                android:textColor="@color/dark_gray" />
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+        <!--关于-->
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/setting_about"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center_vertical"
+                android:padding="@dimen/navigation_item_padding"
+                android:text="关于"
+                android:textColor="@color/dark_gray" />
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+    </LinearLayout>
+</RelativeLayout>

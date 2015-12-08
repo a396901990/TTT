@@ -11,16 +11,14 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        android:transitionName="actionBar"
-        ></android.support.v7.widget.Toolbar>
+        android:transitionName="actionBar"></android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:fitsSystemWindows="true"
-        >
+        android:fitsSystemWindows="true">
 
         <!--主视图-->
         <FrameLayout
@@ -54,15 +52,15 @@
         <!--导航-->
         <LinearLayout
             android:id="@+id/left_drawer"
-            android:layout_width="240dp"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#006064"
+            android:background="@color/gray_background"
             android:orientation="vertical">
 
             <fragment
-                android:id="@+id/home_setting_fragment"
-                android:name="com.dean.travltotibet.fragment.HomeSettingFragment"
+                android:id="@+id/navigation_fragment"
+                android:name="com.dean.travltotibet.fragment.NavigationFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

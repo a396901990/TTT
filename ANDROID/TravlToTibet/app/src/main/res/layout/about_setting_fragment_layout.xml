@@ -1,91 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background">
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:gravity="center">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:gravity="top"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:text="关于" />
+
+            </android.support.v7.widget.Toolbar>
+            <!--图标 版本-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.Large.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/ic_launcher"
+                    android:text="风筝户外 v1.0" />
+            </FrameLayout>
+        </android.support.design.widget.AppBarLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/content_view"
         android:background="@color/white"
-        android:orientation="vertical">
-
-        <!--图标 版本-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/gray_background"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
-
-            <TextView
-                style="@style/TextAppearance.Large.Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/ic_launcher"
-                android:text="风筝户外 v1.0" />
-        </LinearLayout>
+        android:orientation="vertical"
+        android:padding="7dp">
 
         <!--欢迎页-->
-        <RelativeLayout
+        <com.dean.travltotibet.ui.MaterialRippleLayout
             android:id="@+id/about_welcome"
+            style="@style/RippleStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_item_height"
-            android:background="@drawable/nav_row_bg"
-            android:clickable="true">
+            android:layout_height="wrap_content">
 
             <TextView
-                style="@style/Setting.Item.Title"
+                style="@style/TextAppearance.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
+                android:layout_gravity="left"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="欢迎页" />
+                android:padding="@dimen/navigation_item_padding"
+                android:text="欢迎页"
+                android:textColor="@color/dark_gray" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/setting_arrow_icon_padding"
-                android:src="@drawable/row_chevron" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_sub_item_divide_height"
-            android:background="@color/light_gray"></View>
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
 
         <!--联系我们-->
-        <RelativeLayout
+        <com.dean.travltotibet.ui.MaterialRippleLayout
             android:id="@+id/about_contact_us"
+            style="@style/RippleStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_item_height"
-            android:background="@drawable/nav_row_bg"
-            android:clickable="true">
+            android:layout_height="wrap_content">
 
             <TextView
-                style="@style/Setting.Item.Title"
+                style="@style/TextAppearance.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
+                android:layout_gravity="left"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="联系我们" />
+                android:padding="@dimen/navigation_item_padding"
+                android:text="联系我们"
+                android:textColor="@color/dark_gray" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/setting_arrow_icon_padding"
-                android:src="@drawable/row_chevron" />
-        </RelativeLayout>
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
 
     </LinearLayout>
 
@@ -94,7 +112,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray_background"
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingTop="20dp">

@@ -173,4 +173,5 @@
 
     <dimen name="card_margin">15dp</dimen>
     <dimen name="card_padding">10dp</dimen>
+    <dimen name="navigation_item_padding">15dp</dimen>
 </resources>

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -51,8 +52,6 @@ public class FeedbackFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        getActivity().getActionBar().setHomeButtonEnabled(true);
         setHasOptionsMenu(true);
         initView();
     }
@@ -60,8 +59,8 @@ public class FeedbackFragment extends Fragment {
     private void initView() {
         phone = (EditText) root.findViewById(R.id.phone_number);
         // set all caps filter for phone
-//        phone.setFilters(new InputFilter[]
-//                { new InputFilter.LengthFilter(11) });
+        phone.setFilters(new InputFilter[]
+                { new InputFilter.LengthFilter(11) });
 
         email = (EditText) root.findViewById(R.id.email_address);
 
@@ -91,37 +90,24 @@ public class FeedbackFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu( Menu menu, MenuInflater inflater )
-    {
-        inflater.inflate(R.menu.menu_feedback, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu( Menu menu )
-    {
+    public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_submit);
 
         // set menu icon enable status and opacity
-        if (isEnable)
-        {
+        if (isEnable) {
             item.getIcon().setAlpha(ENABLE_ALPHA);
             item.setEnabled(true);
-        }
-        else
-        {
+        } else {
             item.getIcon().setAlpha(DISABLE_ALPHA);
             item.setEnabled(false);
         }
     }
 
     @Override
-    public boolean onOptionsItemSelected( MenuItem item )
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         // 提交按钮
-        if (id == R.id.action_submit)
-        {
+        if (id == R.id.action_submit) {
             commitNote();
             return true;
         }
