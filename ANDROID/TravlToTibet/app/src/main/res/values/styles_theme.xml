@@ -12,12 +12,11 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:windowBackground">@drawable/splash_screen_view</item>
     </style>
 
     <style name="Theme.HomeTheme" parent="Theme.AppBaseTheme">
         <item name="android:actionBarStyle">@style/HomeActionBar</item>
-        <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionMenuTextColor">@color/white</item>
@@ -26,7 +25,6 @@
 
     <style name="Theme.HomeTheme.White" parent="Theme.AppBaseTheme">
         <item name="android:actionBarStyle">@style/HomeActionBar.White</item>
-        <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionMenuTextColor">@color/white</item>
@@ -202,18 +200,5 @@
     <style name="PlanList.Text" parent="@style/TextAppearance.Large">
         <item name="android:textColor">@color/black</item>
         <item name="android:singleLine">true</item>
-    </style>
-
-    <!--
-  ptrHeaderStyle above refers to this style which contains all of the
-  DefaultHeaderTransformer customization values. The name and parent
-  can be anything, but only the attributes defined in
-  library/res/attrs.xml are actually read in.
-    -->
-    <style name="Widget.Custom.PtrHeader" parent="android:Widget">
-        <item name="ptrProgressBarStyle">inside</item>
-        <item name="ptrPullText">@string/ptr_pull_text</item>
-        <item name="ptrRefreshingText">@string/ptr_refreshing_text</item>
-        <item name="ptrReleaseText">@string/ptr_release_text</item>
     </style>
 </resources>

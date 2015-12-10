@@ -64,7 +64,6 @@ public class InfoActivity extends AppCompatActivity {
 
         fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
         fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
-        //fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_directions_run).actionBar().color(Color.WHITE));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

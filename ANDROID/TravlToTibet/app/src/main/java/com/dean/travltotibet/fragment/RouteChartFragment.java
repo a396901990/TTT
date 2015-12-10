@@ -35,7 +35,7 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     public static final int CHART_SETTING = 0;
 
-    private static final int BORDER_EXTRA_LENGTH = 15;
+    private static final int BORDER_EXTRA_LENGTH = 40;
 
     private View rootView;
 

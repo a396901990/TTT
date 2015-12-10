@@ -53,7 +53,10 @@
     <color name="text_selected">#fff</color>
     <color name="transparent_bg">#b3b3b3</color>
 
+    <!--PagerSlidingTabStrip-->
+    <color name="background_tab_pressed">#6633B5E5</color>
 
+    <!--theme-->
     <color name="colorPrimary">#1E88E5</color>
     <color name="colorPrimaryLight">#87CEFA</color>
     <color name="colorPrimaryDark">#065fb9</color>

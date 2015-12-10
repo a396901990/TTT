@@ -3,6 +3,7 @@ package com.dean.travltotibet.ui;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.AbstractPoint;
@@ -70,7 +71,7 @@ public class PointDetailPaint extends Paint {
 
     /**
      * 计算字体大小 当currentViewPoint扩大到displayPercent时显示并放大字体，当扩大到stopPercent时停止放大
-     *
+     * 当点数不多，可以同屏显示时不需要缩放直接显示最大
      * @param currentViewPoint 视口
      */
     public void calcSize(RectF currentViewPoint) {
@@ -116,12 +117,27 @@ public class PointDetailPaint extends Paint {
      * @param y
      */
     public void drawText(Canvas canvas, AbstractPoint point, float x, float y) {
+
+        if (PointManager.START_END.equals(getCategory())) {
+            showTopVerticalText(canvas, point, x, y);
+        }
+        // 如果点数大于10，倒着显示(village, town)
+        else if (count > POINT_MIN && (PointManager.VILLAGE.equals(getCategory()) || PointManager.TOWN.equals(getCategory()))) {
+            showDownHorizontalText(canvas, point, x, y);
+        }
+        else {
+            showTopHorizontalText(canvas, point, x, y);
+        }
+    }
+
+    private void showDownHorizontalText(Canvas canvas, AbstractPoint point, float x, float y) {
         String name = point.getName();
         float margin = getTextSize();
         float padding = getTextSize() / 4;
 
+        // x中间位置
         float left = x - this.measureText(name) / 2 - padding;
-        float right = left + this.measureText(name) + padding + padding;
+        float right = left + padding + this.measureText(name) + padding;
         float top;
         float bottom;
 
@@ -129,28 +145,153 @@ public class PointDetailPaint extends Paint {
         float textY;
 
         // 如果点数大于10，倒着显示(village, town)
-        if (count > POINT_MIN && (PointManager.VILLAGE.equals(getCategory()) || PointManager.TOWN.equals(getCategory()))) {
-
-            top = y + padding + padding;
-            bottom = top + margin + this.descent();
-            textY = y + margin + padding + padding;
-
-        } else {
-
-            top = y - margin + this.ascent() - padding;
-            bottom = top + padding + padding + margin + this.descent();
-            textY = y - margin;
-        }
+        top = padding + y + padding;
+        bottom = top + margin + this.descent();
+        textY = y + margin + padding + padding;
 
         // calculation text rectangle size and position
         RectF rect = new RectF(left, top, right, bottom);
 
+        // point border
         canvas.drawRoundRect(rect, 8, 8, textRectPaint);
+
+        // circle point in line
         if (getTextSize() != 0) {
             canvas.drawCircle(x, y, 5, textRectPaint);
         }
+
+        // point name
         canvas.drawText(name, x, textY, this);
+
         // expand point border in order to touch easy
+        // point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
+        point.setPointRect(rect);
+    }
+
+    private void showTopHorizontalText(Canvas canvas, AbstractPoint point, float x, float y) {
+        String name = point.getName();
+        float margin = getTextSize();
+        float padding = getTextSize() / 4;
+
+        // x中间位置
+        float left = x - this.measureText(name) / 2 - padding;
+        float right = left + padding + this.measureText(name) + padding;
+        float top;
+        float bottom;
+
+        // 文字Y坐标
+        float textY;
+
+        top = y - margin + this.ascent() - padding;
+        bottom = top + padding + padding + margin + this.descent();
+        textY = y - margin;
+
+        // calculation text rectangle size and position
+        RectF rect = new RectF(left, top, right, bottom);
+
+        // point border
+        canvas.drawRoundRect(rect, 8, 8, textRectPaint);
+
+        // circle point in line
+        if (getTextSize() != 0) {
+            canvas.drawCircle(x, y, 5, textRectPaint);
+        }
+
+        // point name
+        canvas.drawText(name, x, textY, this);
+
+        // expand point border in order to touch easy
+        // point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
+        point.setPointRect(rect);
+    }
+
+    private void showTopVerticalText(Canvas canvas, AbstractPoint point, float x, float y) {
+        String name = point.getName();
+        float margin = getTextSize() / 2;
+        float padding = getTextSize() / 4;
+
+        // 文字坐标X，Y
+        float textX = x;
+        float textY = y - margin - padding - this.ascent();
+
+        // 单个字符长度
+        float txtW;
+
+        // 边框l,r,t,b
+        float left = x - getTextSize() / 2 - padding;
+        float right = left + padding + getTextSize() + padding;
+        float bottom = y - margin;
+        float top = bottom - padding - padding ;
+
+        // 获取字符长度，竖排画包裹框
+        for (int i = 0; i < name.length(); i++) {
+            txtW = measureText(name, i, i + 1);// 获取字符宽度
+            top -= txtW;
+        }
+        RectF rect = new RectF(left, top, right, bottom);
+        canvas.drawRoundRect(rect, 8, 8, textRectPaint);
+
+        // 获取文字长度，竖排显示文字
+        for (int i = name.length(); i > 0 ; i--) {
+            char c = name.charAt(i-1);
+            txtW = measureText(name, i-1, i);// 获取字符宽度
+            textY -= txtW;
+            canvas.drawText(String.valueOf(c), textX, textY, this);
+        }
+
+        // 线上圆点
+        if (getTextSize() != 0) {
+            canvas.drawCircle(x, y, 5, textRectPaint);
+        }
+
+        // 扩大点击范围
+        // point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
+        point.setPointRect(rect);
+    }
+
+        /**
+         * 画竖排向下文字
+         */
+    private void showDownVerticalText(Canvas canvas, AbstractPoint point, float x, float y) {
+        String name = point.getName();
+        float margin = getTextSize() / 2;
+        float padding = getTextSize() / 4;
+
+        // 文字坐标X，Y
+        float textX = x;
+        float textY = y + margin + padding;
+
+        // 单个字符长度
+        float txtW;
+
+        // 边框l,r,t,b
+        float left = x - getTextSize() / 2 - padding;
+        float right = left + padding + getTextSize() + padding;
+        float top = y + margin;
+        float bottom = top + padding + padding + this.descent();
+
+        // 获取字符长度，竖排画包裹框
+        for (int i = 0; i < name.length(); i++) {
+            txtW = measureText(name, i, i + 1);// 获取字符宽度
+            bottom += txtW;
+        }
+        RectF rect = new RectF(left, top, right, bottom);
+        canvas.drawRoundRect(rect, 8, 8, textRectPaint);
+
+        // 获取文字长度，竖排显示文字
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            txtW = measureText(name, i, i + 1);// 获取字符宽度
+            textY += txtW;
+            canvas.drawText(String.valueOf(c), textX, textY, this);
+        }
+
+        // 线上圆点
+        if (getTextSize() != 0) {
+            canvas.drawCircle(x, y, 5, textRectPaint);
+        }
+
+        // 扩大点击范围
         // point.setPointRect(new RectF(left - margin * 3, top - margin * 3, right + margin * 3, bottom + margin * 3));
         point.setPointRect(rect);
     }

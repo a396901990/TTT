@@ -44,7 +44,7 @@ public class AppLaunchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.app_luanch_splash_screen);
+        //setContentView(R.layout.app_luanch_splash_screen);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
@@ -64,8 +64,20 @@ public class AppLaunchActivity extends Activity {
         // 获取当前app版本
         this.currentAppVersion = SystemUtil.getAppVersion(this);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (!WelcomeActivity.hasShown(currentAppVersion)) {
+                    gotoWhatsNew();
+                } else {
+                    gotoHome();
+                }
+
+            }
+        }, SPLASH_DISPLAY_LENGTH);
         // 初始化视图
-        initView();
+        //initView();
     }
 
     private void initView() {
@@ -152,7 +164,7 @@ public class AppLaunchActivity extends Activity {
 
     @Override
     protected void onPause() {
-        // 注销event bus
+        // 注销event bua
         super.onPause();
     }
 
@@ -163,6 +175,7 @@ public class AppLaunchActivity extends Activity {
         if (requestCode == REQUEST_WELCOME) {
             if (resultCode == RESULT_OK) {
                 gotoHome();
+                finish();
             } else {
                 finish();
             }

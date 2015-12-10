@@ -27,6 +27,9 @@ import com.dean.travltotibet.R;
 
 import java.util.Locale;
 
+/**
+ https://github.com/astuetz/PagerSlidingTabStrip
+ */
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     public interface IconTabProvider {
