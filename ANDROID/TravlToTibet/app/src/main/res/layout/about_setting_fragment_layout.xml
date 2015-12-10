@@ -105,6 +105,25 @@
 
         </com.dean.travltotibet.ui.MaterialRippleLayout>
 
+        <!--开源项目-->
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:visibility="gone"
+            android:id="@+id/about_open_source"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center_vertical"
+                android:padding="@dimen/navigation_item_padding"
+                android:text="开源项目"
+                android:textColor="@color/dark_gray" />
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
     </LinearLayout>
 
     <!--版权-->
