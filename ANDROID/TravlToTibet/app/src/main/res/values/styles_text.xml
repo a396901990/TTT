@@ -18,6 +18,10 @@
         <item name="android:textSize">@dimen/text_small</item>
     </style>
 
+    <style name="TextAppearance.Small.Bold" parent="TextAppearance.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Small.LightBlue" parent="TextAppearance.Small">
         <item name="android:textColor">@color/less_dark_blue</item>
     </style>

@@ -94,7 +94,7 @@
             android:name=".activity.WhereGoActivity"
             android:label="@string/title_activity_where_go"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.WhiteTheme" />
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

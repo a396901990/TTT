@@ -15,6 +15,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.adapter.WhereGoItemGridAdapter;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;

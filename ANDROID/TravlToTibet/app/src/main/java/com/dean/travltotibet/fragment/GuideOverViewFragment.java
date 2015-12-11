@@ -11,6 +11,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.ExpandableTextView;
+import com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar;
 import com.dean.travltotibet.util.Constants;
 
 /**
@@ -45,7 +46,11 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         TextView end = (TextView) root.findViewById(R.id.overview_end);
         TextView date = (TextView) root.findViewById(R.id.overview_plan);
         TextView distance = (TextView) root.findViewById(R.id.overview_distance);
-        RatingBar rank = (RatingBar) root.findViewById(R.id.overview_rank);
+
+        NumberProgressBar rateHard = (NumberProgressBar) root.findViewById(R.id.rate_hard);
+        NumberProgressBar rateView = (NumberProgressBar) root.findViewById(R.id.rate_view);
+        NumberProgressBar rateRoad = (NumberProgressBar) root.findViewById(R.id.rate_road);
+
 
         start.setText(routeActivity.getPlanStart());
         end.setText(routeActivity.getPlanEnd());
@@ -59,7 +64,6 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         }
 
         distance.setText(routeActivity.getPlanDistance());
-        rank.setNumStars(Integer.parseInt(routeActivity.getPlanRank()));
 
         initDescribeExpandableTextView();
     }

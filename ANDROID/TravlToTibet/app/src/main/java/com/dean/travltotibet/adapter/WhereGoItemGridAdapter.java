@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,10 @@ public class WhereGoItemGridAdapter extends BaseAdapter {
         Route routeItem = mData.get(position);
         String title = routeItem.getName();
         String distance = routeItem.getDistance();
+
+        NumberProgressBar rateHard = (NumberProgressBar) convertView.findViewById(R.id.rate_hard);
+        NumberProgressBar rateView = (NumberProgressBar) convertView.findViewById(R.id.rate_view);
+        NumberProgressBar rateRoad = (NumberProgressBar) convertView.findViewById(R.id.rate_road);
 
         placeTitle.setText(title);
         placeDistance.setText(distance);
