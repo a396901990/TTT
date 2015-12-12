@@ -1,15 +1,16 @@
-package com.dean.travltotibet.ui;
+package com.dean.travltotibet.ui.customScrollView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
+
+import com.mobeta.android.dslv.DragSortListView;
 
 /**
  * Created by DeanGuo on 11/14/15.
  */
-public class InsideExpandableListView extends ExpandableListView {
-    public InsideExpandableListView(Context context, AttributeSet attrs) {
+public class InsideScrollListView extends ListView {
+    public InsideScrollListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

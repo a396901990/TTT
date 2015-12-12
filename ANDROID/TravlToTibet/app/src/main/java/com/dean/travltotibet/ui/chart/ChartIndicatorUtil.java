@@ -1,4 +1,4 @@
-package com.dean.travltotibet.util;
+package com.dean.travltotibet.ui.chart;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -8,8 +8,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MotionEvent;
 
-import com.dean.travltotibet.model.AbstractSeries;
-import com.dean.travltotibet.ui.IndicatorChartView;
+import com.dean.travltotibet.ui.chart.AbstractSeries;
+import com.dean.travltotibet.ui.chart.IndicatorChartView;
 import com.dean.travltotibet.TTTApplication;
 
 public class ChartIndicatorUtil

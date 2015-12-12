@@ -1,4 +1,4 @@
-package com.dean.travltotibet.model;
+package com.dean.travltotibet.ui.chart;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,9 +10,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.PointManager;
+import com.dean.travltotibet.model.Place;
 
 /**
  * Created by DeanGuo on 6/13/15.

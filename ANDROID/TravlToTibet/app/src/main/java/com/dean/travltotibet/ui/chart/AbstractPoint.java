@@ -1,4 +1,4 @@
-package com.dean.travltotibet.model;
+package com.dean.travltotibet.ui.chart;
 
 import android.graphics.Rect;
 import android.graphics.RectF;

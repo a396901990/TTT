@@ -1,19 +1,16 @@
-package com.dean.travltotibet.ui;
+package com.dean.travltotibet.ui.chart;
 
 import java.util.ArrayList;
 
-import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.model.AbstractSeries;
-import com.dean.travltotibet.model.AbstractSeries.PointListener;
+import com.dean.travltotibet.ui.chart.AbstractSeries.PointListener;
 import com.dean.travltotibet.util.OverScrollerCompat;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.ScaleGestureDetectorCompat;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.Zoomer;
-import com.dean.travltotibet.util.ChartCrosshairUtil;
-import com.dean.travltotibet.util.ChartCrosshairUtil.OnCrosshairPainted;
-import com.dean.travltotibet.util.ChartIndicatorUtil.OnChartListener;
-import com.dean.travltotibet.util.ChartIndicatorUtil.OnIndicatorListener;
+import com.dean.travltotibet.ui.chart.ChartCrosshairUtil.OnCrosshairPainted;
+import com.dean.travltotibet.ui.chart.ChartIndicatorUtil.OnChartListener;
+import com.dean.travltotibet.ui.chart.ChartIndicatorUtil.OnIndicatorListener;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -35,7 +32,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;

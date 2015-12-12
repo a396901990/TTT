@@ -1,4 +1,4 @@
-package com.dean.travltotibet.model;
+package com.dean.travltotibet.ui.chart;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,9 +15,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.text.TextUtils;
 
-import com.dean.travltotibet.ui.PointDetailPaint;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.util.PointManager;
 
 /**
  * Created by DeanGuo on 6/13/15.

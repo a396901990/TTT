@@ -1,12 +1,10 @@
-package com.dean.travltotibet.ui;
+package com.dean.travltotibet.ui.chart;
 
 import java.util.ArrayList;
 
-import com.dean.travltotibet.model.AbstractSeries;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.util.ChartIndicatorUtil;
-import com.dean.travltotibet.util.ChartIndicatorUtil.OnChartListener;
-import com.dean.travltotibet.util.ChartIndicatorUtil.OnIndicatorListener;
+import com.dean.travltotibet.ui.chart.ChartIndicatorUtil.OnChartListener;
+import com.dean.travltotibet.ui.chart.ChartIndicatorUtil.OnIndicatorListener;
 
 import android.content.Context;
 import android.graphics.Canvas;

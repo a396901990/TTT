@@ -225,7 +225,7 @@
                 android:text="行程" />
 
             <!--行程时间线列表-->
-            <com.dean.travltotibet.ui.InsideScrollAnimatedExpandableListView
+            <com.dean.travltotibet.ui.customScrollView.InsideScrollAnimatedExpandableListView
                 android:id="@+id/detail_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

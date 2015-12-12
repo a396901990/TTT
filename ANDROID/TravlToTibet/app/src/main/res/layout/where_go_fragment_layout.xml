@@ -27,14 +27,14 @@
                 android:padding="3dp"
                 android:text="长线" />
 
-            <com.dean.travltotibet.ui.ScrollGridView
+            <com.dean.travltotibet.ui.customScrollView.ScrollGridView
                 android:id="@+id/lang_distance_grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="@dimen/where_go_item_padding"
                 android:numColumns="@integer/where_go_grid_columns_num"
                 android:padding="@dimen/where_go_card_padding"
-                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.ScrollGridView>
+                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.customScrollView.ScrollGridView>
         </LinearLayout>
 
         <!--中线-->
@@ -55,14 +55,14 @@
                 android:padding="3dp"
                 android:text="中线" />
 
-            <com.dean.travltotibet.ui.ScrollGridView
+            <com.dean.travltotibet.ui.customScrollView.ScrollGridView
                 android:id="@+id/middle_distance_grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="@dimen/where_go_item_padding"
                 android:numColumns="@integer/where_go_grid_columns_num"
                 android:padding="@dimen/where_go_card_padding"
-                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.ScrollGridView>
+                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.customScrollView.ScrollGridView>
         </LinearLayout>
 
         <!--短线-->
@@ -82,14 +82,14 @@
                 android:padding="3dp"
                 android:text="短线" />
 
-            <com.dean.travltotibet.ui.ScrollGridView
+            <com.dean.travltotibet.ui.customScrollView.ScrollGridView
                 android:id="@+id/short_distance_grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="@dimen/where_go_item_padding"
                 android:numColumns="@integer/where_go_grid_columns_num"
                 android:padding="@dimen/where_go_card_padding"
-                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.ScrollGridView>
+                android:verticalSpacing="@dimen/where_go_item_padding"></com.dean.travltotibet.ui.customScrollView.ScrollGridView>
         </LinearLayout>
 
     </LinearLayout>

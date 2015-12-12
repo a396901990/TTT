@@ -25,6 +25,8 @@ public final class Constants {
     public static final String INTENT_ROUTE_DAY = "intent_route_day";
     public static final String INTENT_ROUTE_DIR = "intent_route_direction";
     public static final String INTENT_ROUTE_ORIENTATION = "intent_route_setting_orientation";
+    public static final String INTENT_PLAN_START = "intent_plan_start";
+    public static final String INTENT_PLAN_END = "intent_plan_end";
 
     // prepare intent
     public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";

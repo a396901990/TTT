@@ -64,7 +64,7 @@
             app:iiv_icon="gmd_confirmation_number" />
 
         <TextView
-            style="@style/TextAppearance.Small"
+            style="@style/TextAppearance.Small.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -73,7 +73,7 @@
 
         <TextView
             android:id="@+id/overview_distance"
-            style="@style/TextAppearance.Small.Bold"
+            style="@style/TextAppearance.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -97,7 +97,7 @@
             app:iiv_icon="gmd_event_note" />
 
         <TextView
-            style="@style/TextAppearance.Small"
+            style="@style/TextAppearance.Small.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -106,7 +106,7 @@
 
         <TextView
             android:id="@+id/overview_plan"
-            style="@style/TextAppearance.Small.Bold"
+            style="@style/TextAppearance.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

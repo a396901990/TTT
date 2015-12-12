@@ -9,7 +9,7 @@
         android:background="@color/white"
         android:layout_height="match_parent">
 
-        <com.dean.travltotibet.ui.RouteChartView
+        <com.dean.travltotibet.ui.chart.RouteChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:labelSeparation="3dp"
             app:labelTextSize="@dimen/chart_label_text_size" />
 
-        <com.dean.travltotibet.ui.IndicatorChartView
+        <com.dean.travltotibet.ui.chart.IndicatorChartView
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="@dimen/indicator_chartview_height"

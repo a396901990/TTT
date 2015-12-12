@@ -1,4 +1,4 @@
-package com.dean.travltotibet.util;
+package com.dean.travltotibet.ui.chart;
 
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
@@ -15,11 +15,12 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.view.MotionEvent;
 
-import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.model.AbstractSeries;
-import com.dean.travltotibet.model.MountainSeries;
-import com.dean.travltotibet.ui.RouteChartView;
+import com.dean.travltotibet.ui.chart.AbstractPoint;
+import com.dean.travltotibet.ui.chart.AbstractSeries;
+import com.dean.travltotibet.ui.chart.MountainSeries;
+import com.dean.travltotibet.ui.chart.RouteChartView;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.util.Constants;
 
 public class ChartCrosshairUtil
 {

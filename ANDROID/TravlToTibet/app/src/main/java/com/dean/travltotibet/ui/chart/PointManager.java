@@ -1,4 +1,4 @@
-package com.dean.travltotibet.util;
+package com.dean.travltotibet.ui.chart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.ui.PointDetailPaint;
+import com.dean.travltotibet.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;

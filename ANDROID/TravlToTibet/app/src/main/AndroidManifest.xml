@@ -95,6 +95,10 @@
             android:label="@string/title_activity_where_go"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activity.FullChartScreenActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

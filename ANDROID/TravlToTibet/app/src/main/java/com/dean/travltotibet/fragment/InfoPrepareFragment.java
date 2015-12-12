@@ -12,7 +12,7 @@ import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.ui.ScrollGridView;
+import com.dean.travltotibet.ui.customScrollView.ScrollGridView;
 import com.dean.travltotibet.util.Constants;
 
 /**

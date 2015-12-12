@@ -18,7 +18,7 @@
             android:padding="10dp"
             android:text="点击条目可以进行拖拽，排序" />
 
-        <com.dean.travltotibet.ui.InsideScrollDragSoftListView
+        <com.dean.travltotibet.ui.customScrollView.InsideScrollDragSoftListView
             android:id="@+id/selected_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:padding="10dp"
             android:text="未选择" />
 
-        <com.dean.travltotibet.ui.InsideScrollListView
+        <com.dean.travltotibet.ui.customScrollView.InsideScrollListView
             android:id="@+id/unselected_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:listSelector="#00000000"
             android:overScrollFooter="@null"
             android:overScrollHeader="@null"
-            android:scrollbars="none"></com.dean.travltotibet.ui.InsideScrollListView>
+            android:scrollbars="none"></com.dean.travltotibet.ui.customScrollView.InsideScrollListView>
 
     </LinearLayout>
 </ScrollView>

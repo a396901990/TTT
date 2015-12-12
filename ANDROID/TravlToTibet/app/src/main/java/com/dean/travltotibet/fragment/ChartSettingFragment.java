@@ -17,16 +17,16 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ChartSettingSelectedListAdapter;
 import com.dean.travltotibet.adapter.ChartSettingUnSelectedListAdapter;
 import com.dean.travltotibet.model.PointCheck;
-import com.dean.travltotibet.ui.InsideScrollDragSoftListView;
-import com.dean.travltotibet.ui.InsideScrollListView;
-import com.dean.travltotibet.util.PointManager;
+import com.dean.travltotibet.ui.customScrollView.InsideScrollDragSoftListView;
+import com.dean.travltotibet.ui.customScrollView.InsideScrollListView;
+import com.dean.travltotibet.ui.chart.PointManager;
 
 import java.util.List;
 
 /**
  * Created by DeanGuo on 11/5/15.
  */
-public class ChartSettingFragment extends Fragment implements PointCheck.PointCheckChangedListener{
+public class ChartSettingFragment extends Fragment implements PointCheck.PointCheckChangedListener {
 
     private View root;
 

@@ -1,4 +1,4 @@
-package com.dean.travltotibet.model;
+package com.dean.travltotibet.ui.chart;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,8 +11,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.model.AbstractSeries;
+import com.dean.travltotibet.ui.chart.AbstractPoint;
+import com.dean.travltotibet.ui.chart.AbstractSeries;
 
 /**
  * Created by DeanGuo on 6/13/15.

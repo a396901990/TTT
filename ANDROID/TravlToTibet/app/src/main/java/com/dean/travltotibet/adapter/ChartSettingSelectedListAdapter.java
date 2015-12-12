@@ -8,20 +8,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
@@ -29,7 +21,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.ChartSettingFragment;
 import com.dean.travltotibet.model.PointCheck;
 import com.dean.travltotibet.ui.SwitchButton;
-import com.dean.travltotibet.util.PointManager;
+import com.dean.travltotibet.ui.chart.PointManager;
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.DragSortListView.DropListener;
 

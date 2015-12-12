@@ -1,4 +1,4 @@
-package com.dean.travltotibet.ui;
+package com.dean.travltotibet.ui.customScrollView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

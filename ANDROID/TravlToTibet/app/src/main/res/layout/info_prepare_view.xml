@@ -15,7 +15,7 @@
         android:textColor="@color/dark_gray" />
 
     <!--内容视图-->
-    <com.dean.travltotibet.ui.ScrollGridView
+    <com.dean.travltotibet.ui.customScrollView.ScrollGridView
         android:id="@+id/gridView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,6 +23,6 @@
         android:background="@color/white_background"
         android:horizontalSpacing="@dimen/info_card_grid_space"
         android:numColumns="4"
-        android:verticalSpacing="@dimen/info_card_grid_space"></com.dean.travltotibet.ui.ScrollGridView>
+        android:verticalSpacing="@dimen/info_card_grid_space"></com.dean.travltotibet.ui.customScrollView.ScrollGridView>
 </LinearLayout>
 

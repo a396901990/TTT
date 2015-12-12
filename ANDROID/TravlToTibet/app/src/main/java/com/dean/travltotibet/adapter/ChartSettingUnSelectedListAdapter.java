@@ -17,9 +17,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.ChartSettingFragment;
 import com.dean.travltotibet.model.PointCheck;
 import com.dean.travltotibet.ui.SwitchButton;
-import com.dean.travltotibet.util.PointManager;
-import com.mobeta.android.dslv.DragSortListView;
-import com.mobeta.android.dslv.DragSortListView.DropListener;
+import com.dean.travltotibet.ui.chart.PointManager;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -5,16 +5,14 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
 import com.dean.travltotibet.database.DBHelper;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.PointManager;
+import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.ResourceUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 

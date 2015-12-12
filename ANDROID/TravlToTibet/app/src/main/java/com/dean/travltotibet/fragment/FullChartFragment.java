@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,37 +11,26 @@ import android.widget.TextView;
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ChartSettingActivity;
-import com.dean.travltotibet.activity.FullChartScreenActivity;
-import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.chart.AbstractPoint;
 import com.dean.travltotibet.ui.chart.AbstractSeries;
 import com.dean.travltotibet.ui.chart.IndicatorSeries;
 import com.dean.travltotibet.ui.chart.MountainSeries;
 import com.dean.travltotibet.ui.chart.IndicatorChartView;
 import com.dean.travltotibet.ui.chart.RouteChartView;
-import com.dean.travltotibet.ui.fab.FloatingActionMenu;
-import com.dean.travltotibet.ui.fab.FloatingActionButton;
-import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.StringUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.List;
 
 /**
- * Created by DeanGuo on 8/13/15.
+ * Created by DeanGuo on 12/12/15.
  */
-public class RouteChartFragment extends BaseRouteFragment {
-
-    public static final int CHART_SETTING = 0;
+public class FullChartFragment extends Fragment {
 
     private static final int BORDER_EXTRA_LENGTH = 40;
 
     private View rootView;
-
-    private View contentView;
 
     private RouteChartView mChartView;
 
@@ -52,48 +40,47 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     private IndicatorSeries indicatorSeries;
 
-    private RouteActivity routeActivity;
+    // 当前计划
+    private String planStart;
+    private String planEnd;
 
-    public static RouteChartFragment newInstance() {
-        return new RouteChartFragment();
-    }
+    // 当前线路名称
+    private String routeName;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        routeActivity = (RouteActivity) getActivity();
-        // 默认第一个视图先初始化菜单（设计的不好以后再改。。。）
-        initMenu(routeActivity.getFloatingActionMenu());
-        super.onCreate(savedInstanceState);
+    // 当前线路类型
+    private String routeType;
+
+    // 当前是否向前，也就是正向反向 f/r
+    private boolean isForward;
+
+    public static FullChartFragment newInstance() {
+        return new FullChartFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.layout_content_frame, container, false);
+        rootView = inflater.inflate(R.layout.chart_fragment_view, container, false);
         return rootView;
     }
 
     @Override
-    protected void onLoadPrepared() {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        contentView = inflater.inflate(R.layout.chart_fragment_view, null, false);
-        mChartView = (RouteChartView) contentView.findViewById(R.id.chart);
-        mIndicatorView = (IndicatorChartView) contentView.findViewById(R.id.indicator);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            routeName = bundle.getString(Constants.INTENT_ROUTE);
+            routeType = bundle.getString(Constants.INTENT_ROUTE_TYPE);
+            isForward = bundle.getBoolean(Constants.INTENT_ROUTE_DIR, true);
+            planStart = bundle.getString(Constants.INTENT_PLAN_START);
+            planEnd = bundle.getString(Constants.INTENT_PLAN_END);
+        }
+
+        mChartView = (RouteChartView) rootView.findViewById(R.id.chart);
+        mIndicatorView = (IndicatorChartView) rootView.findViewById(R.id.indicator);
         mIndicatorView.setChartView(mChartView);
-    }
 
-    @Override
-    protected void onLoading() {
-        updateChartRoute();
-    }
-
-    @Override
-    protected void onLoadFinished() {
-        rootView.post(new Runnable() {
-            @Override
-            public void run() {
-                ((ViewGroup) rootView).addView(contentView);
-            }
-        });
+        initChartRoute();
     }
 
     /**
@@ -140,13 +127,7 @@ public class RouteChartFragment extends BaseRouteFragment {
     /**
      * 更新chart视图路线
      */
-    public void updateChartRoute() {
-
-        // 根据路线的起始和终点 获取数据
-        String routeName = routeActivity.getCurrentRoute().getRoute();
-        String planStart = routeActivity.getPlanStart();
-        String planEnd = routeActivity.getPlanEnd();
-        boolean isForward = routeActivity.isForward();
+    public void initChartRoute() {
 
         List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, planStart, planEnd, isForward);
 
@@ -182,7 +163,7 @@ public class RouteChartFragment extends BaseRouteFragment {
             public void run() {
                 // 重置图标视图数据
                 // 远离屏幕左右间隔是起点终点长的1/10
-                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6500);
+                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 7000);
                 //mChartView.setAxisRange(-5, 0, border + 5, 6500);
                 //mIndicatorView.setCurrentViewport(mChartView.getCurrentViewport()); // ??????????????????
             }
@@ -208,72 +189,4 @@ public class RouteChartFragment extends BaseRouteFragment {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CHART_SETTING:
-                updateRoute();
-                break;
-        }
-    }
-
-    @Override
-    public void updateRoute() {
-        updateChartDetail(null);
-        updateChartRoute();
-    }
-
-    @Override
-    public void fabBtnEvent() {
-        Intent intent = new Intent(getActivity(), ChartSettingActivity.class);
-        intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
-        startActivityForResult(intent, CHART_SETTING);
-    }
-
-    @Override
-    public void initMenu(final FloatingActionMenu menu) {
-        if (menu == null) {
-            return;
-        }
-        menu.removeAllMenuButtons();
-
-        final FloatingActionButton placeSettingBtn = new FloatingActionButton(getActivity());
-        placeSettingBtn.setButtonSize(FloatingActionButton.SIZE_MINI);
-        placeSettingBtn.setLabelText("显示设置");
-        placeSettingBtn.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_settings, Color.WHITE));
-        placeSettingBtn.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        placeSettingBtn.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
-
-        menu.addMenuButton(placeSettingBtn);
-        placeSettingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.close(true);
-                fabBtnEvent();
-            }
-        });
-
-        final FloatingActionButton fullScreenBtn = new FloatingActionButton(getActivity());
-        fullScreenBtn.setButtonSize(FloatingActionButton.SIZE_MINI);
-        fullScreenBtn.setLabelText("全屏显示");
-        fullScreenBtn.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_fullscreen, Color.WHITE));
-        fullScreenBtn.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        fullScreenBtn.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
-
-        menu.addMenuButton(fullScreenBtn);
-        fullScreenBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.close(true);
-                Intent intent = new Intent(getActivity(), FullChartScreenActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, routeActivity.getRouteName());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, routeActivity.getRouteType());
-                intent.putExtra(Constants.INTENT_ROUTE_DIR, routeActivity.isForward());
-                intent.putExtra(Constants.INTENT_PLAN_START, routeActivity.getPlanStart());
-                intent.putExtra(Constants.INTENT_PLAN_END, routeActivity.getPlanEnd());
-                startActivity(intent);
-            }
-        });
-    }
 }

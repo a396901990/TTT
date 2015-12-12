@@ -1,13 +1,10 @@
-package com.dean.travltotibet.ui;
+package com.dean.travltotibet.ui.chart;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.model.AbstractPoint;
-import com.dean.travltotibet.util.PointManager;
 
 /**
  * Created by DeanGuo on 11/3/15.
@@ -123,10 +120,12 @@ public class PointDetailPaint extends Paint {
         }
         // 如果点数大于10，倒着显示(village, town)
         else if (count > POINT_MIN && (PointManager.VILLAGE.equals(getCategory()) || PointManager.TOWN.equals(getCategory()))) {
-            showDownHorizontalText(canvas, point, x, y);
+            // showDownHorizontalText(canvas, point, x, y);
+            showDownVerticalText(canvas, point, x, y);
         }
         else {
-            showTopHorizontalText(canvas, point, x, y);
+            // showTopHorizontalText(canvas, point, x, y);
+            showTopVerticalText(canvas, point, x, y);
         }
     }
 
