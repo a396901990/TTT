@@ -9,6 +9,7 @@ import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
 import com.dean.greendao.GeocodeOld;
+import com.dean.greendao.Hotel;
 import com.dean.greendao.HotelDao;
 import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
@@ -332,8 +333,14 @@ public class DBHelper {
 
     public List<Scenic> getScenicList(String route) {
         QueryBuilder<Scenic> qb = scenicDao.queryBuilder();
-        // 根据正反获取Plan
         qb.where(ScenicDao.Properties.Route.eq(route));
+        return qb.list();
+    }
+
+    public List<Hotel> getHotelList(String route, String place) {
+        QueryBuilder<Hotel> qb = hotelDao.queryBuilder();
+        qb.where(HotelDao.Properties.Route.eq(route));
+        qb.where(HotelDao.Properties.Place_name.eq(place));
         return qb.list();
     }
 

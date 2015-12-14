@@ -60,9 +60,9 @@ dependencies {
 
     // material UI:
     // https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:iconics-core:1.7.8@aar'
-    compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
-    compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
+    compile 'com.mikepenz:iconics-core:2.5.1@aar'
+    compile 'com.mikepenz:google-material-typeface:2.1.0.1.original@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
     compile 'com.facebook.rebound:rebound:0.3.6'
 
     // https://github.com/afollestad/material-dialogs

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
@@ -54,7 +53,7 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
         GuideDetailHolder holder;
         if (convertView == null) {
             holder = new GuideDetailHolder();
-            convertView = inflater.inflate(R.layout.route_guide_detail_list_item, parent,
+            convertView = inflater.inflate(R.layout.route_guide_detail_detail_list_item, parent,
                     false);
             holder.detailHeight = (TextView) convertView
                     .findViewById(R.id.detail_height);
@@ -115,7 +114,7 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
 
         if (convertView == null) {
             holder = new GuideDetailHolder();
-            convertView = inflater.inflate(R.layout.route_group_header_list_item, parent,
+            convertView = inflater.inflate(R.layout.route_guide_detail_header_list_item, parent,
                     false);
             holder.headerTitle = (TextView) convertView
                     .findViewById(R.id.header_title);

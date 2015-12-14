@@ -410,6 +410,7 @@ public class RouteActivity
     public SlidingMenu getSlidingMenu() {
         return mSlidingMenu;
     }
+
     public Route getCurrentRoute() {
         return currentRoute;
     }

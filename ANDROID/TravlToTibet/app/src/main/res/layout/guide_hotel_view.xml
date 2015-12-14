@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/card_padding">
+
+    <!--标题-->
+    <TextView
+        android:id="@+id/hotel_title"
+        style="@style/TextAppearance.Medium.White"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/guide_title_view_margin_bottom"
+        android:background="@drawable/border_theme"
+        android:padding="@dimen/guide_title_view_padding"
+        android:text="住宿" />
+
+    <com.dean.travltotibet.ui.customScrollView.InsideScrollAnimatedExpandableListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:groupIndicator="@null" />
+
+</LinearLayout>

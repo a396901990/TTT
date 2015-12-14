@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -10,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
+import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.MenuUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -31,11 +35,13 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private BaseGuideFragment detailFragment;
 
-    private com.dean.travltotibet.ui.fab.FloatingActionButton satellite;
+    private BaseGuideFragment hotelFragment;
+
+    private com.dean.travltotibet.ui.fab.FloatingActionButton hotel;
     private com.dean.travltotibet.ui.fab.FloatingActionButton detail;
     private com.dean.travltotibet.ui.fab.FloatingActionButton overView;
 
-    private final static int SATELLITE = 0;
+    private final static int HOTEL = 0;
 
     private final static int DETAIL = 1;
 
@@ -68,8 +74,11 @@ public class RouteGuideFragment extends BaseRouteFragment {
     protected void onLoadPrepared() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
+
         overviewFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_overview_fragment);
         detailFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_detail_fragment);
+        hotelFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_hotel_fragment);
+
         mScrollView = (ScrollView) contentView.findViewById(R.id.scroll_view);
     }
 
@@ -88,8 +97,11 @@ public class RouteGuideFragment extends BaseRouteFragment {
         if (overviewFragment != null && overviewFragment.isAdded()) {
             overviewFragment.update();
         }
-        if (overviewFragment != null && detailFragment.isAdded()) {
+        if (detailFragment != null && detailFragment.isAdded()) {
             detailFragment.update();
+        }
+        if (hotelFragment != null && hotelFragment.isAdded()) {
+            hotelFragment.update();
         }
     }
 
@@ -103,19 +115,34 @@ public class RouteGuideFragment extends BaseRouteFragment {
         menu.removeAllMenuButtons();
 
         // 住宿
-        satellite = MenuUtil.initFAB(getActivity(), "住宿", R.drawable.ic_ab_back_icon);
-        menu.addMenuButton(satellite);
+        hotel = new FloatingActionButton(getActivity());
+        hotel.setButtonSize(FloatingActionButton.SIZE_MINI);
+        hotel.setLabelText("住宿");
+        hotel.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_hotel, Color.WHITE));
+        hotel.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        hotel.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
+        menu.addMenuButton(hotel);
         // 攻略
-        detail = MenuUtil.initFAB(getActivity(), "行程", R.drawable.ic_ab_back_icon);
+        detail = new FloatingActionButton(getActivity());
+        detail.setButtonSize(FloatingActionButton.SIZE_MINI);
+        detail.setLabelText("行程");
+        detail.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_perm_contact_calendar, Color.WHITE));
+        detail.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        detail.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
         menu.addMenuButton(detail);
         // 简介
-        overView = MenuUtil.initFAB(getActivity(), "简介", R.drawable.ic_ab_back_icon);
+        overView = new FloatingActionButton(getActivity());
+        overView.setButtonSize(FloatingActionButton.SIZE_MINI);
+        overView.setLabelText("简介");
+        overView.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_panorama_fish_eye, Color.WHITE));
+        overView.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        overView.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
         menu.addMenuButton(overView);
 
-        satellite.setOnClickListener(new View.OnClickListener() {
+        hotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCurrentShowType(OVERVIEW);
+                setCurrentShowType(HOTEL);
                 menu.close(true);
             }
         });
@@ -141,7 +168,14 @@ public class RouteGuideFragment extends BaseRouteFragment {
         this.currentShowType = currentShowType;
 
         switch (currentShowType) {
-            case SATELLITE:
+            case HOTEL:
+                final View hotel = contentView.findViewById(R.id.hotel_content);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mScrollView.smoothScrollTo(0, hotel.getTop());
+                    }
+                });
                 break;
             case DETAIL:
                 final View detail = contentView.findViewById(R.id.detail_content);
@@ -175,6 +209,10 @@ public class RouteGuideFragment extends BaseRouteFragment {
             Fragment detailFrag = fm.findFragmentById(R.id.guide_detail_fragment);
             if (detailFrag != null) {
                 fm.beginTransaction().remove(detailFrag).commitAllowingStateLoss();
+            }
+            Fragment hotelFrag = fm.findFragmentById(R.id.guide_hotel_fragment);
+            if (hotelFrag != null) {
+                fm.beginTransaction().remove(hotelFrag).commitAllowingStateLoss();
             }
         }
         super.onDestroyView();

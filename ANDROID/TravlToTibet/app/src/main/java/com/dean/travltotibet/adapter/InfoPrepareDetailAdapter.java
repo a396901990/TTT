@@ -54,15 +54,20 @@ public class InfoPrepareDetailAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final DetailViewHolder holder;
         if (convertView == null) {
             LayoutInflater mInflater = LayoutInflater.from(mContext);
             convertView = mInflater.inflate(R.layout.prepare_detail_list_item_view, null);
+
+            holder = new DetailViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (DetailViewHolder) convertView.getTag();
         }
 
         final Animation slidedown = AnimationUtils.loadAnimation(mContext, R.anim.card_slide_down);
         final Animation slideup = AnimationUtils.loadAnimation(mContext, R.anim.card_slide_up);
 
-        final ViewHolder holder = new ViewHolder(convertView);
         holder.toggleButton.setFocusable(false);
         slidedown.setInterpolator(new BounceInterpolator());
 
@@ -145,7 +150,7 @@ public class InfoPrepareDetailAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public class ViewHolder {
+    public class DetailViewHolder {
 
         TextView detailTitle;
         TextView detailSummary;
@@ -155,7 +160,7 @@ public class InfoPrepareDetailAdapter extends BaseAdapter {
         LinearLayout toggleLayout;
         MaterialRippleLayout headerLayout;
 
-        public ViewHolder(View v) {
+        public DetailViewHolder(View v) {
 
             this.detailTitle = (TextView) v.findViewById(R.id.detail_title);
             this.detailSummary = (TextView) v.findViewById(R.id.detail_summary);

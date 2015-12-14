@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/guide_time_line_content_margin_left">
+    android:paddingLeft="@dimen/guide_time_line_content_margin_left"
+    android:paddingRight="@dimen/guide_time_line_content_margin_right">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,18 +16,18 @@
         <TextView
             android:id="@+id/detail_height"
             style="@style/TextAppearance.Small"
-            android:text="海拔"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="海拔"
             android:textColor="@color/dark_blue" />
 
         <!--位置-->
         <TextView
             android:id="@+id/detail_milestone"
-            android:text="位置"
             style="@style/TextAppearance.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="位置"
             android:textColor="@color/dark_green" />
     </LinearLayout>
 
@@ -36,8 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/blue_btn_active"
-        >
+        android:background="@drawable/blue_btn_active">
 
         <TextView
             android:id="@+id/detail_guide"
