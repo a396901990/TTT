@@ -64,7 +64,7 @@ public class DBHelper {
                 } else {
                     r_distance = geocodesJson.getGeocodes().get(i - 1).getDistance();
                 }
-                Geocode g = new Geocode(geocode.getId(), "DIANZANG", geocode.getName(), geocode.getElevation(),
+                Geocode g = new Geocode(geocode.getId(), "CHUANZANG_NAN", geocode.getName(), geocode.getElevation(),
                         geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
                         geocode.getRoad(), "正向攻略", "反向攻略"

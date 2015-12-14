@@ -25,6 +25,13 @@ public class Geocode {
     private String f_detail;
     private String r_detail;
 
+    public Geocode() {
+    }
+
+    public Geocode(Long id) {
+        this.id = id;
+    }
+
     public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, double milestone, String road, String f_detail, String r_detail) {
         this.id = id;
         this.route = route;

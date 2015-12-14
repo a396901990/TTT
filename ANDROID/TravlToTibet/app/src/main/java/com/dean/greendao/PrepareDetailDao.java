@@ -25,10 +25,11 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Type = new Property(2, String.class, "type", false, "TYPE");
-        public final static Property Title = new Property(3, String.class, "title", false, "TITLE");
-        public final static Property Summary = new Property(4, String.class, "summary", false, "SUMMARY");
-        public final static Property Detail = new Property(5, String.class, "detail", false, "DETAIL");
+        public final static Property Travel_type = new Property(2, String.class, "travel_type", false, "TRAVEL_TYPE");
+        public final static Property Type = new Property(3, String.class, "type", false, "TYPE");
+        public final static Property Title = new Property(4, String.class, "title", false, "TITLE");
+        public final static Property Summary = new Property(5, String.class, "summary", false, "SUMMARY");
+        public final static Property Detail = new Property(6, String.class, "detail", false, "DETAIL");
     };
 
 
@@ -46,10 +47,11 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'PREPARE_DETAIL' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'NAME' TEXT NOT NULL ," + // 1: name
-                "'TYPE' TEXT," + // 2: type
-                "'TITLE' TEXT," + // 3: title
-                "'SUMMARY' TEXT," + // 4: summary
-                "'DETAIL' TEXT);"); // 5: detail
+                "'TRAVEL_TYPE' TEXT NOT NULL ," + // 2: travel_type
+                "'TYPE' TEXT," + // 3: type
+                "'TITLE' TEXT," + // 4: title
+                "'SUMMARY' TEXT," + // 5: summary
+                "'DETAIL' TEXT);"); // 6: detail
     }
 
     /** Drops the underlying database table. */
@@ -68,25 +70,26 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getName());
+        stmt.bindString(3, entity.getTravel_type());
  
         String type = entity.getType();
         if (type != null) {
-            stmt.bindString(3, type);
+            stmt.bindString(4, type);
         }
  
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(4, title);
+            stmt.bindString(5, title);
         }
  
         String summary = entity.getSummary();
         if (summary != null) {
-            stmt.bindString(5, summary);
+            stmt.bindString(6, summary);
         }
  
         String detail = entity.getDetail();
         if (detail != null) {
-            stmt.bindString(6, detail);
+            stmt.bindString(7, detail);
         }
     }
 
@@ -102,10 +105,11 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
         PrepareDetail entity = new PrepareDetail( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // type
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // title
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // summary
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // detail
+            cursor.getString(offset + 2), // travel_type
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // type
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // title
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // summary
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // detail
         );
         return entity;
     }
@@ -115,10 +119,11 @@ public class PrepareDetailDao extends AbstractDao<PrepareDetail, Long> {
     public void readEntity(Cursor cursor, PrepareDetail entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
-        entity.setType(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTitle(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setSummary(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setDetail(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setTravel_type(cursor.getString(offset + 2));
+        entity.setType(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTitle(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setSummary(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDetail(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */

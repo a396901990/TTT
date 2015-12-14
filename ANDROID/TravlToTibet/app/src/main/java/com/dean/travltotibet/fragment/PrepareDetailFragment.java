@@ -30,13 +30,16 @@ public class PrepareDetailFragment extends Fragment {
 
     private String mRoute;
 
+    private String mType;
+
     private PrepareDetailAdapter mAdapter;
     private ArrayList<PrepareDetail> mPrepareDetails;
     private InfoType mInfoType;
 
-    public PrepareDetailFragment(InfoType infoType, String route) {
+    public PrepareDetailFragment(InfoType infoType, String route, String type) {
         this.mInfoType = infoType;
         this.mRoute = route;
+        this.mType = type;
     }
 
     @Override
@@ -63,13 +66,15 @@ public class PrepareDetailFragment extends Fragment {
     private void initData() {
 
         // 从PrepareInfo表中获取该路段的准备信息
-        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute);
-
+        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute, mType);
+        if (prepareInfo == null) {
+            return;
+        }
         // 获取条目名字
         String prepareName = InfoType.getInfoResult(mInfoType, prepareInfo);
 
         // 根据名字从PrepareDetail表中获取详细数据
-        mPrepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, mInfoType.toString());
+        mPrepareDetails = (ArrayList<PrepareDetail>) TTTApplication.getDbHelper().getPrepareDetails(prepareName, mInfoType.toString(), mType);
     }
 
     /**

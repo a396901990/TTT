@@ -9,13 +9,12 @@ public class PrepareInfo {
     private Long id;
     /** Not-null value. */
     private String route;
-    private String route_detail;
+    /** Not-null value. */
+    private String travel_type;
+    private String route_overview;
     private String budget;
     private String medicine;
-    private String equip_bike;
-    private String equip_hike;
-    private String equip_moto;
-    private String equip_car;
+    private String equip;
     private String equip_clothing;
     private String outdoor_equip;
     private String credential;
@@ -29,16 +28,14 @@ public class PrepareInfo {
         this.id = id;
     }
 
-    public PrepareInfo(Long id, String route, String route_detail, String budget, String medicine, String equip_bike, String equip_hike, String equip_moto, String equip_car, String equip_clothing, String outdoor_equip, String credential, String personal, String other) {
+    public PrepareInfo(Long id, String route, String travel_type, String route_overview, String budget, String medicine, String equip, String equip_clothing, String outdoor_equip, String credential, String personal, String other) {
         this.id = id;
         this.route = route;
-        this.route_detail = route_detail;
+        this.travel_type = travel_type;
+        this.route_overview = route_overview;
         this.budget = budget;
         this.medicine = medicine;
-        this.equip_bike = equip_bike;
-        this.equip_hike = equip_hike;
-        this.equip_moto = equip_moto;
-        this.equip_car = equip_car;
+        this.equip = equip;
         this.equip_clothing = equip_clothing;
         this.outdoor_equip = outdoor_equip;
         this.credential = credential;
@@ -64,12 +61,22 @@ public class PrepareInfo {
         this.route = route;
     }
 
-    public String getRoute_detail() {
-        return route_detail;
+    /** Not-null value. */
+    public String getTravel_type() {
+        return travel_type;
     }
 
-    public void setRoute_detail(String route_detail) {
-        this.route_detail = route_detail;
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setTravel_type(String travel_type) {
+        this.travel_type = travel_type;
+    }
+
+    public String getRoute_overview() {
+        return route_overview;
+    }
+
+    public void setRoute_overview(String route_overview) {
+        this.route_overview = route_overview;
     }
 
     public String getBudget() {
@@ -88,36 +95,12 @@ public class PrepareInfo {
         this.medicine = medicine;
     }
 
-    public String getEquip_bike() {
-        return equip_bike;
+    public String getEquip() {
+        return equip;
     }
 
-    public void setEquip_bike(String equip_bike) {
-        this.equip_bike = equip_bike;
-    }
-
-    public String getEquip_hike() {
-        return equip_hike;
-    }
-
-    public void setEquip_hike(String equip_hike) {
-        this.equip_hike = equip_hike;
-    }
-
-    public String getEquip_moto() {
-        return equip_moto;
-    }
-
-    public void setEquip_moto(String equip_moto) {
-        this.equip_moto = equip_moto;
-    }
-
-    public String getEquip_car() {
-        return equip_car;
-    }
-
-    public void setEquip_car(String equip_car) {
-        this.equip_car = equip_car;
+    public void setEquip(String equip) {
+        this.equip = equip;
     }
 
     public String getEquip_clothing() {

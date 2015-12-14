@@ -130,19 +130,19 @@ public enum InfoType {
     public static String getInfoResult(InfoType type, PrepareInfo prepareInfo) {
         switch (type) {
             case ROUTE_DETAIL:
-                return prepareInfo.getRoute_detail();
+                return prepareInfo.getRoute_overview();
             case BUDGET:
                 return prepareInfo.getBudget();
             case MEDICINE:
                 return prepareInfo.getMedicine();
             case EQUIP_BIKE:
-                return prepareInfo.getEquip_bike();
+                return prepareInfo.getEquip();
             case EQUIP_HIKE:
-                return prepareInfo.getEquip_hike();
+                return prepareInfo.getEquip();
             case EQUIP_MOTO:
-                return prepareInfo.getEquip_moto();
+                return prepareInfo.getEquip();
             case EQUIP_CAR:
-                return prepareInfo.getEquip_car();
+                return prepareInfo.getEquip();
             case CLOTHING:
                 return prepareInfo.getEquip_clothing();
             case OUTDOOR_EQUIP:

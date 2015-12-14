@@ -31,10 +31,12 @@ public class RouteDao extends AbstractDao<Route, Long> {
         public final static Property End = new Property(5, String.class, "end", false, "END");
         public final static Property Distance = new Property(6, String.class, "distance", false, "DISTANCE");
         public final static Property Type = new Property(7, String.class, "type", false, "TYPE");
-        public final static Property Rank = new Property(8, String.class, "rank", false, "RANK");
-        public final static Property Describe = new Property(9, String.class, "describe", false, "DESCRIBE");
-        public final static Property Detail = new Property(10, String.class, "detail", false, "DETAIL");
-        public final static Property Pic_url = new Property(11, String.class, "pic_url", false, "PIC_URL");
+        public final static Property Describe = new Property(8, String.class, "describe", false, "DESCRIBE");
+        public final static Property Detail = new Property(9, String.class, "detail", false, "DETAIL");
+        public final static Property Pic_url = new Property(10, String.class, "pic_url", false, "PIC_URL");
+        public final static Property Rank_hard = new Property(11, String.class, "rank_hard", false, "RANK_HARD");
+        public final static Property Rank_view = new Property(12, String.class, "rank_view", false, "RANK_VIEW");
+        public final static Property Rank_road = new Property(13, String.class, "rank_road", false, "RANK_ROAD");
     };
 
 
@@ -58,10 +60,12 @@ public class RouteDao extends AbstractDao<Route, Long> {
                 "'END' TEXT NOT NULL ," + // 5: end
                 "'DISTANCE' TEXT NOT NULL ," + // 6: distance
                 "'TYPE' TEXT NOT NULL ," + // 7: type
-                "'RANK' TEXT NOT NULL ," + // 8: rank
-                "'DESCRIBE' TEXT NOT NULL ," + // 9: describe
-                "'DETAIL' TEXT NOT NULL ," + // 10: detail
-                "'PIC_URL' TEXT NOT NULL );"); // 11: pic_url
+                "'DESCRIBE' TEXT NOT NULL ," + // 8: describe
+                "'DETAIL' TEXT NOT NULL ," + // 9: detail
+                "'PIC_URL' TEXT NOT NULL ," + // 10: pic_url
+                "'RANK_HARD' TEXT NOT NULL ," + // 11: rank_hard
+                "'RANK_VIEW' TEXT NOT NULL ," + // 12: rank_view
+                "'RANK_ROAD' TEXT NOT NULL );"); // 13: rank_road
     }
 
     /** Drops the underlying database table. */
@@ -86,10 +90,12 @@ public class RouteDao extends AbstractDao<Route, Long> {
         stmt.bindString(6, entity.getEnd());
         stmt.bindString(7, entity.getDistance());
         stmt.bindString(8, entity.getType());
-        stmt.bindString(9, entity.getRank());
-        stmt.bindString(10, entity.getDescribe());
-        stmt.bindString(11, entity.getDetail());
-        stmt.bindString(12, entity.getPic_url());
+        stmt.bindString(9, entity.getDescribe());
+        stmt.bindString(10, entity.getDetail());
+        stmt.bindString(11, entity.getPic_url());
+        stmt.bindString(12, entity.getRank_hard());
+        stmt.bindString(13, entity.getRank_view());
+        stmt.bindString(14, entity.getRank_road());
     }
 
     /** @inheritdoc */
@@ -110,10 +116,12 @@ public class RouteDao extends AbstractDao<Route, Long> {
             cursor.getString(offset + 5), // end
             cursor.getString(offset + 6), // distance
             cursor.getString(offset + 7), // type
-            cursor.getString(offset + 8), // rank
-            cursor.getString(offset + 9), // describe
-            cursor.getString(offset + 10), // detail
-            cursor.getString(offset + 11) // pic_url
+            cursor.getString(offset + 8), // describe
+            cursor.getString(offset + 9), // detail
+            cursor.getString(offset + 10), // pic_url
+            cursor.getString(offset + 11), // rank_hard
+            cursor.getString(offset + 12), // rank_view
+            cursor.getString(offset + 13) // rank_road
         );
         return entity;
     }
@@ -129,10 +137,12 @@ public class RouteDao extends AbstractDao<Route, Long> {
         entity.setEnd(cursor.getString(offset + 5));
         entity.setDistance(cursor.getString(offset + 6));
         entity.setType(cursor.getString(offset + 7));
-        entity.setRank(cursor.getString(offset + 8));
-        entity.setDescribe(cursor.getString(offset + 9));
-        entity.setDetail(cursor.getString(offset + 10));
-        entity.setPic_url(cursor.getString(offset + 11));
+        entity.setDescribe(cursor.getString(offset + 8));
+        entity.setDetail(cursor.getString(offset + 9));
+        entity.setPic_url(cursor.getString(offset + 10));
+        entity.setRank_hard(cursor.getString(offset + 11));
+        entity.setRank_view(cursor.getString(offset + 12));
+        entity.setRank_road(cursor.getString(offset + 13));
      }
     
     /** @inheritdoc */

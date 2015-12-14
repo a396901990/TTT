@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +48,19 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         TextView date = (TextView) root.findViewById(R.id.overview_plan);
         TextView distance = (TextView) root.findViewById(R.id.overview_distance);
 
+        // 设置评分条
         NumberProgressBar rateHard = (NumberProgressBar) root.findViewById(R.id.rate_hard);
         NumberProgressBar rateView = (NumberProgressBar) root.findViewById(R.id.rate_view);
         NumberProgressBar rateRoad = (NumberProgressBar) root.findViewById(R.id.rate_road);
-
+        if (!TextUtils.isEmpty(routeActivity.getPlanRank_Hard())) {
+            rateHard.setProgress(Integer.parseInt(routeActivity.getPlanRank_Hard()));
+        }
+        if (!TextUtils.isEmpty(routeActivity.getPlanRank_View())) {
+            rateView.setProgress(Integer.parseInt(routeActivity.getPlanRank_View()));
+        }
+        if (!TextUtils.isEmpty(routeActivity.getPlanRank_Road())) {
+            rateRoad.setProgress(Integer.parseInt(routeActivity.getPlanRank_Road()));
+        }
 
         start.setText(routeActivity.getPlanStart());
         end.setText(routeActivity.getPlanEnd());

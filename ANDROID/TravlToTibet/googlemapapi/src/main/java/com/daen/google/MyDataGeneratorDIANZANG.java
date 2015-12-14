@@ -9,44 +9,37 @@ import java.util.Collections;
 /**
  * Created by 95 on 2015/5/29.
  */
-public class MyDataGeneratorCHUANZANG_NAN {
+public class MyDataGeneratorDIANZANG {
     private static ArrayList<Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
 
         geocodes = new ArrayList<Geocode>();
 
-//        geocodes.add(new Geocode("成都", 0,"四川省", Constants.CITY));
-//        geocodes.add(new Geocode("新津县", 1, Constants.COUNTY));
-//        geocodes.add(new Geocode("邛崃市", 2, Constants.CITY));
-//        geocodes.add(new Geocode("名山区", 3, Constants.COUNTY));
-//        geocodes.add(new Geocode("金鸡关隧道", 4, Constants.TUNNEL));
-//        geocodes.add(new Geocode("雅安", 5, Constants.CITY));
-//        geocodes.add(new Geocode("多营镇", 6, Constants.TOWN));
-//        geocodes.add(new Geocode("飞仙关镇", 7, Constants.TOWN));
-//        geocodes.add(new Geocode("天全县", 8, Constants.TOWN));
-//        geocodes.add(new Geocode("紫石乡", 9, Constants.VILLAGE));
-//        geocodes.add(new Geocode("二郎山隧道", 10, Constants.TUNNEL));
-//        geocodes.add(new Geocode("泸定县", 11, Constants.CITY));
+//        geocodes.add(new Geocode("昆明", 0,"云南省", Constants.CITY));
+//        geocodes.add(new Geocode("安宁市", 1, Constants.CITY));
+//        geocodes.add(new Geocode("禄丰县", 2, Constants.COUNTY));
+//        geocodes.add(new Geocode("楚雄", 3, Constants.CITY));
+//        geocodes.add(new Geocode("南华县", 4, Constants.COUNTY));
+//        geocodes.add(new Geocode("大理", 6, Constants.CITY));
+//        geocodes.add(new Geocode("喜洲镇", 7, Constants.TOWN));
+//        geocodes.add(new Geocode("西邑镇", 8, Constants.TOWN));
+//        geocodes.add(new Geocode("松桂镇", 9, Constants.TOWN));
+//        geocodes.add(new Geocode("鹤庆县", 10, Constants.COUNTY));
+//        geocodes.add(new Geocode("丽江市", 11, Constants.CITY));
 
-//        geocodes.add(new Geocode("泸定县", 11, Constants.CITY));
-//        geocodes.add(new Geocode("烹坝乡", 12, Constants.VILLAGE));
-//        geocodes.add(new Geocode("冷竹关村", 13, Constants.VILLAGE));
-//        geocodes.add(new Geocode("瓦斯沟", 14, Constants.VILLAGE));
-//        geocodes.add(new Geocode("小天都隧道", 15, Constants.TUNNEL));
-//        geocodes.add(new Geocode("康定", 16, Constants.CITY));
-//        geocodes.add(new Geocode("折多塘村", 17, Constants.VILLAGE));
-//        geocodes.add(new Geocode("新都桥镇", 18, Constants.TOWN));
-//        geocodes.add(new Geocode("雅江县", 19, Constants.TOWN));
-//
-//        geocodes.add(new Geocode("雅江县", 19, Constants.COUNTY));
-//        geocodes.add(new Geocode("相克宗", 20, Constants.VILLAGE));
-//        geocodes.add(new Geocode("红龙乡", 21, Constants.VILLAGE));
-//        geocodes.add(new Geocode("理塘县", 23, Constants.COUNTY));
-//        geocodes.add(new Geocode("巴塘县", 24, Constants.COUNTY));
-//        geocodes.add(new Geocode("竹巴龙乡", 25, Constants.COUNTY));
-//        geocodes.add(new Geocode("海通兵站", 26, Constants.OTHERS));
-//        geocodes.add(new Geocode("芒康县", 27, Constants.COUNTY));
+        geocodes.add(new Geocode("丽江市", 11, Constants.CITY));
+        geocodes.add(new Geocode("拉市海", 12, Constants.CITY));
+        geocodes.add(new Geocode("虎跳峡镇", 13, Constants.COUNTY));
+        geocodes.add(new Geocode("俄迪隧道", 14, Constants.TUNNEL));
+        geocodes.add(new Geocode("小中甸镇", 15, Constants.TOWN));
+        geocodes.add(new Geocode("香格里拉县", 16, Constants.COUNTY));
+        geocodes.add(new Geocode("奔子栏镇", 17, Constants.TOWN));
+        geocodes.add(new Geocode("书松村", 18, Constants.TOWN));
+        geocodes.add(new Geocode("德钦隧道", 19, Constants.TUNNEL));
+        geocodes.add(new Geocode("纳西民族乡", 20, Constants.VILLAGE));
+        geocodes.add(new Geocode("毛尼村", 21, Constants.VILLAGE));
+        geocodes.add(new Geocode("芒康县", 22, Constants.COUNTY));
 ////
 //        geocodes.add(new Geocode("芒康县", 27, Constants.COUNTY));
 //        geocodes.add(new Geocode("如美镇", 28, Constants.TOWN));
@@ -69,6 +62,7 @@ public class MyDataGeneratorCHUANZANG_NAN {
 //        geocodes.add(new Geocode("排龙村", 43, "林芝",Constants.VILLAGE));
 //        geocodes.add(new Geocode("东久村", 44, "林芝",Constants.VILLAGE));
 //        geocodes.add(new Geocode("鲁朗镇", 45, Constants.TOWN));
+
 //
 //        geocodes.add(new Geocode("鲁朗镇", 45, Constants.TOWN));
 //        geocodes.add(new Geocode("八一镇", 47, Constants.TOWN));

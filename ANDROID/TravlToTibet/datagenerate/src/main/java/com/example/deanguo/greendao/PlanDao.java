@@ -30,7 +30,9 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         public final static Property End = new Property(4, String.class, "end", false, "END");
         public final static Property Distance = new Property(5, String.class, "distance", false, "DISTANCE");
         public final static Property Describe = new Property(6, String.class, "describe", false, "DESCRIBE");
-        public final static Property Rank = new Property(7, String.class, "rank", false, "RANK");
+        public final static Property Rank_hard = new Property(7, String.class, "rank_hard", false, "RANK_HARD");
+        public final static Property Rank_view = new Property(8, String.class, "rank_view", false, "RANK_VIEW");
+        public final static Property Rank_road = new Property(9, String.class, "rank_road", false, "RANK_ROAD");
     };
 
 
@@ -53,7 +55,9 @@ public class PlanDao extends AbstractDao<Plan, Long> {
                 "'END' TEXT NOT NULL ," + // 4: end
                 "'DISTANCE' TEXT NOT NULL ," + // 5: distance
                 "'DESCRIBE' TEXT NOT NULL ," + // 6: describe
-                "'RANK' TEXT NOT NULL );"); // 7: rank
+                "'RANK_HARD' TEXT NOT NULL ," + // 7: rank_hard
+                "'RANK_VIEW' TEXT NOT NULL ," + // 8: rank_view
+                "'RANK_ROAD' TEXT NOT NULL );"); // 9: rank_road
     }
 
     /** Drops the underlying database table. */
@@ -77,7 +81,9 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         stmt.bindString(5, entity.getEnd());
         stmt.bindString(6, entity.getDistance());
         stmt.bindString(7, entity.getDescribe());
-        stmt.bindString(8, entity.getRank());
+        stmt.bindString(8, entity.getRank_hard());
+        stmt.bindString(9, entity.getRank_view());
+        stmt.bindString(10, entity.getRank_road());
     }
 
     /** @inheritdoc */
@@ -97,7 +103,9 @@ public class PlanDao extends AbstractDao<Plan, Long> {
             cursor.getString(offset + 4), // end
             cursor.getString(offset + 5), // distance
             cursor.getString(offset + 6), // describe
-            cursor.getString(offset + 7) // rank
+            cursor.getString(offset + 7), // rank_hard
+            cursor.getString(offset + 8), // rank_view
+            cursor.getString(offset + 9) // rank_road
         );
         return entity;
     }
@@ -112,7 +120,9 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         entity.setEnd(cursor.getString(offset + 4));
         entity.setDistance(cursor.getString(offset + 5));
         entity.setDescribe(cursor.getString(offset + 6));
-        entity.setRank(cursor.getString(offset + 7));
+        entity.setRank_hard(cursor.getString(offset + 7));
+        entity.setRank_view(cursor.getString(offset + 8));
+        entity.setRank_road(cursor.getString(offset + 9));
      }
     
     /** @inheritdoc */

@@ -19,7 +19,7 @@ public class MyGenerator {
 
     public static void main(String[] args) throws Exception {
 
-        Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME_DATA);
+        Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME);
         addGeocode(schema);
         addPlan(schema);
         addRoute(schema);
@@ -27,11 +27,13 @@ public class MyGenerator {
         addPrepareInfo(schema);
         addPrepareDetail(schema);
         addRecentRoute(schema);
+        addHotel(schema);
+        addScenic(schema);
 //        addZoneType(schema);
 //        addBuildingType(schema);
 
         //生成Dao文件路径
-        new DaoGenerator().generateAll(schema, DAO_PATH_DATA);
+        new DaoGenerator().generateAll(schema, DAO_PATH);
     }
 
 
@@ -64,7 +66,9 @@ public class MyGenerator {
         route.addStringProperty("end").notNull();
         route.addStringProperty("distance").notNull();
         route.addStringProperty("describe").notNull();
-        route.addStringProperty("rank").notNull();
+        route.addStringProperty("rank_hard").notNull();
+        route.addStringProperty("rank_view").notNull();
+        route.addStringProperty("rank_road").notNull();
     }
 
     // 路线表
@@ -78,10 +82,12 @@ public class MyGenerator {
         route.addStringProperty("end").notNull();
         route.addStringProperty("distance").notNull();
         route.addStringProperty("type").notNull();
-        route.addStringProperty("rank").notNull();
         route.addStringProperty("describe").notNull();
         route.addStringProperty("detail").notNull();
         route.addStringProperty("pic_url").notNull();
+        route.addStringProperty("rank_hard").notNull();
+        route.addStringProperty("rank_view").notNull();
+        route.addStringProperty("rank_road").notNull();
     }
 
     // 路线_计划表
@@ -101,13 +107,11 @@ public class MyGenerator {
         Entity route = schema.addEntity("PrepareInfo");
         route.addIdProperty();
         route.addStringProperty("route").notNull();
-        route.addStringProperty("route_detail");
+        route.addStringProperty("travel_type").notNull();
+        route.addStringProperty("route_overview");
         route.addStringProperty("budget");
         route.addStringProperty("medicine");
-        route.addStringProperty("equip_bike");
-        route.addStringProperty("equip_hike");
-        route.addStringProperty("equip_moto");
-        route.addStringProperty("equip_car");
+        route.addStringProperty("equip");
         route.addStringProperty("equip_clothing");
         route.addStringProperty("outdoor_equip");
         route.addStringProperty("credential");
@@ -120,6 +124,7 @@ public class MyGenerator {
         Entity route = schema.addEntity("PrepareDetail");
         route.addIdProperty();
         route.addStringProperty("name").notNull();
+        route.addStringProperty("travel_type").notNull();
         route.addStringProperty("type");
         route.addStringProperty("title");
         route.addStringProperty("summary");
@@ -135,6 +140,33 @@ public class MyGenerator {
         route.addStringProperty("type");
         route.addStringProperty("FR");
         route.addStringProperty("route_plan_id");
+        route.addStringProperty("plan_start");
+        route.addStringProperty("plan_end");
+    }
+
+    // 记录最近路线
+    private static void addHotel(Schema schema) {
+        Entity route = schema.addEntity("Hotel");
+        route.addIdProperty();
+        route.addStringProperty("route").notNull();
+        route.addStringProperty("place_name").notNull();
+        route.addStringProperty("hotel_name").notNull();
+        route.addStringProperty("hotel_address");
+        route.addStringProperty("hotel_tel");
+        route.addStringProperty("hotel_detail");
+        route.addStringProperty("hotel_pic");
+        route.addStringProperty("hotel_type");
+    }
+
+    // 记录最近路线
+    private static void addScenic(Schema schema) {
+        Entity route = schema.addEntity("Scenic");
+        route.addIdProperty();
+        route.addStringProperty("route").notNull();
+        route.addStringProperty("scenic_name").notNull();
+        route.addStringProperty("scenic_overview");
+        route.addStringProperty("scenic_detail");
+        route.addStringProperty("scenic_pic");
     }
 
     // 区域类型表

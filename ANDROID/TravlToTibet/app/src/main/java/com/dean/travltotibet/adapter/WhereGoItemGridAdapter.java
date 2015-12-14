@@ -49,6 +49,7 @@ public class WhereGoItemGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             LayoutInflater mInflater = LayoutInflater.from(mContext);
             convertView = mInflater.inflate(R.layout.where_go_place_item, null);
@@ -58,15 +59,24 @@ public class WhereGoItemGridAdapter extends BaseAdapter {
         TextView placeDistance = (TextView) convertView.findViewById(R.id.place_distance);
 
         Route routeItem = mData.get(position);
+
         String title = routeItem.getName();
         String distance = routeItem.getDistance();
+        placeTitle.setText(title);
+        placeDistance.setText(distance);
 
         NumberProgressBar rateHard = (NumberProgressBar) convertView.findViewById(R.id.rate_hard);
         NumberProgressBar rateView = (NumberProgressBar) convertView.findViewById(R.id.rate_view);
         NumberProgressBar rateRoad = (NumberProgressBar) convertView.findViewById(R.id.rate_road);
-
-        placeTitle.setText(title);
-        placeDistance.setText(distance);
+        if (!TextUtils.isEmpty(routeItem.getRank_hard())) {
+            rateHard.setProgress(Integer.parseInt(routeItem.getRank_hard()));
+        }
+        if (!TextUtils.isEmpty(routeItem.getRank_view())) {
+            rateView.setProgress(Integer.parseInt(routeItem.getRank_view()));
+        }
+        if (!TextUtils.isEmpty(routeItem.getRank_road())) {
+            rateRoad.setProgress(Integer.parseInt(routeItem.getRank_road()));
+        }
 
         return convertView;
     }

@@ -29,6 +29,8 @@ public class RecentRouteDao extends AbstractDao<RecentRoute, Long> {
         public final static Property Type = new Property(3, String.class, "type", false, "TYPE");
         public final static Property FR = new Property(4, String.class, "FR", false, "FR");
         public final static Property Route_plan_id = new Property(5, String.class, "route_plan_id", false, "ROUTE_PLAN_ID");
+        public final static Property Plan_start = new Property(6, String.class, "plan_start", false, "PLAN_START");
+        public final static Property Plan_end = new Property(7, String.class, "plan_end", false, "PLAN_END");
     };
 
 
@@ -49,7 +51,9 @@ public class RecentRouteDao extends AbstractDao<RecentRoute, Long> {
                 "'ROUTE_NAME' TEXT," + // 2: route_name
                 "'TYPE' TEXT," + // 3: type
                 "'FR' TEXT," + // 4: FR
-                "'ROUTE_PLAN_ID' TEXT);"); // 5: route_plan_id
+                "'ROUTE_PLAN_ID' TEXT," + // 5: route_plan_id
+                "'PLAN_START' TEXT," + // 6: plan_start
+                "'PLAN_END' TEXT);"); // 7: plan_end
     }
 
     /** Drops the underlying database table. */
@@ -88,6 +92,16 @@ public class RecentRouteDao extends AbstractDao<RecentRoute, Long> {
         if (route_plan_id != null) {
             stmt.bindString(6, route_plan_id);
         }
+ 
+        String plan_start = entity.getPlan_start();
+        if (plan_start != null) {
+            stmt.bindString(7, plan_start);
+        }
+ 
+        String plan_end = entity.getPlan_end();
+        if (plan_end != null) {
+            stmt.bindString(8, plan_end);
+        }
     }
 
     /** @inheritdoc */
@@ -105,7 +119,9 @@ public class RecentRouteDao extends AbstractDao<RecentRoute, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // route_name
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // type
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // FR
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // route_plan_id
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // route_plan_id
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // plan_start
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // plan_end
         );
         return entity;
     }
@@ -119,6 +135,8 @@ public class RecentRouteDao extends AbstractDao<RecentRoute, Long> {
         entity.setType(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setFR(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setRoute_plan_id(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setPlan_start(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setPlan_end(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     /** @inheritdoc */

@@ -61,7 +61,7 @@ public class PrepareDetailActivity extends BaseActivity {
     private void initViewPagerAndTab() {
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mAdapter = new PrepareDetailPageAdapter(getFragmentManager());
-        mAdapter.setData(mInfoTypes, mRoute);
+        mAdapter.setData(mInfoTypes, mRoute, mType);
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);

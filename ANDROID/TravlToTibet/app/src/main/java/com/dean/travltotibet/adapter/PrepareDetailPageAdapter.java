@@ -23,6 +23,8 @@ public class PrepareDetailPageAdapter extends FragmentStatePagerAdapter {
 
     private String mRoute;
 
+    private String mType;
+
     public PrepareDetailPageAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -42,14 +44,15 @@ public class PrepareDetailPageAdapter extends FragmentStatePagerAdapter {
         return mFragments.get(position);
     }
 
-    public void setData(ArrayList<InfoType> types, String route) {
+    public void setData(ArrayList<InfoType> types, String route, String type) {
         mInfoTypes = types;
         mRoute = route;
+        mType = type;
 
         for (int i=0; i<types.size(); i++) {
             String title = InfoType.INFO_TEXT.get(types.get(i));
             mTitles.put(i, title);
-            mFragments.put(i, new PrepareDetailFragment(mInfoTypes.get(i), mRoute));
+            mFragments.put(i, new PrepareDetailFragment(mInfoTypes.get(i), mRoute, mType));
         }
         notifyDataSetChanged();
     }

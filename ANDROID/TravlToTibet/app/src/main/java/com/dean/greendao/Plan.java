@@ -20,7 +20,11 @@ public class Plan {
     /** Not-null value. */
     private String describe;
     /** Not-null value. */
-    private String rank;
+    private String rank_hard;
+    /** Not-null value. */
+    private String rank_view;
+    /** Not-null value. */
+    private String rank_road;
 
     public Plan() {
     }
@@ -29,7 +33,7 @@ public class Plan {
         this.id = id;
     }
 
-    public Plan(Long id, String route_plan_id, String day, String start, String end, String distance, String describe, String rank) {
+    public Plan(Long id, String route_plan_id, String day, String start, String end, String distance, String describe, String rank_hard, String rank_view, String rank_road) {
         this.id = id;
         this.route_plan_id = route_plan_id;
         this.day = day;
@@ -37,7 +41,9 @@ public class Plan {
         this.end = end;
         this.distance = distance;
         this.describe = describe;
-        this.rank = rank;
+        this.rank_hard = rank_hard;
+        this.rank_view = rank_view;
+        this.rank_road = rank_road;
     }
 
     public Long getId() {
@@ -109,13 +115,33 @@ public class Plan {
     }
 
     /** Not-null value. */
-    public String getRank() {
-        return rank;
+    public String getRank_hard() {
+        return rank_hard;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setRank_hard(String rank_hard) {
+        this.rank_hard = rank_hard;
+    }
+
+    /** Not-null value. */
+    public String getRank_view() {
+        return rank_view;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setRank_view(String rank_view) {
+        this.rank_view = rank_view;
+    }
+
+    /** Not-null value. */
+    public String getRank_road() {
+        return rank_road;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setRank_road(String rank_road) {
+        this.rank_road = rank_road;
     }
 
 }

@@ -9,6 +9,7 @@ import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
 import com.dean.greendao.GeocodeOld;
+import com.dean.greendao.HotelDao;
 import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.PrepareDetail;
@@ -21,6 +22,8 @@ import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
 import com.dean.greendao.RoutePlanDao;
+import com.dean.greendao.Scenic;
+import com.dean.greendao.ScenicDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -59,6 +62,10 @@ public class DBHelper {
 
     private RecentRouteDao recentRouteDao;
 
+    private HotelDao hotelDao;
+
+    private ScenicDao scenicDao;
+
     private DBHelper() {
     }
 
@@ -78,6 +85,8 @@ public class DBHelper {
             instance.prepareInfoDao = daoSession.getPrepareInfoDao();
             instance.prepareDetailDao = daoSession.getPrepareDetailDao();
             instance.recentRouteDao = daoSession.getRecentRouteDao();
+            instance.hotelDao = daoSession.getHotelDao();
+            instance.scenicDao = daoSession.getScenicDao();
         }
         return instance;
     }
@@ -186,7 +195,7 @@ public class DBHelper {
         // 创建一个新对象防止引用错误，根据正反设置起始和终点
         String start = route.getStart();
         String end = route.getEnd();
-        Route currentRoute = new Route(route.getId(), route.getRoute(), route.getName(), route.getDay(), route.getStart(), route.getEnd(), route.getDistance(), route.getType(), route.getRank(), route.getDescribe(), route.getDetail(), route.getPic_url());
+        Route currentRoute = new Route(route.getId(), route.getRoute(), route.getName(), route.getDay(), route.getStart(), route.getEnd(), route.getDistance(), route.getType(), route.getDescribe(), route.getDetail(), route.getPic_url(), route.getRank_hard(), route.getRank_view(), route.getRank_road());
         if (isForward) {
             currentRoute.setStart(start);
             currentRoute.setEnd(end);
@@ -321,6 +330,13 @@ public class DBHelper {
         return qb.list().get(0).getPlan_days();
     }
 
+    public List<Scenic> getScenicList(String route) {
+        QueryBuilder<Scenic> qb = scenicDao.queryBuilder();
+        // 根据正反获取Plan
+        qb.where(ScenicDao.Properties.Route.eq(route));
+        return qb.list();
+    }
+
     /**
      * 查询
      */
@@ -331,22 +347,21 @@ public class DBHelper {
     /**
      * 根据路线名称，获取准备信息
      */
-    public PrepareInfo getPrepareInfo(String routeName) {
+    public PrepareInfo getPrepareInfo(String routeName, String travelType) {
         QueryBuilder<PrepareInfo> qb = prepareInfoDao.queryBuilder();
         qb.where(PrepareInfoDao.Properties.Route.eq(routeName));
-        if (qb.list() == null){
-            return null;
-        }
+        qb.where(PrepareInfoDao.Properties.Travel_type.eq(travelType));
         return qb.list().get(0);
     }
 
     /**
      * 根据路线名称，获取准备信息
      */
-    public List<PrepareDetail> getPrepareDetails(String name, String type) {
+    public List<PrepareDetail> getPrepareDetails(String name, String type, String travelType) {
         QueryBuilder<PrepareDetail> qb = prepareDetailDao.queryBuilder();
         qb.where(PrepareDetailDao.Properties.Name.eq(name));
         qb.where(PrepareDetailDao.Properties.Type.eq(type));
+        qb.where(PrepareDetailDao.Properties.Travel_type.eq(travelType));
         return qb.list();
     }
 
@@ -429,6 +444,7 @@ public class DBHelper {
      */
     public void initGeocodeData() {
 
+        geocodeDao.deleteAll();
         if (!isGeocodeDaoInited()) {
             String json_result = ParseUtil.readFromRaw(mContext);
             Gson gson = new Gson();
@@ -442,7 +458,7 @@ public class DBHelper {
                 } else {
                     r_distance = geocodesJson.getGeocodes().get(i - 1).getDistance();
                 }
-                Geocode g = new Geocode(geocode.getId(), "XINZANG", geocode.getName(), geocode.getElevation(),
+                Geocode g = new Geocode(geocode.getId(), "CHUANZANG_NAN", geocode.getName(), geocode.getElevation(),
                         geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
                         geocode.getRoad(), "正向攻略", "反向攻略"

@@ -13,6 +13,8 @@ public class RecentRoute {
     private String type;
     private String FR;
     private String route_plan_id;
+    private String plan_start;
+    private String plan_end;
 
     public RecentRoute() {
     }
@@ -21,13 +23,15 @@ public class RecentRoute {
         this.id = id;
     }
 
-    public RecentRoute(Long id, String route, String route_name, String type, String FR, String route_plan_id) {
+    public RecentRoute(Long id, String route, String route_name, String type, String FR, String route_plan_id, String plan_start, String plan_end) {
         this.id = id;
         this.route = route;
         this.route_name = route_name;
         this.type = type;
         this.FR = FR;
         this.route_plan_id = route_plan_id;
+        this.plan_start = plan_start;
+        this.plan_end = plan_end;
     }
 
     public Long getId() {
@@ -78,6 +82,22 @@ public class RecentRoute {
 
     public void setRoute_plan_id(String route_plan_id) {
         this.route_plan_id = route_plan_id;
+    }
+
+    public String getPlan_start() {
+        return plan_start;
+    }
+
+    public void setPlan_start(String plan_start) {
+        this.plan_start = plan_start;
+    }
+
+    public String getPlan_end() {
+        return plan_end;
+    }
+
+    public void setPlan_end(String plan_end) {
+        this.plan_end = plan_end;
     }
 
 }

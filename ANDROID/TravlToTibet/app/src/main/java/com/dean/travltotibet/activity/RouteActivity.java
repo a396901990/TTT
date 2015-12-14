@@ -57,7 +57,10 @@ public class RouteActivity
     private String planEnd;
     private String planDistance;
     private String planDescribe;
-    private String planRank;
+
+    private String planRank_Hard;
+    private String planRank_View;
+    private String planRank_Road;
 
     // 当前路线
     private Route currentRoute;
@@ -114,7 +117,7 @@ public class RouteActivity
 
 
         // 跟新信息
-        updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planRank, planDescribe);
+        updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planDescribe, planRank_Hard, planRank_View, planRank_Road);
     }
 
     private void initFabActionMenu() {
@@ -227,7 +230,9 @@ public class RouteActivity
             planDate = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY);
             planDistance = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY);
             planDescribe = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY);
-            planRank = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY);
+            planRank_Hard = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_HARD_STATUS_KEY);
+            planRank_View = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_VIEW_STATUS_KEY);
+            planRank_Road = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_ROAD_STATUS_KEY);
         }
         // 默认总路线数据
         else {
@@ -237,7 +242,9 @@ public class RouteActivity
             planDate = currentRoute.getName();
             planDistance = currentRoute.getDistance();
             planDescribe = currentRoute.getDescribe();
-            planRank = currentRoute.getRank();
+            planRank_Hard = currentRoute.getRank_hard();
+            planRank_View = currentRoute.getRank_view();
+            planRank_Road = currentRoute.getRank_road();
         }
     }
 
@@ -287,14 +294,16 @@ public class RouteActivity
      * @param end
      * @param date
      */
-    public void updateHeader(boolean isRoute, String start, String end, String date, String distance, String rank, String describe) {
+    public void updateHeader(boolean isRoute, String start, String end, String date, String distance, String describe, String rank_hard, String rank_view, String rank_road) {
         this.isRoute = isRoute;
         planDate = date;
         planStart = start;
         planEnd = end;
         planDistance = distance;
-        planRank = rank;
         planDescribe = describe;
+        planRank_Hard = rank_hard;
+        planRank_View = rank_view;
+        planRank_Road = rank_road;
 
         if (isRoute)
             mMenuDate.setText(getString(R.string.route_plan_title));
@@ -360,7 +369,9 @@ public class RouteActivity
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY, planDate);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY, planDistance);
         outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY, planDescribe);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY, planRank);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_HARD_STATUS_KEY, planRank_Hard);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_VIEW_STATUS_KEY, planRank_View);
+        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_ROAD_STATUS_KEY, planRank_Road);
     }
 
     @Override
@@ -382,11 +393,6 @@ public class RouteActivity
 
     public String getPlanStart() {
         return planStart;
-    }
-
-
-    public String getPlanRank() {
-        return planRank;
     }
 
     public String getPlanDescribe() {
@@ -450,5 +456,17 @@ public class RouteActivity
 
     public boolean isRoute() {
         return isRoute;
+    }
+
+    public String getPlanRank_Hard() {
+        return planRank_Hard;
+    }
+
+    public String getPlanRank_View() {
+        return planRank_View;
+    }
+
+    public String getPlanRank_Road() {
+        return planRank_Road;
     }
 }

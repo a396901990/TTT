@@ -65,7 +65,9 @@ public final class Constants {
     public static final String ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY = "route_activity_plan_date";
     public static final String ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY = "route_activity_plan_distance";
     public static final String ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY = "route_activity_plan_describe";
-    public static final String ROUTE_ACTIVITY_PLAN_RANK_STATUS_KEY = "route_activity_plan_rank";
+    public static final String ROUTE_ACTIVITY_PLAN_RANK_HARD_STATUS_KEY = "route_activity_plan_rank_hard";
+    public static final String ROUTE_ACTIVITY_PLAN_RANK_VIEW_STATUS_KEY = "route_activity_plan_rank_view";
+    public static final String ROUTE_ACTIVITY_PLAN_RANK_ROAD_STATUS_KEY = "route_activity_plan_rank_road";
 
     public static final String CURRENT_POINTS = "current_points";
     public static final String ALL_POINTS = "all_points";

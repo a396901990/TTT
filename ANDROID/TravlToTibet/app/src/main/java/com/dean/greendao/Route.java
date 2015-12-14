@@ -22,13 +22,17 @@ public class Route {
     /** Not-null value. */
     private String type;
     /** Not-null value. */
-    private String rank;
-    /** Not-null value. */
     private String describe;
     /** Not-null value. */
     private String detail;
     /** Not-null value. */
     private String pic_url;
+    /** Not-null value. */
+    private String rank_hard;
+    /** Not-null value. */
+    private String rank_view;
+    /** Not-null value. */
+    private String rank_road;
 
     public Route() {
     }
@@ -37,7 +41,7 @@ public class Route {
         this.id = id;
     }
 
-    public Route(Long id, String route, String name, String day, String start, String end, String distance, String type, String rank, String describe, String detail, String pic_url) {
+    public Route(Long id, String route, String name, String day, String start, String end, String distance, String type, String describe, String detail, String pic_url, String rank_hard, String rank_view, String rank_road) {
         this.id = id;
         this.route = route;
         this.name = name;
@@ -46,10 +50,12 @@ public class Route {
         this.end = end;
         this.distance = distance;
         this.type = type;
-        this.rank = rank;
         this.describe = describe;
         this.detail = detail;
         this.pic_url = pic_url;
+        this.rank_hard = rank_hard;
+        this.rank_view = rank_view;
+        this.rank_road = rank_road;
     }
 
     public Long getId() {
@@ -131,16 +137,6 @@ public class Route {
     }
 
     /** Not-null value. */
-    public String getRank() {
-        return rank;
-    }
-
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    /** Not-null value. */
     public String getDescribe() {
         return describe;
     }
@@ -168,6 +164,36 @@ public class Route {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setPic_url(String pic_url) {
         this.pic_url = pic_url;
+    }
+
+    /** Not-null value. */
+    public String getRank_hard() {
+        return rank_hard;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setRank_hard(String rank_hard) {
+        this.rank_hard = rank_hard;
+    }
+
+    /** Not-null value. */
+    public String getRank_view() {
+        return rank_view;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setRank_view(String rank_view) {
+        this.rank_view = rank_view;
+    }
+
+    /** Not-null value. */
+    public String getRank_road() {
+        return rank_road;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setRank_road(String rank_road) {
+        this.rank_road = rank_road;
     }
 
 }

@@ -61,8 +61,10 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         final String end = route.getEnd();
         final String dis = route.getDistance();
         final String name = route.getName();
-        final String rank = route.getRank();
         final String des = route.getDescribe();
+        final String rank_hard = route.getRank_hard();
+        final String rank_view = route.getRank_view();
+        final String rank_road = route.getRank_road();
 
         View overall = root.findViewById(R.id.ripple_view);
 
@@ -79,7 +81,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         overall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateChart(true, start, end, name, dis, rank, des);
+                updateChart(true, start, end, name, dis, des, rank_hard, rank_view, rank_road);
             }
         });
     }
@@ -110,10 +112,10 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
      * @param start 初始地点
      * @param end   终点
      */
-    public void updateChart(boolean isRoute, String start, String end, String date, String distance, String rank, String describe) {
+    public void updateChart(boolean isRoute, String start, String end, String date, String distance, String describe, String rank_hard, String rank_view, String rank_road) {
 
         // 更新标题栏文字
-        routeActivity.updateHeader(isRoute, start, end, date, distance, rank, describe);
+        routeActivity.updateHeader(isRoute, start, end, date, distance, describe, rank_hard, rank_view, rank_road);
 
         // 关闭菜单
         if (routeActivity.getSlidingMenu().isMenuShowing()) {
@@ -123,7 +125,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
 
     @Override
     public void onPlanClick(Plan plan) {
-        updateChart(false, plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getRank(), plan.getDescribe());
+        updateChart(false, plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getDescribe(), plan.getRank_hard(), plan.getRank_view(), plan.getRank_road());
     }
 
 }

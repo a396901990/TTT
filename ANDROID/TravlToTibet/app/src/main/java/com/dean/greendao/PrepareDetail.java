@@ -9,6 +9,8 @@ public class PrepareDetail {
     private Long id;
     /** Not-null value. */
     private String name;
+    /** Not-null value. */
+    private String travel_type;
     private String type;
     private String title;
     private String summary;
@@ -21,9 +23,10 @@ public class PrepareDetail {
         this.id = id;
     }
 
-    public PrepareDetail(Long id, String name, String type, String title, String summary, String detail) {
+    public PrepareDetail(Long id, String name, String travel_type, String type, String title, String summary, String detail) {
         this.id = id;
         this.name = name;
+        this.travel_type = travel_type;
         this.type = type;
         this.title = title;
         this.summary = summary;
@@ -46,6 +49,16 @@ public class PrepareDetail {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /** Not-null value. */
+    public String getTravel_type() {
+        return travel_type;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setTravel_type(String travel_type) {
+        this.travel_type = travel_type;
     }
 
     public String getType() {

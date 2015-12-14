@@ -22,7 +22,7 @@ public class ParseUtil {
 
     public static String readFromRaw(Context mContext) {
         try {
-            InputStream is = mContext.getResources().openRawResource(R.raw.data_dianzang);
+            InputStream is = mContext.getResources().openRawResource(R.raw.data_chuanzang);
             String result = readInputStream(is);
             return result;
         } catch (Exception e) {
