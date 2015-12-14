@@ -51,7 +51,13 @@ public class PathRunnable implements Runnable {
     }
 
     public void getPathInfo(final Geocode origin, final Geocode destination, final int i) {
-        String directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getAddress(), destination.getAddress());
+        //String directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getAddress(), destination.getAddress());
+        String directionsUrl;
+        if ((origin.getBelong() != null && origin.getBelong().length() > 0) || (destination.getBelong() != null && destination.getBelong().length() > 0)) {
+            directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getAddress(), destination.getAddress());
+        } else {
+            directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
+        }
         DownloadRunnable directionsRunnable = new DownloadRunnable(directionsUrl, new DownloadRunnable.DownloadCallback() {
 
             @Override

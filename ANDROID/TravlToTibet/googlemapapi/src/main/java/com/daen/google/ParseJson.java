@@ -27,6 +27,8 @@ public class ParseJson {
 
     //public static final String OUTPUT_FILE_PATH = "D:/GitHub/TTT/ANDROID/TravlToTibet/app/src/main/res/raw/data.txt";
 
+    public static final String OUTPUT_FILE_PATH_MAC = "/Users/DeanGuo/Desktop/result.txt";
+
     public static void main(String[] args) throws Exception {
 
         String a = readFile(FILE_PATH);
@@ -87,7 +89,7 @@ public class ParseJson {
         GeocodesJson gj = new GeocodesJson();
         gj.setGeocodes(geocodes);
         String result = gson.toJson(gj, GeocodesJson.class);
-        writefile(OUTPUT_FILE_PATH, result);
+        writefile(OUTPUT_FILE_PATH_MAC, result);
     }
 
     /**

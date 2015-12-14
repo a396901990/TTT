@@ -11,11 +11,15 @@ public class MyGenerator {
     //public static final String DAO_PATH = "../app/src/main/java";
     public static final String DAO_PATH = "/Users/DeanGuo/Github_Workspace/ANDROID/TravlToTibet/app/src/main/java";
     public static final String PACKAGE_NAME = "com.dean.greendao";
+
+    public static final String DAO_PATH_DATA = "/Users/DeanGuo/Github_Workspace/ANDROID/TravlToTibet/datagenerate/src/main/java";
+    public static final String PACKAGE_NAME_DATA = "com.example.deanguo.greendao";
+
     public static final int DATA_VERSION_CODE = 1;
 
     public static void main(String[] args) throws Exception {
 
-        Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME);
+        Schema schema = new Schema(DATA_VERSION_CODE, PACKAGE_NAME_DATA);
         addGeocode(schema);
         addPlan(schema);
         addRoute(schema);
@@ -27,7 +31,7 @@ public class MyGenerator {
 //        addBuildingType(schema);
 
         //生成Dao文件路径
-        new DaoGenerator().generateAll(schema, DAO_PATH);
+        new DaoGenerator().generateAll(schema, DAO_PATH_DATA);
     }
 
 
