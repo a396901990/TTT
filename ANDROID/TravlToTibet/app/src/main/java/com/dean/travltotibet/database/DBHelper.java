@@ -451,7 +451,7 @@ public class DBHelper {
      */
     public void initGeocodeData() {
 
-        geocodeDao.deleteAll();
+         geocodeDao.deleteAll();
         if (!isGeocodeDaoInited()) {
             String json_result = ParseUtil.readFromRaw(mContext);
             Gson gson = new Gson();

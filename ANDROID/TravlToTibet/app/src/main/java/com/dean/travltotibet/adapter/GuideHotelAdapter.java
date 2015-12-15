@@ -1,7 +1,9 @@
 package com.dean.travltotibet.adapter;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,11 @@ import android.widget.TextView;
 import com.dean.greendao.Hotel;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.fragment.HotelDetailDialog;
+import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.ui.AnimatedExpandableListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
+import com.dean.travltotibet.util.Constants;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
@@ -24,11 +29,11 @@ import java.util.List;
  */
 public class GuideHotelAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
     private LayoutInflater inflater;
-    private Context mContext;
+    private Activity mActivity;
     private ArrayList<PlaceHotel> mData;
 
     public GuideHotelAdapter(Context context) {
-        mContext = context;
+        mActivity = (Activity) context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -76,11 +81,11 @@ public class GuideHotelAdapter extends AnimatedExpandableListView.AnimatedExpand
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new com.afollestad.materialdialogs.MaterialDialog.Builder((Activity) mContext)
-                        .title(hotel.getHotel_name())
-                        .content(hotel.getHotel_detail())
-                        .build()
-                        .show();
+                DialogFragment dialogFragment = new HotelDetailDialog();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.INTENT_HOTEL, hotel);
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(mActivity.getFragmentManager(), InfoConfirmDialog.class.getName());
             }
         });
 

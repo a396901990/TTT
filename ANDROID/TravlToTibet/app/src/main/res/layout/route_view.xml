@@ -71,7 +71,7 @@
             android:layout_below="@+id/appbar"
             android:layout_marginRight="16dp"
             android:layout_marginTop="@dimen/fab_normal_margin_top"
-            fab:fab_elevationCompat="6dp"
+            android:elevation="6dp"
             fab:menu_animationDelayPerItem="0"
             fab:menu_fab_size="normal"
             fab:menu_icon="@drawable/ic_star"

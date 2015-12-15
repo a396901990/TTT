@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -82,6 +84,7 @@ public class InfoActivity extends AppCompatActivity {
      * 初始化出发按钮
      */
     private void initGoButton() {
+
         Button go = (Button) this.findViewById(R.id.goButton);
 
         go.setOnClickListener(new View.OnClickListener() {

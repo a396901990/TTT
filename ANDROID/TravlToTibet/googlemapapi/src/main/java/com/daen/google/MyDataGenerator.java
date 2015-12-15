@@ -16,9 +16,10 @@ public class MyDataGenerator {
 
         geocodes = new ArrayList<Geocode>();
 
-        geocodes.add(new Geocode("小天都隧道", 15, Constants.TUNNEL));
-        geocodes.add(new Geocode("康定", 16, Constants.CITY));
-        geocodes.add(new Geocode("折多塘村", 17, Constants.VILLAGE));
+        geocodes.add(new Geocode("紫石乡", 9, Constants.VILLAGE));
+        geocodes.add(new Geocode("二郎山隧道", 10, Constants.TUNNEL));
+        geocodes.add(new Geocode("泸定县", 11, Constants.CITY));
+        geocodes.add(new Geocode("烹坝乡", 12, Constants.VILLAGE));
 
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override

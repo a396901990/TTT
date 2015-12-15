@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="30dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <!--简介视图-->
+    <LinearLayout
+        android:id="@+id/hotel_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.Theme.Medium.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/route_plan_dialog_title_padding"
+            android:text="简介：" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_gray_border"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/hotel_detail"
+                style="@style/TextAppearance.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fhahahaldjflasfbalsbdfblasdfjlaksjdg"
+                android:textColor="@color/dark_gray" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--电话视图-->
+    <LinearLayout
+        android:id="@+id/hotel_tel_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.Theme.Medium.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/route_plan_dialog_title_padding"
+            android:paddingTop="@dimen/route_plan_dialog_space_padding"
+            android:text="电话：" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_gray_border"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/hotel_tel"
+                style="@style/TextAppearance.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15142423363"
+                android:textColor="@color/dark_gray" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--地址视图-->
+    <LinearLayout
+        android:id="@+id/hotel_address_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.Theme.Medium.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/route_plan_dialog_title_padding"
+            android:paddingTop="@dimen/route_plan_dialog_space_padding"
+            android:text="地址：" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_gray_border"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/hotel_address"
+                style="@style/TextAppearance.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="傻逼撸，191914大姐303"
+                android:textColor="@color/dark_gray" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

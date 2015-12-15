@@ -28,6 +28,8 @@ public final class Constants {
     public static final String INTENT_PLAN_START = "intent_plan_start";
     public static final String INTENT_PLAN_END = "intent_plan_end";
 
+    public static final String INTENT_HOTEL = "intent_hotel";
+
     // prepare intent
     public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";
     public static final String INTENT_PREPARE_TYPE = "intent_prepare_type";

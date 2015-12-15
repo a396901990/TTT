@@ -70,7 +70,7 @@ public class TTTApplication extends Application
         dbHelper = DBHelper.getInstance(getApplicationContext());
         dbHelper.initGeocodeData();
 //        dbHelper.initDataBase();
-//        dbHelper.readDataBase(instance);
+        //dbHelper.readDataBase(instance);
 ////        dbHelper.intoFileData();
     }
 
