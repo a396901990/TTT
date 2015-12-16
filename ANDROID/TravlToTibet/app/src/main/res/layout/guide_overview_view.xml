@@ -23,7 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="2dp">
 
         <TextView
             android:id="@+id/overview_start"
@@ -49,116 +51,166 @@
             android:text="拉萨" />
     </LinearLayout>
 
-    <!--全长-->
+    <!--分成左右两份-->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.mikepenz.iconics.view.IconicsImageView
-            android:layout_width="@dimen/guide_brief_icon_size"
-            android:layout_height="@dimen/guide_brief_icon_size"
-            android:paddingLeft="@dimen/guide_brief_icon_padding"
-            android:paddingRight="@dimen/guide_brief_icon_padding"
-            app:iiv_color="@color/dark_blue"
-            app:iiv_icon="gmd_confirmation_number" />
-
-        <TextView
-            style="@style/TextAppearance.Small.Bold"
-            android:layout_width="wrap_content"
+        <!--item list-->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="全长"
-            android:textColor="@color/dark_blue" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/overview_distance"
-            style="@style/TextAppearance.Small"
-            android:layout_width="wrap_content"
+            <!--全长-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/guide_brief_icon_size"
+                    android:layout_height="@dimen/guide_brief_icon_size"
+                    android:paddingLeft="@dimen/guide_brief_icon_padding"
+                    android:paddingRight="@dimen/guide_brief_icon_padding"
+                    app:iiv_color="@color/dark_blue"
+                    app:iiv_icon="gmd_confirmation_number" />
+
+                <TextView
+                    style="@style/TextAppearance.Micro.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="全长"
+                    android:textColor="@color/dark_blue" />
+
+                <TextView
+                    android:id="@+id/overview_distance"
+                    style="@style/TextAppearance.Micro.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="2865KM"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+            <!--计划-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/guide_brief_icon_size"
+                    android:layout_height="@dimen/guide_brief_icon_size"
+                    android:paddingLeft="@dimen/guide_brief_icon_padding"
+                    android:paddingRight="@dimen/guide_brief_icon_padding"
+                    app:iiv_color="@color/dark_green"
+                    app:iiv_icon="gmd_event_note" />
+
+                <TextView
+                    style="@style/TextAppearance.Micro.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="计划"
+                    android:textColor="@color/dark_green" />
+
+                <TextView
+                    android:id="@+id/overview_plan"
+                    style="@style/TextAppearance.Micro.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="32天"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+            <!--难度-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/overview_rate"
+                    android:layout_width="@dimen/guide_brief_icon_size"
+                    android:layout_height="@dimen/guide_brief_icon_size"
+                    android:paddingLeft="@dimen/guide_brief_icon_padding"
+                    android:paddingRight="@dimen/guide_brief_icon_padding"
+                    app:iiv_color="@color/dark_orange"
+                    app:iiv_icon="gmd_access_time" />
+
+                <TextView
+                    style="@style/TextAppearance.Micro.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="用时"
+                    android:textColor="@color/dark_orange" />
+
+                <TextView
+                    style="@style/TextAppearance.Micro.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="约8-11小时"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="10dp"
-            android:text="2865KM"
-            android:textColor="@color/dark_blue" />
-    </LinearLayout>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingTop="3dp">
 
-    <!--计划-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
+                android:id="@+id/rate_hard"
+                style="@style/NumberProgressBar_Rate_Large"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                app:progress_current="8"
+                app:progress_max="10"
+                app:progress_reached_color="#E74C3C"
+                app:progress_text_color="#E74C3C"
+                app:progress_title="难度" />
 
-        <com.mikepenz.iconics.view.IconicsImageView
-            android:layout_width="@dimen/guide_brief_icon_size"
-            android:layout_height="@dimen/guide_brief_icon_size"
-            android:paddingLeft="@dimen/guide_brief_icon_padding"
-            android:paddingRight="@dimen/guide_brief_icon_padding"
-            app:iiv_color="@color/dark_green"
-            app:iiv_icon="gmd_event_note" />
+            <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
+                android:id="@+id/rate_view"
+                style="@style/NumberProgressBar_Rate_Large"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                app:progress_current="5"
+                app:progress_max="10"
+                app:progress_reached_color="#6DBCDB"
+                app:progress_text_color="#6DBCDB"
+                app:progress_title="风景" />
 
-        <TextView
-            style="@style/TextAppearance.Small.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="计划"
-            android:textColor="@color/dark_green" />
+            <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
+                android:id="@+id/rate_road"
+                style="@style/NumberProgressBar_Rate_Large"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                app:progress_current="10"
+                app:progress_max="10"
+                app:progress_reached_color="#FFC73B"
+                app:progress_text_color="#FFC73B"
+                app:progress_title="路况" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/overview_plan"
-            style="@style/TextAppearance.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="10dp"
-            android:text="32天"
-            android:textColor="@color/dark_green" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="4dp">
-
-        <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
-            android:id="@+id/rate_hard"
-            style="@style/NumberProgressBar_Rate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
-            app:progress_current="8"
-            app:progress_max="10"
-            app:progress_reached_color="#E74C3C"
-            app:progress_text_color="#E74C3C"
-            app:progress_title="难度" />
-
-        <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
-            android:id="@+id/rate_view"
-            style="@style/NumberProgressBar_Rate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
-            app:progress_current="5"
-            app:progress_max="10"
-            app:progress_reached_color="#6DBCDB"
-            app:progress_text_color="#6DBCDB"
-            app:progress_title="风景" />
-
-        <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
-            android:id="@+id/rate_road"
-            style="@style/NumberProgressBar_Rate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
-            app:progress_current="10"
-            app:progress_max="10"
-            app:progress_reached_color="#FFC73B"
-            app:progress_text_color="#FFC73B"
-            app:progress_title="路况" />
     </LinearLayout>
 
     <!--描述-->

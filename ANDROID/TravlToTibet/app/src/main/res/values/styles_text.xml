@@ -6,6 +6,10 @@
         <item name="android:textSize">@dimen/text_micro</item>
     </style>
 
+    <style name="TextAppearance.Micro.Bold" parent="TextAppearance.Micro">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Micro.LightBlue" parent="TextAppearance.Micro">
         <item name="android:textColor">@color/light_blue</item>
     </style>

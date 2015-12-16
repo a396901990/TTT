@@ -451,7 +451,7 @@ public class DBHelper {
      */
     public void initGeocodeData() {
 
-         geocodeDao.deleteAll();
+        // geocodeDao.deleteAll();
         if (!isGeocodeDaoInited()) {
             String json_result = ParseUtil.readFromRaw(mContext);
             Gson gson = new Gson();
@@ -547,7 +547,8 @@ public class DBHelper {
     // 初始化读入数据库内容
     public String readDataBase(Context context) {
 
-        if (!isGeocodeDaoInited()) {
+        //if (!isGeocodeDaoInited()) {
+        if (true) {
             String DB_PATH = mContext.getDatabasePath(Constants.DB_NAME).getPath();
             //String DB_PATH = CommonData.baseDir + File.separator + Constants.DB_NAME;
 

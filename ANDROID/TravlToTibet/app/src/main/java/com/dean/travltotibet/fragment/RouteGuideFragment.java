@@ -126,7 +126,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
         detail = new FloatingActionButton(getActivity());
         detail.setButtonSize(FloatingActionButton.SIZE_MINI);
         detail.setLabelText("行程");
-        detail.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_perm_contact_calendar, Color.WHITE));
+        detail.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_event_note, Color.WHITE));
         detail.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
         detail.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
         menu.addMenuButton(detail);
