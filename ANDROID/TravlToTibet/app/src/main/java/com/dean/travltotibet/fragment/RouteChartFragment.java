@@ -26,6 +26,7 @@ import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
+import com.dean.travltotibet.util.MenuUtil;
 import com.dean.travltotibet.util.StringUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -181,10 +182,7 @@ public class RouteChartFragment extends BaseRouteFragment {
             @Override
             public void run() {
                 // 重置图标视图数据
-                // 远离屏幕左右间隔是起点终点长的1/10
                 mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6500);
-                //mChartView.setAxisRange(-5, 0, border + 5, 6500);
-                //mIndicatorView.setCurrentViewport(mChartView.getCurrentViewport()); // ??????????????????
             }
         });
         //mChartView.setAxisRange(-5, 0, border+5, 6500);
@@ -233,20 +231,17 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     @Override
     public void initMenu(final FloatingActionMenu menu) {
+
+        // 第一个视图特殊逻辑，先确定menu是否初始化
         if (menu == null) {
             return;
         }
-        menu.removeAllMenuButtons();
+        super.initMenu(menu);
 
-        final FloatingActionButton placeSettingBtn = new FloatingActionButton(getActivity());
-        placeSettingBtn.setButtonSize(FloatingActionButton.SIZE_MINI);
-        placeSettingBtn.setLabelText("显示设置");
-        placeSettingBtn.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_settings, Color.WHITE));
-        placeSettingBtn.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        placeSettingBtn.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
-
-        menu.addMenuButton(placeSettingBtn);
-        placeSettingBtn.setOnClickListener(new View.OnClickListener() {
+        // 显示设置
+        final FloatingActionButton pointSettingBtn = MenuUtil.getFAB(getActivity(), "显示设置", GoogleMaterial.Icon.gmd_build);
+        menu.addMenuButton(pointSettingBtn);
+        pointSettingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 menu.close(true);
@@ -254,13 +249,8 @@ public class RouteChartFragment extends BaseRouteFragment {
             }
         });
 
-        final FloatingActionButton fullScreenBtn = new FloatingActionButton(getActivity());
-        fullScreenBtn.setButtonSize(FloatingActionButton.SIZE_MINI);
-        fullScreenBtn.setLabelText("全屏显示");
-        fullScreenBtn.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_fullscreen, Color.WHITE));
-        fullScreenBtn.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        fullScreenBtn.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
-
+        // 全屏显示
+        final FloatingActionButton fullScreenBtn = MenuUtil.getFAB(getActivity(), "全屏显示", GoogleMaterial.Icon.gmd_fullscreen);
         menu.addMenuButton(fullScreenBtn);
         fullScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override

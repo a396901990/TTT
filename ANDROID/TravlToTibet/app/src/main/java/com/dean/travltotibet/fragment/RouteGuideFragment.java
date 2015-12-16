@@ -3,8 +3,10 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,10 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private BaseGuideFragment hotelFragment;
 
+    private RoutePlanFragment planFragment;
+
+    private LayoutInflater inflater;
+
     private com.dean.travltotibet.ui.fab.FloatingActionButton hotel;
     private com.dean.travltotibet.ui.fab.FloatingActionButton detail;
     private com.dean.travltotibet.ui.fab.FloatingActionButton overView;
@@ -67,23 +73,78 @@ public class RouteGuideFragment extends BaseRouteFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-
     }
 
     @Override
     protected void onLoadPrepared() {
+        routeActivity = (RouteActivity) getActivity();
+        if (routeActivity.isRoute()) {
+            initPlanView();
+        } else {
+            initGuideView();
+        }
+    }
+
+    /**
+     * 初始化guide视图
+     */
+    private void initGuideView() {
+        // 清空视图
+        if (contentView != null) {
+            ViewGroup parent = (ViewGroup) contentView.getParent();
+            if (parent != null)
+                parent.removeView(contentView);
+
+            destroyFragmentView();
+        }
+
+        try {
+            // 添加guide视图
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
+
+            // overview fragment
+            overviewFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_overview_fragment);
+            // detail fragment
+            detailFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_detail_fragment);
+            // hotel fragment
+            hotelFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_hotel_fragment);
+
+            mScrollView = (ScrollView) contentView.findViewById(R.id.scroll_view);
+        } catch (InflateException e) {
+            // 报错则存在，就用之前的视图。。。
+        }
+    }
+
+    /**
+     * 初始化plan视图
+     */
+    private void initPlanView() {
+        // 清空视图
+        if (contentView != null) {
+            ViewGroup parent = (ViewGroup) contentView.getParent();
+            if (parent != null)
+                parent.removeView(contentView);
+
+            destroyFragmentView();
+        }
+
+        // 添加plan视图
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        contentView = inflater.inflate(R.layout.guide_route_fragment_view, null, false);
 
-        overviewFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_overview_fragment);
-        detailFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_detail_fragment);
-        hotelFragment = (BaseGuideFragment) getFragmentManager().findFragmentById(R.id.guide_hotel_fragment);
-
-        mScrollView = (ScrollView) contentView.findViewById(R.id.scroll_view);
+        try {
+            contentView = inflater.inflate(R.layout.guide_plan_fragment_view, null, false);
+            // plan fragment
+            planFragment = (RoutePlanFragment) getFragmentManager().findFragmentById(R.id.guide_plan_fragment);
+            planFragment.hideHeaderView();
+        } catch (InflateException e) {
+            // 报错则存在，就用之前的视图。。。
+        }
     }
 
     @Override
     protected void onLoading() {
+
     }
 
     @Override
@@ -94,6 +155,18 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public void updateRoute() {
 
+        // 选择plan后变更视图
+        if (routeActivity.isRoute()) {
+            initPlanView();
+            ((ViewGroup) rootView).addView(contentView);
+            initMenu(routeActivity.getFloatingActionMenu());
+        } else {
+            initGuideView();
+            ((ViewGroup) rootView).addView(contentView);
+            initMenu(routeActivity.getFloatingActionMenu());
+        }
+
+        // 更新guide视图下的fragment
         if (overviewFragment != null && overviewFragment.isAdded()) {
             overviewFragment.update();
         }
@@ -112,31 +185,22 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     @Override
     public void initMenu(final FloatingActionMenu menu) {
-        menu.removeAllMenuButtons();
+
+        if (routeActivity.isRoute()) {
+            menu.hideMenu(true);
+            return;
+        }
+
+        super.initMenu(menu);
 
         // 住宿
-        hotel = new FloatingActionButton(getActivity());
-        hotel.setButtonSize(FloatingActionButton.SIZE_MINI);
-        hotel.setLabelText("住宿");
-        hotel.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_hotel, Color.WHITE));
-        hotel.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        hotel.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
+        hotel = MenuUtil.getFAB(getActivity(), "住宿", GoogleMaterial.Icon.gmd_hotel);
         menu.addMenuButton(hotel);
         // 攻略
-        detail = new FloatingActionButton(getActivity());
-        detail.setButtonSize(FloatingActionButton.SIZE_MINI);
-        detail.setLabelText("行程");
-        detail.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_event_note, Color.WHITE));
-        detail.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        detail.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
+        detail = MenuUtil.getFAB(getActivity(), "行程", GoogleMaterial.Icon.gmd_event_note);
         menu.addMenuButton(detail);
         // 简介
-        overView = new FloatingActionButton(getActivity());
-        overView.setButtonSize(FloatingActionButton.SIZE_MINI);
-        overView.setLabelText("简介");
-        overView.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_panorama_fish_eye, Color.WHITE));
-        overView.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        overView.setColorPressed(TTTApplication.getMyColor(R.color.dark_green));
+        overView = MenuUtil.getFAB(getActivity(), "简介", GoogleMaterial.Icon.gmd_web_asset);
         menu.addMenuButton(overView);
 
         hotel.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +224,14 @@ public class RouteGuideFragment extends BaseRouteFragment {
             public void onClick(View v) {
                 setCurrentShowType(OVERVIEW);
                 menu.close(true);
+            }
+        });
+
+        final View overview = contentView.findViewById(R.id.overview_content);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mScrollView.smoothScrollTo(0, overview.getTop());
             }
         });
     }
@@ -198,22 +270,33 @@ public class RouteGuideFragment extends BaseRouteFragment {
         }
     }
 
+    /**
+     * 移除所有fragment视图
+     */
+    private void destroyFragmentView() {
+        FragmentManager fm = getFragmentManager();
+        Fragment overviewFrag = fm.findFragmentById(R.id.guide_overview_fragment);
+        if (overviewFrag != null) {
+            fm.beginTransaction().remove(overviewFrag).commitAllowingStateLoss();
+        }
+        Fragment detailFrag = fm.findFragmentById(R.id.guide_detail_fragment);
+        if (detailFrag != null) {
+            fm.beginTransaction().remove(detailFrag).commitAllowingStateLoss();
+        }
+        Fragment hotelFrag = fm.findFragmentById(R.id.guide_hotel_fragment);
+        if (hotelFrag != null) {
+            fm.beginTransaction().remove(hotelFrag).commitAllowingStateLoss();
+        }
+        Fragment planFrag = fm.findFragmentById(R.id.guide_plan_fragment);
+        if (planFrag != null) {
+            fm.beginTransaction().remove(planFrag).commitAllowingStateLoss();
+        }
+    }
+
     @Override
     public void onDestroyView() {
         if (!getActivity().isFinishing()) {
-            FragmentManager fm = getFragmentManager();
-            Fragment overviewFrag = fm.findFragmentById(R.id.guide_overview_fragment);
-            if (overviewFrag != null) {
-                fm.beginTransaction().remove(overviewFrag).commitAllowingStateLoss();
-            }
-            Fragment detailFrag = fm.findFragmentById(R.id.guide_detail_fragment);
-            if (detailFrag != null) {
-                fm.beginTransaction().remove(detailFrag).commitAllowingStateLoss();
-            }
-            Fragment hotelFrag = fm.findFragmentById(R.id.guide_hotel_fragment);
-            if (hotelFrag != null) {
-                fm.beginTransaction().remove(hotelFrag).commitAllowingStateLoss();
-            }
+            destroyFragmentView();
         }
         super.onDestroyView();
     }

@@ -402,7 +402,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     public void initMenu(final FloatingActionMenu menu) {
-        menu.removeAllMenuButtons();
+
+        super.initMenu(menu);
 
         // 卫星地图
         satellite = MenuUtil.initFAB(getActivity(), "卫星地图", R.drawable.ic_ab_back_icon);

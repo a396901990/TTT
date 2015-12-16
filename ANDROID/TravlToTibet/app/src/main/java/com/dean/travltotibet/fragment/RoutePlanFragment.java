@@ -22,11 +22,13 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemListener{
+public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemListener {
 
     private View root;
 
     private RouteActivity routeActivity;
+
+    private View headerView;
 
     /**
      * 更新路线监听器
@@ -45,6 +47,8 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
+        headerView = root.findViewById(R.id.overall_route);
+
         updatePlanOverall();
         initPlanList();
     }
@@ -104,6 +108,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
 
         mRecyclerView.setAdapter(adapter);
+
     }
 
     /**
@@ -126,6 +131,14 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
     @Override
     public void onPlanClick(Plan plan) {
         updateChart(false, plan.getStart(), plan.getEnd(), plan.getDay(), plan.getDistance(), plan.getDescribe(), plan.getRank_hard(), plan.getRank_view(), plan.getRank_road());
+    }
+
+    public void showHeaderView() {
+        headerView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideHeaderView() {
+        headerView.setVisibility(View.GONE);
     }
 
 }

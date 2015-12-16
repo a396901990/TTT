@@ -129,7 +129,22 @@ public abstract class BaseRouteFragment extends Fragment {
      */
     public abstract void fabBtnEvent();
 
-    public abstract void initMenu(FloatingActionMenu menu);
+    /**
+     * 初始化menu
+     * @param menu
+     */
+    public void initMenu(final FloatingActionMenu menu) {
+        menu.removeAllMenuButtons();
+
+        menu.showMenu(true);
+        menu.hideMenuButton(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                menu.showMenuButton(true);
+            }
+        }, 700);
+    }
 
     public void setCurrentPlan(String currentPlan, String end) {
         this.currentPlan = currentPlan + end;

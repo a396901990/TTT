@@ -11,6 +11,7 @@ import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -83,9 +84,10 @@ public class RouteActivity
     // mPage当前页码
     private int currentPage = 0;
 
-    private Toolbar mToolbar;
+    // 右上角计划按钮
     private TextView mMenuDate;
 
+    // 悬浮按钮菜单
     private FloatingActionMenu mFloatingActionMenu;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -120,66 +122,28 @@ public class RouteActivity
         updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planDescribe, planRank_Hard, planRank_View, planRank_Road);
     }
 
+    /**
+     * 初始化fab
+     */
     private void initFabActionMenu() {
         mFloatingActionMenu = (FloatingActionMenu) findViewById(R.id.menu_down);
         mFloatingActionMenu.setMenuButtonColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
         mFloatingActionMenu.setMenuButtonColorPressed(TTTApplication.getMyColor(R.color.colorAccentDark));
+        mFloatingActionMenu.getMenuIconView().setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_menu, Color.WHITE));
         // fab动画
-        createCustomAnimation();
-
-        // 延迟加载
-        mFloatingActionMenu.hideMenuButton(false);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mFloatingActionMenu.showMenuButton(true);
-            }
-        }, 700);
-
+        MenuUtil.createCustomAnimation(mFloatingActionMenu);
         // 点击外侧关闭
         mFloatingActionMenu.setClosedOnTouchOutside(true);
     }
 
-    private void createCustomAnimation() {
-        final FloatingActionMenu mMenu = (FloatingActionMenu) findViewById(R.id.menu_down);
-        AnimatorSet set = new AnimatorSet();
-
-        ObjectAnimator scaleOutX = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleX", 1.0f, 0.2f);
-        final ObjectAnimator scaleOutY = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleY", 1.0f, 0.2f);
-
-        ObjectAnimator scaleInX = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleX", 0.2f, 1.0f);
-        ObjectAnimator scaleInY = ObjectAnimator.ofFloat(mMenu.getMenuIconView(), "scaleY", 0.2f, 1.0f);
-
-        scaleOutX.setDuration(50);
-        scaleOutY.setDuration(50);
-
-        scaleInX.setDuration(150);
-        scaleInY.setDuration(150);
-
-        scaleInX.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                mMenu.getMenuIconView().setImageResource(mMenu.isOpened()
-                        ? R.drawable.ic_close : R.drawable.ic_star);
-            }
-        });
-
-        set.play(scaleOutX).with(scaleOutY);
-        set.play(scaleInX).with(scaleInY).after(scaleOutX);
-        set.setInterpolator(new OvershootInterpolator(2));
-
-        mMenu.setIconToggleAnimatorSet(set);
-    }
-
-
+    /**
+     * 初始化toolbar
+     */
     private void initToolBar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
-
-        actionBar.setTitle("叶城县-拉萨");
-        actionBar.setSubtitle("2525KM");
 
         // date按钮
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -310,8 +274,8 @@ public class RouteActivity
         else
             mMenuDate.setText(String.format(Constants.HEADER_DAY, date));
 
-        mToolbar.setTitle(String.format(Constants.HEADER_START_END, start, end));
-        mToolbar.setSubtitle(distance);
+        getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, start, end));
+        getSupportActionBar().setSubtitle(distance);
 
         updateRoute();
     }
@@ -324,6 +288,7 @@ public class RouteActivity
             BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
             if (fragment.isAdded() && fragment.isLoaded() && !fragment.isCurrentPlan(planStart, planEnd)) {
                 fragment.updateRoute();
+                // 用于切换fragment避免重新加载逻辑的标志
                 fragment.setCurrentPlan(planStart, planEnd);
             }
         }

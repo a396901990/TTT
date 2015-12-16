@@ -124,6 +124,6 @@ public class TTTApplication extends Application
     }
 
     public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
-       return new IconicsDrawable(context, icon).color(color).actionBar();
+       return new IconicsDrawable(context, icon).color(color).sizeDp(20);
     }
 }
