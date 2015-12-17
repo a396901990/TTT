@@ -53,7 +53,7 @@ public class GuideHotelFragment extends BaseGuideFragment {
         // 初始化数据adapter并赋值
         mData = getListData();
 
-        if (mData != null) {
+        if (mData != null && mData.size() > 0) {
             mAdapter.setData(mData);
             mListView.setAdapter(mAdapter);
             mListView.expandGroup(0);
@@ -81,8 +81,8 @@ public class GuideHotelFragment extends BaseGuideFragment {
         // 根据起点终点获取数据
         String routeName = routeActivity.getCurrentRoute().getRoute();
 
-        String planStart = routeActivity.getPlanStart();
-        String planEnd = routeActivity.getPlanEnd();
+        String planStart = routeActivity.getCurrentStart();
+        String planEnd = routeActivity.getCurrentEnd();
 
         // 获取反向地点数据列表
         List<Geocode> places = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, planStart, planEnd, false);
@@ -93,7 +93,7 @@ public class GuideHotelFragment extends BaseGuideFragment {
             ArrayList<Hotel> hotels = (ArrayList<Hotel>) TTTApplication.getDbHelper().getHotelList(routeName, placeName);
 
             // 旅店不为零则加入数据中
-            if (hotels.size()!=0) {
+            if (hotels.size() != 0) {
                 GuideHotelAdapter.PlaceHotel placeHotel = new GuideHotelAdapter.PlaceHotel(placeName, hotels);
                 placeHotels.add(placeHotel);
             }
@@ -104,16 +104,18 @@ public class GuideHotelFragment extends BaseGuideFragment {
 
     private void updateView() {
         mData = getListData();
-        if (mData != null) {
+        if (mData != null && mData.size() > 0) {
             mAdapter.setData(mData);
+
+            // 遍历所有group,将所有项设置成默认关闭
+            int groupCount = mListView.getCount();
+            for (int i = 0; i < groupCount; i++) {
+                mListView.collapseGroup(i);
+            }
+            // 打开第一个
+            mListView.expandGroup(0);
         }
-        // 遍历所有group,将所有项设置成默认关闭
-        int groupCount = mListView.getCount();
-        for (int i = 0; i < groupCount; i++) {
-            mListView.collapseGroup(i);
-        }
-        // 打开第一个
-        mListView.expandGroup(0);
+
     }
 
     @Override

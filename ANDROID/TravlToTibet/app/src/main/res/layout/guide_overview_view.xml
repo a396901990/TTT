@@ -22,9 +22,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
         android:paddingLeft="2dp">
 
         <TextView
@@ -154,6 +154,7 @@
                     android:textColor="@color/dark_orange" />
 
                 <TextView
+                    android:id="@+id/overview_hours"
                     style="@style/TextAppearance.Micro.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -220,27 +221,13 @@
         android:layout_margin="5dp"
         android:paddingTop="5dp">
 
-        <!--扩展文字视图-->
-        <com.dean.travltotibet.ui.ExpandableTextView
+        <TextView
             android:id="@+id/overview_describe"
-            style="@style/TextAppearance.Small.Gray.Bold"
+            style="@style/TextAppearance.Small.Gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:ellipsize="end"
-            android:text="难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向难度完全取决于今天的风向。。。。。"
-            app:expanded="false"
-            app:minLines="3" />
-
-        <!--阴影-->
-        <View
-            android:id="@+id/bottom_shade"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_alignBottom="@+id/expandable_text_view"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bottom_shade_background"></View>
-
+            android:ellipsize="end" />
     </RelativeLayout>
 
 </LinearLayout>

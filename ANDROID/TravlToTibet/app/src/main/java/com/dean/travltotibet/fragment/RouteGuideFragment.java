@@ -41,19 +41,18 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private RoutePlanFragment planFragment;
 
-    private LayoutInflater inflater;
-
     private com.dean.travltotibet.ui.fab.FloatingActionButton hotel;
     private com.dean.travltotibet.ui.fab.FloatingActionButton detail;
     private com.dean.travltotibet.ui.fab.FloatingActionButton overView;
 
     private final static int HOTEL = 0;
+    private final static String HOTEL_TITLE = "住宿";
 
     private final static int DETAIL = 1;
+    private final static String DETAIL_TITLE = "行程";
 
     private final static int OVERVIEW = 2;
-
-    private int currentShowType = 1;
+    private final static String OVERVIEW_TITLE = "简介";
 
     public static RouteGuideFragment newInstance() {
         RouteGuideFragment newFragment = new RouteGuideFragment();
@@ -194,13 +193,13 @@ public class RouteGuideFragment extends BaseRouteFragment {
         super.initMenu(menu);
 
         // 住宿
-        hotel = MenuUtil.getFAB(getActivity(), "住宿", GoogleMaterial.Icon.gmd_hotel);
+        hotel = MenuUtil.getFAB(getActivity(), HOTEL_TITLE, GoogleMaterial.Icon.gmd_hotel);
         menu.addMenuButton(hotel);
         // 攻略
-        detail = MenuUtil.getFAB(getActivity(), "行程", GoogleMaterial.Icon.gmd_event_note);
+        detail = MenuUtil.getFAB(getActivity(), DETAIL_TITLE, GoogleMaterial.Icon.gmd_event_note);
         menu.addMenuButton(detail);
         // 简介
-        overView = MenuUtil.getFAB(getActivity(), "简介", GoogleMaterial.Icon.gmd_web_asset);
+        overView = MenuUtil.getFAB(getActivity(), OVERVIEW_TITLE, GoogleMaterial.Icon.gmd_web_asset);
         menu.addMenuButton(overView);
 
         hotel.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +236,6 @@ public class RouteGuideFragment extends BaseRouteFragment {
     }
 
     public void setCurrentShowType(int currentShowType) {
-        this.currentShowType = currentShowType;
 
         switch (currentShowType) {
             case HOTEL:

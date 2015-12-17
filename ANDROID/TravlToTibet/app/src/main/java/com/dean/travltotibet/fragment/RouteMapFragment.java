@@ -44,10 +44,13 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         OnGetRoutePlanResultListener {
 
     private final static int SATELLITE = 0;
+    private final static String SATELLITE_TITLE = "卫星地图";
 
     private final static int NORMAL = 1;
+    private final static String NORMAL_TITLE = "2D平面图";
 
     private final static int OVERVIEW = 2;
+    private final static String OVERVIEW_TITLE = "3D俯视图";
 
     private int currentShowType = 1;
 
@@ -68,6 +71,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private DrivingRouteOverlay overlay;
 
+    // 默认俯视角度
     private final static int OVERLOOK_ANGLE = -45;
 
     private com.dean.travltotibet.ui.fab.FloatingActionButton satellite;
@@ -174,10 +178,10 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             loadingView.start();
         }
 
-        Location startLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanStart());
+        Location startLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getCurrentStart());
         LatLng startLL = new LatLng(startLocation.getLatitude(), startLocation.getLongitude());
 
-        Location endLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getPlanEnd());
+        Location endLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getCurrentEnd());
         LatLng endLL = new LatLng(endLocation.getLatitude(), endLocation.getLongitude());
 
         //设置起终点信息
@@ -193,19 +197,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                         .to(enNode));
             }
         });
-    }
-
-    /**
-     * 初始化图标
-     */
-    private void initMarkIcon() {
-//        BitmapDescriptor bdStart = BitmapDescriptorFactory.fromResource(R.drawable.start_icon);
-//        BitmapDescriptor bdEnd = BitmapDescriptorFactory.fromResource(R.drawable.icon_en);
-//
-////        OverlayOptions ooStart = new MarkerOptions().position(startLL).icon(bdStart).zIndex(9);
-////        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooStart));
-////        OverlayOptions ooEnd = new MarkerOptions().position(endLL).icon(bdEnd).zIndex(5);
-////        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooEnd));
     }
 
     /**
@@ -233,9 +224,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                     };
                     LatLng ll = marker.getPosition();
 
-                    title.setText(routeActivity.getPlanStart());
-                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getPlanStart()));
-                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getPlanStart()));
+                    title.setText(routeActivity.getCurrentStart());
+                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getCurrentStart()));
+                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getCurrentStart()));
 
                     mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(showLayout), ll, -47, listener);
                     mBaiduMap.showInfoWindow(mInfoWindow);
@@ -249,9 +240,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                     };
                     LatLng ll = marker.getPosition();
 
-                    title.setText(routeActivity.getPlanEnd());
-                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getPlanEnd()));
-                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getPlanEnd()));
+                    title.setText(routeActivity.getCurrentEnd());
+                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getCurrentEnd()));
+                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getCurrentEnd()));
 
                     mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(showLayout), ll, -47, listener);
                     mBaiduMap.showInfoWindow(mInfoWindow);
@@ -259,28 +250,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 return true;
             }
         });
-    }
-
-    private void addMarkIcon() {
-//        OverlayOptions overlayOptions = null;
-//        overlayOptions = new MarkerOptions().position(startLL)
-//                .icon(bitmapdes).zIndex(5);
-//        mBaiduMap.addOverlay(overlayOptions);
-//
-//        OverlayOptions aoverlayOptions = null;
-//        aoverlayOptions = new MarkerOptions().position(endLL)
-//                .icon(bitmapdes).zIndex(5);
-//        mBaiduMap.addOverlay(aoverlayOptions);
-
-//构建文字Option对象，用于在地图上添加文字
-//        OverlayOptions textOption = new TextOptions()
-//                .bgColor(0xAAFFFF00)
-//                .fontSize(24)
-//                .fontColor(0xFFFF00FF)
-//                .text("库地达坂")
-//                .position(ll);
-//在地图上添加该文字对象并显示
-//        mBaiduMap.addOverlay(textOption);
     }
 
     private void initBtn() {
@@ -303,90 +272,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 mBaiduMap.animateMapStatus(u);
             }
         });
-
-        // 转换视图
-        final View changeViewBtn = contentView.findViewById(R.id.change_view_cancel_btn);
-        // 转换视图，取消
-        final View changeViewCancelBtn = contentView.findViewById(R.id.change_view_cancel_btn);
-        // 扩展视图
-        final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
-
-        changeViewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeViewBtn.setVisibility(View.INVISIBLE);
-                changeViewCancelBtn.setVisibility(View.VISIBLE);
-                changeExtendView.setVisibility(View.VISIBLE);
-            }
-        });
-
-        changeViewCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeViewBtn.setVisibility(View.VISIBLE);
-                changeViewCancelBtn.setVisibility(View.INVISIBLE);
-                changeExtendView.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        // 三个视图按钮
-        final ImageButton satellite = (ImageButton) contentView.findViewById(R.id.satellite);
-        final ImageButton normal = (ImageButton) contentView.findViewById(R.id.normal);
-        final ImageButton overlook = (ImageButton) contentView.findViewById(R.id.overlook);
-
-        satellite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                satellite.setActivated(true);
-                normal.setActivated(false);
-                overlook.setActivated(false);
-                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
-            }
-        });
-
-        normal.setActivated(true);
-        normal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                normal.setActivated(true);
-                satellite.setActivated(false);
-                overlook.setActivated(false);
-                MapStatus ms = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(0).build();
-                MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(ms);
-                mBaiduMap.animateMapStatus(u);
-                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-            }
-        });
-
-        overlook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                overlook.setActivated(true);
-                normal.setActivated(false);
-                satellite.setActivated(false);
-                MapStatus ms = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(OVERLOOK_ANGLE).build();
-                MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(ms);
-                mBaiduMap.animateMapStatus(u);
-                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-            }
-        });
-
-        // 底图标注
-        SwitchButton switchButton = (SwitchButton) contentView.findViewById(R.id.switch_btn);
-        switchButton.setOnStatusChangeListener(new SwitchButton.OnStatusChangeListener() {
-            @Override
-            public void onChange(SwitchButton.STATUS status) {
-
-                switch (status) {
-                    case ON:
-                        mBaiduMap.showMapPoi(true);
-                        break;
-                    case OFF:
-                        mBaiduMap.showMapPoi(false);
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -406,13 +291,13 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         super.initMenu(menu);
 
         // 卫星地图
-        satellite = MenuUtil.initFAB(getActivity(), "卫星地图", R.drawable.ic_ab_back_icon);
+        satellite = MenuUtil.initFAB(getActivity(), SATELLITE_TITLE, R.drawable.ic_ab_back_icon);
         menu.addMenuButton(satellite);
         // 2D平面图
-        normalMap = MenuUtil.initFAB(getActivity(), "2D平面图", R.drawable.ic_ab_back_icon);
+        normalMap = MenuUtil.initFAB(getActivity(), NORMAL_TITLE, R.drawable.ic_ab_back_icon);
         menu.addMenuButton(normalMap);
         // 3D俯视图
-        overViewMap = MenuUtil.initFAB(getActivity(), "3D俯视图", R.drawable.ic_ab_back_icon);
+        overViewMap = MenuUtil.initFAB(getActivity(), OVERVIEW_TITLE, R.drawable.ic_ab_back_icon);
         menu.addMenuButton(overViewMap);
 
 

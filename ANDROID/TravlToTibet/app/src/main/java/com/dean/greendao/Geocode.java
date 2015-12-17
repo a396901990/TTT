@@ -24,6 +24,7 @@ public class Geocode {
     private String road;
     private String f_detail;
     private String r_detail;
+    private String e_detail;
 
     public Geocode() {
     }
@@ -32,7 +33,7 @@ public class Geocode {
         this.id = id;
     }
 
-    public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, double milestone, String road, String f_detail, String r_detail) {
+    public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, double milestone, String road, String f_detail, String r_detail, String e_detail) {
         this.id = id;
         this.route = route;
         this.name = name;
@@ -47,6 +48,7 @@ public class Geocode {
         this.road = road;
         this.f_detail = f_detail;
         this.r_detail = r_detail;
+        this.e_detail = e_detail;
     }
 
     public Long getId() {
@@ -167,6 +169,14 @@ public class Geocode {
 
     public void setR_detail(String r_detail) {
         this.r_detail = r_detail;
+    }
+
+    public String getE_detail() {
+        return e_detail;
+    }
+
+    public void setE_detail(String e_detail) {
+        this.e_detail = e_detail;
     }
 
 }

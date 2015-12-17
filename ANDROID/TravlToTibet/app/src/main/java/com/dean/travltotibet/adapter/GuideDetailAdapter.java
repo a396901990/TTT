@@ -28,6 +28,8 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
 
     private ArrayList<Geocode> items;
 
+    private boolean isForward;
+
     public GuideDetailAdapter(Context context) {
         inflater = LayoutInflater.from(context);
     }
@@ -83,6 +85,19 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
         String milestone = StringUtil.formatDoubleToFourInteger(geocode.getMilestone());
         milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
         holder.detailMileage.setText(milestone);
+
+        // detail
+        String detail;
+        // 如果最后一个点显示e_detail
+        if (geocode.getName().equals(items.get(items.size()-1).getName())) {
+            detail = geocode.getE_detail();
+        }
+        // 不是最后一个点根据正反攻略取结果
+        else {
+            detail = isForward ? geocode.getF_detail() : geocode.getR_detail();
+        }
+        detail.replace(Constants.REPLACE_MARK, "\n");
+        holder.detailGuide.setText(detail);
 
         return convertView;
     }
@@ -159,5 +174,13 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
         MaterialRippleLayout headerLayout;
         LinearLayout positionLayout;
         LinearLayout guideLayout;
+    }
+
+    public boolean isForward() {
+        return isForward;
+    }
+
+    public void setIsForward(boolean isForward) {
+        this.isForward = isForward;
     }
 }

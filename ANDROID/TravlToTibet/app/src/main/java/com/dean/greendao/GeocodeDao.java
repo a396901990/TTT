@@ -37,6 +37,7 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         public final static Property Road = new Property(11, String.class, "road", false, "ROAD");
         public final static Property F_detail = new Property(12, String.class, "f_detail", false, "F_DETAIL");
         public final static Property R_detail = new Property(13, String.class, "r_detail", false, "R_DETAIL");
+        public final static Property E_detail = new Property(14, String.class, "e_detail", false, "E_DETAIL");
     };
 
 
@@ -65,7 +66,8 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
                 "'MILESTONE' REAL NOT NULL ," + // 10: milestone
                 "'ROAD' TEXT," + // 11: road
                 "'F_DETAIL' TEXT," + // 12: f_detail
-                "'R_DETAIL' TEXT);"); // 13: r_detail
+                "'R_DETAIL' TEXT," + // 13: r_detail
+                "'E_DETAIL' TEXT);"); // 14: e_detail
     }
 
     /** Drops the underlying database table. */
@@ -108,6 +110,11 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         if (r_detail != null) {
             stmt.bindString(14, r_detail);
         }
+ 
+        String e_detail = entity.getE_detail();
+        if (e_detail != null) {
+            stmt.bindString(15, e_detail);
+        }
     }
 
     /** @inheritdoc */
@@ -133,7 +140,8 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
             cursor.getDouble(offset + 10), // milestone
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // road
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // f_detail
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // r_detail
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // r_detail
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // e_detail
         );
         return entity;
     }
@@ -155,6 +163,7 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         entity.setRoad(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setF_detail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setR_detail(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setE_detail(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     /** @inheritdoc */

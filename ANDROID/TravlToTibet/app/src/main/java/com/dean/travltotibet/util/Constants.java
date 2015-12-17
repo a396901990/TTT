@@ -52,4 +52,6 @@ public final class Constants {
     public static final String POINT_DEFAULT = "default";
 
     public static final String URL_MARK = "   ";
+
+    public static final String REPLACE_MARK = "#";
 }

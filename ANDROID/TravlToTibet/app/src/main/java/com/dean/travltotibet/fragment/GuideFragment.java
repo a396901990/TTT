@@ -86,18 +86,6 @@ public class GuideFragment extends Fragment
 
     }
 
-    /**
-     * 获取plan bundle 包括date start end
-     */
-    private Bundle getPlanBundle() {
-        Bundle bundle = new Bundle();
-        bundle.putString(IntentExtra.INTENT_DATE, mActivity.getPlanDate());
-        bundle.putString(IntentExtra.INTENT_START, mActivity.getPlanStart());
-        bundle.putString(IntentExtra.INTENT_END, mActivity.getPlanEnd());
-
-        return bundle;
-    }
-
     private void initTabIndicator() {
         ChangeColorIconWithTextView one = (ChangeColorIconWithTextView) root.findViewById(R.id.id_indicator_one);
         ChangeColorIconWithTextView two = (ChangeColorIconWithTextView) root.findViewById(R.id.id_indicator_two);

@@ -47,9 +47,11 @@ public class GuideDetailFragment extends BaseGuideFragment {
     private void initView() {
         mListView = (AnimatedExpandableListView) root.findViewById(R.id.detail_list);
         mAdapter = new GuideDetailAdapter(getActivity());
+        // 设置正反
+        mAdapter.setIsForward(routeActivity.isForward());
 
         // 初始化数据adapter并赋值
-        mDataResult = getListData(routeActivity.getPlanStart(), routeActivity.getPlanEnd());
+        mDataResult = getListData(routeActivity.getCurrentStart(), routeActivity.getCurrentEnd());
 
         if (mDataResult != null) {
             mAdapter.setData(mDataResult);
@@ -83,8 +85,8 @@ public class GuideDetailFragment extends BaseGuideFragment {
     }
 
     private void updateTimelineView() {
-        String start = routeActivity.getPlanStart();
-        String end = routeActivity.getPlanEnd();
+        String start = routeActivity.getCurrentStart();
+        String end = routeActivity.getCurrentEnd();
 
         mAdapter.setData(getListData(start, end));
         // 遍历所有group,将所有项设置成默认关闭

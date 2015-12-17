@@ -1,5 +1,6 @@
 package com.dean.travltotibet.activity;
 
+import com.dean.greendao.Plan;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -53,19 +54,11 @@ public class RouteActivity
 
     private ViewPageFragmentAdapter mAdapter;
 
-    // 当前计划
-    private String planDate;
-    private String planStart;
-    private String planEnd;
-    private String planDistance;
-    private String planDescribe;
-
-    private String planRank_Hard;
-    private String planRank_View;
-    private String planRank_Road;
-
     // 当前路线
     private Route currentRoute;
+
+    // 当前计划
+    private Plan currentPlan;
 
     // 当前线路名称
     private String routeName;
@@ -83,7 +76,7 @@ public class RouteActivity
     private boolean isForward;
 
     // mPage当前页码
-    private int currentPage = 0;
+    private int currentPage;
 
     // 右上角计划按钮
     private TextView mMenuDate;
@@ -98,8 +91,13 @@ public class RouteActivity
         // 恢复数据
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(Constants.ROUTE_ACTIVITY_CURRENT_PAGE_STATUS_KEY);
+            isRoute = savedInstanceState.getBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE);
+        } else {
+            currentPage = 0;
+            isRoute = true;
         }
 
+        // 获取当前路线信息
         Intent intent = getIntent();
         if (intent != null) {
             routeName = intent.getStringExtra(IntentExtra.INTENT_ROUTE);
@@ -107,12 +105,9 @@ public class RouteActivity
             routePlanId = (int) intent.getLongExtra(IntentExtra.INTENT_ROUTE_PLAN_ID, 0);
             isForward = intent.getBooleanExtra(IntentExtra.INTENT_ROUTE_DIR, true);
         }
-
-        // 设置路线信息
         currentRoute = TTTApplication.getDbHelper().getRouteInfo(routeName, routeType, isForward());
 
         initToolBar();
-        initPlan(savedInstanceState);
         initMenu();
         initFabActionMenu();
         initViewPagerAndTab();
@@ -120,7 +115,7 @@ public class RouteActivity
 
 
         // 跟新信息
-        updateHeader(isRoute, planStart, planEnd, planDate, planDistance, planDescribe, planRank_Hard, planRank_View, planRank_Road);
+        updateHeader(isRoute, currentPlan);
     }
 
     /**
@@ -185,34 +180,6 @@ public class RouteActivity
         mSlidingMenu.setMenu(R.layout.route_plan_fragment_layout);
     }
 
-    private void initPlan(Bundle savedInstanceState) {
-        // 恢复数据
-        if (savedInstanceState != null) {
-            isRoute = savedInstanceState.getBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE);
-
-            planStart = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_START_STATUS_KEY);
-            planEnd = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY);
-            planDate = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY);
-            planDistance = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY);
-            planDescribe = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY);
-            planRank_Hard = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_HARD_STATUS_KEY);
-            planRank_View = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_VIEW_STATUS_KEY);
-            planRank_Road = savedInstanceState.getString(Constants.ROUTE_ACTIVITY_PLAN_RANK_ROAD_STATUS_KEY);
-        }
-        // 默认总路线数据
-        else {
-            isRoute = true;
-            planStart = currentRoute.getStart();
-            planEnd = currentRoute.getEnd();
-            planDate = currentRoute.getName();
-            planDistance = currentRoute.getDistance();
-            planDescribe = currentRoute.getDescribe();
-            planRank_Hard = currentRoute.getRank_hard();
-            planRank_View = currentRoute.getRank_view();
-            planRank_Road = currentRoute.getRank_road();
-        }
-    }
-
     private void initViewPagerAndTab() {
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
@@ -254,29 +221,26 @@ public class RouteActivity
 
     /**
      * 更新标题栏文字
-     *
-     * @param start
-     * @param end
-     * @param date
      */
-    public void updateHeader(boolean isRoute, String start, String end, String date, String distance, String describe, String rank_hard, String rank_view, String rank_road) {
+    public void updateHeader(boolean isRoute, Plan plan) {
         this.isRoute = isRoute;
-        planDate = date;
-        planStart = start;
-        planEnd = end;
-        planDistance = distance;
-        planDescribe = describe;
-        planRank_Hard = rank_hard;
-        planRank_View = rank_view;
-        planRank_Road = rank_road;
 
-        if (isRoute)
+        // 设置当前plan
+        setCurrentPlan(plan);
+
+        // 根据总览还是计划分别设置header view
+        if (isRoute) {
             mMenuDate.setText(getString(R.string.route_plan_title));
-        else
-            mMenuDate.setText(String.format(Constants.HEADER_DAY, date));
 
-        getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, start, end));
-        getSupportActionBar().setSubtitle(distance);
+            getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
+            getSupportActionBar().setSubtitle(currentRoute.getDistance());
+        }
+        else {
+            mMenuDate.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
+
+            getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
+            getSupportActionBar().setSubtitle(currentPlan.getDistance());
+        }
 
         updateRoute();
     }
@@ -287,11 +251,27 @@ public class RouteActivity
     public void updateRoute() {
         if (mAdapter.getAllFragments().size() > 0) {
             BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(mPager.getCurrentItem());
-            if (fragment.isAdded() && fragment.isLoaded() && !fragment.isCurrentPlan(planStart, planEnd)) {
+            if (fragment.isAdded() && fragment.isLoaded() && !fragment.isCurrentPlan(getCurrentStart(), getCurrentEnd())) {
                 fragment.updateRoute();
                 // 用于切换fragment避免重新加载逻辑的标志
-                fragment.setCurrentPlan(planStart, planEnd);
+                fragment.setCurrentPlan(getCurrentStart(), getCurrentEnd());
             }
+        }
+    }
+
+    public String getCurrentStart() {
+        if (isRoute()) {
+            return currentRoute.getStart();
+        } else {
+            return currentPlan.getStart();
+        }
+    }
+
+    public String getCurrentEnd() {
+        if (isRoute()) {
+            return currentRoute.getEnd();
+        } else {
+            return currentPlan.getEnd();
         }
     }
 
@@ -330,14 +310,6 @@ public class RouteActivity
         outState.putBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE, isRoute);
 
         // plan status
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_START_STATUS_KEY, planStart);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_END_STATUS_KEY, planEnd);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DATE_STATUS_KEY, planDate);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DISTANCE_STATUS_KEY, planDistance);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_DESCRIBE_STATUS_KEY, planDescribe);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_HARD_STATUS_KEY, planRank_Hard);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_VIEW_STATUS_KEY, planRank_View);
-        outState.putString(Constants.ROUTE_ACTIVITY_PLAN_RANK_ROAD_STATUS_KEY, planRank_Road);
     }
 
     @Override
@@ -351,26 +323,6 @@ public class RouteActivity
 
     public FloatingActionMenu getFloatingActionMenu() {
         return mFloatingActionMenu;
-    }
-
-    public String getPlanDate() {
-        return planDate;
-    }
-
-    public String getPlanStart() {
-        return planStart;
-    }
-
-    public String getPlanDescribe() {
-        return planDescribe;
-    }
-
-    public String getPlanEnd() {
-        return planEnd;
-    }
-
-    public String getPlanDistance() {
-        return planDistance;
     }
 
     public SlidingMenu getSlidingMenu() {
@@ -425,15 +377,11 @@ public class RouteActivity
         return isRoute;
     }
 
-    public String getPlanRank_Hard() {
-        return planRank_Hard;
+    public Plan getCurrentPlan() {
+        return currentPlan;
     }
 
-    public String getPlanRank_View() {
-        return planRank_View;
-    }
-
-    public String getPlanRank_Road() {
-        return planRank_Road;
+    public void setCurrentPlan(Plan currentPlan) {
+        this.currentPlan = currentPlan;
     }
 }

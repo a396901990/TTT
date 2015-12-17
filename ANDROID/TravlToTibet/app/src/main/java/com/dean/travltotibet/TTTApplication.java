@@ -19,7 +19,7 @@ import com.mikepenz.iconics.typeface.IIcon;
 public class TTTApplication extends Application
 {
     private static TTTApplication instance;
-    
+
     private static ResourceUtil resourceUtil;
 
     private static DaoMaster daoMaster;

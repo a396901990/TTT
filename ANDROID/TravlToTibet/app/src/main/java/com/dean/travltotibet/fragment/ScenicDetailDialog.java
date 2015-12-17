@@ -53,7 +53,7 @@ public class ScenicDetailDialog extends DialogFragment {
 
         // 景点详细介绍
         TextView scenicDetail = (TextView) contentLayout.findViewById(R.id.scenic_detail);
-        scenicDetail.setText(mScenic.getScenic_detail());
+        scenicDetail.setText(mScenic.getScenic_overview());
 
         // 景点名字
         TextView scenicName = (TextView) contentLayout.findViewById(R.id.scenic_name);

@@ -54,6 +54,7 @@ public class MyGenerator {
         geocode.addStringProperty("road");
         geocode.addStringProperty("f_detail");
         geocode.addStringProperty("r_detail");
+        geocode.addStringProperty("e_detail");
     }
 
     // 计划表
@@ -62,6 +63,7 @@ public class MyGenerator {
         route.addIdProperty();
         route.addStringProperty("route_plan_id").notNull();
         route.addStringProperty("day").notNull();
+        route.addStringProperty("hours").notNull();
         route.addStringProperty("start").notNull();
         route.addStringProperty("end").notNull();
         route.addStringProperty("distance").notNull();

@@ -481,7 +481,7 @@ public class DBHelper {
                 Geocode g = new Geocode(geocode.getId(), "CHUANZANG_NAN", geocode.getName(), geocode.getElevation(),
                         geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
-                        geocode.getRoad(), "正向攻略", "反向攻略"
+                        geocode.getRoad(), "正向攻略", "反向攻略", "最后点攻略"
                 );
                 geocodeDao.insert(g);
             }
@@ -560,8 +560,8 @@ public class DBHelper {
     // 初始化读入数据库内容
     public String readDataBase(Context context) {
 
-        //if (!isGeocodeDaoInited()) {
-        if (true) {
+        if (!isGeocodeDaoInited()) {
+        //if (true) {
             String DB_PATH = mContext.getDatabasePath(Constants.DB_NAME).getPath();
             //String DB_PATH = CommonData.baseDir + File.separator + Constants.DB_NAME;
 

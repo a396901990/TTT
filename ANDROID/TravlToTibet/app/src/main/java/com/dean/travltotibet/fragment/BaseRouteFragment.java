@@ -76,7 +76,7 @@ public abstract class BaseRouteFragment extends Fragment {
                     protected void onPreExecute() {
                         super.onPreExecute();
                         // 准备加载
-                        currentPlan = ((RouteActivity) getActivity()).getPlanStart();
+                        currentPlan = ((RouteActivity) getActivity()).getCurrentStart();
                         CustomProgress.show(getActivity(), false);
                         onLoadPrepared();
                     }

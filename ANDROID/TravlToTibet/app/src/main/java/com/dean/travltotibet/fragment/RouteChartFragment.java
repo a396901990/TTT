@@ -42,6 +42,10 @@ public class RouteChartFragment extends BaseRouteFragment {
 
     private static final int BORDER_EXTRA_LENGTH = 40;
 
+    private final static String POINT_SETTING_TITLE = "显示设置";
+
+    private final static String FULL_SCREEN_TITLE = "全屏显示";
+
     private View rootView;
 
     private View contentView;
@@ -107,22 +111,22 @@ public class RouteChartFragment extends BaseRouteFragment {
         TextView posMilestone = (TextView) rootView.findViewById(R.id.header_position_mileage);
 
         if (name != null) {
+
+            // 名字
+            posName.setText(name);
+
             // 高度
             String height = StringUtil.formatDoubleToInteger(TTTApplication.getDbHelper().getElevationWithName(name));
             height = String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, height);
+            posHeight.setText(height);
 
-            // 路牌
+            // 路牌&里程碑
             String road = TTTApplication.getDbHelper().getRoadWithName(name);
             if (!TextUtils.isEmpty(road)) {
                 road = road.split("/")[1];
             }
-
-            // 里程碑
             String milestone = StringUtil.formatDoubleToFourInteger(TTTApplication.getDbHelper().getMilestoneWithName(name));
             milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
-
-            posName.setText(name);
-            posHeight.setText(height);
             posMilestone.setText(milestone);
         }
         // 切换时清空
@@ -145,9 +149,10 @@ public class RouteChartFragment extends BaseRouteFragment {
     public void updateChartRoute() {
 
         // 根据路线的起始和终点 获取数据
-        String routeName = routeActivity.getCurrentRoute().getRoute();
-        String planStart = routeActivity.getPlanStart();
-        String planEnd = routeActivity.getPlanEnd();
+        String routeName = routeActivity.getRouteName();
+        String planStart = routeActivity.getCurrentStart();
+        String planEnd = routeActivity.getCurrentEnd();
+
         boolean isForward = routeActivity.isForward();
 
         List<Geocode> geocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, planStart, planEnd, isForward);
@@ -240,7 +245,7 @@ public class RouteChartFragment extends BaseRouteFragment {
         super.initMenu(menu);
 
         // 显示设置
-        final FloatingActionButton pointSettingBtn = MenuUtil.getFAB(getActivity(), "显示设置", GoogleMaterial.Icon.gmd_build);
+        final FloatingActionButton pointSettingBtn = MenuUtil.getFAB(getActivity(), POINT_SETTING_TITLE, GoogleMaterial.Icon.gmd_build);
         menu.addMenuButton(pointSettingBtn);
         pointSettingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +256,7 @@ public class RouteChartFragment extends BaseRouteFragment {
         });
 
         // 全屏显示
-        final FloatingActionButton fullScreenBtn = MenuUtil.getFAB(getActivity(), "全屏显示", GoogleMaterial.Icon.gmd_fullscreen);
+        final FloatingActionButton fullScreenBtn = MenuUtil.getFAB(getActivity(), FULL_SCREEN_TITLE, GoogleMaterial.Icon.gmd_fullscreen);
         menu.addMenuButton(fullScreenBtn);
         fullScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,8 +266,8 @@ public class RouteChartFragment extends BaseRouteFragment {
                 intent.putExtra(IntentExtra.INTENT_ROUTE, routeActivity.getRouteName());
                 intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, routeActivity.getRouteType());
                 intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, routeActivity.isForward());
-                intent.putExtra(IntentExtra.INTENT_PLAN_START, routeActivity.getPlanStart());
-                intent.putExtra(IntentExtra.INTENT_PLAN_END, routeActivity.getPlanEnd());
+                intent.putExtra(IntentExtra.INTENT_PLAN_START, routeActivity.getCurrentStart());
+                intent.putExtra(IntentExtra.INTENT_PLAN_END, routeActivity.getCurrentEnd());
                 startActivity(intent);
             }
         });

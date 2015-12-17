@@ -12,6 +12,8 @@ public class Plan {
     /** Not-null value. */
     private String day;
     /** Not-null value. */
+    private String hours;
+    /** Not-null value. */
     private String start;
     /** Not-null value. */
     private String end;
@@ -33,10 +35,11 @@ public class Plan {
         this.id = id;
     }
 
-    public Plan(Long id, String route_plan_id, String day, String start, String end, String distance, String describe, String rank_hard, String rank_view, String rank_road) {
+    public Plan(Long id, String route_plan_id, String day, String hours, String start, String end, String distance, String describe, String rank_hard, String rank_view, String rank_road) {
         this.id = id;
         this.route_plan_id = route_plan_id;
         this.day = day;
+        this.hours = hours;
         this.start = start;
         this.end = end;
         this.distance = distance;
@@ -72,6 +75,16 @@ public class Plan {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setDay(String day) {
         this.day = day;
+    }
+
+    /** Not-null value. */
+    public String getHours() {
+        return hours;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 
     /** Not-null value. */

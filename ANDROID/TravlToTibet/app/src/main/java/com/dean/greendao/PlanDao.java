@@ -26,13 +26,14 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Route_plan_id = new Property(1, String.class, "route_plan_id", false, "ROUTE_PLAN_ID");
         public final static Property Day = new Property(2, String.class, "day", false, "DAY");
-        public final static Property Start = new Property(3, String.class, "start", false, "START");
-        public final static Property End = new Property(4, String.class, "end", false, "END");
-        public final static Property Distance = new Property(5, String.class, "distance", false, "DISTANCE");
-        public final static Property Describe = new Property(6, String.class, "describe", false, "DESCRIBE");
-        public final static Property Rank_hard = new Property(7, String.class, "rank_hard", false, "RANK_HARD");
-        public final static Property Rank_view = new Property(8, String.class, "rank_view", false, "RANK_VIEW");
-        public final static Property Rank_road = new Property(9, String.class, "rank_road", false, "RANK_ROAD");
+        public final static Property Hours = new Property(3, String.class, "hours", false, "HOURS");
+        public final static Property Start = new Property(4, String.class, "start", false, "START");
+        public final static Property End = new Property(5, String.class, "end", false, "END");
+        public final static Property Distance = new Property(6, String.class, "distance", false, "DISTANCE");
+        public final static Property Describe = new Property(7, String.class, "describe", false, "DESCRIBE");
+        public final static Property Rank_hard = new Property(8, String.class, "rank_hard", false, "RANK_HARD");
+        public final static Property Rank_view = new Property(9, String.class, "rank_view", false, "RANK_VIEW");
+        public final static Property Rank_road = new Property(10, String.class, "rank_road", false, "RANK_ROAD");
     };
 
 
@@ -51,13 +52,14 @@ public class PlanDao extends AbstractDao<Plan, Long> {
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'ROUTE_PLAN_ID' TEXT NOT NULL ," + // 1: route_plan_id
                 "'DAY' TEXT NOT NULL ," + // 2: day
-                "'START' TEXT NOT NULL ," + // 3: start
-                "'END' TEXT NOT NULL ," + // 4: end
-                "'DISTANCE' TEXT NOT NULL ," + // 5: distance
-                "'DESCRIBE' TEXT NOT NULL ," + // 6: describe
-                "'RANK_HARD' TEXT NOT NULL ," + // 7: rank_hard
-                "'RANK_VIEW' TEXT NOT NULL ," + // 8: rank_view
-                "'RANK_ROAD' TEXT NOT NULL );"); // 9: rank_road
+                "'HOURS' TEXT NOT NULL ," + // 3: hours
+                "'START' TEXT NOT NULL ," + // 4: start
+                "'END' TEXT NOT NULL ," + // 5: end
+                "'DISTANCE' TEXT NOT NULL ," + // 6: distance
+                "'DESCRIBE' TEXT NOT NULL ," + // 7: describe
+                "'RANK_HARD' TEXT NOT NULL ," + // 8: rank_hard
+                "'RANK_VIEW' TEXT NOT NULL ," + // 9: rank_view
+                "'RANK_ROAD' TEXT NOT NULL );"); // 10: rank_road
     }
 
     /** Drops the underlying database table. */
@@ -77,13 +79,14 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         }
         stmt.bindString(2, entity.getRoute_plan_id());
         stmt.bindString(3, entity.getDay());
-        stmt.bindString(4, entity.getStart());
-        stmt.bindString(5, entity.getEnd());
-        stmt.bindString(6, entity.getDistance());
-        stmt.bindString(7, entity.getDescribe());
-        stmt.bindString(8, entity.getRank_hard());
-        stmt.bindString(9, entity.getRank_view());
-        stmt.bindString(10, entity.getRank_road());
+        stmt.bindString(4, entity.getHours());
+        stmt.bindString(5, entity.getStart());
+        stmt.bindString(6, entity.getEnd());
+        stmt.bindString(7, entity.getDistance());
+        stmt.bindString(8, entity.getDescribe());
+        stmt.bindString(9, entity.getRank_hard());
+        stmt.bindString(10, entity.getRank_view());
+        stmt.bindString(11, entity.getRank_road());
     }
 
     /** @inheritdoc */
@@ -99,13 +102,14 @@ public class PlanDao extends AbstractDao<Plan, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // route_plan_id
             cursor.getString(offset + 2), // day
-            cursor.getString(offset + 3), // start
-            cursor.getString(offset + 4), // end
-            cursor.getString(offset + 5), // distance
-            cursor.getString(offset + 6), // describe
-            cursor.getString(offset + 7), // rank_hard
-            cursor.getString(offset + 8), // rank_view
-            cursor.getString(offset + 9) // rank_road
+            cursor.getString(offset + 3), // hours
+            cursor.getString(offset + 4), // start
+            cursor.getString(offset + 5), // end
+            cursor.getString(offset + 6), // distance
+            cursor.getString(offset + 7), // describe
+            cursor.getString(offset + 8), // rank_hard
+            cursor.getString(offset + 9), // rank_view
+            cursor.getString(offset + 10) // rank_road
         );
         return entity;
     }
@@ -116,13 +120,14 @@ public class PlanDao extends AbstractDao<Plan, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setRoute_plan_id(cursor.getString(offset + 1));
         entity.setDay(cursor.getString(offset + 2));
-        entity.setStart(cursor.getString(offset + 3));
-        entity.setEnd(cursor.getString(offset + 4));
-        entity.setDistance(cursor.getString(offset + 5));
-        entity.setDescribe(cursor.getString(offset + 6));
-        entity.setRank_hard(cursor.getString(offset + 7));
-        entity.setRank_view(cursor.getString(offset + 8));
-        entity.setRank_road(cursor.getString(offset + 9));
+        entity.setHours(cursor.getString(offset + 3));
+        entity.setStart(cursor.getString(offset + 4));
+        entity.setEnd(cursor.getString(offset + 5));
+        entity.setDistance(cursor.getString(offset + 6));
+        entity.setDescribe(cursor.getString(offset + 7));
+        entity.setRank_hard(cursor.getString(offset + 8));
+        entity.setRank_view(cursor.getString(offset + 9));
+        entity.setRank_road(cursor.getString(offset + 10));
      }
     
     /** @inheritdoc */
