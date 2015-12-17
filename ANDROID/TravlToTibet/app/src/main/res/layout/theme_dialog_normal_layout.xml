@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:id="@+id/dialog_content"
-        android:layout_width="@dimen/dialog_width"
+        android:layout_width="@dimen/theme_dialog_width"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:paddingLeft="20dp"

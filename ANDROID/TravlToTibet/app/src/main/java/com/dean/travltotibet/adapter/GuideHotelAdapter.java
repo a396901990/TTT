@@ -85,7 +85,7 @@ public class GuideHotelAdapter extends AnimatedExpandableListView.AnimatedExpand
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constants.INTENT_HOTEL, hotel);
                 dialogFragment.setArguments(bundle);
-                dialogFragment.show(mActivity.getFragmentManager(), InfoConfirmDialog.class.getName());
+                dialogFragment.show(mActivity.getFragmentManager(), HotelDetailDialog.class.getName());
             }
         });
 

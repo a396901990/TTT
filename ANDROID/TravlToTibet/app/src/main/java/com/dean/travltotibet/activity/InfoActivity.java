@@ -14,9 +14,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.fragment.BaseInfoFragment;
 import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.fragment.InfoHeaderFragment;
 import com.dean.travltotibet.fragment.InfoPrepareFragment;
+import com.dean.travltotibet.fragment.InfoScenicFragment;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
@@ -32,8 +34,9 @@ public class InfoActivity extends AppCompatActivity {
     private String routeName;
     private String routeType;
 
-    private InfoHeaderFragment headerFragment;
-    private InfoPrepareFragment prepareFragment;
+    private BaseInfoFragment headerFragment;
+    private BaseInfoFragment scenicFragment;
+    private BaseInfoFragment prepareFragment;
 
     private FloatingActionButton fab;
 
@@ -47,8 +50,9 @@ public class InfoActivity extends AppCompatActivity {
             routeType = getIntent().getStringExtra(Constants.INTENT_ROUTE_TYPE);
         }
 
-        headerFragment = (InfoHeaderFragment) getFragmentManager().findFragmentById(R.id.info_header_fragment);
-        prepareFragment = (InfoPrepareFragment) getFragmentManager().findFragmentById(R.id.info_prepare_fragment);
+        headerFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_header_fragment);
+        scenicFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_scenic_fragment);
+        prepareFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_prepare_fragment);
 
         initView();
         initGoButton();
@@ -111,7 +115,10 @@ public class InfoActivity extends AppCompatActivity {
         if (headerFragment.isAdded()) {
             headerFragment.updateType(routeType);
         }
-
+        // update scenicFragment
+        if (scenicFragment.isAdded()) {
+            scenicFragment.updateType(routeType);
+        }
         // update prepareFragment
         if (prepareFragment.isAdded()) {
             prepareFragment.updateType(routeType);

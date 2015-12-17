@@ -4,13 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--https://github.com/a396901990/InfiniteIndicator-->
-    <!--<cn.lightsky.infiniteindicator.InfiniteIndicatorLayout-->
-        <!--android:id="@+id/indicator_default_circle"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/info_header_view_page_height"-->
-        <!--app:indicator_type="indicator_anim_line" />-->
-
     <com.dean.travltotibet.ui.sliderview.SliderLayout
         xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/slider"

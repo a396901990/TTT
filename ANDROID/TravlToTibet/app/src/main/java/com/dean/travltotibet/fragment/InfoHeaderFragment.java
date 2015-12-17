@@ -31,7 +31,7 @@ public class InfoHeaderFragment extends BaseInfoFragment {
 
     private View root;
 
-    private ArrayList<Scenic> scenics;
+    private String[] urls;
 
     public InfoHeaderFragment() {
     }
@@ -50,19 +50,13 @@ public class InfoHeaderFragment extends BaseInfoFragment {
         infoActivity = (InfoActivity) getActivity();
         mDefaultIndicator = (SliderLayout) root.findViewById(R.id.slider);
 
-        // 取出所有风景图片
-        scenics = (ArrayList<Scenic>) TTTApplication.getDbHelper().getScenicList(infoActivity.getRoute());
-
-        // 循环赋值
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        for (Scenic scenic : scenics) {
-            url_maps.put(scenic.getScenic_name(), scenic.getScenic_pic());
-        }
+        // 取出所有简介图片的url
+        urls = TTTApplication.getDbHelper().getRoutePics(infoActivity.getRoute());
 
         // 设置图片
-        for(String name : url_maps.keySet()) {
+        for (String url : urls) {
             BurnsSliderView textSliderView = new BurnsSliderView(getActivity());
-            textSliderView.image(url_maps.get(name));
+            textSliderView.image(url);
             mDefaultIndicator.addSlider(textSliderView);
         }
     }

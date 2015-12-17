@@ -345,6 +345,19 @@ public class DBHelper {
     }
 
     /**
+     * 获取路线图片
+     */
+    public String[] getRoutePics(String route) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
+        qb.where(RouteDao.Properties.Route.eq(route));
+
+        Route curRoute = qb.list().get(0);
+        String pics = curRoute.getPic_url();
+
+        return pics.split(Constants.URL_MARK);
+    }
+
+    /**
      * 查询
      */
     public List<Geocode> getGeocode() {

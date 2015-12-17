@@ -19,6 +19,7 @@
 
     <string name="info_prepare_title">准备信息</string>
     <string name="info_prepare_go">查看攻略</string>
+    <string name="info_scenic_title">沿途风景</string>
 
     <!--setting-->
     <string name="preference">private preference</string>

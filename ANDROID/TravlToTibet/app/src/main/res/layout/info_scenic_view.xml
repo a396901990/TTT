@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/card_half_padding"
+    android:paddingTop="@dimen/card_padding">
+
+    <!--标题-->
+    <TextView
+        style="@style/TextAppearance.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/card_half_padding"
+        android:paddingLeft="@dimen/card_padding"
+        android:text="@string/info_scenic_title"
+        android:textColor="@color/dark_gray" />
+
+    <!--内容视图-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/scenic_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scenic_card_height"
+        android:clipToPadding="false"
+        android:fadeScrollbars="true"
+        android:scrollbars="none" />
+</LinearLayout>
+

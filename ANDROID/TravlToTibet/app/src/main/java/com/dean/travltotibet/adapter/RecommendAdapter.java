@@ -62,9 +62,14 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
         final Route route = mData.get(position);
 
+        // 默认图片
         holder.backgroundView.setDefaultImageResId(R.color.light_gray);
+        // 错误图片
         holder.backgroundView.setErrorImageResId(R.color.gray);
-        holder.backgroundView.setImageUrl(route.getPic_url(), imageLoader);
+        // 图片url(取第一个)
+        String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
+        holder.backgroundView.setImageUrl(picURL, imageLoader);
+
         holder.mainTitle.setText(route.getName());
         holder.subTitle.setText(route.getRoute());
 

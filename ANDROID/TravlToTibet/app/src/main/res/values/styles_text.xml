@@ -131,6 +131,10 @@
         <item name="android:textSize">@dimen/text_large</item>
     </style>
 
+    <style name="TextAppearance.Large.Bold" parent="TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Large.White" parent="TextAppearance.Large">
         <item name="android:textColor">@color/white</item>
     </style>

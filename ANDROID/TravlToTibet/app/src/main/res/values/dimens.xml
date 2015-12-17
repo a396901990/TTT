@@ -101,6 +101,8 @@
     <dimen name="recent_item_content_padding">10dp</dimen>
 
     <!--theme dialog-->
+    <dimen name="theme_dialog_width">280dp</dimen>
+    <dimen name="theme_dialog_image_height">200dp</dimen>
     <dimen name="theme_dialog_title_height">80dp</dimen>
     <dimen name="theme_dialog_content_height">50dp</dimen>
     <dimen name="theme_dialog_button_height">40dp</dimen>
@@ -166,7 +168,6 @@
     <integer name="where_go_grid_columns_num">3</integer>
 
     <!---->
-    <dimen name="dialog_width">280dp</dimen>
     <dimen name="fab_size_normal">50dp</dimen>
     <dimen name="fab_size_mini">40dp</dimen>
     <dimen name="labels_text_size">14sp</dimen>
@@ -174,5 +175,9 @@
 
     <dimen name="card_margin">15dp</dimen>
     <dimen name="card_padding">10dp</dimen>
+    <dimen name="card_half_padding">5dp</dimen>
     <dimen name="navigation_item_padding">15dp</dimen>
+    <dimen name="scenic_card_width">120dp</dimen>
+    <dimen name="scenic_card_height">80dp</dimen>
+
 </resources>

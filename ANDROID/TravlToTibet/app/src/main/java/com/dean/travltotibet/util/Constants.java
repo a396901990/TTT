@@ -29,6 +29,7 @@ public final class Constants {
     public static final String INTENT_PLAN_END = "intent_plan_end";
 
     public static final String INTENT_HOTEL = "intent_hotel";
+    public static final String INTENT_SCENIC = "intent_scenic";
 
     // prepare intent
     public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";
@@ -75,4 +76,6 @@ public final class Constants {
     public static final String ALL_POINTS = "all_points";
     public static final String POINT_DIVIDE_MARK = ",";
     public static final String POINT_DEFAULT = "default";
+
+    public static final String URL_MARK = "   ";
 }

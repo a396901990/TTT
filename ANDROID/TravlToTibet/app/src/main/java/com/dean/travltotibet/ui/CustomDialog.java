@@ -17,6 +17,7 @@ public class CustomDialog extends Dialog {
 
     private TextView mTitle;
     private ViewGroup mContentView;
+    private ViewGroup mTitleContent;
 
     private Context mContext;
 
@@ -30,9 +31,18 @@ public class CustomDialog extends Dialog {
     private void initDialogView() {
         View root = LayoutInflater.from(mContext).inflate(R.layout.theme_dialog_custom_layout, null);
         mContentView = (ViewGroup) root.findViewById(R.id.dialog_content);
+        mTitleContent = (ViewGroup) root.findViewById(R.id.title_content);
 
         mTitle = (TextView) root.findViewById(R.id.dialog_title);
         setContentView(root);
+    }
+
+    public void showTitleContent() {
+        mTitleContent.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTitleContent() {
+        mTitleContent.setVisibility(View.GONE);
     }
 
     @Override
