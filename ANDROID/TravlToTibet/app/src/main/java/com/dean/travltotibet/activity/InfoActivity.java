@@ -22,6 +22,7 @@ import com.dean.travltotibet.fragment.InfoScenicFragment;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -45,9 +46,9 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_view);
         if (getIntent() != null) {
-            route = getIntent().getStringExtra(Constants.INTENT_ROUTE);
-            routeName = getIntent().getStringExtra(Constants.INTENT_ROUTE_NAME);
-            routeType = getIntent().getStringExtra(Constants.INTENT_ROUTE_TYPE);
+            route = getIntent().getStringExtra(IntentExtra.INTENT_ROUTE);
+            routeName = getIntent().getStringExtra(IntentExtra.INTENT_ROUTE_NAME);
+            routeType = getIntent().getStringExtra(IntentExtra.INTENT_ROUTE_TYPE);
         }
 
         headerFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_header_fragment);
@@ -75,9 +76,9 @@ public class InfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DialogFragment dialogFragment = new TravelTypeDialog();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.INTENT_ROUTE, getRoute());
-                bundle.putString(Constants.INTENT_ROUTE_NAME, getRouteName());
-                bundle.putString(Constants.INTENT_FROM_WHERE, TravelTypeDialog.FROM_SECOND);
+                bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
+                bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
+                bundle.putString(IntentExtra.INTENT_FROM_WHERE, TravelTypeDialog.FROM_SECOND);
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
             }
@@ -96,9 +97,9 @@ public class InfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DialogFragment dialogFragment = new InfoConfirmDialog();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.INTENT_ROUTE, getRoute());
-                bundle.putString(Constants.INTENT_ROUTE_NAME, getRouteName());
-                bundle.putString(Constants.INTENT_ROUTE_TYPE, getRouteType());
+                bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
+                bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
+                bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, getRouteType());
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(getFragmentManager(), InfoConfirmDialog.class.getName());
             }

@@ -2,22 +2,24 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
-import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.model.FeedBack;
+
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by DeanGuo on 10/22/15.
@@ -40,12 +42,20 @@ public class FeedbackFragment extends Fragment {
 
     private static final int DISABLE_ALPHA = (int) (ENABLE_ALPHA * 0.3);
 
+    private Handler mHandle;
+
+    private final static int SHOW_DIALOG = 0;
+    private final static int DISMISS_DIALOG_SUCCESS = 1;
+    private final static int DISMISS_DIALOG_FAILURE = 2;
+    private final static int SUBMIT_SUCCESS = 3;
+    private final static int SUBMIT_FAILURE = 4;
+
     public FeedbackFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.feed_back_fragment, container, false);
+        root = inflater.inflate(R.layout.feed_back_fragment_view, container, false);
         return root;
     }
 
@@ -53,17 +63,48 @@ public class FeedbackFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mHandle = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case SHOW_DIALOG:
+                        // show loading progress bar
+                        showLoading(R.string.submit_feedback);
+                        break;
+                    case DISMISS_DIALOG_SUCCESS:
+                        dismissLoading();
+                        clear();
+                        break;
+                    case SUBMIT_SUCCESS:
+                        mProgressDialog.setMessage("提交成功，感谢您的帮助！");
+                        mHandle.sendEmptyMessageDelayed(DISMISS_DIALOG_SUCCESS, 1000);
+                        break;
+                    case SUBMIT_FAILURE:
+                        mProgressDialog.setMessage("提交失败！");
+                        mHandle.sendEmptyMessageDelayed(DISMISS_DIALOG_FAILURE, 1000);
+                        break;
+                    case DISMISS_DIALOG_FAILURE:
+                        dismissLoading();
+                        break;
+                }
+            }
+        };
+
         initView();
     }
 
     private void initView() {
+        // 电话
         phone = (EditText) root.findViewById(R.id.phone_number);
-        // set all caps filter for phone
-        phone.setFilters(new InputFilter[]
-                { new InputFilter.LengthFilter(11) });
+        phone.setInputType(InputType.TYPE_CLASS_NUMBER);
 
+        // 邮件
         email = (EditText) root.findViewById(R.id.email_address);
+        email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
+        // 反馈
         note = (EditText) root.findViewById(R.id.note);
         note.requestFocus();
         note.addTextChangedListener(new TextWatcher() {
@@ -119,17 +160,32 @@ public class FeedbackFragment extends Fragment {
     }
 
     private void commitNote() {
-        // show loading progress bar
-        showLoading(R.string.submit_feedback);
 
-        Bundle bundle = new Bundle();
-        bundle.putString(IntentExtra.INTENT_FEEDBACK_PHONE_NUMBER, phone.getText().toString());
-        bundle.putString(IntentExtra.INTENT_FEEDBACK_EMAIL_ADDRESS, email.getText().toString());
-        bundle.putString(IntentExtra.INTENT_FEEDBACK_NOTE, note.getText().toString());
+        mHandle.sendEmptyMessage(SHOW_DIALOG);
 
-//        提交反馈数据到服务器，成功关闭进度条，现实成功
-//        失败现实失败对话框
-//        参考addnotefragment
+        FeedBack feedBack = new FeedBack();
+        feedBack.setFeedback(note.getText().toString());
+        feedBack.setPhone(phone.getText().toString());
+        feedBack.setEmail(email.getText().toString());
+
+        feedBack.save(getActivity(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+                mHandle.sendEmptyMessageDelayed(SUBMIT_SUCCESS, 1000);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mHandle.sendEmptyMessageDelayed(SUBMIT_FAILURE, 1000);
+            }
+        });
+
+    }
+
+    public void clear() {
+        note.setText("");
+        phone.setText("");
+        email.setText("");
     }
 
     protected void showLoading(final int argResourceId) {

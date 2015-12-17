@@ -12,6 +12,7 @@ import com.dean.travltotibet.adapter.PrepareDetailPageAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -43,9 +44,9 @@ public class PrepareDetailActivity extends BaseActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            mRoute = intent.getStringExtra(Constants.INTENT_ROUTE);
-            mType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
-            mInfoType = (InfoType) intent.getSerializableExtra(Constants.INTENT_PREPARE_TYPE);
+            mRoute = intent.getStringExtra(IntentExtra.INTENT_ROUTE);
+            mType = intent.getStringExtra(IntentExtra.INTENT_ROUTE_TYPE);
+            mInfoType = (InfoType) intent.getSerializableExtra(IntentExtra.INTENT_PREPARE_TYPE);
         }
 
         mInfoTypes = InfoType.getInfoTypes(mType);

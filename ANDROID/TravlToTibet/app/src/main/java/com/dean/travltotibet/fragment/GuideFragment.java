@@ -14,6 +14,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.ChangeColorIconWithTextView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +91,9 @@ public class GuideFragment extends Fragment
      */
     private Bundle getPlanBundle() {
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.INTENT_DATE, mActivity.getPlanDate());
-        bundle.putString(Constants.INTENT_START, mActivity.getPlanStart());
-        bundle.putString(Constants.INTENT_END, mActivity.getPlanEnd());
+        bundle.putString(IntentExtra.INTENT_DATE, mActivity.getPlanDate());
+        bundle.putString(IntentExtra.INTENT_START, mActivity.getPlanStart());
+        bundle.putString(IntentExtra.INTENT_END, mActivity.getPlanEnd());
 
         return bundle;
     }

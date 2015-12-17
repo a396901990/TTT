@@ -17,6 +17,7 @@ import com.dean.travltotibet.adapter.WhereGoItemGridAdapter;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -89,9 +90,9 @@ public class WhereGoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 跳转到InfoRouteActivity(类型BIKE)
                 Intent intent = new Intent(getActivity(), InfoActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, longData.get(position).getRoute());
-                intent.putExtra(Constants.INTENT_ROUTE_NAME, longData.get(position).getName());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, longData.get(position).getRoute());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, longData.get(position).getName());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, TravelType.BIKE);
                 startActivity(intent);
             }
         });
@@ -102,9 +103,9 @@ public class WhereGoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 跳转到InfoRouteActivity(类型BIKE)
                 Intent intent = new Intent(getActivity(), InfoActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, middleData.get(position).getRoute());
-                intent.putExtra(Constants.INTENT_ROUTE_NAME, middleData.get(position).getName());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, middleData.get(position).getRoute());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, middleData.get(position).getName());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, TravelType.BIKE);
                 startActivity(intent);
             }
         });
@@ -115,9 +116,9 @@ public class WhereGoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 跳转到InfoRouteActivity(类型BIKE)
                 Intent intent = new Intent(getActivity(), InfoActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, shortData.get(position).getRoute());
-                intent.putExtra(Constants.INTENT_ROUTE_NAME, shortData.get(position).getName());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, shortData.get(position).getRoute());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, shortData.get(position).getName());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, TravelType.BIKE);
                 startActivity(intent);
             }
         });

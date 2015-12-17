@@ -19,6 +19,7 @@ import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.ui.AnimatedExpandableListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class GuideHotelAdapter extends AnimatedExpandableListView.AnimatedExpand
             public void onClick(View v) {
                 DialogFragment dialogFragment = new HotelDetailDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.INTENT_HOTEL, hotel);
+                bundle.putSerializable(IntentExtra.INTENT_HOTEL, hotel);
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(mActivity.getFragmentManager(), HotelDetailDialog.class.getName());
             }

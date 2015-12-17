@@ -12,6 +12,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.FullChartFragment;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 /**
@@ -41,11 +42,11 @@ public class FullChartScreenActivity
 
         Intent intent = getIntent();
         if (intent != null) {
-            routeName = intent.getStringExtra(Constants.INTENT_ROUTE);
-            routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
-            isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
-            planStart = intent.getStringExtra(Constants.INTENT_PLAN_START);
-            planEnd = intent.getStringExtra(Constants.INTENT_PLAN_END);
+            routeName = intent.getStringExtra(IntentExtra.INTENT_ROUTE);
+            routeType = intent.getStringExtra(IntentExtra.INTENT_ROUTE_TYPE);
+            isForward = intent.getBooleanExtra(IntentExtra.INTENT_ROUTE_DIR, true);
+            planStart = intent.getStringExtra(IntentExtra.INTENT_PLAN_START);
+            planEnd = intent.getStringExtra(IntentExtra.INTENT_PLAN_END);
         }
 
         initToolBar();
@@ -54,11 +55,11 @@ public class FullChartScreenActivity
 
     private void initFragment() {
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.INTENT_ROUTE, routeName);
-        bundle.putString(Constants.INTENT_ROUTE_TYPE, routeType);
-        bundle.putBoolean(Constants.INTENT_ROUTE_DIR, isForward);
-        bundle.putString(Constants.INTENT_PLAN_START, planStart);
-        bundle.putString(Constants.INTENT_PLAN_END, planEnd);
+        bundle.putString(IntentExtra.INTENT_ROUTE, routeName);
+        bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, routeType);
+        bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
+        bundle.putString(IntentExtra.INTENT_PLAN_START, planStart);
+        bundle.putString(IntentExtra.INTENT_PLAN_END, planEnd);
 
         fullChartFragment = (FullChartFragment) getFragmentManager().findFragmentById(R.id.full_chart_fragment);
         if (fullChartFragment == null) {

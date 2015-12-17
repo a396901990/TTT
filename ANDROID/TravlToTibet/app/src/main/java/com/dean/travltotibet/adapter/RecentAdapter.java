@@ -18,6 +18,7 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -67,12 +68,11 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
             public void onClick(View v) {
                 // 跳转到RouteActivity
                 Intent intent = new Intent(mContext, RouteActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, recentRoute.getRoute());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, recentRoute.getType());
-                intent.putExtra(Constants.INTENT_ROUTE_DIR, recentRoute.getFR());
-                intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
+                intent.putExtra(IntentExtra.INTENT_ROUTE, recentRoute.getRoute());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, recentRoute.getType());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, recentRoute.getFR());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_PLAN_ID, Long.parseLong(recentRoute.getRoute_plan_id()));
                 mContext.startActivity(intent);
-
             }
         });
     }

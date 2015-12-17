@@ -17,6 +17,7 @@ import com.dean.travltotibet.ui.sliderview.SliderTypes.BurnsSliderView;
 import com.dean.travltotibet.ui.sliderview.SliderTypes.DefaultSliderView;
 import com.dean.travltotibet.ui.sliderview.SliderTypes.TextSliderView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.HashMap;
 
@@ -36,7 +37,7 @@ public class ScenicDetailDialog extends DialogFragment {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.scenic_detail_dialog_fragment, null);
 
         if (getArguments() != null) {
-            mScenic = (Scenic) getArguments().getSerializable(Constants.INTENT_SCENIC);
+            mScenic = (Scenic) getArguments().getSerializable(IntentExtra.INTENT_SCENIC);
         }
 
         initContentView();

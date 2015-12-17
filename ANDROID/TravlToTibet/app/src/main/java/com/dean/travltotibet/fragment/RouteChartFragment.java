@@ -26,6 +26,7 @@ import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.util.CompatHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
 import com.dean.travltotibet.util.StringUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -225,7 +226,7 @@ public class RouteChartFragment extends BaseRouteFragment {
     @Override
     public void fabBtnEvent() {
         Intent intent = new Intent(getActivity(), ChartSettingActivity.class);
-        intent.putExtra(Constants.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
+        intent.putExtra(IntentExtra.INTENT_ROUTE_ORIENTATION, CompatHelper.getActivityRotationInfo(getActivity()));
         startActivityForResult(intent, CHART_SETTING);
     }
 
@@ -257,11 +258,11 @@ public class RouteChartFragment extends BaseRouteFragment {
             public void onClick(View v) {
                 menu.close(true);
                 Intent intent = new Intent(getActivity(), FullChartScreenActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, routeActivity.getRouteName());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, routeActivity.getRouteType());
-                intent.putExtra(Constants.INTENT_ROUTE_DIR, routeActivity.isForward());
-                intent.putExtra(Constants.INTENT_PLAN_START, routeActivity.getPlanStart());
-                intent.putExtra(Constants.INTENT_PLAN_END, routeActivity.getPlanEnd());
+                intent.putExtra(IntentExtra.INTENT_ROUTE, routeActivity.getRouteName());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, routeActivity.getRouteType());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, routeActivity.isForward());
+                intent.putExtra(IntentExtra.INTENT_PLAN_START, routeActivity.getPlanStart());
+                intent.putExtra(IntentExtra.INTENT_PLAN_END, routeActivity.getPlanEnd());
                 startActivity(intent);
             }
         });

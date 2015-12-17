@@ -14,6 +14,7 @@ import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.customScrollView.ScrollGridView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 /**
  * Created by DeanGuo on 9/19/15.
@@ -57,9 +58,9 @@ public class InfoPrepareFragment extends BaseInfoFragment {
 
                 // 打开详细页面
                 Intent intent = new Intent(getActivity(), PrepareDetailActivity.class);
-                intent.putExtra(Constants.INTENT_PREPARE_TYPE, infoType);
-                intent.putExtra(Constants.INTENT_ROUTE, infoActivity.getRoute());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, infoActivity.getRouteType());
+                intent.putExtra(IntentExtra.INTENT_PREPARE_TYPE, infoType);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, infoActivity.getRoute());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, infoActivity.getRouteType());
                 startActivity(intent);
 
                 // 设置动画

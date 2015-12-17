@@ -11,6 +11,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.ChartSettingFragment;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 
@@ -37,7 +38,7 @@ public class ChartSettingActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
         if (getIntent() != null) {
-            int orient = getIntent().getIntExtra(Constants.INTENT_ROUTE_ORIENTATION, 0);
+            int orient = getIntent().getIntExtra(IntentExtra.INTENT_ROUTE_ORIENTATION, 0);
             if (orient == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             } else if (orient == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {

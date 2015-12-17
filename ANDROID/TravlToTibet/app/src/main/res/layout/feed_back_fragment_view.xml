@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/gray_background"
     android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:gravity="top"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:text="反馈" />
-    </android.support.v7.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
@@ -54,11 +33,12 @@
 
         <TextView
             android:id="@+id/email_address_title"
-            style="@style/TextAppearance.Medium.Blue"
+            style="@style/TextAppearance.Medium.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="电子邮件：" />
+            android:text="电子邮件："
+            android:textColor="@color/dark_gray" />
 
         <EditText
             android:id="@+id/email_address"
@@ -69,7 +49,8 @@
             android:layout_toRightOf="@id/email_address_title"
             android:background="@null"
             android:hint="（可选）"
-            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left" />
+            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left"
+            android:textColor="@color/dark_gray" />
     </RelativeLayout>
 
     <View
@@ -88,11 +69,12 @@
 
         <TextView
             android:id="@+id/phone_number_title"
-            style="@style/TextAppearance.Medium.Blue"
+            style="@style/TextAppearance.Medium.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="手机号：" />
+            android:text="手机号："
+            android:textColor="@color/dark_gray" />
 
         <EditText
             android:id="@+id/phone_number"
@@ -103,7 +85,8 @@
             android:layout_toRightOf="@+id/phone_number_title"
             android:background="@null"
             android:hint="（可选）"
-            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left" />
+            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left"
+            android:textColor="@color/dark_gray" />
     </RelativeLayout>
 
     <View

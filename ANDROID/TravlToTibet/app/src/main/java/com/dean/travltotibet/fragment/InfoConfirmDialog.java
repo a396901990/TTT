@@ -22,6 +22,7 @@ import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
 import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -58,9 +59,9 @@ public class InfoConfirmDialog extends DialogFragment {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_confirm_dialog_fragment, null);
 
         if (getArguments() != null) {
-            route = getArguments().getString(Constants.INTENT_ROUTE);
-            routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
-            routeType = getArguments().getString(Constants.INTENT_ROUTE_TYPE);
+            route = getArguments().getString(IntentExtra.INTENT_ROUTE);
+            routeName = getArguments().getString(IntentExtra.INTENT_ROUTE_NAME);
+            routeType = getArguments().getString(IntentExtra.INTENT_ROUTE_TYPE);
             isForward = true;
         }
 
@@ -125,10 +126,10 @@ public class InfoConfirmDialog extends DialogFragment {
 
                 // 跳转到RouteActivity
                 Intent intent = new Intent(getActivity(), RouteActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, route);
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, routeType);
-                intent.putExtra(Constants.INTENT_ROUTE_DIR, isForward);
-                intent.putExtra(Constants.INTENT_ROUTE_PLAN_ID, plans.get(position).getId());
+                intent.putExtra(IntentExtra.INTENT_ROUTE, route);
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, routeType);
+                intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, isForward);
+                intent.putExtra(IntentExtra.INTENT_ROUTE_PLAN_ID, plans.get(position).getId());
                 startActivity(intent);
 
                 // 插入最近路线数据

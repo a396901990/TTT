@@ -11,6 +11,7 @@ import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -101,10 +102,10 @@ public class RouteActivity
 
         Intent intent = getIntent();
         if (intent != null) {
-            routeName = intent.getStringExtra(Constants.INTENT_ROUTE);
-            routeType = intent.getStringExtra(Constants.INTENT_ROUTE_TYPE);
-            routePlanId = (int) intent.getLongExtra(Constants.INTENT_ROUTE_PLAN_ID, 0);
-            isForward = intent.getBooleanExtra(Constants.INTENT_ROUTE_DIR, true);
+            routeName = intent.getStringExtra(IntentExtra.INTENT_ROUTE);
+            routeType = intent.getStringExtra(IntentExtra.INTENT_ROUTE_TYPE);
+            routePlanId = (int) intent.getLongExtra(IntentExtra.INTENT_ROUTE_PLAN_ID, 0);
+            isForward = intent.getBooleanExtra(IntentExtra.INTENT_ROUTE_DIR, true);
         }
 
         // 设置路线信息

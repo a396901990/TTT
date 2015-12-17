@@ -24,6 +24,7 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
 import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class HotelDetailDialog extends DialogFragment {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.hotel_detail_dialog_fragment, null);
 
         if (getArguments() != null) {
-            mHotel = (Hotel) getArguments().getSerializable(Constants.INTENT_HOTEL);
+            mHotel = (Hotel) getArguments().getSerializable(IntentExtra.INTENT_HOTEL);
         }
 
         initContentView();

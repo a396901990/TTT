@@ -18,14 +18,10 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.fragment.HotelDetailDialog;
-import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.fragment.ScenicDetailDialog;
-import com.dean.travltotibet.fragment.TravelTypeDialog;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -89,7 +85,7 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
                 // 跳转
                 DialogFragment dialogFragment = new ScenicDetailDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.INTENT_SCENIC, scenic);
+                bundle.putSerializable(IntentExtra.INTENT_SCENIC, scenic);
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(((Activity) mContext).getFragmentManager(), ScenicDetailDialog.class.getName());
             }

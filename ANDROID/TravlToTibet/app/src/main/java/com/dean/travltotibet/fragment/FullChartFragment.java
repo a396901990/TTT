@@ -19,6 +19,7 @@ import com.dean.travltotibet.ui.chart.IndicatorChartView;
 import com.dean.travltotibet.ui.chart.RouteChartView;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.StringUtil;
 
 import java.util.List;
@@ -69,11 +70,11 @@ public class FullChartFragment extends Fragment {
 
         if (getArguments() != null) {
             Bundle bundle = getArguments();
-            routeName = bundle.getString(Constants.INTENT_ROUTE);
-            routeType = bundle.getString(Constants.INTENT_ROUTE_TYPE);
-            isForward = bundle.getBoolean(Constants.INTENT_ROUTE_DIR, true);
-            planStart = bundle.getString(Constants.INTENT_PLAN_START);
-            planEnd = bundle.getString(Constants.INTENT_PLAN_END);
+            routeName = bundle.getString(IntentExtra.INTENT_ROUTE);
+            routeType = bundle.getString(IntentExtra.INTENT_ROUTE_TYPE);
+            isForward = bundle.getBoolean(IntentExtra.INTENT_ROUTE_DIR, true);
+            planStart = bundle.getString(IntentExtra.INTENT_PLAN_START);
+            planEnd = bundle.getString(IntentExtra.INTENT_PLAN_END);
         }
 
         mChartView = (RouteChartView) rootView.findViewById(R.id.chart);

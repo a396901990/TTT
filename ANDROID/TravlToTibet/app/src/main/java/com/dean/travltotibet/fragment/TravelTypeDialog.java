@@ -13,6 +13,7 @@ import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -46,9 +47,9 @@ public class TravelTypeDialog extends DialogFragment {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.travel_dialog_layout, null);
 
         if (getArguments() != null) {
-            route = getArguments().getString(Constants.INTENT_ROUTE);
-            routeName = getArguments().getString(Constants.INTENT_ROUTE_NAME);
-            fromType = getArguments().getString(Constants.INTENT_FROM_WHERE);
+            route = getArguments().getString(IntentExtra.INTENT_ROUTE);
+            routeName = getArguments().getString(IntentExtra.INTENT_ROUTE_NAME);
+            fromType = getArguments().getString(IntentExtra.INTENT_FROM_WHERE);
         }
 
         initContentView();
@@ -101,9 +102,9 @@ public class TravelTypeDialog extends DialogFragment {
         if (fromType.equals(FROM_FIRST)) {
             // 跳转到InfoRouteActivity
             Intent intent = new Intent(getActivity(), InfoActivity.class);
-            intent.putExtra(Constants.INTENT_ROUTE, route);
-            intent.putExtra(Constants.INTENT_ROUTE_NAME, routeName);
-            intent.putExtra(Constants.INTENT_ROUTE_TYPE, type);
+            intent.putExtra(IntentExtra.INTENT_ROUTE, route);
+            intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, routeName);
+            intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, type);
             startActivity(intent);
             dismiss();
         } else if (fromType.equals(FROM_SECOND)) {

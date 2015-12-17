@@ -19,6 +19,7 @@ import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -78,9 +79,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             public void onClick(View v) {
                 // 跳转到InfoRouteActivity(类型BIKE)
                 Intent intent = new Intent(mContext, InfoActivity.class);
-                intent.putExtra(Constants.INTENT_ROUTE, route.getRoute());
-                intent.putExtra(Constants.INTENT_ROUTE_NAME, route.getName());
-                intent.putExtra(Constants.INTENT_ROUTE_TYPE, TravelType.BIKE);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, route.getRoute());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, route.getName());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, TravelType.BIKE);
                 mContext.startActivity(intent);
             }
         });
