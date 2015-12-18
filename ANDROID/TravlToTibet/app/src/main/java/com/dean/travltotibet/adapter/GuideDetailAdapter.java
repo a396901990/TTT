@@ -96,8 +96,10 @@ public class GuideDetailAdapter extends AnimatedExpandableListView.AnimatedExpan
         else {
             detail = isForward ? geocode.getF_detail() : geocode.getR_detail();
         }
-        detail.replace(Constants.REPLACE_MARK, "\n");
-        holder.detailGuide.setText(detail);
+        if (!TextUtils.isEmpty(detail)) {
+            detail.replace(Constants.REPLACE_MARK, "\n");
+            holder.detailGuide.setText(detail);
+        }
 
         return convertView;
     }

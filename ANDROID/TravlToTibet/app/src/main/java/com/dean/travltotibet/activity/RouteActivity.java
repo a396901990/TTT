@@ -234,8 +234,7 @@ public class RouteActivity
 
             getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
             getSupportActionBar().setSubtitle(currentRoute.getDistance());
-        }
-        else {
+        } else {
             mMenuDate.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
 
             getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
