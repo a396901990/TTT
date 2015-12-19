@@ -104,7 +104,7 @@ public class GuideHotelFragment extends BaseGuideFragment {
 
     private void updateView() {
         mData = getListData();
-        if (mData != null && mData.size() > 0) {
+        if (mData != null && mData.size() > 0 && mListView != null) {
             mAdapter.setData(mData);
 
             // 遍历所有group,将所有项设置成默认关闭
@@ -113,7 +113,9 @@ public class GuideHotelFragment extends BaseGuideFragment {
                 mListView.collapseGroup(i);
             }
             // 打开第一个
-            mListView.expandGroup(0);
+            if (groupCount > 0) {
+                mListView.expandGroup(0);
+            }
         }
 
     }

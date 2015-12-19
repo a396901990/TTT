@@ -1,5 +1,6 @@
 package com.dean.travltotibet.ui.numberprogressbar;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 import com.dean.travltotibet.R;
 
@@ -175,6 +177,8 @@ public class NumberProgressBar extends View {
 
     private boolean mIfDrawTitle = true;
 
+    private NumberProgressBar mNumberProgressBar;
+
     /**
      * Listener
      */
@@ -195,6 +199,7 @@ public class NumberProgressBar extends View {
     public NumberProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        mNumberProgressBar = this;
         default_reached_bar_height = dp2px(1.5f);
         default_unreached_bar_height = dp2px(1.0f);
         default_text_size = sp2px(10);
@@ -289,6 +294,19 @@ public class NumberProgressBar extends View {
         if (mIfDrawTitle) {
             canvas.drawText(mDrawTitle, getPaddingLeft()+mOffset, mDrawTitleEnd, mTitlePaint);
         }
+    }
+
+    public void showAnimation(int progress) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofInt(0, progress);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mNumberProgressBar.setProgress((Integer) valueAnimator.getAnimatedValue());
+            }
+        });
+        valueAnimator.setDuration(800);
+        valueAnimator.setInterpolator(new AccelerateInterpolator());
+        valueAnimator.start();
     }
 
     private void initializePainters() {

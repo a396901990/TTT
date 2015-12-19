@@ -1,10 +1,12 @@
 package com.dean.travltotibet.fragment;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -38,7 +40,9 @@ public class GuideOverViewFragment extends BaseGuideFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-        updateOverView();
+        if(!routeActivity.isRoute()) {
+            updateOverView();
+        }
     }
 
     private void updateOverView() {
@@ -53,12 +57,13 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         TextView describe= (TextView) root.findViewById(R.id.overview_describe);
 
         // 设置评分条
-        NumberProgressBar rateHard = (NumberProgressBar) root.findViewById(R.id.rate_hard);
+        final NumberProgressBar rateHard = (NumberProgressBar) root.findViewById(R.id.rate_hard);
         NumberProgressBar rateView = (NumberProgressBar) root.findViewById(R.id.rate_view);
         NumberProgressBar rateRoad = (NumberProgressBar) root.findViewById(R.id.rate_road);
-        rateHard.setProgress(Integer.parseInt(mPlan.getRank_hard()));
-        rateView.setProgress(Integer.parseInt(mPlan.getRank_view()));
-        rateRoad.setProgress(Integer.parseInt(mPlan.getRank_road()));
+
+        rateHard.showAnimation(Integer.parseInt(mPlan.getRank_hard()));
+        rateView.showAnimation(Integer.parseInt(mPlan.getRank_view()));
+        rateRoad.showAnimation(Integer.parseInt(mPlan.getRank_road()));
 
         // 设置路线起始&终点
         start.setText(mPlan.getStart());
@@ -81,6 +86,8 @@ public class GuideOverViewFragment extends BaseGuideFragment {
 
     @Override
     public void update() {
-        updateOverView();
+        if(!routeActivity.isRoute()) {
+            updateOverView();
+        }
     }
 }

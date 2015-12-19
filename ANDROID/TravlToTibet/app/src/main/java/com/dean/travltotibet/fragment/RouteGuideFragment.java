@@ -2,8 +2,6 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.InflateException;
@@ -13,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.MenuUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -53,6 +49,10 @@ public class RouteGuideFragment extends BaseRouteFragment {
 
     private final static int OVERVIEW = 2;
     private final static String OVERVIEW_TITLE = "简介";
+
+    private final static String ROOT_VIEW_ROUTE = "route";
+
+    private final static String ROOT_VIEW_GUIDE = "guide";
 
     public static RouteGuideFragment newInstance() {
         RouteGuideFragment newFragment = new RouteGuideFragment();
@@ -113,6 +113,8 @@ public class RouteGuideFragment extends BaseRouteFragment {
         } catch (InflateException e) {
             // 报错则存在，就用之前的视图。。。
         }
+
+        contentView.setTag(ROOT_VIEW_GUIDE);
     }
 
     /**
@@ -139,6 +141,8 @@ public class RouteGuideFragment extends BaseRouteFragment {
         } catch (InflateException e) {
             // 报错则存在，就用之前的视图。。。
         }
+
+        contentView.setTag(ROOT_VIEW_ROUTE);
     }
 
     @Override
@@ -154,26 +158,38 @@ public class RouteGuideFragment extends BaseRouteFragment {
     @Override
     public void updateRoute() {
 
-        // 选择plan后变更视图
+        // 选择plan后，根据当前是route还是guide变更视图
         if (routeActivity.isRoute()) {
             initPlanView();
             ((ViewGroup) rootView).addView(contentView);
             initMenu(routeActivity.getFloatingActionMenu());
         } else {
-            initGuideView();
-            ((ViewGroup) rootView).addView(contentView);
-            initMenu(routeActivity.getFloatingActionMenu());
-        }
+            // 如果当前rootView为route视图，则换成guide视图。
+            // 如果已经是guide视图，则不需要改变
+            if (contentView.getTag().equals(ROOT_VIEW_ROUTE)) {
+                initGuideView();
+                ((ViewGroup) rootView).addView(contentView);
+                initMenu(routeActivity.getFloatingActionMenu());
+            }
 
-        // 更新guide视图下的fragment
-        if (overviewFragment != null && overviewFragment.isAdded()) {
-            overviewFragment.update();
-        }
-        if (detailFragment != null && detailFragment.isAdded()) {
-            detailFragment.update();
-        }
-        if (hotelFragment != null && hotelFragment.isAdded()) {
-            hotelFragment.update();
+            // 更新guide视图下的fragment
+            if (overviewFragment != null && overviewFragment.isAdded()) {
+                overviewFragment.update();
+            }
+            if (detailFragment != null && detailFragment.isAdded()) {
+                detailFragment.update();
+            }
+            if (hotelFragment != null && hotelFragment.isAdded()) {
+                hotelFragment.update();
+            }
+
+            // 防止scroll view下滑
+            View topView = contentView.findViewById(R.id.content_layout);
+            if (topView != null) {
+                topView.setFocusable(true);
+                topView.setFocusableInTouchMode(true);
+                topView.requestFocus();
+            }
         }
     }
 
