@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/datagenerate/datagenerate.iml" filepath="$PROJECT_DIR$/datagenerate/datagenerate.iml" />
       <module fileurl="file://$PROJECT_DIR$/googlemapapi/googlemapapi.iml" filepath="$PROJECT_DIR$/googlemapapi/googlemapapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/greendaogenerator/greendaogenerator.iml" filepath="$PROJECT_DIR$/greendaogenerator/greendaogenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
     </modules>
   </component>
 </project>

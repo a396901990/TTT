@@ -127,5 +127,6 @@
     <orderEntry type="library" exported="" name="cardview-v7-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="iconics-core-2.5.1" level="project" />
     <orderEntry type="library" exported="" name="SlidingMenu/library-unspecified" level="project" />
+    <orderEntry type="module" module-name="sharesdk" exported="" />
   </component>
 </module>

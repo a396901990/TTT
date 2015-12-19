@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/datagenerate" />
             <option value="$PROJECT_DIR$/googlemapapi" />
             <option value="$PROJECT_DIR$/greendaogenerator" />
+            <option value="$PROJECT_DIR$/sharesdk" />
           </set>
         </option>
       </GradleProjectSettings>
