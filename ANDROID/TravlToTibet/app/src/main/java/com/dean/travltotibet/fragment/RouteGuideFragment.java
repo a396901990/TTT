@@ -183,9 +183,10 @@ public class RouteGuideFragment extends BaseRouteFragment {
                 hotelFragment.update();
             }
 
-            // 防止scroll view下滑
-            View topView = contentView.findViewById(R.id.content_layout);
+            // 切换plan时，跳转到顶部。并获取焦点防止scroll view下滑（内嵌list view的bug）
+            View topView = contentView.findViewById(R.id.top_view);
             if (topView != null) {
+                mScrollView.scrollTo(0, topView.getTop());
                 topView.setFocusable(true);
                 topView.setFocusableInTouchMode(true);
                 topView.requestFocus();
