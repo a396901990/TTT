@@ -15,19 +15,57 @@
         android:text="简介"
         android:textColor="@color/dark_gray" />
 
-    <TextView
-        android:id="@+id/detail_route_start_end"
-        style="@style/TextAppearance.Small.Gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="成都-拉萨" />
+    <!--路线，距离在左边 注意事项在右-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/detail_route_distance"
-        style="@style/TextAppearance.Small.Gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2382M" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_route_start_end"
+                style="@style/TextAppearance.Small.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="成都-拉萨" />
+
+            <TextView
+                android:id="@+id/detail_route_distance"
+                style="@style/TextAppearance.Small.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2382M" />
+        </LinearLayout>
+
+        <!--注意事项-->
+        <LinearLayout
+            android:id="@+id/route_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextAppearance.Theme.Small.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注意事项" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                app:iiv_color="@color/colorPrimary"
+                app:iiv_icon="gmd_chevron_right" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

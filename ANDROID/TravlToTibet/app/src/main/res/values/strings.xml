@@ -33,6 +33,7 @@
     <!--activity title-->
     <string name="title_activity_home_setting">设置</string>
     <string name="title_setting_feedback">反馈</string>
+    <string name="title_attention">注意事项</string>
     <string name="title_chart_setting">设置</string>
     <string name="title_activity_about_setting">关于</string>
 

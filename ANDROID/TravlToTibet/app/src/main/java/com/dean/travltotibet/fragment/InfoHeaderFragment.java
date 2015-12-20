@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dean.greendao.RouteAttention;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -18,6 +19,7 @@ import com.dean.travltotibet.ui.sliderview.SliderTypes.TextSliderView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by DeanGuo on 9/19/15.

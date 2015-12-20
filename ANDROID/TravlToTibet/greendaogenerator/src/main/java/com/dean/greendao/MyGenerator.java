@@ -29,6 +29,7 @@ public class MyGenerator {
         addRecentRoute(schema);
         addHotel(schema);
         addScenic(schema);
+        addRouteAttention(schema);
 //        addZoneType(schema);
 //        addBuildingType(schema);
 
@@ -169,6 +170,16 @@ public class MyGenerator {
         route.addStringProperty("scenic_overview");
         route.addStringProperty("scenic_detail");
         route.addStringProperty("scenic_pic");
+    }
+
+    // 建筑物类型表
+    private static void addRouteAttention(Schema schema) {
+        Entity build = schema.addEntity("RouteAttention");
+        build.addIdProperty();
+        build.addStringProperty("route").notNull();
+        build.addStringProperty("type").notNull();
+        build.addStringProperty("attention_title").notNull();
+        build.addStringProperty("attention_detail").notNull();
     }
 
     // 区域类型表

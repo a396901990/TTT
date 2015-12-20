@@ -20,6 +20,8 @@ import com.dean.greendao.PrepareInfoDao;
 import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RecentRouteDao;
 import com.dean.greendao.Route;
+import com.dean.greendao.RouteAttention;
+import com.dean.greendao.RouteAttentionDao;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
 import com.dean.greendao.RoutePlanDao;
@@ -67,6 +69,8 @@ public class DBHelper {
 
     private ScenicDao scenicDao;
 
+    private RouteAttentionDao routeAttentionDao;
+
     private DBHelper() {
     }
 
@@ -88,6 +92,7 @@ public class DBHelper {
             instance.recentRouteDao = daoSession.getRecentRouteDao();
             instance.hotelDao = daoSession.getHotelDao();
             instance.scenicDao = daoSession.getScenicDao();
+            instance.routeAttentionDao = daoSession.getRouteAttentionDao();
         }
         return instance;
     }
@@ -355,6 +360,13 @@ public class DBHelper {
         String pics = curRoute.getPic_url();
 
         return pics.split(Constants.URL_MARK);
+    }
+
+    public List<RouteAttention> getRouteAttention(String route, String type) {
+        QueryBuilder<RouteAttention> qb = routeAttentionDao.queryBuilder();
+        qb.where(RouteAttentionDao.Properties.Route.eq(route));
+        qb.where(RouteAttentionDao.Properties.Type.eq(type));
+        return qb.list();
     }
 
     /**

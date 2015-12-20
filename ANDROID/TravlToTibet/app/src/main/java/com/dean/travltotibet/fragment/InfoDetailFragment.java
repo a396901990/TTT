@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.AttentionActivity;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 /**
  * Created by DeanGuo on 10/14/15.
@@ -48,6 +51,25 @@ public class InfoDetailFragment extends BaseInfoFragment {
 
         initDetail();
         initExpandableTextView();
+        initRouteAttention();
+    }
+
+    /**
+     * 注意事项按钮，打开注意事项
+     */
+    private void initRouteAttention() {
+        View attention = root.findViewById(R.id.route_attention);
+        attention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AttentionActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentExtra.INTENT_ROUTE, infoActivity.getRoute());
+                bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, infoActivity.getRouteType());
+                intent.putExtra(IntentExtra.INTENT_ROUTE_BUNDLE, bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initDetail() {
