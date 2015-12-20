@@ -30,13 +30,6 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
 
     private View headerView;
 
-    /**
-     * 更新路线监听器
-     */
-    public interface RouteListener {
-        void updateRoute(String start, String end);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.route_plan_fragment_view, null);
@@ -73,7 +66,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         final String dis = route.getDistance();
         final String name = route.getName();
         
-        date.setText(name);
+        date.setText("总览："+name);
         detail_start.setText(start);
         detail_end.setText(end);
         distance.setText(dis);
