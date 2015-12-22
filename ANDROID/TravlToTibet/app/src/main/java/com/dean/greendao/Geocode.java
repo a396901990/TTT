@@ -20,7 +20,7 @@ public class Geocode {
     private String address;
     /** Not-null value. */
     private String types;
-    private double milestone;
+    private String milestone;
     private String road;
     private String f_detail;
     private String r_detail;
@@ -33,7 +33,7 @@ public class Geocode {
         this.id = id;
     }
 
-    public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, double milestone, String road, String f_detail, String r_detail, String e_detail) {
+    public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, String milestone, String road, String f_detail, String r_detail, String e_detail) {
         this.id = id;
         this.route = route;
         this.name = name;
@@ -139,11 +139,11 @@ public class Geocode {
         this.types = types;
     }
 
-    public double getMilestone() {
+    public String getMilestone() {
         return milestone;
     }
 
-    public void setMilestone(double milestone) {
+    public void setMilestone(String milestone) {
         this.milestone = milestone;
     }
 

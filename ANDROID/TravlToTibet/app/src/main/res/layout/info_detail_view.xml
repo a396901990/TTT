@@ -68,14 +68,15 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <!--扩展文字视图-->
         <com.dean.travltotibet.ui.ExpandableTextView
             android:id="@+id/expandable_text_view"
-            style="@style/TextAppearance.Small.Gray"
-            android:layout_width="match_parent"
+            style="@style/TextAppearance.Micro"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:ellipsize="end"

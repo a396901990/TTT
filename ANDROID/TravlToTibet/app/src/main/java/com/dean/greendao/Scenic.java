@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Entity mapped to table SCENIC.
  */
-public class Scenic implements Serializable{
+public class Scenic implements Serializable {
 
     private Long id;
     /** Not-null value. */

@@ -95,9 +95,7 @@ public class InfoDetailFragment extends BaseInfoFragment {
 
         // 设置文字
         String detail = TTTApplication.getDbHelper().getRouteDetail(infoActivity.getRoute());
-        //expandableTextView.setText(detail);
-        expandableTextView.setText("下面说下思路吧，就是先获取TextView完全展开时的最大maxLines记录下来，让后再把TextView的maxLine设置为你想指定的任何值，我这里指定的是1，这样加载完成VIew之后我们看到的TextView就不是完全展开的，这样做的主要目的是拿到完全展开的maxLines，让后用户点击的时候不断的更新maxLine大小即可"
-        );
+        expandableTextView.setText(detail);
 
         // 设置监听状态
         expandableTextView.setOnExpandListener(new ExpandableTextView.OnExpandListener() {

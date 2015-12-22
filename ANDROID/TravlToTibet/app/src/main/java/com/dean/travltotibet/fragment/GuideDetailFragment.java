@@ -26,7 +26,7 @@ public class GuideDetailFragment extends BaseGuideFragment {
 
     private GuideDetailAdapter mAdapter;
 
-    private AnimatedExpandableListView mListView;
+    private ExpandableListView mListView;
 
     private ArrayList<Geocode> mDataResult;
 
@@ -45,7 +45,7 @@ public class GuideDetailFragment extends BaseGuideFragment {
     }
 
     private void initView() {
-        mListView = (AnimatedExpandableListView) root.findViewById(R.id.detail_list);
+        mListView = (ExpandableListView) root.findViewById(R.id.detail_list);
         mAdapter = new GuideDetailAdapter(getActivity());
         // 设置正反
         mAdapter.setIsForward(routeActivity.isForward());
@@ -63,9 +63,9 @@ public class GuideDetailFragment extends BaseGuideFragment {
                 public boolean onGroupClick(ExpandableListView parent, View v,
                                             int groupPosition, long id) {
                     if (mListView.isGroupExpanded(groupPosition)) {
-                        mListView.collapseGroupWithAnimation(groupPosition);
+                        mListView.collapseGroup(groupPosition);
                     } else {
-                        mListView.expandGroupWithAnimation(groupPosition);
+                        mListView.expandGroup(groupPosition);
                     }
                     return true;
                 }

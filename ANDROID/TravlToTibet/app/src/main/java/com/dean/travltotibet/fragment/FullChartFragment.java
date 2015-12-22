@@ -104,7 +104,7 @@ public class FullChartFragment extends Fragment {
             }
 
             // 里程碑
-            String milestone = StringUtil.formatDoubleToFourInteger(TTTApplication.getDbHelper().getMilestoneWithName(name));
+            String milestone = TTTApplication.getDbHelper().getMilestoneWithName(name);
             milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
 
             posName.setText(name);

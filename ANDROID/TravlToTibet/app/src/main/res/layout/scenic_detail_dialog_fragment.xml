@@ -29,7 +29,6 @@
     </FrameLayout>
 
     <TextView
-        android:visibility="gone"
         style="@style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,21 +36,22 @@
         android:gravity="center_vertical"
         android:padding="10dp"
         android:text="景点介绍"
-        android:textColor="@color/dark_gray" />
+        android:textColor="@color/dark_gray"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="200dp"
+        android:padding="10dp"
         android:scrollbars="none">
 
-        <TextView
-            android:padding="10dp"
+        <com.dean.travltotibet.ui.JustifyTextView
             android:id="@+id/scenic_detail"
             style="@style/TextAppearance.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.1"
             android:text="景点介绍"
             android:textColor="@color/gray" />
     </ScrollView>

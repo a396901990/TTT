@@ -10,7 +10,7 @@ public class GeocodeOld {
     private Long id;
     private String name;
     private double mileage;
-    private double milestone;
+    private String milestone;
     private double elevation;
     private double distance;
     private double latitude;
@@ -46,11 +46,11 @@ public class GeocodeOld {
         this.mileage = mileage;
     }
 
-    public double getMilestone() {
+    public String getMilestone() {
         return milestone;
     }
 
-    public void setMilestone(double milestone) {
+    public void setMilestone(String milestone) {
         this.milestone = milestone;
     }
 

@@ -38,6 +38,11 @@
         <attr name="minLines" format="integer" />
     </declare-styleable>
 
+
+    <declare-styleable name="JustifyTextView">
+        <attr name="lineSpacing" format="dimension" />
+    </declare-styleable>
+
     <declare-styleable name="SwitchButton">
         <!-- Drawable of cursor, press status supported-->
         <attr name="cursor" format="reference" />

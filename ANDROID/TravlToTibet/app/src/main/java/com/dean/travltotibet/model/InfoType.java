@@ -144,7 +144,7 @@ public enum InfoType {
             case EQUIP_CAR:
                 return prepareInfo.getEquip();
             case CLOTHING:
-                return prepareInfo.getEquip_clothing();
+                return prepareInfo.getClothing();
             case OUTDOOR_EQUIP:
                 return prepareInfo.getOutdoor_equip();
             case CREDENTIALS:

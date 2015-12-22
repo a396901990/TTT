@@ -30,7 +30,7 @@ public class PrepareInfoDao extends AbstractDao<PrepareInfo, Long> {
         public final static Property Budget = new Property(4, String.class, "budget", false, "BUDGET");
         public final static Property Medicine = new Property(5, String.class, "medicine", false, "MEDICINE");
         public final static Property Equip = new Property(6, String.class, "equip", false, "EQUIP");
-        public final static Property Equip_clothing = new Property(7, String.class, "equip_clothing", false, "EQUIP_CLOTHING");
+        public final static Property Clothing = new Property(7, String.class, "clothing", false, "CLOTHING");
         public final static Property Outdoor_equip = new Property(8, String.class, "outdoor_equip", false, "OUTDOOR_EQUIP");
         public final static Property Credential = new Property(9, String.class, "credential", false, "CREDENTIAL");
         public final static Property Personal = new Property(10, String.class, "personal", false, "PERSONAL");
@@ -57,7 +57,7 @@ public class PrepareInfoDao extends AbstractDao<PrepareInfo, Long> {
                 "'BUDGET' TEXT," + // 4: budget
                 "'MEDICINE' TEXT," + // 5: medicine
                 "'EQUIP' TEXT," + // 6: equip
-                "'EQUIP_CLOTHING' TEXT," + // 7: equip_clothing
+                "'CLOTHING' TEXT," + // 7: clothing
                 "'OUTDOOR_EQUIP' TEXT," + // 8: outdoor_equip
                 "'CREDENTIAL' TEXT," + // 9: credential
                 "'PERSONAL' TEXT," + // 10: personal
@@ -102,9 +102,9 @@ public class PrepareInfoDao extends AbstractDao<PrepareInfo, Long> {
             stmt.bindString(7, equip);
         }
  
-        String equip_clothing = entity.getEquip_clothing();
-        if (equip_clothing != null) {
-            stmt.bindString(8, equip_clothing);
+        String clothing = entity.getClothing();
+        if (clothing != null) {
+            stmt.bindString(8, clothing);
         }
  
         String outdoor_equip = entity.getOutdoor_equip();
@@ -145,7 +145,7 @@ public class PrepareInfoDao extends AbstractDao<PrepareInfo, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // budget
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // medicine
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // equip
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // equip_clothing
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // clothing
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // outdoor_equip
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // credential
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // personal
@@ -164,7 +164,7 @@ public class PrepareInfoDao extends AbstractDao<PrepareInfo, Long> {
         entity.setBudget(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setMedicine(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setEquip(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setEquip_clothing(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setClothing(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setOutdoor_equip(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setCredential(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setPersonal(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));

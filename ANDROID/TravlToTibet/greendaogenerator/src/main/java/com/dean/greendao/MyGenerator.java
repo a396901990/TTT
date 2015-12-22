@@ -51,7 +51,7 @@ public class MyGenerator {
         geocode.addDoubleProperty("longitude").notNull();
         geocode.addStringProperty("address").notNull();
         geocode.addStringProperty("types").notNull();
-        geocode.addDoubleProperty("milestone").notNull();
+        geocode.addStringProperty("milestone");
         geocode.addStringProperty("road");
         geocode.addStringProperty("f_detail");
         geocode.addStringProperty("r_detail");
@@ -115,7 +115,7 @@ public class MyGenerator {
         route.addStringProperty("budget");
         route.addStringProperty("medicine");
         route.addStringProperty("equip");
-        route.addStringProperty("equip_clothing");
+        route.addStringProperty("clothing");
         route.addStringProperty("outdoor_equip");
         route.addStringProperty("credential");
         route.addStringProperty("personal");

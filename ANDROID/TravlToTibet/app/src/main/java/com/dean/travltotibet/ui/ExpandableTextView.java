@@ -13,7 +13,7 @@ import com.dean.travltotibet.R;
 /**
  * https://github.com/lianghanzhen/ExpandableRelativeLayout
  */
-public class ExpandableTextView extends TextView {
+public class ExpandableTextView extends XRTextView {
 
     private static final boolean DEFAULT_EXPANDED = false;
     private static final int DEFAULT_MIN_LINES = 3;
@@ -36,17 +36,12 @@ public class ExpandableTextView extends TextView {
     //region Constructor
 
     public ExpandableTextView(Context context) {
-        super(context);
+        super(context, null);
         init(context, null);
     }
 
     public ExpandableTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
-    }
-
-    public ExpandableTextView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
         init(context, attrs);
     }
 

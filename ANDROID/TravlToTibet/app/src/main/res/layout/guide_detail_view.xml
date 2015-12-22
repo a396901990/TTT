@@ -17,10 +17,11 @@
         android:text="行程" />
 
     <!--行程时间线列表-->
-    <com.dean.travltotibet.ui.customScrollView.InsideScrollAnimatedExpandableListView
+    <com.dean.travltotibet.ui.customScrollView.InsideExpandableListView
         android:id="@+id/detail_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
         android:background="@null"
         android:cacheColorHint="#00000000"
         android:divider="@null"

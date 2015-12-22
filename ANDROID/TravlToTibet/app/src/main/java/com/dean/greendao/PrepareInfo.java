@@ -15,7 +15,7 @@ public class PrepareInfo {
     private String budget;
     private String medicine;
     private String equip;
-    private String equip_clothing;
+    private String clothing;
     private String outdoor_equip;
     private String credential;
     private String personal;
@@ -28,7 +28,7 @@ public class PrepareInfo {
         this.id = id;
     }
 
-    public PrepareInfo(Long id, String route, String travel_type, String route_overview, String budget, String medicine, String equip, String equip_clothing, String outdoor_equip, String credential, String personal, String other) {
+    public PrepareInfo(Long id, String route, String travel_type, String route_overview, String budget, String medicine, String equip, String clothing, String outdoor_equip, String credential, String personal, String other) {
         this.id = id;
         this.route = route;
         this.travel_type = travel_type;
@@ -36,7 +36,7 @@ public class PrepareInfo {
         this.budget = budget;
         this.medicine = medicine;
         this.equip = equip;
-        this.equip_clothing = equip_clothing;
+        this.clothing = clothing;
         this.outdoor_equip = outdoor_equip;
         this.credential = credential;
         this.personal = personal;
@@ -103,12 +103,12 @@ public class PrepareInfo {
         this.equip = equip;
     }
 
-    public String getEquip_clothing() {
-        return equip_clothing;
+    public String getClothing() {
+        return clothing;
     }
 
-    public void setEquip_clothing(String equip_clothing) {
-        this.equip_clothing = equip_clothing;
+    public void setClothing(String clothing) {
+        this.clothing = clothing;
     }
 
     public String getOutdoor_equip() {

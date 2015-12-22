@@ -277,7 +277,7 @@ public class DBHelper {
     /**
      * 根据name获取里程碑
      */
-    public Double getMilestoneWithName(String name) {
+    public String getMilestoneWithName(String name) {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Name.eq(name));
         return qb.list().get(0).getMilestone();
@@ -542,7 +542,7 @@ public class DBHelper {
             road = road.split("/")[1];
         }
         // 公里
-        String milestone = StringUtil.formatDoubleToFourInteger(getMilestoneWithName(name));
+        String milestone = getMilestoneWithName(name);
 
         return String.format(Constants.GUIDE_OVERALL_MILESTONE_WITHOUT_TITLE_FORMAT, road, milestone);
     }
