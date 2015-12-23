@@ -1,17 +1,21 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.GuideDetailAdapter;
+import com.dean.travltotibet.adapter.RouteGuideDetailAdapter;
 import com.dean.travltotibet.ui.AnimatedExpandableListView;
+import com.dean.travltotibet.util.ListUtil;
 
 import java.util.ArrayList;
 
@@ -49,19 +53,17 @@ public class GuideDetailFragment extends BaseGuideFragment {
         mAdapter = new GuideDetailAdapter(getActivity());
         // 设置正反
         mAdapter.setIsForward(routeActivity.isForward());
-
         // 初始化数据adapter并赋值
         mDataResult = getListData(routeActivity.getCurrentStart(), routeActivity.getCurrentEnd());
 
         if (mDataResult != null) {
             mAdapter.setData(mDataResult);
             mListView.setAdapter(mAdapter);
-            mListView.expandGroup(0);
+            // 当group被点击时触发
             mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
                 @Override
-                public boolean onGroupClick(ExpandableListView parent, View v,
-                                            int groupPosition, long id) {
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                     if (mListView.isGroupExpanded(groupPosition)) {
                         mListView.collapseGroup(groupPosition);
                     } else {
@@ -71,6 +73,8 @@ public class GuideDetailFragment extends BaseGuideFragment {
                 }
 
             });
+            // 默认打开第一个
+            mListView.expandGroup(0);
         }
     }
 
@@ -90,7 +94,7 @@ public class GuideDetailFragment extends BaseGuideFragment {
 
         mAdapter.setData(getListData(start, end));
         // 遍历所有group,将所有项设置成默认关闭
-        int groupCount = mListView.getCount();
+        int groupCount = mAdapter.getGroupCount();
         for (int i = 0; i < groupCount; i++) {
             mListView.collapseGroup(i);
         }

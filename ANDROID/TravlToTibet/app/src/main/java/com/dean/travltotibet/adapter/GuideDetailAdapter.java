@@ -2,6 +2,7 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,21 +57,20 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
         GuideDetailHolder holder;
         if (convertView == null) {
             holder = new GuideDetailHolder();
-            convertView = inflater.inflate(R.layout.route_guide_detail_detail_list_item, parent,
-                    false);
-            holder.detailHeight = (TextView) convertView
-                    .findViewById(R.id.detail_height);
-            holder.detailMileage = (TextView) convertView
-                    .findViewById(R.id.detail_milestone);
-            holder.detailGuide = (TextView) convertView
-                    .findViewById(R.id.detail_guide);
+            convertView = inflater.inflate(R.layout.route_guide_detail_detail_list_item, parent, false);
+
+            holder.detailHeight = (TextView) convertView.findViewById(R.id.detail_height);
+            holder.detailMileage = (TextView) convertView.findViewById(R.id.detail_milestone);
+            holder.detailGuide = (TextView) convertView.findViewById(R.id.detail_guide);
             holder.detailGuideContent = convertView.findViewById(R.id.detail_guide_content);
+
             convertView.setTag(holder);
         } else {
             holder = (GuideDetailHolder) convertView.getTag();
         }
 
         /** set data */
+        Log.e("groupPosition:", groupPosition + "");
         Geocode geocode = getChild(groupPosition, childPosition);
 
         // height
@@ -98,10 +98,10 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
             detail = isForward ? geocode.getF_detail() : geocode.getR_detail();
         }
         if (!TextUtils.isEmpty(detail)) {
-            holder.detailGuideContent.setVisibility(View.VISIBLE);
+            //holder.detailGuideContent.setVisibility(View.VISIBLE);
             holder.detailGuide.setText(detail);
         } else {
-            holder.detailGuideContent.setVisibility(View.INVISIBLE);
+            //holder.detailGuideContent.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
@@ -134,10 +134,9 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             holder = new GuideDetailHolder();
-            convertView = inflater.inflate(R.layout.route_guide_detail_header_list_item, parent,
-                    false);
-            holder.headerTitle = (TextView) convertView
-                    .findViewById(R.id.header_title);
+            convertView = inflater.inflate(R.layout.route_guide_detail_header_list_item, parent, false);
+
+            holder.headerTitle = (TextView) convertView.findViewById(R.id.header_title);
             holder.headerLayout = (MaterialRippleLayout) convertView.findViewById(R.id.header_layout);
             holder.toggleButton = (ImageView) convertView.findViewById(R.id.expand_collapse);
             convertView.setTag(holder);

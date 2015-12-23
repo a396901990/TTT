@@ -21,9 +21,9 @@
         android:id="@+id/detail_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
         android:background="@null"
         android:cacheColorHint="#00000000"
         android:divider="@null"
-        android:groupIndicator="@null" />
+        android:groupIndicator="@null"
+        android:paddingBottom="5dp" />
 </LinearLayout>
