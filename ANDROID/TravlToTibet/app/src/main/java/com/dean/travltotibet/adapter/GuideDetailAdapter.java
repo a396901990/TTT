@@ -70,7 +70,6 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
         }
 
         /** set data */
-        Log.e("groupPosition:", groupPosition + "");
         Geocode geocode = getChild(groupPosition, childPosition);
 
         // height
@@ -80,9 +79,6 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
 
         // mileage
         String road = geocode.getRoad();
-//        if (!TextUtils.isEmpty(road)) {
-//            road = road.split("/")[1];
-//        }
         String milestone = geocode.getMilestone();
         milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
         holder.detailMileage.setText(milestone);
@@ -98,10 +94,10 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
             detail = isForward ? geocode.getF_detail() : geocode.getR_detail();
         }
         if (!TextUtils.isEmpty(detail)) {
-            //holder.detailGuideContent.setVisibility(View.VISIBLE);
+            holder.detailGuideContent.setVisibility(View.VISIBLE);
             holder.detailGuide.setText(detail);
         } else {
-            //holder.detailGuideContent.setVisibility(View.INVISIBLE);
+            holder.detailGuideContent.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
