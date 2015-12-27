@@ -325,4 +325,17 @@
         </attr>
     </declare-styleable>
 
+    <!--RatingView-->
+    <declare-styleable name="RatingView">
+        <attr name="rating_max" format="integer"/>
+
+        <attr name="rating_unrated_color" format="color"/>
+        <attr name="rating_rated_color" format="color"/>
+        <attr name="rating_title_color" format="color"/>
+        <attr name="rating_outline_color" format="color"/>
+
+        <attr name="rating_default_color" format="color"/>
+
+        <attr name="rating_title_visible" format="boolean"/>
+    </declare-styleable>
 </resources>

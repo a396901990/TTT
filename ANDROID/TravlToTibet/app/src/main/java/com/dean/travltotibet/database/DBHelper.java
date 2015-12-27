@@ -538,9 +538,6 @@ public class DBHelper {
     public String getRoadMileWithName(String name) {
         // 路线名
         String road = getRoadWithName(name);
-        if (!TextUtils.isEmpty(road)) {
-            road = road.split("/")[1];
-        }
         // 公里
         String milestone = getMilestoneWithName(name);
 

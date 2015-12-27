@@ -122,9 +122,6 @@ public class RouteChartFragment extends BaseRouteFragment {
 
             // 路牌&里程碑
             String road = TTTApplication.getDbHelper().getRoadWithName(name);
-//            if (!TextUtils.isEmpty(road)) {
-//                road = road.split("/")[1];
-//            }
             String milestone = TTTApplication.getDbHelper().getMilestoneWithName(name);
             milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
             posMilestone.setText(milestone);
@@ -192,7 +189,7 @@ public class RouteChartFragment extends BaseRouteFragment {
             }
         });
         //mChartView.setAxisRange(-5, 0, border+5, 6500);
-        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6500);
+        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6000);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 

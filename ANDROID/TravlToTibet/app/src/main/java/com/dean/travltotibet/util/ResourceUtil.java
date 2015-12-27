@@ -96,11 +96,11 @@ public class ResourceUtil {
 
         chart_backgroud = mResources.getColor(R.color.white_background);
 
-        indicator_background = mResources.getColor(R.color.colorPrimary);
+        indicator_background = mResources.getColor(R.color.white);
         indicator_mountain = mResources.getColor(R.color.white);
-        indicator_mountain_line = mResources.getColor(R.color.white);
+        indicator_mountain_line = mResources.getColor(R.color.colorPrimary);
 
-        indicator_indicator = mResources.getColor(R.color.white);
+        indicator_indicator = mResources.getColor(R.color.gray);
         indicator_indicator_alpha = (int) (255 * 0.5);
 
         indicator_shadow = mResources.getColor(R.color.white_gray);

@@ -1,21 +1,18 @@
 package com.dean.travltotibet.fragment;
 
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.widget.RatingBar;
+import com.dean.travltotibet.ui.numberprogressbar.RatingBar;
 import android.widget.TextView;
 
 import com.dean.greendao.Plan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar;
+import com.dean.travltotibet.ui.numberprogressbar.RatingView;
 import com.dean.travltotibet.util.Constants;
 
 /**
@@ -57,13 +54,16 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         TextView describe= (TextView) root.findViewById(R.id.overview_describe);
 
         // 设置评分条
-        final NumberProgressBar rateHard = (NumberProgressBar) root.findViewById(R.id.rate_hard);
-        NumberProgressBar rateView = (NumberProgressBar) root.findViewById(R.id.rate_view);
-        NumberProgressBar rateRoad = (NumberProgressBar) root.findViewById(R.id.rate_road);
+        RatingView ratingView = (RatingView) root.findViewById(R.id.rating_view);
+        ratingView.removeAll();
+        RatingBar rateHard = new RatingBar(Integer.parseInt(mPlan.getRank_hard()), "难度");
+        RatingBar rateView = new RatingBar(Integer.parseInt(mPlan.getRank_view()), "风景");
+        RatingBar rateRoad = new RatingBar(Integer.parseInt(mPlan.getRank_road()), "路况");
 
-        rateHard.showAnimation(Integer.parseInt(mPlan.getRank_hard()));
-        rateView.showAnimation(Integer.parseInt(mPlan.getRank_view()));
-        rateRoad.showAnimation(Integer.parseInt(mPlan.getRank_road()));
+        ratingView.addRatingBar(rateHard);
+        ratingView.addRatingBar(rateView);
+        ratingView.addRatingBar(rateRoad);
+        ratingView.show();
 
         // 设置路线起始&终点
         start.setText(mPlan.getStart());
@@ -71,8 +71,8 @@ public class GuideOverViewFragment extends BaseGuideFragment {
 
         // 设置计划（DAY1/26天）
         String planDate = mPlan.getDay();
-        String planDays = TTTApplication.getDbHelper().getPlanDays(routeActivity.getRoutePlanId());
-        date.setText(String.format(Constants.BRIEF_DAY, planDate, planDays));
+        // String planDays = TTTApplication.getDbHelper().getPlanDays(routeActivity.getRoutePlanId());
+        date.setText(String.format(Constants.HEADER_DAY, planDate));
 
         // 设置长度
         distance.setText(mPlan.getDistance());
@@ -82,6 +82,7 @@ public class GuideOverViewFragment extends BaseGuideFragment {
 
         // 描述
         describe.setText(mPlan.getDescribe());
+
     }
 
     @Override
