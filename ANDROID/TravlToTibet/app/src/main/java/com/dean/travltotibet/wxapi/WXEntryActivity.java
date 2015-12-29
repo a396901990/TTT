@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2013年 mob.com. All rights reserved.
  */
-package com.dean.travltotibet.activity.wxapi;
+package com.dean.travltotibet.wxapi;
 
 import android.content.Intent;
 import android.widget.Toast;
