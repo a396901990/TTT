@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.activity.WelcomeActivity;
+import com.dean.travltotibet.util.AppUtil;
+import com.dean.travltotibet.util.Constants;
 
 /**
  * Created by DeanGuo on 11/7/15.
@@ -39,7 +42,14 @@ public class AboutSettingFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initAppNameVersion();
         initSettingItemView();
+    }
+
+    private void initAppNameVersion() {
+        TextView nameVersion = (TextView) root.findViewById(R.id.app_name_version);
+        String name_version = String.format(Constants.NAME_VERSION, getString(R.string.app_name), AppUtil.getVersionName(getActivity()));
+        nameVersion.setText(name_version);
     }
 
     private void initSettingItemView() {

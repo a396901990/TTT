@@ -30,6 +30,8 @@ public final class Constants {
 
     public static final String RECENT_PLAN_NAME_DAY = "%s，%s天";
 
+    public static final String NAME_VERSION = "%s %s";
+
     /**
      * Keys to save RouteActivity status
      */
@@ -56,4 +58,5 @@ public final class Constants {
     public static final String REPLACE_MARK = "#";
 
     public static final String EMPTY_HTML_CONTENT = "about:blank";
+
 }

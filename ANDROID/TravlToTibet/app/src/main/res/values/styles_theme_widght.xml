@@ -53,36 +53,8 @@
         <item name="android:maxHeight">15dip</item>
     </style>
 
-    <style name="RedButton" parent="TransactButton">
-        <item name="android:background">@drawable/red_btn</item>
-    </style>
-
-    <style name="LightGreenButton" parent="TransactButton">
-        <item name="android:background">@drawable/bright_green</item>
-    </style>
-
-    <style name="LightRedButton" parent="TransactButton">
-        <item name="android:background">@drawable/bright_red</item>
-    </style>
-
-    <style name="OrangeRedButton" parent="TransactButton">
-        <item name="android:background">@drawable/orange_red_btn</item>
-    </style>
-
-    <style name="DarkGrayButton" parent="TransactButton">
-        <item name="android:background">@drawable/dark_gray_btn</item>
-    </style>
-
-    <style name="DarkBlueButton" parent="TransactButton">
-        <item name="android:background">@drawable/dark_blue_btn</item>
-    </style>
-
     <style name="ThemeButton" parent="TransactButton">
         <item name="android:background">@drawable/theme_btn_background</item>
-    </style>
-
-    <style name="OrangeButton" parent="TransactButton">
-        <item name="android:background">@drawable/yellow_btn</item>
     </style>
 
     <!-- Ripple related styles -->

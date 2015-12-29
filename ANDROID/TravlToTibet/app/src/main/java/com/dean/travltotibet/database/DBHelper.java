@@ -476,32 +476,6 @@ public class DBHelper {
         }
     }
 
-    public void initDataBase(){
-        initGeocodeData();
-        Gson gson = new Gson();
-
-        RoutesJson routesJsons = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.route), RoutesJson.class);
-        for (Route route : routesJsons.getRoutes()) {
-            routeDao.insert(route);
-        }
-
-        PlansJson plansJsons = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.plan), PlansJson.class);
-        for (Plan plan : plansJsons.getPlans()) {
-            planDao.insert(plan);
-        }
-
-        RoutePlansJson routesplanJsons = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.routeplan), RoutePlansJson.class);
-        for (RoutePlan route : routesplanJsons.getRoutePlan()) {
-            routePlanDao.insert(route);
-        }
-
-        PrepareInfoJson prepareInfoJson = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.prepareinfo), PrepareInfoJson.class);
-        for (PrepareInfo info : prepareInfoJson.getPrepareInfos()) {
-            prepareInfoDao.insert(info);
-        }
-
-    }
-
     public String getElevationWithNameString(String name) {
         return StringUtil.formatDoubleToInteger(getElevationWithName(name));
     }
@@ -513,24 +487,6 @@ public class DBHelper {
         String milestone = getMilestoneWithName(name);
 
         return String.format(Constants.GUIDE_OVERALL_MILESTONE_WITHOUT_TITLE_FORMAT, road, milestone);
-    }
-
-    public void intoFileData() {
-
-        String plan = ParseUtil.planParseToFile((ArrayList<Plan>) planDao.loadAll());
-        Log.e("plan", plan);
-
-        String route = ParseUtil.routeParseToFile((ArrayList<Route>) routeDao.loadAll());
-        Log.e("route", route);
-
-        String routePlan = ParseUtil.routePlansParseToFile((ArrayList<RoutePlan>) routePlanDao.loadAll());
-        Log.e("routePlan", routePlan);
-
-        String geocode = ParseUtil.geocodeToFile((ArrayList<Geocode>) geocodeDao.loadAll());
-        Log.e("geocode", geocode);
-
-        String prepareInfo = ParseUtil.prepareInfoToFile((ArrayList<PrepareInfo>) prepareInfoDao.loadAll());
-        Log.e("prepareinfo", prepareInfo);
     }
 
     // 初始化读入数据库内容

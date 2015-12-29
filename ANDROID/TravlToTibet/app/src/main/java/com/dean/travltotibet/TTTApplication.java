@@ -16,8 +16,7 @@ import com.dean.travltotibet.util.ResourceUtil;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 
-public class TTTApplication extends Application
-{
+public class TTTApplication extends Application {
     private static TTTApplication instance;
 
     private static ResourceUtil resourceUtil;
@@ -35,8 +34,7 @@ public class TTTApplication extends Application
     private static Context context;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         instance = this;
         context = getApplicationContext();
@@ -56,50 +54,39 @@ public class TTTApplication extends Application
         PointManager.init(instance);
     }
 
-    private void initPreferences()
-    {
+    private void initPreferences() {
         mSharedPreferences = getSharedPreferences(getResources().getString(R.string.preference), MODE_PRIVATE);
     }
 
-    public static SharedPreferences getSharedPreferences()
-    {
+    public static SharedPreferences getSharedPreferences() {
         return mSharedPreferences;
     }
 
     private void initDB() {
         dbHelper = DBHelper.getInstance(getApplicationContext());
         //dbHelper.initGeocodeData();
-//        dbHelper.initDataBase();
         dbHelper.readDataBase(instance);
-////        dbHelper.intoFileData();
     }
 
-    public static TTTApplication getInstance()
-    {
+    public static TTTApplication getInstance() {
         return instance;
     }
 
-    public static ResourceUtil getResourceUtil()
-    {
+    public static ResourceUtil getResourceUtil() {
         return resourceUtil;
     }
 
-    public static DaoMaster getDaoMaster(Context context)
-    {
-        if (daoMaster == null)
-        {
+    public static DaoMaster getDaoMaster(Context context) {
+        if (daoMaster == null) {
             DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, Constants.DB_NAME, null);
             daoMaster = new DaoMaster(helper.getWritableDatabase());
         }
         return daoMaster;
     }
 
-    public static DaoSession getDaoSession(Context context)
-    {
-        if (daoSession == null)
-        {
-            if (daoMaster == null)
-            {
+    public static DaoSession getDaoSession(Context context) {
+        if (daoSession == null) {
+            if (daoMaster == null) {
                 daoMaster = getDaoMaster(context);
             }
             daoSession = daoMaster.newSession();
@@ -124,6 +111,6 @@ public class TTTApplication extends Application
     }
 
     public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
-       return new IconicsDrawable(context, icon).color(color).sizeDp(20);
+        return new IconicsDrawable(context, icon).color(color).sizeDp(20);
     }
 }

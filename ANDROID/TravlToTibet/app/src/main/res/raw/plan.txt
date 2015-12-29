@@ -1,1 +1,0 @@
-{"plans":[{"day":"1","describe":"1","distance":"80","end":"阿克美其特村","id":1,"rank":"8","route_plan_id":"1","start":"叶城县"},{"day":"2","describe":"1","distance":"80","end":"库地","id":2,"rank":"8","route_plan_id":"1","start":"阿克美其特村"}]}

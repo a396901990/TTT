@@ -12,12 +12,14 @@
         android:layout_alignParentTop="true"
         android:background="@color/gray_background">
 
-        <com.mikepenz.iconics.view.IconicsImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+        <ImageView
+            android:padding="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo"
+            android:scaleType="fitCenter"
             android:layout_gravity="center"
-            app:iiv_color="@color/white"
-            app:iiv_icon="gmd_stars" />
+            />
     </FrameLayout>
 
     <LinearLayout

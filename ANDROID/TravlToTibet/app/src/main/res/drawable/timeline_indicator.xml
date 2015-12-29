@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/orange_circle_blank" android:state_expanded="true" />
-    <item android:drawable="@drawable/orange_circle" />
-</selector>

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -281,8 +280,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     public void fabBtnEvent() {
-        final View changeExtendView = contentView.findViewById(R.id.change_extended_view);
-        changeExtendView.setVisibility(View.VISIBLE);
     }
 
     @Override

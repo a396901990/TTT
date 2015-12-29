@@ -40,20 +40,26 @@
 
             </android.support.v7.widget.Toolbar>
             <!--图标 版本-->
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="vertical">
 
-                <TextView
-                    style="@style/TextAppearance.Large.White"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/ic_launcher"
-                    android:text="风筝户外 v1.0" />
-            </FrameLayout>
+                    android:layout_above="@+id/app_name_version"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:id="@+id/app_name_version"
+                    style="@style/TextAppearance.Medium.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="10dp" />
+            </RelativeLayout>
         </android.support.design.widget.AppBarLayout>
 
 
@@ -107,11 +113,11 @@
 
         <!--开源项目-->
         <com.dean.travltotibet.ui.MaterialRippleLayout
-            android:visibility="gone"
             android:id="@+id/about_open_source"
             style="@style/RippleStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <TextView
                 style="@style/TextAppearance.Medium"

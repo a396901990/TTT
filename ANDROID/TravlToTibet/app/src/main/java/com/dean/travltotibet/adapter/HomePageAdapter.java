@@ -26,13 +26,13 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
 
         mTitles = new SparseArray<String>();
         mTitles.put(0, "推荐");
-        mTitles.put(1, "路线");
-        mTitles.put(2, "历史记录");
+        mTitles.put(1, "历史记录");
+        // mTitles.put(2, "路线");
 
         mFragments = new SparseArray<Fragment>();
         mFragments.put(0, HomeRecommendFragment.newInstance());
         mFragments.put(1, HomeRecentFragment.newInstance());
-        mFragments.put(2, HomeRecentFragment.newInstance());
+//        mFragments.put(2, HomeRecentFragment.newInstance());
     }
 
     @Override
@@ -57,13 +57,4 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
     public Fragment getFragment(int position) {
         return mFragments.get(position);
     }
-//    @Override public int getPageIconResId(int i) {
-//        if (i == 0) {
-//            return R.drawable.icon_budget;
-//        } else if (i == 1) {
-//            return R.drawable.icon_mountain;
-//        } else {
-//            return R.drawable.icon_mountain;
-//        }
-//    }
 }

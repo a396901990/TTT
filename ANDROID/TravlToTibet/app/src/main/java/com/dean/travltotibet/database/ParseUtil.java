@@ -85,46 +85,6 @@ public class ParseUtil {
         return result;
     }
 
-    public static String prepareInfoToFile(ArrayList<PrepareInfo> geocodes) {
-        Gson gson = new Gson();
-        PrepareInfoJson gj = new PrepareInfoJson();
-        gj.setPrepareInfos(geocodes);
-        String result = gson.toJson(gj, PrepareInfoJson.class);
-        return result;
-    }
-
-    public static String prepareDetailToFile(ArrayList<PrepareDetail> geocodes) {
-        Gson gson = new Gson();
-        PrepareDetailJson gj = new PrepareDetailJson();
-        gj.setPrepareDetails(geocodes);
-        String result = gson.toJson(gj, PrepareDetailJson.class);
-        return result;
-    }
-
-    public static String routeParseToFile(ArrayList<Route> routes) {
-        Gson gson = new Gson();
-        RoutesJson gj = new RoutesJson();
-        gj.setRoutes(routes);
-        String result = gson.toJson(gj, RoutesJson.class);
-        return result;
-    }
-
-    public static String planParseToFile(ArrayList<Plan> plans) {
-        Gson gson = new Gson();
-        PlansJson gj = new PlansJson();
-        gj.setPlans(plans);
-        String result = gson.toJson(gj, PlansJson.class);
-        return result;
-    }
-
-    public static String routePlansParseToFile(ArrayList<RoutePlan> routes) {
-        Gson gson = new Gson();
-        RoutePlansJson gj = new RoutePlansJson();
-        gj.setRoutePlan(routes);
-        String result = gson.toJson(gj, RoutePlansJson.class);
-        return result;
-    }
-
     public static boolean writefile(String path, String content) {
         try {
 

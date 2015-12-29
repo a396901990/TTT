@@ -12,7 +12,7 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen_view</item>
+        <item name="android:windowBackground">@drawable/logo</item>
     </style>
 
     <style name="Theme.HomeTheme" parent="Theme.AppBaseTheme">
@@ -51,7 +51,7 @@
     <!--白色主题，白色actionbar-->
     <style name="Theme.WhiteTheme" parent="Theme.AppBaseTheme">
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-        <item name="android:homeAsUpIndicator">@drawable/actionbar_back_icon_blue</item>
+        <item name="android:homeAsUpIndicator">@drawable/actionbar_back_icon</item>
         <item name="android:actionBarStyle">@style/WhiteActionBar</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionMenuTextColor">@color/dark_gray</item>
@@ -143,14 +143,6 @@
         <item name="android:textColor">@color/dark_blue</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">middle</item>
-    </style>
-
-    <style name="ChartHeaderBar.Button" parent="@style/ChartHeaderBar.Text">
-        <item name="android:background">@drawable/chart_header_btn</item>
-        <item name="android:layout_margin">@dimen/chart_header_button_margin</item>
-        <item name="android:padding">@dimen/chart_header_button_padding</item>
-        <item name="android:minHeight">@dimen/chart_header_button_min_height</item>
-        <item name="android:minWidth">@dimen/chart_header_button_min_width</item>
     </style>
 
     <style name="DropDownNavigation">
