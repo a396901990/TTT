@@ -9,7 +9,8 @@ import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.AttentionFragment;
+import com.dean.travltotibet.fragment.PrepareDetailFragment;
+import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -34,12 +35,17 @@ public class AttentionActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setHomeAsUpIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
+        // init fragment
         Intent intent = getIntent();
         if (intent != null) {
-            AttentionFragment attentionFragment = (AttentionFragment) getFragmentManager().findFragmentById(R.id.attention_fragment);
+
+            Bundle bundle = intent.getBundleExtra(IntentExtra.INTENT_ROUTE_BUNDLE);
+            String route = bundle.getString(IntentExtra.INTENT_ROUTE);
+            String routeType = bundle.getString(IntentExtra.INTENT_ROUTE_TYPE);
+
+            PrepareDetailFragment attentionFragment = (PrepareDetailFragment) getFragmentManager().findFragmentById(R.id.attention_fragment);
             if (attentionFragment == null) {
-                attentionFragment = new AttentionFragment();
-                attentionFragment.setArguments(intent.getBundleExtra(IntentExtra.INTENT_ROUTE_BUNDLE));
+                attentionFragment = new PrepareDetailFragment(InfoType.ATTENTION, route, routeType);
                 getFragmentManager().beginTransaction().add(R.id.attention_fragment, attentionFragment).commit();
             }
         }

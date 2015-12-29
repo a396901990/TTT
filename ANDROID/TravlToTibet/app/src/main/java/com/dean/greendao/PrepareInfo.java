@@ -11,15 +11,15 @@ public class PrepareInfo {
     private String route;
     /** Not-null value. */
     private String travel_type;
-    private String route_overview;
     private String budget;
     private String medicine;
     private String equip;
     private String clothing;
-    private String outdoor_equip;
+    private String outdoor;
     private String credential;
     private String personal;
     private String other;
+    private String attention;
 
     public PrepareInfo() {
     }
@@ -28,19 +28,19 @@ public class PrepareInfo {
         this.id = id;
     }
 
-    public PrepareInfo(Long id, String route, String travel_type, String route_overview, String budget, String medicine, String equip, String clothing, String outdoor_equip, String credential, String personal, String other) {
+    public PrepareInfo(Long id, String route, String travel_type, String budget, String medicine, String equip, String clothing, String outdoor, String credential, String personal, String other, String attention) {
         this.id = id;
         this.route = route;
         this.travel_type = travel_type;
-        this.route_overview = route_overview;
         this.budget = budget;
         this.medicine = medicine;
         this.equip = equip;
         this.clothing = clothing;
-        this.outdoor_equip = outdoor_equip;
+        this.outdoor = outdoor;
         this.credential = credential;
         this.personal = personal;
         this.other = other;
+        this.attention = attention;
     }
 
     public Long getId() {
@@ -69,14 +69,6 @@ public class PrepareInfo {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setTravel_type(String travel_type) {
         this.travel_type = travel_type;
-    }
-
-    public String getRoute_overview() {
-        return route_overview;
-    }
-
-    public void setRoute_overview(String route_overview) {
-        this.route_overview = route_overview;
     }
 
     public String getBudget() {
@@ -111,12 +103,12 @@ public class PrepareInfo {
         this.clothing = clothing;
     }
 
-    public String getOutdoor_equip() {
-        return outdoor_equip;
+    public String getOutdoor() {
+        return outdoor;
     }
 
-    public void setOutdoor_equip(String outdoor_equip) {
-        this.outdoor_equip = outdoor_equip;
+    public void setOutdoor(String outdoor) {
+        this.outdoor = outdoor;
     }
 
     public String getCredential() {
@@ -141,6 +133,14 @@ public class PrepareInfo {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public String getAttention() {
+        return attention;
+    }
+
+    public void setAttention(String attention) {
+        this.attention = attention;
     }
 
 }

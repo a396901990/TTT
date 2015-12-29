@@ -13,7 +13,7 @@ import com.dean.travltotibet.R;
 /**
  * https://github.com/lianghanzhen/ExpandableRelativeLayout
  */
-public class ExpandableTextView extends XRTextView {
+public class ExpandableTextView extends TextView {
 
     private static final boolean DEFAULT_EXPANDED = false;
     private static final int DEFAULT_MIN_LINES = 3;

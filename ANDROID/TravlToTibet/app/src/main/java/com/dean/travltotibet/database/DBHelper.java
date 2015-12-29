@@ -61,15 +61,11 @@ public class DBHelper {
 
     private PrepareInfoDao prepareInfoDao;
 
-    private PrepareDetailDao prepareDetailDao;
-
     private RecentRouteDao recentRouteDao;
 
     private HotelDao hotelDao;
 
     private ScenicDao scenicDao;
-
-    private RouteAttentionDao routeAttentionDao;
 
     private DBHelper() {
     }
@@ -88,11 +84,9 @@ public class DBHelper {
             instance.planDao = daoSession.getPlanDao();
             instance.routePlanDao = daoSession.getRoutePlanDao();
             instance.prepareInfoDao = daoSession.getPrepareInfoDao();
-            instance.prepareDetailDao = daoSession.getPrepareDetailDao();
             instance.recentRouteDao = daoSession.getRecentRouteDao();
             instance.hotelDao = daoSession.getHotelDao();
             instance.scenicDao = daoSession.getScenicDao();
-            instance.routeAttentionDao = daoSession.getRouteAttentionDao();
         }
         return instance;
     }
@@ -362,13 +356,6 @@ public class DBHelper {
         return pics.split(Constants.URL_MARK);
     }
 
-    public List<RouteAttention> getRouteAttention(String route, String type) {
-        QueryBuilder<RouteAttention> qb = routeAttentionDao.queryBuilder();
-        qb.where(RouteAttentionDao.Properties.Route.eq(route));
-        qb.where(RouteAttentionDao.Properties.Type.eq(type));
-        return qb.list();
-    }
-
     /**
      * 查询
      */
@@ -384,17 +371,6 @@ public class DBHelper {
         qb.where(PrepareInfoDao.Properties.Route.eq(routeName));
         qb.where(PrepareInfoDao.Properties.Travel_type.eq(travelType));
         return qb.list().get(0);
-    }
-
-    /**
-     * 根据路线名称，获取准备信息
-     */
-    public List<PrepareDetail> getPrepareDetails(String name, String type, String travelType) {
-        QueryBuilder<PrepareDetail> qb = prepareDetailDao.queryBuilder();
-        qb.where(PrepareDetailDao.Properties.Name.eq(name));
-        qb.where(PrepareDetailDao.Properties.Type.eq(type));
-        qb.where(PrepareDetailDao.Properties.Travel_type.eq(travelType));
-        return qb.list();
     }
 
     /**
@@ -519,11 +495,6 @@ public class DBHelper {
             routePlanDao.insert(route);
         }
 
-        PrepareDetailJson prepareDetailJson = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.preparedetail), PrepareDetailJson.class);
-        for (PrepareDetail detail : prepareDetailJson.getPrepareDetails()) {
-            prepareDetailDao.insert(detail);
-        }
-
         PrepareInfoJson prepareInfoJson = gson.fromJson(ParseUtil.readFromRaw(mContext, R.raw.prepareinfo), PrepareInfoJson.class);
         for (PrepareInfo info : prepareInfoJson.getPrepareInfos()) {
             prepareInfoDao.insert(info);
@@ -560,10 +531,6 @@ public class DBHelper {
 
         String prepareInfo = ParseUtil.prepareInfoToFile((ArrayList<PrepareInfo>) prepareInfoDao.loadAll());
         Log.e("prepareinfo", prepareInfo);
-
-        String prepareDetail = ParseUtil.prepareDetailToFile((ArrayList<PrepareDetail>) prepareDetailDao.loadAll());
-        Log.e("preparedetail", prepareDetail);
-
     }
 
     // 初始化读入数据库内容

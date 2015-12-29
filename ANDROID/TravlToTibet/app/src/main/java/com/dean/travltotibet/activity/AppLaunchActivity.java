@@ -56,7 +56,7 @@ public class AppLaunchActivity extends Activity {
 
         // 初始化Bmob
         Bmob.initialize(this, BMOB_APPLICATION_ID);
-        BmobUpdateAgent.initAppVersion(getApplication());
+        // BmobUpdateAgent.initAppVersion(getApplication());
 
         // 跟新启动次数
         AppUtil.updateLaunchCount();

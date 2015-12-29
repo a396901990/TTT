@@ -25,13 +25,9 @@ public class MyGenerator {
         addRoute(schema);
         addRoutePlan(schema);
         addPrepareInfo(schema);
-        addPrepareDetail(schema);
         addRecentRoute(schema);
         addHotel(schema);
         addScenic(schema);
-        addRouteAttention(schema);
-//        addZoneType(schema);
-//        addBuildingType(schema);
 
         //生成Dao文件路径
         new DaoGenerator().generateAll(schema, DAO_PATH);
@@ -111,27 +107,15 @@ public class MyGenerator {
         route.addIdProperty();
         route.addStringProperty("route").notNull();
         route.addStringProperty("travel_type").notNull();
-        route.addStringProperty("route_overview");
         route.addStringProperty("budget");
         route.addStringProperty("medicine");
         route.addStringProperty("equip");
         route.addStringProperty("clothing");
-        route.addStringProperty("outdoor_equip");
+        route.addStringProperty("outdoor");
         route.addStringProperty("credential");
         route.addStringProperty("personal");
         route.addStringProperty("other");
-    }
-
-    // 准备细节
-    private static void addPrepareDetail(Schema schema) {
-        Entity route = schema.addEntity("PrepareDetail");
-        route.addIdProperty();
-        route.addStringProperty("name").notNull();
-        route.addStringProperty("travel_type").notNull();
-        route.addStringProperty("type");
-        route.addStringProperty("title");
-        route.addStringProperty("summary");
-        route.addStringProperty("detail");
+        route.addStringProperty("attention");
     }
 
     // 记录最近路线
@@ -170,44 +154,6 @@ public class MyGenerator {
         route.addStringProperty("scenic_overview");
         route.addStringProperty("scenic_detail");
         route.addStringProperty("scenic_pic");
-    }
-
-    // 建筑物类型表
-    private static void addRouteAttention(Schema schema) {
-        Entity build = schema.addEntity("RouteAttention");
-        build.addIdProperty();
-        build.addStringProperty("route").notNull();
-        build.addStringProperty("type").notNull();
-        build.addStringProperty("attention_title").notNull();
-        build.addStringProperty("attention_detail").notNull();
-    }
-
-    // 区域类型表
-    private static void addZoneType(Schema schema) {
-        Entity zone = schema.addEntity("ZoneType");
-        zone.addIdProperty();
-        zone.addStringProperty("CITY").notNull();
-        zone.addStringProperty("COUNTY").notNull();
-        zone.addStringProperty("TOWN").notNull();
-        zone.addStringProperty("VILLAGE").notNull();
-        zone.addStringProperty("DAOBAN").notNull();
-        zone.addStringProperty("MOUNTAIN").notNull();
-        zone.addStringProperty("SCENICSPOT").notNull();
-        zone.addStringProperty("BUILDING").notNull();
-        zone.addStringProperty("OTHERS").notNull();
-    }
-
-    // 建筑物类型表
-    private static void addBuildingType(Schema schema) {
-        Entity build = schema.addEntity("BuildingType");
-        build.addIdProperty();
-        build.addStringProperty("TUNNEL").notNull();
-        build.addStringProperty("VIEW").notNull();
-        build.addStringProperty("TENT").notNull();
-        build.addStringProperty("HOTEL").notNull();
-        build.addStringProperty("STORE").notNull();
-        build.addStringProperty("CHECKPOINT").notNull();
-        build.addStringProperty("BRIDGE").notNull();
     }
 
 }

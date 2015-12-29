@@ -54,4 +54,6 @@ public final class Constants {
     public static final String URL_MARK = "   ";
 
     public static final String REPLACE_MARK = "#";
+
+    public static final String EMPTY_HTML_CONTENT = "about:blank";
 }
