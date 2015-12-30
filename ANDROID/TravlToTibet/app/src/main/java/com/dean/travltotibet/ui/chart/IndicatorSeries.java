@@ -4,11 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.ui.chart.AbstractPoint;
@@ -25,15 +28,21 @@ public class IndicatorSeries
     public Paint mLinePaint;
 
     public PointF mLastPoint;
+
+    private int mMountainColor;
     
     public IndicatorSeries()
     {
         mMountainPaint = new Paint();
         mMountainPaint.setAntiAlias(true);
         mMountainPaint.setColor(TTTApplication.getResourceUtil().indicator_mountain);
+        mMountainPaint.setAlpha(TTTApplication.getResourceUtil().chart_mountain_alpha);
+
+        mMountainColor = TTTApplication.getResourceUtil().indicator_mountain_shader;
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
+        mLinePaint.setStyle(Paint.Style.FILL);
         mLinePaint.setColor(TTTApplication.getResourceUtil().indicator_mountain_line);
         mLinePaint.setStrokeWidth(3);
     }
@@ -98,8 +107,7 @@ public class IndicatorSeries
         AbstractPoint fistPoint = mPoints.get(0);
         path.moveTo(fistPoint.getX(contentRect, currentViewPoint), contentRect.bottom);
 
-        for (AbstractPoint point : mPoints)
-        {
+        for (AbstractPoint point : mPoints) {
             float x = point.getX(contentRect, currentViewPoint);
             float y = point.getY(contentRect, currentViewPoint);
             path.lineTo(x, y);
@@ -110,6 +118,9 @@ public class IndicatorSeries
 
         path.lineTo(fistPoint.getX(contentRect, currentViewPoint), contentRect.bottom);
 
+        // set shader for mountain
+        Shader mShader = new LinearGradient(0, contentRect.top, 0, contentRect.bottom, mMountainColor, Color.WHITE, Shader.TileMode.CLAMP);
+        mMountainPaint.setShader(mShader);
         canvas.drawPath(path, mMountainPaint);
     }
 

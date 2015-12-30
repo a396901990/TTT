@@ -48,6 +48,8 @@ public class ResourceUtil {
 
     public int indicator_mountain_line;
 
+    public int indicator_mountain_shader;
+
     public int indicator_shadow;
 
     public int indicator_shadow_alpha;
@@ -96,15 +98,17 @@ public class ResourceUtil {
 
         chart_backgroud = mResources.getColor(R.color.white_background);
 
-        indicator_background = mResources.getColor(R.color.white);
+        indicator_background = mResources.getColor(R.color.colorPrimary);
         indicator_mountain = mResources.getColor(R.color.white);
-        indicator_mountain_line = mResources.getColor(R.color.colorPrimary);
+        indicator_mountain_line = mResources.getColor(R.color.white);
 
-        indicator_indicator = mResources.getColor(R.color.gray);
+        indicator_indicator = mResources.getColor(R.color.white);
         indicator_indicator_alpha = (int) (255 * 0.5);
 
         indicator_shadow = mResources.getColor(R.color.white_gray);
         indicator_shadow_alpha = (int) (255 * 0.8);
+
+        indicator_mountain_shader = mResources.getColor(R.color.dark_blue);
 
         chart_text_paint = mResources.getColor(R.color.white);
         chart_text_rect_aplha = (int) (255 * 0.8);

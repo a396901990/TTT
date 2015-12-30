@@ -1,10 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/overview_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     android:padding="@dimen/card_padding">
 
     <!--标题-->
@@ -13,7 +12,8 @@
         style="@style/TextAppearance.Medium.White"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/guide_title_view_margin_bottom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/border_theme"
         android:padding="@dimen/guide_title_view_padding"
         android:text="简介" />
@@ -22,7 +22,8 @@
         android:id="@+id/rating_view"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
         app:rating_default_color="@color/colorPrimary">
 
         <RelativeLayout
@@ -38,7 +39,7 @@
                 android:layout_above="@+id/destination_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/overview_plan"
@@ -149,6 +150,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rating_view"
         android:layout_margin="5dp"
         android:paddingTop="5dp">
 
@@ -160,4 +162,4 @@
             android:layout_alignParentTop="true" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
