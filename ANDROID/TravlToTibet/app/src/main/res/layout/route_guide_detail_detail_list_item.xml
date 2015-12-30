@@ -38,14 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:background="@drawable/blue_btn_active">
+        android:background="@drawable/blue_btn_active"
+        android:padding="5dp">
 
-        <com.dean.travltotibet.ui.XRTextView
+        <TextView
             android:id="@+id/detail_guide"
             style="@style/TextAppearance.Micro"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

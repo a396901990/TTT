@@ -90,7 +90,7 @@ public class RatingView extends FrameLayout {
     }
 
     public void initRotatingAnimation() {
-        rotateAnimator = ValueAnimator.ofFloat(0.0f, 360f * 3);
+        rotateAnimator = ValueAnimator.ofFloat(0.0f, 360f * 4);
         rotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

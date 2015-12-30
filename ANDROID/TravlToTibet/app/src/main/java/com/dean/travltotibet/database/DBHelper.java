@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.baidu.mapapi.model.LatLng;
 import com.dean.greendao.DaoSession;
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
@@ -181,6 +182,15 @@ public class DBHelper {
         Geocode geocode = qb.list().get(0);
 
         return new Location(geocode.getLatitude(), geocode.getLongitude());
+    }
+
+    public Location getLocationWithGeocode(Geocode geocode) {
+        return new Location(geocode.getLatitude(), geocode.getLongitude());
+    }
+
+    public LatLng getLatLngWithGeocode(Geocode geocode) {
+        Location location = getLocationWithGeocode(geocode);
+        return new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     /**

@@ -80,7 +80,7 @@
 	-->
     <Wechat
         AppId="wxd8d10328670366ed"
-        AppSecret="907dcea36607e2edb651a55ce2d2b92c"
+        AppSecret="9e11b560e978d399e0d4af2db93f4e5c"
         BypassApproval="false"
         Enable="true"
         Id="2"
@@ -88,7 +88,7 @@
 
     <WechatMoments
         AppId="wxd8d10328670366ed"
-        AppSecret="907dcea36607e2edb651a55ce2d2b92c"
+        AppSecret="9e11b560e978d399e0d4af2db93f4e5c"
         BypassApproval="false"
         Enable="true"
         Id="3"

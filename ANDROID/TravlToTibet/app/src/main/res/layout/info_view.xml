@@ -71,18 +71,18 @@
                     android:layout_below="@+id/info_header_fragment"
                     android:layout_marginTop="@dimen/card_margin" />
 
-                <!--风景-->
-                <fragment
-                    android:id="@+id/info_scenic_fragment"
-                    android:name="com.dean.travltotibet.fragment.InfoScenicFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/card_margin" />
-
                 <!--准备-->
                 <fragment
                     android:id="@+id/info_prepare_fragment"
                     android:name="com.dean.travltotibet.fragment.InfoPrepareFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/card_margin" />
+
+                <!--风景-->
+                <fragment
+                    android:id="@+id/info_scenic_fragment"
+                    android:name="com.dean.travltotibet.fragment.InfoScenicFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/card_margin" />

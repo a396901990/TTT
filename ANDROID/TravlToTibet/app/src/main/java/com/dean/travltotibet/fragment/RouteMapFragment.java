@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.model.LatLng;
+import com.dean.greendao.Geocode;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
@@ -35,6 +37,9 @@ import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.SwitchButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.MenuUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -177,15 +182,30 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             loadingView.start();
         }
 
-        Location startLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getCurrentStart());
-        LatLng startLL = new LatLng(startLocation.getLatitude(), startLocation.getLongitude());
+        List<Geocode> mGeocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
 
-        Location endLocation = TTTApplication.getDbHelper().getLocationWithName(routeActivity.getCurrentEnd());
-        LatLng endLL = new LatLng(endLocation.getLatitude(), endLocation.getLongitude());
-
-        //设置起终点信息
+        // 设置起点信息
+        LatLng startLL = TTTApplication.getDbHelper().getLatLngWithGeocode(mGeocodes.get(0));
         final PlanNode stNode = PlanNode.withLocation(startLL);
+
+        // 设置终点信息
+        LatLng endLL = TTTApplication.getDbHelper().getLatLngWithGeocode(mGeocodes.get(mGeocodes.size() - 1));
         final PlanNode enNode = PlanNode.withLocation(endLL);
+
+        // 路过点(当该路线有6个点以上时判断做中间点处理)
+        final List<PlanNode> planNodes = new ArrayList<>();
+        if (mGeocodes.size() > 6) {
+            // 大于20个点，取5个pass by，否则取3个
+            int divideLength = mGeocodes.size() > 20 ? mGeocodes.size() / 5 : mGeocodes.size() / 3;
+            // 获取中间点为pass by点
+            for (int i = divideLength; i < mGeocodes.size(); i += divideLength) {
+                Log.e("divideLength:", i + "");
+                Geocode passByGeocode = mGeocodes.get(i);
+                LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
+                PlanNode pbNode = PlanNode.withLocation(passByLL);
+                planNodes.add(pbNode);
+            }
+        }
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -193,7 +213,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 // 实际使用中请对起点终点城市进行正确的设定
                 mSearch.drivingSearch((new DrivingRoutePlanOption())
                         .from(stNode)
-                        .to(enNode));
+                        .to(enNode)
+                        .passBy(planNodes));
             }
         });
     }
