@@ -21,14 +21,14 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 public class MenuUtil {
 
     public static FloatingActionButton initFAB(Context context, String name, int icon) {
-        final FloatingActionButton normalMap = new FloatingActionButton(context);
-        normalMap.setButtonSize(com.dean.travltotibet.ui.fab.FloatingActionButton.SIZE_MINI);
-        normalMap.setLabelText(name);
-        normalMap.setImageResource(icon);
-        normalMap.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
-        normalMap.setColorPressed(TTTApplication.getMyColor(R.color.colorAccentLight));
+        final FloatingActionButton fab = new FloatingActionButton(context);
+        fab.setButtonSize(com.dean.travltotibet.ui.fab.FloatingActionButton.SIZE_MINI);
+        fab.setLabelText(name);
+        fab.setImageResource(icon);
+        fab.setColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
+        fab.setColorPressed(TTTApplication.getMyColor(R.color.colorAccentLight));
 
-        return normalMap;
+        return fab;
     }
 
     // 全屏按钮

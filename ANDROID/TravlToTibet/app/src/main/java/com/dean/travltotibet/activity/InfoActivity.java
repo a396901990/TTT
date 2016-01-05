@@ -9,7 +9,9 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,7 +31,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 /**
  * Created by DeanGuo on 9/30/15.
  */
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends BaseActivity {
 
     private String route;
     private String routeName;
@@ -61,10 +63,9 @@ public class InfoActivity extends AppCompatActivity {
 
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setUpToolBar(toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(routeName);
@@ -102,6 +103,24 @@ public class InfoActivity extends AppCompatActivity {
                 bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, getRouteType());
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(getFragmentManager(), InfoConfirmDialog.class.getName());
+            }
+        });
+
+        // 点击移动时隐藏，否则显示
+        final View bottomBtnContent = this.findViewById(R.id.bottom);
+        NestedScrollView nestedScrollView = (NestedScrollView) this.findViewById(R.id.scroll_view);
+        nestedScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        bottomBtnContent.setVisibility(View.INVISIBLE);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        bottomBtnContent.setVisibility(View.VISIBLE);
+                        break;
+                }
+                return false;
             }
         });
     }
@@ -159,5 +178,8 @@ public class InfoActivity extends AppCompatActivity {
         this.routeType = routeType;
     }
 
-
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
+    }
 }

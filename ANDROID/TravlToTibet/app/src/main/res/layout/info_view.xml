@@ -148,7 +148,6 @@
             android:layout_marginRight="@dimen/transact_button_margin">
 
             <Button
-
                 android:id="@+id/goButton"
                 style="@style/BaseButton"
                 android:layout_width="match_parent"

@@ -20,7 +20,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
  * 全屏显示chart
  */
 public class FullChartScreenActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
     // 当前计划
     private String planStart;
@@ -75,15 +75,9 @@ public class FullChartScreenActivity
      */
     private void initToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setUpToolBar(mToolbar);
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        // 返回按钮
-        actionBar.setHomeAsUpIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
     }
 
     @Override
@@ -93,5 +87,10 @@ public class FullChartScreenActivity
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
     }
 }
