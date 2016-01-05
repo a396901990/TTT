@@ -1,10 +1,7 @@
 package com.dean.travltotibet.activity;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -28,8 +23,6 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 
@@ -55,12 +48,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            setTranslucentStatus(true);
-//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//            tintManager.setStatusBarTintEnabled(true);
-//            tintManager.setStatusBarTintResource(R.color.dark_blue);
-//        }
         setContentView(R.layout.home_view);
 
         setUpToolBar();
@@ -187,19 +174,6 @@ public class HomeActivity extends AppCompatActivity {
                 mDrawerToggle.syncState();
             }
         });
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 
     private void checkForUpdate() {

@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import sun.rmi.runtime.Log;
-
 /**
  * Created by 95 on 2015/5/29.
  */
-public class MyDataGenerator {
+public class MyDataGeneratorQinghaiHu {
     private static ArrayList<Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {

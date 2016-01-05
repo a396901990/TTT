@@ -16,37 +16,26 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by DeanGuo on 7/19/15.
  * RouteActivity控制路线
  */
 public class RouteActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
     private SlidingMenu mSlidingMenu;
 
@@ -231,14 +220,13 @@ public class RouteActivity
         // 根据总览还是计划分别设置header view
         if (isRoute) {
             mMenuDate.setText(getString(R.string.route_plan_title));
-
-            getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
-            getSupportActionBar().setSubtitle(currentRoute.getDistance());
+            setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
+            setSubTitle(currentRoute.getDistance());
         } else {
             mMenuDate.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
 
-            getSupportActionBar().setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
-            getSupportActionBar().setSubtitle(currentPlan.getDistance());
+            setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
+            setSubTitle(currentPlan.getDistance());
         }
 
         updateRoute();
@@ -382,5 +370,10 @@ public class RouteActivity
 
     public void setCurrentPlan(Plan currentPlan) {
         this.currentPlan = currentPlan;
+    }
+
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
     }
 }

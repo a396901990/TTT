@@ -15,7 +15,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 /**
  * Created by DeanGuo on 10/25/15.
  */
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,14 +23,9 @@ public class FeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.feed_back_layout);
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setHomeAsUpIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setUpToolBar(toolbar);
+        setTitle(null);
+        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
     }
 
     @Override
@@ -39,4 +34,8 @@ public class FeedbackActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
+    }
 }

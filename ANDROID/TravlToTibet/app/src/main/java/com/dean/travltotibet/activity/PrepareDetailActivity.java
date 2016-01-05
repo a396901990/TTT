@@ -1,11 +1,15 @@
 package com.dean.travltotibet.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.PrepareDetailPageAdapter;
@@ -15,6 +19,7 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 
@@ -40,6 +45,7 @@ public class PrepareDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.prepare_detail_view);
 
         Intent intent = getIntent();
@@ -57,6 +63,11 @@ public class PrepareDetailActivity extends BaseActivity {
         // 设置标题
         initViewPagerAndTab();
 
+    }
+
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
     }
 
     private void initViewPagerAndTab() {

@@ -18,7 +18,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 /**
  * Created by DeanGuo on 11/3/15.
  */
-public class ChartSettingActivity extends AppCompatActivity {
+public class ChartSettingActivity extends BaseActivity {
 
     private ChartSettingFragment fragment;
 
@@ -28,14 +28,8 @@ public class ChartSettingActivity extends AppCompatActivity {
         setContentView(R.layout.chart_setting_layout);
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setHomeAsUpIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setUpToolBar(toolbar);
+        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
         if (getIntent() != null) {
             int orient = getIntent().getIntExtra(IntentExtra.INTENT_ROUTE_ORIENTATION, 0);
@@ -55,5 +49,10 @@ public class ChartSettingActivity extends AppCompatActivity {
                 fragment.reset();
             }
         });
+    }
+
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
     }
 }
