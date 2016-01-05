@@ -58,6 +58,7 @@ public class PathRunnable implements Runnable {
         } else {
             directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
         }
+        //directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
         DownloadRunnable directionsRunnable = new DownloadRunnable(directionsUrl, new DownloadRunnable.DownloadCallback() {
 
             @Override

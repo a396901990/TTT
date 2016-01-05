@@ -5,7 +5,7 @@ package com.daen.google;
  */
 public class Direction {
 
-    public static final int DIRECTION_UNIT = 5000;
+    public static final int DIRECTION_UNIT = 2000;
 
     private String distance;
     private String points;

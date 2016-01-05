@@ -64,8 +64,8 @@ public class TTTApplication extends Application {
 
     private void initDB() {
         dbHelper = DBHelper.getInstance(getApplicationContext());
-        //dbHelper.initGeocodeData();
         dbHelper.readDataBase(instance);
+        dbHelper.initGeocodeData();
     }
 
     public static TTTApplication getInstance() {

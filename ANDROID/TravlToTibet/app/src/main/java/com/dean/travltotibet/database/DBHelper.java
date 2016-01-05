@@ -462,7 +462,7 @@ public class DBHelper {
      */
     public void initGeocodeData() {
 
-        // geocodeDao.deleteAll();
+         geocodeDao.deleteAll();
         if (!isGeocodeDaoInited()) {
             String json_result = ParseUtil.readFromRaw(mContext);
             Gson gson = new Gson();
@@ -476,7 +476,7 @@ public class DBHelper {
                 } else {
                     r_distance = geocodesJson.getGeocodes().get(i - 1).getDistance();
                 }
-                Geocode g = new Geocode(geocode.getId(), "CHUANZANG_NAN", geocode.getName(), geocode.getElevation(),
+                Geocode g = new Geocode(geocode.getId(), "XINZANG", geocode.getName(), geocode.getElevation(),
                         geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
                         geocode.getRoad(), "正向攻略", "反向攻略", "最后点攻略"

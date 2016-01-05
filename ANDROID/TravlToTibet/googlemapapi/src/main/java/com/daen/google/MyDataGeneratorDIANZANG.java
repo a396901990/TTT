@@ -16,27 +16,37 @@ public class MyDataGeneratorDIANZANG {
 
         geocodes = new ArrayList<Geocode>();
 
-//        geocodes.add(new Geocode("昆明", 0,"云南省", Constants.CITY));
-//        geocodes.add(new Geocode("安宁市", 1, Constants.CITY));
-//        geocodes.add(new Geocode("禄丰县", 2, Constants.COUNTY));
-//        geocodes.add(new Geocode("楚雄", 3, Constants.CITY));
-//        geocodes.add(new Geocode("南华县", 4, Constants.COUNTY));
-//        geocodes.add(new Geocode("大理", 6, Constants.CITY));
-//        geocodes.add(new Geocode("喜洲镇", 7, Constants.TOWN));
-//        geocodes.add(new Geocode("西邑镇", 8, Constants.TOWN));
-//        geocodes.add(new Geocode("松桂镇", 9, Constants.TOWN));
-//        geocodes.add(new Geocode("鹤庆县", 10, Constants.COUNTY));
-//        geocodes.add(new Geocode("丽江市", 11, Constants.CITY));
+        geocodes.add(new Geocode("昆明", 0,"云南省", Constants.CITY));
+        geocodes.add(new Geocode("安宁市", 1, Constants.CITY));
+        geocodes.add(new Geocode("禄脿镇", 3, Constants.TOWN));
+        geocodes.add(new Geocode("禄丰县", 2, Constants.COUNTY));
+        geocodes.add(new Geocode("一平浪镇", 3, Constants.TOWN));
+        geocodes.add(new Geocode("苍岭镇", 4, Constants.TOWN));
+        geocodes.add(new Geocode("楚雄", 5, Constants.CITY));
+        geocodes.add(new Geocode("紫溪镇", 6, Constants.TOWN));
+        geocodes.add(new Geocode("南华县", 7, Constants.COUNTY));
+        geocodes.add(new Geocode("沙桥镇", 8, Constants.TOWN));
+        geocodes.add(new Geocode("天申堂乡", 9, Constants.VILLAGE));
+        geocodes.add(new Geocode("祥云县下庄镇", 10, Constants.TOWN));
+        geocodes.add(new Geocode("祥云县", 11, Constants.COUNTY));
+        geocodes.add(new Geocode("海坝庄村", 12, Constants.VILLAGE));
 
-        geocodes.add(new Geocode("丽江市", 11, Constants.CITY));
-        geocodes.add(new Geocode("拉市海", 12, Constants.CITY));
-        geocodes.add(new Geocode("虎跳峡镇", 13, Constants.COUNTY));
-        geocodes.add(new Geocode("俄迪隧道", 14, Constants.TUNNEL));
+        geocodes.add(new Geocode("大理", 13, Constants.CITY));
+
+        geocodes.add(new Geocode("喜洲镇", 14, Constants.TOWN));
+        geocodes.add(new Geocode("焦石洞", 15, Constants.VILLAGE));
+        geocodes.add(new Geocode("西邑镇", 16, Constants.TOWN));
+        geocodes.add(new Geocode("松桂镇", 17, Constants.TOWN));
+        geocodes.add(new Geocode("鹤庆县", 18, Constants.COUNTY));
+
+        geocodes.add(new Geocode("丽江市", 19, Constants.CITY));
+        geocodes.add(new Geocode("虎跳峡镇", 20, Constants.TOWN));
+        geocodes.add(new Geocode("俄迪隧道", 21, Constants.TUNNEL));
         geocodes.add(new Geocode("小中甸镇", 15, Constants.TOWN));
-        geocodes.add(new Geocode("香格里拉县", 16, Constants.COUNTY));
+        geocodes.add(new Geocode("迪庆藏族自治州", 16, Constants.COUNTY));
         geocodes.add(new Geocode("奔子栏镇", 17, Constants.TOWN));
         geocodes.add(new Geocode("书松村", 18, Constants.TOWN));
-        geocodes.add(new Geocode("德钦隧道", 19, Constants.TUNNEL));
+        geocodes.add(new Geocode("云南省迪庆藏族自治州德钦县", 18, Constants.COUNTY));
         geocodes.add(new Geocode("纳西民族乡", 20, Constants.VILLAGE));
         geocodes.add(new Geocode("毛尼村", 21, Constants.VILLAGE));
         geocodes.add(new Geocode("芒康县", 22, Constants.COUNTY));

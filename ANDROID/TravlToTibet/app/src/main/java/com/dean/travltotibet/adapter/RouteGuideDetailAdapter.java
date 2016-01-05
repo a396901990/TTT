@@ -126,10 +126,10 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
             detail = isForward ? geocode.getF_detail() : geocode.getR_detail();
         }
         if (!TextUtils.isEmpty(detail)) {
-            //holder.detailGuideContent.setVisibility(View.VISIBLE);
+            holder.detailGuideContent.setVisibility(View.VISIBLE);
             holder.detailGuide.setText(detail);
         } else {
-            //holder.detailGuideContent.setVisibility(View.INVISIBLE);
+            holder.detailGuideContent.setVisibility(View.INVISIBLE);
         }
 
         if (holder.isExpanded) {

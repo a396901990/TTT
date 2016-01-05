@@ -183,7 +183,7 @@ public class Geocode {
     public static Comparator<Geocode> MileageComparator = new Comparator<Geocode>() {
         @Override
         public int compare(Geocode g1, Geocode g2) {
-            if (g2.mileage > g1.mileage) {
+            if ((float)g2.mileage > (float)g1.mileage) {
                 return -1;
             } else {
                 return 1;

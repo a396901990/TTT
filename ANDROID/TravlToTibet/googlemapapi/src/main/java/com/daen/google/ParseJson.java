@@ -7,10 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -52,7 +54,7 @@ public class ParseJson {
 
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "gbk"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "utf-8"));
             String line = null;
             while ((line = br.readLine()) != null) {
                 lines.append(line);
@@ -181,7 +183,7 @@ public class ParseJson {
 
                 // long_name
                 name = first_address.getString("long_name");
-                if (geocode.getName().equals(name)) {
+//                if (geocode.getName().equals(name)) {
 
                     // formatted_address
                     address = results.getJSONObject(i).getString("formatted_address");
@@ -191,7 +193,7 @@ public class ParseJson {
                     JSONObject location = geometry.getJSONObject("location");
                     lat = location.getDouble("lat");
                     lng = location.getDouble("lng");
-                }
+//                }
             }
         }
 
@@ -229,9 +231,9 @@ public class ParseJson {
 
         // 计算每段小距离
         double mileage_length = destination.getMileage() - origin.getMileage();
-        double mileage_unit = mileage_length / (results.length()+1);
+        double mileage_unit = mileage_length / (results.length() + 1);
 
-        double distance = origin.getDistance() / (results.length()+1);
+        double distance = origin.getDistance() / (results.length() + 1);
 
         for (int i = 0; i < results.length(); i++) {
             double elevation = results.getJSONObject(i).getDouble("elevation");
@@ -241,7 +243,7 @@ public class ParseJson {
 
             String name = origin.getName() + "_" + destination.getName() + "_" + i;
 
-            double mileage = origin.getMileage() + (i+1) * mileage_unit;
+            double mileage = origin.getMileage() + (i + 1) * mileage_unit;
             if (mileage >= destination.getMileage()) {
                 mileage = destination.getMileage();
             }
