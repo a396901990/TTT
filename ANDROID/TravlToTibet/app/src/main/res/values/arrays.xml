@@ -6,6 +6,7 @@
         <item>COUNTY</item>
         <item>TOWN</item>
         <item>VILLAGE</item>
+        <item>TUNNEL</item>
     </string-array>
 
     <string-array name="default_all_points">

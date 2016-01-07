@@ -93,10 +93,11 @@ public class ChartSettingUnSelectedListAdapter
 
                 switch (status) {
                     case ON:
+                        mController.setToSelectedList(pointCheck);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mController.setToSelectedList(pointCheck);
+
                             }
                         }, SwitchButton.DEFAULT_DURATION);
                         break;

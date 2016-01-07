@@ -66,19 +66,18 @@ public class MyDataGeneratorCHUANZANG_NAN {
 //        geocodes.add(new Geocode("古乡", 47, Constants.VILLAGE));
 //        geocodes.add(new Geocode("通麦大桥", 48, Constants.BRIDGE));
 //        geocodes.add(new Geocode("林芝排龙村", 49, Constants.VILLAGE));
-//        geocodes.add(new Geocode("林芝东久村", 50, Constants.VILLAGE));
 //        geocodes.add(new Geocode("鲁朗镇", 51, Constants.TOWN));
-//
-//        geocodes.add(new Geocode("八一镇", 52, Constants.COUNTY));
-//        geocodes.add(new Geocode("更张村", 53, Constants.VILLAGE));
-//        geocodes.add(new Geocode("百巴镇", 54, Constants.TOWN));
-//        geocodes.add(new Geocode("工布江达镇", 55, Constants.COUNTY));
-//        geocodes.add(new Geocode("金达镇", 56, Constants.TOWN));
-//        geocodes.add(new Geocode("加兴乡", 57, Constants.VILLAGE));
-//        geocodes.add(new Geocode("日多乡", 58, Constants.VILLAGE));
-//        geocodes.add(new Geocode("墨竹工卡县", 59, Constants.COUNTY));
-//        geocodes.add(new Geocode("达孜县", 60, Constants.COUNTY));
-//        geocodes.add(new Geocode("拉萨", 61, Constants.CITY));
+//        geocodes.add(new Geocode("拿哥", 52, Constants.VILLAGE));
+//        geocodes.add(new Geocode("八一镇", 53, Constants.COUNTY));
+//        geocodes.add(new Geocode("更张村", 54, Constants.VILLAGE));
+//        geocodes.add(new Geocode("百巴镇", 55, Constants.TOWN));
+//        geocodes.add(new Geocode("工布江达镇", 56, Constants.COUNTY));
+//        geocodes.add(new Geocode("金达镇", 57, Constants.TOWN));
+//        geocodes.add(new Geocode("加兴乡", 58, Constants.VILLAGE));
+//        geocodes.add(new Geocode("日多乡", 59, Constants.VILLAGE));
+//        geocodes.add(new Geocode("墨竹工卡县", 60, Constants.COUNTY));
+//        geocodes.add(new Geocode("达孜县", 61, Constants.COUNTY));
+//        geocodes.add(new Geocode("拉萨", 62, Constants.CITY));
 
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override
