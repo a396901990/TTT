@@ -10,11 +10,11 @@ import java.util.Collections;
  * Created by 95 on 2015/5/29.
  */
 public class MyDataGeneratorCHUANZANG_NAN {
-    private static ArrayList<Geocode> geocodes;
+    private static ArrayList<com.daen.google.module.Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
 
-        geocodes = new ArrayList<Geocode>();
+        geocodes = new ArrayList<com.daen.google.module.Geocode>();
 
 //        geocodes.add(new Geocode("成都", 0, Constants.CITY));
 //        geocodes.add(new Geocode("新津县", 1, Constants.COUNTY));
@@ -48,9 +48,10 @@ public class MyDataGeneratorCHUANZANG_NAN {
 //        geocodes.add(new Geocode("巴塘县", 30, Constants.COUNTY));
 //        geocodes.add(new Geocode("竹巴龙乡", 31, Constants.VILLAGE));
 //        geocodes.add(new Geocode("海通兵站", 32, Constants.OTHERS));
+
 //        geocodes.add(new Geocode("芒康县", 33, Constants.COUNTY));
 //        geocodes.add(new Geocode("如美镇", 34, Constants.TOWN));
-//        geocodes.add(new Geocode("登巴村", 35,"芒康县", Constants.VILLAGE));
+//        geocodes.add(new Geocode("芒康县登巴村", 35, Constants.VILLAGE));
 //        geocodes.add(new Geocode("左贡县", 36, Constants.COUNTY));
 //        geocodes.add(new Geocode("田妥镇", 37, Constants.TOWN));
 //        geocodes.add(new Geocode("斜库村", 38, Constants.VILLAGE));
@@ -66,12 +67,12 @@ public class MyDataGeneratorCHUANZANG_NAN {
 //        geocodes.add(new Geocode("古乡", 47, Constants.VILLAGE));
 //        geocodes.add(new Geocode("通麦大桥", 48, Constants.BRIDGE));
 //        geocodes.add(new Geocode("林芝排龙村", 49, Constants.VILLAGE));
-//        geocodes.add(new Geocode("鲁朗镇", 51, Constants.TOWN));
-//        geocodes.add(new Geocode("拿哥", 52, Constants.VILLAGE));
-//        geocodes.add(new Geocode("八一镇", 53, Constants.COUNTY));
-//        geocodes.add(new Geocode("更张村", 54, Constants.VILLAGE));
-//        geocodes.add(new Geocode("百巴镇", 55, Constants.TOWN));
-//        geocodes.add(new Geocode("工布江达镇", 56, Constants.COUNTY));
+//        geocodes.add(new Geocode("鲁朗镇", 50, Constants.TOWN));
+//        geocodes.add(new Geocode("拿哥", 51, Constants.VILLAGE));
+//        geocodes.add(new Geocode("八一镇", 52, Constants.COUNTY));
+//        geocodes.add(new Geocode("更张村", 53, Constants.VILLAGE));
+//        geocodes.add(new Geocode("百巴镇", 54, Constants.TOWN));
+//        geocodes.add(new Geocode("工布江达镇", 55, Constants.COUNTY));
 //        geocodes.add(new Geocode("金达镇", 57, Constants.TOWN));
 //        geocodes.add(new Geocode("加兴乡", 58, Constants.VILLAGE));
 //        geocodes.add(new Geocode("日多乡", 59, Constants.VILLAGE));
@@ -81,25 +82,25 @@ public class MyDataGeneratorCHUANZANG_NAN {
 
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override
-            public void fetchSuccess(Geocode geocode) {
+            public void fetchSuccess(com.daen.google.module.Geocode geocode) {
 
             }
 
             @Override
-            public void fetchFinish(ArrayList<Geocode> geos) {
-                Collections.sort(geos, Geocode.MileageComparator);
+            public void fetchFinish(ArrayList<com.daen.google.module.Geocode> geos) {
+                Collections.sort(geos, com.daen.google.module.Geocode.MileageComparator);
                 //ParseJson.parseToFile(geos);
 
                 PathRunnable pathRunnable = new PathRunnable(geos, new PathRunnable.FetchCallback() {
 
                     @Override
-                    public void fetchSuccess(Geocode geocode) {
+                    public void fetchSuccess(com.daen.google.module.Geocode geocode) {
                     }
 
                     @Override
-                    public void fetchFinished(ArrayList<Geocode> geocodes) {
-                        Collections.sort(geocodes, Geocode.MileageComparator);
-                        ParseJson.parseToFile(geocodes);
+                    public void fetchFinished(ArrayList<com.daen.google.module.Geocode> geocodes) {
+                        Collections.sort(geocodes, com.daen.google.module.Geocode.MileageComparator);
+                        com.daen.google.util.ParseJson.parseToFile(geocodes);
                     }
 
                     @Override

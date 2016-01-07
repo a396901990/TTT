@@ -1,9 +1,9 @@
 package com.daen.google.runnable;
 
-import com.daen.google.Direction;
-import com.daen.google.Geocode;
-import com.daen.google.GoogleMapAPIUtil;
-import com.daen.google.ParseJson;
+import com.daen.google.module.Direction;
+import com.daen.google.module.Geocode;
+import com.daen.google.util.GoogleMapURLUtil;
+import com.daen.google.util.ParseJson;
 
 import org.json.JSONException;
 
@@ -45,20 +45,15 @@ public class PathRunnable implements Runnable {
         for (int i = 0; i < mGeocodes.size(); i++) {
 
             if (i + 1 < mGeocodes.size()) {
-                getPathInfo(mGeocodes.get(i), mGeocodes.get(i + 1), i);
+                getPathInfo(mGeocodes.get(i), mGeocodes.get(i + 1));
             }
         }
     }
 
-    public void getPathInfo(final Geocode origin, final Geocode destination, final int i) {
-        //String directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getAddress(), destination.getAddress());
-        String directionsUrl;
-        if ((origin.getBelong() != null && origin.getBelong().length() > 0) || (destination.getBelong() != null && destination.getBelong().length() > 0)) {
-            directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getAddress(), destination.getAddress());
-        } else {
-            directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
-        }
-        //directionsUrl = GoogleMapAPIUtil.getDirectionsUrl(origin.getName(), destination.getName());
+    public void getPathInfo(final Geocode origin, final Geocode destination) {
+
+        String directionsUrl = GoogleMapURLUtil.getDirectionsUrl(origin.getName(), destination.getName());
+
         DownloadRunnable directionsRunnable = new DownloadRunnable(directionsUrl, new DownloadRunnable.DownloadCallback() {
 
             @Override
@@ -71,12 +66,12 @@ public class PathRunnable implements Runnable {
                     String summary = direction.getSummary();
 
                     origin.setRoad(summary);
-                    origin.setDistance(Double.parseDouble(distance)/1000);
+                    origin.setDistance(Double.parseDouble(distance) / 1000);
                     int samples = Integer.parseInt(distance) / Direction.DIRECTION_UNIT;
                     if (samples < 2) {
                         samples = 2;
                     }
-                    String elevationURL = GoogleMapAPIUtil.getElevationPathUrl(points, samples);
+                    String elevationURL = GoogleMapURLUtil.getElevationPathUrl(points, samples);
                     DownloadRunnable elevationRunnable = new DownloadRunnable(elevationURL, new DownloadRunnable.DownloadCallback() {
                         @Override
                         public void downloadSuccess(String result) {

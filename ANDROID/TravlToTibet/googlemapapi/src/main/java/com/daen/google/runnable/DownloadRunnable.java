@@ -1,6 +1,6 @@
 package com.daen.google.runnable;
 
-import com.daen.google.HttpHelper;
+import com.daen.google.util.HttpHelper;
 
 /**
  * Created by 95 on 2015/5/29.

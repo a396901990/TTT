@@ -1,4 +1,4 @@
-package com.daen.google;
+package com.daen.google.module;
 
 public final class Constants
 {

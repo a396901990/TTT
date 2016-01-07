@@ -10,11 +10,11 @@ import java.util.Collections;
  * Created by 95 on 2015/5/29.
  */
 public class MyDataGeneratorXINZANG {
-    private static ArrayList<Geocode> geocodes;
+    private static ArrayList<com.daen.google.module.Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
 
-        geocodes = new ArrayList<Geocode>();
+        geocodes = new ArrayList<com.daen.google.module.Geocode>();
 
 
 //        geocodes.add(new Geocode("叶城县", 0, Constants.COUNTY));
@@ -47,17 +47,17 @@ public class MyDataGeneratorXINZANG {
 //        geocodes.add(new Geocode("查务乡", 27, Constants.VILLAGE));
 //        geocodes.add(new Geocode("拉孜县", 28, Constants.COUNTY));
 //        geocodes.add(new Geocode("热萨乡", 29, Constants.VILLAGE));
-        geocodes.add(new Geocode("拉孜县柳乡", 30, Constants.VILLAGE));
-        geocodes.add(new Geocode("吉定镇", 31, Constants.TOWN));
-        geocodes.add(new Geocode("日喀则", 32, Constants.CITY));
-        geocodes.add(new Geocode("白朗县", 33, Constants.COUNTY));
-        geocodes.add(new Geocode("江孜县", 34, Constants.COUNTY));
-        geocodes.add(new Geocode("江孜县加热村", 35, Constants.VILLAGE));
-        geocodes.add(new Geocode("热龙乡", 36, Constants.VILLAGE));
-        geocodes.add(new Geocode("浪卡子县", 37, Constants.COUNTY));
-        geocodes.add(new Geocode("达嘎乡", 38, Constants.VILLAGE));
-        geocodes.add(new Geocode("曲水县", 39, Constants.COUNTY));
-        geocodes.add(new Geocode("拉萨", 40, Constants.CITY));
+        geocodes.add(new com.daen.google.module.Geocode("拉孜县柳乡", 30, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("吉定镇", 31, com.daen.google.module.Constants.TOWN));
+        geocodes.add(new com.daen.google.module.Geocode("日喀则", 32, com.daen.google.module.Constants.CITY));
+        geocodes.add(new com.daen.google.module.Geocode("白朗县", 33, com.daen.google.module.Constants.COUNTY));
+        geocodes.add(new com.daen.google.module.Geocode("江孜县", 34, com.daen.google.module.Constants.COUNTY));
+        geocodes.add(new com.daen.google.module.Geocode("江孜县加热村", 35, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("热龙乡", 36, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("浪卡子县", 37, com.daen.google.module.Constants.COUNTY));
+        geocodes.add(new com.daen.google.module.Geocode("达嘎乡", 38, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("曲水县", 39, com.daen.google.module.Constants.COUNTY));
+        geocodes.add(new com.daen.google.module.Geocode("拉萨", 40, com.daen.google.module.Constants.CITY));
 
 
 //珠峰
@@ -78,25 +78,25 @@ public class MyDataGeneratorXINZANG {
 //        geocodes.add(new Geocode("扎西通门", 2, Constants.VILLAGE));
         DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
             @Override
-            public void fetchSuccess(Geocode geocode) {
+            public void fetchSuccess(com.daen.google.module.Geocode geocode) {
 
             }
 
             @Override
-            public void fetchFinish(ArrayList<Geocode> geos) {
-                Collections.sort(geos, Geocode.MileageComparator);
+            public void fetchFinish(ArrayList<com.daen.google.module.Geocode> geos) {
+                Collections.sort(geos, com.daen.google.module.Geocode.MileageComparator);
                 //ParseJson.parseToFile(geos);
 
                 PathRunnable pathRunnable = new PathRunnable(geos, new PathRunnable.FetchCallback() {
 
                     @Override
-                    public void fetchSuccess(Geocode geocode) {
+                    public void fetchSuccess(com.daen.google.module.Geocode geocode) {
                     }
 
                     @Override
-                    public void fetchFinished(ArrayList<Geocode> geocodes) {
-                        Collections.sort(geocodes, Geocode.MileageComparator);
-                        ParseJson.parseToFile(geocodes);
+                    public void fetchFinished(ArrayList<com.daen.google.module.Geocode> geocodes) {
+                        Collections.sort(geocodes, com.daen.google.module.Geocode.MileageComparator);
+                        com.daen.google.util.ParseJson.parseToFile(geocodes);
                     }
 
                     @Override

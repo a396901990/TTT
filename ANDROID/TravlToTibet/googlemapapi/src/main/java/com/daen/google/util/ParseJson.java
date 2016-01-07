@@ -1,5 +1,8 @@
-package com.daen.google;
+package com.daen.google.util;
 
+import com.daen.google.module.Direction;
+import com.daen.google.module.Geocode;
+import com.daen.google.module.GeocodesJson;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -7,12 +10,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -26,8 +27,6 @@ public class ParseJson {
     public static final String FILE_PATH = "C:/Users/95/Desktop/result.txt";
 
     public static final String OUTPUT_FILE_PATH = "C:/Users/95/Desktop/outputresult.txt";
-
-    //public static final String OUTPUT_FILE_PATH = "D:/GitHub/TTT/ANDROID/TravlToTibet/app/src/main/res/raw/data.txt";
 
     public static final String OUTPUT_FILE_PATH_MAC = "/Users/DeanGuo/Desktop/result.txt";
 
@@ -140,62 +139,23 @@ public class ParseJson {
      * 解析Geocode返回值并为Geocode赋值
      */
     public static Geocode parseGeocode(String result, Geocode geocode) throws JSONException {
-        //result = readFile("C:/Users/95/Desktop/geocode.txt");
 
         JSONObject jsonObject = new JSONObject(result);
 
-        String name;
-        String address = "";
-        Double lat = 0.0;
-        Double lng = 0.0;
-
+        // results(address_components, formatted_address, geometry)
         JSONArray results = jsonObject.getJSONArray("results");
-        for (int i = 0; i < results.length(); i++) {
-            // address_components
-            JSONArray address_components = results.getJSONObject(i).getJSONArray("address_components");
 
-            // have multiply address
-            if (geocode.getBelong() != null && !geocode.getBelong().equals("")) {
-                for (int j = 0; j < address_components.length(); j++) {
-                    String long_name = address_components.getJSONObject(j).getString("long_name");
-                    if (geocode.getBelong().equals(long_name)) {
-                        JSONObject first_address = address_components.getJSONObject(0);
+        // address_components
+        JSONArray address_components = results.getJSONObject(0).getJSONArray("address_components");
 
-                        // long_name
-                        name = first_address.getString("long_name");
-                        if (geocode.getName().equals(name)) {
+        // formatted_address
+        String address = results.getJSONObject(0).getString("formatted_address");
 
-                            // formatted_address
-                            address = results.getJSONObject(i).getString("formatted_address");
-
-                            // geometry
-                            JSONObject geometry = results.getJSONObject(i).getJSONObject("geometry");
-                            JSONObject location = geometry.getJSONObject("location");
-                            lat = location.getDouble("lat");
-                            lng = location.getDouble("lng");
-                        }
-                    }
-                }
-            }
-            // single result
-            else {
-                JSONObject first_address = address_components.getJSONObject(0);
-
-                // long_name
-                name = first_address.getString("long_name");
-//                if (geocode.getName().equals(name)) {
-
-                    // formatted_address
-                    address = results.getJSONObject(i).getString("formatted_address");
-
-                    // geometry
-                    JSONObject geometry = results.getJSONObject(i).getJSONObject("geometry");
-                    JSONObject location = geometry.getJSONObject("location");
-                    lat = location.getDouble("lat");
-                    lng = location.getDouble("lng");
-//                }
-            }
-        }
+        // geometry
+        JSONObject geometry = results.getJSONObject(0).getJSONObject("geometry");
+        JSONObject location = geometry.getJSONObject("location");
+        Double lat = location.getDouble("lat");
+        Double lng = location.getDouble("lng");
 
         geocode.setAddress(address);
         geocode.setLatitude(lat);

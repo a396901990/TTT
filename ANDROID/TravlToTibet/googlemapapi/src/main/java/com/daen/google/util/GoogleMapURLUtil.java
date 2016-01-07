@@ -1,11 +1,15 @@
-package com.daen.google;
+package com.daen.google.util;
+
+import com.daen.google.runnable.DownloadRunnable;
+
+import org.json.JSONException;
 
 import java.util.Locale;
 
 /**
  * Created by Dean on 2015/5/28.
  */
-public final class GoogleMapAPIUtil {
+public final class GoogleMapURLUtil {
 
     public static final String KEY = "AIzaSyAoEvnY8lEliDQ5JWprEQ16OBFZ7SheZ-Q";
 
@@ -36,6 +40,7 @@ public final class GoogleMapAPIUtil {
     /**
      * doc https://developers.google.com/maps/documentation/geocoding/
      * sample http://maps.googleapis.com/maps/api/geocode/json?latlng=37.8855098,77.4718697&sensor=false
+     * http://maps.googleapis.com/maps/api/geocode/json?latlng=28.17,86.84&sensor=false
      */
     public static final String GEOCODE_URL = URL_PREFIX + "geocode/json?latlng=%s,%s" + URL_POSTFIX;
 
@@ -61,14 +66,13 @@ public final class GoogleMapAPIUtil {
         return url;
     }
 
-    public static String getDeocodeUrl(double latitude, double longitude) {
+    public static String getGeocodeUrl(double latitude, double longitude) {
         String url = String.format(Locale.CHINA, GEOCODE_URL, latitude, longitude);
         return url;
     }
 
-    public static String getDeocodeUrl(String address) {
+    public static String getGeocodeUrl(String address) {
         String url = String.format(Locale.CHINA, GEOCODE_ADDRESS_URL, address);
         return url;
     }
-
 }

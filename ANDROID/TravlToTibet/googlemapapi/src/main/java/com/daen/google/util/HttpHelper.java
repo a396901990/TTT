@@ -1,4 +1,4 @@
-package com.daen.google;
+package com.daen.google.util;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

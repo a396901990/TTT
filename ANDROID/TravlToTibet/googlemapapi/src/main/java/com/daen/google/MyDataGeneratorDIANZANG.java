@@ -1,10 +1,9 @@
 package com.daen.google;
 
-import com.daen.google.runnable.DetailsInfoRunnable;
-import com.daen.google.runnable.PathRunnable;
+import com.daen.google.module.Geocode;
+import com.daen.google.util.DataGeneratorUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by 95 on 2015/5/29.
@@ -14,8 +13,7 @@ public class MyDataGeneratorDIANZANG {
 
     public static void main(String[] args) throws Exception {
 
-        geocodes = new ArrayList<Geocode>();
-
+        geocodes = new ArrayList<>();
 
 //        geocodes.add(new Geocode("昆明市", 0, Constants.CITY));
 //        geocodes.add(new Geocode("安宁市", 1, Constants.CITY));
@@ -55,11 +53,9 @@ public class MyDataGeneratorDIANZANG {
 //        geocodes.add(new Geocode("纳西民族乡", 33, Constants.VILLAGE));
 //        geocodes.add(new Geocode("芒康戈底", 34, Constants.VILLAGE));
 
-
-////
 //        geocodes.add(new Geocode("芒康县", 35, Constants.COUNTY));
 //        geocodes.add(new Geocode("如美镇", 36, Constants.TOWN));
-//        geocodes.add(new Geocode("登巴村", 37,"芒康县", Constants.VILLAGE));
+//        geocodes.add(new Geocode("芒康县登巴村", 37, Constants.VILLAGE));
 //        geocodes.add(new Geocode("左贡县", 38, Constants.COUNTY));
 //        geocodes.add(new Geocode("田妥镇", 39, Constants.TOWN));
 //        geocodes.add(new Geocode("斜库村", 40, Constants.VILLAGE));
@@ -73,60 +69,21 @@ public class MyDataGeneratorDIANZANG {
 //        geocodes.add(new Geocode("波密县", 48, Constants.COUNTY));
 //        geocodes.add(new Geocode("古乡", 49, Constants.VILLAGE));
 //        geocodes.add(new Geocode("通麦大桥", 50, Constants.BRIDGE));
-//        geocodes.add(new Geocode("林芝排龙村", 51,Constants.VILLAGE));
-//        geocodes.add(new Geocode("林芝排龙村", 52, Constants.VILLAGE));
-//        geocodes.add(new Geocode("鲁朗镇", 53, Constants.TOWN));
-//        geocodes.add(new Geocode("八一镇", 54, Constants.TOWN));
+//        geocodes.add(new Geocode("林芝排龙村", 51, Constants.VILLAGE));
+//        geocodes.add(new Geocode("鲁朗镇", 52, Constants.TOWN));
+//        geocodes.add(new Geocode("拿哥", 53, Constants.VILLAGE));
+//        geocodes.add(new Geocode("八一镇", 54, Constants.COUNTY));
 //        geocodes.add(new Geocode("更张村", 55, Constants.VILLAGE));
 //        geocodes.add(new Geocode("百巴镇", 56, Constants.TOWN));
-//        geocodes.add(new Geocode("工布江达镇", 57, Constants.TOWN));
+//        geocodes.add(new Geocode("工布江达镇", 57, Constants.COUNTY));
 //        geocodes.add(new Geocode("金达镇", 58, Constants.TOWN));
 //        geocodes.add(new Geocode("加兴乡", 59, Constants.VILLAGE));
 //        geocodes.add(new Geocode("日多乡", 60, Constants.VILLAGE));
 //        geocodes.add(new Geocode("墨竹工卡县", 61, Constants.COUNTY));
 //        geocodes.add(new Geocode("达孜县", 62, Constants.COUNTY));
 //        geocodes.add(new Geocode("拉萨", 63, Constants.CITY));
-        DetailsInfoRunnable detailsInfoRunnable = new DetailsInfoRunnable(geocodes, new DetailsInfoRunnable.FetchCallback() {
-            @Override
-            public void fetchSuccess(Geocode geocode) {
 
-            }
-
-            @Override
-            public void fetchFinish(ArrayList<Geocode> geos) {
-                Collections.sort(geos, Geocode.MileageComparator);
-                //ParseJson.parseToFile(geos);
-
-                PathRunnable pathRunnable = new PathRunnable(geos, new PathRunnable.FetchCallback() {
-
-                    @Override
-                    public void fetchSuccess(Geocode geocode) {
-                    }
-
-                    @Override
-                    public void fetchFinished(ArrayList<Geocode> geocodes) {
-                        Collections.sort(geocodes, Geocode.MileageComparator);
-                        ParseJson.parseToFile(geocodes);
-                    }
-
-                    @Override
-                    public void fetchFail() {
-
-                    }
-                });
-
-                Thread t = new Thread(pathRunnable);
-                t.start();
-            }
-
-            @Override
-            public void fetchFail() {
-
-            }
-        }
-        );
-
-        Thread t = new Thread(detailsInfoRunnable);
-        t.start();
+        DataGeneratorUtil api = new DataGeneratorUtil();
+        api.getData(geocodes);
     }
 }
