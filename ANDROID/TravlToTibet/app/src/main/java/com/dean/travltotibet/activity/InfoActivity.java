@@ -1,29 +1,28 @@
 package com.dean.travltotibet.activity;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.DragEvent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.BaseInfoFragment;
 import com.dean.travltotibet.fragment.InfoConfirmDialog;
-import com.dean.travltotibet.fragment.InfoHeaderFragment;
-import com.dean.travltotibet.fragment.InfoPrepareFragment;
-import com.dean.travltotibet.fragment.InfoScenicFragment;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -42,6 +41,8 @@ public class InfoActivity extends BaseActivity {
     private BaseInfoFragment prepareFragment;
 
     private FloatingActionButton fab;
+
+    private ImageView mMenuType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,26 +65,63 @@ public class InfoActivity extends BaseActivity {
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setSupportActionBar(toolbar);
         setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
 
+        // type btn(menu right)
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.menu_type, null);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
+                android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.RIGHT;
+        setCustomView(v, layoutParams);
+        mMenuType = (ImageView) v.findViewById(R.id.header_menu_type);
+        mMenuType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTypeDialog();
+            }
+        });
+
+        // collapsing listener
+        final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                    updateMenu(true);
+                } else {
+                    updateMenu(false);
+                }
+            }
+        });
+
+        // set title
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(routeName);
 
+        // set fab btn
         fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
-        fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new TravelTypeDialog();
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
-                bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
-                bundle.putString(IntentExtra.INTENT_FROM_WHERE, TravelTypeDialog.FROM_SECOND);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
+                openTypeDialog();
             }
         });
+
+        // 更新图标
+        updateMenu(false);
+    }
+
+    private void openTypeDialog() {
+        DialogFragment dialogFragment = new TravelTypeDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
+        bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
+        bundle.putString(IntentExtra.INTENT_FROM_WHERE, TravelTypeDialog.FROM_SECOND);
+        dialogFragment.setArguments(bundle);
+        dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
     }
 
     /**
@@ -129,7 +167,7 @@ public class InfoActivity extends BaseActivity {
         // 更新routeType
         setRouteType(routeType);
         // 更新图标
-        fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
+        updateMenu(true);
 
         // update headerFragment
         if (headerFragment.isAdded()) {
@@ -143,6 +181,13 @@ public class InfoActivity extends BaseActivity {
         if (prepareFragment.isAdded()) {
             prepareFragment.updateType(routeType);
         }
+    }
+
+    public void updateMenu(boolean isShowMenu) {
+        mMenuType.setVisibility(isShowMenu ? View.VISIBLE : View.GONE);
+        mMenuType.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
+
+        fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
     }
 
     @Override

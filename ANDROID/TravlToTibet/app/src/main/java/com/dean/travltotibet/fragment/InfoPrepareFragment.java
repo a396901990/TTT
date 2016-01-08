@@ -13,12 +13,10 @@ import com.dean.travltotibet.activity.PrepareDetailActivity;
 import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.customScrollView.ScrollGridView;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 
 /**
  * Created by DeanGuo on 9/19/15.
- * <p/>
  * 用来显示route准备视图
  */
 public class InfoPrepareFragment extends BaseInfoFragment {
@@ -49,7 +47,7 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     private void initGridView() {
         ScrollGridView gridView = (ScrollGridView) root.findViewById(R.id.gridView);
         adapter = new InfoGridAdapter(getActivity());
-        adapter.setData(InfoType.BIKES);
+        adapter.setData(InfoType.INFO_TYPES);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,6 +70,6 @@ public class InfoPrepareFragment extends BaseInfoFragment {
     @Override
     public void updateType(String type) {
         super.updateType(type);
-        adapter.setData(InfoType.getInfoTypes(type));
+        adapter.setData(InfoType.INFO_TYPES);
     }
 }

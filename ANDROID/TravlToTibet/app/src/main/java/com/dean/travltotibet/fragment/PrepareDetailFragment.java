@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -51,7 +53,7 @@ public class PrepareDetailFragment extends Fragment {
 
     private WebView mWebView;
 
-    private Dialog mProgressDialog;
+    private View loadingView;
 
     public PrepareDetailFragment(InfoType infoType, String route, String type) {
         this.mInfoType = infoType;
@@ -74,6 +76,8 @@ public class PrepareDetailFragment extends Fragment {
         mWebView.setWebViewClient(new SimpleWebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
 
+        loadingView = root.findViewById(R.id.loading_content_view);
+
         // 初始化数据
         initData();
     }
@@ -83,7 +87,7 @@ public class PrepareDetailFragment extends Fragment {
      */
     private void initData() {
 
-        showLoading();
+        loadingView.setVisibility(View.VISIBLE);
 
         // 从PrepareInfo表中获取该路段的准备信息
         PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute, mType);
@@ -92,7 +96,7 @@ public class PrepareDetailFragment extends Fragment {
         }
         // 获取条目名字
         String prepareName = InfoType.getInfoResult(mInfoType, prepareInfo);
-        Log.e("prepareName", prepareName);
+//        Log.e("prepareName", prepareName);
         BmobQuery<PrepareFile> query = new BmobQuery<>();
         query.addWhereEqualTo("fileName", prepareName);
         query.findObjects(getActivity(), new FindListener<PrepareFile>() {
@@ -100,7 +104,7 @@ public class PrepareDetailFragment extends Fragment {
             public void onSuccess(List<PrepareFile> list) {
                 PrepareFile prepareFile = list.get(0);
                 String url = prepareFile.getFile().getFileUrl(getActivity());
-                Log.e("url", url);
+                // Log.e("url", url);
                 mWebView.loadUrl(url);
             }
 
@@ -108,7 +112,7 @@ public class PrepareDetailFragment extends Fragment {
             public void onError(int i, String s) {
                 Log.e("onError", s);
                 mWebView.loadUrl(Constants.EMPTY_HTML_CONTENT);
-                dismissLoading();
+                loadingView.setVisibility(View.GONE);
             }
         });
     }
@@ -131,8 +135,7 @@ public class PrepareDetailFragment extends Fragment {
                 super.onPageFinished(view, url);
                 return;
             }
-            CustomProgress.dismissDialog();
-             dismissLoading();
+            loadingView.setVisibility(View.GONE);
         }
     }
 
@@ -149,40 +152,5 @@ public class PrepareDetailFragment extends Fragment {
         mWebView = null;
         super.onDestroy();
     }
-
-    private void showLoading( )
-    {
-        if (mProgressDialog == null || !mProgressDialog.isShowing())
-        {
-            mProgressDialog = new Dialog(super.getActivity(), R.style.Custom_Progress);
-            mProgressDialog.setContentView(R.layout.progress_custom_layout);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.setTitle("");
-            // 设置居中
-            mProgressDialog.getWindow().getAttributes().gravity = Gravity.CENTER;
-            WindowManager.LayoutParams lp = mProgressDialog.getWindow().getAttributes();
-            // 设置背景层透明度
-            lp.dimAmount = 0.2f;
-            mProgressDialog.getWindow().setAttributes(lp);
-            // dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-            mProgressDialog.show();
-        }
-    }
-
-    private void dismissLoading()
-    {
-        if (mProgressDialog != null && mProgressDialog.isShowing())
-        {
-            mProgressDialog.dismiss();
-        }
-    }
-
-    @Override
-    public void onPause()
-    {
-        dismissLoading();
-        super.onPause();
-    }
-
 
 }

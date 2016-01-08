@@ -40,8 +40,6 @@ public class PrepareDetailActivity extends BaseActivity {
 
     private PagerSlidingTabStrip mTabs;
 
-    private ArrayList<InfoType> mInfoTypes;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +52,6 @@ public class PrepareDetailActivity extends BaseActivity {
             mType = intent.getStringExtra(IntentExtra.INTENT_ROUTE_TYPE);
             mInfoType = (InfoType) intent.getSerializableExtra(IntentExtra.INTENT_PREPARE_TYPE);
         }
-
-        mInfoTypes = InfoType.getInfoTypes(mType);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
@@ -73,7 +69,7 @@ public class PrepareDetailActivity extends BaseActivity {
     private void initViewPagerAndTab() {
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mAdapter = new PrepareDetailPageAdapter(getFragmentManager());
-        mAdapter.setData(mInfoTypes, mRoute, mType);
+        mAdapter.setData(InfoType.INFO_TYPES, mRoute, mType);
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);
@@ -81,7 +77,7 @@ public class PrepareDetailActivity extends BaseActivity {
         mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.home_tabs);
         mTabs.setViewPager(mPager);
 
-        mPager.setCurrentItem(mInfoTypes.indexOf(mInfoType), true);
+        mPager.setCurrentItem(InfoType.INFO_TYPES.indexOf(mInfoType), true);
     }
 
     @Override

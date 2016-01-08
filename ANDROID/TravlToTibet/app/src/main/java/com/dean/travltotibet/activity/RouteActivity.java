@@ -126,9 +126,7 @@ public class RouteActivity
      */
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
+        setUpToolBar(toolbar);
 
         // date按钮
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -136,10 +134,10 @@ public class RouteActivity
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
                 android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.MATCH_PARENT);
         layoutParams.gravity = Gravity.RIGHT;
-        actionBar.setCustomView(v, layoutParams);
+        setCustomView(v, layoutParams);
 
         mMenuDate = (TextView) v.findViewById(R.id.header_menu_date);
-        mMenuDate.setText("选择攻略");
+        mMenuDate.setText(getString(R.string.route_date_menu));
         mMenuDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,9 +172,9 @@ public class RouteActivity
         mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
 
         // 为adapter添加数据
-        mAdapter.add(RouteChartFragment.class, null, "海拔");
-        mAdapter.add(RouteMapFragment.class, null, "地图");
-        mAdapter.add(RouteGuideFragment.class, null, "攻略");
+        mAdapter.add(RouteChartFragment.class, null, getString(R.string.elevation_text));
+        mAdapter.add(RouteMapFragment.class, null, getString(R.string.map_text));
+        mAdapter.add(RouteGuideFragment.class, null, getString(R.string.guide_text));
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);

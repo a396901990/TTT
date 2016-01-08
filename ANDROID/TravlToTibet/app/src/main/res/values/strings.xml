@@ -4,6 +4,7 @@
     <string name="action_setting">设置</string>
     <string name="action_submit">提交</string>
     <string name="action_reset">恢复默认</string>
+    <string name="action_type">旅行类型</string>
 
     <string name="travel_type_dialog_title">请选择旅行类型：</string>
     <string name="title_activity_where_go">选择目的地</string>
@@ -85,5 +86,9 @@
     <string name="route_mark_text">底图标注</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
+    <string name="route_date_menu">选择攻略</string>
+    <string name="elevation_text">海拔</string>
+    <string name="map_text">地图</string>
+    <string name="guide_text">攻略</string>
 
 </resources>

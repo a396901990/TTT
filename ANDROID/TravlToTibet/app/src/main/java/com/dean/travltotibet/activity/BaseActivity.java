@@ -51,6 +51,22 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void setCustomView(View view, ActionBar.LayoutParams layoutParams) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setCustomView(view, layoutParams);
+        }
+    }
+
+    public void setCustomView(View view) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setCustomView(view);
+        }
+    }
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
