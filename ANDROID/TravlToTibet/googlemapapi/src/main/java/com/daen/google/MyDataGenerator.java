@@ -24,7 +24,7 @@ public class MyDataGenerator {
 //        geocodes.add(new Geocode("金鸡关隧道", 4, Constants.TUNNEL));
 //        geocodes.add(new Geocode("雅安", 5, Constants.CITY));
 //        geocodes.add(new Geocode("多营镇", 6, Constants.TOWN));
-//        geocodes.add(new Geocode("飞仙关镇", 7, Constants.TOWN));
+//        geocodes.add(new Geocode("芦山县飞仙村", 7, Constants.TOWN));
 //        geocodes.add(new Geocode("天全县", 8, Constants.COUNTY));
 //        geocodes.add(new Geocode("紫石乡", 9, Constants.VILLAGE));
 //        geocodes.add(new Geocode("二郎山隧道", 10, Constants.TUNNEL));
@@ -33,7 +33,7 @@ public class MyDataGenerator {
 //        geocodes.add(new Geocode("冷竹关村", 13, Constants.VILLAGE));
 //        geocodes.add(new Geocode("瓦斯沟", 14, Constants.VILLAGE));
 //        geocodes.add(new Geocode("小天都隧道", 15, Constants.TUNNEL));
-//        geocodes.add(new Geocode("康定", 16, Constants.CITY));
+//        geocodes.add(new Geocode("甘孜藏族自治州", 16, Constants.CITY));
 //        geocodes.add(new Geocode("折多塘村", 17, Constants.VILLAGE));
 //        geocodes.add(new Geocode("新都桥镇", 18, Constants.TOWN));
 //        geocodes.add(new Geocode("雅江县", 19, Constants.COUNTY));
@@ -72,14 +72,14 @@ public class MyDataGenerator {
 //        geocodes.add(new Geocode("拿哥", 51, Constants.VILLAGE));
 //        geocodes.add(new Geocode("八一镇", 52, Constants.COUNTY));
 //        geocodes.add(new Geocode("更张村", 53, Constants.VILLAGE));
-        geocodes.add(new Geocode("百巴镇", 54, Constants.TOWN));
-        geocodes.add(new Geocode("工布江达镇", 55, Constants.COUNTY));
-        geocodes.add(new Geocode("金达镇", 57, Constants.TOWN));
-        geocodes.add(new Geocode("加兴乡", 58, Constants.VILLAGE));
-        geocodes.add(new Geocode("日多乡", 59, Constants.VILLAGE));
-        geocodes.add(new Geocode("墨竹工卡县", 60, Constants.COUNTY));
-        geocodes.add(new Geocode("达孜县", 61, Constants.COUNTY));
-        geocodes.add(new Geocode("拉萨", 62, Constants.CITY));
+//        geocodes.add(new Geocode("百巴镇", 54, Constants.TOWN));
+//        geocodes.add(new Geocode("工布江达镇", 55, Constants.COUNTY));
+//        geocodes.add(new Geocode("金达镇", 57, Constants.TOWN));
+//        geocodes.add(new Geocode("加兴乡", 58, Constants.VILLAGE));
+//        geocodes.add(new Geocode("日多乡", 59, Constants.VILLAGE));
+//        geocodes.add(new Geocode("墨竹工卡县", 60, Constants.COUNTY));
+//        geocodes.add(new Geocode("达孜县", 61, Constants.COUNTY));
+//        geocodes.add(new Geocode("拉萨", 62, Constants.CITY));
 
         DataGeneratorUtil api = new DataGeneratorUtil();
         api.getData(geocodes);

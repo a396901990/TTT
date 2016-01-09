@@ -19,6 +19,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.dean.greendao.Geocode;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
@@ -29,6 +30,7 @@ import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.dean.mapapi.overlayutil.WalkingRouteOverlay;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
@@ -74,6 +76,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     private RoutePlanSearch mSearch = null;
 
     private DrivingRouteOverlay overlay;
+
+    private WalkingRouteOverlay walkingRouteOverlay;
 
     // 默认俯视角度
     private final static int OVERLOOK_ANGLE = -45;
@@ -194,12 +198,19 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
         // 路过点(当该路线有6个点以上时判断做中间点处理)
         final List<PlanNode> planNodes = new ArrayList<>();
-        if (mGeocodes.size() > 6) {
+        if (mGeocodes.size() > 3) {
             // 大于20个点，取5个pass by，否则取3个
-            int divideLength = mGeocodes.size() > 20 ? mGeocodes.size() / 5 : mGeocodes.size() / 3;
+            int divideLength = mGeocodes.size() > 20 ? mGeocodes.size() / 10 : mGeocodes.size() / 3;
             // 获取中间点为pass by点
-            for (int i = divideLength; i < mGeocodes.size(); i += divideLength) {
-                Log.e("divideLength:", i + "");
+//            for (int i = divideLength; i < mGeocodes.size(); i += divideLength) {
+//                Log.e("divideLength:", i + "");
+//                Geocode passByGeocode = mGeocodes.get(i);
+//                LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
+//                PlanNode pbNode = PlanNode.withLocation(passByLL);
+//                planNodes.add(pbNode);
+//            }
+
+            for (int i = 1; i < mGeocodes.size()-1; i++) {
                 Geocode passByGeocode = mGeocodes.get(i);
                 LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
                 PlanNode pbNode = PlanNode.withLocation(passByLL);
@@ -214,6 +225,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 mSearch.drivingSearch((new DrivingRoutePlanOption())
                         .from(stNode)
                         .to(enNode)
+                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_DIS_FIRST)
+                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_FEE_FIRST)
+                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_TIME_FIRST)
                         .passBy(planNodes));
             }
         });
