@@ -77,10 +77,10 @@
 
             <TextView
                 android:id="@+id/header_distance"
-                style="@style/TextAppearance.Micro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:textSize="9dp"
                 android:text="23km"
                 android:textColor="@color/gray" />
 

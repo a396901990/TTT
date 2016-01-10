@@ -31,6 +31,9 @@ import com.dean.greendao.ScenicDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
+import com.dean.travltotibet.ui.chart.IndicatorSeries;
+import com.dean.travltotibet.ui.chart.MountainSeries;
+import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.StringUtil;
 import com.google.gson.Gson;
@@ -110,16 +113,20 @@ public class DBHelper {
 
         // 根据正反取出起点终点间的数据
         qb = geocodeDao.queryBuilder();
-        if (startID < endID)
+        if (startID < endID) {
             qb.where(Properties.Id.between(startID, endID));
-        else
+        }
+        else {
             qb.where(Properties.Id.between(endID, startID));
+        }
 
         // 根据正反排序
-        if (isForward)
+        if (isForward) {
             qb.orderAsc(Properties.Id);
-        else
+        }
+        else {
             qb.orderDesc(Properties.Id);
+        }
 
         return qb.list();
     }
@@ -142,18 +149,22 @@ public class DBHelper {
 
         // 取出起点终点间不是path的数据
         qb = geocodeDao.queryBuilder();
-        if (startID < endID)
+        if (startID < endID) {
             qb.where(Properties.Id.between(startID, endID));
-        else
+        }
+        else {
             qb.where(Properties.Id.between(endID, startID));
+        }
 
         qb.where(Properties.Types.notEq("PATH"));
 
         // 根据正反排序
-        if (isForward)
+        if (isForward) {
             qb.orderAsc(Properties.Id);
-        else
+        }
+        else {
             qb.orderDesc(Properties.Id);
+        }
 
         return qb.list();
     }
@@ -168,6 +179,55 @@ public class DBHelper {
         QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
         qb.where(Properties.Name.eq(name));
         return qb.list().get(0).getElevation();
+    }
+
+    /**
+     * 获取route距离
+     */
+    public String getDistanceBetweenTwoPoint(String route, String start, String end, boolean isForward) {
+        // 取出起始点id
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
+        qb.where(Properties.Name.eq(start));
+        long startID = qb.list().get(0).getId();
+
+        // 取出终点id
+        qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
+        qb.where(Properties.Name.eq(end));
+        long endID = qb.list().get(0).getId();
+
+        // 根据正反取出起点终点间的数据
+        qb = geocodeDao.queryBuilder();
+        if (startID < endID) {
+            qb.where(Properties.Id.between(startID, endID));
+        }
+        else {
+            qb.where(Properties.Id.between(endID, startID));
+        }
+
+        // 根据正反排序
+        if (isForward) {
+            qb.orderAsc(Properties.Id);
+        }
+        else {
+            qb.orderDesc(Properties.Id);
+        }
+
+        List<Geocode> geocodes = qb.list();
+        double mileage = 0;
+
+        for (int i = 0; i < geocodes.size(); i++) {
+            Geocode geocode = geocodes.get(i);
+
+            // 最后一个位置不需要进行计算，根据距离计算每个点得距离长度
+            if (i < geocodes.size() - 2) {
+                double distance = isForward ? geocode.getF_distance() : geocode.getR_distance();
+                mileage = mileage + distance;
+            }
+        }
+
+        return StringUtil.formatDoubleToInteger(mileage);
     }
 
     /**

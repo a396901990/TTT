@@ -11,6 +11,7 @@ public final class Constants {
 
     public static final String DECIMAL_FORMAT = "###,##0.00";
     public static final String STRING_INTEGER_FORMATTER = "#0";
+    public static final String STRING_INTEGER_ONE_NUM_FORMATTER = "#0.0";
     public static final String FOUR_INTEGER_FORMATTER = "###0";
 
     public static final String GUIDE_OVERALL_HEIGHT_FORMAT = "海拔: %sM";
@@ -31,6 +32,8 @@ public final class Constants {
     public static final String RECENT_PLAN_NAME_DAY = "%s，%s天";
 
     public static final String NAME_VERSION = "%s %s";
+
+    public static final String TIMELINE_DISTANCE = "%skm";
 
     /**
      * Keys to save RouteActivity status
