@@ -259,7 +259,7 @@ public class DBHelper {
     public Route getRouteInfo(String routeName, String routeType, boolean isForward) {
         QueryBuilder<Route> qb = routeDao.queryBuilder();
         qb.where(RouteDao.Properties.Route.eq(routeName));
-        qb.where(RouteDao.Properties.Type.eq(routeType));
+//        qb.where(RouteDao.Properties.Type.eq(routeType));
         Route route = qb.list().get(0);
 
         // 创建一个新对象防止引用错误，根据正反设置起始和终点

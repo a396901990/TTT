@@ -74,7 +74,7 @@ public class GuideDetailFragment extends BaseGuideFragment {
 
             });
             // 默认打开第一个
-            mListView.expandGroup(0);
+//            mListView.expandGroup(0);
         }
     }
 
@@ -99,7 +99,7 @@ public class GuideDetailFragment extends BaseGuideFragment {
             mListView.collapseGroup(i);
         }
         // 打开第一个
-        mListView.expandGroup(0);
+//        mListView.expandGroup(0);
     }
 
     @Override

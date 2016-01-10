@@ -132,8 +132,8 @@ public class InfoPrepareDetailAdapter extends BaseAdapter {
 
         PrepareDetail prepareDetail = mData.get(position);
         String title = prepareDetail.getTitle();
-        String summary = prepareDetail.getSummary().replace("#", "\n");
-        String item = prepareDetail.getDetail().replace("#", "\n");
+        String summary = prepareDetail.getSummary();
+        String item = prepareDetail.getDetail();
 
         detailTitle.setText(title);
 

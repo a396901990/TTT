@@ -123,7 +123,11 @@ public class RouteChartFragment extends BaseRouteFragment {
             // 路牌&里程碑
             String road = TTTApplication.getDbHelper().getRoadWithName(name);
             String milestone = TTTApplication.getDbHelper().getMilestoneWithName(name);
-            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            if (!TextUtils.isEmpty(milestone)) {
+                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            } else {
+                milestone = String.format(Constants.GUIDE_OVERALL_ROAD_FORMAT, road);
+            }
             posMilestone.setText(milestone);
         }
         // 切换时清空

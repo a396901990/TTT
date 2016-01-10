@@ -91,7 +91,11 @@ public class GuideDetailAdapter extends BaseExpandableListAdapter {
         // mileage
         String road = geocode.getRoad();
         String milestone = geocode.getMilestone();
-        milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+        if (!TextUtils.isEmpty(milestone)) {
+            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+        } else {
+            milestone = String.format(Constants.GUIDE_OVERALL_ROAD_FORMAT, road);
+        }
         holder.detailMileage.setText(milestone);
 
         // detail, distance

@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.ui.numberprogressbar.RatingBar;
+
 import android.widget.TextView;
 
 import com.dean.greendao.Plan;
@@ -37,7 +40,7 @@ public class GuideOverViewFragment extends BaseGuideFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-        if(!routeActivity.isRoute()) {
+        if (!routeActivity.isRoute()) {
             updateOverView();
         }
     }
@@ -51,7 +54,6 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         TextView date = (TextView) root.findViewById(R.id.overview_plan);
         TextView distance = (TextView) root.findViewById(R.id.overview_distance);
         TextView hours = (TextView) root.findViewById(R.id.overview_hours);
-        TextView describe= (TextView) root.findViewById(R.id.overview_describe);
 
         // 设置评分条
         RatingView ratingView = (RatingView) root.findViewById(R.id.rating_view);
@@ -81,13 +83,37 @@ public class GuideOverViewFragment extends BaseGuideFragment {
         hours.setText(mPlan.getHours());
 
         // 描述
+        final ExpandableTextView describe = (ExpandableTextView) root.findViewById(R.id.overview_describe);
+        final View shadeView = root.findViewById(R.id.bottom_shade);
+        shadeView.setVisibility(View.VISIBLE);
+        describe.setExpanded(false);
         describe.setText(mPlan.getDescribe());
 
+        // 设置监听状态
+        describe.setOnExpandListener(new ExpandableTextView.OnExpandListener() {
+            // 展开时显示阴影
+            @Override
+            public void onExpand(ExpandableTextView parent) {
+                shadeView.setVisibility(View.INVISIBLE);
+            }
+        }).setOnCollapseListener(new ExpandableTextView.OnCollapseListener() {
+            // 收起时关闭阴影
+            @Override
+            public void onCollapse(ExpandableTextView parent) {
+                shadeView.setVisibility(View.VISIBLE);
+            }
+        }).setOnClickListener(new View.OnClickListener() {
+            @Override
+            // 点击打开关闭阴影
+            public void onClick(View v) {
+                describe.toggle();
+            }
+        });
     }
 
     @Override
     public void update() {
-        if(!routeActivity.isRoute()) {
+        if (!routeActivity.isRoute()) {
             updateOverView();
         }
     }

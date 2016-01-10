@@ -4,7 +4,12 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -64,7 +69,7 @@ public class HotelDetailDialog extends DialogFragment {
         View hotelAddressContent = contentLayout.findViewById(R.id.hotel_address_content);
 
         // 细节
-        String detail = mHotel.getHotel_detail().replace("#", "\n");
+        String detail = mHotel.getHotel_detail();
         if (!TextUtils.isEmpty(detail)) {
             hotelDetail.setText(detail);
         } else {
@@ -72,7 +77,7 @@ public class HotelDetailDialog extends DialogFragment {
         }
 
         // 电话
-        String tel = mHotel.getHotel_tel().replace("#", "\n");
+        String tel = mHotel.getHotel_tel();
         if (!TextUtils.isEmpty(tel)) {
             hotelTel.setText(tel);
         } else {

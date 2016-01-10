@@ -16,6 +16,7 @@ public final class Constants {
 
     public static final String GUIDE_OVERALL_HEIGHT_FORMAT = "海拔: %sM";
     public static final String GUIDE_OVERALL_MILESTONE_FORMAT = "里程碑: %s/%s";
+    public static final String GUIDE_OVERALL_ROAD_FORMAT = "公路: %s";
     public static final String GUIDE_OVERALL_MILESTONE_WITHOUT_TITLE_FORMAT = "%s/%s";
 
     public static final String ROUTE_PLAN_DAY = "预计天数: %s天";

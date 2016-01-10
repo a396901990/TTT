@@ -28,7 +28,7 @@
                 android:name="com.dean.travltotibet.fragment.GuideOverViewFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_margin" />
+                android:layout_marginBottom="@dimen/card_margin" />
         </LinearLayout>
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:name="com.dean.travltotibet.fragment.GuideDetailFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_margin" />
+                android:layout_marginBottom="@dimen/card_margin" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,8 +54,7 @@
                 android:name="com.dean.travltotibet.fragment.GuideHotelFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_margin"
-                android:layout_marginTop="@dimen/card_margin" />
+                android:layout_marginBottom="@dimen/card_margin" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -99,13 +99,14 @@ public class FullChartFragment extends Fragment {
 
             // 路牌
             String road = TTTApplication.getDbHelper().getRoadWithName(name);
-            if (!TextUtils.isEmpty(road)) {
-                road = road.split("/")[1];
-            }
 
             // 里程碑
             String milestone = TTTApplication.getDbHelper().getMilestoneWithName(name);
-            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            if (!TextUtils.isEmpty(milestone)) {
+                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            } else {
+                milestone = String.format(Constants.GUIDE_OVERALL_ROAD_FORMAT, road);
+            }
 
             posName.setText(name);
             posHeight.setText(height);

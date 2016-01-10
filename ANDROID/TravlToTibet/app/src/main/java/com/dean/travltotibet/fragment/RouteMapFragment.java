@@ -198,24 +198,24 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
         // 路过点(当该路线有6个点以上时判断做中间点处理)
         final List<PlanNode> planNodes = new ArrayList<>();
-        if (mGeocodes.size() > 3) {
+        if (mGeocodes.size() > 6) {
             // 大于20个点，取5个pass by，否则取3个
             int divideLength = mGeocodes.size() > 20 ? mGeocodes.size() / 10 : mGeocodes.size() / 3;
             // 获取中间点为pass by点
-//            for (int i = divideLength; i < mGeocodes.size(); i += divideLength) {
+            for (int i = divideLength; i < mGeocodes.size(); i += divideLength) {
 //                Log.e("divideLength:", i + "");
-//                Geocode passByGeocode = mGeocodes.get(i);
-//                LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
-//                PlanNode pbNode = PlanNode.withLocation(passByLL);
-//                planNodes.add(pbNode);
-//            }
-
-            for (int i = 1; i < mGeocodes.size()-1; i++) {
                 Geocode passByGeocode = mGeocodes.get(i);
                 LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
                 PlanNode pbNode = PlanNode.withLocation(passByLL);
                 planNodes.add(pbNode);
             }
+
+//            for (int i = 1; i < mGeocodes.size()-1; i++) {
+//                Geocode passByGeocode = mGeocodes.get(i);
+//                LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
+//                PlanNode pbNode = PlanNode.withLocation(passByLL);
+//                planNodes.add(pbNode);
+//            }
         }
 
         getActivity().runOnUiThread(new Runnable() {

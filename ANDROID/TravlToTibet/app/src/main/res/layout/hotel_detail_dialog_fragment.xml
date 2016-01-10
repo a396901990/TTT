@@ -63,6 +63,7 @@
             <TextView
                 android:id="@+id/hotel_tel"
                 style="@style/TextAppearance.Regular"
+                android:autoLink="phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15142423363"
