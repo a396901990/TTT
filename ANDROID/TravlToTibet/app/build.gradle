@@ -62,4 +62,6 @@ dependencies {
     // https://github.com/flavioarfaria/KenBurnsView
     // https://github.com/astuetz/PagerSlidingTabStrip
     compile project(':sharesdk')
+
+    compile 'com.deanguo.ratingview:library:1.2.0'
 }

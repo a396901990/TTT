@@ -23,9 +23,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
-
 import cn.bmob.v3.update.BmobUpdateAgent;
-
 /**
  * Created by DeanGuo on 9/30/15.
  */
@@ -49,7 +47,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_view);
-
         setUpToolBar();
         setUpView();
         setUpHomeTab();
