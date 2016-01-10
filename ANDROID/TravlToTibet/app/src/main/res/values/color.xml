@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+    <!--00%=FF（不透明）    5%=F2    10%=E5    15%=D8    20%=CC    25%=BF    30%=B2    35%=A5    40%=99    45%=8c    50%=7F-->
+    <!--55%=72    60%=66    65%=59    70%=4c    75%=3F    80%=33    85%=21    90%=19    95%=0c    100%=00（全透明）-->
 <resources>
     <color name="green">#3F7E0A</color>
     <color name="light_green">#9CCC65</color>
@@ -30,6 +33,7 @@
     <color name="light_gray">#CCCCCC</color>
     <color name="half_light_gray">#CCCCCCCC</color>
     <color name="less_light_gray">#99CCCCCC</color>
+    <color name="less_gray">#19999999</color>
     <color name="dark_gray_background">#DDD</color>
     <color name="red">#961E26</color>
     <color name="opaque">#80000000</color>
