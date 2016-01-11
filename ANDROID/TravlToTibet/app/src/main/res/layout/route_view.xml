@@ -38,34 +38,20 @@
                         style="@style/TextAppearance.XLarge.White"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="成都-哈哈" />
+                        android:text="成都-拉萨" />
+
+                    <TextView
+                        android:id="@+id/header_plan_distance"
+                        style="@style/TextAppearance.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:text="2023KM"
+                        android:textColor="@color/dark_white" />
 
                     <!--time-->
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.mikepenz.iconics.view.IconicsImageView
-                            android:layout_width="12dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            app:iiv_color="@color/dark_white"
-                            app:iiv_icon="gmd_access_time" />
-
-                        <TextView
-                            android:id="@+id/header_plan_distance"
-                            style="@style/TextAppearance.Regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:paddingLeft="5dp"
-                            android:text="2023KM"
-                            android:textColor="@color/dark_white" />
-                    </LinearLayout>
-
-                    <!--time-->
-                    <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">

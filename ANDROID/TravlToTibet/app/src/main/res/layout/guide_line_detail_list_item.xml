@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toggle_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--海拔-->
+        <TextView
+            android:id="@+id/detail_height"
+            style="@style/TextAppearance.Micro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="海拔"
+            android:textColor="@color/dark_blue" />
+
+        <!--位置-->
+        <TextView
+            android:id="@+id/detail_milestone"
+            style="@style/TextAppearance.Micro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="位置"
+            android:textColor="@color/dark_green" />
+    </LinearLayout>
+
+    <!--描述攻略细节-->
+    <LinearLayout
+        android:id="@+id/detail_guide_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/less_gray"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/detail_guide"
+            style="@style/TextAppearance.Micro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_gray" />
+    </LinearLayout>
+</LinearLayout>

@@ -7,6 +7,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseRouteFragment;
 import com.dean.travltotibet.fragment.RouteChartFragment;
+import com.dean.travltotibet.fragment.RouteDetailFragment;
 import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
@@ -165,7 +166,7 @@ public class RouteActivity
         // 为adapter添加数据
         mAdapter.add(RouteChartFragment.class, null, getString(R.string.elevation_text));
         mAdapter.add(RouteMapFragment.class, null, getString(R.string.map_text));
-        mAdapter.add(RouteGuideFragment.class, null, getString(R.string.guide_text));
+        mAdapter.add(RouteDetailFragment.class, null, getString(R.string.guide_text));
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);
@@ -214,25 +215,25 @@ public class RouteActivity
 
         // 根据总览还是计划分别设置header view
         if (isRoute) {
-            mHeaderPlan.setText(String.format(getString(R.string.route_date_menu)));
+            mHeaderPlan.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
 
-            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_hard()), "难度"));
-            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_view()), "风景"));
-            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_road()), "路况"));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_hard()), getString(R.string.rating_hard)));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_view()), getString(R.string.rating_view)));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_road()), getString(R.string.rating_road)));
 
             headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
             headerDistance.setText(currentRoute.getDistance());
-            headerDate.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+//            headerDate.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
         } else {
             mHeaderPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
 
-            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_hard()), "难度"));
-            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_view()), "风景"));
-            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_road()), "路况"));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_hard()), getString(R.string.rating_hard)));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_view()), getString(R.string.rating_view)));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_road()), getString(R.string.rating_road)));
 
             headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
             headerDistance.setText(currentPlan.getDistance());
-            headerDate.setText(currentPlan.getHours());
+//            headerDate.setText(currentPlan.getHours());
         }
 
         ratingView.show();

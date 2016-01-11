@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/guide_line_padding"
+    android:paddingRight="@dimen/guide_line_padding"
+    android:orientation="vertical">
+
+    <!--header-->
+    <include
+        layout="@layout/guide_line_header_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <!--distance_line + detail-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--distance_line-->
+        <RelativeLayout
+            android:id="@+id/distance_content"
+            android:layout_width="@dimen/guide_line_distance_width"
+            android:layout_height="match_parent">
+
+            <!--top line -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/distance_text"
+                android:layout_centerHorizontal="true"
+                android:background="@color/less_light_gray" />
+
+            <!--distance text-->
+            <TextView
+                android:id="@+id/distance_text"
+                style="@style/TextAppearance.Mini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="23km"
+                android:textColor="@color/gray" />
+
+            <!--bottom line-->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/distance_text"
+                android:layout_centerHorizontal="true"
+                android:background="@color/less_light_gray" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/guide_line_padding"
+            android:layout_marginRight="@dimen/guide_line_padding"
+            android:orientation="vertical">
+
+            <!--distance_divide_content-->
+            <View
+                android:id="@+id/distance_divide_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/guide_line_distance_divide_content_height"></View>
+
+            <!--detail_toggle_layout-->
+            <include
+                layout="@layout/guide_line_detail_list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header_layout"
+                android:layout_marginRight="@dimen/guide_line_distance_width"></include>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

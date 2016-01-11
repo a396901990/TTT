@@ -181,4 +181,10 @@
     <dimen name="scenic_card_width">120dp</dimen>
     <dimen name="scenic_card_height">80dp</dimen>
 
+    <!--guide line-->
+    <dimen name="guide_line_padding">10dp</dimen>
+    <dimen name="guide_line_distance_width">35dp</dimen>
+    <dimen name="guide_line_distance_divide_content_height">20dp</dimen>
+    <dimen name="guide_line_header_height">30dp</dimen>
+
 </resources>

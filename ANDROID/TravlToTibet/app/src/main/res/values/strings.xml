@@ -90,5 +90,8 @@
     <string name="elevation_text">海拔</string>
     <string name="map_text">地图</string>
     <string name="guide_text">攻略</string>
+    <string name="rating_hard">难度</string>
+    <string name="rating_view">风景</string>
+    <string name="rating_road">路况</string>
 
 </resources>
