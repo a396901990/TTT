@@ -39,6 +39,10 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setUpToolBar(Toolbar toolBar) {
         setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(false);
     }
 
     public void setHomeIndicator(Drawable drawable) {

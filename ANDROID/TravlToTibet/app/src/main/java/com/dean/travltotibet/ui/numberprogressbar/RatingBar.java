@@ -75,7 +75,7 @@ public class RatingBar {
         mRadius = mCenterX > mCenterY ? mCenterY : mCenterX;
 
         // text bar : 1/10 of radius
-        textWidth = mRadius / 10;
+        textWidth = mRadius / 8;
         // rating bar : 1/10 of radius
         ratingBarWidth = mRadius / 10;
         // shadow : 1/3 of rating bar

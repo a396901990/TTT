@@ -23,7 +23,7 @@ public final class Constants {
 
     public static final String HEADER_START_END= "%s-%s";
     public static final String HEADER_DISTANCE = "(%s)";
-    public static final String HEADER_DAY = "DAY%s";
+    public static final String HEADER_DAY = "D%s";
 
     public static final String BRIEF_DAY = "DAY%s / %s天";
     public static final String BRIEF_DAY_ROUTE = "%s / %s天";
@@ -35,6 +35,8 @@ public final class Constants {
     public static final String NAME_VERSION = "%s %s";
 
     public static final String TIMELINE_DISTANCE = "%skm";
+
+    public static final String HEADER_PLAN_DAY = "%s天";
 
     /**
      * Keys to save RouteActivity status

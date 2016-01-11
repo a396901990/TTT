@@ -25,6 +25,8 @@
     <color name="lime">#CDDC39</color>
 
     <color name="white_gray">#E0E0E0</color>
+    <color name="dark_white">#B2FFFFFF</color>
+    <color name="light_white">#4cFFFFFF</color>
     <color name="half_white">#7FFFFFFF</color>
     <color name="white_background">#FFF</color>
     <color name="gray_background">#EFEFEF</color>

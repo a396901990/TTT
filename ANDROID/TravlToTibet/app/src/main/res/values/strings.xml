@@ -86,7 +86,7 @@
     <string name="route_mark_text">底图标注</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
-    <string name="route_date_menu">选择攻略</string>
+    <string name="route_date_menu">总览</string>
     <string name="elevation_text">海拔</string>
     <string name="map_text">地图</string>
     <string name="guide_text">攻略</string>

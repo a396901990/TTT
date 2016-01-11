@@ -11,6 +11,8 @@ import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.ui.numberprogressbar.RatingBar;
+import com.dean.travltotibet.ui.numberprogressbar.RatingView;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
@@ -67,8 +69,7 @@ public class RouteActivity
     // mPage当前页码
     private int currentPage;
 
-    // 右上角计划按钮
-    private TextView mMenuDate;
+    private TextView mHeaderPlan;
 
     // 悬浮按钮菜单
     private FloatingActionMenu mFloatingActionMenu;
@@ -102,7 +103,6 @@ public class RouteActivity
         initViewPagerAndTab();
         // initFabBtn();
 
-
         // 跟新信息
         updateHeader(isRoute, currentPlan);
     }
@@ -128,17 +128,8 @@ public class RouteActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
 
-        // date按钮
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.menu_date, null);
-        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
-                android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.MATCH_PARENT);
-        layoutParams.gravity = Gravity.RIGHT;
-        setCustomView(v, layoutParams);
-
-        mMenuDate = (TextView) v.findViewById(R.id.header_menu_date);
-        mMenuDate.setText(getString(R.string.route_date_menu));
-        mMenuDate.setOnClickListener(new View.OnClickListener() {
+        mHeaderPlan = (TextView) this.findViewById(R.id.header_plan_text);
+        mHeaderPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showMenu();
@@ -215,18 +206,36 @@ public class RouteActivity
         // 设置当前plan
         setCurrentPlan(plan);
 
+        TextView headerStartEnd = (TextView) this.findViewById(R.id.header_plan_start_end);
+        TextView headerDistance = (TextView) this.findViewById(R.id.header_plan_distance);
+        TextView headerDate = (TextView) this.findViewById(R.id.header_plan_day);
+        RatingView ratingView = (RatingView) this.findViewById(R.id.rating_view);
+        ratingView.removeAll();
+
         // 根据总览还是计划分别设置header view
         if (isRoute) {
-            mMenuDate.setText(getString(R.string.route_plan_title));
-            setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
-            setSubTitle(currentRoute.getDistance());
-        } else {
-            mMenuDate.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
+            mHeaderPlan.setText(String.format(getString(R.string.route_date_menu)));
 
-            setTitle(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
-            setSubTitle(currentPlan.getDistance());
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_hard()), "难度"));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_view()), "风景"));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_road()), "路况"));
+
+            headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
+            headerDistance.setText(currentRoute.getDistance());
+            headerDate.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+        } else {
+            mHeaderPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
+
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_hard()), "难度"));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_view()), "风景"));
+            ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_road()), "路况"));
+
+            headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
+            headerDistance.setText(currentPlan.getDistance());
+            headerDate.setText(currentPlan.getHours());
         }
 
+        ratingView.show();
         updateRoute();
     }
 

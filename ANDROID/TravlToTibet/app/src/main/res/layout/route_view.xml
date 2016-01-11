@@ -22,14 +22,106 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:gravity="top"
                 android:minHeight="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/header_plan_start_end"
+                        style="@style/TextAppearance.XLarge.White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="成都-哈哈" />
+
+                    <!--time-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.mikepenz.iconics.view.IconicsImageView
+                            android:layout_width="12dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            app:iiv_color="@color/dark_white"
+                            app:iiv_icon="gmd_access_time" />
+
+                        <TextView
+                            android:id="@+id/header_plan_distance"
+                            style="@style/TextAppearance.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="2023KM"
+                            android:textColor="@color/dark_white" />
+                    </LinearLayout>
+
+                    <!--time-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.mikepenz.iconics.view.IconicsImageView
+                            android:layout_width="12dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            app:iiv_color="@color/dark_white"
+                            app:iiv_icon="gmd_access_time" />
+
+                        <TextView
+                            android:id="@+id/header_plan_day"
+                            style="@style/TextAppearance.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="21天"
+                            android:textColor="@color/dark_white" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.dean.travltotibet.ui.numberprogressbar.RatingView
+                    android:id="@+id/rating_view"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="5dp"
+                    app:rating_default_color="@color/white">
+
+
+                    <com.dean.travltotibet.ui.MaterialRippleLayout
+                        android:id="@+id/header_plan_layout"
+                        style="@style/RippleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/header_plan_text"
+                            style="@style/TextAppearance.Large.Bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="D38"
+                            android:textColor="@color/white" />
+                    </com.dean.travltotibet.ui.MaterialRippleLayout>
+                </com.dean.travltotibet.ui.numberprogressbar.RatingView>
+            </android.support.v7.widget.Toolbar>
 
             <com.dean.travltotibet.ui.PagerSlidingTabStrip
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="40dp"
                 android:layout_below="@+id/toolbar"
                 android:background="@color/colorPrimary"
                 app:pstsActivateTextColor="@color/white"
