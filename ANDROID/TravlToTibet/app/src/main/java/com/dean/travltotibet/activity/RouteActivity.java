@@ -8,7 +8,6 @@ import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseRouteFragment;
 import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteDetailFragment;
-import com.dean.travltotibet.fragment.RouteGuideFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
@@ -19,16 +18,13 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -70,8 +66,6 @@ public class RouteActivity
     // mPage当前页码
     private int currentPage;
 
-    private TextView mHeaderPlan;
-
     // 悬浮按钮菜单
     private FloatingActionMenu mFloatingActionMenu;
 
@@ -102,7 +96,6 @@ public class RouteActivity
         initMenu();
         initFabActionMenu();
         initViewPagerAndTab();
-        // initFabBtn();
 
         // 跟新信息
         updateHeader(isRoute, currentPlan);
@@ -128,17 +121,19 @@ public class RouteActivity
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
+    }
 
-        mHeaderPlan = (TextView) this.findViewById(R.id.header_plan_text);
-        mHeaderPlan.setOnClickListener(new View.OnClickListener() {
+    public void initMenu() {
+
+        // 设置menu打开监听
+        View headerPlanMenu = this.findViewById(R.id.header_plan_menu);
+        headerPlanMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showMenu();
             }
         });
-    }
 
-    public void initMenu() {
         mSlidingMenu = new SlidingMenu(this);
         // 设置滑动方向
         mSlidingMenu.setMode(SlidingMenu.RIGHT);
@@ -207,15 +202,18 @@ public class RouteActivity
         // 设置当前plan
         setCurrentPlan(plan);
 
+        TextView headerPlan = (TextView) this.findViewById(R.id.header_plan_menu_text);
         TextView headerStartEnd = (TextView) this.findViewById(R.id.header_plan_start_end);
         TextView headerDistance = (TextView) this.findViewById(R.id.header_plan_distance);
-        TextView headerDate = (TextView) this.findViewById(R.id.header_plan_day);
+        TextView headerHour = (TextView) this.findViewById(R.id.header_plan_hour);
+        View headerHourContent = this.findViewById(R.id.header_plan_hour_content);
+
         RatingView ratingView = (RatingView) this.findViewById(R.id.rating_view);
         ratingView.removeAll();
 
         // 根据总览还是计划分别设置header view
         if (isRoute) {
-            mHeaderPlan.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+            headerPlan.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
 
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_hard()), getString(R.string.rating_hard)));
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_view()), getString(R.string.rating_view)));
@@ -223,9 +221,10 @@ public class RouteActivity
 
             headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
             headerDistance.setText(currentRoute.getDistance());
-//            headerDate.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+            headerHourContent.setVisibility(View.INVISIBLE);
+            headerHour.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
         } else {
-            mHeaderPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
+            headerPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
 
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_hard()), getString(R.string.rating_hard)));
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_view()), getString(R.string.rating_view)));
@@ -233,7 +232,8 @@ public class RouteActivity
 
             headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
             headerDistance.setText(currentPlan.getDistance());
-//            headerDate.setText(currentPlan.getHours());
+            headerHourContent.setVisibility(View.VISIBLE);
+            headerHour.setText(currentPlan.getHours());
         }
 
         ratingView.show();
