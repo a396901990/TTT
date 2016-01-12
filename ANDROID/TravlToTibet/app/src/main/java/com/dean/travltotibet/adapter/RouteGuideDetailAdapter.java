@@ -89,7 +89,7 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (GuideDetailViewHolder) convertView.getTag();
-            resetHolder(holder);
+//            resetHolder(holder);
         }
 
         setUpHeaderView(holder, position);

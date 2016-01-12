@@ -43,7 +43,7 @@ public class MyDataGeneratorXINZANG {
 //        geocodes.add(new Geocode("切热乡", 23, Constants.VILLAGE));
 //        geocodes.add(new Geocode("拉聂村", 24, Constants.VILLAGE));
 //        geocodes.add(new Geocode("桑桑镇", 25, Constants.TOWN));
-//        geocodes.add(new Geocode("卡嘎镇", 26, Constants.TOWN));
+//        geocodes.add(new Geocode("昂仁县卡嘎镇", 26, Constants.TOWN));
 //        geocodes.add(new Geocode("查务乡", 27, Constants.VILLAGE));
 //        geocodes.add(new Geocode("拉孜县", 28, Constants.COUNTY));
 //        geocodes.add(new Geocode("热萨乡", 29, Constants.VILLAGE));

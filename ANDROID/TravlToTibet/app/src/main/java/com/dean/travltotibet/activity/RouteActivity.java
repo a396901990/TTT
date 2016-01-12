@@ -211,9 +211,10 @@ public class RouteActivity
         RatingView ratingView = (RatingView) this.findViewById(R.id.rating_view);
         ratingView.removeAll();
 
-        // 根据总览还是计划分别设置header view
+        // 根据总览还是计划，设置header view的值
         if (isRoute) {
-            headerPlan.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+            String planDays = TTTApplication.getDbHelper().getPlanDays(getRoutePlanId());
+            headerPlan.setText(String.format(Constants.HEADER_PLAN_DAY, planDays));
 
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_hard()), getString(R.string.rating_hard)));
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentRoute().getRank_view()), getString(R.string.rating_view)));

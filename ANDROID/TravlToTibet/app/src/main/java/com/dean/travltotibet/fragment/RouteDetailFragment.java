@@ -171,44 +171,44 @@ public class RouteDetailFragment extends BaseRouteFragment {
 
     @Override
     public void initMenu(final FloatingActionMenu menu) {
-
-        if (routeActivity.isRoute()) {
-            menu.hideMenu(true);
-            return;
-        }
-
-        super.initMenu(menu);
-
-        // 住宿
-        hotel = MenuUtil.getFAB(getActivity(), HOTEL_TITLE, GoogleMaterial.Icon.gmd_hotel);
-        menu.addMenuButton(hotel);
-        // 攻略
-        detail = MenuUtil.getFAB(getActivity(), DETAIL_TITLE, GoogleMaterial.Icon.gmd_event_note);
-        menu.addMenuButton(detail);
-        // 简介
-        overView = MenuUtil.getFAB(getActivity(), OVERVIEW_TITLE, GoogleMaterial.Icon.gmd_web_asset);
-        menu.addMenuButton(overView);
-
-        hotel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.close(true);
-            }
-        });
-
-        detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.close(true);
-            }
-        });
-
-        overView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.close(true);
-            }
-        });
+        menu.hideMenu(true);
+//        if (routeActivity.isRoute()) {
+//            menu.hideMenu(true);
+//            return;
+//        }
+//
+//        super.initMenu(menu);
+//
+//        // 住宿
+//        hotel = MenuUtil.getFAB(getActivity(), HOTEL_TITLE, GoogleMaterial.Icon.gmd_hotel);
+//        menu.addMenuButton(hotel);
+//        // 攻略
+//        detail = MenuUtil.getFAB(getActivity(), DETAIL_TITLE, GoogleMaterial.Icon.gmd_event_note);
+//        menu.addMenuButton(detail);
+//        // 简介
+//        overView = MenuUtil.getFAB(getActivity(), OVERVIEW_TITLE, GoogleMaterial.Icon.gmd_web_asset);
+//        menu.addMenuButton(overView);
+//
+//        hotel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                menu.close(true);
+//            }
+//        });
+//
+//        detail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                menu.close(true);
+//            }
+//        });
+//
+//        overView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                menu.close(true);
+//            }
+//        });
 
     }
 

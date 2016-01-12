@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
@@ -23,11 +24,9 @@ public class GuideLineFragment extends BaseGuideFragment {
 
     private RouteActivity routeActivity;
 
-    private RouteGuideDetailAdapter mAdapter;
+    private ArrayList<Geocode> mDataResult;
 
     private ListView mListView;
-
-    private ArrayList<Geocode> mDataResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +44,13 @@ public class GuideLineFragment extends BaseGuideFragment {
 
     private void initView() {
         mListView = (ListView) root.findViewById(R.id.detail_list);
-        mAdapter = new RouteGuideDetailAdapter(getActivity());
+        setHeaderView(mListView);
+        setFooterView(mListView);
+        setDataForList();
+    }
+
+    private void setDataForList() {
+        RouteGuideDetailAdapter mAdapter = new RouteGuideDetailAdapter(getActivity());
         // 设置正反
         mAdapter.setIsForward(routeActivity.isForward());
         // 初始化数据adapter并赋值
@@ -66,6 +71,22 @@ public class GuideLineFragment extends BaseGuideFragment {
         }
     }
 
+    private void setFooterView(ListView listView) {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View footerView = inflater.inflate(R.layout.guide_line_footer_view, null);
+        listView.addFooterView(footerView);
+    }
+
+    private void setHeaderView (ListView listView) {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View headerView = inflater.inflate(R.layout.guide_line_header_view, null);
+        listView.addHeaderView(headerView);
+
+        // 描述
+        TextView overviewDetail = (TextView) headerView.findViewById(R.id.overview_detail);
+        overviewDetail.setText(routeActivity.getCurrentPlan().getDescribe());
+    }
+
     private ArrayList<Geocode> getListData(String start, String end) {
 
         // 根据起点终点获取数据
@@ -77,10 +98,7 @@ public class GuideLineFragment extends BaseGuideFragment {
     }
 
     private void updateTimelineView() {
-        String start = routeActivity.getCurrentStart();
-        String end = routeActivity.getCurrentEnd();
-
-        mAdapter.setData(getListData(start, end));
+        setDataForList();
     }
 
     @Override

@@ -3,9 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/guide_line_padding"
-    android:paddingRight="@dimen/guide_line_padding"
-    android:orientation="vertical">
+    android:paddingRight="@dimen/guide_line_padding">
 
     <!--header-->
     <include
