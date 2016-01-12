@@ -8,12 +8,11 @@
 
     <!--标题-->
     <TextView
-        style="@style/TextAppearance.Large"
+        style="@style/TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="简介"
-        android:textColor="@color/dark_gray" />
+        android:text="简介" />
 
     <!--路线，距离在左边 注意事项在右-->
     <RelativeLayout
@@ -27,7 +26,8 @@
 
             <TextView
                 android:id="@+id/detail_route_start_end"
-                style="@style/TextAppearance.Small.Gray"
+                style="@style/TextAppearance.Medium"
+                android:textColor="@color/dark_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="成都-拉萨" />
@@ -75,12 +75,12 @@
         <com.dean.travltotibet.ui.ExpandableTextView
             android:id="@+id/expandable_text_view"
             style="@style/TextAppearance.Micro"
-            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:ellipsize="end"
             android:paddingTop="10dp"
+            android:textColor="@color/gray"
             app:expanded="false"
             app:minLines="3" />
 

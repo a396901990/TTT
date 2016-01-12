@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  */
 public class GuideLineFragment extends BaseGuideFragment {
 
-    private View root;
+    private View root, headerView, footerView;
 
     private RouteActivity routeActivity;
 
@@ -46,10 +47,7 @@ public class GuideLineFragment extends BaseGuideFragment {
         mListView = (ListView) root.findViewById(R.id.detail_list);
         setHeaderView(mListView);
         setFooterView(mListView);
-        setDataForList();
-    }
 
-    private void setDataForList() {
         RouteGuideDetailAdapter mAdapter = new RouteGuideDetailAdapter(getActivity());
         // 设置正反
         mAdapter.setIsForward(routeActivity.isForward());
@@ -72,19 +70,27 @@ public class GuideLineFragment extends BaseGuideFragment {
     }
 
     private void setFooterView(ListView listView) {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View footerView = inflater.inflate(R.layout.guide_line_footer_view, null);
-        listView.addFooterView(footerView);
+
+        if (listView.getFooterViewsCount() == 0) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            footerView = inflater.inflate(R.layout.guide_line_footer_view, null);
+            listView.addFooterView(footerView);
+        }
+
     }
 
     private void setHeaderView (ListView listView) {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View headerView = inflater.inflate(R.layout.guide_line_header_view, null);
-        listView.addHeaderView(headerView);
+        if (listView.getHeaderViewsCount() == 0) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            headerView = inflater.inflate(R.layout.guide_line_header_view, null);
+            listView.addHeaderView(headerView);
+        }
 
         // 描述
-        TextView overviewDetail = (TextView) headerView.findViewById(R.id.overview_detail);
-        overviewDetail.setText(routeActivity.getCurrentPlan().getDescribe());
+        if (headerView != null) {
+            TextView overviewDetail = (TextView) headerView.findViewById(R.id.overview_detail);
+            overviewDetail.setText(routeActivity.getCurrentPlan().getDescribe());
+        }
     }
 
     private ArrayList<Geocode> getListData(String start, String end) {
@@ -98,7 +104,7 @@ public class GuideLineFragment extends BaseGuideFragment {
     }
 
     private void updateTimelineView() {
-        setDataForList();
+        initView();
     }
 
     @Override

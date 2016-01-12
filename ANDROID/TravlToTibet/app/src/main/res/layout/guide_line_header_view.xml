@@ -10,14 +10,11 @@
 
     <!--简介title-->
     <TextView
-        style="@style/TextAppearance.Micro"
+        style="@style/TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_margin="10dp"
-        android:text="简介"
-        android:textColor="@color/gray" />
+        android:text="简介" />
 
     <!--plan简介-->
     <TextView

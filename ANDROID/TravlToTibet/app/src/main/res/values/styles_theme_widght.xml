@@ -57,6 +57,11 @@
         <item name="android:background">@drawable/theme_btn_background</item>
     </style>
 
+    <style name="TitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_micro</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <!-- Ripple related styles -->
     <style name="RippleStyle">
         <item name="rippleOverlay">true</item>
