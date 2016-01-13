@@ -190,15 +190,6 @@ public class InfoActivity extends BaseActivity {
         fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // 结束
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public String getRoute() {
         return route;
     }

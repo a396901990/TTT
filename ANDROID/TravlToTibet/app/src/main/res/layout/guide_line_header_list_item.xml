@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.dean.travltotibet.ui.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/header_layout"
     style="@style/RippleStyle"
     android:layout_width="match_parent"
@@ -41,20 +42,23 @@
                 android:background="@color/less_light_gray" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/header_content"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/card_padding">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/header_title"
                 style="@style/TextAppearance.Regular.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/card_padding"
+                android:layout_marginRight="@dimen/card_padding"
                 android:text="康定县"
                 android:textColor="@color/dark_gray" />
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

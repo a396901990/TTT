@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dean.travltotibet.ui.sliderview.SliderLayout xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        custom:auto_cycle="true"
+        custom:indicator_visibility="visible"
+        custom:pager_animation="Default"
+        custom:pager_animation_span="5000" />
+
+</FrameLayout>
+
+
+

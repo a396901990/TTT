@@ -65,7 +65,7 @@
 
                 <!--详细-->
                 <fragment
-                    android:id="@+id/info_detail_fragment"
+                    android:id="@+id/around_detail_fragment"
                     android:name="com.dean.travltotibet.fragment.InfoDetailFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

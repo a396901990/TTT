@@ -15,6 +15,7 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.MenuUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.Iconics;
 
 /**
  * Created by DeanGuo on 8/30/15.
@@ -210,7 +211,7 @@ public class RouteGuideFragment extends BaseRouteFragment {
         super.initMenu(menu);
 
         // 住宿
-        hotel = MenuUtil.getFAB(getActivity(), HOTEL_TITLE, GoogleMaterial.Icon.gmd_hotel);
+        hotel = MenuUtil.getFAB(getActivity(), HOTEL_TITLE, GoogleMaterial.Icon.gmd_terrain);
         menu.addMenuButton(hotel);
         // 攻略
         detail = MenuUtil.getFAB(getActivity(), DETAIL_TITLE, GoogleMaterial.Icon.gmd_event_note);

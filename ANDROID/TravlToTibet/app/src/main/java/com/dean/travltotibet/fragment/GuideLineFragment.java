@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.adapter.RouteGuideDetailAdapter;
+import com.dean.travltotibet.adapter.GuideLineAdapter;
 
 import java.util.ArrayList;
 
@@ -48,7 +47,7 @@ public class GuideLineFragment extends BaseGuideFragment {
         setHeaderView(mListView);
         setFooterView(mListView);
 
-        RouteGuideDetailAdapter mAdapter = new RouteGuideDetailAdapter(getActivity());
+        GuideLineAdapter mAdapter = new GuideLineAdapter(getActivity());
         // 设置正反
         mAdapter.setIsForward(routeActivity.isForward());
         // 初始化数据adapter并赋值
@@ -57,7 +56,7 @@ public class GuideLineFragment extends BaseGuideFragment {
         if (mDataResult != null) {
             mAdapter.setData(mDataResult);
             mListView.setAdapter(mAdapter);
-            mAdapter.setExpandableListener(new RouteGuideDetailAdapter.ExpandableListener() {
+            mAdapter.setExpandableListener(new GuideLineAdapter.ExpandableListener() {
                 @Override
                 public void onExpand() {
                 }

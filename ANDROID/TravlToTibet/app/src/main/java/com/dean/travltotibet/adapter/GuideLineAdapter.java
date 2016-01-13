@@ -1,7 +1,10 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +13,29 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.AroundHotelActivity;
+import com.dean.travltotibet.activity.AroundScenicActivity;
+import com.dean.travltotibet.activity.AroundSelectActivity;
+import com.dean.travltotibet.model.Around;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.StringUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
 
 /**
- * Created by DeanGuo on 4/10/15.
+ * Created by DeanGuo on 1/10/16.
  */
-public class RouteGuideDetailAdapter extends BaseAdapter {
+public class GuideLineAdapter extends BaseAdapter {
 
     private ArrayList<Geocode> nonPathGeocode;
 
@@ -38,7 +47,7 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
 
     private ExpandableListener mExpandableListener;
 
-    public RouteGuideDetailAdapter(Context context) {
+    public GuideLineAdapter(Context context) {
         super();
         this.mContext = context;
     }
@@ -116,7 +125,7 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
     }
 
     private void setUpDetailView(GuideDetailViewHolder holder, int position) {
-        Geocode geocode = getItem(position);
+        final Geocode geocode = getItem(position);
         // height
         String height = StringUtil.formatDoubleToInteger(geocode.getElevation());
         height = String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, height);
@@ -159,6 +168,28 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
             holder.headerToggleButton.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_add_circle, TTTApplication.getMyColor(R.color.colorPrimary)));
             holder.detailToggleLayout.setVisibility(View.GONE);
         }
+
+        holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AroundSelectActivity.class);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.HOTEL);
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AroundSelectActivity.class);
+                intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.SCENIC);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     private void setUpHeaderView(final GuideDetailViewHolder holder, final int position) {
@@ -203,6 +234,39 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
                 }
             }
         });
+
+        addAroundIcon(holder, position);
+    }
+
+    private void addAroundIcon(GuideDetailViewHolder holder, int position) {
+        Geocode geocode = getItem(position);
+        // logic to get around
+        ArrayList<String> around = new ArrayList<>();
+//        around.add("H");
+//        around.add("C");
+//        around.add("CP");
+//        around.add("S");
+//        around.add("A");
+        around.add("G");
+//        around.add("F");
+
+        for (final String type : around) {
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(40, 40);
+            layoutParams.gravity = Gravity.CENTER;
+
+            ImageView imageView = new ImageView(mContext);
+            imageView.setImageDrawable(Around.getAroundDrawableSrc(type));
+            imageView.setPadding(10, 10, 10, 10);
+            imageView.setLayoutParams(layoutParams);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("imageView", Around.getAroundName(type));
+                }
+            });
+            //holder.headerContent.addView(imageView);
+        }
     }
 
     public class GuideDetailViewHolder {
@@ -211,6 +275,7 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
         TextView headerTitle;
         ImageView headerToggleButton;
         MaterialRippleLayout headerLayout;
+        LinearLayout headerContent;
         View headerTopLine;
         View headerBottomLine;
 
@@ -226,6 +291,10 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
         View detailGuideContent;
         View detailToggleLayout;
 
+        View hotelBtn;
+        View scenicBtn;
+
+
         boolean isExpanded = false;
 
         public GuideDetailViewHolder(View v) {
@@ -233,6 +302,7 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
             this.headerTitle = (TextView) v.findViewById(R.id.header_title);
             this.headerToggleButton = (ImageView) v.findViewById(R.id.expand_collapse);
             this.headerLayout = (MaterialRippleLayout) v.findViewById(R.id.header_layout);
+            this.headerContent = (LinearLayout) v.findViewById(R.id.header_content);
             this.headerTopLine = v.findViewById(R.id.header_top_line);
             this.headerBottomLine = v.findViewById(R.id.header_bottom_line);
 
@@ -245,6 +315,10 @@ public class RouteGuideDetailAdapter extends BaseAdapter {
             this.detailGuide = (TextView) v.findViewById(R.id.detail_guide);
             this.detailGuideContent = v.findViewById(R.id.detail_guide_content);
             this.detailToggleLayout = v.findViewById(R.id.toggle_layout);
+
+            this.hotelBtn = v.findViewById(R.id.hotel_btn);
+            this.scenicBtn = v.findViewById(R.id.scenic_btn);
+
         }
 
     }

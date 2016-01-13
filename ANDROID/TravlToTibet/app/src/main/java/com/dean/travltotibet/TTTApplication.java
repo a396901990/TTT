@@ -93,6 +93,9 @@ public class TTTApplication extends Application {
         }
         return daoSession;
     }
+    public static Context getContext() {
+        return context;
+    }
 
     public static DBHelper getDbHelper() {
         return dbHelper;

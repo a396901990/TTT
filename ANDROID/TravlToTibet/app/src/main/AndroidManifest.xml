@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dean.travltotibet"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
-    <!--mob d8c7e023bcb0-->
-    <!--weibo key:2101283656  Secret:b237ffc656caf1016ce1f048b03b8869-->
-    <!--tencent APP ID:1104954101APP KEY:B6M6LOmmBVA9gsRE-->
-    <!--baidu map 68:36:75:03:F0:83:AA:02:6E:2E:93:E3:2B:81:6A:D8:B9:C1:87:D0;com.dean.travltotibet -->
-    <!--4f0e6b44aed1a1b65185e5ab4bd6cdaa-->
+    <!-- mob d8c7e023bcb0 -->
+    <!-- weibo key:2101283656  Secret:b237ffc656caf1016ce1f048b03b8869 -->
+    <!-- tencent APP ID:1104954101APP KEY:B6M6LOmmBVA9gsRE -->
+    <!-- baidu map 68:36:75:03:F0:83:AA:02:6E:2E:93:E3:2B:81:6A:D8:B9:C1:87:D0;com.dean.travltotibet -->
+    <!-- 4f0e6b44aed1a1b65185e5ab4bd6cdaa -->
     <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -31,7 +31,7 @@
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme">
+        android:theme="@style/AppBaseTheme" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="5GjuYFZGqzZDGB3UUkUa3hAq" />
@@ -39,9 +39,10 @@
         <activity
             android:name=".activity.AppLaunchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -99,15 +100,27 @@
             android:name=".activity.FullChartScreenActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.Dark" />
-
+        <activity
+            android:name=".activity.AroundSelectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Up.Translucent" />
+        <activity
+            android:name=".activity.AroundScenicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activity.AroundHotelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
                 <data android:scheme="tencent1104646053" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -115,14 +128,13 @@
             </intent-filter>
         </activity>
 
-        <!--微信分享回调-->
+        <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
     </application>
 
 </manifest>

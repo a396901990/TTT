@@ -110,6 +110,11 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_left</item>
     </style>
 
+    <style name="AnimationUpDown" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_up_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_up_out</item>
+    </style>
+
     <style name="Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/white</item>
     </style>
@@ -120,11 +125,16 @@
     </style>
 
     <style name="Theme.Translucent.NoTitleBar" parent="Theme.AppBaseTheme">
+        <item name="android:windowFrame">@null</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.Up.Translucent" parent="Theme.Translucent.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/AnimationUpDown</item>
     </style>
 
     <style name="Theme.Spinner" parent="android:Widget.Holo.Light.Spinner">
