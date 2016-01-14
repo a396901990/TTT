@@ -42,9 +42,9 @@ public class IndicatorSeries
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
-        mLinePaint.setStyle(Paint.Style.FILL);
+        mLinePaint.setStyle(Paint.Style.STROKE);
         mLinePaint.setColor(TTTApplication.getResourceUtil().indicator_mountain_line);
-        mLinePaint.setStrokeWidth(3);
+        mLinePaint.setStrokeWidth(0);
     }
 
     @Override
@@ -119,8 +119,8 @@ public class IndicatorSeries
         path.lineTo(fistPoint.getX(contentRect, currentViewPoint), contentRect.bottom);
 
         // set shader for mountain
-        Shader mShader = new LinearGradient(0, contentRect.top, 0, contentRect.bottom, mMountainColor, Color.WHITE, Shader.TileMode.CLAMP);
-        mMountainPaint.setShader(mShader);
+//        Shader mShader = new LinearGradient(0, contentRect.top, 0, contentRect.bottom, mMountainColor, Color.WHITE, Shader.TileMode.CLAMP);
+//        mMountainPaint.setShader(mShader);
         canvas.drawPath(path, mMountainPaint);
     }
 

@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -82,8 +81,8 @@ public class RouteChartFragment extends BaseRouteFragment {
     protected void onLoadPrepared() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         contentView = inflater.inflate(R.layout.chart_fragment_view, null, false);
-        mChartView = (RouteChartView) contentView.findViewById(R.id.chart);
-        mIndicatorView = (IndicatorChartView) contentView.findViewById(R.id.indicator);
+        mChartView = (RouteChartView) contentView.findViewById(R.id.chart_content);
+        mIndicatorView = (IndicatorChartView) contentView.findViewById(R.id.indicator_content);
         mIndicatorView.setChartView(mChartView);
     }
 

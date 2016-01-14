@@ -2,12 +2,14 @@ package com.dean.travltotibet.ui.chart;
 
 import java.util.ArrayList;
 
+import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.ui.chart.ChartIndicatorUtil.OnChartListener;
 import com.dean.travltotibet.ui.chart.ChartIndicatorUtil.OnIndicatorListener;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -62,10 +64,9 @@ public class IndicatorChartView
         for (AbstractSeries series : mSeries)
         {
             series.drawLine(canvas, mContentRect, mCurrentViewport);
-            // series.drawMountain(canvas, mContentRect, mCurrentViewport);
+            series.drawMountain(canvas, mContentRect, mCurrentViewport);
         }
         mIndicatorUtil.drawIndicator(canvas);
-
     }
 
     private OnChartListener mChartListener = new OnChartListener()

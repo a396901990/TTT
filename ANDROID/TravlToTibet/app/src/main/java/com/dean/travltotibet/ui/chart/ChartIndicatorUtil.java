@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MotionEvent;
 
+import com.dean.travltotibet.R;
 import com.dean.travltotibet.ui.chart.AbstractSeries;
 import com.dean.travltotibet.ui.chart.IndicatorChartView;
 import com.dean.travltotibet.TTTApplication;
@@ -47,6 +48,8 @@ public class ChartIndicatorUtil
     private AbstractSeries mSeries;
 
     private Paint indicatorPaint;
+
+    private Paint indicatorBorderPaint;
 
     private Paint shadowPaint;
 
@@ -211,10 +214,16 @@ public class ChartIndicatorUtil
     {
         indicatorPaint = new Paint();
         indicatorPaint.setAntiAlias(true);
-        indicatorPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        indicatorPaint.setStrokeWidth(2);
+        indicatorPaint.setStyle(Paint.Style.FILL);
         indicatorPaint.setColor(TTTApplication.getResourceUtil().indicator_indicator);
         indicatorPaint.setAlpha(TTTApplication.getResourceUtil().indicator_indicator_alpha);
+
+        indicatorBorderPaint = new Paint();
+        indicatorBorderPaint.setAntiAlias(true);
+        indicatorBorderPaint.setStyle(Paint.Style.STROKE);
+        indicatorBorderPaint.setStrokeWidth(2);
+        indicatorBorderPaint.setColor(TTTApplication.getMyColor(R.color.gray));
+        indicatorBorderPaint.setAlpha(TTTApplication.getResourceUtil().indicator_indicator_alpha);
 
         shadowPaint = new Paint();
         shadowPaint.setAntiAlias(true);
@@ -339,6 +348,23 @@ public class ChartIndicatorUtil
             canvas.drawRect(mMovingLeftIndicator, indicatorPaint);
             canvas.drawRect(mMovingRightIndicator, indicatorPaint);
         }
+
+        // draw indicator border style
+        drawIndicatorBorder(canvas, mLeftIndicator);
+        drawIndicatorBorder(canvas, mRightIndicator);
+    }
+
+    private void drawIndicatorBorder(Canvas canvas, RectF mIndicator) {
+        for (int i=0; i<3 ; i++) {
+            // 2/6  3/6  4/6
+            float lineWidth = (((mIndicator.width() / 6) * (2+i)));
+            float startX = mIndicator.left + lineWidth;
+            float startY = mIndicator.top + mIndicator.height() / 3;
+            float stopX = startX;
+            float stopY = mIndicator.bottom - mIndicator.height() / 3;
+            canvas.drawLine(startX, startY, stopX, stopY, indicatorBorderPaint);
+        }
+        canvas.drawRect(mIndicator, indicatorBorderPaint);
     }
 
     private void invalidate()

@@ -144,15 +144,14 @@
         <item name="android:textSize">@dimen/text_large</item>
     </style>
 
-    <style name="ChartHeaderBar.Text" parent="@style/TextAppearance.Small">
-        <item name="android:textColor">@color/dark_blue</item>
+    <style name="ChartHeaderBar.Text" parent="@style/TextAppearance.Mini">
+        <item name="android:textColor">@color/gray</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">middle</item>
     </style>
 
     <style name="ChartHeaderBar.Text.Title" parent="@style/TextAppearance.Medium">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textColor">@color/gray</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">middle</item>
     </style>

@@ -77,8 +77,8 @@ public class FullChartFragment extends Fragment {
             planEnd = bundle.getString(IntentExtra.INTENT_PLAN_END);
         }
 
-        mChartView = (RouteChartView) rootView.findViewById(R.id.chart);
-        mIndicatorView = (IndicatorChartView) rootView.findViewById(R.id.indicator);
+        mChartView = (RouteChartView) rootView.findViewById(R.id.chart_content);
+        mIndicatorView = (IndicatorChartView) rootView.findViewById(R.id.indicator_content);
         mIndicatorView.setChartView(mChartView);
 
         initChartRoute();
