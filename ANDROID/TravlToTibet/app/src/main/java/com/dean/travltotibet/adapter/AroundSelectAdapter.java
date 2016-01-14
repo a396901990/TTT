@@ -1,5 +1,6 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -124,10 +125,12 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
                     Intent intent = new Intent(mContext, AroundHotelActivity.class);
                     intent.putExtra(IntentExtra.INTENT_HOTEL, hotels.get(position));
                     mContext.startActivity(intent);
+                    ((Activity)mContext).finish();
                 } else if (aroundType.equals(Around.SCENIC)) {
                     Intent intent = new Intent(mContext, AroundScenicActivity.class);
                     intent.putExtra(IntentExtra.INTENT_SCENIC, mScenics.get(position));
                     mContext.startActivity(intent);
+                    ((Activity)mContext).finish();
                 }
             }
         });

@@ -6,6 +6,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 
 import com.dean.greendao.Hotel;
 import com.dean.travltotibet.R;
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundSelectActivity extends Activity {
+public class AroundSelectActivity extends BaseActivity {
 
     private String routeName;
 
@@ -43,6 +47,16 @@ public class AroundSelectActivity extends Activity {
     }
 
     private void initView() {
+        View hiddenView = findViewById(R.id.hidden_top_content);
+        hiddenView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishWithAnimation();
+            }
+        });
+
+        View showView = findViewById(R.id.show_bottom_content);
+        showView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
     }
 
     public String getRouteName() {
@@ -55,5 +69,47 @@ public class AroundSelectActivity extends Activity {
 
     public String getAroundBelong() {
         return aroundBelong;
+    }
+
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishWithAnimation();
+    }
+
+    public void finishWithAnimation() {
+
+        Animation pushDownOut = AnimationUtils.loadAnimation(this, R.anim.push_down_out);
+        pushDownOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//
+        final View showView = findViewById(R.id.show_bottom_content);
+        showView.startAnimation(pushDownOut);
+        showView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                showView.setVisibility(View.INVISIBLE);
+                finish();
+                overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_out);
+            }
+        }, 200);
     }
 }

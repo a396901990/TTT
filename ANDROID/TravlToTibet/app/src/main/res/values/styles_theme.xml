@@ -110,9 +110,11 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_left</item>
     </style>
 
-    <style name="AnimationUpDown" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/push_up_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/push_up_out</item>
+    <style name="AnimationUpDown" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/fade_in</item>
     </style>
 
     <style name="Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">

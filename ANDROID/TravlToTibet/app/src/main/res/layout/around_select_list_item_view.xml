@@ -21,15 +21,16 @@
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/around_pic"
-                android:layout_width="@dimen/scenic_card_width"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/scenic_card_height"
+                android:minWidth="@dimen/scenic_card_width"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/around_name"
                 style="@style/TextAppearance.Small.Bold"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|right"
                 android:maxLines="1"

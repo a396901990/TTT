@@ -103,7 +103,7 @@
         <activity
             android:name=".activity.AroundSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Up.Translucent" />
+            android:theme="@style/AppTheme.Translucent" />
         <activity
             android:name=".activity.AroundScenicActivity"
             android:screenOrientation="portrait"

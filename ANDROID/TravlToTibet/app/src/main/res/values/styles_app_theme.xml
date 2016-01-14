@@ -11,7 +11,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--背景颜色-->
         <item name="android:windowBackground">@color/gray_background</item>
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
@@ -23,6 +22,16 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="toolbarStyle">@style/light_toolbar</item>
+    </style>
+
+    <style name="AppTheme.Translucent" parent="AppBaseTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationUpDown</item>
     </style>
 
     <style name="light_toolbar" parent="@style/Widget.AppCompat.Toolbar">
