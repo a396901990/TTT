@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +41,39 @@ public class AroundHotelDetailFragment extends Fragment {
     }
 
     private void initContentView() {
+        TextView hotelDetail = (TextView) root.findViewById(R.id.hotel_detail);
+        TextView hotelTel = (TextView) root.findViewById(R.id.hotel_tel);
+        TextView hotelAddress = (TextView) root.findViewById(R.id.hotel_address);
 
-        // 景点详细介绍
-        TextView scenicDetail = (TextView) root.findViewById(R.id.scenic_detail);
-        scenicDetail.setText(mHotel.getHotel_name());
+        View hotelDetailContent = root.findViewById(R.id.hotel_detail_content);
+        View hotelTelContent = root.findViewById(R.id.hotel_tel_content);
+        View hotelAddressContent = root.findViewById(R.id.hotel_address_content);
+
+        // 细节
+        String detail = mHotel.getHotel_detail();
+        if (!TextUtils.isEmpty(detail)) {
+            hotelDetailContent.setVisibility(View.VISIBLE);
+            hotelDetail.setText(detail);
+        } else {
+            hotelDetailContent.setVisibility(View.GONE);
+        }
+
+        // 电话
+        String tel = mHotel.getHotel_tel();
+        if (!TextUtils.isEmpty(tel)) {
+            hotelTelContent.setVisibility(View.VISIBLE);
+            hotelTel.setText(tel);
+        } else {
+            hotelTelContent.setVisibility(View.GONE);
+        }
+
+        // 地址
+        String address = mHotel.getHotel_address();
+        if (!TextUtils.isEmpty(address)) {
+            hotelAddressContent.setVisibility(View.VISIBLE);
+            hotelAddress.setText(address);
+        } else {
+            hotelAddressContent.setVisibility(View.GONE);
+        }
     }
 }

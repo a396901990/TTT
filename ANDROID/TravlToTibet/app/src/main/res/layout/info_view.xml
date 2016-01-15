@@ -69,7 +69,6 @@
                     android:name="com.dean.travltotibet.fragment.InfoDetailFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/info_header_fragment"
                     android:layout_marginTop="@dimen/card_margin" />
 
                 <!--准备-->

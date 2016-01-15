@@ -106,9 +106,9 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
         final AroundItem aroundItem = mData.get(position);
 
         // 默认图片
-        holder.aroundPic.setDefaultImageResId(R.color.light_gray);
+        holder.aroundPic.setDefaultImageResId(R.color.colorPrimary);
         // 错误图片
-        holder.aroundPic.setErrorImageResId(R.color.gray);
+        holder.aroundPic.setErrorImageResId(R.color.colorPrimary);
         // 图片url(取第一个)
         String picURL = aroundItem.getAroundURL();
         holder.aroundPic.setImageUrl(picURL, imageLoader);
@@ -125,12 +125,12 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
                     Intent intent = new Intent(mContext, AroundHotelActivity.class);
                     intent.putExtra(IntentExtra.INTENT_HOTEL, hotels.get(position));
                     mContext.startActivity(intent);
-                    ((Activity)mContext).finish();
+//                    ((Activity)mContext).finish();
                 } else if (aroundType.equals(Around.SCENIC)) {
                     Intent intent = new Intent(mContext, AroundScenicActivity.class);
                     intent.putExtra(IntentExtra.INTENT_SCENIC, mScenics.get(position));
                     mContext.startActivity(intent);
-                    ((Activity)mContext).finish();
+//                    ((Activity)mContext).finish();
                 }
             }
         });
