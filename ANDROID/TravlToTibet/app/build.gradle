@@ -63,5 +63,5 @@ dependencies {
     // https://github.com/astuetz/PagerSlidingTabStrip
     compile project(':sharesdk')
 
-    compile 'com.deanguo.ratingview:library:1.2.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

@@ -66,6 +66,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/guide_line_distance_divide_content_height"></View>
 
+            <!--&lt;!&ndash;detail_toggle_layout&ndash;&gt;-->
+            <!--<include-->
+                <!--android:id="@+id/distance_divide_content"-->
+                <!--layout="@layout/guide_line_around_list_item"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginRight="@dimen/guide_line_distance_width"></include>-->
+
             <!--detail_toggle_layout-->
             <include
                 layout="@layout/guide_line_detail_list_item"
@@ -73,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/header_layout"
                 android:layout_marginRight="@dimen/guide_line_distance_width"></include>
+
+
 
         </LinearLayout>
 

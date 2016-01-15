@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal">
+
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        style="@style/RippleStyle"
+        android:layout_gravity="top"
+        android:layout_width="wrap_content"
+        android:paddingRight="5dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/border_gray"
+            android:src="@drawable/icon_bike_white"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:textColor="@color/white" />
+
+
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        style="@style/RippleStyle"
+        android:layout_gravity="top"
+        android:layout_width="wrap_content"
+        android:paddingRight="5dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/border_gray"
+            android:src="@drawable/icon_bike_white"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:textColor="@color/white" />
+
+
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        style="@style/RippleStyle"
+        android:layout_gravity="top"
+        android:layout_width="wrap_content"
+        android:paddingRight="5dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/border_gray"
+            android:src="@drawable/icon_bike_white"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:textColor="@color/white" />
+
+
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+    <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="top"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:src="@drawable/icon_check_point" />-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="top"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:src="@drawable/icon_camp" />-->
+
+
+</LinearLayout>

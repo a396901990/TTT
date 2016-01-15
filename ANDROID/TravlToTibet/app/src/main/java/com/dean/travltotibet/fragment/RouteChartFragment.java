@@ -188,11 +188,11 @@ public class RouteChartFragment extends BaseRouteFragment {
             @Override
             public void run() {
                 // 重置图标视图数据
-                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6500);
+                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 7000);
             }
         });
         //mChartView.setAxisRange(-5, 0, border+5, 6500);
-        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 6000);
+        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 7000);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 
