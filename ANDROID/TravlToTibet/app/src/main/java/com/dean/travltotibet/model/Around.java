@@ -39,17 +39,17 @@ public final class Around {
     public static Drawable getAroundDrawableSrc(String type) {
         Drawable src = null;
         if (type.equals(HOTEL)) {
-            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_hotel, R.color.gray);
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_hotel, R.color.white);
         } else if (type.equals(FOOD)) {
-            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_dining, R.color.gray);
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_dining, R.color.white);
         } else if (type.equals(ATM)) {
-            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_atm, R.color.gray);
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_atm, R.color.white);
         } else if (type.equals(GAS_STATION)) {
-            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_gas_station, R.color.gray);
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_gas_station, R.color.white);
         } else if (type.equals(CHECK_POINT)) {
             src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_check_point);
         } else if (type.equals(SCENIC)) {
-            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_florist, R.color.gray);
+            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_landscape);
         } else if (type.equals(CAMP_POINT)) {
             src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_camp);
         }

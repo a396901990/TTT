@@ -66,7 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/guide_line_distance_divide_content_height"></View>
 
-            <!--&lt;!&ndash;detail_toggle_layout&ndash;&gt;-->
             <!--<include-->
                 <!--android:id="@+id/distance_divide_content"-->
                 <!--layout="@layout/guide_line_around_list_item"-->

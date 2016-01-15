@@ -58,24 +58,14 @@
                 android:layout_marginRight="@dimen/card_padding"
                 android:text="康定县"
                 android:textColor="@color/dark_gray" />
-            <ImageView
-                android:layout_marginRight="3dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@drawable/border_gray"
-                android:src="@drawable/icon_bike_white"
-                android:layout_gravity="center_vertical"
-                android:padding="2dp"
-                android:textColor="@color/white" />
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@drawable/border_gray"
-                android:src="@drawable/icon_bike_white"
-                android:layout_gravity="center_vertical"
-                android:padding="2dp"
-                android:textColor="@color/white" />
+            <LinearLayout
+                android:id="@+id/header_around_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
 
         </LinearLayout>
 

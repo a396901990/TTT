@@ -2,6 +2,8 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -27,6 +29,7 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.StringUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -169,27 +172,55 @@ public class GuideLineAdapter extends BaseAdapter {
             holder.detailToggleLayout.setVisibility(View.GONE);
         }
 
-        holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AroundSelectActivity.class);
-                intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
-                intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.HOTEL);
-                mContext.startActivity(intent);
-            }
-        });
+        // 设置btn（hotel scenic）
+        setUpDetailBtn(holder, position);
+    }
 
-        holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AroundSelectActivity.class);
-                intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
-                intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.SCENIC);
-                mContext.startActivity(intent);
+    /**
+     * 设置最下方btn（hotel，scenic）
+     *
+     * @param holder
+     */
+    private void setUpDetailBtn(GuideDetailViewHolder holder, int position) {
+        // hotel
+        final Geocode geocode = getItem(position);
+//        final String around = (String) holder.headerAroundContent.getTag();
+        final String around = "H";
+        holder.hotelBtn.setVisibility(View.GONE);
+        holder.scenicBtn.setVisibility(View.GONE);
+
+        if (TextUtils.isEmpty(around)) {
+            return;
+        } else {
+            if (around.contains(Around.HOTEL)) {
+                holder.hotelBtn.setVisibility(View.VISIBLE);
+                holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AroundSelectActivity.class);
+                        intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                        intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.HOTEL);
+                        mContext.startActivity(intent);
+                    }
+                });
             }
-        });
+            if (around.contains(Around.SCENIC)) {
+
+                // scenic
+                holder.scenicBtn.setVisibility(View.VISIBLE);
+                holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AroundSelectActivity.class);
+                        intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                        intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.SCENIC);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
+        }
     }
 
     private void setUpHeaderView(final GuideDetailViewHolder holder, final int position) {
@@ -241,32 +272,31 @@ public class GuideLineAdapter extends BaseAdapter {
     private void addAroundIcon(GuideDetailViewHolder holder, int position) {
         Geocode geocode = getItem(position);
         // logic to get around
-        ArrayList<String> around = new ArrayList<>();
-//        around.add("H");
-//        around.add("C");
-//        around.add("CP");
-//        around.add("S");
-//        around.add("A");
-        around.add("G");
-//        around.add("F");
+        String a = "H#C#CP#S#A#G#F";
 
-        for (final String type : around) {
+        String holderTag = (String) holder.headerAroundContent.getTag();
+        if (!TextUtils.isEmpty(holderTag) && holderTag.equals(a)) {
+            return;
+        }
+        String[] arounds = a.split(Constants.REPLACE_MARK);
 
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(40, 40);
+        for (final String around : arounds) {
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtil.dip2px(mContext, 15), ScreenUtil.dip2px(mContext, 15));
             layoutParams.gravity = Gravity.CENTER;
+            layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 3);
 
             ImageView imageView = new ImageView(mContext);
-            imageView.setImageDrawable(Around.getAroundDrawableSrc(type));
-            imageView.setPadding(10, 10, 10, 10);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.border_gray));
+            }
+            imageView.setImageDrawable(Around.getAroundDrawableSrc(around));
+            int padding = ScreenUtil.dip2px(mContext, 2);
+            imageView.setPadding(padding, padding, padding, padding);
             imageView.setLayoutParams(layoutParams);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.e("imageView", Around.getAroundName(type));
-                }
-            });
-            //holder.headerContent.addView(imageView);
+            holder.headerAroundContent.addView(imageView);
         }
+        holder.headerAroundContent.setTag(a);
     }
 
     public class GuideDetailViewHolder {
@@ -275,7 +305,7 @@ public class GuideLineAdapter extends BaseAdapter {
         TextView headerTitle;
         ImageView headerToggleButton;
         MaterialRippleLayout headerLayout;
-        LinearLayout headerContent;
+        LinearLayout headerAroundContent;
         View headerTopLine;
         View headerBottomLine;
 
@@ -302,7 +332,7 @@ public class GuideLineAdapter extends BaseAdapter {
             this.headerTitle = (TextView) v.findViewById(R.id.header_title);
             this.headerToggleButton = (ImageView) v.findViewById(R.id.expand_collapse);
             this.headerLayout = (MaterialRippleLayout) v.findViewById(R.id.header_layout);
-            this.headerContent = (LinearLayout) v.findViewById(R.id.header_content);
+            this.headerAroundContent = (LinearLayout) v.findViewById(R.id.header_around_content);
             this.headerTopLine = v.findViewById(R.id.header_top_line);
             this.headerBottomLine = v.findViewById(R.id.header_bottom_line);
 
