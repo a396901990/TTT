@@ -1,14 +1,20 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.model.InfoType;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.SquareImageView;
 
 import java.util.ArrayList;
@@ -43,15 +49,17 @@ public class InfoGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            convertView = layoutInflater.inflate(R.layout.info_prepare_grid_view, null);
+        }
 
-        SquareImageView content = new SquareImageView(mContext);
-        content.setImageSrc(InfoType.INFO_IMAGE.get(getItem(position)));
-        content.setLabelText(InfoType.INFO_TEXT.get(getItem(position)));
-        content.setBackgroundResource(InfoType.INFO_COLOR.get(getItem(position)));
-        content.setClickable(false);
-        content.setFocusable(false);
-        content.setFocusableInTouchMode(false);
-        return content;
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.info_image);
+        TextView textView = (TextView) convertView.findViewById(R.id.info_text);
+
+        imageView.setImageResource(InfoType.INFO_IMAGE.get(getItem(position)));
+        textView.setText(InfoType.INFO_TEXT.get(getItem(position)));
+        return convertView;
     }
 
     public void setData(ArrayList<InfoType> mData) {

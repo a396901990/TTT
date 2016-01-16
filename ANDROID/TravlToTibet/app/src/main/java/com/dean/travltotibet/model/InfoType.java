@@ -37,7 +37,7 @@ public enum InfoType {
         INFO_TYPES.add(InfoType.CREDENTIALS);
         INFO_TYPES.add(InfoType.PERSONAL);
         INFO_TYPES.add(InfoType.OTHER);
-        INFO_TYPES.add(InfoType.ATTENTION);
+//        INFO_TYPES.add(InfoType.ATTENTION);
 
         INFO_TEXT.put(InfoType.BUDGET, "预算");
         INFO_TEXT.put(InfoType.MEDICINE, "药品");
@@ -49,14 +49,14 @@ public enum InfoType {
         INFO_TEXT.put(InfoType.OTHER, "其他");
         INFO_TEXT.put(InfoType.ATTENTION, "注意事项");
 
-        INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget);
-        INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine);
-        INFO_IMAGE.put(InfoType.EQUIP, R.drawable.icon_bike_white);
-        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing);
-        INFO_IMAGE.put(InfoType.OUTDOOR, R.drawable.icon_outdoor);
-        INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.icon_card);
-        INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.icon_person);
-        INFO_IMAGE.put(InfoType.OTHER, R.drawable.icon_other);
+        INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget_color);
+        INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine_color);
+        INFO_IMAGE.put(InfoType.EQUIP, R.drawable.icon_equip_color);
+        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing_color);
+        INFO_IMAGE.put(InfoType.OUTDOOR, R.drawable.icon_outdoor_color);
+        INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.icon_card_color);
+        INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.icon_person_color);
+        INFO_IMAGE.put(InfoType.OTHER, R.drawable.icon_other_color);
         INFO_IMAGE.put(InfoType.ATTENTION, R.drawable.ic_ab_new_content);
 
         INFO_COLOR.put(InfoType.BUDGET, R.color.light_blue);

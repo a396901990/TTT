@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 
 /**
  * Created by DeanGuo on 8/28/15.
@@ -40,7 +41,7 @@ public class SquareImageView extends RelativeLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SquareImageView);
         labelText = typedArray.getString(R.styleable.SquareImageView_labelText);
         imageSrc = typedArray.getResourceId(R.styleable.SquareImageView_imageSrc, 0x000000);
-        labelColor = typedArray.getColor(R.styleable.SquareImageView_labelTextColor, Color.WHITE);
+        labelColor = typedArray.getColor(R.styleable.SquareImageView_labelTextColor, TTTApplication.getMyColor(R.color.gray));
         labelSize = typedArray.getDimension(R.styleable.SquareImageView_labelSize, 10);
         typedArray.recycle();
 
@@ -55,7 +56,7 @@ public class SquareImageView extends RelativeLayout {
         textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setText(labelText);
-        textView.setTextColor(labelColor);
+        textView.setTextColor(TTTApplication.getMyColor(R.color.gray));
         textView.setTextSize(labelSize);
 
         setClickable(true);
