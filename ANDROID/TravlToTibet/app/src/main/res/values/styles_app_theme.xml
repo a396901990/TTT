@@ -59,6 +59,6 @@
     <style name="AppTheme.MyDrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <!-- 設定 drawer arrow 的顏色 -->
-        <item name="color">@color/half_dark_gray</item>
+        <item name="color">@color/white</item>
     </style>
 </resources>

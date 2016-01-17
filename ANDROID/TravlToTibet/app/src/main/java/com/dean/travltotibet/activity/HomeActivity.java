@@ -27,7 +27,7 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 /**
  * Created by DeanGuo on 9/30/15.
  */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     private String route;
 
@@ -122,10 +122,13 @@ public class HomeActivity extends AppCompatActivity {
         mTabs.setViewPager(mPager);
 
         // 字体颜色大小
-        mTabs.setTextColor(TTTApplication.getMyColor(R.color.dark_blue));
+        mTabs.setBackgroundColor(TTTApplication.getMyColor(R.color.colorPrimary));
+        mTabs.setActivateTextColor(TTTApplication.getMyColor(R.color.white));
+        mTabs.setDeactivateTextColor(TTTApplication.getMyColor(R.color.half_white));
         // 指示器颜色，大小
-        mTabs.setIndicatorColor(TTTApplication.getMyColor(R.color.dark_blue));
+        mTabs.setIndicatorColor(TTTApplication.getMyColor(R.color.white));
         mTabs.setUnderlineColor(TTTApplication.getMyColor(android.R.color.transparent));
+
         mTabs.setIndicatorHeight(10);
         mTabs.setUnderlineHeight(10);
         // 是否拉伸
@@ -176,6 +179,11 @@ public class HomeActivity extends AppCompatActivity {
     private void checkForUpdate() {
         // only wifi
         BmobUpdateAgent.update(this);
+    }
+
+    @Override
+    protected boolean needShowSystemBar() {
+        return true;
     }
 
     @Override

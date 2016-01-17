@@ -44,8 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-                </android.support.v7.widget.Toolbar>
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -90,17 +89,9 @@
                 <!--控制最后距离-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/bottom_button_margin"
-                    android:orientation="vertical"
-                    android:visibility="invisible">
-
-                    <Button
-                        style="@style/TransactButton"
-                        android:layout_marginBottom="@dimen/bottom_padding"
-                        android:layout_marginLeft="@dimen/generic_button_padding"
-                        android:layout_marginRight="@dimen/generic_button_padding" />
-                </LinearLayout>
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"></LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
@@ -126,32 +117,27 @@
         android:background="@drawable/lock_button_background"
         android:orientation="vertical">
 
-        <TextView
+        <View
             android:id="@+id/topLine"
             android:layout_width="match_parent"
             android:layout_height="@dimen/top_line_rule"
-            android:layout_marginBottom="@dimen/topLine_margin"
-            android:background="@color/gray" />
+            android:background="@drawable/up_shade_background" />
 
         <com.dean.travltotibet.ui.MaterialRippleLayout
             style="@style/RippleStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/bottom_padding"
-            android:layout_marginLeft="@dimen/transact_button_margin"
-            android:layout_marginRight="@dimen/transact_button_margin">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/goButton"
-                style="@style/BaseButton"
+                style="@style/TextAppearance.Theme.Large.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:gravity="center"
                 android:text="@string/info_prepare_go" />
 
         </com.dean.travltotibet.ui.MaterialRippleLayout>
-
-
     </LinearLayout>
 
 

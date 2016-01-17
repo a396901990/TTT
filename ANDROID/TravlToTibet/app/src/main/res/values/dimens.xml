@@ -83,7 +83,7 @@
     <dimen name="info_card_grid_space">2dip</dimen>
 
     <!--bottom button-->
-    <dimen name="top_line_rule">1dp</dimen>
+    <dimen name="top_line_rule">5dp</dimen>
     <dimen name="topLine_margin">10dip</dimen>
     <dimen name="bottom_padding">10dip</dimen>
     <dimen name="generic_button_padding">10dip</dimen>
