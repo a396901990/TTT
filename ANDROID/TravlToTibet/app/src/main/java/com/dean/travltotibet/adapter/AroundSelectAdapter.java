@@ -45,6 +45,8 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
     private String aroundType;
 
+    private boolean isForward;
+
     public AroundSelectAdapter(Context mContext) {
         this.mContext = mContext;
 
@@ -66,6 +68,7 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
         mData = new ArrayList<>();
         this.aroundType = aroundType;
+        this.isForward = isForword;
 
         // hotel
         if (aroundType.equals(AroundType.HOTEL)) {
@@ -116,10 +119,12 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
                 if (aroundType.equals(AroundType.HOTEL)) {
                     Intent intent = new Intent(mContext, AroundHotelActivity.class);
                     intent.putExtra(IntentExtra.INTENT_HOTEL, hotels.get(position));
+                    intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, isForward);
                     mContext.startActivity(intent);
                 } else if (aroundType.equals(AroundType.SCENIC)) {
                     Intent intent = new Intent(mContext, AroundScenicActivity.class);
                     intent.putExtra(IntentExtra.INTENT_SCENIC, mScenics.get(position));
+                    intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, isForward);
                     mContext.startActivity(intent);
                 }
             }

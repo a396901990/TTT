@@ -74,7 +74,7 @@
         <!--扩展文字视图-->
         <com.dean.travltotibet.ui.ExpandableTextView
             android:id="@+id/expandable_text_view"
-            style="@style/TextAppearance.Micro"
+            style="@style/TextAppearance.Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

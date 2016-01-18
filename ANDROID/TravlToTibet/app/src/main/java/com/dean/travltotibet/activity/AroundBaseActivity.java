@@ -11,4 +11,8 @@ public class AroundBaseActivity extends BaseActivity{
     public Object getAroundObj() {
         return null;
     }
+
+    public boolean getDir() {
+        return false;
+    }
 }

@@ -18,7 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.fragment.ScenicDetailDialog;
+import com.dean.travltotibet.activity.AroundScenicActivity;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
@@ -83,11 +83,10 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
             @Override
             public void onClick(View v) {
                 // 跳转
-                DialogFragment dialogFragment = new ScenicDetailDialog();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(IntentExtra.INTENT_SCENIC, scenic);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(((Activity) mContext).getFragmentManager(), ScenicDetailDialog.class.getName());
+                Intent intent = new Intent(mContext, AroundScenicActivity.class);
+                intent.putExtra(IntentExtra.INTENT_SCENIC, scenic);
+                intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, true);
+                mContext.startActivity(intent);
             }
         });
     }

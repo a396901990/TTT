@@ -1,5 +1,6 @@
 <resources>
     <!--text-->
+    <dimen name="text_mini">12dp</dimen>
     <dimen name="text_micro">14dp</dimen>
     <dimen name="text_small">16dp</dimen>
     <dimen name="text_regular">18dp</dimen>

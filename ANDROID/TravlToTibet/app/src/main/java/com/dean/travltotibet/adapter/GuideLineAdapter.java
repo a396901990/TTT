@@ -12,9 +12,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -124,7 +127,7 @@ public class GuideLineAdapter extends BaseAdapter {
         else {
             holder.distanceContent.setVisibility(View.VISIBLE);
 
-            holder.distanceText.setText(isForward?geocode.getF_distance_point():geocode.getR_distance_point());
+            holder.distanceText.setText(isForward ? geocode.getF_distance_point() : geocode.getR_distance_point());
         }
     }
 
@@ -205,7 +208,7 @@ public class GuideLineAdapter extends BaseAdapter {
                         bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.HOTEL);
                         bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
                         dialogFragment.setArguments(bundle);
-                        dialogFragment.show(((Activity)mContext).getFragmentManager(), AroundDialogFragment.class.getName());
+                        dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundDialogFragment.class.getName());
                     }
                 });
             }
@@ -286,11 +289,11 @@ public class GuideLineAdapter extends BaseAdapter {
 
         // 如果已经加过标记则不需要再次添加
         String holderTag = (String) holder.headerAroundContent.getTag();
-        if (!TextUtils.isEmpty(holderTag) && holderTag.equals(aroundType)) {
+        if (aroundType.equals(holderTag)) {
             return;
         }
         String[] arounds = aroundType.split(Constants.REPLACE_MARK);
-
+        holder.headerAroundContent.removeAllViews();
         for (final String around : arounds) {
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtil.dip2px(mContext, 15), ScreenUtil.dip2px(mContext, 15));
@@ -372,7 +375,8 @@ public class GuideLineAdapter extends BaseAdapter {
 
 
         holder.headerToggleButton.setFocusable(false);
-        slideDown.setInterpolator(new BounceInterpolator());
+//        slideDown.setInterpolator(new BounceInterpolator());
+        slideDown.setInterpolator(new AccelerateDecelerateInterpolator());
 
 
         holder.headerToggleButton.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_remove_circle_outline, TTTApplication.getMyColor(R.color.colorPrimary)));

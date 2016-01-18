@@ -7,9 +7,9 @@
         android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        custom:auto_cycle="true"
+        custom:auto_cycle="false"
         custom:indicator_visibility="visible"
-        custom:pager_animation="Default"
+        custom:pager_animation="Fade"
         custom:pager_animation_span="5000" />
 
 </FrameLayout>

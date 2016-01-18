@@ -2,7 +2,7 @@
     <!--text-->
     <dimen name="text_mini">9dp</dimen>
     <dimen name="text_micro">11dp</dimen>
-    <dimen name="text_small">12dp</dimen>
+    <dimen name="text_small">13dp</dimen>
     <dimen name="text_regular">14dp</dimen>
     <dimen name="text_medium">16dp</dimen>
     <dimen name="text_large">18dp</dimen>
