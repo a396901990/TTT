@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +20,8 @@ import android.widget.TextView;
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.AroundHotelActivity;
-import com.dean.travltotibet.activity.AroundScenicActivity;
 import com.dean.travltotibet.activity.AroundSelectActivity;
-import com.dean.travltotibet.model.Around;
+import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.Constants;
@@ -192,7 +189,7 @@ public class GuideLineAdapter extends BaseAdapter {
         if (TextUtils.isEmpty(around)) {
             return;
         } else {
-            if (around.contains(Around.HOTEL)) {
+            if (around.contains(AroundType.HOTEL)) {
                 holder.hotelBtn.setVisibility(View.VISIBLE);
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -200,12 +197,12 @@ public class GuideLineAdapter extends BaseAdapter {
                         Intent intent = new Intent(mContext, AroundSelectActivity.class);
                         intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
                         intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.HOTEL);
+                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, AroundType.HOTEL);
                         mContext.startActivity(intent);
                     }
                 });
             }
-            if (around.contains(Around.SCENIC)) {
+            if (around.contains(AroundType.SCENIC)) {
 
                 // scenic
                 holder.scenicBtn.setVisibility(View.VISIBLE);
@@ -215,7 +212,7 @@ public class GuideLineAdapter extends BaseAdapter {
                         Intent intent = new Intent(mContext, AroundSelectActivity.class);
                         intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
                         intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, Around.SCENIC);
+                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, AroundType.SCENIC);
                         mContext.startActivity(intent);
                     }
                 });
@@ -290,7 +287,7 @@ public class GuideLineAdapter extends BaseAdapter {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.border_gray));
             }
-            imageView.setImageDrawable(Around.getAroundDrawableSrc(around));
+            imageView.setImageDrawable(AroundType.getAroundDrawableSrc(around));
             int padding = ScreenUtil.dip2px(mContext, 2);
             imageView.setPadding(padding, padding, padding, padding);
             imageView.setLayoutParams(layoutParams);

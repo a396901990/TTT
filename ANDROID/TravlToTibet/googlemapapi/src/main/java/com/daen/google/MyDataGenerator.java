@@ -16,48 +16,39 @@ public class MyDataGenerator {
     public static void main(String[] args) throws Exception {
 
         geocodes = new ArrayList<>();
-//
-//        geocodes.add(new Geocode("叶城县", 0, Constants.COUNTY));
-//        geocodes.add(new Geocode("柯克亚乡", 1, Constants.VILLAGE));
-//        geocodes.add(new Geocode("普萨村", 2, Constants.VILLAGE));
-//        geocodes.add(new Geocode("叶城县阿克美其特村", 3, Constants.VILLAGE));
-//        geocodes.add(new Geocode("库地", 4, Constants.TOWN));
-//        geocodes.add(new Geocode("赛图拉", 5, Constants.VILLAGE));
-//        geocodes.add(new Geocode("大红柳滩", 6, Constants.VILLAGE));
-//        geocodes.add(new Geocode("日土县松西村", 7, Constants.VILLAGE));
-//        geocodes.add(new Geocode("日土县多玛乡", 8, Constants.VILLAGE));
-//        geocodes.add(new Geocode("日土县", 9, Constants.COUNTY));
-//        geocodes.add(new Geocode("日松乡", 10, Constants.VILLAGE));
-//        geocodes.add(new Geocode("狮泉河镇", 11, Constants.COUNTY));
-//        geocodes.add(new Geocode("那木如村", 12, Constants.VILLAGE));
-//        geocodes.add(new Geocode("索堆村", 13, Constants.VILLAGE));
-//        geocodes.add(new Geocode("门士乡", 14, Constants.VILLAGE));
-//        geocodes.add(new Geocode("普兰县巴嘎", 15, Constants.TOWN));
-//        geocodes.add(new Geocode("霍尔乡", 16, Constants.VILLAGE));
-//        geocodes.add(new Geocode("帕羊镇", 17, Constants.TOWN));
-//        geocodes.add(new Geocode("仲巴县珠珠村", 18, Constants.VILLAGE));
-//        geocodes.add(new Geocode("仲巴县", 19, Constants.COUNTY));
-//        geocodes.add(new Geocode("拉藏乡", 20, Constants.VILLAGE));
-//        geocodes.add(new Geocode("达吉岭乡", 21, Constants.VILLAGE));
-//        geocodes.add(new Geocode("萨嘎县", 22, Constants.COUNTY));
-//        geocodes.add(new Geocode("切热乡", 23, Constants.VILLAGE));
-//        geocodes.add(new Geocode("拉聂村", 24, Constants.VILLAGE));
-//        geocodes.add(new Geocode("桑桑镇", 25, Constants.TOWN));
-//        geocodes.add(new Geocode("昂仁县卡嘎镇", 26, Constants.TOWN));
-//        geocodes.add(new Geocode("查务乡", 27, Constants.VILLAGE));
-//        geocodes.add(new Geocode("拉孜县", 28, Constants.COUNTY));
-//        geocodes.add(new Geocode("热萨乡", 29, Constants.VILLAGE));
-//        geocodes.add(new Geocode("拉孜县柳乡", 30, Constants.VILLAGE));
-//        geocodes.add(new Geocode("吉定镇", 31, Constants.TOWN));
-        geocodes.add(new Geocode("日喀则", 32, Constants.CITY));
-        geocodes.add(new Geocode("白朗县", 33, Constants.COUNTY));
-        geocodes.add(new Geocode("江孜县", 34, Constants.COUNTY));
-        geocodes.add(new Geocode("江孜县加热村", 35, Constants.VILLAGE));
-        geocodes.add(new Geocode("热龙乡", 36, Constants.VILLAGE));
-        geocodes.add(new Geocode("浪卡子县", 37, Constants.COUNTY));
-        geocodes.add(new Geocode("达嘎乡", 38, Constants.VILLAGE));
-        geocodes.add(new Geocode("曲水县", 39, Constants.COUNTY));
-        geocodes.add(new Geocode("拉萨", 40, Constants.CITY));
+
+
+//        geocodes.add(new com.daen.google.module.Geocode("西宁", 0, com.daen.google.module.Constants.CITY));
+//        geocodes.add(new com.daen.google.module.Geocode("湟源县", 1, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("倒淌河镇", 2, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("江西沟乡", 3, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("黑马河乡", 4, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("茶卡镇", 5, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("夏日哈镇", 6, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("都兰县", 7, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("香日德镇", 8, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("格尔木东收费站", 9, com.daen.google.module.Constants.CHECK_POINT));
+//        geocodes.add(new com.daen.google.module.Geocode("格尔木市", 10, com.daen.google.module.Constants.CITY));
+//        geocodes.add(new com.daen.google.module.Geocode("纳赤台", 11, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("不冻泉", 12, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("治多县五道梁", 13, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("唐古拉镇", 14, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("雁石坪", 15, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("安多县", 16, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("扎仁镇", 17, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("西藏自治区那曲", 18, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("罗玛镇", 19, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("香茂乡", 20, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("古露镇", 21, com.daen.google.module.Constants.TOWN));
+        geocodes.add(new com.daen.google.module.Geocode("乌玛塘乡", 22, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("龙仁乡", 23, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("当雄县", 24, com.daen.google.module.Constants.COUNTY));
+        geocodes.add(new com.daen.google.module.Geocode("羊八井镇", 25, com.daen.google.module.Constants.TOWN));
+        geocodes.add(new com.daen.google.module.Geocode("德庆乡", 26, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("古荣乡", 27, com.daen.google.module.Constants.VILLAGE));
+        geocodes.add(new com.daen.google.module.Geocode("堆龙德庆县", 28, com.daen.google.module.Constants.COUNTY));
+        geocodes.add(new com.daen.google.module.Geocode("拉萨", 29, com.daen.google.module.Constants.CITY));
+
 
 
         DataGeneratorUtil api = new DataGeneratorUtil();

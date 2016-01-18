@@ -8,17 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dean.greendao.Hotel;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.HotelDetailDialog;
-import com.dean.travltotibet.fragment.InfoConfirmDialog;
 import com.dean.travltotibet.ui.AnimatedExpandableListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 

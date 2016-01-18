@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.AroundScenicActivity;
 import com.dean.travltotibet.activity.AroundSelectActivity;
-import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.adapter.AroundSelectAdapter;
-import com.dean.travltotibet.adapter.ScenicAdapter;
-import com.dean.travltotibet.model.Around;
-import com.dean.travltotibet.util.IntentExtra;
-
-import java.util.ArrayList;
+import com.dean.travltotibet.model.AroundType;
 
 /**
  * Created by DeanGuo on 1/13/16.
@@ -65,7 +56,7 @@ public class AroundSelectFragment extends Fragment {
         adapter = new AroundSelectAdapter(getActivity(), routeName, aroundBelong, aroundType);
 
         TextView mTitle = (TextView) root.findViewById(R.id.around_select_title);
-        mTitle.setText(Around.getAroundName(aroundType));
+        mTitle.setText(AroundType.getAroundName(aroundType));
 
         RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.around_select_recycler);
         // 设置横向layout manager

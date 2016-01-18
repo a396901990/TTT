@@ -4,6 +4,9 @@ import android.graphics.drawable.Drawable;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.IIcon;
 
 /**
  * Created by DeanGuo on 9/26/15.
@@ -42,6 +45,25 @@ public class TravelType {
             src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_car_white);
         }
         return src;
+    }
+
+    public static Drawable getTypeImageSrcWithColor(String type, int color) {
+        Drawable src = null;
+        if (type.equals(BIKE)) {
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_directions_bike, color);
+        } else if (type.equals(HIKE)) {
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_directions_walk, color);
+        } else if (type.equals(MOTO)) {
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_motorcycle, color);
+        } else if (type.equals(CAR)) {
+            src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_directions_car, color);
+        }
+        return src;
+    }
+
+    public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
+        color = TTTApplication.getMyColor(color);
+        return new IconicsDrawable(TTTApplication.getContext(), icon).color(color).sizeDp(18);
     }
 
 }

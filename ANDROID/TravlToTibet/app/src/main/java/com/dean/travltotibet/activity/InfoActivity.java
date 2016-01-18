@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,7 @@ import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.BaseInfoFragment;
-import com.dean.travltotibet.fragment.InfoConfirmDialog;
+import com.dean.travltotibet.fragment.InfoPlanConfirmDialog;
 import com.dean.travltotibet.fragment.TravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.IntentExtra;
@@ -134,13 +133,13 @@ public class InfoActivity extends BaseActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new InfoConfirmDialog();
+                DialogFragment dialogFragment = new InfoPlanConfirmDialog();
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
                 bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
                 bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, getRouteType());
                 dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), InfoConfirmDialog.class.getName());
+                dialogFragment.show(getFragmentManager(), InfoPlanConfirmDialog.class.getName());
             }
         });
 

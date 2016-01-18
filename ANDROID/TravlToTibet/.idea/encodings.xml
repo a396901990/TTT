@@ -14,6 +14,7 @@
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/MyDataGenerator.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/data/chuangzang.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/data/dianzang.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/data/qingzang.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/data/xinzang.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/util/HttpHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/googlemapapi/src/main/java/com/daen/google/util/ParseJson.java" charset="UTF-8" />

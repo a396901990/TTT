@@ -2,6 +2,7 @@ package com.dean.travltotibet.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,11 @@ public class CustomDialog extends Dialog {
 
     @Override
     public void setTitle(CharSequence title) {
-        mTitle.setText(title);
+        if (TextUtils.isEmpty(title)) {
+            mTitleContent.setVisibility(View.GONE);
+        } else {
+            mTitle.setText(title);
+        }
     }
 
     public void setCustomContentView(View view) {

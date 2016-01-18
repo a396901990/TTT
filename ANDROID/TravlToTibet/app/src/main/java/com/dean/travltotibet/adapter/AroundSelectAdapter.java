@@ -1,11 +1,9 @@
 package com.dean.travltotibet.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +13,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-import com.dean.greendao.Geocode;
 import com.dean.greendao.Hotel;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundHotelActivity;
 import com.dean.travltotibet.activity.AroundScenicActivity;
-import com.dean.travltotibet.model.Around;
+import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by DeanGuo on 12/17/15.
@@ -78,13 +74,13 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
         mData = new ArrayList<>();
 
-        if (aroundType.equals(Around.HOTEL)) {
+        if (aroundType.equals(AroundType.HOTEL)) {
             hotels = (ArrayList<Hotel>) TTTApplication.getDbHelper().getHotelList(routeName, aroundBelong);
             for (Hotel hotel : hotels) {
                 AroundItem aroundItem = new AroundItem(hotel.getHotel_name(), null);
                 mData.add(aroundItem);
             }
-        } else if (aroundType.equals(Around.SCENIC)) {
+        } else if (aroundType.equals(AroundType.SCENIC)) {
             mScenics = (ArrayList<Scenic>) TTTApplication.getDbHelper().getScenicList(routeName);
             for (Scenic scenic : mScenics) {
                 String url = scenic.getScenic_pic().split(Constants.URL_MARK)[0];
@@ -121,12 +117,12 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
             @Override
             public void onClick(View v) {
                 // 跳转
-                if (aroundType.equals(Around.HOTEL)) {
+                if (aroundType.equals(AroundType.HOTEL)) {
                     Intent intent = new Intent(mContext, AroundHotelActivity.class);
                     intent.putExtra(IntentExtra.INTENT_HOTEL, hotels.get(position));
                     mContext.startActivity(intent);
 //                    ((Activity)mContext).finish();
-                } else if (aroundType.equals(Around.SCENIC)) {
+                } else if (aroundType.equals(AroundType.SCENIC)) {
                     Intent intent = new Intent(mContext, AroundScenicActivity.class);
                     intent.putExtra(IntentExtra.INTENT_SCENIC, mScenics.get(position));
                     mContext.startActivity(intent);

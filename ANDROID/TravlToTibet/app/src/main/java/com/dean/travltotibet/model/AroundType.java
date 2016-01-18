@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by DeanGuo on 1/12/15.
  */
-public final class Around {
+public final class AroundType {
 
     public final static String HOTEL = "H";  // 住宿
     public final static String FOOD = "F";  // 吃饭

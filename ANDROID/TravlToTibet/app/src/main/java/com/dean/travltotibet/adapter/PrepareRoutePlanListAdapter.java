@@ -1,6 +1,7 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class PrepareRoutePlanListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = LayoutInflater.from(mContext);
-            convertView = mInflater.inflate(R.layout.prepare_confirm_plan_list_item, null);
+            convertView = mInflater.inflate(R.layout.info_plan_confirm_list_item, null);
         }
 
         planName = (TextView) convertView.findViewById(R.id.plan_name);
@@ -63,8 +64,13 @@ public class PrepareRoutePlanListAdapter extends BaseAdapter {
         RoutePlan routePlan = mData.get(position);
         planName.setText(routePlan.getPlan_name());
         planDay.setText(String.format(Constants.ROUTE_PLAN_DAY, routePlan.getPlan_days()));
-        planDescribe.setText(routePlan.getDescribe());
 
+        if (TextUtils.isEmpty(routePlan.getDescribe())) {
+            planDescribe.setVisibility(View.GONE);
+        } else {
+            planDescribe.setVisibility(View.VISIBLE);
+            planDescribe.setText(routePlan.getDescribe());
+        }
         return convertView;
     }
 
