@@ -52,6 +52,9 @@ public class MyGenerator {
         geocode.addStringProperty("f_detail");
         geocode.addStringProperty("r_detail");
         geocode.addStringProperty("e_detail");
+        geocode.addStringProperty("f_distance_point");
+        geocode.addStringProperty("r_distance_point");
+        geocode.addStringProperty("around_type");
     }
 
     // 计划表
@@ -136,7 +139,7 @@ public class MyGenerator {
         Entity route = schema.addEntity("Hotel");
         route.addIdProperty();
         route.addStringProperty("route").notNull();
-        route.addStringProperty("place_name").notNull();
+        route.addStringProperty("hotel_belong").notNull();
         route.addStringProperty("hotel_name").notNull();
         route.addStringProperty("hotel_address");
         route.addStringProperty("hotel_tel");
@@ -151,8 +154,14 @@ public class MyGenerator {
         route.addIdProperty();
         route.addStringProperty("route").notNull();
         route.addStringProperty("scenic_name").notNull();
+        route.addStringProperty("scenic_f_belong");
+        route.addStringProperty("scenic_r_belong");
         route.addStringProperty("scenic_overview");
         route.addStringProperty("scenic_detail");
+        route.addStringProperty("scenic_address");
+        route.addStringProperty("scenic_f_traffic");
+        route.addStringProperty("scenic_r_traffic");
+        route.addStringProperty("scenic_opentime");
         route.addStringProperty("scenic_pic");
     }
 

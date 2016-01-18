@@ -13,7 +13,7 @@ public class Hotel implements Serializable{
     /** Not-null value. */
     private String route;
     /** Not-null value. */
-    private String place_name;
+    private String hotel_belong;
     /** Not-null value. */
     private String hotel_name;
     private String hotel_address;
@@ -29,10 +29,10 @@ public class Hotel implements Serializable{
         this.id = id;
     }
 
-    public Hotel(Long id, String route, String place_name, String hotel_name, String hotel_address, String hotel_tel, String hotel_detail, String hotel_pic, String hotel_type) {
+    public Hotel(Long id, String route, String hotel_belong, String hotel_name, String hotel_address, String hotel_tel, String hotel_detail, String hotel_pic, String hotel_type) {
         this.id = id;
         this.route = route;
-        this.place_name = place_name;
+        this.hotel_belong = hotel_belong;
         this.hotel_name = hotel_name;
         this.hotel_address = hotel_address;
         this.hotel_tel = hotel_tel;
@@ -60,13 +60,13 @@ public class Hotel implements Serializable{
     }
 
     /** Not-null value. */
-    public String getPlace_name() {
-        return place_name;
+    public String getHotel_belong() {
+        return hotel_belong;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setPlace_name(String place_name) {
-        this.place_name = place_name;
+    public void setHotel_belong(String hotel_belong) {
+        this.hotel_belong = hotel_belong;
     }
 
     /** Not-null value. */

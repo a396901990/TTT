@@ -26,9 +26,15 @@ public class ScenicDao extends AbstractDao<Scenic, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Route = new Property(1, String.class, "route", false, "ROUTE");
         public final static Property Scenic_name = new Property(2, String.class, "scenic_name", false, "SCENIC_NAME");
-        public final static Property Scenic_overview = new Property(3, String.class, "scenic_overview", false, "SCENIC_OVERVIEW");
-        public final static Property Scenic_detail = new Property(4, String.class, "scenic_detail", false, "SCENIC_DETAIL");
-        public final static Property Scenic_pic = new Property(5, String.class, "scenic_pic", false, "SCENIC_PIC");
+        public final static Property Scenic_f_belong = new Property(3, String.class, "scenic_f_belong", false, "SCENIC_F_BELONG");
+        public final static Property Scenic_r_belong = new Property(4, String.class, "scenic_r_belong", false, "SCENIC_R_BELONG");
+        public final static Property Scenic_overview = new Property(5, String.class, "scenic_overview", false, "SCENIC_OVERVIEW");
+        public final static Property Scenic_detail = new Property(6, String.class, "scenic_detail", false, "SCENIC_DETAIL");
+        public final static Property Scenic_address = new Property(7, String.class, "scenic_address", false, "SCENIC_ADDRESS");
+        public final static Property Scenic_f_traffic = new Property(8, String.class, "scenic_f_traffic", false, "SCENIC_F_TRAFFIC");
+        public final static Property Scenic_r_traffic = new Property(9, String.class, "scenic_r_traffic", false, "SCENIC_R_TRAFFIC");
+        public final static Property Scenic_opentime = new Property(10, String.class, "scenic_opentime", false, "SCENIC_OPENTIME");
+        public final static Property Scenic_pic = new Property(11, String.class, "scenic_pic", false, "SCENIC_PIC");
     };
 
 
@@ -47,9 +53,15 @@ public class ScenicDao extends AbstractDao<Scenic, Long> {
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'ROUTE' TEXT NOT NULL ," + // 1: route
                 "'SCENIC_NAME' TEXT NOT NULL ," + // 2: scenic_name
-                "'SCENIC_OVERVIEW' TEXT," + // 3: scenic_overview
-                "'SCENIC_DETAIL' TEXT," + // 4: scenic_detail
-                "'SCENIC_PIC' TEXT);"); // 5: scenic_pic
+                "'SCENIC_F_BELONG' TEXT," + // 3: scenic_f_belong
+                "'SCENIC_R_BELONG' TEXT," + // 4: scenic_r_belong
+                "'SCENIC_OVERVIEW' TEXT," + // 5: scenic_overview
+                "'SCENIC_DETAIL' TEXT," + // 6: scenic_detail
+                "'SCENIC_ADDRESS' TEXT," + // 7: scenic_address
+                "'SCENIC_F_TRAFFIC' TEXT," + // 8: scenic_f_traffic
+                "'SCENIC_R_TRAFFIC' TEXT," + // 9: scenic_r_traffic
+                "'SCENIC_OPENTIME' TEXT," + // 10: scenic_opentime
+                "'SCENIC_PIC' TEXT);"); // 11: scenic_pic
     }
 
     /** Drops the underlying database table. */
@@ -70,19 +82,49 @@ public class ScenicDao extends AbstractDao<Scenic, Long> {
         stmt.bindString(2, entity.getRoute());
         stmt.bindString(3, entity.getScenic_name());
  
+        String scenic_f_belong = entity.getScenic_f_belong();
+        if (scenic_f_belong != null) {
+            stmt.bindString(4, scenic_f_belong);
+        }
+ 
+        String scenic_r_belong = entity.getScenic_r_belong();
+        if (scenic_r_belong != null) {
+            stmt.bindString(5, scenic_r_belong);
+        }
+ 
         String scenic_overview = entity.getScenic_overview();
         if (scenic_overview != null) {
-            stmt.bindString(4, scenic_overview);
+            stmt.bindString(6, scenic_overview);
         }
  
         String scenic_detail = entity.getScenic_detail();
         if (scenic_detail != null) {
-            stmt.bindString(5, scenic_detail);
+            stmt.bindString(7, scenic_detail);
+        }
+ 
+        String scenic_address = entity.getScenic_address();
+        if (scenic_address != null) {
+            stmt.bindString(8, scenic_address);
+        }
+ 
+        String scenic_f_traffic = entity.getScenic_f_traffic();
+        if (scenic_f_traffic != null) {
+            stmt.bindString(9, scenic_f_traffic);
+        }
+ 
+        String scenic_r_traffic = entity.getScenic_r_traffic();
+        if (scenic_r_traffic != null) {
+            stmt.bindString(10, scenic_r_traffic);
+        }
+ 
+        String scenic_opentime = entity.getScenic_opentime();
+        if (scenic_opentime != null) {
+            stmt.bindString(11, scenic_opentime);
         }
  
         String scenic_pic = entity.getScenic_pic();
         if (scenic_pic != null) {
-            stmt.bindString(6, scenic_pic);
+            stmt.bindString(12, scenic_pic);
         }
     }
 
@@ -99,9 +141,15 @@ public class ScenicDao extends AbstractDao<Scenic, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // route
             cursor.getString(offset + 2), // scenic_name
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // scenic_overview
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // scenic_detail
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // scenic_pic
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // scenic_f_belong
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // scenic_r_belong
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // scenic_overview
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // scenic_detail
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // scenic_address
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // scenic_f_traffic
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // scenic_r_traffic
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // scenic_opentime
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // scenic_pic
         );
         return entity;
     }
@@ -112,9 +160,15 @@ public class ScenicDao extends AbstractDao<Scenic, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setRoute(cursor.getString(offset + 1));
         entity.setScenic_name(cursor.getString(offset + 2));
-        entity.setScenic_overview(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setScenic_detail(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setScenic_pic(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setScenic_f_belong(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setScenic_r_belong(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setScenic_overview(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setScenic_detail(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setScenic_address(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setScenic_f_traffic(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setScenic_r_traffic(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setScenic_opentime(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setScenic_pic(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     /** @inheritdoc */

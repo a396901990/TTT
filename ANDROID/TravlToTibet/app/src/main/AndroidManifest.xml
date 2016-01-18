@@ -101,10 +101,6 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.AroundSelectActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Translucent" />
-        <activity
             android:name=".activity.AroundScenicActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />

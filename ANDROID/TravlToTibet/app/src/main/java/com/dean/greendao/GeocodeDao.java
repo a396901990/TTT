@@ -38,6 +38,9 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         public final static Property F_detail = new Property(12, String.class, "f_detail", false, "F_DETAIL");
         public final static Property R_detail = new Property(13, String.class, "r_detail", false, "R_DETAIL");
         public final static Property E_detail = new Property(14, String.class, "e_detail", false, "E_DETAIL");
+        public final static Property F_distance_point = new Property(15, String.class, "f_distance_point", false, "F_DISTANCE_POINT");
+        public final static Property R_distance_point = new Property(16, String.class, "r_distance_point", false, "R_DISTANCE_POINT");
+        public final static Property Around_type = new Property(17, String.class, "around_type", false, "AROUND_TYPE");
     };
 
 
@@ -67,7 +70,10 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
                 "'ROAD' TEXT," + // 11: road
                 "'F_DETAIL' TEXT," + // 12: f_detail
                 "'R_DETAIL' TEXT," + // 13: r_detail
-                "'E_DETAIL' TEXT);"); // 14: e_detail
+                "'E_DETAIL' TEXT," + // 14: e_detail
+                "'F_DISTANCE_POINT' TEXT," + // 15: f_distance_point
+                "'R_DISTANCE_POINT' TEXT," + // 16: r_distance_point
+                "'AROUND_TYPE' TEXT);"); // 17: around_type
     }
 
     /** Drops the underlying database table. */
@@ -119,6 +125,21 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         if (e_detail != null) {
             stmt.bindString(15, e_detail);
         }
+ 
+        String f_distance_point = entity.getF_distance_point();
+        if (f_distance_point != null) {
+            stmt.bindString(16, f_distance_point);
+        }
+ 
+        String r_distance_point = entity.getR_distance_point();
+        if (r_distance_point != null) {
+            stmt.bindString(17, r_distance_point);
+        }
+ 
+        String around_type = entity.getAround_type();
+        if (around_type != null) {
+            stmt.bindString(18, around_type);
+        }
     }
 
     /** @inheritdoc */
@@ -145,7 +166,10 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // road
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // f_detail
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // r_detail
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // e_detail
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // e_detail
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // f_distance_point
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // r_distance_point
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // around_type
         );
         return entity;
     }
@@ -168,6 +192,9 @@ public class GeocodeDao extends AbstractDao<Geocode, Long> {
         entity.setF_detail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setR_detail(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setE_detail(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setF_distance_point(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setR_distance_point(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setAround_type(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
      }
     
     /** @inheritdoc */

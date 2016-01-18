@@ -1,8 +1,11 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -21,6 +24,8 @@ import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundSelectActivity;
+import com.dean.travltotibet.fragment.AroundDialogFragment;
+import com.dean.travltotibet.fragment.InfoPlanConfirmDialog;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.chart.PointManager;
@@ -39,7 +44,7 @@ public class GuideLineAdapter extends BaseAdapter {
 
     private ArrayList<Geocode> nonPathGeocode;
 
-    private ArrayList<Geocode> allGeocode;
+    private ArrayList<Geocode> allGeocode;  // not used any more
 
     private Context mContext;
 
@@ -59,16 +64,17 @@ public class GuideLineAdapter extends BaseAdapter {
     }
 
     public void setData(ArrayList<Geocode> data) {
-        // 非path数据
-        nonPathGeocode = new ArrayList<>();
-        for (Geocode geocode : data) {
-            if (!geocode.getTypes().equals(PointManager.PATH)) {
-                nonPathGeocode.add(geocode);
-            }
-        }
-
-        // 所有数据
-        this.allGeocode = data;
+        nonPathGeocode = data;
+//        // 非path数据
+//        nonPathGeocode = new ArrayList<>();
+//        for (Geocode geocode : data) {
+//            if (!geocode.getTypes().equals(PointManager.PATH)) {
+//                nonPathGeocode.add(geocode);
+//            }
+//        }
+//
+//        // 所有数据
+//        this.allGeocode = data;
         notifyDataSetChanged();
     }
 
@@ -118,9 +124,7 @@ public class GuideLineAdapter extends BaseAdapter {
         else {
             holder.distanceContent.setVisibility(View.VISIBLE);
 
-            String start = geocode.getName();
-            String end = getItem(position + 1).getName();
-            holder.distanceText.setText(getDistance(start, end));
+            holder.distanceText.setText(isForward?geocode.getF_distance_point():geocode.getR_distance_point());
         }
     }
 
@@ -182,7 +186,7 @@ public class GuideLineAdapter extends BaseAdapter {
         // hotel
         final Geocode geocode = getItem(position);
 //        final String around = (String) holder.headerAroundContent.getTag();
-        final String around = "H";
+        final String around = geocode.getAround_type();
         holder.hotelBtn.setVisibility(View.GONE);
         holder.scenicBtn.setVisibility(View.GONE);
 
@@ -194,11 +198,14 @@ public class GuideLineAdapter extends BaseAdapter {
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, AroundSelectActivity.class);
-                        intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
-                        intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, AroundType.HOTEL);
-                        mContext.startActivity(intent);
+                        DialogFragment dialogFragment = new AroundDialogFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                        bundle.putString(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                        bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.HOTEL);
+                        bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
+                        dialogFragment.setArguments(bundle);
+                        dialogFragment.show(((Activity)mContext).getFragmentManager(), AroundDialogFragment.class.getName());
                     }
                 });
             }
@@ -209,11 +216,14 @@ public class GuideLineAdapter extends BaseAdapter {
                 holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, AroundSelectActivity.class);
-                        intent.putExtra(IntentExtra.INTENT_ROUTE, geocode.getRoute());
-                        intent.putExtra(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                        intent.putExtra(IntentExtra.INTENT_AROUND_TYPE, AroundType.SCENIC);
-                        mContext.startActivity(intent);
+                        DialogFragment dialogFragment = new AroundDialogFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                        bundle.putString(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                        bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.SCENIC);
+                        bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
+                        dialogFragment.setArguments(bundle);
+                        dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundDialogFragment.class.getName());
                     }
                 });
             }
@@ -269,13 +279,17 @@ public class GuideLineAdapter extends BaseAdapter {
     private void addAroundIcon(GuideDetailViewHolder holder, int position) {
         Geocode geocode = getItem(position);
         // logic to get around
-        String a = "H#C#CP#S#A#G#F";
-
-        String holderTag = (String) holder.headerAroundContent.getTag();
-        if (!TextUtils.isEmpty(holderTag) && holderTag.equals(a)) {
+        String aroundType = geocode.getAround_type();
+        if (TextUtils.isEmpty(aroundType)) {
             return;
         }
-        String[] arounds = a.split(Constants.REPLACE_MARK);
+
+        // 如果已经加过标记则不需要再次添加
+        String holderTag = (String) holder.headerAroundContent.getTag();
+        if (!TextUtils.isEmpty(holderTag) && holderTag.equals(aroundType)) {
+            return;
+        }
+        String[] arounds = aroundType.split(Constants.REPLACE_MARK);
 
         for (final String around : arounds) {
 
@@ -293,7 +307,7 @@ public class GuideLineAdapter extends BaseAdapter {
             imageView.setLayoutParams(layoutParams);
             holder.headerAroundContent.addView(imageView);
         }
-        holder.headerAroundContent.setTag(a);
+        holder.headerAroundContent.setTag(aroundType);
     }
 
     public class GuideDetailViewHolder {
@@ -395,6 +409,7 @@ public class GuideLineAdapter extends BaseAdapter {
         holder.detailToggleLayout.startAnimation(slideUp);
     }
 
+    // not used
     public String getDistance(String start, String end) {
 
         double distance = 0;

@@ -14,8 +14,14 @@ public class Scenic implements Serializable{
     private String route;
     /** Not-null value. */
     private String scenic_name;
+    private String scenic_f_belong;
+    private String scenic_r_belong;
     private String scenic_overview;
     private String scenic_detail;
+    private String scenic_address;
+    private String scenic_f_traffic;
+    private String scenic_r_traffic;
+    private String scenic_opentime;
     private String scenic_pic;
 
     public Scenic() {
@@ -25,12 +31,18 @@ public class Scenic implements Serializable{
         this.id = id;
     }
 
-    public Scenic(Long id, String route, String scenic_name, String scenic_overview, String scenic_detail, String scenic_pic) {
+    public Scenic(Long id, String route, String scenic_name, String scenic_f_belong, String scenic_r_belong, String scenic_overview, String scenic_detail, String scenic_address, String scenic_f_traffic, String scenic_r_traffic, String scenic_opentime, String scenic_pic) {
         this.id = id;
         this.route = route;
         this.scenic_name = scenic_name;
+        this.scenic_f_belong = scenic_f_belong;
+        this.scenic_r_belong = scenic_r_belong;
         this.scenic_overview = scenic_overview;
         this.scenic_detail = scenic_detail;
+        this.scenic_address = scenic_address;
+        this.scenic_f_traffic = scenic_f_traffic;
+        this.scenic_r_traffic = scenic_r_traffic;
+        this.scenic_opentime = scenic_opentime;
         this.scenic_pic = scenic_pic;
     }
 
@@ -62,6 +74,22 @@ public class Scenic implements Serializable{
         this.scenic_name = scenic_name;
     }
 
+    public String getScenic_f_belong() {
+        return scenic_f_belong;
+    }
+
+    public void setScenic_f_belong(String scenic_f_belong) {
+        this.scenic_f_belong = scenic_f_belong;
+    }
+
+    public String getScenic_r_belong() {
+        return scenic_r_belong;
+    }
+
+    public void setScenic_r_belong(String scenic_r_belong) {
+        this.scenic_r_belong = scenic_r_belong;
+    }
+
     public String getScenic_overview() {
         return scenic_overview;
     }
@@ -76,6 +104,38 @@ public class Scenic implements Serializable{
 
     public void setScenic_detail(String scenic_detail) {
         this.scenic_detail = scenic_detail;
+    }
+
+    public String getScenic_address() {
+        return scenic_address;
+    }
+
+    public void setScenic_address(String scenic_address) {
+        this.scenic_address = scenic_address;
+    }
+
+    public String getScenic_f_traffic() {
+        return scenic_f_traffic;
+    }
+
+    public void setScenic_f_traffic(String scenic_f_traffic) {
+        this.scenic_f_traffic = scenic_f_traffic;
+    }
+
+    public String getScenic_r_traffic() {
+        return scenic_r_traffic;
+    }
+
+    public void setScenic_r_traffic(String scenic_r_traffic) {
+        this.scenic_r_traffic = scenic_r_traffic;
+    }
+
+    public String getScenic_opentime() {
+        return scenic_opentime;
+    }
+
+    public void setScenic_opentime(String scenic_opentime) {
+        this.scenic_opentime = scenic_opentime;
     }
 
     public String getScenic_pic() {

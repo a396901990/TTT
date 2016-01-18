@@ -97,7 +97,7 @@ public class GuideLineFragment extends BaseGuideFragment {
         // 根据起点终点获取数据
         String routeName = routeActivity.getCurrentRoute().getRoute();
         boolean isForward = routeActivity.isForward();
-        ArrayList<Geocode> geocodes = (ArrayList<Geocode>) TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, start, end, isForward);
+        ArrayList<Geocode> geocodes = (ArrayList<Geocode>) TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeName, start, end, isForward);
 
         return geocodes;
     }

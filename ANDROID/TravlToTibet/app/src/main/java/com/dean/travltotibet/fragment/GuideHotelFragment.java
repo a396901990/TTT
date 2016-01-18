@@ -90,7 +90,7 @@ public class GuideHotelFragment extends BaseGuideFragment {
             // 地点名称（标题）
             String placeName = place.getName();
             // 该地点下得所有旅店
-            ArrayList<Hotel> hotels = (ArrayList<Hotel>) TTTApplication.getDbHelper().getHotelList(routeName, placeName);
+            ArrayList<Hotel> hotels = (ArrayList<Hotel>) TTTApplication.getDbHelper().getHotelListWithBelongName(routeName, placeName);
 
             // 旅店不为零则加入数据中
             if (hotels.size() != 0) {

@@ -25,6 +25,9 @@ public class Geocode {
     private String f_detail;
     private String r_detail;
     private String e_detail;
+    private String f_distance_point;
+    private String r_distance_point;
+    private String around_type;
 
     public Geocode() {
     }
@@ -33,7 +36,7 @@ public class Geocode {
         this.id = id;
     }
 
-    public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, String milestone, String road, String f_detail, String r_detail, String e_detail) {
+    public Geocode(Long id, String route, String name, double elevation, double f_distance, double r_distance, double latitude, double longitude, String address, String types, String milestone, String road, String f_detail, String r_detail, String e_detail, String f_distance_point, String r_distance_point, String around_type) {
         this.id = id;
         this.route = route;
         this.name = name;
@@ -49,6 +52,9 @@ public class Geocode {
         this.f_detail = f_detail;
         this.r_detail = r_detail;
         this.e_detail = e_detail;
+        this.f_distance_point = f_distance_point;
+        this.r_distance_point = r_distance_point;
+        this.around_type = around_type;
     }
 
     public Long getId() {
@@ -177,6 +183,30 @@ public class Geocode {
 
     public void setE_detail(String e_detail) {
         this.e_detail = e_detail;
+    }
+
+    public String getF_distance_point() {
+        return f_distance_point;
+    }
+
+    public void setF_distance_point(String f_distance_point) {
+        this.f_distance_point = f_distance_point;
+    }
+
+    public String getR_distance_point() {
+        return r_distance_point;
+    }
+
+    public void setR_distance_point(String r_distance_point) {
+        this.r_distance_point = r_distance_point;
+    }
+
+    public String getAround_type() {
+        return around_type;
+    }
+
+    public void setAround_type(String around_type) {
+        this.around_type = around_type;
     }
 
 }

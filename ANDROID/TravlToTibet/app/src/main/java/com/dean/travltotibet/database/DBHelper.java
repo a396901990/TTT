@@ -406,10 +406,22 @@ public class DBHelper {
         return qb.list();
     }
 
-    public List<Hotel> getHotelList(String route, String place) {
+    public List<Scenic> getScenicWithBelongName(String route, String belongName, boolean isForword) {
+        QueryBuilder<Scenic> qb = scenicDao.queryBuilder();
+        qb.where(ScenicDao.Properties.Route.eq(route));
+        if (isForword) {
+            qb.where(ScenicDao.Properties.Scenic_f_belong.eq(belongName));
+        }else {
+            qb.where(ScenicDao.Properties.Scenic_r_belong.eq(belongName));
+        }
+
+        return qb.list();
+    }
+
+    public List<Hotel> getHotelListWithBelongName(String route, String place) {
         QueryBuilder<Hotel> qb = hotelDao.queryBuilder();
         qb.where(HotelDao.Properties.Route.eq(route));
-        qb.where(HotelDao.Properties.Place_name.eq(place));
+        qb.where(HotelDao.Properties.Hotel_belong.eq(place));
         return qb.list();
     }
 
@@ -538,7 +550,7 @@ public class DBHelper {
                 Geocode g = new Geocode(geocode.getId(), "XINZANG", geocode.getName(), geocode.getElevation(),
                         geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
-                        geocode.getRoad(), "正向攻略", "反向攻略", "最后点攻略"
+                        geocode.getRoad(), "正向攻略", "反向攻略", "最后点攻略","","",""
                 );
                 geocodeDao.insert(g);
             }

@@ -43,17 +43,10 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
     private ImageLoader imageLoader;
 
-    private String aroundBelong;
-
     private String aroundType;
 
-    private String routeName;
-
-    public AroundSelectAdapter(Context mContext, String routeName, String aroundBelong, String aroundType) {
+    public AroundSelectAdapter(Context mContext) {
         this.mContext = mContext;
-        this.routeName = routeName;
-        this.aroundBelong = aroundBelong;
-        this.aroundType = aroundType;
 
         mQueue = Volley.newRequestQueue(mContext);
 
@@ -67,21 +60,24 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
                 return null;
             }
         });
-        setData();
     }
 
-    public void setData() {
+    public void setData(String routeName, String aroundBelong, String aroundType, boolean isForword) {
 
         mData = new ArrayList<>();
+        this.aroundType = aroundType;
 
+        // hotel
         if (aroundType.equals(AroundType.HOTEL)) {
-            hotels = (ArrayList<Hotel>) TTTApplication.getDbHelper().getHotelList(routeName, aroundBelong);
+            hotels = (ArrayList<Hotel>) TTTApplication.getDbHelper().getHotelListWithBelongName(routeName, aroundBelong);
             for (Hotel hotel : hotels) {
                 AroundItem aroundItem = new AroundItem(hotel.getHotel_name(), null);
                 mData.add(aroundItem);
             }
-        } else if (aroundType.equals(AroundType.SCENIC)) {
-            mScenics = (ArrayList<Scenic>) TTTApplication.getDbHelper().getScenicList(routeName);
+        }
+        // scenic
+        else if (aroundType.equals(AroundType.SCENIC)) {
+            mScenics = (ArrayList<Scenic>) TTTApplication.getDbHelper().getScenicWithBelongName(routeName, aroundBelong, isForword);
             for (Scenic scenic : mScenics) {
                 String url = scenic.getScenic_pic().split(Constants.URL_MARK)[0];
                 AroundItem aroundItem = new AroundItem(scenic.getScenic_name(), url);
@@ -102,7 +98,7 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
         final AroundItem aroundItem = mData.get(position);
 
         // 默认图片
-        holder.aroundPic.setDefaultImageResId(R.color.colorPrimary);
+        holder.aroundPic.setDefaultImageResId(R.color.less_light_gray);
         // 错误图片
         holder.aroundPic.setErrorImageResId(R.color.colorPrimary);
         // 图片url(取第一个)
@@ -121,12 +117,10 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
                     Intent intent = new Intent(mContext, AroundHotelActivity.class);
                     intent.putExtra(IntentExtra.INTENT_HOTEL, hotels.get(position));
                     mContext.startActivity(intent);
-//                    ((Activity)mContext).finish();
                 } else if (aroundType.equals(AroundType.SCENIC)) {
                     Intent intent = new Intent(mContext, AroundScenicActivity.class);
                     intent.putExtra(IntentExtra.INTENT_SCENIC, mScenics.get(position));
                     mContext.startActivity(intent);
-//                    ((Activity)mContext).finish();
                 }
             }
         });

@@ -25,7 +25,7 @@ public class HotelDao extends AbstractDao<Hotel, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Route = new Property(1, String.class, "route", false, "ROUTE");
-        public final static Property Place_name = new Property(2, String.class, "place_name", false, "PLACE_NAME");
+        public final static Property Hotel_belong = new Property(2, String.class, "hotel_belong", false, "HOTEL_BELONG");
         public final static Property Hotel_name = new Property(3, String.class, "hotel_name", false, "HOTEL_NAME");
         public final static Property Hotel_address = new Property(4, String.class, "hotel_address", false, "HOTEL_ADDRESS");
         public final static Property Hotel_tel = new Property(5, String.class, "hotel_tel", false, "HOTEL_TEL");
@@ -49,7 +49,7 @@ public class HotelDao extends AbstractDao<Hotel, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'HOTEL' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'ROUTE' TEXT NOT NULL ," + // 1: route
-                "'PLACE_NAME' TEXT NOT NULL ," + // 2: place_name
+                "'HOTEL_BELONG' TEXT NOT NULL ," + // 2: hotel_belong
                 "'HOTEL_NAME' TEXT NOT NULL ," + // 3: hotel_name
                 "'HOTEL_ADDRESS' TEXT," + // 4: hotel_address
                 "'HOTEL_TEL' TEXT," + // 5: hotel_tel
@@ -74,7 +74,7 @@ public class HotelDao extends AbstractDao<Hotel, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getRoute());
-        stmt.bindString(3, entity.getPlace_name());
+        stmt.bindString(3, entity.getHotel_belong());
         stmt.bindString(4, entity.getHotel_name());
  
         String hotel_address = entity.getHotel_address();
@@ -115,7 +115,7 @@ public class HotelDao extends AbstractDao<Hotel, Long> {
         Hotel entity = new Hotel( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // route
-            cursor.getString(offset + 2), // place_name
+            cursor.getString(offset + 2), // hotel_belong
             cursor.getString(offset + 3), // hotel_name
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // hotel_address
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // hotel_tel
@@ -131,7 +131,7 @@ public class HotelDao extends AbstractDao<Hotel, Long> {
     public void readEntity(Cursor cursor, Hotel entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setRoute(cursor.getString(offset + 1));
-        entity.setPlace_name(cursor.getString(offset + 2));
+        entity.setHotel_belong(cursor.getString(offset + 2));
         entity.setHotel_name(cursor.getString(offset + 3));
         entity.setHotel_address(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setHotel_tel(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));

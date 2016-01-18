@@ -22,7 +22,7 @@
         <!--详细-->
         <fragment
             android:id="@+id/around_select_fragment"
-            android:name="com.dean.travltotibet.fragment.AroundSelectFragment"
+            android:name="com.dean.travltotibet.fragment.AroundDialogFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
