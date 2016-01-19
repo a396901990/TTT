@@ -1,4 +1,4 @@
-package com.dean.travltotibet.ui.numberprogressbar;
+package com.dean.travltotibet.ui.ratingview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import com.dean.travltotibet.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by daimajia on 14-4-30.

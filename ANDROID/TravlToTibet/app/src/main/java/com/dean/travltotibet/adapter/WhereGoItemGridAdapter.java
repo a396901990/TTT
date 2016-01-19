@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar;
+import com.dean.travltotibet.ui.ratingview.NumberProgressBar;
 
 import java.util.ArrayList;
 

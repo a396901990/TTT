@@ -6,6 +6,11 @@
     <string name="action_reset">恢复默认</string>
     <string name="action_type">旅行类型</string>
 
+    <string name="travel_type_bike">骑行</string>
+    <string name="travel_type_hike">徒步</string>
+    <string name="travel_type_moto">摩托</string>
+    <string name="travel_type_car">自驾</string>
+
     <string name="travel_type_dialog_title">请选择旅行类型：</string>
     <string name="title_activity_where_go">选择目的地</string>
     <string name="title_activity_prepare_detail">准备信息</string>

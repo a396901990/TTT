@@ -76,7 +76,7 @@
 
                 </LinearLayout>
 
-                <com.dean.travltotibet.ui.numberprogressbar.RatingView
+                <com.dean.travltotibet.ui.ratingview.RatingView
                     android:id="@+id/rating_view"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
@@ -99,7 +99,7 @@
                             android:text="D38"
                             android:textColor="@color/white" />
                     </RelativeLayout>
-                </com.dean.travltotibet.ui.numberprogressbar.RatingView>
+                </com.dean.travltotibet.ui.ratingview.RatingView>
             </android.support.v7.widget.Toolbar>
 
             <com.dean.travltotibet.ui.PagerSlidingTabStrip

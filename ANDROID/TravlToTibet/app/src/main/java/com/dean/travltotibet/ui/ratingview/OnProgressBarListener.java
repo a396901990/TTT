@@ -1,4 +1,4 @@
-package com.dean.travltotibet.ui.numberprogressbar;
+package com.dean.travltotibet.ui.ratingview;
 
 /**
  * Created by lelexxx on 15-4-23.

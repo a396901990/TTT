@@ -221,7 +221,7 @@ public class InfoPlanConfirmDialog extends DialogFragment {
         int loactorPadding = ScreenUtil.dip2px(getActivity(), 18);
 
         if (isForward) {
-            from_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_sphere));
+            from_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_ring_circular));
             from_icon.setPadding(circlePadding, circlePadding, circlePadding, circlePadding);
 
             to_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_locator));
@@ -230,7 +230,7 @@ public class InfoPlanConfirmDialog extends DialogFragment {
             from_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_locator));
             from_icon.setPadding(loactorPadding, loactorPadding, loactorPadding, loactorPadding);
 
-            to_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_sphere));
+            to_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_ring_circular));
             to_icon.setPadding(circlePadding, circlePadding, circlePadding, circlePadding);
         }
     }
@@ -313,7 +313,7 @@ public class InfoPlanConfirmDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(getActivity(), 350));
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(getActivity(), 330));
         window.setGravity(Gravity.BOTTOM);
     }
 

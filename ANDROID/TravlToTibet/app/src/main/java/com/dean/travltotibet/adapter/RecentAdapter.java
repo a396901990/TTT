@@ -46,7 +46,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
         final RecentRoute recentRoute = mData.get(position);
         // 类型图片
-        holder.mTitleView.setImageDrawable(TravelType.getWhiteTypeImageSrc(recentRoute.getType()));
+        holder.mTitleView.setImageDrawable(TravelType.getTypeImageSrcWithColor(recentRoute.getType(), R.color.white));
 
         // 路线名称
         holder.mRouteName.setText(recentRoute.getRoute_name());

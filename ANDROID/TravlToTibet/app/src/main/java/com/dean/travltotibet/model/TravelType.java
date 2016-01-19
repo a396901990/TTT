@@ -18,35 +18,6 @@ public class TravelType {
     public final static String MOTO = "MOTO";
     public final static String CAR = "CAR";
 
-
-    public static Drawable getBlueTypeImageSrc(String type) {
-        Drawable src = null;
-        if (type.equals(BIKE)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_bike_blue);
-        } else if (type.equals(HIKE)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_hike_blue);
-        } else if (type.equals(MOTO)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_moto_blue);
-        } else if (type.equals(CAR)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_car_blue);
-        }
-        return src;
-    }
-
-    public static Drawable getWhiteTypeImageSrc(String type) {
-        Drawable src = null;
-        if (type.equals(BIKE)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_bike_white);
-        } else if (type.equals(HIKE)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_hike_white);
-        } else if (type.equals(MOTO)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_moto_white);
-        } else if (type.equals(CAR)) {
-            src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_car_white);
-        }
-        return src;
-    }
-
     public static Drawable getTypeImageSrcWithColor(String type, int color) {
         Drawable src = null;
         if (type.equals(BIKE)) {
@@ -61,9 +32,29 @@ public class TravelType {
         return src;
     }
 
+    public static Drawable getActionBarImageSrc(String type) {
+        Drawable src = null;
+        if (type.equals(BIKE)) {
+            src = getActionbarIconDrawable(GoogleMaterial.Icon.gmd_directions_bike);
+        } else if (type.equals(HIKE)) {
+            src = getActionbarIconDrawable(GoogleMaterial.Icon.gmd_directions_walk);
+        } else if (type.equals(MOTO)) {
+            src = getActionbarIconDrawable(GoogleMaterial.Icon.gmd_motorcycle);
+        } else if (type.equals(CAR)) {
+            src = getActionbarIconDrawable(GoogleMaterial.Icon.gmd_directions_car);
+        }
+        return src;
+    }
+
     public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
         color = TTTApplication.getMyColor(color);
         return new IconicsDrawable(TTTApplication.getContext(), icon).color(color).sizeDp(18);
+    }
+
+
+    public static Drawable getActionbarIconDrawable(final IIcon icon) {
+        int color = TTTApplication.getMyColor(R.color.white);
+        return new IconicsDrawable(TTTApplication.getContext(), icon).color(color).sizeDp(IconicsDrawable.ANDROID_ACTIONBAR_ICON_SIZE_DP);
     }
 
 }

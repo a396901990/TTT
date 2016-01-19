@@ -20,12 +20,11 @@ import android.widget.ImageView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.BaseInfoFragment;
 import com.dean.travltotibet.fragment.InfoPlanConfirmDialog;
-import com.dean.travltotibet.fragment.TravelTypeDialog;
+import com.dean.travltotibet.fragment.InfoTravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-
 /**
  * Created by DeanGuo on 9/30/15.
  */
@@ -114,13 +113,13 @@ public class InfoActivity extends BaseActivity {
     }
 
     private void openTypeDialog() {
-        DialogFragment dialogFragment = new TravelTypeDialog();
+        DialogFragment dialogFragment = new InfoTravelTypeDialog();
         Bundle bundle = new Bundle();
         bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
         bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
-        bundle.putString(IntentExtra.INTENT_FROM_WHERE, TravelTypeDialog.FROM_SECOND);
+        bundle.putString(IntentExtra.INTENT_FROM_WHERE, InfoTravelTypeDialog.FROM_SECOND);
         dialogFragment.setArguments(bundle);
-        dialogFragment.show(getFragmentManager(), TravelTypeDialog.class.getName());
+        dialogFragment.show(getFragmentManager(), InfoTravelTypeDialog.class.getName());
     }
 
     /**
@@ -184,9 +183,9 @@ public class InfoActivity extends BaseActivity {
 
     public void updateMenu(boolean isShowMenu) {
         mMenuType.setVisibility(isShowMenu ? View.VISIBLE : View.GONE);
-        mMenuType.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
+        mMenuType.setImageDrawable(TravelType.getActionBarImageSrc(getRouteType()));
 
-        fab.setImageDrawable(TravelType.getWhiteTypeImageSrc(getRouteType()));
+        fab.setImageDrawable(TravelType.getActionBarImageSrc(getRouteType()));
     }
 
     public String getRoute() {

@@ -18,7 +18,7 @@
         android:padding="@dimen/guide_title_view_padding"
         android:text="简介" />
 
-    <com.dean.travltotibet.ui.numberprogressbar.RatingView
+    <com.dean.travltotibet.ui.ratingview.RatingView
         android:id="@+id/rating_view"
         android:layout_width="250dp"
         android:layout_height="250dp"
@@ -145,7 +145,7 @@
             </LinearLayout>
 
         </RelativeLayout>
-    </com.dean.travltotibet.ui.numberprogressbar.RatingView>
+    </com.dean.travltotibet.ui.ratingview.RatingView>
 
     <!--描述-->
     <RelativeLayout

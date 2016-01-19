@@ -1,4 +1,4 @@
-package com.dean.travltotibet.ui.numberprogressbar;
+package com.dean.travltotibet.ui.ratingview;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

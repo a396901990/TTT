@@ -1,4 +1,4 @@
-package com.dean.travltotibet.ui.numberprogressbar;
+package com.dean.travltotibet.ui.ratingview;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;

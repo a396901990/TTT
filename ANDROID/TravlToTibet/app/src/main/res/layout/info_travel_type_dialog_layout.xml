@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/travel_bike_icon"
+                android:layout_width="@dimen/travel_type_dialog_image_size"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:background="@drawable/border_oval_line_background"
+                android:src="@drawable/icon_budget" />
+
+            <TextView
+                android:id="@+id/travel_bike_text"
+                style="@style/TextAppearance.Micro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/travel_type_bike"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/travel_hike_icon"
+                android:layout_width="@dimen/travel_type_dialog_image_size"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:background="@drawable/border_oval_line_background"
+                android:src="@drawable/icon_budget" />
+
+            <TextView
+                android:id="@+id/travel_hike_text"
+                style="@style/TextAppearance.Micro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/travel_type_hike"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/travel_moto_icon"
+                android:layout_width="@dimen/travel_type_dialog_image_size"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:background="@drawable/border_oval_line_background"
+                android:src="@drawable/icon_budget" />
+
+            <TextView
+                android:id="@+id/travel_moto_text"
+                style="@style/TextAppearance.Micro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/travel_type_moto"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/travel_car_icon"
+                android:layout_width="@dimen/travel_type_dialog_image_size"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:background="@drawable/border_oval_line_background"
+                android:src="@drawable/icon_budget" />
+
+            <TextView
+                android:id="@+id/travel_car_text"
+                style="@style/TextAppearance.Micro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/travel_type_car"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -16,9 +16,10 @@
             android:background="@color/half_colorPrimary"></View>
 
         <RelativeLayout
+            android:minHeight="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dip">
+            android:padding="10dip">
 
 
             <TextView

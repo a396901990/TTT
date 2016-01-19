@@ -28,7 +28,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
 
-        <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
+        <com.dean.travltotibet.ui.ratingview.NumberProgressBar
             android:id="@+id/rate_hard"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
@@ -41,7 +41,7 @@
             app:progress_text_color="@color/light_gray"
             app:progress_title="难度" />
 
-        <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
+        <com.dean.travltotibet.ui.ratingview.NumberProgressBar
             android:id="@+id/rate_view"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
@@ -54,7 +54,7 @@
             app:progress_text_color="@color/light_gray"
             app:progress_title="风景" />
 
-        <com.dean.travltotibet.ui.numberprogressbar.NumberProgressBar
+        <com.dean.travltotibet.ui.ratingview.NumberProgressBar
             android:id="@+id/rate_road"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"

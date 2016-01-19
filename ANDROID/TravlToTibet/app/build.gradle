@@ -62,6 +62,5 @@ dependencies {
     // https://github.com/flavioarfaria/KenBurnsView
     // https://github.com/astuetz/PagerSlidingTabStrip
     compile project(':sharesdk')
-
-    compile 'de.hdodenhof:circleimageview:2.0.0'
+    //    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

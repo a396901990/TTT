@@ -26,6 +26,7 @@
     <dimen name="header_tab_btn_width">180dp</dimen>
     <dimen name="header_tab_btn_height">40dp</dimen>
     <dimen name="header_tab_padding">5dp</dimen>
+    <dimen name="spacing_medium">8dp</dimen>
 
     <!--路线视图的padding-->
     <dimen name="guide_route_view_padding">15dp</dimen>
@@ -186,5 +187,8 @@
     <dimen name="guide_line_distance_width">35dp</dimen>
     <dimen name="guide_line_distance_divide_content_height">20dp</dimen>
     <dimen name="guide_line_header_height">30dp</dimen>
+
+    <dimen name="travel_type_dialog_padding">25dp</dimen>
+    <dimen name="travel_type_dialog_image_size">80dp</dimen>
 
 </resources>

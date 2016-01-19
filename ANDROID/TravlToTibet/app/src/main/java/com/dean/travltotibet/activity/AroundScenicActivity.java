@@ -12,6 +12,7 @@ import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
+import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.fragment.AroundHotelDetailFragment;
 import com.dean.travltotibet.fragment.AroundScenicDetailFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
@@ -61,7 +62,7 @@ public class AroundScenicActivity extends AroundBaseActivity {
 
         // 为adapter添加数据
         mAdapter.add(AroundScenicDetailFragment.class, null, "简介");
-        mAdapter.add(AroundScenicDetailFragment.class, null, "评论");
+        mAdapter.add(AroundCommentFragment.class, null, "评论");
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);

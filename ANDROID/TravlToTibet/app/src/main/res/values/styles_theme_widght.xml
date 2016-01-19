@@ -22,6 +22,9 @@
         <item name="android:windowAnimationStyle">@style/DialogPopupAnimation</item>
     </style>
 
+    <style name="TravelTypeDialog" parent="Transparent.Dialog">
+    </style>
+
     <style name="PopupDownDialog" parent="Transparent.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogPopDownAnimation</item>
     </style>
