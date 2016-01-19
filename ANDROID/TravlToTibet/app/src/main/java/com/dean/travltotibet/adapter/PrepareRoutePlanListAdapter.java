@@ -2,15 +2,21 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -19,20 +25,40 @@ import java.util.ArrayList;
  */
 public class PrepareRoutePlanListAdapter extends BaseAdapter {
 
+    private ListView mListView;
     private ArrayList<RoutePlan> mData;
     private Context mContext;
 
     private TextView planName;
     private TextView planDay;
     private TextView planDescribe;
+    private LinearLayout footerView;
 
-    public PrepareRoutePlanListAdapter(Context context) {
+    public PrepareRoutePlanListAdapter(Context context, ListView listView) {
         super();
         this.mContext = context;
+        this.mListView = listView;
+        footerView = new LinearLayout(mContext);
     }
 
     public void setData(ArrayList<RoutePlan> data) {
         this.mData = data;
+//        setHeight();
+    }
+
+    private void setHeight() {
+
+        footerView.setBackgroundColor(TTTApplication.getMyColor(R.color.white));
+        int height = 180;
+        int listHeight = ScreenUtil.dip2px(mContext, 60) * 3;
+
+//        mListView.removeFooterView(footerView);
+        if (getCount() < 3) {
+//            footerView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(mContext, 180)));
+//            mListView.addFooterView(footerView);
+            mListView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, listHeight));
+        }
+
     }
 
     @Override

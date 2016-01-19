@@ -1,6 +1,9 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.Shape;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +16,11 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.SquareImageView;
+import com.dean.travltotibet.ui.sliderview.Indicators.PagerIndicator;
 
 import java.util.ArrayList;
 
@@ -59,6 +64,10 @@ public class InfoGridAdapter extends BaseAdapter {
 
         imageView.setImageResource(InfoType.INFO_IMAGE.get(getItem(position)));
         textView.setText(InfoType.INFO_TEXT.get(getItem(position)));
+
+        GradientDrawable backgroundDrawable = (GradientDrawable) imageView.getBackground();
+        backgroundDrawable.setColor(TTTApplication.getMyColor(InfoType.INFO_COLOR.get(getItem(position))));
+
         return convertView;
     }
 

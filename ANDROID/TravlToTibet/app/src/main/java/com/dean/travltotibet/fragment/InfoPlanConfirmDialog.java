@@ -258,7 +258,7 @@ public class InfoPlanConfirmDialog extends DialogFragment {
     private void initPlanList() {
         mListView = (ListView) contentLayout.findViewById(R.id.plan_list);
         plans = (ArrayList<RoutePlan>) TTTApplication.getDbHelper().getRoutePlans(route, routeType, isForward);
-        mAdapter = new PrepareRoutePlanListAdapter(infoActivity);
+        mAdapter = new PrepareRoutePlanListAdapter(infoActivity, mListView);
         mAdapter.setData(plans);
 
         mListView.setAdapter(mAdapter);
@@ -313,7 +313,7 @@ public class InfoPlanConfirmDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(getActivity(), 350));
         window.setGravity(Gravity.BOTTOM);
     }
 

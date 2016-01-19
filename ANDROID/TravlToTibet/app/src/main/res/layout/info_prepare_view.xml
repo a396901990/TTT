@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="@string/info_prepare_title" />
+        android:text="@string/info_prepare_title"
+        android:visibility="gone" />
 
     <!--内容视图-->
     <com.dean.travltotibet.ui.customScrollView.ScrollGridView

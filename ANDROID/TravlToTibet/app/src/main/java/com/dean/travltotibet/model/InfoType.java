@@ -32,12 +32,12 @@ public enum InfoType {
         INFO_TYPES.add(InfoType.BUDGET);
         INFO_TYPES.add(InfoType.MEDICINE);
         INFO_TYPES.add(InfoType.EQUIP);
-        INFO_TYPES.add(InfoType.CLOTHING);
+//        INFO_TYPES.add(InfoType.CLOTHING);
+        INFO_TYPES.add(InfoType.ATTENTION);
         INFO_TYPES.add(InfoType.OUTDOOR);
-        INFO_TYPES.add(InfoType.CREDENTIALS);
         INFO_TYPES.add(InfoType.PERSONAL);
+        INFO_TYPES.add(InfoType.CREDENTIALS);
         INFO_TYPES.add(InfoType.OTHER);
-//        INFO_TYPES.add(InfoType.ATTENTION);
 
         INFO_TEXT.put(InfoType.BUDGET, "预算");
         INFO_TEXT.put(InfoType.MEDICINE, "药品");
@@ -49,25 +49,25 @@ public enum InfoType {
         INFO_TEXT.put(InfoType.OTHER, "其他");
         INFO_TEXT.put(InfoType.ATTENTION, "注意事项");
 
-        INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget_color);
-        INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine_color);
-        INFO_IMAGE.put(InfoType.EQUIP, R.drawable.icon_equip_color);
-        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing_color);
-        INFO_IMAGE.put(InfoType.OUTDOOR, R.drawable.icon_outdoor_color);
-        INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.icon_card_color);
-        INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.icon_person_color);
-        INFO_IMAGE.put(InfoType.OTHER, R.drawable.icon_other_color);
-        INFO_IMAGE.put(InfoType.ATTENTION, R.drawable.ic_ab_new_content);
+        INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget);
+        INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine);
+        INFO_IMAGE.put(InfoType.EQUIP, R.drawable.icon_equip);
+        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing);
+        INFO_IMAGE.put(InfoType.OUTDOOR, R.drawable.icon_outdoor);
+        INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.icon_card);
+        INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.icon_person);
+        INFO_IMAGE.put(InfoType.OTHER, R.drawable.icon_other);
+        INFO_IMAGE.put(InfoType.ATTENTION, R.drawable.icon_attention);
 
-        INFO_COLOR.put(InfoType.BUDGET, R.color.light_blue);
-        INFO_COLOR.put(InfoType.MEDICINE, R.color.brown);
-        INFO_COLOR.put(InfoType.EQUIP, R.color.dark_green);
+        INFO_COLOR.put(InfoType.BUDGET, R.color.light_orange);
+        INFO_COLOR.put(InfoType.MEDICINE, R.color.light_red);
+        INFO_COLOR.put(InfoType.EQUIP, R.color.light_blue);
+        INFO_COLOR.put(InfoType.ATTENTION, R.color.dark_orange);
         INFO_COLOR.put(InfoType.CLOTHING, R.color.sky_blue);
         INFO_COLOR.put(InfoType.OUTDOOR, R.color.gray);
         INFO_COLOR.put(InfoType.CREDENTIALS, R.color.light_green);
         INFO_COLOR.put(InfoType.PERSONAL, R.color.orange_red);
         INFO_COLOR.put(InfoType.OTHER, R.color.teal);
-        INFO_COLOR.put(InfoType.ATTENTION, R.color.red);
 
     }
 

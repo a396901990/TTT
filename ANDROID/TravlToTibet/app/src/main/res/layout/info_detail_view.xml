@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="简介" />
+        android:text="简介"
+        android:visibility="gone" />
 
     <!--路线，距离在左边 注意事项在右-->
     <RelativeLayout
@@ -27,10 +28,10 @@
             <TextView
                 android:id="@+id/detail_route_start_end"
                 style="@style/TextAppearance.Medium"
-                android:textColor="@color/dark_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="成都-拉萨" />
+                android:text="成都-拉萨"
+                android:textColor="@color/dark_gray" />
 
             <TextView
                 android:id="@+id/detail_route_distance"
@@ -42,6 +43,7 @@
 
         <!--注意事项-->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/route_attention"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

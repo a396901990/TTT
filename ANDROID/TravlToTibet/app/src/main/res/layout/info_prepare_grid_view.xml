@@ -7,31 +7,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <RelativeLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/info_text"
             android:id="@+id/info_image"
-            android:paddingBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_budget_color" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_oval_background"
+            android:src="@drawable/icon_budget" />
 
         <TextView
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/info_text"
             style="@style/TextAppearance.Micro"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="预算"/>
-    </RelativeLayout>
-
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="预算"
+            android:textColor="@color/gray" />
+    </LinearLayout>
 </com.dean.travltotibet.ui.SquareMaterialRippleLayout>

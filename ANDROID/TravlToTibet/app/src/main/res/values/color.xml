@@ -6,7 +6,7 @@
     <color name="transparent_background">#9000</color>
 
     <color name="green">#3F7E0A</color>
-    <color name="light_green">#9CCC65</color>
+    <color name="light_green">#4CAF50</color>
     <color name="dark_green">#43A047</color>
     <color name="half_dark_green">#CC43A047</color>
     <color name="teal">#009688</color>
@@ -18,6 +18,7 @@
     <color name="less_blue">#1E88E5</color>
     <color name="half_dark_blue">#CC065fb9</color>
     <color name="blue">#0F57C2</color>
+    <color name="purple_blue">#3F51B5</color>
 
     <color name="orange_red">#FF4500</color>
     <color name="orange">#FFA726</color>
@@ -25,6 +26,9 @@
     <color name="light_orange">#FFC107</color>
     <color name="dark_orange">#FB8C00</color>
     <color name="lime">#CDDC39</color>
+
+    <color name="light_red">#F44336</color>
+    <color name="red">#B71C1C</color>
 
     <color name="white_gray">#E0E0E0</color>
     <color name="dark_white">#B2FFFFFF</color>
@@ -39,7 +43,6 @@
     <color name="less_light_gray">#99CCCCCC</color>
     <color name="less_gray">#19999999</color>
     <color name="dark_gray_background">#DDD</color>
-    <color name="red">#961E26</color>
     <color name="opaque">#80000000</color>
     <color name="rule">#DDD</color>
     <color name="white">#FFFFFF</color>
