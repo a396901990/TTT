@@ -7,11 +7,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.util.SystemUtil;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.ShareContent;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import org.json.JSONArray;
 
@@ -89,7 +96,7 @@ public class NavigationFragment extends Fragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                umengShare();
             }
         });
         // 分享视图
@@ -108,6 +115,41 @@ public class NavigationFragment extends Fragment {
                 startActivity(new Intent(getActivity(), AboutSettingActivity.class));
             }
         });
+    }
+
+    private void umengShare() {
+        UMImage image = new UMImage(getActivity(), "http://www.umeng.com/images/pic/social/integrated_3.png");
+        new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setContentList(new ShareContent(),new ShareContent())
+                .withMedia(image)
+                .withText("fjfjf")
+                .setListenerList(umShareListener,umShareListener)
+                .open();
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /** attention to this below ,must add this**/
+        UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void share() {

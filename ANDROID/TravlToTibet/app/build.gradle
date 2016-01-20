@@ -64,4 +64,5 @@ dependencies {
     compile project(':sharesdk')
     compile 'com.umeng.analytics:analytics:latest.integration'
     //    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile project(':umengshare')
 }

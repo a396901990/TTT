@@ -67,12 +67,6 @@ public class AroundScenicActivity extends AroundBaseActivity {
 
         mPager.setOffscreenPageLimit(1);
         // 设置页面变化监听
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-        });
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);

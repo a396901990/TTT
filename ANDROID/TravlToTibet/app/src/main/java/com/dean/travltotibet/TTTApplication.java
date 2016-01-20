@@ -15,6 +15,7 @@ import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.ResourceUtil;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
+import com.umeng.socialize.PlatformConfig;
 
 public class TTTApplication extends Application {
     private static TTTApplication instance;
@@ -32,6 +33,12 @@ public class TTTApplication extends Application {
     private static Resources resources;
 
     private static Context context;
+
+    {
+        PlatformConfig.setWeixin("wxd8d10328670366ed", "9e11b560e978d399e0d4af2db93f4e5c");
+        PlatformConfig.setSinaWeibo("2101283656", "b237ffc656caf1016ce1f048b03b8869");
+        PlatformConfig.setQQZone("1104646053", "bYlW9M39pwYjYhMf");
+    }
 
     @Override
     public void onCreate() {
