@@ -114,7 +114,6 @@ public class InfoTravelTypeDialog extends DialogFragment {
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.dimAmount = 0.9f;
         window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
     }
 

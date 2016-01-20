@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.dean.greendao.Hotel;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.util.IntentExtra;
 
 /**
  * Created by DeanGuo on 1/13/16.
@@ -44,8 +46,16 @@ public class AroundCommentFragment extends Fragment {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Log.e("ratingBar", rating+"");
+                goComment(rating);
             }
         });
+    }
+
+    private void goComment(float rating) {
+        DialogFragment dialogFragment = new AroundCommentDialog();
+        Bundle bundle = new Bundle();
+        bundle.putFloat(IntentExtra.INTENT_AROUND_RATING, rating);
+        dialogFragment.setArguments(bundle);
+        dialogFragment.show(getFragmentManager(), AroundCommentDialog.class.getName());
     }
 }

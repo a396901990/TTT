@@ -4,10 +4,51 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RatingBar
-        android:stepSize="1"
-        android:id="@+id/ratting_bar"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RatingBar
+            android:id="@+id/ratting_bar"
+            style="@style/ThemeRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:stepSize="1" />
+
+        <TextView
+            style="@style/TextAppearance.Regular.Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="点击添加评论" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gray_background" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/plan_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/light_gray"
+            android:dividerHeight="1dip"
+            android:scrollbars="none"></ListView>
+
+        <TextView
+            android:id="@+id/data_"
+            style="@style/TextAppearance.Medium.Gray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无评论" />
+    </FrameLayout>
 </LinearLayout>

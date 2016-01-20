@@ -37,4 +37,6 @@ public final class IntentExtra {
     // prepare intent
     public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";
     public static final String INTENT_PREPARE_TYPE = "intent_prepare_type";
+
+    public static final String INTENT_AROUND_RATING = "intent_around_rating";
 }

@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp">
 
         <!--plan简介-->
         <TextView
@@ -25,7 +28,6 @@
     </LinearLayout>
 
     <View
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/gray_background" />
@@ -37,11 +39,11 @@
         android:padding="10dp">
         <!--收费-->
         <LinearLayout
-            android:padding="10dp"
             android:id="@+id/scenic_fee_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 style="@style/AroundTitleText"
@@ -65,8 +67,8 @@
             android:id="@+id/scenic_opening_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 style="@style/AroundTitleText"
@@ -89,8 +91,8 @@
             android:id="@+id/scenic_traffic_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 style="@style/AroundTitleText"
@@ -112,8 +114,8 @@
             android:id="@+id/scenic_address_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 style="@style/AroundTitleText"
