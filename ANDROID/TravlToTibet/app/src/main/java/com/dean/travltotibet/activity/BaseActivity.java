@@ -16,6 +16,7 @@ import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by DeanGuo on 12/2/15.
@@ -113,5 +114,15 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
