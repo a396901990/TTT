@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,19 @@ import com.dean.travltotibet.util.SystemUtil;
 
 import org.json.JSONArray;
 
+import java.util.HashMap;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * Created by DeanGuo on 12/09/15.
@@ -89,7 +97,33 @@ public class NavigationFragment extends Fragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShareSDK.initSDK(getActivity());
+                Platform wechat= ShareSDK.getPlatform(getActivity(), QQ.NAME);
+                wechat.setPlatformActionListener(new PlatformActionListener() {
+                    @Override
+                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                        Log.e("userId:", "onComplete");
+                    }
 
+                    @Override
+                    public void onError(Platform platform, int i, Throwable throwable) {
+                        Log.e("userId:", "onError");
+                    }
+
+                    @Override
+                    public void onCancel(Platform platform, int i) {
+                        Log.e("userId:", "onCancel");
+                    }
+                });
+//                wechat.authorize();
+                if(wechat.isAuthValid()) {
+                    String userId = wechat.getDb().getUserId();
+                    if (userId != null) {
+                        Log.e("userId:", userId);
+                    }
+                }
+                wechat.SSOSetting(false);
+                wechat.showUser(null);
             }
         });
         // 分享视图
