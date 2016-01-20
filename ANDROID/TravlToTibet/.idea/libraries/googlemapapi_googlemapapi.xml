@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="googlemapapi.googlemapapi">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/googlemapapi/build/libs/googlemapapi.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
