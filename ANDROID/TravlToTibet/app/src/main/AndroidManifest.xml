@@ -8,6 +8,7 @@
     <!-- weibo key:2101283656  Secret:b237ffc656caf1016ce1f048b03b8869 -->
     <!-- tencent APP ID:1104954101APP KEY:B6M6LOmmBVA9gsRE -->
     <!-- baidu map 68:36:75:03:F0:83:AA:02:6E:2E:93:E3:2B:81:6A:D8:B9:C1:87:D0;com.dean.travltotibet -->
+    <!-- debug baidu map B4:09:E9:69:39:42:D2:63:A4:3C:4E:92:51:DF:B1:12:85:4A:2F:3B;com.dean.travltotibet -->
     <!-- 4f0e6b44aed1a1b65185e5ab4bd6cdaa -->
     <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -34,13 +35,13 @@
         android:theme="@style/AppBaseTheme" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="5GjuYFZGqzZDGB3UUkUa3hAq" />
+            android:value="GRgvDWPLTW76s9XPt9UBkWOG" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="569f03ac67e58e3731000145"></meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Channel ID" />
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <activity
             android:name=".activity.AppLaunchActivity"

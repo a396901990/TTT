@@ -5,25 +5,102 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.dean.travltotibet"
+        applicationId project.ANDROID_BUILD_APPLICATIONID_DEBUG
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
     }
-    buildTypes {
+
+    //渠道
+    productFlavors {
+        c360 {
+        }
+        baidu {
+        }
+        qq {
+        }
+    }
+
+    //这个是解决lint报错的代码
+    lintOptions {
+        abortOnError false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+
+    //签名
+    signingConfigs {
+        debug {
+            storeFile file("/Users/DeanGuo/Github_Workspace/keystore.jks")
+            storePassword "123456"
+            keyAlias "keystore"
+            keyPassword "123456"
+        }
         release {
+            storeFile file("/Users/DeanGuo/Github_Workspace/keystore.jks")
+            storePassword "123456"
+            keyAlias "keystore"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix "-debug"
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            //混淆
+            minifyEnabled false
+
+            //Zipalign优化
+            zipAlignEnabled true
+
+            // 移除无用的resource文件
+            shrinkResources false
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            //签名
+            signingConfig signingConfigs.release
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
         }
     }
 }
 
-sourceSets {
-    main {
-        java.srcDirs = ['src/main/java', 'src/main/java-gen']
-    }
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

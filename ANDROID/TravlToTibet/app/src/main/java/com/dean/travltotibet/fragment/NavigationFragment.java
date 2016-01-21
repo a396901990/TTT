@@ -175,6 +175,10 @@ public class NavigationFragment extends Fragment {
                         lastVersionView.setVisibility(View.INVISIBLE);
                         newVersionView.setVisibility(View.VISIBLE);
                         versionCheckView.setClickable(true);
+                    } else {
+                        lastVersionView.setVisibility(View.VISIBLE);
+                        newVersionView.setVisibility(View.INVISIBLE);
+                        versionCheckView.setClickable(false);
                     }
                 }
             }
