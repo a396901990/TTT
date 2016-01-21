@@ -115,6 +115,7 @@
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_cloud_v3_6_1" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="BmobSDK_V3.4.5_1111" level="project" />
     <orderEntry type="library" exported="" name="fontawesome-typeface-4.5.0.1" level="project" />
     <orderEntry type="library" exported="" name="google-material-typeface-2.1.0.1.original" level="project" />

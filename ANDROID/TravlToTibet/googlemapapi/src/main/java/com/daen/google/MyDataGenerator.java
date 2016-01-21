@@ -17,99 +17,81 @@ public class MyDataGenerator {
 
         geocodes = new ArrayList<>();
 
-        geocodes.add(new com.daen.google.module.Geocode("成都", 0, com.daen.google.module.Constants.CITY));
-        geocodes.add(new com.daen.google.module.Geocode("郫筒镇", 1, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("崇义镇", 2, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("聚源镇", 3, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("都江堰市", 4, com.daen.google.module.Constants.CITY));
-        geocodes.add(new com.daen.google.module.Geocode("汶川马鞍石隧道", 6, com.daen.google.module.Constants.TUNNEL));
-        geocodes.add(new com.daen.google.module.Geocode("汶川友谊隧道", 8, com.daen.google.module.Constants.TUNNEL));
-        geocodes.add(new com.daen.google.module.Geocode("白云顶隧道", 5, com.daen.google.module.Constants.TUNNEL));
-        geocodes.add(new com.daen.google.module.Geocode("映秀镇", 7, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("耿达乡", 9, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("汶川县卧龙镇", 10, com.daen.google.module.Constants.TOWN));
-
-        geocodes.add(new com.daen.google.module.Geocode("花岩子隧道", 12, com.daen.google.module.Constants.TUNNEL));
-        geocodes.add(new com.daen.google.module.Geocode("治多县日隆镇", 13, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("四姑娘山（南门）", 14, com.daen.google.module.Constants.SCENIC_SPOT));
-        geocodes.add(new com.daen.google.module.Geocode("达维乡", 15, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("日尔乡", 16, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("沃日乡", 17, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("小金县", 18, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("宅垄乡", 19, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("丹巴县", 20, com.daen.google.module.Constants.COUNTY));
-
-        geocodes.add(new com.daen.google.module.Geocode("东谷乡", 21, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("八美镇", 22, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("龙灯乡", 24, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("小金县松林口", 25, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("葛卡乡", 26, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("格西乡", 27, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("道孚县", 28, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("麻孜乡", 29, com.daen.google.module.Constants.VILLAGE));
-
-        geocodes.add(new com.daen.google.module.Geocode("仁达乡", 30, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("炉霍县", 31, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("雅德乡", 32, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("朱倭乡", 33, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("充古乡", 34, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("庭卡村", 35, com.daen.google.module.Constants.VILLAGE));
-
-        geocodes.add(new com.daen.google.module.Geocode("拖坝乡", 36, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("甘孜县", 37, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("生康乡", 38, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("卡攻乡", 39, com.daen.google.module.Constants.VILLAGE));
-
-        geocodes.add(new com.daen.google.module.Geocode("来马乡", 40, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("错阿乡", 41, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("马尼干戈乡", 42, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("新路海自然保护区", 43, com.daen.google.module.Constants.SCENIC_SPOT));
-        geocodes.add(new com.daen.google.module.Geocode("柯洛洞乡", 44, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("德格县", 45, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("龚垭乡", 46, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("岗托镇", 47, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("同普乡", 48, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("江达县", 49, com.daen.google.module.Constants.COUNTY));
-
-        geocodes.add(new com.daen.google.module.Geocode("卡贡乡", 50, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("青泥洞乡", 51, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("玉龙镇", 52, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("妥坝乡", 53, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("嘎日村", 54, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("日通乡", 55, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("如意乡", 56, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("昌都", 57, com.daen.google.module.Constants.CITY));
-        geocodes.add(new com.daen.google.module.Geocode("卡若镇", 58, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("吉塘镇", 59, com.daen.google.module.Constants.TOWN));
-
-        geocodes.add(new com.daen.google.module.Geocode("邦达镇", 60, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("俄洛镇", 61, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("宾达乡", 62, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("桑多镇", 63, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("卡玛多乡", 64, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("觉恩乡", 65, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("沙贡乡", 66, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("丁青县夏拉村", 67, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("丁青县", 68, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("色扎乡", 69, com.daen.google.module.Constants.VILLAGE));
-
-        geocodes.add(new com.daen.google.module.Geocode("尺牍镇", 70, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("马色村", 71, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("巴达乡", 72, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("荣布镇", 73, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("巴青县雅安镇", 74, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("巴青县", 75, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("索县", 76, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("扎拉乡", 77, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("刚朵村", 78, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("夏曲镇", 79, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("达前乡", 80, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("孔玛乡", 81, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("那曲", 82, com.daen.google.module.Constants.COUNTY));
-        geocodes.add(new com.daen.google.module.Geocode("罗玛镇", 83, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("香茂乡", 84, com.daen.google.module.Constants.VILLAGE));
-        geocodes.add(new com.daen.google.module.Geocode("古露镇", 85, com.daen.google.module.Constants.TOWN));
-        geocodes.add(new com.daen.google.module.Geocode("乌玛塘乡", 86, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("成都", 0, com.daen.google.module.Constants.CITY));
+//        geocodes.add(new com.daen.google.module.Geocode("郫筒镇", 1, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("都江堰市", 4, com.daen.google.module.Constants.CITY));
+//        geocodes.add(new com.daen.google.module.Geocode("汶川马鞍石隧道", 6, com.daen.google.module.Constants.TUNNEL));
+//        geocodes.add(new com.daen.google.module.Geocode("汶川友谊隧道", 8, com.daen.google.module.Constants.TUNNEL));
+//        geocodes.add(new com.daen.google.module.Geocode("白云顶隧道", 5, com.daen.google.module.Constants.TUNNEL));
+//        geocodes.add(new com.daen.google.module.Geocode("映秀镇", 7, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("耿达乡", 9, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("汶川县卧龙镇", 10, com.daen.google.module.Constants.TOWN));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("花岩子隧道", 12, com.daen.google.module.Constants.TUNNEL));
+//        geocodes.add(new com.daen.google.module.Geocode("日隆镇", 13, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("四姑娘山（南门）", 14, com.daen.google.module.Constants.SCENIC_SPOT));
+//        geocodes.add(new com.daen.google.module.Geocode("达维乡", 15, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("沃日乡", 17, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("小金县", 18, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("丹巴县", 20, com.daen.google.module.Constants.COUNTY));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("东谷乡", 21, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("八美镇", 22, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("龙灯乡", 24, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("道孚县", 28, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("麻孜乡", 29, com.daen.google.module.Constants.VILLAGE));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("仁达乡", 30, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("炉霍县", 31, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("雅德乡", 32, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("充古乡", 34, com.daen.google.module.Constants.VILLAGE));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("拖坝乡", 36, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("甘孜藏族自治州甘孜县", 37, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("生康乡", 38, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("卡攻乡", 39, com.daen.google.module.Constants.VILLAGE));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("错阿乡", 41, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("马尼干戈乡", 42, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("新路海自然保护区", 43, com.daen.google.module.Constants.SCENIC_SPOT));
+//        geocodes.add(new com.daen.google.module.Geocode("柯洛洞乡", 44, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("德格县", 45, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("龚垭乡", 46, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("岗托镇", 47, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("同普乡", 48, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("江达县", 49, com.daen.google.module.Constants.COUNTY));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("江达县卡贡乡", 50, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("青泥洞乡", 51, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("妥坝乡", 53, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("昌都嘎日村", 54, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("日通乡", 55, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("昌都", 57, com.daen.google.module.Constants.CITY));
+//        geocodes.add(new com.daen.google.module.Geocode("俄洛镇", 61, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("宾达乡", 62, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("桑多镇", 63, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("卡玛多乡", 64, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("觉恩乡", 65, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("丁青县夏拉村", 67, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("丁青县", 68, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("色扎乡", 69, com.daen.google.module.Constants.VILLAGE));
+//
+//        geocodes.add(new com.daen.google.module.Geocode("尺牍镇", 70, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("丁青县马色村", 71, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("巴达乡", 72, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("荣布镇", 73, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("巴青县雅安镇", 74, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("巴青县", 75, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("索县", 76, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("扎拉乡", 77, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("刚朵村", 78, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("夏曲镇", 79, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("达前乡", 80, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("那曲", 82, com.daen.google.module.Constants.COUNTY));
+//        geocodes.add(new com.daen.google.module.Geocode("罗玛镇", 83, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("香茂乡", 84, com.daen.google.module.Constants.VILLAGE));
+//        geocodes.add(new com.daen.google.module.Geocode("古露镇", 85, com.daen.google.module.Constants.TOWN));
+//        geocodes.add(new com.daen.google.module.Geocode("乌玛塘乡", 86, com.daen.google.module.Constants.VILLAGE));
         geocodes.add(new com.daen.google.module.Geocode("龙仁乡", 87, com.daen.google.module.Constants.VILLAGE));
         geocodes.add(new com.daen.google.module.Geocode("当雄县", 88, com.daen.google.module.Constants.COUNTY));
         geocodes.add(new com.daen.google.module.Geocode("宁中乡", 89, com.daen.google.module.Constants.VILLAGE));

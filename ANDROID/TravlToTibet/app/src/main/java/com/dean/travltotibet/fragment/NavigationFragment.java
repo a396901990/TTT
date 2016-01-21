@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -97,33 +98,9 @@ public class NavigationFragment extends Fragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareSDK.initSDK(getActivity());
-                Platform wechat= ShareSDK.getPlatform(getActivity(), QQ.NAME);
-                wechat.setPlatformActionListener(new PlatformActionListener() {
-                    @Override
-                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                        Log.e("userId:", "onComplete");
-                    }
 
-                    @Override
-                    public void onError(Platform platform, int i, Throwable throwable) {
-                        Log.e("userId:", "onError");
-                    }
-
-                    @Override
-                    public void onCancel(Platform platform, int i) {
-                        Log.e("userId:", "onCancel");
-                    }
-                });
-//                wechat.authorize();
-                if(wechat.isAuthValid()) {
-                    String userId = wechat.getDb().getUserId();
-                    if (userId != null) {
-                        Log.e("userId:", userId);
-                    }
-                }
-                wechat.SSOSetting(false);
-                wechat.showUser(null);
+                DialogFragment dialogFragment = new LoginDialog();
+                dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
             }
         });
         // 分享视图

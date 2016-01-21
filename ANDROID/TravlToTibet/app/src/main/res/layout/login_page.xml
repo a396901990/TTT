@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/login_qq"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_qq" />
+
+            <TextView
+                style="@style/TextAppearance.Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/login_with_qzone"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/login_wechat"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_wechat" />
+
+            <TextView
+                style="@style/TextAppearance.Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/login_with_weixin"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/travel_type_dialog_padding">
+
+            <ImageView
+                android:id="@+id/login_sina"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/travel_type_dialog_image_size"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_sina" />
+
+            <TextView
+                style="@style/TextAppearance.Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/login_with_sina_weibo"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

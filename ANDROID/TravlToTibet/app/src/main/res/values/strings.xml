@@ -98,5 +98,8 @@
     <string name="rating_hard">难度</string>
     <string name="rating_view">风景</string>
     <string name="rating_road">路况</string>
+    <string name="login_with_weixin">微信登陆</string>
+    <string name="login_with_sina_weibo">微博登陆</string>
+    <string name="login_with_qzone">QQ登陆</string>
 
 </resources>

@@ -65,4 +65,5 @@ public final class Constants {
 
     public static final String EMPTY_HTML_CONTENT = "about:blank";
 
+    public static final String KEY_LAST_TOKEN = "KEY_LAST_TOKEN";
 }

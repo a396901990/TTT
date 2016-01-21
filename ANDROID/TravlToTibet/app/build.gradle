@@ -63,5 +63,7 @@ dependencies {
     // https://github.com/astuetz/PagerSlidingTabStrip
     compile project(':sharesdk')
     compile 'com.umeng.analytics:analytics:latest.integration'
+    // https://github.com/greenrobot/EventBus
+    compile 'de.greenrobot:eventbus:2.4.0'
     //    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

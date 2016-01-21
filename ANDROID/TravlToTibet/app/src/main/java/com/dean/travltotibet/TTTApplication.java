@@ -12,11 +12,15 @@ import com.dean.greendao.DaoSession;
 import com.dean.travltotibet.database.DBHelper;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
+import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ResourceUtil;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 
+import de.greenrobot.event.EventBus;
+
 public class TTTApplication extends Application {
+
     private static TTTApplication instance;
 
     private static ResourceUtil resourceUtil;
@@ -32,6 +36,32 @@ public class TTTApplication extends Application {
     private static Resources resources;
 
     private static Context context;
+
+    private static boolean logedin;
+
+    public static boolean hasLoggedIn()
+    {
+        return logedin;
+    }
+
+    public static void setLoggedIn( boolean isUserChanged, String userToken )
+    {
+        logedin = true;
+        EventBus.getDefault().post(new LoginUtil.LoginEvent(isUserChanged, userToken));
+    }
+
+    public static void logout()
+    {
+        logedin = false;
+
+        EventBus.getDefault().post(new LoginUtil.LogoutEvent());
+    }
+
+    public static void loginFailed()
+    {
+        logedin = false;
+        EventBus.getDefault().post(new LoginUtil.LoginFailedEvent());
+    }
 
     @Override
     public void onCreate() {
