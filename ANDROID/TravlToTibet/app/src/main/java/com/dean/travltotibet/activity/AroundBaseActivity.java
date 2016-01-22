@@ -3,16 +3,13 @@ package com.dean.travltotibet.activity;
 /**
  * Created by DeanGuo on 1/14/16.
  */
-public class AroundBaseActivity extends BaseActivity{
-    public String[] getHeaderURL() {
-        return new String[0];
-    }
+public abstract class AroundBaseActivity extends BaseActivity{
 
-    public Object getAroundObj() {
-        return null;
-    }
+    public abstract String getAroundType();
 
-    public boolean getDir() {
-        return false;
-    }
+    public abstract String[] getHeaderURL();
+
+    public abstract Object getAroundObj();
+
+    public abstract boolean getDir();
 }

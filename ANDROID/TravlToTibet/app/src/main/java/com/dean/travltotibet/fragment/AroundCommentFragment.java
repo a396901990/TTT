@@ -1,20 +1,20 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.AroundBaseActivity;
-import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.adapter.CommentAdapter;
+import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.model.Comment;
 
-import de.greenrobot.event.EventBus;
+import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 1/13/16.
@@ -23,9 +23,13 @@ public class AroundCommentFragment extends Fragment {
 
     private View root;
 
-    private AroundBaseActivity aroundActivity;
+    private RatingBar ratingBar;
 
-    RatingBar ratingBar;
+    private RecyclerView mRecyclerView;
+
+    private CommentAdapter mCommentAdapter;
+
+    private ArrayList<Comment> mComments;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,48 +41,47 @@ public class AroundCommentFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EventBus.getDefault().register(this);
-        aroundActivity = (AroundBaseActivity) getActivity();
         initRatingView();
+        initCommentView();
+    }
+
+    private void initCommentView() {
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.comment_list_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
+
+        mCommentAdapter = new CommentAdapter(getActivity());
+        mRecyclerView.setAdapter(mCommentAdapter);
+        getCommentData();
     }
 
     private void initRatingView() {
-
         ratingBar = (RatingBar) root.findViewById(R.id.ratting_bar);
         ratingBar.setMax(5);
-        ratingBar.setNumStars(0);
+        ratingBar.setRating(0);
+        ratingBar.setStepSize(1);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                goComment(rating);
+                goComment();
             }
         });
     }
 
-    private void goComment(float rating) {
-        if (true) {
-            DialogFragment dialogFragment = new LoginDialog();
-            dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
-        } else {
-            DialogFragment dialogFragment = new AroundCommentDialog();
-            Bundle bundle = new Bundle();
-            bundle.putFloat(IntentExtra.INTENT_AROUND_RATING, rating);
-            dialogFragment.setArguments(bundle);
-            dialogFragment.show(getFragmentManager(), AroundCommentDialog.class.getName());
-        }
+    public void goComment() {
     }
 
-    /**
-     * 登陆成功回调
-     */
-    public void onEventMainThread(LoginUtil.LoginEvent event) {
-        Log.e("onEventMainThread:", "onEventMainThread收到了消息：" + event.token);
+    public void getCommentData() {
+
     }
 
-    /**
-     * 登陆失败回调
-     */
-    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
-        initRatingView();
+    public void setComments(ArrayList<Comment> mComments) {
+        this.mComments = mComments;
+        mCommentAdapter.setData(mComments);
     }
+
+    protected float getRating() {
+        return ratingBar.getRating();
+    }
+
 }

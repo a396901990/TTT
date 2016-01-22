@@ -13,6 +13,8 @@ import com.dean.travltotibet.BuildConfig;
 import com.dean.travltotibet.TTTApplication;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by DeanGuo on 11/7/15.
@@ -130,6 +132,12 @@ public final class SystemUtil {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, TTTApplication.getMyResources().getDisplayMetrics());
         }
         return actionBarHeight;
+    }
+
+    public static String getCurrentTime() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYYMMDDHHMMSS);
+        return sdf.format(date);
     }
 
 }

@@ -14,7 +14,9 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.fragment.AroundHotelDetailFragment;
+import com.dean.travltotibet.fragment.AroundScenicCommentFragment;
 import com.dean.travltotibet.fragment.AroundScenicDetailFragment;
+import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
@@ -61,8 +63,8 @@ public class AroundScenicActivity extends AroundBaseActivity {
         mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
 
         // 为adapter添加数据
-        mAdapter.add(AroundScenicDetailFragment.class, null, "简介");
-        mAdapter.add(AroundCommentFragment.class, null, "评论");
+        mAdapter.add(AroundScenicDetailFragment.class, null, getString(R.string.around_overview));
+        mAdapter.add(AroundScenicCommentFragment.class, null, getString(R.string.around_comment));
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(1);
@@ -81,6 +83,11 @@ public class AroundScenicActivity extends AroundBaseActivity {
     @Override
     protected boolean needShowSystemBar() {
         return true;
+    }
+
+    @Override
+    public String getAroundType() {
+        return AroundType.SCENIC;
     }
 
     @Override

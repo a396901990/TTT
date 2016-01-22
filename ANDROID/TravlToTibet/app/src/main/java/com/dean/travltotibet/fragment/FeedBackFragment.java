@@ -105,7 +105,7 @@ public class FeedbackFragment extends Fragment {
         email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
         // 反馈
-        note = (EditText) root.findViewById(R.id.note);
+        note = (EditText) root.findViewById(R.id.comment_view);
         note.requestFocus();
         note.addTextChangedListener(new TextWatcher() {
 

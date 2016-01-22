@@ -106,6 +106,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.mikepenz/google-material-typeface/2.1.0.1.original/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.mikepenz/iconics-core/2.5.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.robbypond/material-dialogs/1.0.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/2.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -123,6 +124,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="circleimageview-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_radar_v3_6_1" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />

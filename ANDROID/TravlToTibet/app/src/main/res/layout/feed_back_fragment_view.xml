@@ -10,7 +10,7 @@
         android:layout_height="@dimen/feedback_space_height"></View>
 
     <EditText
-        android:id="@+id/note"
+        android:id="@+id/comment_view"
         style="@style/TextAppearance.Medium"
         android:layout_width="match_parent"
         android:layout_height="@dimen/feeding_edit_text_height"

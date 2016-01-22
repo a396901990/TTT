@@ -40,8 +40,8 @@ public class MyDataGeneratorDIANZANG {
 //
 //        geocodes.add(new Geocode("丽江市", 21, Constants.CITY));
 //        geocodes.add(new Geocode("虎跳峡镇", 22, Constants.TOWN));
-//        geocodes.add(new Geocode("俄迪隧道", 23, Constants.TUNNEL));
-//        geocodes.add(new Geocode("香格里拉市宝山村", 24, Constants.TUNNEL));
+//        geocodes.add(new Geocode("香格里拉市宝山村", 23, Constants.TUNNEL));
+//        geocodes.add(new Geocode("俄迪隧道", 24, Constants.TUNNEL));
 //        geocodes.add(new Geocode("上吉沙", 25, Constants.TUNNEL));
 //        geocodes.add(new Geocode("小中甸镇", 26, Constants.TOWN));
 //        geocodes.add(new Geocode("香格里拉市", 27, Constants.COUNTY));

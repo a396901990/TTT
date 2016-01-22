@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:stepSize="1" />
 
         <TextView
@@ -35,15 +36,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/plan_list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/comment_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/light_gray"
-            android:dividerHeight="1dip"
-            android:scrollbars="none"></ListView>
+            android:scrollbars="none"
+            android:clipToPadding="false" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/data_"
             style="@style/TextAppearance.Medium.Gray"
             android:layout_width="match_parent"

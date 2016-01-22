@@ -146,6 +146,7 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         Log.e("onComplete:", "onComplete");
         getDialog().dismiss();
+        // 成功则登陆
         LoginUtil.getInstance().login(platform.getDb().getUserId());
     }
 
@@ -153,6 +154,7 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
     public void onError(Platform platform, int i, Throwable throwable) {
         Log.e("onError:", "onError");
         getDialog().dismiss();
+        // 不成功执行失败操作
         TTTApplication.loginFailed();
     }
 
@@ -160,6 +162,7 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
     public void onCancel(Platform platform, int i) {
         Log.e("onCancel:", "onCancel");
         getDialog().dismiss();
+        // 不成功执行失败操作
         TTTApplication.loginFailed();
     }
 }
