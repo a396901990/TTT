@@ -1,55 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <RatingBar
-            android:id="@+id/ratting_bar"
-            style="@style/ThemeRatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:stepSize="1" />
-
-        <TextView
-            style="@style/TextAppearance.Regular.Gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="点击添加评论" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/gray_background" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
+        <com.dean.travltotibet.ui.customScrollView.InsideScrollListView
             android:id="@+id/comment_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:clipToPadding="false" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/data_"
-            style="@style/TextAppearance.Medium.Gray"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="暂无评论" />
-    </FrameLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"></com.dean.travltotibet.ui.customScrollView.InsideScrollListView>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

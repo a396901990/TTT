@@ -5,15 +5,10 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 
-import com.dean.greendao.Hotel;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
-import com.dean.travltotibet.fragment.AroundCommentFragment;
-import com.dean.travltotibet.fragment.AroundHotelDetailFragment;
 import com.dean.travltotibet.fragment.AroundScenicCommentFragment;
 import com.dean.travltotibet.fragment.AroundScenicDetailFragment;
 import com.dean.travltotibet.model.AroundType;
@@ -61,13 +56,12 @@ public class AroundScenicActivity extends AroundBaseActivity {
     private void initViewPagerAndTab() {
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
-
         // 为adapter添加数据
         mAdapter.add(AroundScenicDetailFragment.class, null, getString(R.string.around_overview));
         mAdapter.add(AroundScenicCommentFragment.class, null, getString(R.string.around_comment));
         mPager.setAdapter(mAdapter);
 
-        mPager.setOffscreenPageLimit(1);
+        mPager.setOffscreenPageLimit(0);
         // 设置页面变化监听
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 

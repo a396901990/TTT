@@ -1,136 +1,142 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
-    <!--简介视图-->
-    <LinearLayout
-        android:id="@+id/scenic_detail_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="20dp">
+    android:background="@color/white">
 
-        <!--plan简介-->
-        <TextView
-            android:id="@+id/scenic_detail"
-            style="@style/TextAppearance.Small"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <!--简介视图-->
+        <LinearLayout
+            android:id="@+id/scenic_detail_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="布达拉宫，这座世界上海拔最高、最雄伟的宫殿是拉萨乃至西藏最重要的象征。它最初是吐蕃王朝赞普松赞干布为迎娶尺尊公主和文成公主而建，而后经1300余年的不断修建，才得以有今日这般雄伟面貌。
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp">
+
+            <!--plan简介-->
+            <TextView
+                android:id="@+id/scenic_detail"
+                style="@style/TextAppearance.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="布达拉宫，这座世界上海拔最高、最雄伟的宫殿是拉萨乃至西藏最重要的象征。它最初是吐蕃王朝赞普松赞干布为迎娶尺尊公主和文成公主而建，而后经1300余年的不断修建，才得以有今日这般雄伟面貌。
 布宫主要由红宫和白宫组成，中间最高的红宫是举行宗教仪式的重要场所，周围的白宫主要为达赖喇嘛的生活和政治活动场所。布宫还有一些附属建筑，包括山下的雪城和后面的宗角禄康公园等。
 布达拉宫的参观线路是固定的，只能沿着旅行线路指导牌走，为一条线的浏览方式。开放的殿堂经常会有变化，但最重要的几个宫殿基本每天都开放。 "
-            android:textColor="@color/dark_gray" />
+                android:textColor="@color/dark_gray" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/gray_background" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/gray_background" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-        <!--收费-->
         <LinearLayout
-            android:id="@+id/scenic_fee_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
-
-            <TextView
-                style="@style/AroundTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="门票" />
-
-            <TextView
-                android:id="@+id/scenic_fee"
-                style="@style/TextAppearance.Small"
+            <!--收费-->
+            <LinearLayout
+                android:id="@+id/scenic_fee_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="phone"
-                android:text="门票需提前预约，也可网络预购。
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/AroundTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="门票" />
+
+                <TextView
+                    android:id="@+id/scenic_fee"
+                    style="@style/TextAppearance.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="phone"
+                    android:text="门票需提前预约，也可网络预购。
 旺季（5.1-10.31）200元/人，淡季（11.1-次年4.30）100元/人；"
-                android:textColor="@color/dark_gray" />
-        </LinearLayout>
+                    android:textColor="@color/dark_gray" />
+            </LinearLayout>
 
-        <!--时间-->
-        <LinearLayout
-            android:id="@+id/scenic_opening_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                style="@style/AroundTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="时间" />
-
-            <TextView
-                android:id="@+id/scenic_opening"
-                style="@style/TextAppearance.Small"
+            <!--时间-->
+            <LinearLayout
+                android:id="@+id/scenic_opening_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24:00后清场；音乐喷泉：20:30-21:30"
-                android:textColor="@color/dark_gray" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/AroundTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="时间" />
+
+                <TextView
+                    android:id="@+id/scenic_opening"
+                    style="@style/TextAppearance.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="24:00后清场；音乐喷泉：20:30-21:30"
+                    android:textColor="@color/dark_gray" />
+            </LinearLayout>
 
 
-        <!--交通-->
-        <LinearLayout
-            android:id="@+id/scenic_traffic_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                style="@style/AroundTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="交通" />
-
-            <TextView
-                android:id="@+id/scenic_traffic"
-                style="@style/TextAppearance.Small"
+            <!--交通-->
+            <LinearLayout
+                android:id="@+id/scenic_traffic_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="然乌镇到宗坝村途中，可见到景区售票处"
-                android:textColor="@color/dark_gray" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:padding="10dp">
 
-        <!--地址-->
-        <LinearLayout
-            android:id="@+id/scenic_address_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+                <TextView
+                    style="@style/AroundTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="交通" />
 
-            <TextView
-                style="@style/AroundTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="地址" />
+                <TextView
+                    android:id="@+id/scenic_traffic"
+                    style="@style/TextAppearance.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="然乌镇到宗坝村途中，可见到景区售票处"
+                    android:textColor="@color/dark_gray" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/scenic_address"
-                style="@style/TextAppearance.Small"
+            <!--地址-->
+            <LinearLayout
+                android:id="@+id/scenic_address_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="西藏自治区拉萨市城关区北京中路35号"
-                android:textColor="@color/dark_gray" />
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/AroundTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址" />
+
+                <TextView
+                    android:id="@+id/scenic_address"
+                    style="@style/TextAppearance.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="西藏自治区拉萨市城关区北京中路35号"
+                    android:textColor="@color/dark_gray" />
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

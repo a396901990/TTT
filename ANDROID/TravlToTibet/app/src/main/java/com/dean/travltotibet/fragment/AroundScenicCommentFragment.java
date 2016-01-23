@@ -50,18 +50,15 @@ public class AroundScenicCommentFragment extends AroundCommentFragment {
     public void getCommentData() {
         super.getCommentData();
 
-        final ArrayList<Comment> comments = null;
         BmobQuery<ScenicComment> query = new BmobQuery<>();
-        query.addWhereEqualTo("route", mScenic.getRoute());
         query.addWhereEqualTo("scenic_belong", mScenic.getScenic_f_belong());
         query.addWhereEqualTo("scenic_name", mScenic.getScenic_name());
+        query.setLimit(10);
         query.findObjects(getActivity(), new FindListener<ScenicComment>() {
             @Override
             public void onSuccess(List<ScenicComment> list) {
-                for (ScenicComment scenicComment : list) {
-                    Comment comment = scenicComment;
-                    comments.add(comment);
-                }
+                ArrayList<Comment> comments = new ArrayList<>();
+                comments.addAll(list);
                 setComments(comments);
             }
 
