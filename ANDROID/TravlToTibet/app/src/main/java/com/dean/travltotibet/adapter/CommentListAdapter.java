@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by DeanGuo on 1/22/16.
@@ -65,7 +68,9 @@ public class CommentListAdapter extends BaseAdapter {
         holder.profileName.setText(comment.getUser_name());
 
         // 评论时间
-        holder.commentDate.setText(comment.getComment_time());
+        Date date = DateUtil.parse(comment.getComment_time(), Constants.YYYYMMDDHHMMSS);
+        String time = DateUtil.formatDate(date, Constants.YYYY_MM_DD);
+        holder.commentDate.setText(time);
 
         // 评论
         holder.commentText.setText(comment.getComment());

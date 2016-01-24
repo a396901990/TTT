@@ -13,6 +13,8 @@ import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.fragment.AroundHotelCommentFragment;
 import com.dean.travltotibet.fragment.AroundHotelDetailFragment;
+import com.dean.travltotibet.fragment.AroundScenicCommentFragment;
+import com.dean.travltotibet.fragment.AroundScenicDetailFragment;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.Constants;
@@ -27,52 +29,19 @@ public class AroundHotelActivity extends AroundBaseActivity {
 
     private Hotel mHotel;
 
-    private ViewPager mPager;
-
-    private ViewPageFragmentAdapter mAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.around_hotel_view);
 
         if (getIntent() != null) {
             mHotel = (Hotel) getIntent().getSerializableExtra(IntentExtra.INTENT_HOTEL);
         }
-        initToolbar();
-        initViewPagerAndTab();
-    }
 
-    private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setUpToolBar(toolbar);
-        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+        setPageTitle(mHotel.getHotel_name());
 
-        // set title
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(mHotel.getHotel_name());
-    }
-
-    private void initViewPagerAndTab() {
-        mPager = (ViewPager) findViewById(R.id.view_pager);
-        mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
-
-        // 为adapter添加数据
-        mAdapter.add(AroundHotelDetailFragment.class, null, getString(R.string.around_overview));
-        mAdapter.add(AroundHotelCommentFragment.class, null, getString(R.string.around_comment));
-        mPager.setAdapter(mAdapter);
-
-        mPager.setOffscreenPageLimit(1);
-        // 设置页面变化监听
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-        });
-
-        PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
-        mTabs.setViewPager(mPager);
+        addPageTab(AroundHotelDetailFragment.class, null, getString(R.string.around_overview));
+        addPageTab(AroundHotelCommentFragment.class, null, getString(R.string.around_comment));
+        setUpTabViewPager();
     }
 
     @Override

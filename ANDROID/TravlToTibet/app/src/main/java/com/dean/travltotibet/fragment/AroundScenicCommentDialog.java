@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.ScenicComment;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -55,7 +57,7 @@ public class AroundScenicCommentDialog extends BaseCommentDialog {
         // user name
         scenicComment.setUser_name(getUserName());
         // current time
-        scenicComment.setComment_time(SystemUtil.getCurrentTime());
+        scenicComment.setComment_time(DateUtil.getCurrentTimeFormat(Constants.YYYYMMDDHHMMSS));
 
         scenicComment.save(getActivity(), new SaveListener() {
             @Override
@@ -68,5 +70,6 @@ public class AroundScenicCommentDialog extends BaseCommentDialog {
                 getHandle().sendEmptyMessage(SUBMIT_FAILURE);
             }
         });
+        super.submitCommit();
     }
 }

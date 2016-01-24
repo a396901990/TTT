@@ -27,6 +27,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.model.ScenicComment;
+import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.SystemUtil;
@@ -50,9 +51,13 @@ public class BaseCommentDialog extends DialogFragment {
 
     private TextView submitText;
 
+    private RotateLoading submitProgressBar;
+
     private float currentRating;
 
     private Handler mHandle;
+
+    private CommentCallBack commentCallBack;
 
     private static final float ENABLE_ALPHA = 1f;
 
@@ -62,6 +67,13 @@ public class BaseCommentDialog extends DialogFragment {
     protected final static int SUBMIT_FAILURE = 2;
     protected final static int SUBMIT_ENABLE = 3;
     protected final static int SUBMIT_DISABLE = 4;
+    protected final static int SUBMIT_BEGIN = 5;
+
+    public static interface CommentCallBack {
+        void onCommentSuccess();
+
+        void onCommentFailed();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,13 +99,26 @@ public class BaseCommentDialog extends DialogFragment {
                         submitContent.setEnabled(false);
                         submitText.setAlpha(DISABLE_ALPHA);
                         break;
+                    case SUBMIT_BEGIN:
+                        submitContent.setEnabled(false);
+                        submitProgressBar.start();
+                        break;
                     case SUBMIT_SUCCESS:
-                        getDialog().dismiss();
-                        Toast.makeText(getActivity(), getString(R.string.comment_success), Toast.LENGTH_SHORT).show();
+                        submitProgressBar.stop();
+                        submitContent.setEnabled(true);
+                        submitText.setText(getString(R.string.comment_success));
+                        submitContent.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getDialog().dismiss();
+                                commentCallBack.onCommentSuccess();
+                            }
+                        }, 1000);
                         break;
                     case SUBMIT_FAILURE:
-                        getDialog().dismiss();
-                        Toast.makeText(getActivity(), getString(R.string.comment_failed), Toast.LENGTH_SHORT).show();
+                        submitProgressBar.stop();
+                        submitContent.setEnabled(true);
+                        submitText.setText(getString(R.string.comment_failed));
                         break;
                 }
             }
@@ -141,6 +166,8 @@ public class BaseCommentDialog extends DialogFragment {
     private void initSubmitView() {
         submitContent = contentLayout.findViewById(R.id.submit_content);
         submitText = (TextView) contentLayout.findViewById(R.id.submit_text);
+        submitProgressBar = (RotateLoading) contentLayout.findViewById(R.id.submit_progress_bar);
+
         mHandle.sendEmptyMessage(SUBMIT_DISABLE);
 
         submitContent.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +217,7 @@ public class BaseCommentDialog extends DialogFragment {
     }
 
     public void submitCommit() {
+        mHandle.sendEmptyMessage(SUBMIT_BEGIN);
     }
 
     @Override
@@ -234,5 +262,14 @@ public class BaseCommentDialog extends DialogFragment {
 
     protected Handler getHandle() {
         return mHandle;
+    }
+
+
+    public CommentCallBack getCommentCallBack() {
+        return commentCallBack;
+    }
+
+    public void setCommentCallBack(CommentCallBack commentCallBack) {
+        this.commentCallBack = commentCallBack;
     }
 }

@@ -25,24 +25,21 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class AroundScenicCommentFragment extends AroundCommentFragment {
 
-    private AroundBaseActivity aroundActivity;
-
     private Scenic mScenic;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        aroundActivity = (AroundBaseActivity) getActivity();
-        mScenic = (Scenic) aroundActivity.getAroundObj();
+        mScenic = (Scenic) getAroundActivity().getAroundObj();
     }
 
     @Override
     public void goComment() {
         super.goComment();
-        DialogFragment dialogFragment = new AroundScenicCommentDialog();
+        BaseCommentDialog dialogFragment = new AroundScenicCommentDialog();
         Bundle bundle = new Bundle();
-        bundle.putFloat(IntentExtra.INTENT_AROUND_RATING, getRating());
         dialogFragment.setArguments(bundle);
+        dialogFragment.setCommentCallBack(this);
         dialogFragment.show(getFragmentManager(), AroundScenicCommentDialog.class.getName());
     }
 
@@ -53,7 +50,8 @@ public class AroundScenicCommentFragment extends AroundCommentFragment {
         BmobQuery<ScenicComment> query = new BmobQuery<>();
         query.addWhereEqualTo("scenic_belong", mScenic.getScenic_f_belong());
         query.addWhereEqualTo("scenic_name", mScenic.getScenic_name());
-        query.setLimit(10);
+        query.setLimit(Constants.COMMENT_LENGTH_LIMIT);
+        query.order("-createdAt");
         query.findObjects(getActivity(), new FindListener<ScenicComment>() {
             @Override
             public void onSuccess(List<ScenicComment> list) {

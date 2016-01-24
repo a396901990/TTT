@@ -105,11 +105,12 @@
     <string name="login_with_sina_weibo">微博登陆</string>
     <string name="login_with_qzone">QQ登陆</string>
     <string name="comment_success">发表成功</string>
-    <string name="comment_failed">发表失败</string>
+    <string name="comment_failed">发表失败，请重试</string>
     <string name="login_failed">登陆失败</string>
     <string name="login_success">登陆成功</string>
     <string name="unknow_user">匿名用户</string>
     <string name="around_overview">简介</string>
     <string name="around_comment">评论</string>
+    <string name="no_result">暂无数据</string>
 
 </resources>

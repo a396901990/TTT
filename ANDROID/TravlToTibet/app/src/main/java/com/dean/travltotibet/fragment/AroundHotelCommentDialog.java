@@ -11,6 +11,8 @@ import com.dean.greendao.Scenic;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.HotelComment;
 import com.dean.travltotibet.model.ScenicComment;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -55,7 +57,7 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
         // user name
         hotelComment.setUser_name(getUserName());
         // current time
-        hotelComment.setComment_time(SystemUtil.getCurrentTime());
+        hotelComment.setComment_time(DateUtil.getCurrentTimeFormat(Constants.YYYYMMDDHHMMSS));
 
         hotelComment.save(getActivity(), new SaveListener() {
             @Override
@@ -68,5 +70,6 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
                 getHandle().sendEmptyMessage(SUBMIT_FAILURE);
             }
         });
+        super.submitCommit();
     }
 }

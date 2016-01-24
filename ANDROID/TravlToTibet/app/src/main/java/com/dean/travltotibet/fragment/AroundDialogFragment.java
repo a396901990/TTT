@@ -14,16 +14,12 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.AroundSelectActivity;
-import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.AroundSelectAdapter;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.util.IntentExtra;
 
 /**
  * Created by DeanGuo on 1/13/16.
- * <p/>
- * 用来显示route风景视图
  */
 public class AroundDialogFragment extends DialogFragment {
 

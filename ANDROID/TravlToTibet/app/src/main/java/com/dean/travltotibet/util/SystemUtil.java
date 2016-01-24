@@ -13,8 +13,10 @@ import com.dean.travltotibet.BuildConfig;
 import com.dean.travltotibet.TTTApplication;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by DeanGuo on 11/7/15.
@@ -133,11 +135,4 @@ public final class SystemUtil {
         }
         return actionBarHeight;
     }
-
-    public static String getCurrentTime() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYYMMDDHHMMSS);
-        return sdf.format(date);
-    }
-
 }

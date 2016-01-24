@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,19 +9,15 @@ import android.widget.TextView;
 
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.AroundBaseActivity;
-import com.dean.travltotibet.activity.AroundScenicActivity;
 
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundScenicDetailFragment extends Fragment {
+public class AroundScenicDetailFragment extends AroundBaseFragment {
 
     private View root;
 
     private Scenic mScenic;
-
-    private AroundBaseActivity aroundActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +29,7 @@ public class AroundScenicDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        aroundActivity = (AroundBaseActivity) getActivity();
-        mScenic = (Scenic) aroundActivity.getAroundObj();
+        mScenic = (Scenic) getAroundActivity().getAroundObj();
         initContentView();
     }
 
@@ -74,7 +68,7 @@ public class AroundScenicDetailFragment extends Fragment {
         // 交通
         View scenicTrafficContent = root.findViewById(R.id.scenic_traffic_content);
         TextView scenicTraffic = (TextView) root.findViewById(R.id.scenic_traffic);
-        String traffic = aroundActivity.getDir() ? mScenic.getScenic_f_traffic() : mScenic.getScenic_r_traffic();
+        String traffic = getAroundActivity().getDir() ? mScenic.getScenic_f_traffic() : mScenic.getScenic_r_traffic();
         if (TextUtils.isEmpty(traffic)) {
             scenicTrafficContent.setVisibility(View.GONE);
         } else {
@@ -90,5 +84,10 @@ public class AroundScenicDetailFragment extends Fragment {
         } else {
             scenicAddress.setText(address);
         }
+    }
+
+    @Override
+    public void onTabChanged() {
+        getAroundActivity().getFloatingBtn().setVisibility(View.GONE);
     }
 }

@@ -17,13 +17,11 @@ import com.dean.travltotibet.activity.AroundScenicActivity;
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundHotelDetailFragment extends Fragment {
+public class AroundHotelDetailFragment extends AroundBaseFragment {
 
     private View root;
 
     private Hotel mHotel;
-
-    private AroundBaseActivity aroundActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,8 +33,7 @@ public class AroundHotelDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        aroundActivity = (AroundBaseActivity) getActivity();
-        mHotel = (Hotel) aroundActivity.getAroundObj();
+        mHotel = (Hotel) getAroundActivity().getAroundObj();
         initContentView();
     }
 
@@ -75,5 +72,10 @@ public class AroundHotelDetailFragment extends Fragment {
         } else {
             hotelAddressContent.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onTabChanged() {
+        getAroundActivity().getFloatingBtn().setVisibility(View.GONE);
     }
 }
