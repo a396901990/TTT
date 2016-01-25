@@ -66,8 +66,6 @@ public class RouteChartFragment extends BaseRouteFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         routeActivity = (RouteActivity) getActivity();
-        // 默认第一个视图先初始化菜单（设计的不好以后再改。。。）
-        initMenu(routeActivity.getFloatingActionMenu());
         super.onCreate(savedInstanceState);
     }
 
@@ -238,10 +236,6 @@ public class RouteChartFragment extends BaseRouteFragment {
     @Override
     public void initMenu(final FloatingActionMenu menu) {
 
-        // 第一个视图特殊逻辑，先确定menu是否初始化
-        if (menu == null) {
-            return;
-        }
         super.initMenu(menu);
 
         // 显示设置

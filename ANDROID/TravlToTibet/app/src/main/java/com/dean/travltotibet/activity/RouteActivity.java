@@ -109,6 +109,7 @@ public class RouteActivity
         mFloatingActionMenu.setMenuButtonColorNormal(TTTApplication.getMyColor(R.color.colorAccent));
         mFloatingActionMenu.setMenuButtonColorPressed(TTTApplication.getMyColor(R.color.colorAccentDark));
         mFloatingActionMenu.getMenuIconView().setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_menu, Color.WHITE));
+        mFloatingActionMenu.hideMenu(false);
         // fab动画
         MenuUtil.createCustomAnimation(mFloatingActionMenu);
         // 点击外侧关闭
@@ -159,12 +160,12 @@ public class RouteActivity
         mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
 
         // 为adapter添加数据
+        mAdapter.add(RouteDetailFragment.class, null, getString(R.string.guide_text));
         mAdapter.add(RouteChartFragment.class, null, getString(R.string.elevation_text));
         mAdapter.add(RouteMapFragment.class, null, getString(R.string.map_text));
-        mAdapter.add(RouteDetailFragment.class, null, getString(R.string.guide_text));
         mPager.setAdapter(mAdapter);
 
-        mPager.setOffscreenPageLimit(1);
+        mPager.setOffscreenPageLimit(2);
         // 设置页面变化监听
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 

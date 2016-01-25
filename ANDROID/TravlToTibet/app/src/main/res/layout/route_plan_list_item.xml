@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardBackgroundColor="@color/white"
-    card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="3dp"
-    card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.dean.travltotibet.ui.MaterialRippleLayout
         android:id="@+id/ripple_view"
         style="@style/RippleStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:background="@color/less_gray_background">
 
-            <TextView
-                android:id="@+id/plan_date"
-                style="@style/TextAppearance.Large.Black.Bold"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_alignParentLeft="true"
-                android:text="DAY1" />
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"></View>
+
+                <TextView
+                    android:id="@+id/plan_date"
+                    style="@style/TextAppearance.XLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="D1" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/less_light_gray"></View>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:orientation="vertical">
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:paddingRight="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -48,21 +65,32 @@
                         style="@style/TextAppearance.Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:text="成都" />
 
-                    <ImageView
+                    <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingLeft="5dp"-->
+                    <!--android:paddingRight="5dp"-->
+                    <!--android:src="@drawable/right_arrow" />-->
+
+
+                    <TextView
+                        style="@style/TextAppearance.Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:src="@drawable/right_arrow" />
+                        android:text=">"></TextView>
 
                     <TextView
                         android:id="@+id/plan_detail_end"
                         style="@style/TextAppearance.Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:text="拉萨" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -76,7 +104,8 @@
                         android:id="@+id/plan_distance"
                         style="@style/TextAppearance.Small.Gray"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="2010KM" />
 
                 </LinearLayout>
 
@@ -84,4 +113,4 @@
 
         </RelativeLayout>
     </com.dean.travltotibet.ui.MaterialRippleLayout>
-</android.support.v7.widget.CardView>
+</FrameLayout>

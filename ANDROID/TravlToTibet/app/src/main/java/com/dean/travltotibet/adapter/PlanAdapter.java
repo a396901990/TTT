@@ -48,7 +48,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         final Plan plan = mData.get(position);
 
-        holder.data.setText("DAY" + plan.getDay());
+        holder.data.setText(String.format(Constants.HEADER_DAY, plan.getDay()));
         holder.detail_start.setText(plan.getStart());
         holder.detail_end.setText(plan.getEnd());
         holder.distance.setText(plan.getDistance());

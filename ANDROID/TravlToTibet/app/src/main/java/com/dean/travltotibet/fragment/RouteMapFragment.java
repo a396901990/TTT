@@ -77,8 +77,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private DrivingRouteOverlay overlay;
 
-    private WalkingRouteOverlay walkingRouteOverlay;
-
     // 默认俯视角度
     private final static int OVERLOOK_ANGLE = -45;
 
@@ -97,19 +95,13 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         // 在使用SDK各组件之前初始化context信息，传入ApplicationContext
         // 注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(routeActivity.getApplicationContext());
+        initMapView();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.layout_content_frame, container, false);
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        initMapView();
     }
 
     private void initMapView() {

@@ -41,7 +41,7 @@
     <color name="light_gray">#CCCCCC</color>
     <color name="half_light_gray">#CCCCCCCC</color>
     <color name="less_light_gray">#99CCCCCC</color>
-    <color name="less_gray">#19999999</color>
+    <color name="less_gray_background">#19999999</color>
     <color name="dark_gray_background">#DDD</color>
     <color name="opaque">#80000000</color>
     <color name="rule">#DDD</color>

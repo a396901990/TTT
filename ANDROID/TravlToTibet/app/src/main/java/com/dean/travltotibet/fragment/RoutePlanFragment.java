@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.PlanAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -40,7 +42,6 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-        headerView = root.findViewById(R.id.overall_route);
 
         updateRouteOverall();
         initPlanList();
@@ -50,26 +51,13 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
      * 初始化总览视图
      */
     private void updateRouteOverall() {
-
-        View overall = root.findViewById(R.id.ripple_view);
-
-        TextView date = (TextView) overall.findViewById(R.id.plan_date);
-        TextView detail_start = (TextView) overall.findViewById(R.id.plan_detail_start);
-        TextView detail_end = (TextView) overall.findViewById(R.id.plan_detail_end);
-        TextView distance = (TextView) overall.findViewById(R.id.plan_distance);
+        headerView = root.findViewById(R.id.overall_route);
+        View overall = headerView.findViewById(R.id.ripple_view);
+        final TextView overallText = (TextView) headerView.findViewById(R.id.overall_text);
 
         // 获取当前的路线
-        Route route = routeActivity.getCurrentRoute();
-
-        final String start = route.getStart();
-        final String end = route.getEnd();
-        final String dis = route.getDistance();
-        final String name = route.getName();
-        
-        date.setText("总览："+name);
-        detail_start.setText(start);
-        detail_end.setText(end);
-        distance.setText(dis);
+        final Route route = routeActivity.getCurrentRoute();
+        overallText.setText(route.getName());
 
         // 切换到路线总览
         overall.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +82,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.plan_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(ScreenUtil.dip2px(getActivity(), 8)));
 
         mRecyclerView.setAdapter(adapter);
 
@@ -124,4 +113,17 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         headerView.setVisibility(View.GONE);
     }
 
+    public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.top = space;
+        }
+    }
 }
