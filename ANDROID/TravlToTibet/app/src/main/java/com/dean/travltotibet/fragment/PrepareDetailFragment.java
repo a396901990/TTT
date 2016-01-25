@@ -19,20 +19,13 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.dean.greendao.PrepareDetail;
 import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.PrepareDetailActivity;
-import com.dean.travltotibet.adapter.PrepareDetailAdapter;
-import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.model.PrepareFile;
-import com.dean.travltotibet.ui.CustomProgress;
-import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;

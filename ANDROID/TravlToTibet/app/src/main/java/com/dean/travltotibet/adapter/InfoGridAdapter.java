@@ -14,13 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.ui.SquareImageView;
-import com.dean.travltotibet.ui.sliderview.Indicators.PagerIndicator;
 
 import java.util.ArrayList;
 

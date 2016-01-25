@@ -110,17 +110,6 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         });
     }
 
-    private void initWhereGo() {
-        View whereGoBtn = root.findViewById(R.id.where_go);
-        whereGoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WhereGoActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     /**
      * 获取route数据
      */

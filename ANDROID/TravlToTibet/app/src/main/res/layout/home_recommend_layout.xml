@@ -13,31 +13,13 @@
         android:clipToPadding="false" />
 
     <com.dean.travltotibet.ui.fab.FloatingActionButton
-    android:id="@+id/fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|right"
-    android:layout_marginBottom="12dp"
-    android:layout_marginRight="16dp"
-    android:src="@drawable/ic_menu"
-    android:stateListAnimator="@anim/fab_anim"
-    app:fab_elevationCompat="4dp" />
-
-    <LinearLayout
-        android:id="@+id/where_go"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/btn_where_go"
-        android:clickable="true"
-        android:visibility="gone">
-
-        <TextView
-            style="@style/TextAppearance.Regular.Gray"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:text="你想要去哪里？" />
-    </LinearLayout>
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_menu"
+        android:stateListAnimator="@anim/fab_anim"
+        app:fab_elevationCompat="4dp" />
 </FrameLayout>

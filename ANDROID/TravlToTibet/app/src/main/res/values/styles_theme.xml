@@ -6,7 +6,6 @@
     <style name="Theme.ChartTheme" parent="Theme.AppBaseTheme">
         <item name="android:actionBarStyle">@style/ChartActionBar</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionDropDownStyle">@style/Theme.Spinner</item>
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:windowBackground">@color/gray_background</item>
     </style>
@@ -37,25 +36,6 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:windowBackground">@color/gray_background</item>
-    </style>
-
-    <style name="Theme.HomeSettingTheme" parent="Theme.AppBaseTheme">
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-        <item name="android:homeAsUpIndicator">@drawable/actionbar_back_icon</item>
-        <item name="android:actionBarStyle">@style/SettingActionBar</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionMenuTextColor">@color/white</item>
-        <item name="android:windowBackground">@color/white_background</item>
-    </style>
-
-    <!--白色主题，白色actionbar-->
-    <style name="Theme.WhiteTheme" parent="Theme.AppBaseTheme">
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-        <item name="android:homeAsUpIndicator">@drawable/actionbar_back_icon</item>
-        <item name="android:actionBarStyle">@style/WhiteActionBar</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionMenuTextColor">@color/dark_gray</item>
-        <item name="android:windowBackground">@color/white_background</item>
     </style>
 
     <style name="Theme.NoActionBar" parent="Theme.AppBaseTheme">
@@ -139,11 +119,6 @@
         <item name="android:windowAnimationStyle">@style/AnimationUpDown</item>
     </style>
 
-    <style name="Theme.Spinner" parent="android:Widget.Holo.Light.Spinner">
-        <item name="android:background">@drawable/spinner_ab_holo_dark</item>
-        <item name="android:textSize">@dimen/text_large</item>
-    </style>
-
     <style name="ChartHeaderBar.Text" parent="@style/TextAppearance.Mini">
         <item name="android:textColor">@color/gray</item>
         <item name="android:singleLine">true</item>
@@ -169,15 +144,6 @@
         <item name="android:singleLine">true</item>
         <item name="android:textSize">12sp</item>
         <item name="android:ellipsize">end</item>
-    </style>
-
-    <style name="SpinnerStyle" parent="android:Widget.Holo.Spinner">
-        <item name="android:background">@drawable/spinner_ab_holo_dark</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:dropDownSelector">#FFFFFF</item>
-        <item name="android:popupBackground">#335233</item>
-        <item name="android:clickable">true</item>
     </style>
 
     <style name="SpinnerItem">

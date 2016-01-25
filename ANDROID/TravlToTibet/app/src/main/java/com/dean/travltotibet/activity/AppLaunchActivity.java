@@ -86,8 +86,6 @@ public class AppLaunchActivity extends Activity {
         mLogo = (ImageView) findViewById(R.id.logo);
         welcomeText = (TextView) findViewById(R.id.welcome_text);
 
-        mKenBurns.setImageResource(R.drawable.splash_screen_background);
-
         logoAnimation();
         welcomeAnimation();
     }

@@ -7,18 +7,6 @@
         <attr name="gridThickness" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="SquareImageView">
-        <attr name="labelText" format="string" />
-        <attr name="labelSize" format="dimension" />
-        <attr name="labelTextColor" format="color|reference" />
-        <attr name="imageSrc" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="SquareView">
-        <attr name="activeSrc" format="reference" />
-        <attr name="disableSrc" format="reference" />
-    </declare-styleable>
-
     <declare-styleable name="ChangeColorIconWithTextView">
         <attr name="icon_bg" format="reference" />
         <attr name="text_color" format="color" />

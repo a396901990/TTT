@@ -119,6 +119,9 @@ public class InfoTravelTypeDialog extends DialogFragment {
 
     protected void notifyItemClicked(final View item, final Object obj, final String type) {
 
+        // 防止多次点击
+        item.setEnabled(false);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

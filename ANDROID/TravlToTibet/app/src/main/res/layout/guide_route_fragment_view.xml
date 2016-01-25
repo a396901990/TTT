@@ -25,7 +25,6 @@
             <!--简介-->
             <fragment
                 android:id="@+id/guide_overview_fragment"
-                android:name="com.dean.travltotibet.fragment.GuideOverViewFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin" />
@@ -38,7 +37,6 @@
             <!--详细-->
             <fragment
                 android:id="@+id/guide_detail_fragment"
-                android:name="com.dean.travltotibet.fragment.GuideDetailFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin" />
@@ -51,7 +49,6 @@
             <!--详细-->
             <fragment
                 android:id="@+id/guide_hotel_fragment"
-                android:name="com.dean.travltotibet.fragment.GuideHotelFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin" />
