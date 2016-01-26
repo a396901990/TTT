@@ -203,7 +203,7 @@ public class HomeActivity extends BaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 1200) {//如果两次按键时间间隔大于1200毫秒，则不退出
-                Toast.makeText(this, "再按一次退出程序...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.exit), Toast.LENGTH_SHORT).show();
                 firstTime = secondTime;//更新firstTime
                 return true;
             } else {

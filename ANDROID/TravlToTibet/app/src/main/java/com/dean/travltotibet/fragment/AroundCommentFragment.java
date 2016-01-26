@@ -77,8 +77,8 @@ public class AroundCommentFragment extends AroundBaseFragment implements BaseCom
         // 有数据
         else {
             noResultView.setVisibility(View.GONE);
-            commentListAdapter.setData(mComments);
         }
+        commentListAdapter.setData(mComments);
     }
 
     @Override

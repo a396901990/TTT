@@ -84,7 +84,7 @@
             android:paddingTop="10dp"
             android:textColor="@color/gray"
             app:expanded="false"
-            app:minLines="3" />
+            app:minLines="5" />
 
         <!--阴影-->
         <View

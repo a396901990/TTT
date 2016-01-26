@@ -69,18 +69,27 @@ public class HomeRecentFragment extends BaseHomeFragment {
         mAdapter.setRecentCallBack(new RecentAdapter.RecentCallBack() {
             @Override
             public void update() {
-                updateRecentData();
+                updateRecentData(getRecentData());
             }
         });
-        mAdapter.setData(recentRoutes);
         mRecyclerView.setAdapter(mAdapter);
+        updateRecentData(getRecentData());
     }
 
     /**
      * 更新recentRoutes数据
      */
-    public void updateRecentData() {
-        recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
+    public void updateRecentData(ArrayList<RecentRoute> recentRoutes) {
+        View noResultView = root.findViewById(R.id.no_result_content);
+
+        // 无数据
+        if (recentRoutes == null || recentRoutes.size() == 0) {
+            noResultView.setVisibility(View.VISIBLE);
+        }
+        // 有数据
+        else {
+            noResultView.setVisibility(View.GONE);
+        }
         mAdapter.setData(recentRoutes);
         mAdapter.notifyDataSetChanged();
     }
@@ -126,15 +135,14 @@ public class HomeRecentFragment extends BaseHomeFragment {
     /**
      * 获取最近显示数据
      */
-    private void getRecentData() {
+    private ArrayList<RecentRoute> getRecentData() {
         recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
+        return recentRoutes;
     }
 
     @Override
     public void update() {
         new refreshTask().execute();
-//        recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
-//        mAdapter.setData(recentRoutes);
     }
 
     @Override
@@ -158,7 +166,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         TTTApplication.getDbHelper().cleanRecentRoutes();
-                        updateRecentData();
+                        updateRecentData(getRecentData());
                         dialog.dismiss();
                     }
                 })
@@ -189,7 +197,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            mAdapter.setData(recentRoutes);
+            updateRecentData(recentRoutes);
             mActivity.finishUpdate();
 
             super.onPostExecute(result);
