@@ -1,7 +1,9 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,16 +11,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
 
@@ -31,8 +38,34 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
     private ArrayList<RecentRoute> mData;
 
+    private RequestQueue mQueue;
+
+    private ImageLoader imageLoader;
+
+    private RecentCallBack mRecentCallBack;
+
+    private Activity mActivity;
+
+    public static interface RecentCallBack {
+        void update();
+    }
+
     public RecentAdapter(Context mContext) {
         this.mContext = mContext;
+        mActivity = (Activity) mContext;
+
+        mQueue = Volley.newRequestQueue(mContext);
+
+        imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
+            @Override
+            public void putBitmap(String url, Bitmap bitmap) {
+            }
+
+            @Override
+            public Bitmap getBitmap(String url) {
+                return null;
+            }
+        });
     }
 
     @Override
@@ -42,7 +75,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
     }
 
     @Override
-    public void onBindViewHolder(RecentViewHolder holder, int position) {
+    public void onBindViewHolder(final RecentViewHolder holder, int position) {
 
         final RecentRoute recentRoute = mData.get(position);
         // 类型图片
@@ -53,15 +86,24 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         // 路线起点,终点
         String start = TTTApplication.getDbHelper().getFromName(recentRoute.getRoute(), recentRoute.getFR());
         String end = TTTApplication.getDbHelper().getToName(recentRoute.getRoute(), recentRoute.getFR());
-        holder.mRouteStart.setText(start);
-        holder.mRouteEnd.setText(end);
+        holder.mRouteStartEnd.setText(String.format(Constants.HEADER_START_END, start, end));
 
         // 计划描述，天数
         RoutePlan curRoutePlan = TTTApplication.getDbHelper().getRoutePlanWithPlanID(recentRoute.getRoute_plan_id());
         String name = curRoutePlan.getPlan_name();
         String day = curRoutePlan.getPlan_days();
-        holder.mPlanNameDay.setText(String.format(Constants.RECENT_PLAN_NAME_DAY, name, day));
+        holder.mPlanName.setText(name);
+        holder.mPlanDay.setText(day);
 
+        // 默认图片
+        holder.mBackgroundView.setDefaultImageResId(R.color.light_gray);
+        // 错误图片
+        holder.mBackgroundView.setErrorImageResId(R.color.gray);
+        // 图片url(取第一个)
+
+        String[] picURLs = TTTApplication.getDbHelper().getRoutePics(recentRoute.getRoute());
+
+        holder.mBackgroundView.setImageUrl(picURLs[0], imageLoader);
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +117,38 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
                 mContext.startActivity(intent);
             }
         });
+
+        holder.mDelIcon.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_delete, TTTApplication.getMyColor(R.color.white)));
+        holder.mDelIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteRouteRecent(recentRoute);
+            }
+        });
+    }
+
+    private void deleteRouteRecent(final RecentRoute recentRoute) {
+        new MaterialDialog.Builder(mActivity)
+                .title(mActivity.getString(R.string.delete_recent_title))
+                .content(mActivity.getString(R.string.delete_recent_msg))
+                .positiveText(mActivity.getString(R.string.ok_btn))
+                .negativeText(mActivity.getString(R.string.cancel_btn))
+                .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+                .callback(new MaterialDialog.Callback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        TTTApplication.getDbHelper().deleteRecentRoute(recentRoute);
+                        mRecentCallBack.update();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .show();
     }
 
     @Override
@@ -104,18 +178,31 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         private MaterialRippleLayout rippleLayout;
         private ImageView mTitleView;
         private TextView mRouteName;
-        private TextView mRouteStart;
-        private TextView mRouteEnd;
-        private TextView mPlanNameDay;
+        private TextView mRouteStartEnd;
+        private TextView mPlanName;
+        private TextView mPlanDay;
+        private ImageView mDelIcon;
+        private NetworkImageView mBackgroundView;
 
         public RecentViewHolder(View itemView) {
             super(itemView);
             mTitleView = (ImageView) itemView.findViewById(R.id.type_icon);
+            mDelIcon = (ImageView) itemView.findViewById(R.id.del_icon);
             mRouteName = (TextView) itemView.findViewById(R.id.route_name);
-            mRouteStart = (TextView) itemView.findViewById(R.id.route_start);
-            mRouteEnd = (TextView) itemView.findViewById(R.id.route_end);
-            mPlanNameDay = (TextView) itemView.findViewById(R.id.route_plan_name_day);
+            mRouteStartEnd = (TextView) itemView.findViewById(R.id.route_start_end);
+            mPlanName = (TextView) itemView.findViewById(R.id.route_plan_name);
+            mPlanDay = (TextView) itemView.findViewById(R.id.route_plan_day);
+            mBackgroundView = (NetworkImageView) itemView.findViewById(R.id.background_image);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }
+
+    public RecentCallBack getRecentCallBack() {
+        return mRecentCallBack;
+    }
+
+    public void setRecentCallBack(RecentCallBack mRecentCallBack) {
+        this.mRecentCallBack = mRecentCallBack;
+    }
+
 }

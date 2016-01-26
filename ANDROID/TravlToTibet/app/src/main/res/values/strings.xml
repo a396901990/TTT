@@ -29,10 +29,10 @@
     <string name="preference">private preference</string>
 
     <!--recent dialog-->
-    <string name="ok">确定</string>
-    <string name="cancel">取消</string>
-    <string name="delete_recent_msg">是否要清空所有浏览记录？</string>
-    <string name="delete_recent_title">清空记录</string>
+    <string name="ok_btn">确定</string>
+    <string name="cancel_btn">取消</string>
+    <string name="delete_recent_msg">是否要删除该条记录？</string>
+    <string name="delete_recent_title">删除记录</string>
 
     <!--activity title-->
     <string name="title_activity_home_setting">设置</string>

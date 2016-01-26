@@ -486,6 +486,10 @@ public class DBHelper {
         recentRouteDao.deleteAll();
     }
 
+    public void deleteRecentRoute(RecentRoute recentRoute) {
+        recentRouteDao.delete(recentRoute);
+    }
+
     /**
      * 插入数据到RecentRoute
      */

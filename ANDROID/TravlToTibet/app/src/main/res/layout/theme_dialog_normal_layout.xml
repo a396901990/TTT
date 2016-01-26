@@ -62,6 +62,6 @@
             android:background="@drawable/white_btn_background"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/ok" />
+            android:text="@string/ok_btn" />
     </LinearLayout>
 </LinearLayout>

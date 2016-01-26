@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.greendao.RecentRoute;
@@ -59,7 +57,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
         getRecentData();
         setUpList();
-        initFabBtn();
+        // initFabBtn();
     }
 
     private void setUpList() {
@@ -68,6 +66,12 @@ public class HomeRecentFragment extends BaseHomeFragment {
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
 
         mAdapter = new RecentAdapter(getActivity());
+        mAdapter.setRecentCallBack(new RecentAdapter.RecentCallBack() {
+            @Override
+            public void update() {
+                updateRecentData();
+            }
+        });
         mAdapter.setData(recentRoutes);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -128,6 +132,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
+        new refreshTask().execute();
 //        recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
 //        mAdapter.setData(recentRoutes);
     }
@@ -142,8 +147,8 @@ public class HomeRecentFragment extends BaseHomeFragment {
         new MaterialDialog.Builder(getActivity())
                 .title(getString(R.string.delete_recent_title))
                 .content(getString(R.string.delete_recent_msg))
-                .positiveText(getString(R.string.cancel))
-                .negativeText(getString(R.string.ok))
+                .positiveText(getString(R.string.cancel_btn))
+                .negativeText(getString(R.string.ok_btn))
                 .callback(new MaterialDialog.Callback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {

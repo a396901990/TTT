@@ -58,8 +58,7 @@ public class HomeRecommendFragment extends BaseHomeFragment {
 
         getRouteData();
         initList();
-        //initWhereGo();
-        initFabBtn();
+//        initFabBtn();
     }
 
     private void initList() {
@@ -149,7 +148,7 @@ public class HomeRecommendFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
-
+        // new refreshTask().execute();
     }
 
     @Override
