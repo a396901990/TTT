@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -209,23 +210,26 @@ public class GuideLineAdapter extends BaseAdapter {
                     }
                 });
             }
+            // scenic
             if (around.contains(AroundType.SCENIC)) {
 
-                // scenic
-                holder.scenicBtn.setVisibility(View.VISIBLE);
-                holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DialogFragment dialogFragment = new AroundDialogFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
-                        bundle.putString(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                        bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.SCENIC);
-                        bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
-                        dialogFragment.setArguments(bundle);
-                        dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundDialogFragment.class.getName());
-                    }
-                });
+                // 如果是正风景,并且是正向 或者 是反风景并且是反向
+                if (around.contains(AroundType.SCENIC_F) || (around.contains(AroundType.SCENIC_R) && !isForward)) {
+                    holder.scenicBtn.setVisibility(View.VISIBLE);
+                    holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DialogFragment dialogFragment = new AroundDialogFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
+                            bundle.putString(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
+                            bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.SCENIC);
+                            bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
+                            dialogFragment.setArguments(bundle);
+                            dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundDialogFragment.class.getName());
+                        }
+                    });
+                }
             }
         }
     }
@@ -277,6 +281,9 @@ public class GuideLineAdapter extends BaseAdapter {
     }
 
     private void addAroundIcon(GuideDetailViewHolder holder, int position) {
+
+        holder.headerAroundContent.removeAllViews();
+
         Geocode geocode = getItem(position);
         // logic to get around
         String aroundType = geocode.getAround_type();
@@ -284,13 +291,8 @@ public class GuideLineAdapter extends BaseAdapter {
             return;
         }
 
-        // 如果已经加过标记则不需要再次添加
-        String holderTag = (String) holder.headerAroundContent.getTag();
-        if (aroundType.equals(holderTag)) {
-            return;
-        }
         String[] arounds = aroundType.split(Constants.REPLACE_MARK);
-        holder.headerAroundContent.removeAllViews();
+
         for (final String around : arounds) {
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtil.dip2px(mContext, 15), ScreenUtil.dip2px(mContext, 15));
@@ -301,13 +303,26 @@ public class GuideLineAdapter extends BaseAdapter {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.border_gray));
             }
-            imageView.setImageDrawable(AroundType.getAroundDrawableSrc(around));
+
             int padding = ScreenUtil.dip2px(mContext, 2);
             imageView.setPadding(padding, padding, padding, padding);
             imageView.setLayoutParams(layoutParams);
-            holder.headerAroundContent.addView(imageView);
+
+
+            // 如果是风景类型，做特殊逻辑
+            if (around.contains(AroundType.SCENIC)) {
+                // 如果是正风景（无需判断正反，因为默认正向） 或者 是反风景并且是反向
+                if (around.equals(AroundType.SCENIC_F) || (around.equals(AroundType.SCENIC_R) && !isForward)) {
+                    imageView.setImageDrawable(AroundType.getAroundDrawableSrc(AroundType.SCENIC));
+                    holder.headerAroundContent.addView(imageView);
+                }
+            } else {
+                imageView.setImageDrawable(AroundType.getAroundDrawableSrc(around));
+                holder.headerAroundContent.addView(imageView);
+            }
+
         }
-        holder.headerAroundContent.setTag(aroundType);
+//        holder.headerAroundContent.setTag(aroundType);
     }
 
     public class GuideDetailViewHolder {

@@ -178,8 +178,10 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
         @Override
         protected void onPreExecute() {
-            mActivity.startUpdate();
-            mAdapter.clearData();
+            if (mActivity != null && mAdapter != null) {
+                mActivity.startUpdate();
+                mAdapter.clearData();
+            }
             super.onPreExecute();
         }
 

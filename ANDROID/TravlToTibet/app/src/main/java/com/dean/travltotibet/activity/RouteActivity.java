@@ -25,9 +25,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by DeanGuo on 7/19/15.
@@ -295,6 +297,20 @@ public class RouteActivity
                 fragment.initMenu(mFloatingActionMenu);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        // 如果是route视图则退出，否则退回到route界面
+        if (isRoute()) {
+            finish();
+        } else {
+            // 回到detail视图
+            mPager.setCurrentItem(0, true);
+            updateHeader(true, null);
+        }
+
+        return true;
     }
 
     @Override

@@ -1,16 +1,15 @@
 package com.daen.google;
 
 import com.daen.google.module.Constants;
+import com.daen.google.module.Geocode;
 import com.daen.google.util.DataGeneratorUtil;
 
 import java.util.ArrayList;
 
-import com.daen.google.module.Geocode;
-
 /**
  * Created by 95 on 2015/5/29.
  */
-public class MyDataGenerator {
+public class MyDataGeneratorHAINANDAO {
     private static ArrayList<Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
@@ -39,9 +38,9 @@ public class MyDataGenerator {
 //        geocodes.add(new Geocode("黄流镇", 19, Constants.TOWN));
 //        geocodes.add(new Geocode("东方市板桥镇", 20, Constants.TOWN));
 //        geocodes.add(new Geocode("东方市", 21, Constants.CITY));
-//        geocodes.add(new Geocode("东方市大田镇", 22, Constants.TOWN));
-//        geocodes.add(new Geocode("昌江黎族自治县", 23, Constants.COUNTY));
-//        geocodes.add(new Geocode("雅星镇", 24, Constants.TOWN));
+        geocodes.add(new Geocode("东方市大田镇", 22, Constants.TOWN));
+        geocodes.add(new Geocode("昌江黎族自治县", 23, Constants.COUNTY));
+        geocodes.add(new Geocode("雅星镇", 24, Constants.TOWN));
         geocodes.add(new Geocode("儋州市", 25, Constants.CITY));
         geocodes.add(new Geocode("海口市秀英区", 26, Constants.CITY));
 

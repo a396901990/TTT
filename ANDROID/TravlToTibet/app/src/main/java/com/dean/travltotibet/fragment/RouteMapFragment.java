@@ -179,6 +179,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         }
 
         List<Geocode> mGeocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
+//        List<Geocode> mGeocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
 
         // 设置起点信息
         LatLng startLL = TTTApplication.getDbHelper().getLatLngWithGeocode(mGeocodes.get(0));
@@ -201,7 +202,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 PlanNode pbNode = PlanNode.withLocation(passByLL);
                 planNodes.add(pbNode);
             }
-
+//
 //            for (int i = 1; i < mGeocodes.size()-1; i++) {
 //                Geocode passByGeocode = mGeocodes.get(i);
 //                LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
@@ -217,9 +218,9 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 mSearch.drivingSearch((new DrivingRoutePlanOption())
                         .from(stNode)
                         .to(enNode)
-                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_DIS_FIRST)
+//                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_DIS_FIRST)
                         .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_FEE_FIRST)
-                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_TIME_FIRST)
+//                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_TIME_FIRST)
                         .passBy(planNodes));
             }
         });
