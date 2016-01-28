@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.AnimUtil;
@@ -103,6 +104,11 @@ public class InfoTravelTypeDialog extends DialogFragment {
 
         return contentLayout;
     }
+
+    public void getTravelTyle() {
+//        String[] types = TTTApplication.getDbHelper().getPlanList();
+    }
+
 
     @Override
     public void onResume() {

@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.WelcomeScreenFragment;
+import com.dean.travltotibet.fragment.WelcomePageFragment;
 import com.dean.travltotibet.util.SystemUtil;
 
 
@@ -196,23 +196,23 @@ public class WelcomeActivity extends Activity {
 
         @Override
         public Fragment getItem(int position) {
-            WelcomeScreenFragment welcomeScreenFragment = null;
+            Fragment fragment = null;
             switch (position) {
                 case 0:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_screen1);
+                    fragment = WelcomePageFragment.newInstance(R.layout.page_one_fragment_view, WelcomePageFragment.ANIM_ALPHA);
                     break;
                 case 1:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_screen2);
+                    fragment = WelcomePageFragment.newInstance(R.layout.page_two_fragment_view, WelcomePageFragment.ANIM_ALPHA);
                     break;
                 case 2:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_screen3);
+                    fragment = WelcomePageFragment.newInstance(R.layout.page_three_fragment_view, WelcomePageFragment.ANIM_ALPHA);
                     break;
                 case 3:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_screen4);
+                    fragment = WelcomePageFragment.newInstance(R.layout.page_four_fragment_view, WelcomePageFragment.NO_ANIM);
                     break;
             }
 
-            return welcomeScreenFragment;
+            return fragment;
         }
 
         @Override

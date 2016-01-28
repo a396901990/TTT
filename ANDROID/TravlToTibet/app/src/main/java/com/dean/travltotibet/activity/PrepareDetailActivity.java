@@ -1,27 +1,19 @@
 package com.dean.travltotibet.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.PrepareDetailPageAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 11/8/15.
@@ -57,6 +49,7 @@ public class PrepareDetailActivity extends BaseActivity {
         setUpToolBar(toolbar);
         setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
         // 设置标题
+        setTitle("准备信息");
         initViewPagerAndTab();
 
     }

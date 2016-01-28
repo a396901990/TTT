@@ -390,6 +390,13 @@ public class DBHelper {
         return qb.list();
     }
 
+    public List<Plan> getRoutePlanTypes(int routePlanId) {
+        QueryBuilder<Plan> qb = planDao.queryBuilder();
+        // 根据正反获取Plan
+        qb.where(PlanDao.Properties.Route_plan_id.eq(routePlanId));
+        return qb.list();
+    }
+
     /**
      * 根据routePlanId查询planDays
      */
