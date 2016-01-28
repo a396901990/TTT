@@ -14,7 +14,18 @@
         android:layout_above="@+id/button_layout"
         android:background="#33ffffff" />
 
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/circles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"/>
+
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/button_layout"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/welcome_bottom_height"
@@ -34,14 +45,14 @@
             android:src="@drawable/ic_action_pan_left"
             android:visibility="invisible" />
 
-        <LinearLayout
-            android:id="@+id/circles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/circles"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:orientation="horizontal">-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <Button
             android:id="@+id/done"

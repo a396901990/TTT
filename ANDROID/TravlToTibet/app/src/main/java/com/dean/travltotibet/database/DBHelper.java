@@ -407,6 +407,22 @@ public class DBHelper {
         return qb.list().get(0).getPlan_days();
     }
 
+    /**
+     * 根据route查询RoutePlanType
+     */
+    public String getRoutePlanType(String route) {
+        QueryBuilder<RoutePlan> qb = routePlanDao.queryBuilder();
+        // 根据正反获取Plan
+        qb.where(RoutePlanDao.Properties.Route.eq(route));
+        List<RoutePlan> routePlans = qb.list();
+
+        StringBuffer stringBuffer = new StringBuffer();
+        for (RoutePlan routePlan : routePlans) {
+            stringBuffer.append(routePlan.getType());
+        }
+        return stringBuffer.toString();
+    }
+
     public List<Scenic> getScenicList(String route) {
         QueryBuilder<Scenic> qb = scenicDao.queryBuilder();
         qb.where(ScenicDao.Properties.Route.eq(route));

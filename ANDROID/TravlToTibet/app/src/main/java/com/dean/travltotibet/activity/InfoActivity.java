@@ -116,8 +116,6 @@ public class InfoActivity extends BaseActivity {
         DialogFragment dialogFragment = new InfoTravelTypeDialog();
         Bundle bundle = new Bundle();
         bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
-        bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
-        bundle.putString(IntentExtra.INTENT_FROM_WHERE, InfoTravelTypeDialog.FROM_SECOND);
         dialogFragment.setArguments(bundle);
         dialogFragment.show(getFragmentManager(), InfoTravelTypeDialog.class.getName());
     }

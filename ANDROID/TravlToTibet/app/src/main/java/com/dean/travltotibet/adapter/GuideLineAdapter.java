@@ -140,7 +140,11 @@ public class GuideLineAdapter extends BaseAdapter {
         String road = geocode.getRoad();
         String milestone = geocode.getMilestone();
         if (!TextUtils.isEmpty(milestone)) {
-            milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            if (TextUtils.isEmpty(road)) {
+                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT_NO_ROAD, milestone);
+            } else {
+                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            }
         } else {
             milestone = String.format(Constants.GUIDE_OVERALL_ROAD_FORMAT, road);
         }

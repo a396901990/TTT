@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
@@ -31,30 +32,17 @@ import java.util.ArrayList;
  */
 public class InfoTravelTypeDialog extends DialogFragment {
 
-    public final static String FROM_FIRST = "from_first";
-    public final static String FROM_SECOND = "from_itself";
-
     private View contentLayout;
 
-    private String fromType;
-
-    private ArrayList<RoutePlan> plans;
-
     private String route;
-    private String routeName;
-
-    private ImageView bike;
-    private ImageView hike;
-    private ImageView moto;
-    private ImageView car;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             route = getArguments().getString(IntentExtra.INTENT_ROUTE);
-            routeName = getArguments().getString(IntentExtra.INTENT_ROUTE_NAME);
-            fromType = getArguments().getString(IntentExtra.INTENT_FROM_WHERE);
+        } else {
+            route = TravelType.BIKE;
         }
 
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.TravelTypeDialog);
@@ -64,51 +52,97 @@ public class InfoTravelTypeDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.info_travel_type_dialog_layout, null);
-        bike = (ImageView) contentLayout.findViewById(R.id.travel_bike_icon);
-        hike = (ImageView) contentLayout.findViewById(R.id.travel_hike_icon);
-        moto = (ImageView) contentLayout.findViewById(R.id.travel_moto_icon);
-        car = (ImageView) contentLayout.findViewById(R.id.travel_car_icon);
 
-        bike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.BIKE, R.color.white));
-        hike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.HIKE, R.color.white));
-        moto.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.MOTO, R.color.white));
-        car.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.CAR, R.color.white));
-
-        bike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(v, v.getTag(), TravelType.BIKE);
-            }
-        });
-
-        hike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(v, v.getTag(), TravelType.HIKE);
-            }
-        });
-
-        moto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(v, v.getTag(), TravelType.MOTO);
-            }
-        });
-
-        car.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(v, v.getTag(), TravelType.CAR);
-            }
-        });
+        setUpTypeIcon();
 
         return contentLayout;
     }
 
-    public void getTravelTyle() {
-//        String[] types = TTTApplication.getDbHelper().getPlanList();
-    }
+    private void setUpTypeIcon() {
+        ImageView bike = (ImageView) contentLayout.findViewById(R.id.travel_bike_icon);
+        ImageView hike = (ImageView) contentLayout.findViewById(R.id.travel_hike_icon);
+        ImageView moto = (ImageView) contentLayout.findViewById(R.id.travel_moto_icon);
+        ImageView car = (ImageView) contentLayout.findViewById(R.id.travel_car_icon);
 
+        TextView bikeText = (TextView) contentLayout.findViewById(R.id.travel_bike_text);
+        TextView hikeText = (TextView) contentLayout.findViewById(R.id.travel_hike_text);
+        TextView motoText = (TextView) contentLayout.findViewById(R.id.travel_moto_text);
+        TextView carText = (TextView) contentLayout.findViewById(R.id.travel_car_text);
+
+        String types = TTTApplication.getDbHelper().getRoutePlanType(route);
+
+        // bike
+        if (types.contains(TravelType.BIKE)) {
+            bike.setEnabled(true);
+            bike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.BIKE, R.color.white));
+            bikeText.setText(getString(R.string.travel_type_bike));
+            bike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifyItemClicked(v, v.getTag(), TravelType.BIKE);
+                }
+            });
+        } else {
+            bike.setEnabled(false);
+            bike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.BIKE, R.color.half_light_gray));
+            bikeText.setText("");
+        }
+
+        // hike
+        if (types.contains(TravelType.HIKE)) {
+            hike.setEnabled(true);
+            hike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.HIKE, R.color.white));
+            hikeText.setText(getString(R.string.travel_type_hike));
+            hike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifyItemClicked(v, v.getTag(), TravelType.HIKE);
+                }
+            });
+        } else {
+            hike.setEnabled(false);
+            hike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.HIKE, R.color.half_light_gray));
+            hikeText.setText("");
+        }
+
+        // moto
+        if (types.contains(TravelType.MOTO)) {
+            moto.setEnabled(true);
+            moto.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.MOTO, R.color.white));
+            motoText.setText(getString(R.string.travel_type_moto));
+
+            moto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifyItemClicked(v, v.getTag(), TravelType.MOTO);
+                }
+            });
+
+        } else {
+            moto.setEnabled(false);
+            moto.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.MOTO, R.color.half_light_gray));
+            motoText.setText("");
+        }
+
+        // CAR
+        if (types.contains(TravelType.CAR)) {
+            car.setEnabled(true);
+            car.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.CAR, R.color.white));
+            carText.setText(getString(R.string.travel_type_car));
+
+            car.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifyItemClicked(v, v.getTag(), TravelType.CAR);
+                }
+            });
+        } else {
+            car.setEnabled(false);
+            car.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.CAR, R.color.half_light_gray));
+            carText.setText("");
+        }
+
+    }
 
     @Override
     public void onResume() {
@@ -142,19 +176,8 @@ public class InfoTravelTypeDialog extends DialogFragment {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        // 如果是开始视图则关闭对话框进行跳转，如果是info视图则更新type类型
-                        if (fromType.equals(FROM_FIRST)) {
-                            // 跳转到InfoRouteActivity
-                            Intent intent = new Intent(getActivity(), InfoActivity.class);
-                            intent.putExtra(IntentExtra.INTENT_ROUTE, route);
-                            intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, routeName);
-                            intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, type);
-                            startActivity(intent);
-                            dismiss();
-                        } else if (fromType.equals(FROM_SECOND)) {
-                            ((InfoActivity) getActivity()).updateType(type);
-                            dismiss();
-                        }
+                        ((InfoActivity) getActivity()).updateType(type);
+                        dismiss();
                     }
 
                     @Override

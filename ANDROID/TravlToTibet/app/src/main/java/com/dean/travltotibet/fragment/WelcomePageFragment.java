@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,9 @@ import com.dean.travltotibet.R;
 
 public class WelcomePageFragment extends Fragment {
 
-    final static String LAYOUT_ID = "layoutId";
+    public final static String LAYOUT_ID = "layoutId";
 
-    final static String ANIM_TYPE = "animType";
+    public final static String ANIM_TYPE = "animType";
 
     public final static int ANIM_ROTATE = 1;
 
@@ -49,24 +50,6 @@ public class WelcomePageFragment extends Fragment {
     private boolean isVisible = false;
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            if (getUserVisibleHint()) {
-                isVisible = true;
-            } else {
-                isVisible = false;
-            }
-        }
-
-        if (isVisible) {
-            setAnim();
-        }
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(getArguments().getInt(LAYOUT_ID, -1), container, false);
         return root;
@@ -77,10 +60,12 @@ public class WelcomePageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         animType = getArguments().getInt(ANIM_TYPE, 0);
         anim_view = root.findViewById(R.id.anim_icon);
-        setAnim();
     }
 
-    private void setAnim() {
+    public void setAnim() {
+        if (anim_view == null) {
+            return;
+        }
         Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
         alphaAnimation.setDuration(3000);
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -127,6 +112,7 @@ public class WelcomePageFragment extends Fragment {
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                anim_view.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -142,6 +128,7 @@ public class WelcomePageFragment extends Fragment {
         if (NO_ANIM == animType) {
             return;
         } else if (ANIM_ALPHA == animType) {
+            anim_view.setVisibility(View.VISIBLE);
             anim_view.startAnimation(alphaAnimation);
 //            ViewGroup animViews = (ViewGroup) anim_view;
 //            if (animViews.getChildCount() > 0) {
@@ -153,8 +140,10 @@ public class WelcomePageFragment extends Fragment {
 
 //            }
         } else if (ANIM_ROTATE == animType) {
+            anim_view.setVisibility(View.VISIBLE);
             anim_view.startAnimation(rotateAnimation);
         } else if (ANIM_TRANSLATE == animType) {
+            anim_view.setVisibility(View.VISIBLE);
             anim_view.startAnimation(translateAnimation);
         }
     }

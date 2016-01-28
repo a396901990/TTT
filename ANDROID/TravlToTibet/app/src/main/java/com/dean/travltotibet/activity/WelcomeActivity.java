@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.adapter.ChartPagerAdapter;
+import com.dean.travltotibet.adapter.WelcomePageAdapter;
 import com.dean.travltotibet.fragment.WelcomePageFragment;
 import com.dean.travltotibet.util.SystemUtil;
 
@@ -89,8 +91,9 @@ public class WelcomeActivity extends Activity {
 
     private void initViewPager() {
         pager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new ScreenSlideAdapter(getFragmentManager());
-        pager.setAdapter(pagerAdapter);
+
+        final WelcomePageAdapter adapter = new WelcomePageAdapter(getFragmentManager());
+        pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -109,6 +112,9 @@ public class WelcomeActivity extends Activity {
 
             @Override
             public void onPageSelected(int position) {
+                WelcomePageFragment fragment = (WelcomePageFragment) adapter.getItem(position);
+                fragment.setAnim();
+
                 setIndicator(position);
                 // 第一页
                 if (position == 0) {
@@ -140,6 +146,14 @@ public class WelcomeActivity extends Activity {
             }
         });
 
+        pager.post(new Runnable() {
+            @Override
+            public void run() {
+                WelcomePageFragment fragment = (WelcomePageFragment) adapter.getItem(0);
+                fragment.setAnim();
+            }
+        });
+
     }
 
     private void buildCircles() {
@@ -165,9 +179,11 @@ public class WelcomeActivity extends Activity {
             for (int i = 0; i < TOTAL_PAGES - 1; i++) {
                 ImageView circle = (ImageView) circles.getChildAt(i);
                 if (i == index) {
-                    circle.setColorFilter(getResources().getColor(R.color.text_selected));
+                    circle.setAlpha(1f);
+//                    circle.setColorFilter(getResources().getColor(R.color.white));
                 } else {
-                    circle.setColorFilter(getResources().getColor(R.color.transparent_bg));
+                    circle.setAlpha(0.3f);
+//                    circle.setColorFilter(getResources().getColor(R.color.opaque));
                 }
             }
         }
@@ -186,39 +202,6 @@ public class WelcomeActivity extends Activity {
         saveVersion();
         setResult(RESULT_OK);
         finish();
-    }
-
-    private class ScreenSlideAdapter extends FragmentStatePagerAdapter {
-
-        public ScreenSlideAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            Fragment fragment = null;
-            switch (position) {
-                case 0:
-                    fragment = WelcomePageFragment.newInstance(R.layout.page_one_fragment_view, WelcomePageFragment.ANIM_ALPHA);
-                    break;
-                case 1:
-                    fragment = WelcomePageFragment.newInstance(R.layout.page_two_fragment_view, WelcomePageFragment.ANIM_ALPHA);
-                    break;
-                case 2:
-                    fragment = WelcomePageFragment.newInstance(R.layout.page_three_fragment_view, WelcomePageFragment.ANIM_ALPHA);
-                    break;
-                case 3:
-                    fragment = WelcomePageFragment.newInstance(R.layout.page_four_fragment_view, WelcomePageFragment.NO_ANIM);
-                    break;
-            }
-
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return TOTAL_PAGES;
-        }
     }
 
     @Override

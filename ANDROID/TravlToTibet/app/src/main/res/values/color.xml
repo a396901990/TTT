@@ -34,6 +34,7 @@
     <color name="dark_white">#B2FFFFFF</color>
     <color name="light_white">#4cFFFFFF</color>
     <color name="half_white">#7FFFFFFF</color>
+    <color name="half_light_white">#33FFFFFF</color>
     <color name="white_background">#FFF</color>
     <color name="gray_background">#EFEFEF</color>
     <color name="gray">#999999</color>
@@ -60,10 +61,6 @@
 
     <!-- lock button -->
     <color name="top_line_bg">#CCC</color>
-
-    <!--what's new page-->
-    <color name="text_selected">#fff</color>
-    <color name="transparent_bg">#b3b3b3</color>
 
     <!--PagerSlidingTabStrip-->
     <color name="background_tab_pressed">#6633B5E5</color>

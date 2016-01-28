@@ -121,7 +121,11 @@ public class RouteChartFragment extends BaseRouteFragment {
             String road = TTTApplication.getDbHelper().getRoadWithName(name);
             String milestone = TTTApplication.getDbHelper().getMilestoneWithName(name);
             if (!TextUtils.isEmpty(milestone)) {
-                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+                if (TextUtils.isEmpty(road)) {
+                    milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT_NO_ROAD, milestone);
+                } else {
+                    milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+                }
             } else {
                 milestone = String.format(Constants.GUIDE_OVERALL_ROAD_FORMAT, road);
             }
