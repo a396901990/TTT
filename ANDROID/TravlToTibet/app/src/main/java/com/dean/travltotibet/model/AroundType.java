@@ -21,7 +21,7 @@ public final class AroundType {
     public final static String ATM = "A";  // ATM
     public final static String GAS_STATION = "G";  // 加油站
     public final static String CHECK_POINT = "C";  // 检查点
-    public final static String SCENIC = "SF";  // 正向景点
+    public final static String SCENIC = "S";  // 正向景点
     public final static String SCENIC_F = "SF";  // 正向景点
     public final static String SCENIC_R = "SR";  // 正向景点
     public final static String CAMP_POINT = "CP";  // 扎营点

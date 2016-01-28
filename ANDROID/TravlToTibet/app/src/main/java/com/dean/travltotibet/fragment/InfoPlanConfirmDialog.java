@@ -218,17 +218,17 @@ public class InfoPlanConfirmDialog extends DialogFragment {
         ImageView to_icon = (ImageView) contentLayout.findViewById(R.id.to_icon);
 
         int circlePadding = ScreenUtil.dip2px(getActivity(), 20);
-        int loactorPadding = ScreenUtil.dip2px(getActivity(), 18);
+        int locatorPadding = ScreenUtil.dip2px(getActivity(), 18);
 
         if (isForward) {
             from_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_ring_circular));
             from_icon.setPadding(circlePadding, circlePadding, circlePadding, circlePadding);
 
             to_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_locator));
-            to_icon.setPadding(loactorPadding, loactorPadding, loactorPadding, loactorPadding);
+            to_icon.setPadding(locatorPadding, locatorPadding, locatorPadding, locatorPadding);
         } else {
             from_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_locator));
-            from_icon.setPadding(loactorPadding, loactorPadding, loactorPadding, loactorPadding);
+            from_icon.setPadding(locatorPadding, locatorPadding, locatorPadding, locatorPadding);
 
             to_icon.setImageDrawable(ContextCompat.getDrawable(infoActivity, R.drawable.icon_ring_circular));
             to_icon.setPadding(circlePadding, circlePadding, circlePadding, circlePadding);

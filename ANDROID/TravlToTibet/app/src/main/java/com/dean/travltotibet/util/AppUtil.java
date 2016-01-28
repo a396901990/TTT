@@ -23,6 +23,7 @@ public final class AppUtil {
     public static final String CURRENT_VERSION = "CURRENT_VERSION";
 
     public static final String CURRENT_VERSION_CODE = "CURRENT_VERSION_CODE";
+    public static final String APP_SHOWN = "app_shown";
 
 
     public static boolean isFirstLaunch() {
@@ -43,16 +44,13 @@ public final class AppUtil {
         preferences.edit().putInt(LAUNCH_COUNT, ++launchCount).apply();
     }
 
-    public static void saveVersionNumber(String verNum) {
-        TTTApplication.getSharedPreferences().edit().putString(CURRENT_VERSION, verNum).commit();
+    public static void saveVersionCode(Context context) {
+        int currentVersionCode = getVersionCode(context);
+        TTTApplication.getSharedPreferences().edit().putInt(CURRENT_VERSION_CODE, currentVersionCode).commit();
     }
 
-    public static void saveVersionCode(int verCode) {
-        TTTApplication.getSharedPreferences().edit().putInt(CURRENT_VERSION_CODE, verCode).commit();
-    }
-
-    public static void getRemoteVersionCode(int verCode) {
-        TTTApplication.getSharedPreferences().getInt(CURRENT_VERSION_CODE, VERSION_CODE_DEFAULT);
+    public static int getCurrentVersionCode() {
+        return TTTApplication.getSharedPreferences().getInt(CURRENT_VERSION_CODE, VERSION_CODE_DEFAULT);
     }
 
     /**
@@ -72,6 +70,12 @@ public final class AppUtil {
         }
 
         return localVersion < remoteVersion ? true : false;
+    }
+
+    public static boolean isNewVersion(Context context) {
+        int oldVersionCode = getCurrentVersionCode();
+        int currentVersionCode = getVersionCode(context);
+        return currentVersionCode != oldVersionCode;
     }
 
     //版本名

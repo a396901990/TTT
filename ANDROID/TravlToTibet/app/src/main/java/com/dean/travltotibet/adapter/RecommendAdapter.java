@@ -72,7 +72,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         holder.backgroundView.setImageUrl(picURL, imageLoader);
 
         holder.mainTitle.setText(route.getName());
-        holder.subTitle.setText("景观大道");
+        holder.subTitle.setText(route.getDescribe());
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

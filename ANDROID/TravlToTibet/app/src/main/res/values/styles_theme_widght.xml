@@ -42,8 +42,8 @@
     <style name="ThemeRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/theme_rating_bar</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:minHeight">40dip</item>
-        <item name="android:maxHeight">40dip</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:maxHeight">48dip</item>
         <item name="android:thumb">@null</item>
     </style>
 

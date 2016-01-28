@@ -167,7 +167,7 @@ public class GuideLineAdapter extends BaseAdapter {
             holder.detailGuideContent.setVisibility(View.VISIBLE);
             holder.detailGuide.setText(detail);
         } else {
-            holder.detailGuideContent.setVisibility(View.INVISIBLE);
+            holder.detailGuideContent.setVisibility(View.GONE);
         }
 
         if (holder.isExpanded) {
@@ -198,7 +198,7 @@ public class GuideLineAdapter extends BaseAdapter {
         if (TextUtils.isEmpty(around)) {
             return;
         } else {
-            if (around.contains(AroundType.HOTEL)) {
+            if (around.contains(AroundType.HOTEL) && TTTApplication.getDbHelper().placeHasHotel(geocode.getRoute(), geocode.getName())) {
                 holder.hotelBtn.setVisibility(View.VISIBLE);
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override

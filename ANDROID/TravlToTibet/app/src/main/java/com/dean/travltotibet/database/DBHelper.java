@@ -3,6 +3,7 @@ package com.dean.travltotibet.database;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.baidu.mapapi.model.LatLng;
 import com.dean.greendao.DaoSession;
@@ -30,12 +31,15 @@ import com.dean.greendao.Scenic;
 import com.dean.greendao.ScenicDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.WelcomeActivity;
 import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.ui.chart.IndicatorSeries;
 import com.dean.travltotibet.ui.chart.MountainSeries;
 import com.dean.travltotibet.ui.chart.PointManager;
+import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.StringUtil;
+import com.dean.travltotibet.util.SystemUtil;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -115,16 +119,14 @@ public class DBHelper {
         qb = geocodeDao.queryBuilder();
         if (startID < endID) {
             qb.where(Properties.Id.between(startID, endID));
-        }
-        else {
+        } else {
             qb.where(Properties.Id.between(endID, startID));
         }
 
         // 根据正反排序
         if (isForward) {
             qb.orderAsc(Properties.Id);
-        }
-        else {
+        } else {
             qb.orderDesc(Properties.Id);
         }
 
@@ -151,8 +153,7 @@ public class DBHelper {
         qb = geocodeDao.queryBuilder();
         if (startID < endID) {
             qb.where(Properties.Id.between(startID, endID));
-        }
-        else {
+        } else {
             qb.where(Properties.Id.between(endID, startID));
         }
 
@@ -161,8 +162,7 @@ public class DBHelper {
         // 根据正反排序
         if (isForward) {
             qb.orderAsc(Properties.Id);
-        }
-        else {
+        } else {
             qb.orderDesc(Properties.Id);
         }
 
@@ -201,16 +201,14 @@ public class DBHelper {
         qb = geocodeDao.queryBuilder();
         if (startID < endID) {
             qb.where(Properties.Id.between(startID, endID));
-        }
-        else {
+        } else {
             qb.where(Properties.Id.between(endID, startID));
         }
 
         // 根据正反排序
         if (isForward) {
             qb.orderAsc(Properties.Id);
-        }
-        else {
+        } else {
             qb.orderDesc(Properties.Id);
         }
 
@@ -286,6 +284,7 @@ public class DBHelper {
         Route route = qb.list().get(0);
         return isForward ? route.getStart() : route.getEnd();
     }
+
     public String getFromName(String routeName, String FR) {
         QueryBuilder<Route> qb = routeDao.queryBuilder();
         qb.where(Properties.Route.eq(routeName));
@@ -302,6 +301,7 @@ public class DBHelper {
         Route route = qb.list().get(0);
         return isForward ? route.getEnd() : route.getStart();
     }
+
     public String getToName(String routeName, String FR) {
         QueryBuilder<Route> qb = routeDao.queryBuilder();
         qb.where(Properties.Route.eq(routeName));
@@ -328,7 +328,7 @@ public class DBHelper {
         QueryBuilder<RoutePlan> qb = routePlanDao.queryBuilder();
         qb.where(RoutePlanDao.Properties.Route.eq(routeName));
         qb.where(RoutePlanDao.Properties.Type.eq(type));
-        qb.where(RoutePlanDao.Properties.Fr.eq(isForward?"F":"R"));
+        qb.where(RoutePlanDao.Properties.Fr.eq(isForward ? "F" : "R"));
         return qb.list();
     }
 
@@ -434,7 +434,7 @@ public class DBHelper {
         qb.where(ScenicDao.Properties.Route.eq(route));
         if (isForword) {
             qb.where(ScenicDao.Properties.Scenic_f_belong.eq(belongName));
-        }else {
+        } else {
             qb.where(ScenicDao.Properties.Scenic_r_belong.eq(belongName));
         }
 
@@ -443,9 +443,17 @@ public class DBHelper {
 
     public List<Hotel> getHotelListWithBelongName(String route, String place) {
         QueryBuilder<Hotel> qb = hotelDao.queryBuilder();
-        qb.where(HotelDao.Properties.Route.eq(route));
+//        qb.where(HotelDao.Properties.Route.eq(route));
         qb.where(HotelDao.Properties.Hotel_belong.eq(place));
         return qb.list();
+    }
+
+    public boolean placeHasHotel(String route, String place) {
+        QueryBuilder<Hotel> qb = hotelDao.queryBuilder();
+//        qb.where(HotelDao.Properties.Route.eq(route));
+        qb.where(HotelDao.Properties.Hotel_belong.eq(place));
+
+        return qb.count() > 0 ? true : false;
     }
 
     /**
@@ -497,7 +505,7 @@ public class DBHelper {
         qb.where(RecentRouteDao.Properties.Route_name.eq(recentRoute.getRoute_name()));
         qb.where(RecentRouteDao.Properties.Route_plan_id.eq(recentRoute.getRoute_plan_id()));
         qb.where(RecentRouteDao.Properties.FR.eq(recentRoute.getFR()));
-        if (qb.buildCount().count() > 0 ) {
+        if (qb.buildCount().count() > 0) {
             recentRouteDao.deleteByKey(qb.list().get(0).getId());
         }
     }
@@ -522,6 +530,7 @@ public class DBHelper {
 
     /**
      * 获取RecentRoute数据，根据ID从大到小排列（逆序）
+     *
      * @return
      */
     public List<RecentRoute> getRecentRoute() {
@@ -577,7 +586,7 @@ public class DBHelper {
                 Geocode g = new Geocode(geocode.getId(), "XINZANG", geocode.getName(), geocode.getElevation(),
                         geocode.getDistance(), r_distance, geocode.getLatitude(), geocode.getLongitude(),
                         geocode.getAddress(), geocode.getTypes(), geocode.getMilestone(),
-                        geocode.getRoad(), "正向攻略", "反向攻略", "最后点攻略","","",""
+                        geocode.getRoad(), "正向攻略", "反向攻略", "最后点攻略", "", "", ""
                 );
                 geocodeDao.insert(g);
             }
@@ -600,8 +609,11 @@ public class DBHelper {
     // 初始化读入数据库内容
     public String readDataBase(Context context) {
 
-        if (!isGeocodeDaoInited()) {
-        //if (true) {
+        Toast.makeText(mContext, AppUtil.isNewVersion(mContext)+"", Toast.LENGTH_LONG).show();
+
+        // 没数据或新版本时更新数据库
+        if (!isGeocodeDaoInited() || AppUtil.isNewVersion(context)) {
+            //if (true) {
             String DB_PATH = mContext.getDatabasePath(Constants.DB_NAME).getPath();
             //String DB_PATH = CommonData.baseDir + File.separator + Constants.DB_NAME;
 

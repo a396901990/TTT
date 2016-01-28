@@ -31,7 +31,7 @@ import com.dean.travltotibet.util.SystemUtil;
  */
 public class WelcomeActivity extends Activity {
 
-    private static final String KEY_SHOWN = "welcome.shown";
+    public static final String KEY_SHOWN = "welcome.shown";
 
     static final int TOTAL_PAGES = 4;
 

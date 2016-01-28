@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
 import com.dean.travltotibet.database.DBHelper;
+import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.LoginUtil;
@@ -74,14 +75,16 @@ public class TTTApplication extends Application {
 
         resources = getResources();
 
-        // 初始化数据库
-        initDB();
-
         // 初始化SharedPreferences
         initPreferences();
 
+        // 初始化数据库
+        initDB();
+
         // 初始化PointManager
         PointManager.init(instance);
+
+        AppUtil.saveVersionCode(context);
     }
 
     private void initPreferences() {
