@@ -56,6 +56,8 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
         hotelComment.setRating(getRatting());
         // user name
         hotelComment.setUser_name(getUserName());
+        // pic url
+        hotelComment.setImage_url(getUserIcon());
         // current time
         hotelComment.setComment_time(DateUtil.getCurrentTimeFormat(Constants.YYYYMMDDHHMMSS));
 

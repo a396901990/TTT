@@ -1,6 +1,8 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +22,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Hotel;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
@@ -27,19 +35,24 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.model.ScenicComment;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import cn.bmob.v3.listener.SaveListener;
 import de.greenrobot.event.EventBus;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by DeanGuo on 1/20/16.
  * 选择旅行类型
  */
-public class BaseCommentDialog extends DialogFragment {
+public class BaseCommentDialog extends LoginDialogFragment {
 
     private View contentLayout;
 
@@ -78,7 +91,6 @@ public class BaseCommentDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
 
         if (getArguments() != null) {
             currentRating = getArguments().getFloat(IntentExtra.INTENT_AROUND_RATING);
@@ -130,37 +142,11 @@ public class BaseCommentDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.around_comment_dialog_view, null);
-        initLoginHeader();
+        initLoginView(contentLayout);
         initRatingView();
         initCommentView();
         initSubmitView();
         return contentLayout;
-    }
-
-    private void initLoginHeader() {
-        TextView profile_text = (TextView) contentLayout.findViewById(R.id.profile_text);
-        profile_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkToLogin();
-            }
-        });
-        ImageView profile_image = (ImageView) contentLayout.findViewById(R.id.profile_image);
-        profile_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkToLogin();
-            }
-        });
-    }
-
-    private void checkToLogin() {
-        if (TTTApplication.hasLoggedIn()) {
-
-        } else {
-            DialogFragment dialogFragment = new LoginDialog();
-            dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
-        }
     }
 
     private void initSubmitView() {
@@ -228,20 +214,6 @@ public class BaseCommentDialog extends DialogFragment {
         window.setGravity(Gravity.BOTTOM);
     }
 
-    /**
-     * 登陆成功回调
-     */
-    public void onEventMainThread(LoginUtil.LoginEvent event) {
-        Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 登陆失败回调
-     */
-    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
-        Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
-    }
-
     protected String getComment() {
         return commentView.getText().toString();
     }
@@ -253,11 +225,21 @@ public class BaseCommentDialog extends DialogFragment {
     protected String getUserName() {
         String userName;
         if (TTTApplication.hasLoggedIn()) {
-            userName = LoginUtil.getInstance().getLastToken();
+            userName = TTTApplication.getUserInfo().getUserName();
         } else {
             userName = getString(R.string.unknow_user);
         }
         return userName;
+    }
+
+    protected String getUserIcon() {
+        String userIcon;
+        if (TTTApplication.hasLoggedIn()) {
+            userIcon = TTTApplication.getUserInfo().getUserIcon();
+        } else {
+            userIcon = "";
+        }
+        return userIcon;
     }
 
     protected Handler getHandle() {

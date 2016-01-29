@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
-                android:text="点击登陆" />
+                android:text="@string/login_text" />
         </LinearLayout>
 
         <LinearLayout

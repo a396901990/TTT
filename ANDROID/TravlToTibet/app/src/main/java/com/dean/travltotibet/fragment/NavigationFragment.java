@@ -4,52 +4,43 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
-import com.dean.travltotibet.util.AppUtil;
+import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
 import org.json.JSONArray;
-
-import java.util.HashMap;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by DeanGuo on 12/09/15.
  */
-public class NavigationFragment extends Fragment {
-
-    private boolean isNewVersion = false;
-
-    private View lastVersionView;
-    private View newVersionView;
-
-    private View versionCheckView;  // 版本更新视图
-    private View feedbackView;      // 反馈视图
-    private View rateView;          // 评价视图
-    private View shareView;         // 分享视图
-    private View aboutView;         // 关于视图
+public class NavigationFragment extends LoginFragment {
 
     private View root;
 
@@ -70,25 +61,15 @@ public class NavigationFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        lastVersionView = root.findViewById(R.id.version_check_last);
-        newVersionView = root.findViewById(R.id.version_check_new);
-
+        initLoginView(root);
         initSettingItemView();
         updateVersionCheck(getActivity());
     }
 
     private void initSettingItemView() {
-        // 版本更新视图
-        versionCheckView = root.findViewById(R.id.setting_version_check);
-        versionCheckView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BmobUpdateAgent.forceUpdate(getActivity());
-            }
-        });
+
         // 反馈视图
-        feedbackView = root.findViewById(R.id.setting_feedback);
+        View feedbackView = root.findViewById(R.id.setting_feedback);
         feedbackView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,29 +78,41 @@ public class NavigationFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         // 评价视图
-        rateView = root.findViewById(R.id.setting_rate);
+        View rateView = root.findViewById(R.id.setting_rate);
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = "market://details?id=" + AppUtil.getPackageName(getActivity());
-                Intent localIntent = new Intent("android.intent.action.VIEW");
-                localIntent.setData(Uri.parse(str));
-                startActivity(localIntent);
+//                String str = "market://details?id=" + AppUtil.getPackageName(getActivity());
+//                Intent localIntent = new Intent("android.intent.action.VIEW");
+//                localIntent.setData(Uri.parse(str));
+//                startActivity(localIntent);
+
+                Platform[] platforms = ShareSDK.getPlatformList();
+                for (Platform platform : platforms) {
+                    Log.e("getUserId:", platform.getDb().getUserId());
+                    Log.e("getPlatformNname:", platform.getDb().getPlatformNname());
+                    Log.e("getToken:", platform.getDb().getToken());
+                    Log.e("getUserName:", platform.getDb().getUserName());
+                    Log.e("getUserIcon:", platform.getDb().getUserIcon());
+                }
+                Log.e("getLastToken:", LoginUtil.getInstance().getLastToken());
 //                DialogFragment dialogFragment = new LoginDialog();
 //                dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
             }
         });
         // 分享视图
-        shareView = root.findViewById(R.id.setting_share);
+        View shareView = root.findViewById(R.id.setting_share);
         shareView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 share();
             }
         });
+
         // 关于视图
-        aboutView = root.findViewById(R.id.setting_about);
+        View aboutView = root.findViewById(R.id.setting_about);
         aboutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +122,7 @@ public class NavigationFragment extends Fragment {
     }
 
     private void share() {
-        ShareSDK.initSDK(getActivity());
+
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -157,6 +150,18 @@ public class NavigationFragment extends Fragment {
     }
 
     public void updateVersionCheck(final Context mContext) {
+
+        // 版本更新视图
+        final View versionCheckView = root.findViewById(R.id.setting_version_check);
+        versionCheckView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobUpdateAgent.forceUpdate(getActivity());
+            }
+        });
+
+        final View lastVersionView = root.findViewById(R.id.version_check_last);
+        final View newVersionView = root.findViewById(R.id.version_check_new);
 
         final int currentVersion = SystemUtil.getAppVersionCode(mContext);
 

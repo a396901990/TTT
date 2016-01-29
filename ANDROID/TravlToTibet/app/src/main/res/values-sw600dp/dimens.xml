@@ -47,6 +47,6 @@
 
     <!--route info page-->
     <dimen name="info_header_height">50dip</dimen>
-    <dimen name="info_header_view_page_height">300dip</dimen>
+    <dimen name="info_header_view_height">300dip</dimen>
 
 </resources>

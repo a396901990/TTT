@@ -22,6 +22,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.AnimUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
@@ -123,12 +124,11 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
                 animator.start();
 
             }
-        }, 200);
+        }, 0);
     }
 
     private void login(String loginType) {
 
-        ShareSDK.initSDK(getActivity());
         Platform platform = ShareSDK.getPlatform(getActivity(), loginType);
         platform.setPlatformActionListener(this);
 
@@ -147,7 +147,7 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
         Log.e("onComplete:", "onComplete");
         getDialog().dismiss();
         // 成功则登陆
-        LoginUtil.getInstance().login(platform.getDb().getUserId());
+        LoginUtil.getInstance().login(platform.getDb().getToken());
     }
 
     @Override
@@ -162,7 +162,5 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
     public void onCancel(Platform platform, int i) {
         Log.e("onCancel:", "onCancel");
         getDialog().dismiss();
-        // 不成功执行失败操作
-        TTTApplication.loginFailed();
     }
 }

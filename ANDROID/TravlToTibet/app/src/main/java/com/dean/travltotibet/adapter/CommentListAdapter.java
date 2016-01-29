@@ -1,6 +1,7 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.model.Comment;
@@ -26,10 +32,13 @@ public class CommentListAdapter extends BaseAdapter {
 
     private Context mContext;
 
+    RequestQueue mQueue;
+
     private ArrayList<Comment> mData = new ArrayList<>();
 
     public CommentListAdapter(Context mContext) {
         this.mContext = mContext;
+        mQueue = Volley.newRequestQueue(mContext);
     }
 
     @Override
@@ -62,10 +71,25 @@ public class CommentListAdapter extends BaseAdapter {
 
         Comment comment = mData.get(position);
 
-        // profile Image
-        //((RecentViewHolder) holder).profileImage.setImageDrawable(null);
+
         // profile Text
         holder.profileName.setText(comment.getUser_name());
+
+        // profile Image
+        ImageRequest imageRequest = new ImageRequest(
+                comment.getImage_url(),
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        holder.profileImage.setImageBitmap(response);
+                    }
+                }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                holder.profileImage.setImageResource(R.drawable.gray_profile);
+            }
+        });
+        mQueue.add(imageRequest);
 
         // 评论时间
         Date date = DateUtil.parse(comment.getComment_time(), Constants.YYYYMMDDHHMMSS);

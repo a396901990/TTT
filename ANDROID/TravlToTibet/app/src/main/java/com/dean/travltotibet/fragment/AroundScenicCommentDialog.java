@@ -56,6 +56,8 @@ public class AroundScenicCommentDialog extends BaseCommentDialog {
         scenicComment.setRating(getRatting());
         // user name
         scenicComment.setUser_name(getUserName());
+        // pic url
+        scenicComment.setImage_url(getUserIcon());
         // current time
         scenicComment.setComment_time(DateUtil.getCurrentTimeFormat(Constants.YYYYMMDDHHMMSS));
 
