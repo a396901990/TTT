@@ -88,6 +88,11 @@ public final class AppUtil {
         return getPackageInfo(context).versionCode;
     }
 
+    //版本号
+    public static String getPackageName(Context context) {
+        return getPackageInfo(context).packageName;
+    }
+
     private static PackageInfo getPackageInfo(Context context) {
         PackageInfo pi = null;
 

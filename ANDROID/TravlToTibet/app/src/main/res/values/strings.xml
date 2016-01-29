@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">户外探子</string>
+    <string name="app_platform">debug</string>
     <string name="action_recent">最近查询</string>
     <string name="action_setting">设置</string>
     <string name="action_submit">提交</string>

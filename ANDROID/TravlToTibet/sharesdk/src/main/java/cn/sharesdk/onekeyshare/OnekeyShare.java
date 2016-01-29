@@ -455,7 +455,7 @@ public class OnekeyShare implements PlatformActionListener, Callback {
 //				if (this == callback) {
 					int resId = getStringRes(context, "sharing");
 					if (resId > 0) {
-						showNotification(context.getString(resId));
+//						showNotification(context.getString(resId));
 					}
 //				}
 			}

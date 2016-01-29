@@ -4,15 +4,19 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
+import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
 import org.json.JSONArray;
@@ -98,9 +102,12 @@ public class NavigationFragment extends Fragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DialogFragment dialogFragment = new LoginDialog();
-                dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                String str = "market://details?id=" + AppUtil.getPackageName(getActivity());
+                Intent localIntent = new Intent("android.intent.action.VIEW");
+                localIntent.setData(Uri.parse(str));
+                startActivity(localIntent);
+//                DialogFragment dialogFragment = new LoginDialog();
+//                dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
             }
         });
         // 分享视图

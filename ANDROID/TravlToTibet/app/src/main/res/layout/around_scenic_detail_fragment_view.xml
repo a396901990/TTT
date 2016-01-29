@@ -61,7 +61,6 @@
                     style="@style/TextAppearance.Small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoLink="phone"
                     android:text="门票需提前预约，也可网络预购。
 旺季（5.1-10.31）200元/人，淡季（11.1-次年4.30）100元/人；"
                     android:textColor="@color/dark_gray" />

@@ -609,7 +609,7 @@ public class DBHelper {
     // 初始化读入数据库内容
     public String readDataBase(Context context) {
 
-        Toast.makeText(mContext, AppUtil.isNewVersion(mContext)+"", Toast.LENGTH_LONG).show();
+//        Toast.makeText(mContext, AppUtil.isNewVersion(mContext)+"", Toast.LENGTH_LONG).show();
 
         // 没数据或新版本时更新数据库
         if (!isGeocodeDaoInited() || AppUtil.isNewVersion(context)) {
