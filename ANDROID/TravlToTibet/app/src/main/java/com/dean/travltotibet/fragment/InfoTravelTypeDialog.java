@@ -85,7 +85,7 @@ public class InfoTravelTypeDialog extends DialogFragment {
         } else {
             bike.setEnabled(false);
             bike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.BIKE, R.color.half_light_gray));
-            bikeText.setText("");
+            bikeText.setText(getString(R.string.no_support));
         }
 
         // hike
@@ -102,7 +102,7 @@ public class InfoTravelTypeDialog extends DialogFragment {
         } else {
             hike.setEnabled(false);
             hike.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.HIKE, R.color.half_light_gray));
-            hikeText.setText("");
+            hikeText.setText(getString(R.string.no_support));
         }
 
         // moto
@@ -121,7 +121,7 @@ public class InfoTravelTypeDialog extends DialogFragment {
         } else {
             moto.setEnabled(false);
             moto.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.MOTO, R.color.half_light_gray));
-            motoText.setText("");
+            motoText.setText(getString(R.string.no_support));
         }
 
         // CAR
@@ -139,7 +139,7 @@ public class InfoTravelTypeDialog extends DialogFragment {
         } else {
             car.setEnabled(false);
             car.setImageDrawable(TravelType.getTypeImageSrcWithColor(TravelType.CAR, R.color.half_light_gray));
-            carText.setText("");
+            carText.setText(getString(R.string.no_support));
         }
 
     }

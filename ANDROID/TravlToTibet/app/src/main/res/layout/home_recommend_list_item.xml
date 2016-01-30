@@ -36,11 +36,12 @@
 
         <TextView
             android:id="@+id/sub_title"
-            style="@style/TextAppearance.Large.White"
+            style="@style/TextAppearance.Large"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:alpha="200"
+            android:alpha="0.8"
             android:text="CHENGDU-TIBET" />
     </LinearLayout>
 

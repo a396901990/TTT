@@ -87,12 +87,12 @@ public final class PointManager {
         COLORS.put(VILLAGE, R.color.dark_green);
         COLORS.put(MOUNTAIN, R.color.brown);
         COLORS.put(TUNNEL, R.color.light_red);
-        COLORS.put(CAMP_SPOT, R.color.red);
-        COLORS.put(SCENIC_SPOT, R.color.blue);
-        COLORS.put(CHECK_POINT, R.color.red);
-        COLORS.put(BRIDGE, R.color.red);
-        COLORS.put(GAS_STATION, R.color.blue);
-        COLORS.put(OTHERS, R.color.red);
+        COLORS.put(CAMP_SPOT, R.color.indigo);
+        COLORS.put(SCENIC_SPOT, R.color.blue_gray);
+        COLORS.put(CHECK_POINT, R.color.orange);
+        COLORS.put(BRIDGE, R.color.green);
+        COLORS.put(GAS_STATION, R.color.deep_purple);
+        COLORS.put(OTHERS, R.color.lime);
     }
 
     // 颜色

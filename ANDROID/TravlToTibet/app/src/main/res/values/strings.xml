@@ -115,10 +115,12 @@
     <string name="no_result">暂无数据</string>
     <string name="plan_header_hint">点击返回总览</string>
     <string name="exit">再按一次退出程序</string>
+    <string name="no_support">暂不支持</string>
 
     <string name="login_text">点击登陆</string>
     <string name="logout_dialog_title">提示</string>
     <string name="logout_dialog_msg">是否退出登陆？</string>
     <string name="logout">退出登陆</string>
+    <string name="version_name">版本</string>
 
 </resources>

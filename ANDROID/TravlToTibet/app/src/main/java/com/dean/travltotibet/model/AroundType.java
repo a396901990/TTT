@@ -50,7 +50,7 @@ public final class AroundType {
             src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_local_gas_station, R.color.white);
         } else if (type.equals(CHECK_POINT)) {
             src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_check_point);
-        } else if (type.contains(SCENIC)) {
+        } else if (type.equals(SCENIC)) {
             src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_landscape);
         } else if (type.equals(CAMP_POINT)) {
             src = TTTApplication.getResourceUtil().getDrawableResourece(R.drawable.icon_camp);

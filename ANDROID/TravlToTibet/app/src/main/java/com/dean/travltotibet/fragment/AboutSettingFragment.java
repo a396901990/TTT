@@ -48,7 +48,7 @@ public class AboutSettingFragment extends Fragment {
 
     private void initAppNameVersion() {
         TextView nameVersion = (TextView) root.findViewById(R.id.app_name_version);
-        String name_version = String.format(Constants.NAME_VERSION, getString(R.string.app_name), AppUtil.getVersionName(getActivity()));
+        String name_version = String.format(Constants.NAME_VERSION, getString(R.string.version_name), AppUtil.getVersionName(getActivity()));
         nameVersion.setText(name_version);
     }
 
