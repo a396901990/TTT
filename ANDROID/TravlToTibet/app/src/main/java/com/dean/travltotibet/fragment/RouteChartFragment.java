@@ -32,6 +32,8 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.List;
 
+import cn.sharesdk.framework.Platform;
+
 /**
  * Created by DeanGuo on 8/13/15.
  */
@@ -58,6 +60,8 @@ public class RouteChartFragment extends BaseRouteFragment {
     private IndicatorSeries indicatorSeries;
 
     private RouteActivity routeActivity;
+
+    private float heightTop, heightLow;
 
     public static RouteChartFragment newInstance() {
         return new RouteChartFragment();
@@ -163,6 +167,8 @@ public class RouteChartFragment extends BaseRouteFragment {
         indicatorSeries = new IndicatorSeries();
 
         double mileage = 0;
+        double top = 0;
+        double low = 0;
 
         for (int i = 0; i < geocodes.size(); i++) {
             Geocode geocode = geocodes.get(i);
@@ -179,22 +185,49 @@ public class RouteChartFragment extends BaseRouteFragment {
                 double distance = isForward ? geocode.getF_distance() : geocode.getR_distance();
                 mileage = mileage + distance;
             }
+
+            top = geocode.getElevation() > top ? geocode.getElevation() : top;
+            low = geocode.getElevation() < low ? geocode.getElevation() : low;
         }
 
         series.initPaint();
 
+        // 左右文字的边长
         final float border = (float) mileage;
+        // 获取最高点和最低点（只运行一次）
+        if (heightTop == 0) {
+            List<Geocode> geos = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeName, routeActivity.getCurrentRoute().getStart(), routeActivity.getCurrentRoute().getEnd(), isForward);
+            for (int i = 0; i < geos.size(); i++) {
+                Geocode geocode = geos.get(i);
+
+                top = geocode.getElevation() > top ? geocode.getElevation() : top;
+                low = geocode.getElevation() < low ? geocode.getElevation() : low;
+            }
+            heightTop = 0;
+            heightLow = 0;
+
+            // 最高点
+            heightTop = (float) top + 2000;
+
+            // 最低点
+            if (low >= 500) {
+                low = 0;
+            } else if (low < 500 && low != 0) {
+                low = -1000;
+            }
+            heightLow = (float) low;
+        }
 
         // 另起一个子线程更新视窗大小变换，修复切换fragment重新加载bug
         mChartView.post(new Runnable() {
             @Override
             public void run() {
                 // 重置图标视图数据
-                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 7000);
+                mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, heightLow, border + border / BORDER_EXTRA_LENGTH, heightTop);
             }
         });
         //mChartView.setAxisRange(-5, 0, border+5, 6500);
-        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, 0, border + border / BORDER_EXTRA_LENGTH, 7000);
+        mChartView.setAxisRange(-border / BORDER_EXTRA_LENGTH, heightLow, border + border / BORDER_EXTRA_LENGTH, heightTop);
         mChartView.addSeries(series);
         mChartView.initCrosshair();
 

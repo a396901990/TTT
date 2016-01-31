@@ -28,8 +28,8 @@ public final class AppUtil {
 
     public static boolean isFirstLaunch() {
         SharedPreferences preferences = TTTApplication.getSharedPreferences();
-        int launchCount = preferences.getInt(LAUNCH_COUNT, 0);
-        if (launchCount == 0) {
+        int launchCount = preferences.getInt(LAUNCH_COUNT, 1);
+        if (launchCount == 1) {
             return true;
         }
         return false;

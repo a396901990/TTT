@@ -78,10 +78,11 @@
 
                 <com.dean.travltotibet.ui.ratingview.RatingView
                     android:id="@+id/rating_view"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/route_plan_view_width"
+                    android:layout_height="@dimen/route_plan_view_height"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="@dimen/route_plan_view_margin"
+                    android:layout_marginRight="@dimen/route_plan_view_margin"
                     app:rating_default_color="@color/white">
 
                     <RelativeLayout

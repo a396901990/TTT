@@ -73,7 +73,7 @@
 
     <!--route info -->
     <dimen name="info_header_height">40dip</dimen>
-    <dimen name="info_header_view_height">260dip</dimen>
+    <dimen name="info_header_view_height">280dip</dimen>
 
     <dimen name="info_card_margin">10dip</dimen>
     <dimen name="info_fragment_margin_bottom">10dip</dimen>
@@ -82,6 +82,7 @@
     <dimen name="info_card_rule_height">2dip</dimen>
     <dimen name="info_card_grid_margin">1dip</dimen>
     <dimen name="info_card_grid_space">2dip</dimen>
+    <dimen name="info_bottom_height">60dp</dimen>
 
     <!--bottom button-->
     <dimen name="top_line_rule">5dp</dimen>
@@ -112,10 +113,11 @@
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
     <!--home-->
-    <dimen name="home_item_height">250dp</dimen>
+    <dimen name="home_recommend_item_height">250dp</dimen>
     <integer name="home_page_columns_num">1</integer>
     <dimen name="home_toolbar_shadow_height">3dp</dimen>
     <dimen name="recommend_view_item_margin">0dp</dimen>
+    <dimen name="home_recent_item_height">200dp</dimen>
 
     <!--setting-->
     <dimen name="setting_item_height">44dp</dimen>
@@ -179,8 +181,8 @@
     <dimen name="card_padding">10dp</dimen>
     <dimen name="card_half_padding">5dp</dimen>
     <dimen name="navigation_item_padding">15dp</dimen>
-    <dimen name="scenic_card_width">150dp</dimen>
-    <dimen name="scenic_card_height">100dp</dimen>
+    <dimen name="scenic_card_width">200dp</dimen>
+    <dimen name="scenic_card_height">150dp</dimen>
 
     <!--guide line-->
     <dimen name="guide_line_padding">10dp</dimen>
@@ -192,5 +194,8 @@
     <dimen name="travel_type_dialog_image_size">80dp</dimen>
     <dimen name="login_profile_size">80dp</dimen>
     <dimen name="login_profile_padding">20dp</dimen>
+    <dimen name="route_plan_view_width">80dp</dimen>
+    <dimen name="route_plan_view_height">80dp</dimen>
+    <dimen name="route_plan_view_margin">5dp</dimen>
 
 </resources>

@@ -14,7 +14,7 @@
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/background_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/home_item_height"
+            android:layout_height="@dimen/home_recommend_item_height"
             android:layout_gravity="center"
             android:scaleType="centerCrop" />
     </com.dean.travltotibet.ui.MaterialRippleLayout>

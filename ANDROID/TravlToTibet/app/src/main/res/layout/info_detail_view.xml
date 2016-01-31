@@ -11,7 +11,7 @@
         style="@style/TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
+        android:paddingBottom="@dimen/card_padding"
         android:text="简介"
         android:visibility="gone" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:ellipsize="end"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/card_padding"
             android:textColor="@color/gray"
             app:expanded="false"
             app:minLines="5" />

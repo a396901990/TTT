@@ -53,7 +53,6 @@ public class AppLaunchActivity extends Activity {
     private void initView() {
 
         logoTextAnimation();
-//        welcomeAnimation();
     }
 
 

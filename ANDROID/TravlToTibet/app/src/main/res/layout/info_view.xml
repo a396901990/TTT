@@ -89,7 +89,7 @@
                 <!--控制最后距离-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/info_bottom_height"
                     android:background="@color/white"
                     android:orientation="vertical"></LinearLayout>
             </LinearLayout>
