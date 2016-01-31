@@ -202,10 +202,11 @@
 
     <dimen name="tutorial_page_text_height">180dp</dimen>
     <dimen name="tutorial_route_top_height">5dp</dimen>
-    <!--info_header_view_height - half width heigt   280 - 60 + padding-->
-    <dimen name="tutorial_info_top_height">225dp</dimen>
+    <!--info_header_view_height - half width heigt   280 - 60/2 + padding-->
+    <dimen name="tutorial_info_top_height">250dp</dimen>
     <dimen name="tutorial_info_target_height">60dp</dimen>
     <dimen name="tutorial_route_target_height">80dp</dimen>
     <dimen name="tutorial_route_target_padding">5dp</dimen>
+    <dimen name="tutorial_info_target_padding">26dp</dimen>
 
 </resources>

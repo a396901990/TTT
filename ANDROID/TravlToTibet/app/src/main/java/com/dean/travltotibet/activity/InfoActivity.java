@@ -67,7 +67,7 @@ public class InfoActivity extends BaseActivity {
      * 教程页面
      */
     private void initTutorialPage() {
-        if (!TutorialDialog.hasShown(TutorialDialog.INFO_GUIDE)) {
+        if (TutorialDialog.hasShown(TutorialDialog.INFO_GUIDE)) {
             DialogFragment tutorialDialog = new TutorialDialog();
             Bundle bundle = new Bundle();
             bundle.putString(IntentExtra.INTENT_GUIDE_FROM, TutorialDialog.INFO_GUIDE);

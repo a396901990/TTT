@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/tutorial_info_top_height"
         android:layout_alignParentTop="true"
-        android:background="@color/guide_light_black"
+        android:background="@color/tutorial_light_black"
         android:orientation="horizontal">
 
     </RelativeLayout>
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/target_view"
-            android:background="@color/guide_light_black"></View>
+            android:background="@color/tutorial_light_black"></View>
 
         <ImageView
             android:id="@+id/target_view"
@@ -37,17 +37,17 @@
 
         <View
             android:id="@+id/right_margin"
-            android:layout_width="14dp"
+            android:layout_width="@dimen/tutorial_info_target_padding"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:background="@color/guide_light_black" />
+            android:background="@color/tutorial_light_black" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/top"
-        android:background="@color/guide_light_black">
+        android:background="@color/tutorial_light_black">
 
         <ImageView
             android:layout_width="wrap_content"
