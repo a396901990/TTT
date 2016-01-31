@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.AppUtil;
@@ -58,11 +59,12 @@ public class AppLaunchActivity extends Activity {
 
     private void logoTextAnimation() {
         ImageView logoText = (ImageView) this.findViewById(R.id.logo_text);
+        TextView logoMsg = (TextView) this.findViewById(R.id.logo_msg);
         Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                logoMsgAnimation();
             }
 
             @Override
@@ -77,6 +79,14 @@ public class AppLaunchActivity extends Activity {
         });
         alphaAnimation.setDuration(1000);
         logoText.startAnimation(alphaAnimation);
+    }
+
+
+    private void logoMsgAnimation() {
+        TextView logoMsg = (TextView) this.findViewById(R.id.logo_msg);
+        Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        alphaAnimation.setDuration(1000);
+        logoMsg.startAnimation(alphaAnimation);
     }
 
     private void logoPicAnimation() {

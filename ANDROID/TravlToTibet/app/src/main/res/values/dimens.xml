@@ -182,7 +182,7 @@
     <dimen name="card_half_padding">5dp</dimen>
     <dimen name="navigation_item_padding">15dp</dimen>
     <dimen name="scenic_card_width">200dp</dimen>
-    <dimen name="scenic_card_height">150dp</dimen>
+    <dimen name="scenic_card_height">140dp</dimen>
 
     <!--guide line-->
     <dimen name="guide_line_padding">10dp</dimen>
@@ -197,5 +197,6 @@
     <dimen name="route_plan_view_width">80dp</dimen>
     <dimen name="route_plan_view_height">80dp</dimen>
     <dimen name="route_plan_view_margin">5dp</dimen>
+    <dimen name="logo_padding">60dp</dimen>
 
 </resources>

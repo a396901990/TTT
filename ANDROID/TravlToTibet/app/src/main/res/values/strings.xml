@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">户外探子</string>
+    <string name="share_link">http://eqxiu.com/s/RMVuagwm</string>
+    <string name="share_msg">最精准的户外路线提供者，为您探明前行的路！\n</string>
+    <string name="app_msg">为您探明前行的路</string>
     <string name="app_platform">debug</string>
     <string name="action_recent">最近查询</string>
     <string name="action_setting">设置</string>

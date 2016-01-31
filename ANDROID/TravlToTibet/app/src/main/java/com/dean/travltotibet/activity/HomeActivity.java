@@ -2,6 +2,7 @@ package com.dean.travltotibet.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -201,6 +202,13 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            // 如果抽屉打开先关抽屉
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 1200) {//如果两次按键时间间隔大于1200毫秒，则不退出
                 Toast.makeText(this, getString(R.string.exit), Toast.LENGTH_SHORT).show();

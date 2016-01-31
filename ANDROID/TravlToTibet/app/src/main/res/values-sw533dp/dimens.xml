@@ -11,9 +11,9 @@
     <dimen name="text_XXlarge">28dp</dimen>
     <dimen name="text_XXXlarge">32dp</dimen>
 
-    <dimen name="indicator_chartview_height">50dip</dimen>
+    <dimen name="indicator_chartview_height">60dip</dimen>
     <dimen name="header_land_padding_right">20dip</dimen>
-    <dimen name="slidingmenu_offset">280dp</dimen>
+    <dimen name="slidingmenu_offset">180dp</dimen>
     <dimen name="chart_header_menu_height">50dip</dimen>
 
     <!--home-->
@@ -33,4 +33,6 @@
     <dimen name="route_plan_view_width">100dp</dimen>
     <dimen name="route_plan_view_height">100dp</dimen>
     <dimen name="route_plan_view_margin">8dp</dimen>
+
+    <dimen name="logo_padding">100dp</dimen>
 </resources>
