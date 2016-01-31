@@ -6,6 +6,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseRouteFragment;
+import com.dean.travltotibet.fragment.TutorialDialog;
 import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteDetailFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
@@ -19,6 +20,7 @@ import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +31,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by DeanGuo on 7/19/15.
@@ -101,6 +102,21 @@ public class RouteActivity
 
         // 跟新信息
         updateHeader(isRoute, currentPlan);
+
+        initTutorialPage();
+    }
+
+    /**
+     * 教程页面
+     */
+    private void initTutorialPage() {
+        if (!TutorialDialog.hasShown(TutorialDialog.ROUTE_GUIDE)) {
+            DialogFragment tutorialDialog = new TutorialDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentExtra.INTENT_GUIDE_FROM, TutorialDialog.ROUTE_GUIDE);
+            tutorialDialog.setArguments(bundle);
+            tutorialDialog.show(getFragmentManager(), TutorialDialog.class.getName());
+        }
     }
 
     /**

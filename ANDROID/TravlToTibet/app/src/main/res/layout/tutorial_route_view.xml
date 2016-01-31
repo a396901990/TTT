@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tutorial_route_top_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/guide_light_black"
+        android:orientation="horizontal">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tutorial_route_target_height"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/target_view"
+            android:background="@color/guide_light_black"></View>
+
+        <ImageView
+            android:id="@+id/target_view"
+            android:layout_width="@dimen/tutorial_route_target_height"
+            android:layout_height="@dimen/tutorial_route_target_height"
+            android:layout_toLeftOf="@+id/right_margin"
+            android:background="@android:color/transparent"
+            android:src="@drawable/tutorial_target_background"></ImageView>
+
+        <View
+            android:id="@+id/right_margin"
+            android:layout_width="@dimen/tutorial_route_target_padding"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/guide_light_black" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:background="@color/guide_light_black">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/tutorial_page_text_height"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/tutorial_route_target_height"
+            android:layout_marginRight="@dimen/tutorial_route_target_height"
+            android:src="@drawable/route_guide_page_text" />
+
+    </RelativeLayout>
+</LinearLayout>
+

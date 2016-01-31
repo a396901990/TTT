@@ -23,10 +23,14 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.SystemUtil;
 
 import org.json.JSONArray;
+
+import java.util.ArrayList;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindCallback;
@@ -84,22 +88,16 @@ public class NavigationFragment extends LoginFragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String str = "market://details?id=" + AppUtil.getPackageName(getActivity());
+                openAppMark();
+//                String str = "http://market.android.com/search?q=pname" + AppUtil.getPackageName(getActivity());
 //                Intent localIntent = new Intent("android.intent.action.VIEW");
 //                localIntent.setData(Uri.parse(str));
 //                startActivity(localIntent);
-
-                Platform[] platforms = ShareSDK.getPlatformList();
-                for (Platform platform : platforms) {
-                    Log.e("getUserId:", platform.getDb().getUserId());
-                    Log.e("getPlatformNname:", platform.getDb().getPlatformNname());
-                    Log.e("getToken:", platform.getDb().getToken());
-                    Log.e("getUserName:", platform.getDb().getUserName());
-                    Log.e("getUserIcon:", platform.getDb().getUserIcon());
-                }
-                Log.e("getLastToken:", LoginUtil.getInstance().getLastToken());
-//                DialogFragment dialogFragment = new LoginDialog();
-//                dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+//                Intent startintent = new Intent("android.intent.action.MAIN");
+//                startintent.addCategory("android.intent.category.APP_MARKET");
+//                startintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startintent.setData(Uri.parse(str));
+//                startActivity(startintent);
             }
         });
         // 分享视图
@@ -119,6 +117,13 @@ public class NavigationFragment extends LoginFragment {
                 startActivity(new Intent(getActivity(), AboutSettingActivity.class));
             }
         });
+    }
+
+    private void openAppMark() {
+        ArrayList<String> s = MarketUtils.queryInstalledMarketPkgs(getActivity());
+        s.toArray();
+
+        MarketUtils.launchAppDetail(AppUtil.getPackageName(getActivity()), "");
     }
 
     private void share() {

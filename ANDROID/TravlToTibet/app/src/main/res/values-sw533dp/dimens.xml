@@ -35,4 +35,13 @@
     <dimen name="route_plan_view_margin">8dp</dimen>
 
     <dimen name="logo_padding">100dp</dimen>
+
+
+    <dimen name="tutorial_page_text_height">200dp</dimen>
+    <!--info_header_view_height - half width heigt  380 - 60 -->
+    <dimen name="tutorial_info_top_height">325dp</dimen>
+    <dimen name="tutorial_info_target_height">60dp</dimen>
+    <dimen name="tutorial_route_top_height">8dp</dimen>
+    <dimen name="tutorial_route_target_height">100dp</dimen>
+    <dimen name="tutorial_route_target_padding">12dp</dimen>
 </resources>

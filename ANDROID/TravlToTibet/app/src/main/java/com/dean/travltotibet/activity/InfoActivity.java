@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.BaseInfoFragment;
+import com.dean.travltotibet.fragment.TutorialDialog;
 import com.dean.travltotibet.fragment.InfoPlanConfirmDialog;
 import com.dean.travltotibet.fragment.InfoTravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
@@ -58,6 +59,21 @@ public class InfoActivity extends BaseActivity {
 
         initView();
         initGoButton();
+
+        initTutorialPage();
+    }
+
+    /**
+     * 教程页面
+     */
+    private void initTutorialPage() {
+        if (!TutorialDialog.hasShown(TutorialDialog.INFO_GUIDE)) {
+            DialogFragment tutorialDialog = new TutorialDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentExtra.INTENT_GUIDE_FROM, TutorialDialog.INFO_GUIDE);
+            tutorialDialog.setArguments(bundle);
+            tutorialDialog.show(getFragmentManager(), TutorialDialog.class.getName());
+        }
     }
 
     private void initView() {

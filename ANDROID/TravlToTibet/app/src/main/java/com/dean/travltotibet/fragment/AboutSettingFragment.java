@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.FeedbackActivity;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.WelcomeActivity;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
@@ -67,6 +68,23 @@ public class AboutSettingFragment extends Fragment {
         contactUsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new MaterialDialog.Builder(getActivity())
+                        .customView(R.layout.contact_dialog_layout)
+                        .positiveText(R.string.ok_btn)
+                        .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+                        .callback(new MaterialDialog.Callback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onNegative(MaterialDialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .build()
+                        .show();
             }
         });
     }
