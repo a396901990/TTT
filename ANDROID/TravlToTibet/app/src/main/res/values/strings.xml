@@ -77,15 +77,7 @@
     <!--welcome page-->
     <string name="title_activity_app_init">AppInitActivity</string>
     <string name="title_activity_whats_new">WhatsNewActivity</string>
-    <string name="screen1_title">Unlimited Calls For You</string>
-    <string name="screen1_desc">Call your friends, family, Relatives free of cost anytime anywhere.</string>
-    <string name="screen2_title">Group Conversations</string>
-    <string name="screen2_desc">Create your own own group and share Photos, Videos etc. </string>
-    <string name="screen3_title">Synchronize with your laptop</string>
-    <string name="screen3_desc">Get notified with your calls and messages to your laptop</string>
     <string name="welcome_done">开始</string>
-    <string name="app_copyright_en">Copyright \u00A9 2010-2015. All Rights Reserved</string>
-    <string name="app_copyright_cn"></string>
     <string name="route_plan_title">选择计划</string>
 
     <!--around-->
@@ -127,5 +119,7 @@
     <string name="version_name">版本</string>
     <string name="contact_qq">1815608211</string>
     <string name="contact_email">huwaitanzi@163.com</string>
+    <string name="copy">点击复制</string>
+    <string name="copy_success">复制到剪贴板</string>
 
 </resources>

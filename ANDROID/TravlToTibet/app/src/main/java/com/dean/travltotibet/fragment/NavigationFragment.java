@@ -1,45 +1,26 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
-import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.AppUtil;
-import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.SystemUtil;
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by DeanGuo on 12/09/15.
@@ -89,15 +70,6 @@ public class NavigationFragment extends LoginFragment {
             @Override
             public void onClick(View v) {
                 openAppMark();
-//                String str = "http://market.android.com/search?q=pname" + AppUtil.getPackageName(getActivity());
-//                Intent localIntent = new Intent("android.intent.action.VIEW");
-//                localIntent.setData(Uri.parse(str));
-//                startActivity(localIntent);
-//                Intent startintent = new Intent("android.intent.action.MAIN");
-//                startintent.addCategory("android.intent.category.APP_MARKET");
-//                startintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startintent.setData(Uri.parse(str));
-//                startActivity(startintent);
             }
         });
         // 分享视图
@@ -120,8 +92,8 @@ public class NavigationFragment extends LoginFragment {
     }
 
     private void openAppMark() {
-        ArrayList<String> s = MarketUtils.queryInstalledMarketPkgs(getActivity());
-        s.toArray();
+//        ArrayList<String> s = MarketUtils.queryInstalledMarketPkgs(getActivity());
+//        s.toArray();
 
         MarketUtils.launchAppDetail(AppUtil.getPackageName(getActivity()), "");
     }

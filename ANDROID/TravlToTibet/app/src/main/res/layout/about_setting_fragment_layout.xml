@@ -54,9 +54,10 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/app_name_version"
                         android:layout_gravity="center"
-                        android:padding="30dp"
+                        android:paddingLeft="80dp"
+                        android:paddingRight="80dp"
+                        android:paddingBottom="60dp"
                         android:src="@drawable/logo" />
                 </LinearLayout>
             </RelativeLayout>
@@ -145,31 +146,6 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="huawaitanzi" />
-    </LinearLayout>
-    <!--版权-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
-        android:visibility="gone">
-
-        <TextView
-            style="@style/TextAppearance.Regular.Gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:text="@string/app_copyright_cn" />
-
-        <TextView
-            style="@style/TextAppearance.Small.Gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/app_copyright_en" />
     </LinearLayout>
 </RelativeLayout>
 

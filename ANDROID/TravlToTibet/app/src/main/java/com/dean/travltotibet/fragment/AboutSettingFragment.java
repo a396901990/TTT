@@ -3,10 +3,12 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
@@ -68,8 +70,30 @@ public class AboutSettingFragment extends Fragment {
         contactUsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final View contactView = LayoutInflater.from(getActivity()).inflate(R.layout.contact_dialog_layout, null);
+                View qqCopy = contactView.findViewById(R.id.qq_copy_btn);
+                qqCopy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+                        TextView qqText = (TextView) contactView.findViewById(R.id.qq_text);
+                        cmb.setText(qqText.getText().toString());
+                        Toast.makeText(getActivity(), getString(R.string.copy_success),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                View emailCopy = contactView.findViewById(R.id.email_copy_btn);
+                emailCopy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+                        TextView emailText = (TextView) contactView.findViewById(R.id.email_text);
+                        cmb.setText(emailText.getText().toString());
+                        Toast.makeText(getActivity(),getString(R.string.copy_success),Toast.LENGTH_LONG).show();
+                    }
+                });
                 new MaterialDialog.Builder(getActivity())
-                        .customView(R.layout.contact_dialog_layout)
+                        .customView(contactView)
                         .positiveText(R.string.ok_btn)
                         .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
                         .callback(new MaterialDialog.Callback() {
