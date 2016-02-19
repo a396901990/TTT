@@ -46,16 +46,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top"
-        android:background="@color/tutorial_light_black">
+        android:background="@android:color/transparent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/tutorial_page_text_height"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/tutorial_info_target_height"
-            android:layout_marginRight="@dimen/tutorial_info_target_height"
-            android:src="@drawable/info_guide_page_text" />
+        <RelativeLayout
+            android:layout_above="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/tutorial_light_black">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/tutorial_info_target_height"
+                android:layout_marginRight="@dimen/tutorial_info_target_height"
+                android:src="@drawable/tutorial_info_guide_text" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/info_bottom_btn_height"
+            android:background="@android:color/transparent"></View>
     </RelativeLayout>
 </LinearLayout>

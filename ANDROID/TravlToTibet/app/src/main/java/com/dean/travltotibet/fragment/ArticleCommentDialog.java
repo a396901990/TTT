@@ -6,30 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dean.greendao.Hotel;
-import com.dean.travltotibet.activity.AroundBaseActivity;
-import com.dean.travltotibet.model.HotelComment;
+import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 
 import cn.bmob.v3.listener.SaveListener;
 
 /**
- * Created by DeanGuo on 1/20/16.
- * 选择旅行类型
+ * Created by DeanGuo on 2/19/16.
  */
-public class AroundHotelCommentDialog extends BaseCommentDialog {
+public class ArticleCommentDialog extends BaseCommentDialog {
 
-    private Hotel mHotel;
+    private Article mArticle;
 
-    private AroundBaseActivity aroundActivity;
+    private ArticleActivity articleActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        aroundActivity = (AroundBaseActivity) getActivity();
-        mHotel = (Hotel) aroundActivity.getAroundObj();
+        articleActivity = (ArticleActivity) getActivity();
+        mArticle = articleActivity.getArticle();
     }
 
     @Nullable
@@ -40,27 +39,26 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
 
     @Override
     public void submitCommit() {
-        HotelComment hotelComment = new HotelComment();
-        // route name
-        hotelComment.setRoute(mHotel.getRoute());
-        // hotel name
-        hotelComment.setHotel_name(mHotel.getHotel_name());
-        // hotel belong
-        hotelComment.setHotel_belong(mHotel.getHotel_belong());
+        ArticleComment articleComment = new ArticleComment();
+
+        articleComment.setArticle_id(mArticle.getObjectId());
+
+        articleComment.setArticle_title(mArticle.getTitle());
+
         // 评论
-        hotelComment.setComment(getComment());
+        articleComment.setComment(getComment());
         // 评分
-        hotelComment.setRating(getRatting());
+        articleComment.setRating(getRatting());
         // user name
-        hotelComment.setUser_name(getUserName());
+        articleComment.setUser_name(getUserName());
         // pic url
-        hotelComment.setUser_icon(getUserIcon());
+        articleComment.setUser_icon(getUserIcon());
 
-        hotelComment.setLike(0);
-        hotelComment.setDislike(0);
-        hotelComment.setQuote_id("");
+        articleComment.setLike(0);
+        articleComment.setDislike(0);
+        articleComment.setQuote_id("");
 
-        hotelComment.save(getActivity(), new SaveListener() {
+        articleComment.save(getActivity(), new SaveListener() {
             @Override
             public void onSuccess() {
                 getHandle().sendEmptyMessage(SUBMIT_SUCCESS);
@@ -76,6 +74,6 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
 
     @Override
     public boolean isShowRattingBar() {
-        return true;
+        return false;
     }
 }

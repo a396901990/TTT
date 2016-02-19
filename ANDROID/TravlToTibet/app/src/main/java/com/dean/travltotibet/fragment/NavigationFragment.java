@@ -105,7 +105,7 @@ public class NavigationFragment extends LoginFragment {
         oks.disableSSOWhenAuthorize();
 
         // title标题：微信、QQ（新浪微博不需要标题）
-        oks.setTitle("户外探子");  //最多30个字符
+        oks.setTitle(getString(R.string.app_name));  //最多30个字符
 
         // text是分享文本：所有平台都需要这个字段
         oks.setText(getString(R.string.share_msg)+getString(R.string.share_link));  //最多40个字符

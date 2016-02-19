@@ -2,7 +2,6 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
@@ -77,7 +75,7 @@ public class CommentListAdapter extends BaseAdapter {
 
         // profile Image
         ImageRequest imageRequest = new ImageRequest(
-                comment.getImage_url(),
+                comment.getUser_icon(),
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
@@ -92,7 +90,7 @@ public class CommentListAdapter extends BaseAdapter {
         mQueue.add(imageRequest);
 
         // 评论时间
-        Date date = DateUtil.parse(comment.getComment_time(), Constants.YYYYMMDDHHMMSS);
+        Date date = DateUtil.parse(comment.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         String time = DateUtil.formatDate(date, Constants.YYYY_MM_DD);
         holder.commentDate.setText(time);
 

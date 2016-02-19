@@ -11,7 +11,6 @@ import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.ScenicComment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
-import com.dean.travltotibet.util.SystemUtil;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -57,9 +56,11 @@ public class AroundScenicCommentDialog extends BaseCommentDialog {
         // user name
         scenicComment.setUser_name(getUserName());
         // pic url
-        scenicComment.setImage_url(getUserIcon());
-        // current time
-        scenicComment.setComment_time(DateUtil.getCurrentTimeFormat(Constants.YYYYMMDDHHMMSS));
+        scenicComment.setUser_icon(getUserIcon());
+
+        scenicComment.setLike(0);
+        scenicComment.setDislike(0);
+        scenicComment.setQuote_id("");
 
         scenicComment.save(getActivity(), new SaveListener() {
             @Override
@@ -73,5 +74,10 @@ public class AroundScenicCommentDialog extends BaseCommentDialog {
             }
         });
         super.submitCommit();
+    }
+
+    @Override
+    public boolean isShowRattingBar() {
+        return true;
     }
 }

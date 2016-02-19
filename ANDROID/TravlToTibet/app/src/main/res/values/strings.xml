@@ -121,5 +121,8 @@
     <string name="contact_email">huwaitanzi@163.com</string>
     <string name="copy">点击复制</string>
     <string name="copy_success">复制到剪贴板</string>
+    <string name="text_send">转发</string>
+    <string name="text_comment">评论</string>
+    <string name="text_good">赞</string>
 
 </resources>

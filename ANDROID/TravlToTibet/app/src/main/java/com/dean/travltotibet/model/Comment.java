@@ -1,5 +1,11 @@
 package com.dean.travltotibet.model;
 
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
+
+import java.util.Comparator;
+import java.util.Date;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -7,11 +13,12 @@ import cn.bmob.v3.BmobObject;
  */
 public class Comment extends BmobObject {
 
+    private int like;
+    private int dislike;
     private String rating;
-    private String image_url;
-    private String route;
-    private String comment_time;
+    private String quote_id;
     private String comment;
+    private String user_icon;
     private String user_name;
 
     public String getRating() {
@@ -22,28 +29,36 @@ public class Comment extends BmobObject {
         this.rating = rating;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getUser_icon() {
+        return user_icon;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setUser_icon(String user_icon) {
+        this.user_icon = user_icon;
     }
 
-    public String getRoute() {
-        return route;
+    public int getLike() {
+        return like;
     }
 
-    public void setRoute(String route) {
-        this.route = route;
+    public void setLike(int like) {
+        this.like = like;
     }
 
-    public String getComment_time() {
-        return comment_time;
+    public int getDislike() {
+        return dislike;
     }
 
-    public void setComment_time(String comment_time) {
-        this.comment_time = comment_time;
+    public void setDislike(int dislike) {
+        this.dislike = dislike;
+    }
+
+    public String getQuote_id() {
+        return quote_id;
+    }
+
+    public void setQuote_id(String quote_id) {
+        this.quote_id = quote_id;
     }
 
     public String getComment() {
@@ -61,4 +76,29 @@ public class Comment extends BmobObject {
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
+
+    public static Comparator<Comment> likeComparator = new Comparator<Comment>() {
+        @Override
+        public int compare(Comment c1, Comment c2) {
+            if (c1.getLike() > c2.getLike()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+    };
+
+    public static Comparator<Comment> timeComparator = new Comparator<Comment>() {
+        @Override
+        public int compare(Comment c1, Comment c2) {
+            Date date1 = DateUtil.parse(c1.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
+            Date date2 = DateUtil.parse(c2.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
+
+            if (date1.getTime() > date2.getTime()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+    };
 }

@@ -8,7 +8,6 @@
     <!--baidu map release   B4:09:E9:69:39:42:D2:63:A4:3C:4E:92:51:DF:B1:12:85:4A:2F:3B;com.dean.travltotibet -->
     <!--weibo wechat debug 4f0e6b44aed1a1b65185e5ab4bd6cdaa -->
     <!--weibo wechat release 490fa4602c39fab9c1fc536c7606e588-->
-    <!-- 百度地图所需的权限 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
@@ -111,6 +110,10 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.AroundHotelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activity.ArticleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity

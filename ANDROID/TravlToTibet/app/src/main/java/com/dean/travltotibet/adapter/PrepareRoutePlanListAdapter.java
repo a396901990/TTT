@@ -92,9 +92,10 @@ public class PrepareRoutePlanListAdapter extends BaseAdapter {
         planDay.setText(String.format(Constants.ROUTE_PLAN_DAY, routePlan.getPlan_days()));
 
         if (TextUtils.isEmpty(routePlan.getDescribe())) {
-            planDescribe.setVisibility(View.GONE);
+//            planDescribe.setVisibility(View.GONE);
+            planDescribe.setText("");
         } else {
-            planDescribe.setVisibility(View.VISIBLE);
+//            planDescribe.setVisibility(View.VISIBLE);
             planDescribe.setText(routePlan.getDescribe());
         }
         return convertView;

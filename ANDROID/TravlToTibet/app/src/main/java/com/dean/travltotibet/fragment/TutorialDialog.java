@@ -25,6 +25,8 @@ public class TutorialDialog extends DialogFragment {
 
     public static final String ROUTE_GUIDE = "ROUTE_GUIDE";
 
+    public static final String CONFIRM_GUIDE = "CONFIRM_GUIDE";
+
     private View contentLayout;
 
     private String guideFrom;
@@ -45,34 +47,23 @@ public class TutorialDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (INFO_GUIDE.equals(guideFrom)) {
             contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.tutorial_info_view, null);
-            initInfoGuideView();
-        } else if (ROUTE_GUIDE.equals(ROUTE_GUIDE)) {
+        } else if (ROUTE_GUIDE.equals(guideFrom)) {
             contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.tutorial_route_view, null);
-            initRouteGuideView();
+        } else if (CONFIRM_GUIDE.equals(guideFrom)) {
+            contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.tutorial_confirm_view, null);
         }
+        initGuideView();
 
         return contentLayout;
     }
 
-    private void initRouteGuideView() {
+    private void initGuideView() {
         contentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 SharedPreferences sharedPreferences = TTTApplication.getSharedPreferences();
-                sharedPreferences.edit().putString(ROUTE_GUIDE, ROUTE_GUIDE).commit();
-
-                getDialog().dismiss();
-            }
-        });
-    }
-
-    private void initInfoGuideView() {
-        contentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = TTTApplication.getSharedPreferences();
-                sharedPreferences.edit().putString(INFO_GUIDE, INFO_GUIDE).commit();
+                sharedPreferences.edit().putString(guideFrom, guideFrom).commit();
 
                 getDialog().dismiss();
             }
@@ -87,6 +78,10 @@ public class TutorialDialog extends DialogFragment {
             }
         } else if (ROUTE_GUIDE.equals(guideFrom)) {
             if (ROUTE_GUIDE.equals(preferences.getString(ROUTE_GUIDE, ""))) {
+                return true;
+            }
+        } else if (CONFIRM_GUIDE.equals(guideFrom)) {
+            if (CONFIRM_GUIDE.equals(preferences.getString(CONFIRM_GUIDE, ""))) {
                 return true;
             }
         }

@@ -87,7 +87,10 @@ public class TTTApplication extends Application {
         PointManager.init(instance);
         AppUtil.saveVersionCode(context);
 
+        // 初始化share sdk
         ShareSDK.initSDK(context);
+
+        // 设置登陆状态
         initLoginStatus();
     }
 

@@ -66,7 +66,7 @@ public class BaseCommentDialog extends LoginDialogFragment {
 
     private RotateLoading submitProgressBar;
 
-    private float currentRating;
+    private float currentRating = 0;
 
     private Handler mHandle;
 
@@ -189,7 +189,6 @@ public class BaseCommentDialog extends LoginDialogFragment {
     }
 
     private void initRatingView() {
-
         ratingBar = (RatingBar) contentLayout.findViewById(R.id.ratting_bar);
         ratingBar.setMax(5);
         ratingBar.setRating((int) currentRating);
@@ -200,6 +199,12 @@ public class BaseCommentDialog extends LoginDialogFragment {
                 currentRating = rating;
             }
         });
+
+        if (isShowRattingBar()) {
+            ratingBar.setVisibility(View.VISIBLE);
+        } else {
+            ratingBar.setVisibility(View.GONE);
+        }
     }
 
     public void submitCommit() {
@@ -253,5 +258,9 @@ public class BaseCommentDialog extends LoginDialogFragment {
 
     public void setCommentCallBack(CommentCallBack commentCallBack) {
         this.commentCallBack = commentCallBack;
+    }
+
+    public boolean isShowRattingBar() {
+        return true;
     }
 }

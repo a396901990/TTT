@@ -163,7 +163,7 @@
     <ListView
         android:id="@+id/plan_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="180dp"
         android:divider="@color/light_gray"
         android:dividerHeight="1dip"
         android:scrollbars="none"></ListView>

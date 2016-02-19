@@ -93,8 +93,27 @@ public class InfoPlanConfirmDialog extends DialogFragment {
         initRotate();
         initPlanList();
         initTravelHeader();
+        initTutorialPage();
 
         return contentLayout;
+    }
+
+    /**
+     * 教程页面
+     */
+    private void initTutorialPage() {
+        if (!TutorialDialog.hasShown(TutorialDialog.CONFIRM_GUIDE)) {
+            contentLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    DialogFragment tutorialDialog = new TutorialDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentExtra.INTENT_GUIDE_FROM, TutorialDialog.CONFIRM_GUIDE);
+                    tutorialDialog.setArguments(bundle);
+                    tutorialDialog.show(getFragmentManager(), TutorialDialog.class.getName());
+                }
+            }, 500);
+        }
     }
 
     private void initTravelHeader() {
@@ -313,7 +332,8 @@ public class InfoPlanConfirmDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(getActivity(), 330));
+        //window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(getActivity(), 330));
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.BOTTOM);
     }
 

@@ -54,7 +54,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/tutorial_route_target_height"
             android:layout_marginRight="@dimen/tutorial_route_target_height"
-            android:src="@drawable/route_guide_page_text" />
+            android:src="@drawable/tutorial_route_guide_text" />
 
     </RelativeLayout>
 </LinearLayout>

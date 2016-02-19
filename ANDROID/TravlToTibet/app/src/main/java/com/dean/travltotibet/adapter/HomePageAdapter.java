@@ -7,6 +7,7 @@ import android.util.SparseArray;
 
 import com.dean.travltotibet.fragment.HomeRecommendFragment;
 import com.dean.travltotibet.fragment.HomeRecentFragment;
+import com.dean.travltotibet.fragment.HomeTopicFragment;
 
 /**
  * Created by DeanGuo on 11/28/15.
@@ -26,13 +27,13 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
 
         mTitles = new SparseArray<String>();
         mTitles.put(0, "推荐");
-        mTitles.put(1, "历史记录");
-        // mTitles.put(2, "路线");
+        mTitles.put(1, "话题");
+        mTitles.put(2, "历史记录");
 
         mFragments = new SparseArray<Fragment>();
         mFragments.put(0, HomeRecommendFragment.newInstance());
-        mFragments.put(1, HomeRecentFragment.newInstance());
-//        mFragments.put(2, HomeRecentFragment.newInstance());
+        mFragments.put(1, HomeTopicFragment.newInstance());
+        mFragments.put(2, HomeRecentFragment.newInstance());
     }
 
     @Override

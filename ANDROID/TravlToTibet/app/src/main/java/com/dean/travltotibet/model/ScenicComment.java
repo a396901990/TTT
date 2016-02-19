@@ -5,8 +5,17 @@ package com.dean.travltotibet.model;
  */
 public class ScenicComment extends Comment{
 
-    String scenic_name;
-    String scenic_belong;
+    private String scenic_name;
+    private String scenic_belong;
+    private String route;
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
 
     public String getScenic_name() {
         return scenic_name;
