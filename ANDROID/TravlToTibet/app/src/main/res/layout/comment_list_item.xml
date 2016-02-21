@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <!--头像-->
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
+        android:layout_width="@dimen/comment_item_base_length"
+        android:layout_height="@dimen/comment_item_base_length"
+        android:layout_marginBottom="@dimen/comment_item_base_padding"
+        android:layout_marginRight="@dimen/comment_item_base_padding"
+        android:layout_marginTop="@dimen/comment_item_base_padding"
         android:src="@drawable/gray_profile"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp" />
@@ -16,31 +20,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!--名字时间点赞-->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:padding="@dimen/comment_item_base_padding">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/profile_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/left_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/profile_text"
-                    style="@style/TextAppearance.Regular"
+                    style="@style/TextAppearance.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="匿名用户" />
+                    android:text="匿名用户"
+                    android:textColor="@color/colorPrimaryDark" />
 
+                <RatingBar
+                    android:id="@+id/rating_view"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:rating="5" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/like_content"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/comment_item_base_length"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
                 <TextView
                     android:id="@+id/comment_date"
                     style="@style/TextAppearance.Medium.Gray"
@@ -51,23 +71,49 @@
                     android:gravity="right"
                     android:padding="5dp"
                     android:text="2015-09-17" />
+            </LinearLayout>
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-            <RatingBar
-                android:id="@+id/rating_view"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:max="5"
-                android:rating="5" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/comment_text"
-            style="@style/TextAppearance.Medium.Gray"
+        <!--评论-->
+        <LinearLayout
+            android:id="@+id/comment_text_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />
+            android:orientation="vertical"
+            android:padding="@dimen/comment_item_base_padding">
+
+            <LinearLayout
+                android:id="@+id/reply_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/border_reply_comment_background"
+                android:orientation="vertical"
+                android:padding="6dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/reply_comment_username"
+                    style="@style/TextAppearance.Theme.Small.Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="户外探子" />
+
+                <TextView
+                    android:id="@+id/reply_comment_text"
+                    style="@style/TextAppearance.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="naocannaocn" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/comment_text"
+                style="@style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

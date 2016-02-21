@@ -26,7 +26,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by DeanGuo on 2/17/16.
  */
-public class ArticleActivity extends BaseActivity implements BaseCommentDialog.CommentCallBack{
+public class ArticleActivity extends BaseActivity implements BaseCommentDialog.CommentCallBack {
 
     private Article mArticle;
 
@@ -64,7 +64,7 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                    case MotionEvent.ACTION_MOVE :
+                    case MotionEvent.ACTION_MOVE:
                         // 滑过文章视图时加载评论
                         View articleView = findViewById(R.id.article_fragment_content);
                         View commentView = findViewById(R.id.article_comment_fragment_content);
@@ -83,7 +83,7 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
 
                         }
                         break;
-                    default :
+                    default:
                         break;
                 }
                 return false;
@@ -177,7 +177,7 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
                 }
             });
         } else {
-            Toast.makeText(getApplicationContext(), "您已经赞过啦，亲~", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.text_commented), Toast.LENGTH_SHORT).show();
         }
     }
 

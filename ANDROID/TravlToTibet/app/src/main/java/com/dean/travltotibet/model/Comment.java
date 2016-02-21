@@ -13,6 +13,10 @@ import cn.bmob.v3.BmobObject;
  */
 public class Comment extends BmobObject {
 
+    public  final static String ARTICLE_COMMENT = "article_comment";
+    public  final static String HOTEL_COMMENT = "hotel_comment";
+    public  final static String SCENIC_COMMENT = "scenic_comment";
+
     private int like;
     private int dislike;
     private String rating;

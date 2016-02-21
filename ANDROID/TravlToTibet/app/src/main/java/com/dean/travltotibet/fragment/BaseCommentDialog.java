@@ -188,6 +188,10 @@ public class BaseCommentDialog extends LoginDialogFragment {
         });
     }
 
+    public void setReplyHint(String hint) {
+        commentView.setHint(hint);
+    }
+
     private void initRatingView() {
         ratingBar = (RatingBar) contentLayout.findViewById(R.id.ratting_bar);
         ratingBar.setMax(5);

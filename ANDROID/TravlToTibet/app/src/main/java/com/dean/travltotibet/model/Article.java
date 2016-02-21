@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobObject;
 /**
  * Created by DeanGuo on 1/22/16.
  */
-public class Article extends BmobObject implements Serializable {
+public class Article extends BmobObject {
 
     private String id;
     private String title;

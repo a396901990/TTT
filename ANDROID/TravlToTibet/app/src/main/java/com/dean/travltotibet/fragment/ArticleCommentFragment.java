@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.ArticleActivity;
-import com.dean.travltotibet.adapter.ArticleCommentListAdapter;
+import com.dean.travltotibet.adapter.CommonCommentListAdapter;
 import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
 
@@ -30,7 +30,7 @@ public class ArticleCommentFragment extends Fragment {
 
     private ArticleActivity mActivity;
 
-    private ArticleCommentListAdapter commentListAdapter;
+    private CommonCommentListAdapter commentListAdapter;
 
     private ArrayList<Comment> mComments;
 
@@ -110,8 +110,9 @@ public class ArticleCommentFragment extends Fragment {
 
     private void initCommentView() {
         ListView listView = (ListView) root.findViewById(R.id.comment_list_view);
-        commentListAdapter = new ArticleCommentListAdapter(getActivity());
+        commentListAdapter = new CommonCommentListAdapter(getActivity());
         listView.setAdapter(commentListAdapter);
+        listView.setItemsCanFocus(true);
     }
 
     public void getCommentData() {

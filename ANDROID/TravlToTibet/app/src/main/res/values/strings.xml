@@ -124,5 +124,12 @@
     <string name="text_send">转发</string>
     <string name="text_comment">评论</string>
     <string name="text_good">赞</string>
+    <string name="text_like">赞</string>
+    <string name="text_report">举报</string>
+    <string name="text_copy">复制</string>
+    <string name="text_replay">回复</string>
+    <string name="text_commented">您已经赞过啦，亲~</string>
+    <string name="report_success">举报成功，正在审核中...</string>
+    <string name="action_error">操作失败</string>
 
 </resources>

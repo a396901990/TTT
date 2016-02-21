@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusable="true"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -59,9 +60,8 @@
     <com.dean.travltotibet.ui.customScrollView.InsideScrollListView
         android:id="@+id/comment_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="none"></com.dean.travltotibet.ui.customScrollView.InsideScrollListView>
-
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.ArticleComment;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.IntentExtra;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -23,18 +25,30 @@ public class ArticleCommentDialog extends BaseCommentDialog {
 
     private ArticleActivity articleActivity;
 
+    private Comment replyComment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         articleActivity = (ArticleActivity) getActivity();
         mArticle = articleActivity.getArticle();
+
+        if (getArguments() != null) {
+            replyComment = (Comment) getArguments().getSerializable(IntentExtra.INTENT_COMMENT);
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (replyComment != null) {
+            String hint = replyComment.getUser_name();
+            setReplyHint("回复@"+hint);
+        }
+        return view;
     }
 
     @Override
@@ -56,7 +70,11 @@ public class ArticleCommentDialog extends BaseCommentDialog {
 
         articleComment.setLike(0);
         articleComment.setDislike(0);
-        articleComment.setQuote_id("");
+        if (replyComment != null) {
+            articleComment.setQuote_id(replyComment.getObjectId());
+        } else {
+            articleComment.setQuote_id("");
+        }
 
         articleComment.save(getActivity(), new SaveListener() {
             @Override

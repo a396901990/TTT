@@ -1,8 +1,12 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,25 +23,35 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.fragment.CommentPupupDialog;
+import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 2/19/16.
  */
-public class ArticleCommentListAdapter extends BaseAdapter {
+public class CommonCommentListAdapter extends BaseAdapter {
 
     RequestQueue mQueue;
 
+    Context mContext;
+
+    String mCommentType;
+
     private ArrayList<Comment> mData = new ArrayList<>();
 
-    public ArticleCommentListAdapter(Context mContext) {
+    public CommonCommentListAdapter(Context context) {
+        mContext = context;
         mQueue = Volley.newRequestQueue(mContext);
     }
 
@@ -97,7 +111,7 @@ public class ArticleCommentListAdapter extends BaseAdapter {
         holder.commentDate.setText(time);
 
         // 评论
-        holder.commentText.setText(comment.getComment());
+        setCommentView(holder, comment);
 
         // like
         if (comment.getLike() != 0) {
@@ -105,7 +119,9 @@ public class ArticleCommentListAdapter extends BaseAdapter {
         } else {
             holder.likeText.setText("");
         }
-
+        // 改变like状态（点赞颜色）
+        changeLikeStatus(comment, holder);
+        // 点赞按钮监听
         holder.likeContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,9 +129,53 @@ public class ArticleCommentListAdapter extends BaseAdapter {
             }
         });
 
-        changeLikeStatus(comment, holder);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialogFragment = new CommentPupupDialog();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(IntentExtra.INTENT_COMMENT, comment);
+                bundle.putString(IntentExtra.INTENT_COMMENT_TYPE, mCommentType);
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(((Activity)mContext).getFragmentManager(), CommentPupupDialog.class.getName());
+            }
+        });
 
         return convertView;
+    }
+
+    private void setCommentView(final CommentViewHolder holder, final Comment comment) {
+        if (!TextUtils.isEmpty(comment.getQuote_id())) {
+            BmobQuery<ArticleComment> query = new BmobQuery<ArticleComment>();
+            query.getObject(mContext, comment.getQuote_id(), new GetListener<ArticleComment>() {
+
+                @Override
+                public void onSuccess(ArticleComment reply) {
+//                    holder.replyContent.setVisibility(View.VISIBLE);
+
+                    holder.replyUserName.setText(reply.getUser_name());
+                    holder.replyComment.setText(reply.getComment());
+                    holder.commentText.setText(comment.getComment());
+//
+//                    String coomentText = "<font color=\"#333333\">"+comment.getComment()+"</font><br>";
+//                    String replyUserName = "<font color=\"#3F51B5\">"+" || "+reply.getUser_name()+":"+"</font><br>";
+//                    String replyComment = "<font color=\"#999999\">"+reply.getComment()+"</font><br>";
+//                    holder.commentText.setText(Html.fromHtml(coomentText + replyUserName + replyComment));
+
+                }
+
+                @Override
+                public void onFailure(int code, String arg0) {
+                    holder.replyContent.setVisibility(View.GONE);
+                    holder.commentText.setText(comment.getComment());
+                }
+
+            });
+
+        } else {
+            holder.replyContent.setVisibility(View.GONE);
+            holder.commentText.setText(comment.getComment());
+        }
     }
 
     private void changeLikeStatus(final Comment comment, final CommentViewHolder holder) {
@@ -124,10 +184,10 @@ public class ArticleCommentListAdapter extends BaseAdapter {
         String objectId = sharedPreferences.getString(comment.getObjectId(), "");
 
         if (TextUtils.isEmpty(objectId)) {
-            holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_like_gray));
+            holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_good_gray));
             holder.likeContent.setClickable(true);
         } else {
-            holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_like_red));
+            holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_good_red));
             holder.likeContent.setClickable(false);
         }
     }
@@ -148,8 +208,8 @@ public class ArticleCommentListAdapter extends BaseAdapter {
                 @Override
                 public void onSuccess() {
                     comment.setLike(comment.getLike() + 1);
-                    holder.likeText.setText(comment.getLike()+"");
-                    holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_like_red));
+                    holder.likeText.setText(comment.getLike() + "");
+                    holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_good_red));
                     holder.likeContent.setClickable(false);
                     sharedPreferences.edit().putString(comment.getObjectId(), comment.getObjectId()).commit();
                 }
@@ -176,6 +236,11 @@ public class ArticleCommentListAdapter extends BaseAdapter {
 
         private LinearLayout likeContent;
 
+
+        private TextView replyComment;
+        private TextView replyUserName;
+        private LinearLayout replyContent;
+
         public CommentViewHolder(View itemView) {
             profileImage = (ImageView) itemView.findViewById(R.id.profile_image);
             profileName = (TextView) itemView.findViewById(R.id.profile_text);
@@ -184,7 +249,19 @@ public class ArticleCommentListAdapter extends BaseAdapter {
             likeText = (TextView) itemView.findViewById(R.id.like_text);
             likeIcon = (ImageView) itemView.findViewById(R.id.like_icon);
             likeContent = (LinearLayout) itemView.findViewById(R.id.like_content);
+
+            replyComment = (TextView) itemView.findViewById(R.id.reply_comment_text);
+            replyUserName = (TextView) itemView.findViewById(R.id.reply_comment_username);
+            replyContent = (LinearLayout) itemView.findViewById(R.id.reply_content);
         }
+    }
+
+    public String getCommentType() {
+        return mCommentType;
+    }
+
+    public void setCommentType(String mCommentType) {
+        this.mCommentType = mCommentType;
     }
 
 }
