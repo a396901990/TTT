@@ -1,18 +1,16 @@
 package com.dean.travltotibet.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.ArticleCommentDialog;
 import com.dean.travltotibet.fragment.ArticleFragment;
 import com.dean.travltotibet.fragment.BaseCommentDialog;
 import com.dean.travltotibet.fragment.ArticleCommentFragment;
@@ -26,7 +24,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by DeanGuo on 2/17/16.
  */
-public class ArticleActivity extends BaseActivity implements BaseCommentDialog.CommentCallBack {
+public class ArticleActivity extends BaseActivity {
 
     private Article mArticle;
 
@@ -50,46 +48,8 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
         setTitle(mArticle.getTitle());
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
-        mArticleCommentFragment = (ArticleCommentFragment) getFragmentManager().findFragmentById(R.id.article_comment_fragment);
-        mArticleFragment = (ArticleFragment) getFragmentManager().findFragmentById(R.id.article_fragment);
-
         updateWatch();
         initBtn();
-        setUpScrollView();
-    }
-
-    private void setUpScrollView() {
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_MOVE:
-                        // 滑过文章视图时加载评论
-                        View articleView = findViewById(R.id.article_fragment_content);
-                        View commentView = findViewById(R.id.article_comment_fragment_content);
-
-                        if (articleView.getMeasuredHeight() <= v.getScrollY() + v.getHeight()) {
-                            // 第一次加载时刷新数据
-                            if (commentView.getVisibility() != View.VISIBLE) {
-                                commentView.setVisibility(View.VISIBLE);
-                                commentView.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mArticleCommentFragment.getCommentData();
-                                    }
-                                }, 1000);
-                            }
-
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
-
     }
 
     private void updateWatch() {
@@ -127,9 +87,9 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
     }
 
     private void commentAction() {
-        BaseCommentDialog dialogFragment = new ArticleCommentDialog();
-        dialogFragment.setCommentCallBack(this);
-        dialogFragment.show(getFragmentManager(), ArticleCommentDialog.class.getName());
+        Intent intent = new Intent(this, ArticleCommentActivity.class);
+        intent.putExtra(IntentExtra.INTENT_ARTICLE, mArticle);
+        this.startActivity(intent);
     }
 
     private void sendAction() {
@@ -188,17 +148,5 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
 
     public Article getArticle() {
         return mArticle;
-    }
-
-    @Override
-    public void onCommentSuccess() {
-        if (mArticleCommentFragment != null) {
-            mArticleCommentFragment.updateComment();
-        }
-    }
-
-    @Override
-    public void onCommentFailed() {
-
     }
 }

@@ -22,8 +22,8 @@
         android:layout_below="@+id/toolbar">
 
         <fragment
-            android:id="@+id/article_fragment"
-            android:name="com.dean.travltotibet.fragment.ArticleFragment"
+            android:id="@+id/article_comment_fragment"
+            android:name="com.dean.travltotibet.fragment.ArticleCommentFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -33,10 +33,15 @@
             android:layout_height="@dimen/home_toolbar_shadow_height"
             android:background="@drawable/top_shade_background" />
 
-        <include layout="@layout/article_bottom_view"></include>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:clickable="true" />
     </FrameLayout>
-
 
 </RelativeLayout>
 

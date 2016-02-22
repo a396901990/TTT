@@ -3,15 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:focusable="true"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
+    <!--header-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp">
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/hot_comment"
@@ -57,29 +55,30 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.dean.travltotibet.ui.customScrollView.InsideScrollListView
-        android:id="@+id/comment_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"></com.dean.travltotibet.ui.customScrollView.InsideScrollListView>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/comment_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scrollbars="none" />
 
         <include
             android:id="@+id/no_result_content"
             layout="@layout/no_result_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="40dp" />
+            android:layout_gravity="center" />
 
         <!--加载背景-->
         <RelativeLayout
             android:id="@+id/loading_content_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:background="@color/less_light_gray"
             android:visibility="visible">
 
@@ -92,8 +91,4 @@
         </RelativeLayout>
     </FrameLayout>
 
-    <!--留白-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/article_bottom_height" />
 </LinearLayout>

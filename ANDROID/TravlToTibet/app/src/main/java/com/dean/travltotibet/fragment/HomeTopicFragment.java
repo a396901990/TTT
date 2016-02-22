@@ -104,7 +104,7 @@ public class HomeTopicFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
-        //new refreshTask().execute();
+//        new refreshTask().execute();
     }
 
     @Override

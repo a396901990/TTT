@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
@@ -23,7 +24,7 @@ public class ArticleCommentDialog extends BaseCommentDialog {
 
     private Article mArticle;
 
-    private ArticleActivity articleActivity;
+    private ArticleCommentActivity articleActivity;
 
     private Comment replyComment;
 
@@ -31,7 +32,7 @@ public class ArticleCommentDialog extends BaseCommentDialog {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        articleActivity = (ArticleActivity) getActivity();
+        articleActivity = (ArticleCommentActivity) getActivity();
         mArticle = articleActivity.getArticle();
 
         if (getArguments() != null) {

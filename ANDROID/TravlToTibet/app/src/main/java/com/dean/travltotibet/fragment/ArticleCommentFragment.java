@@ -4,12 +4,13 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.adapter.CommonCommentListAdapter;
 import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
@@ -28,7 +29,7 @@ public class ArticleCommentFragment extends Fragment {
 
     private View root;
 
-    private ArticleActivity mActivity;
+    private ArticleCommentActivity mActivity;
 
     private CommonCommentListAdapter commentListAdapter;
 
@@ -55,7 +56,7 @@ public class ArticleCommentFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActivity = (ArticleActivity) this.getActivity();
+        mActivity = (ArticleCommentActivity) this.getActivity();
         loadingView = root.findViewById(R.id.loading_content_view);
         noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
@@ -112,7 +113,21 @@ public class ArticleCommentFragment extends Fragment {
         ListView listView = (ListView) root.findViewById(R.id.comment_list_view);
         commentListAdapter = new CommonCommentListAdapter(getActivity());
         listView.setAdapter(commentListAdapter);
-        listView.setItemsCanFocus(true);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        mActivity.getFab().setVisibility(View.INVISIBLE);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mActivity.getFab().setVisibility(View.VISIBLE);
+                        break;
+                }
+                return false;
+            }
+        });
+        getCommentData();
     }
 
     public void getCommentData() {

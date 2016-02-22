@@ -151,17 +151,11 @@ public class CommonCommentListAdapter extends BaseAdapter {
 
                 @Override
                 public void onSuccess(ArticleComment reply) {
-//                    holder.replyContent.setVisibility(View.VISIBLE);
+                    holder.replyContent.setVisibility(View.VISIBLE);
 
                     holder.replyUserName.setText(reply.getUser_name());
                     holder.replyComment.setText(reply.getComment());
                     holder.commentText.setText(comment.getComment());
-//
-//                    String coomentText = "<font color=\"#333333\">"+comment.getComment()+"</font><br>";
-//                    String replyUserName = "<font color=\"#3F51B5\">"+" || "+reply.getUser_name()+":"+"</font><br>";
-//                    String replyComment = "<font color=\"#999999\">"+reply.getComment()+"</font><br>";
-//                    holder.commentText.setText(Html.fromHtml(coomentText + replyUserName + replyComment));
-
                 }
 
                 @Override

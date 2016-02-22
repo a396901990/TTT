@@ -23,6 +23,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.adapter.CommentListAdapter;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.CommentReport;
@@ -109,7 +110,7 @@ public class CommentPupupDialog  extends DialogFragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentExtra.INTENT_COMMENT, mComment);
         dialogFragment.setArguments(bundle);
-        dialogFragment.setCommentCallBack((ArticleActivity) getActivity());
+        dialogFragment.setCommentCallBack((ArticleCommentActivity) getActivity());
         dialogFragment.show(getFragmentManager(), ArticleCommentDialog.class.getName());
 
         getDialog().dismiss();

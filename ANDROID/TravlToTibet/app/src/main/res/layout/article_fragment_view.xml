@@ -1,12 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/article_bottom_blank_height"></WebView>
 
     <!--加载背景-->
     <RelativeLayout
@@ -24,4 +26,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>

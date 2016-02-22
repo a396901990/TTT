@@ -75,11 +75,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/setting_arrow_icon_padding"
-                    android:text="已是最新版本"
-                    android:visibility="gone" />
+                    android:text="已是最新版本" />
 
                 <!--发现新版本-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/version_check_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
