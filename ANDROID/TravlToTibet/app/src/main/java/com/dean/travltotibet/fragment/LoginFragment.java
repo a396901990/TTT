@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment {
     }
 
     /**
-     * 登陆失败回调
+     * 退出登录回调
      */
     public void onEventMainThread(LoginUtil.LogoutEvent event) {
         Toast.makeText(getActivity(), getString(R.string.logout), Toast.LENGTH_SHORT).show();

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
+import com.dean.travltotibet.activity.TeamMakeActivity;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.SystemUtil;
@@ -69,7 +70,9 @@ public class NavigationFragment extends LoginFragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAppMark();
+                Intent intent = new Intent(getActivity(), TeamMakeActivity.class);
+                startActivity(intent);
+//                openAppMark();
             }
         });
         // 分享视图

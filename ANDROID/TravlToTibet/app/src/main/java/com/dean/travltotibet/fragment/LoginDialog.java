@@ -3,8 +3,6 @@ package com.dean.travltotibet.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.DialogFragment;
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -17,17 +15,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.AnimUtil;
-import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
@@ -43,6 +35,13 @@ import cn.sharesdk.wechat.friends.Wechat;
 public class LoginDialog extends DialogFragment implements PlatformActionListener{
 
     private View contentLayout;
+
+    private LoginListener loginListener;
+
+    public static interface LoginListener {
+        public void loginSuccess();
+        public void loginFailed();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,6 +147,7 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
         getDialog().dismiss();
         // 成功则登陆
         LoginUtil.getInstance().login(platform.getDb().getToken());
+        loginListener.loginSuccess();
     }
 
     @Override
@@ -156,11 +156,16 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
         getDialog().dismiss();
         // 不成功执行失败操作
         TTTApplication.loginFailed();
+        loginListener.loginFailed();
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
         Log.e("onCancel:", "onCancel");
         getDialog().dismiss();
+    }
+
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
     }
 }
