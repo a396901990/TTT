@@ -39,6 +39,8 @@ public final class Constants {
 
     public static final String HEADER_PLAN_DAY = "%s天";
 
+    public static final String DATE_Y_M_D = "%s-%s-%s";
+
     /**
      * Keys to save RouteActivity status
      */
@@ -54,6 +56,8 @@ public final class Constants {
     public static final String URL_MARK = "   ";
 
     public static final String REPLACE_MARK = "#";
+
+    public static final String DESTINATION_MARK = "，";
 
     public static final String EMPTY_HTML_CONTENT = "about:blank";
 

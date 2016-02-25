@@ -6,13 +6,13 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/reply"
+        android:id="@+id/travel_bike"
         style="@style/TextAppearance.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
-        android:text="@string/text_replay" />
+        android:text="骑行" />
 
     <View
         android:layout_width="match_parent"
@@ -20,29 +20,13 @@
         android:background="@color/less_light_gray"></View>
 
     <TextView
-        android:id="@+id/like"
+        android:id="@+id/travel_hike"
         style="@style/TextAppearance.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
-        android:text="@string/text_like"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/less_light_gray"
-        android:visibility="gone"></View>
-
-    <TextView
-        android:id="@+id/report"
-        style="@style/TextAppearance.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:text="@string/text_report" />
+        android:text="徒步，徒搭" />
 
     <View
         android:layout_width="match_parent"
@@ -50,11 +34,25 @@
         android:background="@color/less_light_gray"></View>
 
     <TextView
-        android:id="@+id/copy"
+        android:id="@+id/travel_moto"
         style="@style/TextAppearance.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
-        android:text="@string/text_copy" />
+        android:text="摩托" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/less_light_gray"></View>
+
+    <TextView
+        android:id="@+id/travel_car"
+        style="@style/TextAppearance.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:text="自驾，租车" />
 </LinearLayout>

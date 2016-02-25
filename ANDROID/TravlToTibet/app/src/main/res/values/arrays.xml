@@ -38,4 +38,15 @@
         <item>BRIDGE</item>
         <item>OTHERS</item>
     </string-array>
+
+    <string-array name="current_routes">
+        <item>川藏南线</item>
+        <item>青藏线</item>
+        <item>川藏北线</item>
+        <item>新藏线</item>
+        <item>滇藏线</item>
+        <item>珠峰线</item>
+        <item>环青海湖线</item>
+        <item>海南岛环线</item>
+    </string-array>
 </resources>

@@ -46,6 +46,20 @@ public class TravelType {
         return src;
     }
 
+    public static String getTravelText(String type) {
+        String typeText = null;
+        if (type.equals(BIKE)) {
+            typeText = TTTApplication.getMyResources().getString(R.string.travel_type_bike);
+        } else if (type.equals(HIKE)) {
+            typeText = TTTApplication.getMyResources().getString(R.string.travel_type_hike);
+        } else if (type.equals(MOTO)) {
+            typeText = TTTApplication.getMyResources().getString(R.string.travel_type_moto);
+        } else if (type.equals(CAR)) {
+            typeText = TTTApplication.getMyResources().getString(R.string.travel_type_car);
+        }
+        return typeText;
+    }
+
     public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
         color = TTTApplication.getMyColor(color);
         return new IconicsDrawable(TTTApplication.getContext(), icon).color(color).sizeDp(18);
