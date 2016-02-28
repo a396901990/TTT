@@ -92,6 +92,17 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(0);
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    goArticlePage();
+                } else {
+                    goCommentPage();
+                }
+            }
+        });
     }
 
     private void updateWatch() {
@@ -120,8 +131,7 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
             public void onClick(View v) {
                 if (mPager.getCurrentItem() == 0) {
                     goCommentPage();
-                }
-                else if (mPager.getCurrentItem() == 1) {
+                } else if (mPager.getCurrentItem() == 1) {
                     goArticlePage();
                 }
             }
