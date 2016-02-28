@@ -150,4 +150,5 @@ dependencies {
     // https://github.com/greenrobot/EventBus
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile files('libs/Bmob_Push_V0.6beta_20150408.jar')
 }

@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,7 +20,11 @@ import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
+import cn.bmob.push.BmobPush;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
@@ -26,11 +32,13 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 public class ArticleActivity extends BaseActivity {
 
+    public static final String FROM_HOME = "from_home";
+
+    public static final String FROM_NOTIFICATION = "from_notification";
+
+    private String launchFrom;
+
     private Article mArticle;
-
-    private ArticleFragment mArticleFragment;
-
-    private ArticleCommentFragment mArticleCommentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,15 @@ public class ArticleActivity extends BaseActivity {
 
         if (getIntent() != null) {
             mArticle = (Article) getIntent().getSerializableExtra(IntentExtra.INTENT_ARTICLE);
+            launchFrom = getIntent().getStringExtra(IntentExtra.INTENT_ARTICLE_FROM);
+        }
+        if (mArticle == null) {
+            finish();
+        }
+
+        if (FROM_NOTIFICATION.equals(launchFrom)) {
+            // 初始化share sdk
+            ShareSDK.initSDK(this);
         }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
@@ -53,9 +70,13 @@ public class ArticleActivity extends BaseActivity {
     }
 
     private void updateWatch() {
-        mArticle.increment("watch");
-        if (this != null) {
-            mArticle.update(this, null);
+        try {
+            mArticle.increment("watch");
+            if (this != null) {
+                mArticle.update(this, null);
+            }
+        } catch (Exception e) {
+            // finish();
         }
     }
 
@@ -139,6 +160,22 @@ public class ArticleActivity extends BaseActivity {
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.text_commented), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // 结束
+        if (item.getItemId() == android.R.id.home) {
+            if (FROM_HOME.equals(launchFrom)) {
+                finish();
+            }
+            else if (FROM_NOTIFICATION.equals(launchFrom)) {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
