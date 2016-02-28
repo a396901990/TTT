@@ -317,13 +317,16 @@ public class RouteActivity
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        // 如果是route视图则退出，否则退回到route界面
-        if (isRoute()) {
-            finish();
-        } else {
-            // 回到detail视图
-            mPager.setCurrentItem(0, true);
-            updateHeader(true, null);
+        // 返回按钮
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // 如果是route视图则退出，否则退回到route界面
+            if (isRoute()) {
+                finish();
+            } else {
+                // 回到detail视图
+                mPager.setCurrentItem(0, true);
+                updateHeader(true, null);
+            }
         }
 
         return true;
@@ -339,15 +342,6 @@ public class RouteActivity
         outState.putBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE, isRoute);
 
         // plan status
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // 结束
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public FloatingActionMenu getFloatingActionMenu() {

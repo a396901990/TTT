@@ -1,13 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:background="@drawable/border_white"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/reply"
-        style="@style/TextAppearance.Large"
+        style="@style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -20,24 +19,24 @@
         android:background="@color/less_light_gray"></View>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/like"
-        style="@style/TextAppearance.Large"
+        style="@style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:padding="15dp"
-        android:text="@string/text_like" />
+        android:text="@string/text_like"
+        android:visibility="gone" />
 
     <View
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/less_light_gray"></View>
+        android:background="@color/less_light_gray"
+        android:visibility="gone"></View>
 
     <TextView
         android:id="@+id/report"
-        style="@style/TextAppearance.Large"
+        style="@style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -52,7 +51,7 @@
 
     <TextView
         android:id="@+id/copy"
-        style="@style/TextAppearance.Large"
+        style="@style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

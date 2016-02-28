@@ -7,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.activity.ArticleActivity;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -24,7 +21,7 @@ public class ArticleCommentDialog extends BaseCommentDialog {
 
     private Article mArticle;
 
-    private ArticleCommentActivity articleActivity;
+    private ArticleActivity articleActivity;
 
     private Comment replyComment;
 
@@ -32,7 +29,7 @@ public class ArticleCommentDialog extends BaseCommentDialog {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        articleActivity = (ArticleCommentActivity) getActivity();
+        articleActivity = (ArticleActivity) getActivity();
         mArticle = articleActivity.getArticle();
 
         if (getArguments() != null) {

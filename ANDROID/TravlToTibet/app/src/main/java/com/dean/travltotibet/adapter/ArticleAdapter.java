@@ -85,6 +85,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 // 跳转到RouteActivity
                 Intent intent = new Intent(mContext, ArticleActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
+                intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
                 mContext.startActivity(intent);
             }
         });

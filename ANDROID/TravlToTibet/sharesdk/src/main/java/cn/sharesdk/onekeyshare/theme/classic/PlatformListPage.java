@@ -109,7 +109,7 @@ public class PlatformListPage extends PlatformListFakeActivity implements View.O
 		int dp_10 = com.mob.tools.utils.R.dipToPx(getContext(), 10);
 		lpBtn.setMargins(dp_10, dp_10, dp_10, dp_10);
 		btnCancel.setLayoutParams(lpBtn);
-		llPage.addView(btnCancel);
+//		llPage.addView(btnCancel);
 	}
 
 	private void initAnim() {
