@@ -1,8 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,36 +15,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
-import com.dean.greendao.Hotel;
-import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.AroundBaseActivity;
-import com.dean.travltotibet.model.AroundType;
-import com.dean.travltotibet.model.ScenicComment;
-import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.LoginUtil;
-import com.dean.travltotibet.util.SystemUtil;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import cn.bmob.v3.listener.SaveListener;
-import de.greenrobot.event.EventBus;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by DeanGuo on 1/20/16.
@@ -141,7 +116,7 @@ public class BaseCommentDialog extends LoginDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.around_comment_dialog_view, null);
+        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.base_comment_dialog_view, null);
         initLoginView(contentLayout);
         initRatingView();
         initCommentView();
@@ -194,6 +169,7 @@ public class BaseCommentDialog extends LoginDialogFragment {
 
     private void initRatingView() {
         ratingBar = (RatingBar) contentLayout.findViewById(R.id.ratting_bar);
+
         ratingBar.setMax(5);
         ratingBar.setRating((int) currentRating);
         ratingBar.setStepSize(1);
@@ -204,10 +180,11 @@ public class BaseCommentDialog extends LoginDialogFragment {
             }
         });
 
+        View ratingContent = contentLayout.findViewById(R.id.ratting_bar_content);
         if (isShowRattingBar()) {
-            ratingBar.setVisibility(View.VISIBLE);
+            ratingContent.setVisibility(View.VISIBLE);
         } else {
-            ratingBar.setVisibility(View.GONE);
+            ratingContent.setVisibility(View.GONE);
         }
     }
 

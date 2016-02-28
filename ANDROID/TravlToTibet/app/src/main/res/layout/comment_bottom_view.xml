@@ -1,34 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/send_comment_btn"
     android:layout_width="match_parent"
     android:layout_height="@dimen/article_bottom_height"
     android:layout_gravity="bottom"
-    android:background="@drawable/lock_button_background"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/topLine"
+        android:layout_centerVertical="true"
+        >
 
         <TextView
+            android:id="@+id/send_comment_btn"
             style="@style/TextAppearance.Medium.Gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/comment_switch_icon"
             android:background="@drawable/border_reply_comment_background"
-            android:padding="8dp"
+            android:padding="6dp"
             android:text="我也来说两句" />
+
+        <TextView
+            android:id="@+id/comment_switch_icon"
+            style="@style/TextAppearance.Theme.Medium.Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/border_reply_comment_theme_background"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:text="评论" />
     </RelativeLayout>
 
     <View
         android:id="@+id/topLine"
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_line_rule"
+        android:layout_alignParentTop="true"
         android:background="@drawable/up_shade_background" />
 </RelativeLayout>
 

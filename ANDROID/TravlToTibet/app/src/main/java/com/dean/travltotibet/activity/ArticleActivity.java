@@ -4,18 +4,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
+import com.dean.travltotibet.fragment.ArticleCommentDialog;
 import com.dean.travltotibet.fragment.ArticleFragment;
 import com.dean.travltotibet.fragment.BaseCommentDialog;
 import com.dean.travltotibet.fragment.ArticleCommentFragment;
+import com.dean.travltotibet.fragment.RouteChartFragment;
+import com.dean.travltotibet.fragment.RouteDetailFragment;
+import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -30,7 +38,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by DeanGuo on 2/17/16.
  */
-public class ArticleActivity extends BaseActivity {
+public class ArticleActivity extends BaseActivity implements BaseCommentDialog.CommentCallBack {
 
     public static final String FROM_HOME = "from_home";
 
@@ -39,6 +47,10 @@ public class ArticleActivity extends BaseActivity {
     private String launchFrom;
 
     private Article mArticle;
+
+    private ViewPager mPager;
+
+    private ViewPageFragmentAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +74,24 @@ public class ArticleActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
-        setTitle(mArticle.getTitle());
+//        setTitle(mArticle.getTitle());
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
         updateWatch();
         initBtn();
+        initViewPage();
+    }
+
+    private void initViewPage() {
+        mPager = (ViewPager) findViewById(R.id.view_pager);
+        mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
+
+        // 为adapter添加数据
+        mAdapter.add(ArticleFragment.class, null, "");
+        mAdapter.add(ArticleCommentFragment.class, null, "");
+        mPager.setAdapter(mAdapter);
+
+        mPager.setOffscreenPageLimit(0);
     }
 
     private void updateWatch() {
@@ -81,17 +106,7 @@ public class ArticleActivity extends BaseActivity {
     }
 
     private void initBtn() {
-        View sendBtn = findViewById(R.id.action_send);
-        View commentBtn = findViewById(R.id.action_comment);
-        View likeBtn = findViewById(R.id.action_like);
-
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendAction();
-            }
-        });
-
+        View commentBtn = findViewById(R.id.send_comment_btn);
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,18 +114,36 @@ public class ArticleActivity extends BaseActivity {
             }
         });
 
-        likeBtn.setOnClickListener(new View.OnClickListener() {
+        View switchBtn = findViewById(R.id.comment_switch_icon);
+        switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                likeAction();
+                if (mPager.getCurrentItem() == 0) {
+                    goCommentPage();
+                }
+                else if (mPager.getCurrentItem() == 1) {
+                    goArticlePage();
+                }
             }
         });
     }
 
+    private void goCommentPage() {
+        TextView switchBtn = (TextView) findViewById(R.id.comment_switch_icon);
+        switchBtn.setText("原文");
+        mPager.setCurrentItem(1, true);
+    }
+
+    private void goArticlePage() {
+        TextView switchBtn = (TextView) findViewById(R.id.comment_switch_icon);
+        switchBtn.setText("评论");
+        mPager.setCurrentItem(0, true);
+    }
+
     private void commentAction() {
-        Intent intent = new Intent(this, ArticleCommentActivity.class);
-        intent.putExtra(IntentExtra.INTENT_ARTICLE, mArticle);
-        this.startActivity(intent);
+        BaseCommentDialog dialogFragment = new ArticleCommentDialog();
+        dialogFragment.setCommentCallBack(this);
+        dialogFragment.show(getFragmentManager(), ArticleCommentDialog.class.getName());
     }
 
     private void sendAction() {
@@ -163,9 +196,17 @@ public class ArticleActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_article, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
         // 结束
-        if (item.getItemId() == android.R.id.home) {
+        if (id == android.R.id.home) {
             if (FROM_HOME.equals(launchFrom)) {
                 finish();
             }
@@ -175,7 +216,29 @@ public class ArticleActivity extends BaseActivity {
                 finish();
             }
         }
+        // 提交按钮
+        if (id == R.id.action_like) {
+            likeAction();
+        }
+        // 结束
+        else if (id == R.id.action_share) {
+            sendAction();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCommentSuccess() {
+        goCommentPage();
+        ArticleCommentFragment articleCommentFragment = (ArticleCommentFragment) mAdapter.getFragment(1);
+        if (articleCommentFragment != null) {
+            articleCommentFragment.updateComment();
+        }
+    }
+
+    @Override
+    public void onCommentFailed() {
+
     }
 
     @Override

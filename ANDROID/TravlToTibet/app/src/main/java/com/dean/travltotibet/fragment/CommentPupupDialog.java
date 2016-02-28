@@ -1,35 +1,25 @@
 package com.dean.travltotibet.fragment;
 
-import android.annotation.TargetApi;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dean.greendao.Hotel;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.activity.ArticleActivity;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
-import com.dean.travltotibet.adapter.CommentListAdapter;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.CommentReport;
-import com.dean.travltotibet.model.HotelComment;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -64,6 +54,14 @@ public class CommentPupupDialog  extends DialogFragment {
 
         setUpView();
         return contentLayout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Window window = getDialog().getWindow();
+        window.setLayout(ScreenUtil.dip2px(getActivity(), 260), WindowManager.LayoutParams.WRAP_CONTENT);
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
     private void setUpView() {
@@ -110,7 +108,7 @@ public class CommentPupupDialog  extends DialogFragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentExtra.INTENT_COMMENT, mComment);
         dialogFragment.setArguments(bundle);
-        dialogFragment.setCommentCallBack((ArticleCommentActivity) getActivity());
+        dialogFragment.setCommentCallBack((ArticleActivity) getActivity());
         dialogFragment.show(getFragmentManager(), ArticleCommentDialog.class.getName());
 
         getDialog().dismiss();
