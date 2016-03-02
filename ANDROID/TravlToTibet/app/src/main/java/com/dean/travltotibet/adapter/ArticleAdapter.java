@@ -48,7 +48,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         mActivity = (Activity) mContext;
 
         mQueue = Volley.newRequestQueue(mContext);
-
         imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
             @Override
             public void putBitmap(String url, Bitmap bitmap) {

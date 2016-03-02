@@ -3,44 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/splash_screen_view"
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/logo_padding">
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/logo_padding"
+        android:paddingRight="@dimen/logo_padding">
 
         <ImageView
             android:id="@+id/logo_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:src="@drawable/logo_text" />
 
         <ImageView
             android:id="@+id/logo_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:src="@drawable/logo_pic"
             android:visibility="gone" />
 
     </FrameLayout>
 
-    <LinearLayout
-        android:padding="@dimen/logo_padding"
-        android:layout_alignParentBottom="true"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="60dp">
+
+        <ImageView
+            android:visibility="gone"
             android:id="@+id/logo_msg"
-            style="@style/TextAppearance.Large"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/app_msg"
-            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@drawable/app_launch_sub_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/logo_msg"-->
+            <!--style="@style/TextAppearance.Large"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/app_msg"-->
+            <!--android:textColor="@color/white" />-->
+    </RelativeLayout>
 
 </RelativeLayout>

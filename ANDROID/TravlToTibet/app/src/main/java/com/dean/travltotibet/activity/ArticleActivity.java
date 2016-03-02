@@ -117,6 +117,7 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
     }
 
     private void initBtn() {
+        // 评论
         View commentBtn = findViewById(R.id.send_comment_btn);
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +126,7 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
             }
         });
 
+        // 切换按钮
         View switchBtn = findViewById(R.id.comment_switch_icon);
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,19 +165,19 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
         oks.disableSSOWhenAuthorize();
 
         // title标题：微信、QQ（新浪微博不需要标题）
-        oks.setTitle(getString(R.string.app_name));  //最多30个字符
+        oks.setTitle(mArticle.getTitle());  //最多30个字符
 
         // text是分享文本：所有平台都需要这个字段
-        oks.setText(mArticle.getTitle());  //最多40个字符
+        oks.setText(mArticle.getTitle() + mArticle.getShareUrl());  //最多40个字符
 
         //网络图片的url：所有平台
         oks.setImageUrl(mArticle.getTitleImage());//网络图片rul
 
         // url：仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl(mArticle.getUrl());   //网友点进链接后，可以看到分享的详情
+        oks.setUrl(mArticle.getShareUrl());   //网友点进链接后，可以看到分享的详情
 
         // Url：仅在QQ空间使用
-        oks.setTitleUrl(mArticle.getUrl());  //网友点进链接后，可以看到分享的详情
+        oks.setTitleUrl(mArticle.getShareUrl());  //网友点进链接后，可以看到分享的详情
 
         // 启动分享GUI
         oks.show(this);

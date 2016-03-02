@@ -25,14 +25,11 @@ android {
         }
         qq {
         }
-        xiaomi {
+        pp {
         }
         open {
-
         }
         wandoujia{}
-        anzhi{}
-        meizu{}
     }
 
     //这个是解决lint报错的代码

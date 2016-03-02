@@ -199,7 +199,7 @@
     <dimen name="route_plan_view_height">80dp</dimen>
     <dimen name="route_plan_view_margin">5dp</dimen>
 
-    <dimen name="logo_padding">60dp</dimen>
+    <dimen name="logo_padding">110dp</dimen>
 
     <dimen name="tutorial_page_text_height">180dp</dimen>
     <dimen name="tutorial_route_top_height">5dp</dimen>

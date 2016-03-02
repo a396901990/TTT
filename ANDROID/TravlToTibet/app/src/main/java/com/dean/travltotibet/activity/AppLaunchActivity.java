@@ -75,7 +75,6 @@ public class AppLaunchActivity extends Activity {
 
     private void logoTextAnimation() {
         ImageView logoText = (ImageView) this.findViewById(R.id.logo_text);
-        TextView logoMsg = (TextView) this.findViewById(R.id.logo_msg);
         Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -99,7 +98,8 @@ public class AppLaunchActivity extends Activity {
 
 
     private void logoMsgAnimation() {
-        TextView logoMsg = (TextView) this.findViewById(R.id.logo_msg);
+        View logoMsg = this.findViewById(R.id.logo_msg);
+        logoMsg.setVisibility(View.VISIBLE);
         Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setDuration(1000);
         logoMsg.startAnimation(alphaAnimation);
