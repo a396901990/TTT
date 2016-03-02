@@ -22,6 +22,7 @@ import com.dean.travltotibet.activity.AroundScenicActivity;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -82,6 +83,9 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 // 跳转
                 Intent intent = new Intent(mContext, AroundScenicActivity.class);
                 intent.putExtra(IntentExtra.INTENT_SCENIC, scenic);

@@ -15,6 +15,7 @@ import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 /**
  * Created by DeanGuo on 10/14/15.
@@ -62,6 +63,9 @@ public class InfoDetailFragment extends BaseInfoFragment {
         attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), AttentionActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentExtra.INTENT_ROUTE, infoActivity.getRoute());

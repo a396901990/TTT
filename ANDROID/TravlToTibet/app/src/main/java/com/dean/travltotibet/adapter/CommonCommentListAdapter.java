@@ -29,6 +29,7 @@ import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,6 +133,9 @@ public class CommonCommentListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 DialogFragment dialogFragment = new CommentPupupDialog();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(IntentExtra.INTENT_COMMENT, comment);

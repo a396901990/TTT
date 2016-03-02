@@ -11,6 +11,7 @@ import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
 import org.json.JSONArray;
@@ -59,6 +60,9 @@ public class NavigationFragment extends LoginFragment {
             @Override
             public void onClick(View v) {
                 // 跳转到反馈activity
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), FeedbackActivity.class);
                 startActivity(intent);
             }

@@ -11,6 +11,7 @@ import com.dean.travltotibet.model.HotelComment;
 import com.dean.travltotibet.model.ScenicComment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;

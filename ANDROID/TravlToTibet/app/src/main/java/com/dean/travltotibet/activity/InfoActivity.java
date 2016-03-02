@@ -24,6 +24,7 @@ import com.dean.travltotibet.fragment.InfoPlanConfirmDialog;
 import com.dean.travltotibet.fragment.InfoTravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -130,6 +131,9 @@ public class InfoActivity extends BaseActivity {
     }
 
     private void openTypeDialog() {
+        if (ScreenUtil.isFastClick()) {
+            return;
+        }
         DialogFragment dialogFragment = new InfoTravelTypeDialog();
         Bundle bundle = new Bundle();
         bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
@@ -147,7 +151,10 @@ public class InfoActivity extends BaseActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new InfoPlanConfirmDialog();
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                DialogFragment dialogFragment = InfoPlanConfirmDialog.getInstance();
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
                 bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());

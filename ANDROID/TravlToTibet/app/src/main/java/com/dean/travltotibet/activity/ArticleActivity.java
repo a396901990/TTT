@@ -26,6 +26,7 @@ import com.dean.travltotibet.fragment.RouteDetailFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import cn.bmob.push.BmobPush;
@@ -153,6 +154,9 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
     }
 
     private void commentAction() {
+        if (ScreenUtil.isFastClick()) {
+            return;
+        }
         BaseCommentDialog dialogFragment = new ArticleCommentDialog();
         dialogFragment.setCommentCallBack(this);
         dialogFragment.show(getFragmentManager(), ArticleCommentDialog.class.getName());

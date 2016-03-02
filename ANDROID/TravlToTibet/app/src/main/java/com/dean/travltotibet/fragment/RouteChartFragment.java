@@ -27,6 +27,7 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.StringUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -292,6 +293,9 @@ public class RouteChartFragment extends BaseRouteFragment {
         fullScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 menu.close(true);
                 Intent intent = new Intent(getActivity(), FullChartScreenActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ROUTE, routeActivity.getRouteName());

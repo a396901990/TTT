@@ -23,6 +23,7 @@ import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -115,6 +116,9 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 // 跳转
                 if (aroundType.equals(AroundType.HOTEL)) {
                     Intent intent = new Intent(mContext, AroundHotelActivity.class);

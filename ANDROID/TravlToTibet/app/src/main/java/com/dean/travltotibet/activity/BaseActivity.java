@@ -128,15 +128,4 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
         MobclickAgent.onPause(this);
     }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        // 防止连续点击两次
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            if (ScreenUtil.isFastDoubleClick()) {
-                return true;
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
 }
