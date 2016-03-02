@@ -138,12 +138,14 @@
     <string name="team_make_destination_title">目的地</string>
     <string name="team_make_destination_type_title">计划</string>
     <string name="team_make_title_title">标题</string>
+    <string name="team_make_contact_title">联系方式</string>
     <string name="team_make_content_title">内容</string>
     <string name="team_make_type_title">旅行方式</string>
     <string name="team_make_time_start">出发日期</string>
     <string name="team_make_time_end">结束日期</string>
     <string name="team_make_title_edit_hint">输入结伴标题</string>
     <string name="team_make_content_edit_hint">输入结伴内容</string>
+    <string name="team_make_contact_edit_hint">输入联系方式</string>
     <string name="team_make_destination_edit_hint">输入目的地名称</string>
     <string name="team_make_destination_hot">热门目的地</string>
 

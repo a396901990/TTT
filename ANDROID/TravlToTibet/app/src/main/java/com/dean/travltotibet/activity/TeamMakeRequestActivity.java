@@ -1,23 +1,15 @@
 package com.dean.travltotibet.activity;
 
-import android.app.DialogFragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.LoginDialog;
 import com.dean.travltotibet.fragment.TeamMakeRequestFragment;
-import com.dean.travltotibet.ui.fab.FloatingActionButton;
-import com.dean.travltotibet.util.LoginUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-
-import de.greenrobot.event.EventBus;
 
 public class TeamMakeRequestActivity extends BaseActivity {
 

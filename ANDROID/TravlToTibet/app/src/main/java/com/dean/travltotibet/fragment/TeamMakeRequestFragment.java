@@ -2,14 +2,10 @@ package com.dean.travltotibet.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -19,12 +15,16 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.TeamMakeRequestActivity;
+import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 
 import java.util.Calendar;
 
+import cn.bmob.v3.listener.SaveListener;
+
+import static com.dean.travltotibet.R.id.contact_edit_text;
 import static com.dean.travltotibet.R.id.title_edit_text;
 
 /**
@@ -46,9 +46,13 @@ public class TeamMakeRequestFragment extends Fragment {
 
     private int PASS_TITLE = 1 << 4; // 10000
 
-    private int PASS_CONTENT = 1 << 5; // 100000
+    private int PASS_CONTACT = 1 << 5; // 100000
+
+    private int PASS_CONTENT = 1 << 6; // 1000000
 
     private Flag filed = new Flag();
+
+    private TeamRequest teamRequest;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,21 +66,25 @@ public class TeamMakeRequestFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mActivity = (TeamMakeRequestActivity) this.getActivity();
+        teamRequest = new TeamRequest();
 
         initTimeContent();
         initDestinationContent();
         initTravelTypeContent();
         initTitleContent();
+        initContactContent();
         initContentContent();
     }
 
+    // 标题
     private void initTitleContent() {
-        EditText titleEdit = (EditText) root.findViewById(title_edit_text);
+        final EditText titleEdit = (EditText) root.findViewById(title_edit_text);
         titleEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filed.set(PASS_TITLE);
+                teamRequest.setTitle(titleEdit.getText().toString());
             }
 
             @Override
@@ -89,13 +97,36 @@ public class TeamMakeRequestFragment extends Fragment {
         });
     }
 
+    // 联系方式
+    private void initContactContent() {
+        final EditText contactEdit = (EditText) root.findViewById(contact_edit_text);
+        contactEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filed.set(PASS_CONTACT);
+                teamRequest.setTitle(contactEdit.getText().toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    // 内容
     private void initContentContent() {
-        EditText contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
+        final EditText contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
         contentEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filed.set(PASS_CONTENT);
+                teamRequest.setContent(contentEdit.getText().toString());
             }
 
             @Override
@@ -108,6 +139,7 @@ public class TeamMakeRequestFragment extends Fragment {
         });
     }
 
+    // 旅行类型
     private void initTravelTypeContent() {
         View typeBtn = root.findViewById(R.id.type_btn);
         typeBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,18 +157,7 @@ public class TeamMakeRequestFragment extends Fragment {
         });
     }
 
-    private void setTravelType(String type) {
-        TextView travelType = (TextView) root.findViewById(R.id.type_text);
-        travelType.setText(TravelType.getTravelText(type));
-        filed.set(PASS_TYPE);
-    }
-
-    private void setDestination(String destination) {
-        TextView destinationText = (TextView) root.findViewById(R.id.destination_text);
-        destinationText.setText(destination);
-        filed.set(PASS_DESTINATION);
-    }
-
+    // 目的地
     private void initDestinationContent() {
         View destinationBtn = root.findViewById(R.id.destination_btn);
         destinationBtn.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +175,21 @@ public class TeamMakeRequestFragment extends Fragment {
         });
     }
 
+    private void setTravelType(String type) {
+        TextView travelType = (TextView) root.findViewById(R.id.type_text);
+        travelType.setText(TravelType.getTravelText(type));
+        filed.set(PASS_TYPE);
+        teamRequest.setTravelType(type);
+    }
+
+    private void setDestination(String destination) {
+        TextView destinationText = (TextView) root.findViewById(R.id.destination_text);
+        destinationText.setText(destination);
+        filed.set(PASS_DESTINATION);
+        teamRequest.setDestination(destination);
+    }
+
+    // 日期
     private void initTimeContent() {
         View startBtn = root.findViewById(R.id.start_date_btn);
         View endBtn = root.findViewById(R.id.end_date_btn);
@@ -183,8 +219,10 @@ public class TeamMakeRequestFragment extends Fragment {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             TextView startDateText = (TextView) root.findViewById(R.id.start_date);
-            startDateText.setText(String.format(Constants.DATE_Y_M_D, year, monthOfYear + 1, dayOfMonth));
+            String startDate = String.format(Constants.DATE_Y_M_D, year, monthOfYear + 1, dayOfMonth);
+            startDateText.setText(startDate);
             filed.set(PASS_START_TIME);
+            teamRequest.setStartDate(startDate);
         }
     };
 
@@ -192,36 +230,55 @@ public class TeamMakeRequestFragment extends Fragment {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             TextView endDateText = (TextView) root.findViewById(R.id.end_date);
-            endDateText.setText(String.format(Constants.DATE_Y_M_D, year, monthOfYear + 1, dayOfMonth));
+            String endDate = String.format(Constants.DATE_Y_M_D, year, monthOfYear + 1, dayOfMonth);
+            endDateText.setText(endDate);
             filed.set(PASS_END_TIME);
+            teamRequest.setEndDate(endDate);
         }
     };
 
+    // 提交请求
     public void commitRequest() {
-        checkIsOk();
+        if (checkIsOk()) {
+            final View loadingView = root.findViewById(R.id.loading_content_view);
+            loadingView.setVisibility(View.VISIBLE);
+            teamRequest.setComments(0);
+            teamRequest.setWatch(0);
+            teamRequest.save(getActivity(), new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    loadingView.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(int code, String msg) {
+                    loadingView.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
-    private void checkIsOk() {
+    private boolean checkIsOk() {
         if (!filed.isSet(PASS_START_TIME)) {
             Toast.makeText(getActivity(), "请设置起始日期", Toast.LENGTH_SHORT).show();
-        }
-        else if (!filed.isSet(PASS_END_TIME)) {
+        } else if (!filed.isSet(PASS_END_TIME)) {
             Toast.makeText(getActivity(), "请设置终止日期", Toast.LENGTH_SHORT).show();
-        }
-        else if (!filed.isSet(PASS_DESTINATION)) {
+        } else if (!filed.isSet(PASS_DESTINATION)) {
             Toast.makeText(getActivity(), "请设置目的地", Toast.LENGTH_SHORT).show();
-        }
-        else if (!filed.isSet(PASS_TYPE)) {
+        } else if (!filed.isSet(PASS_TYPE)) {
             Toast.makeText(getActivity(), "请设置旅行方式", Toast.LENGTH_SHORT).show();
-        }
-        else if (!filed.isSet(PASS_TITLE)) {
+        } else if (!filed.isSet(PASS_TITLE)) {
             Toast.makeText(getActivity(), "请设置标题", Toast.LENGTH_SHORT).show();
-        }
-        else if (!filed.isSet(PASS_CONTENT)) {
+        } else if (!filed.isSet(PASS_CONTACT)) {
+            Toast.makeText(getActivity(), "请设置联系方式", Toast.LENGTH_SHORT).show();
+        } else if (!filed.isSet(PASS_CONTENT)) {
             Toast.makeText(getActivity(), "请设置内容", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getActivity(), "setall", Toast.LENGTH_SHORT).show();
+            return true;
         }
+        return false;
     }
 
 }
