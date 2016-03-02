@@ -14,6 +14,7 @@ import com.dean.travltotibet.adapter.InfoGridAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.customScrollView.ScrollGridView;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 /**
  * Created by DeanGuo on 9/19/15.
@@ -52,6 +53,9 @@ public class InfoPrepareFragment extends BaseInfoFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 InfoType infoType = (InfoType) adapter.getItem(position);
 
                 // 打开详细页面

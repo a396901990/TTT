@@ -21,11 +21,14 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <fragment
-            android:id="@+id/article_fragment"
-            android:name="com.dean.travltotibet.fragment.ArticleFragment"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fillViewport="true"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
 
         <!--阴影、去空白-->
         <View
@@ -33,7 +36,7 @@
             android:layout_height="@dimen/home_toolbar_shadow_height"
             android:background="@drawable/top_shade_background" />
 
-        <include layout="@layout/article_bottom_view"></include>
+        <include layout="@layout/comment_bottom_view"></include>
 
     </FrameLayout>
 

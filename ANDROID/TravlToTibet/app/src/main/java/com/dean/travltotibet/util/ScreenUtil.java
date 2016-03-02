@@ -1,6 +1,7 @@
 package com.dean.travltotibet.util;
 
 import android.content.Context;
+import android.view.View;
 import android.view.WindowManager;
 
 /**
@@ -48,5 +49,14 @@ public class ScreenUtil {
         return ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getHeight();
+    }
+
+    private static long lastClickTime = 0;
+
+    public static boolean isFastClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        lastClickTime = time;
+        return timeD <= 1000;
     }
 }

@@ -20,6 +20,8 @@ public class Article extends BmobObject {
     private int watch;
     private String url;
 
+    private String shareUrl;
+
     public String getId() {
         return id;
     }
@@ -100,4 +102,13 @@ public class Article extends BmobObject {
     public void setWatch(int watch) {
         this.watch = watch;
     }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
+    }
+
 }

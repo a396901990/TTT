@@ -8,6 +8,7 @@
         <item>VILLAGE</item>
         <item>TUNNEL</item>
         <item>CHECK_POINT</item>
+        <item>OTHERS</item>
     </string-array>
 
     <string-array name="default_all_points">

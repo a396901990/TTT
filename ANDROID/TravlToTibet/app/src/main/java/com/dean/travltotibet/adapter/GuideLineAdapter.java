@@ -203,6 +203,9 @@ public class GuideLineAdapter extends BaseAdapter {
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (ScreenUtil.isFastClick()) {
+                            return;
+                        }
                         DialogFragment dialogFragment = new AroundDialogFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());

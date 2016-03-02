@@ -32,7 +32,6 @@
                 android:background="@color/colorPrimary"></View>
         </RelativeLayout>
 
-
         <RelativeLayout
             android:id="@+id/new_comment"
             android:layout_width="80dp"
@@ -56,6 +55,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:layout_marginBottom="@dimen/article_bottom_blank_height"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

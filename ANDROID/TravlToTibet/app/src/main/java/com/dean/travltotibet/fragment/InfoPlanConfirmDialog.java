@@ -70,6 +70,15 @@ public class InfoPlanConfirmDialog extends DialogFragment {
 
     private final static int ALPHA = 255;
 
+    private static InfoPlanConfirmDialog instance = null;
+
+    public static InfoPlanConfirmDialog getInstance() {
+        if (instance == null) {
+            instance = new InfoPlanConfirmDialog();
+        }
+        return instance;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -288,6 +297,9 @@ public class InfoPlanConfirmDialog extends DialogFragment {
                 dismiss();
 
                 // 跳转到RouteActivity
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), RouteActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ROUTE, route);
                 intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, routeType);

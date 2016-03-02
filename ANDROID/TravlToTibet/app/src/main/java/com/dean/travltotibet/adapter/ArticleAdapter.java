@@ -25,6 +25,7 @@ import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         mActivity = (Activity) mContext;
 
         mQueue = Volley.newRequestQueue(mContext);
-
         imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
             @Override
             public void putBitmap(String url, Bitmap bitmap) {
@@ -82,9 +82,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 // 跳转到RouteActivity
                 Intent intent = new Intent(mContext, ArticleActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
+                intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
                 mContext.startActivity(intent);
             }
         });

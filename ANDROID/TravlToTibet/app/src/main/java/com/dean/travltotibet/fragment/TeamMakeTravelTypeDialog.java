@@ -1,31 +1,14 @@
 package com.dean.travltotibet.fragment;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.app.DialogFragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.text.ClipboardManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
-import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.model.CommentReport;
 import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.util.AnimUtil;
-import com.dean.travltotibet.util.IntentExtra;
-
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 2/24/16.

@@ -86,18 +86,12 @@ public class TTTApplication extends Application {
         // 初始化PointManager
         PointManager.init(instance);
         AppUtil.saveVersionCode(context);
-
-        // 初始化share sdk
-        ShareSDK.initSDK(context);
-
-        // 设置登陆状态
-        initLoginStatus();
     }
 
     /**
      * 初始化用户信息和登陆状态
      */
-    private static void initLoginStatus() {
+    public static void initLoginStatus() {
         String lastToken = LoginUtil.getInstance().getLastToken();
         updateUserInfo(lastToken);
     }

@@ -16,10 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
+import cn.sharesdk.framework.ShareSDK;
 
 
 /**
@@ -27,7 +31,7 @@ import cn.bmob.v3.Bmob;
  */
 public class AppLaunchActivity extends Activity {
 
-    private final static String BMOB_APPLICATION_ID = "1ac4c82c189eb0d80711885ed3ad05ba";
+    public final static String BMOB_APPLICATION_ID = "1ac4c82c189eb0d80711885ed3ad05ba";
 
     private final int SPLASH_DISPLAY_LENGTH = 0;
 
@@ -46,20 +50,31 @@ public class AppLaunchActivity extends Activity {
         }
 
         setContentView(R.layout.app_luanch_splash_screen);
-        initView();
+
         // 初始化Bmob
         Bmob.initialize(this, BMOB_APPLICATION_ID);
+        // 使用推送服务时的初始化操作
+        BmobInstallation.getCurrentInstallation(this).save();
+        // 启动推送服务
+        BmobPush.startWork(this, BMOB_APPLICATION_ID);
+
+        // 初始化share sdk
+        ShareSDK.initSDK(this);
+
+        // 设置登陆状态
+        TTTApplication.initLoginStatus();
+
+        initView();
     }
 
     private void initView() {
 
-        logoTextAnimation();
+         logoTextAnimation();
     }
 
 
     private void logoTextAnimation() {
         ImageView logoText = (ImageView) this.findViewById(R.id.logo_text);
-        TextView logoMsg = (TextView) this.findViewById(R.id.logo_msg);
         Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -83,7 +98,8 @@ public class AppLaunchActivity extends Activity {
 
 
     private void logoMsgAnimation() {
-        TextView logoMsg = (TextView) this.findViewById(R.id.logo_msg);
+        View logoMsg = this.findViewById(R.id.logo_msg);
+        logoMsg.setVisibility(View.VISIBLE);
         Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setDuration(1000);
         logoMsg.startAnimation(alphaAnimation);
@@ -147,18 +163,6 @@ public class AppLaunchActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
         startActivityForResult(intent, REQUEST_WELCOME);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-    }
-
-    @Override
-    protected void onResume() {
-        // 注册event bus
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        // 注销event bua
-        super.onPause();
     }
 
     @Override

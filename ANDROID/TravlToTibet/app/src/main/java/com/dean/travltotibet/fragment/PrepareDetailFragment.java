@@ -104,6 +104,9 @@ public class PrepareDetailFragment extends Fragment {
             @Override
             public void onError(int i, String s) {
                 Log.e("onError", s);
+                if (mWebView == null || loadingView == null) {
+                    return;
+                }
                 mWebView.loadUrl(Constants.EMPTY_HTML_CONTENT);
                 loadingView.setVisibility(View.GONE);
             }
