@@ -49,4 +49,13 @@ public class ScreenUtil {
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getHeight();
     }
+
+    private static long lastClickTime = 0;
+
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        lastClickTime = time;
+        return timeD <= 800;
+    }
 }
