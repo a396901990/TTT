@@ -1,24 +1,20 @@
 package com.dean.travltotibet.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.ArticleActivity;
-import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.activity.TeamShowRequestCommentActivity;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
@@ -27,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 2/17/16.
  */
-public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.ArticleViewHolder> {
+public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.TeamRequestViewHolder> {
 
     private Context mContext;
 
@@ -38,20 +34,23 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
     }
 
     @Override
-    public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TeamRequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_request_list_item, parent, false);
-        return new ArticleViewHolder(view);
+        return new TeamRequestViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ArticleViewHolder holder, int position) {
+    public void onBindViewHolder(final TeamRequestViewHolder holder, int position) {
 
         final TeamRequest request = mData.get(position);
 
         holder.mTitle.setText(request.getTitle());
-
-//        holder.mWatch.setText(article.getWatch()+"");
-//        holder.mLike.setText(article.getLike()+"");
+        holder.mTypeIcon.setImageDrawable(TravelType.getTypeImageSrcWithColor(request.getTravelType(), R.color.white));
+        holder.mDestinationName.setText(request.getDestination());
+        holder.mDate.setText(String.format(Constants.TEAM_REQUEST_DAY, request.getStartDate(), request.getEndDate()));
+        holder.mUserTime.setText(String.format(Constants.TEAM_REQUEST_USER_TIME, request.getUserName(), request.getCreatedAt()));
+        holder.mWatch.setText(request.getWatch()+"");
+        holder.mComment.setText(request.getComments() + "");
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +58,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                // 跳转到RouteActivity
-//                Intent intent = new Intent(mContext, ArticleActivity.class);
-//                intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
-//                intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
-//                mContext.startActivity(intent);
+                Intent intent = new Intent(mContext, TeamShowRequestCommentActivity.class);
+                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, request);
+                mContext.startActivity(intent);
             }
         });
 
@@ -91,20 +88,26 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
     }
 
 
-    public static class ArticleViewHolder extends RecyclerView.ViewHolder {
+    public static class TeamRequestViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
         private TextView mTitle;
+        private TextView mDestinationName;
+        private TextView mUserTime;
+        private TextView mDate;
         private TextView mWatch;
-        private TextView mLike;
-        private NetworkImageView mBackgroundView;
+        private TextView mComment;
+        private ImageView mTypeIcon;
 
-        public ArticleViewHolder(View itemView) {
+        public TeamRequestViewHolder(View itemView) {
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
+            mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
+            mDate = (TextView) itemView.findViewById(R.id.plan_date);
+            mUserTime = (TextView) itemView.findViewById(R.id.user_time);
+            mTypeIcon = (ImageView) itemView.findViewById(R.id.type_icon);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
-            mLike = (TextView) itemView.findViewById(R.id.like);
-            mBackgroundView = (NetworkImageView) itemView.findViewById(R.id.background_image);
+            mComment = (TextView) itemView.findViewById(R.id.comment);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }

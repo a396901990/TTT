@@ -14,6 +14,7 @@ import cn.bmob.v3.BmobObject;
 public class Comment extends BmobObject {
 
     public  final static String ARTICLE_COMMENT = "article_comment";
+    public  final static String TEAM_REQUEST_COMMENT = "team_request_comment";
     public  final static String HOTEL_COMMENT = "hotel_comment";
     public  final static String SCENIC_COMMENT = "scenic_comment";
 
@@ -21,7 +22,10 @@ public class Comment extends BmobObject {
     private int dislike;
     private String rating;
     private String quote_id;
+    private String quote_text;
+    private String quote_user_name;
     private String comment;
+    private String user_id;
     private String user_icon;
     private String user_name;
 
@@ -79,6 +83,30 @@ public class Comment extends BmobObject {
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
+    }
+
+    public String getQuote_text() {
+        return quote_text;
+    }
+
+    public void setQuote_text(String quote_text) {
+        this.quote_text = quote_text;
+    }
+
+    public String getQuote_user_name() {
+        return quote_user_name;
+    }
+
+    public void setQuote_user_name(String quote_user_name) {
+        this.quote_user_name = quote_user_name;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public static Comparator<Comment> likeComparator = new Comparator<Comment>() {

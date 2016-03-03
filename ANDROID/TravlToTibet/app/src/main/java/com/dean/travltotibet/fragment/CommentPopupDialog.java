@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.activity.ArticleCommentActivity;
+import com.dean.travltotibet.activity.BaseCommentActivity;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.CommentReport;
 import com.dean.travltotibet.util.IntentExtra;
@@ -26,9 +27,8 @@ import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 2/21/16.
- * 选择旅行类型
  */
-public class CommentPupupDialog  extends DialogFragment {
+public class CommentPopupDialog extends DialogFragment {
 
     private View contentLayout;
 
@@ -104,12 +104,21 @@ public class CommentPupupDialog  extends DialogFragment {
     }
 
     private void replyAction() {
-        BaseCommentDialog dialogFragment = new ArticleCommentDialog();
+        BaseCommentDialog dialogFragment = null;
+
+        // 根据不同评论类型进行恢复
+        if (Comment.ARTICLE_COMMENT.equals(mCommentType)) {
+            dialogFragment = new ArticleCommentDialog();
+        }
+        else if (Comment.TEAM_REQUEST_COMMENT.equals(mCommentType)) {
+            dialogFragment = new TeamRequestCommentDialog();
+        }
+
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentExtra.INTENT_COMMENT, mComment);
         dialogFragment.setArguments(bundle);
-        dialogFragment.setCommentCallBack((ArticleActivity) getActivity());
-        dialogFragment.show(getFragmentManager(), ArticleCommentDialog.class.getName());
+        dialogFragment.setCommentCallBack((BaseCommentActivity) getActivity());
+        dialogFragment.show(getFragmentManager(), BaseCommentDialog.class.getName());
 
         getDialog().dismiss();
     }

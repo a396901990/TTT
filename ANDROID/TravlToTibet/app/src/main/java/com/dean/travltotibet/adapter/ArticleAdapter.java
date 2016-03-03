@@ -8,22 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ArticleActivity;
-import com.dean.travltotibet.activity.RouteActivity;
+import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.model.Article;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
@@ -86,9 +80,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                     return;
                 }
                 // 跳转到RouteActivity
-                Intent intent = new Intent(mContext, ArticleActivity.class);
+                Intent intent = new Intent(mContext, ArticleCommentActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
-                intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
+                intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleCommentActivity.FROM_HOME);
                 mContext.startActivity(intent);
             }
         });

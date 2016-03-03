@@ -30,6 +30,7 @@ public final class IntentExtra {
     public static final String INTENT_PLAN_START = "intent_plan_start";
     public static final String INTENT_PLAN_END = "intent_plan_end";
     public static final String INTENT_HOTEL = "intent_hotel";
+    public static final String INTENT_TEAM_REQUEST = "intent_team_request";
     public static final String INTENT_SCENIC = "intent_scenic";
     public static final String INTENT_AROUND_BELONG = "intent_around_belong";
     public static final String INTENT_AROUND_TYPE = "intent_around_type";

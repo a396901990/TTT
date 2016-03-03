@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,13 +20,18 @@ import com.dean.travltotibet.fragment.TeamMakeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
-public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginListener{
+/**
+ * Created by DeanGuo on 3/3/16.
+ */
+public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginListener {
 
     private ViewPager mPager;
 
     private ViewPageFragmentAdapter mAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    static final int CREATE_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,22 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
 
+        // 解决Viewpager和SwipeRefreshLayout滑动冲突
+        mPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        mSwipeRefreshLayout.setEnabled(false);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        mSwipeRefreshLayout.setEnabled(true);
+                        break;
+                }
+                return false;
+            }
+        });
 
         // 设置下拉刷新
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -58,10 +80,7 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (mAdapter.getAllFragments().size() > 0) {
-                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
-                    fragment.refresh();
-                }
+                updateAll();
             }
         });
     }
@@ -97,8 +116,8 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
     }
 
     private void createTeamRequest() {
-        Intent intent = new Intent(this, TeamMakeRequestActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(this, TeamCreateRequestActivity.class);
+        startActivityForResult(intent, CREATE_REQUEST);
     }
 
     @Override
@@ -115,6 +134,24 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
     @Override
     public void loginFailed() {
         Toast.makeText(getApplicationContext(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CREATE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                updateAll();
+            }
+        }
+    }
+
+    private void updateAll() {
+        if (mAdapter.getAllFragments().size() > 0) {
+            BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            fragment.refresh();
+        }
     }
 
     public void startUpdate() {

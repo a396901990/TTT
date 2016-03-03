@@ -99,14 +99,17 @@ public class TTTApplication extends Application {
     private static void updateUserInfo(String token) {
 
         Platform[] platforms = ShareSDK.getPlatformList();
+        // 未检查到token，没登陆
         if (TextUtils.isEmpty(token)) {
-            userInfo = null;
+            userInfo = new UserInfo();
+            userInfo.setUserName("游客");
             logedin = false;
         } else {
             for (Platform platform : platforms) {
                 // token相同，可以登陆
                 if (token.equals(platform.getDb().getToken())) {
                     userInfo = new UserInfo();
+                    userInfo.setUserId(platform.getDb().getUserId());
                     userInfo.setUserIcon(platform.getDb().getUserIcon());
                     userInfo.setUserName(platform.getDb().getUserName());
                     userInfo.setUserGender(platform.getDb().getUserGender());

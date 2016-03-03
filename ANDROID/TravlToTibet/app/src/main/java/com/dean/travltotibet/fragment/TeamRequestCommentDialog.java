@@ -7,22 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
-import com.dean.travltotibet.model.Article;
-import com.dean.travltotibet.model.ArticleComment;
+import com.dean.travltotibet.activity.BaseCommentActivity;
 import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.TeamRequestComment;
 import com.dean.travltotibet.util.IntentExtra;
 
 import cn.bmob.v3.listener.SaveListener;
 
 /**
- * Created by DeanGuo on 2/19/16.
+ * Created by DeanGuo on 3/3/16.
  */
-public class ArticleCommentDialog extends BaseCommentDialog {
+public class TeamRequestCommentDialog extends BaseCommentDialog {
 
-    private Article mArticle;
+    private TeamRequest mTeamRequest;
 
-    private ArticleCommentActivity articleActivity;
+    private BaseCommentActivity mActivity;
 
     private Comment replyComment;
 
@@ -30,8 +30,8 @@ public class ArticleCommentDialog extends BaseCommentDialog {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        articleActivity = (ArticleCommentActivity) getActivity();
-        mArticle = articleActivity.getArticle();
+        mActivity = (BaseCommentActivity) getActivity();
+        mTeamRequest = (TeamRequest) mActivity.getObj();
 
         if (getArguments() != null) {
             replyComment = (Comment) getArguments().getSerializable(IntentExtra.INTENT_COMMENT);
@@ -52,33 +52,30 @@ public class ArticleCommentDialog extends BaseCommentDialog {
 
     @Override
     public void submitCommit() {
-        ArticleComment articleComment = new ArticleComment();
+        TeamRequestComment teamRequestComment = new TeamRequestComment();
 
-        articleComment.setArticle_id(mArticle.getObjectId());
-
-        articleComment.setArticle_title(mArticle.getTitle());
+        teamRequestComment.setTeam_request_id(mTeamRequest.getObjectId());
 
         // 评论
-        articleComment.setComment(getComment());
+        teamRequestComment.setComment(getComment());
         // 评分
-        articleComment.setRating(getRatting());
+        teamRequestComment.setRating(getRatting());
         // user id
-        articleComment.setUser_id(TTTApplication.getUserInfo().getUserId());
+        teamRequestComment.setUser_id(TTTApplication.getUserInfo().getUserId());
         // user name
-        articleComment.setUser_name(TTTApplication.getUserInfo().getUserName());
+        teamRequestComment.setUser_name(TTTApplication.getUserInfo().getUserName());
         // pic url
-        articleComment.setUser_icon(TTTApplication.getUserInfo().getUserIcon());
+        teamRequestComment.setUser_icon(TTTApplication.getUserInfo().getUserIcon());
 
-
-        articleComment.setLike(0);
-        articleComment.setDislike(0);
+        teamRequestComment.setLike(0);
+        teamRequestComment.setDislike(0);
         if (replyComment != null) {
-            articleComment.setQuote_id(replyComment.getObjectId());
-        } else {
-            articleComment.setQuote_id("");
+            teamRequestComment.setQuote_id(replyComment.getObjectId());
+            teamRequestComment.setQuote_text(replyComment.getComment());
+            teamRequestComment.setQuote_user_name(replyComment.getUser_name());
         }
 
-        articleComment.save(getActivity(), new SaveListener() {
+        teamRequestComment.save(getActivity(), new SaveListener() {
             @Override
             public void onSuccess() {
                 getHandle().sendEmptyMessage(SUBMIT_SUCCESS);

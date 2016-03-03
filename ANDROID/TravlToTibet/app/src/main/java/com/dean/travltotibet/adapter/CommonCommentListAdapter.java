@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.CommentPupupDialog;
+import com.dean.travltotibet.fragment.CommentPopupDialog;
 import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
@@ -136,12 +135,12 @@ public class CommonCommentListAdapter extends BaseAdapter {
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                DialogFragment dialogFragment = new CommentPupupDialog();
+                DialogFragment dialogFragment = new CommentPopupDialog();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(IntentExtra.INTENT_COMMENT, comment);
                 bundle.putString(IntentExtra.INTENT_COMMENT_TYPE, mCommentType);
                 dialogFragment.setArguments(bundle);
-                dialogFragment.show(((Activity)mContext).getFragmentManager(), CommentPupupDialog.class.getName());
+                dialogFragment.show(((Activity)mContext).getFragmentManager(), CommentPopupDialog.class.getName());
             }
         });
 

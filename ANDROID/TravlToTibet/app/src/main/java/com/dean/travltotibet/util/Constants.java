@@ -41,6 +41,10 @@ public final class Constants {
 
     public static final String DATE_Y_M_D = "%s-%s-%s";
 
+    public static final String TEAM_REQUEST_DAY = "%s - %s";
+
+    public static final String TEAM_REQUEST_USER_TIME = "%s | %s";
+
     /**
      * Keys to save RouteActivity status
      */

@@ -3,15 +3,19 @@
     package="com.dean.travltotibet"
     android:versionCode="1"
     android:versionName="1.0" >
-    <!--baidu map debug  68:36:75:03:F0:83:AA:02:6E:2E:93:E3:2B:81:6A:D8:B9:C1:87:D0;com.dean.travltotibet -->
-    <!--baidu map release   B4:09:E9:69:39:42:D2:63:A4:3C:4E:92:51:DF:B1:12:85:4A:2F:3B;com.dean.travltotibet -->
-    <!--weibo wechat debug 4f0e6b44aed1a1b65185e5ab4bd6cdaa -->
-    <!--weibo wechat release 490fa4602c39fab9c1fc536c7606e588-->
-    <permission android:protectionLevel="normal" android:name="cn.bmob.permission.push"></permission>
-    <uses-permission android:name="cn.bmob.permission.push"/><!-- 添加自定义的权限-->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+
+    <!-- baidu map debug  68:36:75:03:F0:83:AA:02:6E:2E:93:E3:2B:81:6A:D8:B9:C1:87:D0;com.dean.travltotibet -->
+    <!-- baidu map release   B4:09:E9:69:39:42:D2:63:A4:3C:4E:92:51:DF:B1:12:85:4A:2F:3B;com.dean.travltotibet -->
+    <!-- weibo wechat debug 4f0e6b44aed1a1b65185e5ab4bd6cdaa -->
+    <!-- weibo wechat release 490fa4602c39fab9c1fc536c7606e588 -->
+    <permission
+        android:name="cn.bmob.permission.push"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="cn.bmob.permission.push" /> <!-- 添加自定义的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
@@ -45,38 +49,38 @@
             android:value="${UMENG_CHANNEL_VALUE}" />
 
         <service
-            android:label="PushService"
             android:name="cn.bmob.push.lib.service.PushService"
-            android:process="cn.bmob.push"
+            android:exported="true"
+            android:label="PushService"
             android:permission="cn.bmob.permission.push"
-            android:exported="true">
+            android:process="cn.bmob.push" >
             <intent-filter>
-                <action android:name="cn.bmob.push.lib.service.PushService"/>
+                <action android:name="cn.bmob.push.lib.service.PushService" />
             </intent-filter>
         </service>
 
-        <receiver android:name="cn.bmob.push.PushReceiver">
-            <intent-filter android:priority="2147483647"><!--优先级加最高-->
+        <receiver android:name="cn.bmob.push.PushReceiver" >
+            <intent-filter android:priority="2147483647" > <!-- 优先级加最高 -->
                 <!-- 系统启动完成后会调用 -->
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!-- 解锁完成后会调用 -->
-                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
                 <!-- 监听网络连通性 -->
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
         <!-- 第四部中创建的消息接收器，在这里进行注册 -->
-        <receiver android:name=".receiver.PushMessageReceiver">
-            <intent-filter >
-                <action android:name="cn.bmob.push.action.MESSAGE"/>
+        <receiver android:name=".receiver.PushMessageReceiver" >
+            <intent-filter>
+                <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".activity.AppLaunchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"
-            >
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -146,7 +150,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.ArticleActivity"
+            android:name=".activity.ArticleCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
@@ -154,7 +158,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.TeamMakeRequestActivity"
+            android:name=".activity.TeamCreateRequestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activity.TeamShowRequestCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
@@ -180,6 +188,8 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".activity.BaseCommentActivity" >
+        </activity>
     </application>
 
 </manifest>

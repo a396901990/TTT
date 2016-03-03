@@ -1,6 +1,8 @@
 package com.dean.travltotibet.model;
 
 public class UserInfo {
+
+	private String userId;
 	private String userIcon;
 	private String userName;
 	private String userGender;
@@ -29,6 +31,13 @@ public class UserInfo {
 		this.userGender = userGender;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public static enum Gender {BOY, GIRL}
 
 }

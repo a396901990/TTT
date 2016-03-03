@@ -9,6 +9,8 @@ public class TeamRequest extends BmobObject {
 
     public String userId;
 
+    public String userName;
+
     public String startDate;
 
     public String endDate;
@@ -26,6 +28,14 @@ public class TeamRequest extends BmobObject {
     private int comments;
 
     private int watch;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getUserId() {
         return userId;

@@ -8,12 +8,15 @@ import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.TeamMakeRequestFragment;
+import com.dean.travltotibet.fragment.TeamCreateRequestFragment;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
-public class TeamMakeRequestActivity extends BaseActivity {
+/**
+ * Created by DeanGuo on 3/3/16.
+ */
+public class TeamCreateRequestActivity extends BaseActivity {
 
-    private TeamMakeRequestFragment teamMakeRequestFragment;
+    private TeamCreateRequestFragment teamCreateRequestFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class TeamMakeRequestActivity extends BaseActivity {
         setTitle(getString(R.string.team_make_request_title));
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
-        teamMakeRequestFragment = (TeamMakeRequestFragment) getFragmentManager().findFragmentById(R.id.team_make_request_fragment);
+        teamCreateRequestFragment = (TeamCreateRequestFragment) getFragmentManager().findFragmentById(R.id.team_make_request_fragment);
     }
 
     @Override
@@ -40,7 +43,7 @@ public class TeamMakeRequestActivity extends BaseActivity {
         int id = item.getItemId();
         // 提交按钮
         if (id == R.id.action_submit) {
-            teamMakeRequestFragment.commitRequest();
+            teamCreateRequestFragment.commitRequest();
         }
         return super.onOptionsItemSelected(item);
     }

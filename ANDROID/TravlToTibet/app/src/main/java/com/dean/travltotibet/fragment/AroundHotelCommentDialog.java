@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.greendao.Hotel;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.HotelComment;
 import com.dean.travltotibet.util.Constants;
@@ -51,14 +52,15 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
         hotelComment.setComment(getComment());
         // 评分
         hotelComment.setRating(getRatting());
+        // user id
+        hotelComment.setUser_id(TTTApplication.getUserInfo().getUserId());
         // user name
-        hotelComment.setUser_name(getUserName());
+        hotelComment.setUser_name(TTTApplication.getUserInfo().getUserName());
         // pic url
-        hotelComment.setUser_icon(getUserIcon());
+        hotelComment.setUser_icon(TTTApplication.getUserInfo().getUserIcon());
 
         hotelComment.setLike(0);
         hotelComment.setDislike(0);
-        hotelComment.setQuote_id("");
 
         hotelComment.save(getActivity(), new SaveListener() {
             @Override

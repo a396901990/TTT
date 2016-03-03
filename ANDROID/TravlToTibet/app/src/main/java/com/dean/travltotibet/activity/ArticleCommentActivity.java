@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,17 +20,12 @@ import com.dean.travltotibet.fragment.ArticleCommentDialog;
 import com.dean.travltotibet.fragment.ArticleFragment;
 import com.dean.travltotibet.fragment.BaseCommentDialog;
 import com.dean.travltotibet.fragment.ArticleCommentFragment;
-import com.dean.travltotibet.fragment.RouteChartFragment;
-import com.dean.travltotibet.fragment.RouteDetailFragment;
-import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
-import cn.bmob.push.BmobPush;
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -39,7 +33,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by DeanGuo on 2/17/16.
  */
-public class ArticleActivity extends BaseActivity implements BaseCommentDialog.CommentCallBack {
+public class ArticleCommentActivity extends BaseCommentActivity {
 
     public static final String FROM_HOME = "from_home";
 
@@ -255,6 +249,11 @@ public class ArticleActivity extends BaseActivity implements BaseCommentDialog.C
     @Override
     public void onCommentFailed() {
 
+    }
+
+    @Override
+    public BmobObject getObj() {
+        return mArticle;
     }
 
     @Override

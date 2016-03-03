@@ -208,26 +208,6 @@ public class BaseCommentDialog extends LoginDialogFragment {
         return String.valueOf(ratingBar.getRating());
     }
 
-    protected String getUserName() {
-        String userName;
-        if (TTTApplication.hasLoggedIn()) {
-            userName = TTTApplication.getUserInfo().getUserName();
-        } else {
-            userName = getString(R.string.unknow_user);
-        }
-        return userName;
-    }
-
-    protected String getUserIcon() {
-        String userIcon;
-        if (TTTApplication.hasLoggedIn()) {
-            userIcon = TTTApplication.getUserInfo().getUserIcon();
-        } else {
-            userIcon = "";
-        }
-        return userIcon;
-    }
-
     protected Handler getHandle() {
         return mHandle;
     }

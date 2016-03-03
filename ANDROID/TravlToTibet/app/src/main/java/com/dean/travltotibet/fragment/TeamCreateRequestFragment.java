@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,7 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.TeamMakeRequestActivity;
+import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
@@ -30,11 +32,11 @@ import static com.dean.travltotibet.R.id.title_edit_text;
 /**
  * Created by DeanGuo on 2/23/16.
  */
-public class TeamMakeRequestFragment extends Fragment {
+public class TeamCreateRequestFragment extends Fragment {
 
     private View root;
 
-    private TeamMakeRequestActivity mActivity;
+    private TeamCreateRequestActivity mActivity;
 
     private int PASS_START_TIME = 1 << 0; // 0
 
@@ -57,7 +59,7 @@ public class TeamMakeRequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.team_make_request_fragment_view, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_request_fragment_view, null);
         return root;
     }
 
@@ -65,7 +67,7 @@ public class TeamMakeRequestFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActivity = (TeamMakeRequestActivity) this.getActivity();
+        mActivity = (TeamCreateRequestActivity) this.getActivity();
         teamRequest = new TeamRequest();
 
         initTimeContent();
@@ -105,7 +107,7 @@ public class TeamMakeRequestFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filed.set(PASS_CONTACT);
-                teamRequest.setTitle(contactEdit.getText().toString());
+                teamRequest.setContact(contactEdit.getText().toString());
             }
 
             @Override
@@ -242,6 +244,8 @@ public class TeamMakeRequestFragment extends Fragment {
         if (checkIsOk()) {
             final View loadingView = root.findViewById(R.id.loading_content_view);
             loadingView.setVisibility(View.VISIBLE);
+            teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
+            teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
             teamRequest.setComments(0);
             teamRequest.setWatch(0);
             teamRequest.save(getActivity(), new SaveListener() {
@@ -249,12 +253,16 @@ public class TeamMakeRequestFragment extends Fragment {
                 public void onSuccess() {
                     loadingView.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
+                    mActivity.setResult(Activity.RESULT_OK);
+                    mActivity.finish();
                 }
 
                 @Override
                 public void onFailure(int code, String msg) {
                     loadingView.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
+                    mActivity.setResult(Activity.RESULT_CANCELED);
+                    mActivity.finish();
                 }
             });
         }

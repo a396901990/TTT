@@ -10,7 +10,6 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.activity.TeamMakeActivity;
-import com.dean.travltotibet.activity.TeamMakeRequestActivity;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;

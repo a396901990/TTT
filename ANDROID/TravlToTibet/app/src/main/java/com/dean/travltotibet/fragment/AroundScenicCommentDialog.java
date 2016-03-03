@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.greendao.Scenic;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.ScenicComment;
 import com.dean.travltotibet.util.Constants;
@@ -53,14 +54,15 @@ public class AroundScenicCommentDialog extends BaseCommentDialog {
         scenicComment.setComment(getComment());
         // 评分
         scenicComment.setRating(getRatting());
+        // user id
+        scenicComment.setUser_id(TTTApplication.getUserInfo().getUserId());
         // user name
-        scenicComment.setUser_name(getUserName());
+        scenicComment.setUser_name(TTTApplication.getUserInfo().getUserName());
         // pic url
-        scenicComment.setUser_icon(getUserIcon());
+        scenicComment.setUser_icon(TTTApplication.getUserInfo().getUserIcon());
 
         scenicComment.setLike(0);
         scenicComment.setDislike(0);
-        scenicComment.setQuote_id("");
 
         scenicComment.save(getActivity(), new SaveListener() {
             @Override
