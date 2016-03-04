@@ -45,9 +45,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         final TeamRequest request = mData.get(position);
 
         holder.mTitle.setText(request.getTitle());
-        holder.mTypeIcon.setImageDrawable(TravelType.getTypeImageSrcWithColor(request.getTravelType(), R.color.white));
+        holder.mTypeIcon.setImageDrawable(TravelType.getTypeImageSrcWithColor(request.getType(), R.color.white));
         holder.mDestinationName.setText(request.getDestination());
-        holder.mDate.setText(String.format(Constants.TEAM_REQUEST_DAY, request.getStartDate(), request.getEndDate()));
+        holder.mDate.setText(request.getDate());
         holder.mUserTime.setText(String.format(Constants.TEAM_REQUEST_USER_TIME, request.getUserName(), request.getCreatedAt()));
         holder.mWatch.setText(request.getWatch()+"");
         holder.mComment.setText(request.getComments() + "");

@@ -7,98 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--时间-->
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
-            card_view:cardCornerRadius="3dp"
-            card_view:cardElevation="3dp"
-            card_view:cardPreventCornerOverlap="false"
-            card_view:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/card_padding">
-
-                <!--标题-->
-                <TextView
-                    style="@style/TitleText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/team_make_time_title" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/start_date_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/TextAppearance.Small"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/team_make_time_start" />
-
-                        <TextView
-                            android:id="@+id/start_date"
-                            style="@style/TextAppearance.Theme.Medium"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:paddingTop="5dp"
-                            android:text="设置日期" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/less_light_gray"></View>
-
-                    <LinearLayout
-                        android:id="@+id/end_date_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/TextAppearance.Small"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/team_make_time_end" />
-
-                        <TextView
-                            android:id="@+id/end_date"
-                            style="@style/TextAppearance.Theme.Medium"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:paddingTop="5dp"
-                            android:text="设置日期" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <!--目的地-->
+        <!--计划-->
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -127,9 +36,44 @@
 
 
                 <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:id="@+id/date_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.Micro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/team_make_time_date" />
+
+                        <TextView
+                            android:id="@+id/travel_date"
+                            style="@style/TextAppearance.Theme.Regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingTop="5dp"
+                            android:text="设置日期" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/less_light_gray"></View>
 
                     <LinearLayout
                         android:id="@+id/destination_btn"
@@ -138,8 +82,9 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
+
                         <TextView
-                            style="@style/TextAppearance.Small"
+                            style="@style/TextAppearance.Micro"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -148,10 +93,10 @@
 
                         <TextView
                             android:id="@+id/destination_text"
-                            style="@style/TextAppearance.Theme.Medium"
-                            android:layout_width="wrap_content"
+                            style="@style/TextAppearance.Theme.Regular"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:paddingTop="5dp"
                             android:text="设置目的地" />
                     </LinearLayout>
@@ -171,7 +116,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/TextAppearance.Small"
+                            style="@style/TextAppearance.Micro"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -179,10 +124,10 @@
 
                         <TextView
                             android:id="@+id/type_text"
-                            style="@style/TextAppearance.Theme.Medium"
-                            android:layout_width="wrap_content"
+                            style="@style/TextAppearance.Theme.Regular"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:paddingTop="5dp"
                             android:text="设置旅行方式" />
                     </LinearLayout>
@@ -285,7 +230,7 @@
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:foreground="?android:attr/selectableItemBackground"
@@ -317,7 +262,7 @@
                         android:id="@+id/content_edit_text"
                         style="@style/TextAppearance.Medium"
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="match_parent"
                         android:background="@color/white"
                         android:gravity="top"
                         android:hint="@string/team_make_content_edit_hint"

@@ -11,13 +11,11 @@ public class TeamRequest extends BmobObject {
 
     public String userName;
 
-    public String startDate;
-
-    public String endDate;
+    public String date;
 
     public String destination;
 
-    public String travelType;
+    public String type;
 
     public String title;
 
@@ -45,36 +43,8 @@ public class TeamRequest extends BmobObject {
         this.userId = userId;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public String getDestination() {
         return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getTravelType() {
-        return travelType;
-    }
-
-    public void setTravelType(String travelType) {
-        this.travelType = travelType;
     }
 
     public String getTitle() {
@@ -115,5 +85,25 @@ public class TeamRequest extends BmobObject {
 
     public void setWatch(int watch) {
         this.watch = watch;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

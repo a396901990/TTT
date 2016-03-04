@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.util.ScreenUtil;
 
 /**
  * Created by DeanGuo on 2/24/16.
@@ -38,6 +41,14 @@ public class TeamMakeTravelTypeDialog extends DialogFragment {
 
         setUpView();
         return contentLayout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Window window = getDialog().getWindow();
+        window.setLayout(ScreenUtil.dip2px(getActivity(), 260), WindowManager.LayoutParams.WRAP_CONTENT);
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
     private void setUpView() {

@@ -17,6 +17,7 @@ import com.dean.travltotibet.fragment.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamRequestCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestFragment;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -51,8 +52,8 @@ public class TeamShowRequestCommentActivity extends BaseCommentActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
-        setTitle(teamRequest.getUserName());
-        setSubTitle(teamRequest.getCreatedAt());
+        setTitle(teamRequest.getDestination());
+        setSubTitle(teamRequest.getDate());
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
         updateWatch();
@@ -140,31 +141,12 @@ public class TeamShowRequestCommentActivity extends BaseCommentActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_article, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        // 提交按钮
-        if (id == R.id.action_like) {
-        }
-        // 结束
-        else if (id == R.id.action_share) {
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onCommentSuccess() {
         goCommentPage();
-//        ArticleCommentFragment articleCommentFragment = (ArticleCommentFragment) mAdapter.getFragment(1);
-//        if (articleCommentFragment != null) {
-//            articleCommentFragment.updateComment();
-//        }
+        TeamRequestCommentFragment articleCommentFragment = (TeamRequestCommentFragment) mAdapter.getFragment(1);
+        if (articleCommentFragment != null) {
+            articleCommentFragment.updateComment();
+        }
     }
 
     @Override

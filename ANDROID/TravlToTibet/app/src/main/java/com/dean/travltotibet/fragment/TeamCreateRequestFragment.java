@@ -1,15 +1,14 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +18,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
-
-import java.util.Calendar;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -38,9 +34,7 @@ public class TeamCreateRequestFragment extends Fragment {
 
     private TeamCreateRequestActivity mActivity;
 
-    private int PASS_START_TIME = 1 << 0; // 0
-
-    private int PASS_END_TIME = 1 << 1; // 10
+    private int PASS_DATE = 1 << 0; // 0
 
     private int PASS_DESTINATION = 1 << 2; // 100
 
@@ -70,9 +64,10 @@ public class TeamCreateRequestFragment extends Fragment {
         mActivity = (TeamCreateRequestActivity) this.getActivity();
         teamRequest = new TeamRequest();
 
-        initTimeContent();
-        initDestinationContent();
+        initTravelDestinationContent();
         initTravelTypeContent();
+        initTravelDateContent();
+
         initTitleContent();
         initContactContent();
         initContentContent();
@@ -81,6 +76,7 @@ public class TeamCreateRequestFragment extends Fragment {
     // 标题
     private void initTitleContent() {
         final EditText titleEdit = (EditText) root.findViewById(title_edit_text);
+        titleEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
         titleEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -160,7 +156,7 @@ public class TeamCreateRequestFragment extends Fragment {
     }
 
     // 目的地
-    private void initDestinationContent() {
+    private void initTravelDestinationContent() {
         View destinationBtn = root.findViewById(R.id.destination_btn);
         destinationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +165,7 @@ public class TeamCreateRequestFragment extends Fragment {
                 dialogFragment.setTravelDestinationCallback(new TeamMakeDestinationDialog.TravelDestinationCallback() {
                     @Override
                     public void travelDestinationChanged(String destination) {
-                        setDestination(destination);
+                        setTravelDestination(destination);
                     }
                 });
                 dialogFragment.show(getFragmentManager(), TeamMakeTravelTypeDialog.class.getName());
@@ -177,67 +173,44 @@ public class TeamCreateRequestFragment extends Fragment {
         });
     }
 
+    // 日期
+    private void initTravelDateContent() {
+        View dateBtn = root.findViewById(R.id.date_btn);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeamMakeDateDialog dialogFragment = new TeamMakeDateDialog();
+                dialogFragment.setDateCallback(new TeamMakeDateDialog.TravelDateCallback() {
+                    @Override
+                    public void dateChanged(String date) {
+                        setTravelDate(date);
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), TeamMakeDateDialog.class.getName());
+            }
+        });
+    }
+
+    private void setTravelDate(String date) {
+        TextView travelDate = (TextView) root.findViewById(R.id.travel_date);
+        travelDate.setText(date);
+        filed.set(PASS_DATE);
+        teamRequest.setDate(date);
+    }
+
     private void setTravelType(String type) {
         TextView travelType = (TextView) root.findViewById(R.id.type_text);
         travelType.setText(TravelType.getTravelText(type));
         filed.set(PASS_TYPE);
-        teamRequest.setTravelType(type);
+        teamRequest.setType(type);
     }
 
-    private void setDestination(String destination) {
-        TextView destinationText = (TextView) root.findViewById(R.id.destination_text);
-        destinationText.setText(destination);
+    private void setTravelDestination(String destination) {
+        TextView travelDestination = (TextView) root.findViewById(R.id.destination_text);
+        travelDestination.setText(destination);
         filed.set(PASS_DESTINATION);
         teamRequest.setDestination(destination);
     }
-
-    // 日期
-    private void initTimeContent() {
-        View startBtn = root.findViewById(R.id.start_date_btn);
-        View endBtn = root.findViewById(R.id.end_date_btn);
-
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dlg = new DatePickerDialog(getActivity(), startDateSetListener, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-                dlg.setTitle("设置出发日期");
-                dlg.show();
-            }
-        });
-
-        endBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dlg = new DatePickerDialog(getActivity(), endDateSetListener, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-                dlg.setTitle("设置结束日期");
-                dlg.show();
-            }
-        });
-    }
-
-    public DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            TextView startDateText = (TextView) root.findViewById(R.id.start_date);
-            String startDate = String.format(Constants.DATE_Y_M_D, year, monthOfYear + 1, dayOfMonth);
-            startDateText.setText(startDate);
-            filed.set(PASS_START_TIME);
-            teamRequest.setStartDate(startDate);
-        }
-    };
-
-    public DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            TextView endDateText = (TextView) root.findViewById(R.id.end_date);
-            String endDate = String.format(Constants.DATE_Y_M_D, year, monthOfYear + 1, dayOfMonth);
-            endDateText.setText(endDate);
-            filed.set(PASS_END_TIME);
-            teamRequest.setEndDate(endDate);
-        }
-    };
 
     // 提交请求
     public void commitRequest() {
@@ -269,10 +242,8 @@ public class TeamCreateRequestFragment extends Fragment {
     }
 
     private boolean checkIsOk() {
-        if (!filed.isSet(PASS_START_TIME)) {
-            Toast.makeText(getActivity(), "请设置起始日期", Toast.LENGTH_SHORT).show();
-        } else if (!filed.isSet(PASS_END_TIME)) {
-            Toast.makeText(getActivity(), "请设置终止日期", Toast.LENGTH_SHORT).show();
+        if (!filed.isSet(PASS_DATE)) {
+            Toast.makeText(getActivity(), "请设置出行日期", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_DESTINATION)) {
             Toast.makeText(getActivity(), "请设置目的地", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_TYPE)) {

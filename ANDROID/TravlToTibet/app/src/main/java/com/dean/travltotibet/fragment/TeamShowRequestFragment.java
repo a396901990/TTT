@@ -35,9 +35,6 @@ public class TeamShowRequestFragment extends Fragment {
 
         teamShowRequestActivity = (TeamShowRequestCommentActivity) getActivity();
         teamRequest = teamShowRequestActivity.getTeamRequest();
-        initTimeContent();
-        initDestinationContent();
-        initTravelTypeContent();
         initTitleContent();
         initContactContent();
         initContentContent();
@@ -64,22 +61,6 @@ public class TeamShowRequestFragment extends Fragment {
     // 旅行类型
     private void initTravelTypeContent() {
         TextView travelType = (TextView) root.findViewById(R.id.type_text);
-        travelType.setText(TravelType.getTravelText(teamRequest.getTravelType()));
+        travelType.setText(TravelType.getTravelText(teamRequest.getType()));
     }
-
-    // 目的地
-    private void initDestinationContent() {
-        TextView destinationText = (TextView) root.findViewById(R.id.destination_text);
-        destinationText.setText(teamRequest.getDestination());
-    }
-
-    // 日期
-    private void initTimeContent() {
-        TextView startDateText = (TextView) root.findViewById(R.id.start_date);
-        startDateText.setText(teamRequest.getStartDate());
-
-        TextView endDateText = (TextView) root.findViewById(R.id.end_date);
-        endDateText.setText(teamRequest.getEndDate());
-    }
-
 }

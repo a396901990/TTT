@@ -39,7 +39,9 @@ public final class Constants {
 
     public static final String HEADER_PLAN_DAY = "%s天";
 
-    public static final String DATE_Y_M_D = "%s-%s-%s";
+    public static final String DATE_Y_M_D = "%s.%s.%s";
+
+    public static final String DATE_Y_M = "%s.%s";
 
     public static final String TEAM_REQUEST_DAY = "%s - %s";
 
@@ -74,5 +76,7 @@ public final class Constants {
     public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
+
+    public static final String YYYY_MM_DD_POINT = "yyyy.MM.dd";
 
 }
