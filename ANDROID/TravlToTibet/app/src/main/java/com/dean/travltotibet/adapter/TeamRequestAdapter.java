@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.TeamShowRequestCommentActivity;
+import com.dean.travltotibet.activity.TeamShowRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
@@ -33,6 +33,8 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
     public TeamRequestAdapter(Context mContext) {
         this.mContext = mContext;
     }
+
+    private boolean isPersonal = false;
 
     @Override
     public TeamRequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,8 +62,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                Intent intent = new Intent(mContext, TeamShowRequestCommentActivity.class);
+                Intent intent = new Intent(mContext, TeamShowRequestActivity.class);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, request);
+                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
                 mContext.startActivity(intent);
             }
         });
@@ -112,6 +115,10 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             mComment = (TextView) itemView.findViewById(R.id.comment);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
+    }
+
+    public void setIsPersonal(boolean isPersonal) {
+        this.isPersonal = isPersonal;
     }
 
 }

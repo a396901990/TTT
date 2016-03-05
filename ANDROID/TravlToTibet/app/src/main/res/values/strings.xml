@@ -37,6 +37,12 @@
     <string name="cancel_btn">取消</string>
     <string name="delete_recent_msg">是否要删除该条记录？</string>
     <string name="delete_recent_title">删除记录</string>
+    <string name="delete_action_msg">是否要进行删除操作？</string>
+    <string name="delete_action_title">删除操作</string>
+
+    <string name="delete_success">删除成功</string>
+    <string name="delete_failed">删除失败</string>
+
 
     <!--activity title-->
     <string name="title_activity_home_setting">设置</string>
@@ -133,7 +139,7 @@
     <string name="action_error">操作失败</string>
 
     <string name="team_make_title">结伴</string>
-    <string name="team_make_request_title">添加结伴</string>
+    <string name="team_make_request_title">发起结伴</string>
     <string name="team_make_time_title">时间</string>
     <string name="team_make_destination_title">目的地</string>
     <string name="team_make_destination_type_title">计划</string>

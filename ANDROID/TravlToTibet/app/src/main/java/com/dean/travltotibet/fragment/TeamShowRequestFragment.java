@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.TeamShowRequestCommentActivity;
+import com.dean.travltotibet.activity.TeamShowRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
 
@@ -20,7 +20,7 @@ public class TeamShowRequestFragment extends Fragment {
 
     private TeamRequest teamRequest;
 
-    private TeamShowRequestCommentActivity teamShowRequestActivity;
+    private TeamShowRequestActivity teamShowRequestActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +33,7 @@ public class TeamShowRequestFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        teamShowRequestActivity = (TeamShowRequestCommentActivity) getActivity();
+        teamShowRequestActivity = (TeamShowRequestActivity) getActivity();
         teamRequest = teamShowRequestActivity.getTeamRequest();
         initTitleContent();
         initContactContent();
@@ -56,11 +56,5 @@ public class TeamShowRequestFragment extends Fragment {
     private void initContentContent() {
         TextView content = (TextView) root.findViewById(R.id.content_text);
         content.setText(teamRequest.getContact());
-    }
-
-    // 旅行类型
-    private void initTravelTypeContent() {
-        TextView travelType = (TextView) root.findViewById(R.id.type_text);
-        travelType.setText(TravelType.getTravelText(teamRequest.getType()));
     }
 }

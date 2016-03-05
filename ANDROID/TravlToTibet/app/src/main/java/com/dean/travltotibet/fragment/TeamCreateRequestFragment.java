@@ -2,9 +2,11 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +18,20 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
+import com.dean.travltotibet.activity.TeamShowRequestActivity;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Flag;
+import com.dean.travltotibet.util.IntentExtra;
 
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 import static com.dean.travltotibet.R.id.contact_edit_text;
+import static com.dean.travltotibet.R.id.title;
 import static com.dean.travltotibet.R.id.title_edit_text;
 
 /**
@@ -53,6 +59,12 @@ public class TeamCreateRequestFragment extends Fragment {
 
     private TeamRequest teamRequest;
 
+    EditText titleEdit;
+    EditText contactEdit;
+    EditText contentEdit;
+
+    private boolean isUpdate = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,7 +77,7 @@ public class TeamCreateRequestFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mActivity = (TeamCreateRequestActivity) this.getActivity();
-        teamRequest = new TeamRequest();
+        teamRequest = mActivity.getTeamRequest();
 
         initTravelDestinationContent();
         initTravelTypeContent();
@@ -74,11 +86,49 @@ public class TeamCreateRequestFragment extends Fragment {
         initTitleContent();
         initContactContent();
         initContentContent();
+
+        filedItem();
+    }
+
+    /**
+     * 如果是修改操作，则填充数据
+     */
+    private void filedItem() {
+        if (teamRequest != null) {
+            isUpdate = true;
+            // title
+            if (!TextUtils.isEmpty(teamRequest.getTitle())) {
+                titleEdit.setText(teamRequest.getTitle());
+            }
+            // contact
+            if (!TextUtils.isEmpty(teamRequest.getContact())) {
+                contactEdit.setText(teamRequest.getContact());
+            }
+            // content
+            if (!TextUtils.isEmpty(teamRequest.getContent())) {
+                contentEdit.setText(teamRequest.getContent());
+            }
+            // type
+            if (!TextUtils.isEmpty(teamRequest.getType())) {
+                setTravelType(teamRequest.getType());
+            }
+            // date
+            if (!TextUtils.isEmpty(teamRequest.getDate())) {
+                setTravelDate(teamRequest.getDate());
+            }
+            // destination
+            if (!TextUtils.isEmpty(teamRequest.getDestination())) {
+                setTravelDestination(teamRequest.getDestination());
+            }
+
+        } else {
+            teamRequest = new TeamRequest();
+        }
     }
 
     // 标题
     private void initTitleContent() {
-        final EditText titleEdit = (EditText) root.findViewById(title_edit_text);
+        titleEdit = (EditText) root.findViewById(R.id.title_edit_text);
         titleEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
         titleEdit.addTextChangedListener(new TextWatcher() {
 
@@ -100,7 +150,7 @@ public class TeamCreateRequestFragment extends Fragment {
 
     // 联系方式
     private void initContactContent() {
-        final EditText contactEdit = (EditText) root.findViewById(contact_edit_text);
+        contactEdit = (EditText) root.findViewById(contact_edit_text);
         contactEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -121,7 +171,7 @@ public class TeamCreateRequestFragment extends Fragment {
 
     // 内容
     private void initContentContent() {
-        final EditText contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
+        contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
         contentEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -220,27 +270,52 @@ public class TeamCreateRequestFragment extends Fragment {
         if (checkIsOk()) {
             final View loadingView = root.findViewById(R.id.loading_content_view);
             loadingView.setVisibility(View.VISIBLE);
-            teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
-            teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
-            teamRequest.setComments(0);
-            teamRequest.setWatch(0);
-            teamRequest.save(getActivity(), new SaveListener() {
-                @Override
-                public void onSuccess() {
-                    loadingView.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
-                    mActivity.setResult(Activity.RESULT_OK);
-                    mActivity.finish();
-                }
 
-                @Override
-                public void onFailure(int code, String msg) {
-                    loadingView.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
-                    mActivity.setResult(Activity.RESULT_CANCELED);
-                    mActivity.finish();
-                }
-            });
+            if (isUpdate) {
+                teamRequest.update(getActivity(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        loadingView.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getActivity(), TeamShowRequestActivity.class);
+                        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
+                        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
+                        getActivity().startActivity(intent);
+                        mActivity.finish();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        loadingView.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
+                        mActivity.setResult(Activity.RESULT_CANCELED);
+                        mActivity.finish();
+                    }
+                });
+            } else {
+                teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
+                teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
+                teamRequest.setComments(0);
+                teamRequest.setWatch(0);
+                teamRequest.save(getActivity(), new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        loadingView.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
+                        mActivity.setResult(Activity.RESULT_OK);
+                        mActivity.finish();
+                    }
+
+                    @Override
+                    public void onFailure(int code, String msg) {
+                        loadingView.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
+                        mActivity.setResult(Activity.RESULT_CANCELED);
+                        mActivity.finish();
+                    }
+                });
+            }
         }
     }
 

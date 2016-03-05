@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.TeamCreateRequestFragment;
+import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 /**
@@ -18,10 +20,16 @@ public class TeamCreateRequestActivity extends BaseActivity {
 
     private TeamCreateRequestFragment teamCreateRequestFragment;
 
+    private TeamRequest teamRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_make_request_layout);
+
+        if (getIntent() != null) {
+            teamRequest = (TeamRequest) getIntent().getSerializableExtra(IntentExtra.INTENT_TEAM_REQUEST);
+        }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -46,6 +54,10 @@ public class TeamCreateRequestActivity extends BaseActivity {
             teamCreateRequestFragment.commitRequest();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public TeamRequest getTeamRequest() {
+        return teamRequest;
     }
 
     @Override

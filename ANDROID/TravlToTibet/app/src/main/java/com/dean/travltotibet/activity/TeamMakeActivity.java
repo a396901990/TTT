@@ -16,7 +16,8 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
 import com.dean.travltotibet.dialog.LoginDialog;
-import com.dean.travltotibet.fragment.TeamMakeFragment;
+import com.dean.travltotibet.fragment.TeamMakeAllFragment;
+import com.dean.travltotibet.fragment.TeamMakePersonalFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -49,8 +50,8 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
         if (mAdapter == null) {
             mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
         }
-        mAdapter.add(TeamMakeFragment.class, null, "最新结伴");
-        mAdapter.add(TeamMakeFragment.class, null, "与我相关");
+        mAdapter.add(TeamMakeAllFragment.class, null, "最新结伴");
+        mAdapter.add(TeamMakePersonalFragment.class, null, "我的结伴");
         mPager.setAdapter(mAdapter);
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
@@ -109,12 +110,6 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
         });
     }
 
-    private void loginAction() {
-        LoginDialog dialogFragment = new LoginDialog();
-        dialogFragment.setLoginListener(this);
-        dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
-    }
-
     private void createTeamRequest() {
         Intent intent = new Intent(this, TeamCreateRequestActivity.class);
         startActivityForResult(intent, CREATE_REQUEST);
@@ -123,6 +118,12 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
     @Override
     protected boolean needShowSystemBar() {
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateAll();
     }
 
     @Override
@@ -148,7 +149,7 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
     }
 
     private void updateAll() {
-        if (mAdapter.getAllFragments().size() > 0) {
+        if (mAdapter != null && mAdapter.getAllFragments().size() > 0) {
             BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
             fragment.refresh();
         }

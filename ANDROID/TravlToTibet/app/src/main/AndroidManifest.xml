@@ -162,7 +162,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.TeamShowRequestCommentActivity"
+            android:name=".activity.TeamShowRequestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity

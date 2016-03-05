@@ -50,7 +50,7 @@ public final class DateUtil {
 
     public static String getTimeGap( final String argDateString, final String argFormat )
     {
-        String timeGap = "";
+        String timeGap = null;
         SimpleDateFormat formatter = new SimpleDateFormat(argFormat, Locale.CHINA);
         try
         {
@@ -85,7 +85,7 @@ public final class DateUtil {
             else if (s > 0) {
                 timeGap = "刚刚";
             }
-            else {
+            else if (l < 0) {
                 timeGap = argDateString;
             }
 

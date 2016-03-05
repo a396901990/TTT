@@ -106,8 +106,7 @@ public class CommonCommentListAdapter extends BaseAdapter {
         mQueue.add(imageRequest);
 
         // 评论时间
-        Date date = DateUtil.parse(comment.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
-        String time = DateUtil.formatDate(date, Constants.YYYY_MM_DD);
+        String time = DateUtil.getTimeGap(comment.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         holder.commentDate.setText(time);
 
         // 评论

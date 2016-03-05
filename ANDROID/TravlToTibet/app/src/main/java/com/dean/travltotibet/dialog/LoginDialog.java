@@ -147,7 +147,9 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
         getDialog().dismiss();
         // 成功则登陆
         LoginUtil.getInstance().login(platform.getDb().getToken());
-        loginListener.loginSuccess();
+        if (loginListener != null) {
+            loginListener.loginSuccess();
+        }
     }
 
     @Override
@@ -156,7 +158,9 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
         getDialog().dismiss();
         // 不成功执行失败操作
         TTTApplication.loginFailed();
-        loginListener.loginFailed();
+        if (loginListener != null) {
+            loginListener.loginFailed();
+        }
     }
 
     @Override

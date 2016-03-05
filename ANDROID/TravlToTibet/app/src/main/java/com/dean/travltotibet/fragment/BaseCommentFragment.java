@@ -1,10 +1,14 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.dean.travltotibet.R;
@@ -36,9 +40,11 @@ public abstract class BaseCommentFragment extends Fragment {
 
     private int currentTab = 0;
 
-    private View loadingView;
-
     private View noResultView;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,13 +58,41 @@ public abstract class BaseCommentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mActivity = (BaseCommentActivity) this.getActivity();
-        loadingView = root.findViewById(R.id.loading_content_view);
         noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
-        loadingView.setVisibility(View.VISIBLE);
+        listView = (ListView) root.findViewById(R.id.comment_list_view);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
 
         initCommentView();
         initBtn();
+        initRefresh();
+    }
+
+    private void initRefresh() {
+
+        // 解决listview，mSwipeRefreshLayout冲突
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+        // 设置下拉刷新
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        //mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
     }
 
     private void initBtn() {
@@ -105,11 +139,10 @@ public abstract class BaseCommentFragment extends Fragment {
     }
 
     private void initCommentView() {
-        ListView listView = (ListView) root.findViewById(R.id.comment_list_view);
         commentListAdapter = new CommonCommentListAdapter(getActivity());
         commentListAdapter.setCommentType(getCommentType());
         listView.setAdapter(commentListAdapter);
-        getCommentData();
+        refresh();
     }
 
     public void setComments() {
@@ -127,20 +160,26 @@ public abstract class BaseCommentFragment extends Fragment {
     }
 
     public void getDataSuccess(ArrayList<Comment> comments) {
-        loadingView.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
         mComments = comments;
+        if (mComments == null) {
+            return;
+        }
         setCommentTab();
     }
 
     public void getDataFailed() {
-        loadingView.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
+        if (mComments == null) {
+            return;
+        }
         setCommentTab();
     }
 
     public void updateComment() {
         // 更新后显示最新评论
         currentTab = NEW_COMMENT;
-        getCommentData();
+        refresh();
     }
 
     public void setCommentTab() {
@@ -154,6 +193,11 @@ public abstract class BaseCommentFragment extends Fragment {
             default:
                 break;
         }
+    }
+
+    public void refresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        getCommentData();
     }
 
     // 获取评论类型
