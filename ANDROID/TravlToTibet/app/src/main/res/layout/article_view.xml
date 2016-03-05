@@ -36,7 +36,7 @@
             android:layout_height="@dimen/home_toolbar_shadow_height"
             android:background="@drawable/top_shade_background" />
 
-        <include layout="@layout/comment_bottom_view"></include>
+        <include layout="@layout/base_comment_bottom_view"></include>
 
     </FrameLayout>
 

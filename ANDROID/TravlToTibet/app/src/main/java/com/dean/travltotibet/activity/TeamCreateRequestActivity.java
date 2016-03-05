@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.TeamCreateRequestFragment;
+import com.dean.travltotibet.fragment.TeamCreateUpdateRequestFragment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -18,14 +18,14 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
  */
 public class TeamCreateRequestActivity extends BaseActivity {
 
-    private TeamCreateRequestFragment teamCreateRequestFragment;
+    private TeamCreateUpdateRequestFragment teamCreateUpdateRequestFragment;
 
     private TeamRequest teamRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.team_make_request_layout);
+        setContentView(R.layout.team_create_request_view);
 
         if (getIntent() != null) {
             teamRequest = (TeamRequest) getIntent().getSerializableExtra(IntentExtra.INTENT_TEAM_REQUEST);
@@ -37,7 +37,7 @@ public class TeamCreateRequestActivity extends BaseActivity {
         setTitle(getString(R.string.team_make_request_title));
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
-        teamCreateRequestFragment = (TeamCreateRequestFragment) getFragmentManager().findFragmentById(R.id.team_make_request_fragment);
+        teamCreateUpdateRequestFragment = (TeamCreateUpdateRequestFragment) getFragmentManager().findFragmentById(R.id.team_make_request_fragment);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class TeamCreateRequestActivity extends BaseActivity {
         int id = item.getItemId();
         // 提交按钮
         if (id == R.id.action_submit) {
-            teamCreateRequestFragment.commitRequest();
+            teamCreateUpdateRequestFragment.commitRequest();
         }
         return super.onOptionsItemSelected(item);
     }

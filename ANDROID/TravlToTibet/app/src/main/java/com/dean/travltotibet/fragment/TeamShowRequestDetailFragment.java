@@ -9,12 +9,11 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.TravelType;
 
 /**
  * Created by DeanGuo on 2/24/16.
  */
-public class TeamShowRequestFragment extends Fragment {
+public class TeamShowRequestDetailFragment extends Fragment {
 
     private View root;
 
@@ -25,7 +24,7 @@ public class TeamShowRequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.team_show_request_fragment_view, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.team_show_request_detail_fragment_view, null);
         return root;
     }
 

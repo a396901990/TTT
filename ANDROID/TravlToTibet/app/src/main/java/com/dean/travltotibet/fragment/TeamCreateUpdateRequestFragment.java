@@ -31,13 +31,11 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static com.dean.travltotibet.R.id.contact_edit_text;
-import static com.dean.travltotibet.R.id.title;
-import static com.dean.travltotibet.R.id.title_edit_text;
 
 /**
  * Created by DeanGuo on 2/23/16.
  */
-public class TeamCreateRequestFragment extends Fragment {
+public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private View root;
 
@@ -68,7 +66,7 @@ public class TeamCreateRequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_request_fragment_view, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_update_request_fragment_view, null);
         return root;
     }
 

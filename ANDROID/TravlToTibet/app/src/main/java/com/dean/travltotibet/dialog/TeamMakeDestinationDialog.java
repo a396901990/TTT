@@ -14,11 +14,9 @@ import android.widget.ListView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HotDestinationAdapter;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -48,7 +46,7 @@ public class TeamMakeDestinationDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_make_destination_view, null);
+        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_destination_dialog_view, null);
 
         setUpView();
         initListView();

@@ -38,7 +38,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
     @Override
     public TeamRequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_request_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_show_request_list_item, parent, false);
         return new TeamRequestViewHolder(view);
     }
 

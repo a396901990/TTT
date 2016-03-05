@@ -31,7 +31,6 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.GetListener;
@@ -76,7 +75,7 @@ public class CommonCommentListAdapter extends BaseAdapter {
         final CommentViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_comment_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.base_comment_list_item, parent, false);
             holder = new CommentViewHolder(convertView);
             convertView.setTag(holder);
         } else {

@@ -59,7 +59,7 @@ public class TeamMakeDateDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_make_travel_date_view, null);
+        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_date_dialog_view, null);
         startDateTextView = (TextView) contentLayout.findViewById(R.id.start_date_text);
         endDateTextView = (TextView) contentLayout.findViewById(R.id.end_date_text);
         initTimeContent();

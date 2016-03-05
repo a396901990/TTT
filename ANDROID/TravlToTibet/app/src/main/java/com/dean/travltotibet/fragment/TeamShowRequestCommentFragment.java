@@ -17,7 +17,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class TeamRequestCommentFragment extends BaseCommentFragment {
+public class TeamShowRequestCommentFragment extends BaseCommentFragment {
 
     @Override
     public String getCommentType() {

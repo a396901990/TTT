@@ -49,7 +49,7 @@ public class CommentPopupDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.comment_popup_view, null);
+        contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.base_comment_popup_view, null);
 
         setUpView();
         return contentLayout;

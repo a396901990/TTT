@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
-import com.dean.travltotibet.activity.TeamMakeActivity;
+import com.dean.travltotibet.activity.TeamRequestActivity;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -74,7 +74,7 @@ public class NavigationFragment extends LoginFragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TeamMakeActivity.class);
+                Intent intent = new Intent(getActivity(), TeamRequestActivity.class);
                 startActivity(intent);
 //                openAppMark();
             }

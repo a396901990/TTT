@@ -23,7 +23,7 @@
 
         <fragment
             android:id="@+id/team_make_request_fragment"
-            android:name="com.dean.travltotibet.fragment.TeamCreateRequestFragment"
+            android:name="com.dean.travltotibet.fragment.TeamCreateUpdateRequestFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>

@@ -16,15 +16,15 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
 import com.dean.travltotibet.dialog.LoginDialog;
-import com.dean.travltotibet.fragment.TeamMakeAllFragment;
-import com.dean.travltotibet.fragment.TeamMakePersonalFragment;
+import com.dean.travltotibet.fragment.TeamShowAllRequestFragment;
+import com.dean.travltotibet.fragment.TeamShowPersonalRequestFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginListener {
+public class TeamRequestActivity extends BaseActivity implements LoginDialog.LoginListener {
 
     private ViewPager mPager;
 
@@ -37,7 +37,7 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.team_make_layout);
+        setContentView(R.layout.team_request_view);
 
         initToolBar();
         initPager();
@@ -50,8 +50,8 @@ public class TeamMakeActivity extends BaseActivity implements LoginDialog.LoginL
         if (mAdapter == null) {
             mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
         }
-        mAdapter.add(TeamMakeAllFragment.class, null, "最新结伴");
-        mAdapter.add(TeamMakePersonalFragment.class, null, "我的结伴");
+        mAdapter.add(TeamShowAllRequestFragment.class, null, "最新结伴");
+        mAdapter.add(TeamShowPersonalRequestFragment.class, null, "我的结伴");
         mPager.setAdapter(mAdapter);
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
