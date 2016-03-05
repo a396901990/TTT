@@ -19,9 +19,9 @@ import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.fragment.BaseInfoFragment;
-import com.dean.travltotibet.fragment.TutorialDialog;
-import com.dean.travltotibet.fragment.InfoPlanConfirmDialog;
-import com.dean.travltotibet.fragment.InfoTravelTypeDialog;
+import com.dean.travltotibet.dialog.TutorialDialog;
+import com.dean.travltotibet.dialog.InfoPlanConfirmDialog;
+import com.dean.travltotibet.dialog.InfoTravelTypeDialog;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;

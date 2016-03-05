@@ -15,7 +15,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseHomeFragment;
-import com.dean.travltotibet.fragment.LoginDialog;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.fragment.TeamMakeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;

@@ -1,15 +1,11 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dean.greendao.RecentRoute;
@@ -33,7 +27,6 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.adapter.PrepareRoutePlanListAdapter;
 import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.ui.CustomDialog;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;

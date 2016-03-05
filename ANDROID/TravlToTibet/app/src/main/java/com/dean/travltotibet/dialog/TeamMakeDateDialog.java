@@ -1,4 +1,4 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;

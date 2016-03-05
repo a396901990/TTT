@@ -1,4 +1,4 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +10,6 @@ import com.dean.greendao.Hotel;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.HotelComment;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.DateUtil;
 
 import cn.bmob.v3.listener.SaveListener;
 

@@ -1,4 +1,4 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.fragment.LoginDialogFragment;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.IntentExtra;
 

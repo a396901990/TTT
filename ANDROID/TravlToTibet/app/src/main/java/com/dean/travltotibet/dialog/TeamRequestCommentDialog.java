@@ -1,4 +1,4 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseCommentActivity;
+import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TeamRequestComment;

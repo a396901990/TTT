@@ -22,7 +22,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.CommentPopupDialog;
+import com.dean.travltotibet.dialog.CommentPopupDialog;
 import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;

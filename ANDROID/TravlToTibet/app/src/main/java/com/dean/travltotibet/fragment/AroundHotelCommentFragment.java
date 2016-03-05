@@ -1,17 +1,13 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 
 import com.dean.greendao.Hotel;
-import com.dean.greendao.Scenic;
-import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.dialog.AroundHotelCommentDialog;
+import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.HotelComment;
-import com.dean.travltotibet.model.ScenicComment;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;

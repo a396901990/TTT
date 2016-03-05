@@ -6,7 +6,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.BaseRouteFragment;
-import com.dean.travltotibet.fragment.TutorialDialog;
+import com.dean.travltotibet.dialog.TutorialDialog;
 import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteDetailFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
@@ -28,7 +28,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 

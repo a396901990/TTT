@@ -1,4 +1,4 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.activity.BaseCommentActivity;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.CommentReport;

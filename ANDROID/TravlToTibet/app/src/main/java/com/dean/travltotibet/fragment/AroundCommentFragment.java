@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.CommentListAdapter;
+import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.Comment;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 

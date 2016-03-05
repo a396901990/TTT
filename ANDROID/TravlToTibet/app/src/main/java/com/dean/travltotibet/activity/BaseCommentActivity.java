@@ -2,7 +2,7 @@ package com.dean.travltotibet.activity;
 
 import android.os.Bundle;
 
-import com.dean.travltotibet.fragment.BaseCommentDialog;
+import com.dean.travltotibet.dialog.BaseCommentDialog;
 
 import cn.bmob.v3.BmobObject;
 

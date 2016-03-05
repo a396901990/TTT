@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.LoginUtil;
 
