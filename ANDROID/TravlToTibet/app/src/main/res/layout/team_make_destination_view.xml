@@ -1,50 +1,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/border_white"
+    android:padding="10dp"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            style="@style/TextAppearance.Medium.White"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:padding="10dp"
-            android:text="选择结伴目的地" />
-
-        <TextView
-            android:id="@+id/ok_btn"
-            style="@style/TextAppearance.Medium.White"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="10dp"
-            android:text="确定" />
-    </RelativeLayout>
-
     <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!--标题-->
+        <TextView
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/team_make_destination_title" />
 
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/destination_edit_view"
             style="@style/TextAppearance.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/border_white"
+            android:background="@drawable/border_theme_line"
             android:hint="@string/team_make_destination_edit_hint"
-            android:padding="10dp" />
+            android:padding="10dp"
+            />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/less_light_gray"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,14 +44,32 @@
         android:padding="10dp">
         <!--标题-->
         <TextView
+            android:layout_marginBottom="5dp"
             style="@style/TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/team_make_destination_hot" />
 
         <ListView
+            android:scrollbars="none"
             android:id="@+id/dest_list_view"
             android:layout_width="match_parent"
-            android:layout_height="300dp"></ListView>
+            android:layout_height="200dp"></ListView>
     </LinearLayout>
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        style="@style/RippleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/ok_btn"
+            style="@style/TextAppearance.Large.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/info_bottom_btn_height"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="完成" />
+
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
 </LinearLayout>

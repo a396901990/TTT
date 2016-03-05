@@ -15,6 +15,7 @@ import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
@@ -48,7 +49,8 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         holder.mTypeIcon.setImageDrawable(TravelType.getTypeImageSrcWithColor(request.getType(), R.color.white));
         holder.mDestinationName.setText(request.getDestination());
         holder.mDate.setText(request.getDate());
-        holder.mUserTime.setText(String.format(Constants.TEAM_REQUEST_USER_TIME, request.getUserName(), request.getCreatedAt()));
+        String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
+        holder.mUserTime.setText(String.format(Constants.TEAM_REQUEST_USER_TIME, request.getUserName(), createTime));
         holder.mWatch.setText(request.getWatch()+"");
         holder.mComment.setText(request.getComments() + "");
 
