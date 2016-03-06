@@ -17,6 +17,7 @@ public class TravelType {
     public final static String HIKE = "HIKE";
     public final static String MOTO = "MOTO";
     public final static String CAR = "CAR";
+    public final static String OTHER = "OTHER";
 
     public static Drawable getTypeImageSrcWithColor(String type, int color) {
         Drawable src = null;
@@ -28,6 +29,8 @@ public class TravelType {
             src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_motorcycle, color);
         } else if (type.equals(CAR)) {
             src = getGoogleIconDrawable(GoogleMaterial.Icon.gmd_directions_car, color);
+        } else if (type.equals(OTHER)) {
+            src = null;
         }
         return src;
     }
@@ -56,6 +59,8 @@ public class TravelType {
             typeText = TTTApplication.getMyResources().getString(R.string.travel_type_moto);
         } else if (type.equals(CAR)) {
             typeText = TTTApplication.getMyResources().getString(R.string.travel_type_car);
+        } else if (type.equals(OTHER)) {
+            typeText = TTTApplication.getMyResources().getString(R.string.travel_type_other);
         }
         return typeText;
     }

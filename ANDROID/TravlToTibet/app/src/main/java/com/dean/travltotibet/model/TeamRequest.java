@@ -7,6 +7,8 @@ import cn.bmob.v3.BmobObject;
  */
 public class TeamRequest extends BmobObject {
 
+    public boolean isPass;
+
     public String userId;
 
     public String userName;
@@ -26,6 +28,14 @@ public class TeamRequest extends BmobObject {
     private int comments;
 
     private int watch;
+
+    public boolean isPass() {
+        return isPass;
+    }
+
+    public void setIsPass(boolean isPass) {
+        this.isPass = isPass;
+    }
 
     public String getUserName() {
         return userName;

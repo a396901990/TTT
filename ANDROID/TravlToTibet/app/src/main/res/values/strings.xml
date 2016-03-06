@@ -14,6 +14,7 @@
     <string name="travel_type_hike">徒步</string>
     <string name="travel_type_moto">摩托</string>
     <string name="travel_type_car">自驾</string>
+    <string name="travel_type_other">其他</string>
 
     <string name="travel_type_dialog_title">请选择旅行类型：</string>
     <string name="title_activity_where_go">选择目的地</string>

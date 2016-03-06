@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamRequestActivity;
 import com.dean.travltotibet.adapter.TeamRequestAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
@@ -54,14 +55,19 @@ public class TeamShowAllRequestFragment extends BaseHomeFragment {
         mAdapter = new TeamRequestAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         getTeamRequests();
-        updateData();
     }
 
     private void getTeamRequests() {
         teamRequests = new ArrayList<>();
 
+        if (mActivity != null && mAdapter != null) {
+            mActivity.startUpdate();
+            mAdapter.clearData();
+        }
+
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
+        query.addWhereEqualTo("isPass", true);
         query.findObjects(getActivity(), new FindListener<TeamRequest>() {
             @Override
             public void onSuccess(List<TeamRequest> list) {
@@ -92,6 +98,7 @@ public class TeamShowAllRequestFragment extends BaseHomeFragment {
         }
         mAdapter.setData(teamRequests);
         mAdapter.notifyDataSetChanged();
+        mActivity.finishUpdate();
     }
 
     @Override
@@ -101,38 +108,7 @@ public class TeamShowAllRequestFragment extends BaseHomeFragment {
 
     @Override
     public void refresh() {
-        new refreshTask().execute();
-    }
-
-    private class refreshTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            if (mActivity != null && mAdapter != null) {
-                mActivity.startUpdate();
-                mAdapter.clearData();
-            }
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(800);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            getTeamRequests();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            mActivity.finishUpdate();
-
-            super.onPostExecute(result);
-        }
+        getTeamRequests();
     }
 
 }

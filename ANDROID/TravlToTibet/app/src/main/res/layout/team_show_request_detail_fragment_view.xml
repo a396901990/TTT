@@ -99,6 +99,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="@dimen/article_bottom_height"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardBackgroundColor="@color/white"
         card_view:cardCornerRadius="3dp"

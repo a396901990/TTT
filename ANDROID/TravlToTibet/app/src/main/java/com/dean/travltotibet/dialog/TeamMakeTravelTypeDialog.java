@@ -87,6 +87,15 @@ public class TeamMakeTravelTypeDialog extends DialogFragment {
                 notifyItemClicked(TravelType.CAR);
             }
         });
+
+        // other
+        View other = contentLayout.findViewById(R.id.travel_other);
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyItemClicked(TravelType.OTHER);
+            }
+        });
     }
 
     protected void notifyItemClicked(final String type) {

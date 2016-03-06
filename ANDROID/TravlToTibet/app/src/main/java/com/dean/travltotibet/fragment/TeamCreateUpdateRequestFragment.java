@@ -270,6 +270,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
             loadingView.setVisibility(View.VISIBLE);
 
             if (isUpdate) {
+                teamRequest.setIsPass(true);
                 teamRequest.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
@@ -287,7 +288,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                     public void onFailure(int i, String s) {
                         loadingView.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
-                        mActivity.setResult(Activity.RESULT_CANCELED);
                         mActivity.finish();
                     }
                 });
@@ -296,12 +296,12 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                 teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
                 teamRequest.setComments(0);
                 teamRequest.setWatch(0);
+                teamRequest.setIsPass(true);
                 teamRequest.save(getActivity(), new SaveListener() {
                     @Override
                     public void onSuccess() {
                         loadingView.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
-                        mActivity.setResult(Activity.RESULT_OK);
                         mActivity.finish();
                     }
 
@@ -309,7 +309,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                     public void onFailure(int code, String msg) {
                         loadingView.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
-                        mActivity.setResult(Activity.RESULT_CANCELED);
                         mActivity.finish();
                     }
                 });

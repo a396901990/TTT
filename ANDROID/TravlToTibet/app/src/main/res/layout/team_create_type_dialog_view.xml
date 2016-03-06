@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/travel_bike"
         style="@style/TextAppearance.Large"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/travel_hike"
         style="@style/TextAppearance.Large"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/travel_moto"
         style="@style/TextAppearance.Large"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
@@ -50,9 +50,23 @@
     <TextView
         android:id="@+id/travel_car"
         style="@style/TextAppearance.Large"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
         android:text="自驾，租车" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/less_light_gray"></View>
+
+    <TextView
+        android:id="@+id/travel_other"
+        style="@style/TextAppearance.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:text="其他" />
 </LinearLayout>

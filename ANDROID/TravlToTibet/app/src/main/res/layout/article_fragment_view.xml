@@ -8,7 +8,7 @@
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/base_comment_bottom_blank_height"></WebView>
+        android:layout_marginBottom="@dimen/article_bottom_blank_height"></WebView>
 
     <!--加载背景-->
     <RelativeLayout

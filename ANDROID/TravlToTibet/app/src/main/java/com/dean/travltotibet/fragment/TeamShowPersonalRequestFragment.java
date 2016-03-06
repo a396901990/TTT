@@ -93,6 +93,12 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
         teamRequests = new ArrayList<>();
         // 如果已经登录
         if (TTTApplication.hasLoggedIn()) {
+
+            if (mActivity != null && mAdapter != null) {
+                mActivity.startUpdate();
+                mAdapter.clearData();
+            }
+
             BmobQuery<TeamRequest> query = new BmobQuery<>();
             query.order("-createdAt");
             query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
@@ -129,6 +135,7 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
         }
         mAdapter.setData(teamRequests);
         mAdapter.notifyDataSetChanged();
+        mActivity.finishUpdate();
     }
 
     @Override
@@ -138,7 +145,7 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
 
     @Override
     public void refresh() {
-        new refreshTask().execute();
+        getTeamRequests();
     }
 
     /**
@@ -155,36 +162,4 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
     public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
         Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
     }
-
-    private class refreshTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            if (mActivity != null && mAdapter != null) {
-                mActivity.startUpdate();
-                mAdapter.clearData();
-            }
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(800);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            getTeamRequests();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            mActivity.finishUpdate();
-
-            super.onPostExecute(result);
-        }
-    }
-
 }

@@ -6,7 +6,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardBackgroundColor="@color/white"
+    card_view:cardBackgroundColor="@android:color/transparent"
     card_view:cardCornerRadius="3dp"
     card_view:cardElevation="3dp"
     card_view:cardPreventCornerOverlap="false"
@@ -18,7 +18,8 @@
         style="@style/RippleStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_black_background">
+        android:background="@color/colorPrimary"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +29,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/dark_black_background"
                 android:orientation="vertical"
                 android:padding="@dimen/team_request_padding">
 
@@ -61,7 +61,7 @@
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:paddingRight="@dimen/team_request_padding"
+                    android:paddingRight="5dp"
                     android:src="@drawable/icon_bike_white" />
             </RelativeLayout>
 
@@ -69,7 +69,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/dark_black_background"
                 android:paddingLeft="@dimen/team_request_padding"
                 android:paddingRight="@dimen/team_request_padding">
 
@@ -86,7 +85,6 @@
                 android:id="@+id/watch_like"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/dark_black_background"
                 android:orientation="horizontal"
                 android:padding="@dimen/team_request_padding">
 
@@ -123,6 +121,7 @@
                         android:textColor="@color/white" />
 
                     <ImageView
+                        android:visibility="gone"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
@@ -131,6 +130,7 @@
                         android:src="@drawable/icon_like_white" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/comment"
                         style="@style/TextAppearance.Mini"
                         android:layout_width="wrap_content"
@@ -143,4 +143,18 @@
         </LinearLayout>
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+    <LinearLayout
+        android:id="@+id/warning_view"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextAppearance.Large"
+            android:text="未通过审核，请修改后重新提交！"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </android.support.v7.widget.CardView>

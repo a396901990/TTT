@@ -47,6 +47,12 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
         final TeamRequest request = mData.get(position);
 
+        if (request.isPass) {
+            holder.mWarningView.setVisibility(View.GONE);
+        } else {
+            holder.mWarningView.setVisibility(View.VISIBLE);
+        }
+
         holder.mTitle.setText(request.getTitle());
         holder.mTypeIcon.setImageDrawable(TravelType.getTypeImageSrcWithColor(request.getType(), R.color.white));
         holder.mDestinationName.setText(request.getDestination());
@@ -82,6 +88,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
     }
 
     public void clearData() {
+        if (mData == null) {
+            return;
+        }
         int size = this.mData.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {
@@ -103,6 +112,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         private TextView mWatch;
         private TextView mComment;
         private ImageView mTypeIcon;
+        private View mWarningView;
 
         public TeamRequestViewHolder(View itemView) {
             super(itemView);
@@ -114,6 +124,8 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             mComment = (TextView) itemView.findViewById(R.id.comment);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
+
+            mWarningView = itemView.findViewById(R.id.warning_view);
         }
     }
 

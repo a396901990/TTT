@@ -62,7 +62,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/base_comment_bottom_blank_height">
+            android:layout_marginBottom="@dimen/article_bottom_blank_height">
 
             <ListView
                 android:id="@+id/comment_list_view"

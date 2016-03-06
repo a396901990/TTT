@@ -32,8 +32,6 @@ public class TeamRequestActivity extends BaseActivity implements LoginDialog.Log
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    static final int CREATE_REQUEST = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +110,7 @@ public class TeamRequestActivity extends BaseActivity implements LoginDialog.Log
 
     private void createTeamRequest() {
         Intent intent = new Intent(this, TeamCreateRequestActivity.class);
-        startActivityForResult(intent, CREATE_REQUEST);
+        startActivity(intent);
     }
 
     @Override
@@ -135,17 +133,6 @@ public class TeamRequestActivity extends BaseActivity implements LoginDialog.Log
     @Override
     public void loginFailed() {
         Toast.makeText(getApplicationContext(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CREATE_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                updateAll();
-            }
-        }
     }
 
     private void updateAll() {
