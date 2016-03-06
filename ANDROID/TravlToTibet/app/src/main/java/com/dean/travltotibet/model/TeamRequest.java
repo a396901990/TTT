@@ -13,6 +13,10 @@ public class TeamRequest extends BmobObject {
 
     public String userName;
 
+    public String userIcon;
+
+    public String userGender;
+
     public String date;
 
     public String destination;
@@ -115,5 +119,21 @@ public class TeamRequest extends BmobObject {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getUserIcon() {
+        return userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
     }
 }

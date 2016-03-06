@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/team_request_profile_size"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/team_request_profile_size"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/user_time"
+                style="@style/TextAppearance.Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="@dimen/team_request_profile_size"
+                android:text="@string/login_text" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/publish_time"
+                    android:gravity="center"
+                    style="@style/TextAppearance.Micro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:text="5分钟前"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/team_request_profile_size"
+            android:layout_height="@dimen/team_request_profile_size"
+            android:src="@drawable/gray_profile"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp" />
+    </LinearLayout>
+</FrameLayout>

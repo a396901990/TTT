@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
-import com.dean.travltotibet.adapter.ArticleAdapter;
+import com.dean.travltotibet.activity.TeamRequestActivity;
+import com.dean.travltotibet.adapter.TeamRequestAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
-import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +24,25 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * Created by DeanGuo on 2/16/16.
+ * Created by DeanGuo on 3/3/16.
  */
-public class HomeTopicFragment extends BaseHomeFragment {
+public class HomeTeamRequestFragment extends BaseHomeFragment {
 
     private View root;
-    private ArticleAdapter mAdapter;
-    private ArrayList<Article> articles;
+    private TeamRequestAdapter mAdapter;
+    private ArrayList<TeamRequest> teamRequests;
     private HomeActivity mActivity;
     private RecyclerView mRecyclerView;
 
-    public HomeTopicFragment() {
-    }
-
-    public static HomeTopicFragment newInstance() {
-        HomeTopicFragment fragment = new HomeTopicFragment();
+    public static HomeTeamRequestFragment newInstance() {
+        HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.home_topic_layout, container, false);
+        root = inflater.inflate(R.layout.home_team_request_fragment_view, container, false);
         return root;
     }
 
@@ -55,25 +55,25 @@ public class HomeTopicFragment extends BaseHomeFragment {
     }
 
     private void setUpList() {
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.article_fragment_list_rv);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.team_request_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
-
-        mAdapter = new ArticleAdapter(getActivity());
+        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(20));
+        mAdapter = new TeamRequestAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
-
         refresh();
     }
 
-    private void getArticles() {
-        articles = new ArrayList<>();
+    private void getTeamRequests() {
+        teamRequests = new ArrayList<>();
 
-        BmobQuery<Article> query = new BmobQuery<>();
+        BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
-        query.findObjects(getActivity(), new FindListener<Article>() {
+        query.addWhereEqualTo("isPass", true);
+        query.findObjects(getActivity(), new FindListener<TeamRequest>() {
             @Override
-            public void onSuccess(List<Article> list) {
-                articles = (ArrayList<Article>) list;
+            public void onSuccess(List<TeamRequest> list) {
+                teamRequests = (ArrayList<TeamRequest>) list;
                 updateData();
             }
 
@@ -91,14 +91,14 @@ public class HomeTopicFragment extends BaseHomeFragment {
         View noResultView = root.findViewById(R.id.no_result_content);
 
         // 无数据
-        if (articles == null || articles.size() == 0) {
+        if (teamRequests == null || teamRequests.size() == 0) {
             noResultView.setVisibility(View.VISIBLE);
         }
         // 有数据
         else {
             noResultView.setVisibility(View.GONE);
         }
-        mAdapter.setData(articles);
+        mAdapter.setData(teamRequests);
         mAdapter.notifyDataSetChanged();
         mActivity.finishUpdate();
     }
@@ -132,7 +132,7 @@ public class HomeTopicFragment extends BaseHomeFragment {
                 e.printStackTrace();
             }
 
-            getArticles();
+            getTeamRequests();
             return null;
         }
 

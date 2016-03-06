@@ -194,6 +194,7 @@
     <dimen name="travel_type_dialog_padding">25dp</dimen>
     <dimen name="travel_type_dialog_image_size">80dp</dimen>
     <dimen name="login_profile_size">68dp</dimen>
+    <dimen name="team_request_profile_size">48dp</dimen>
     <dimen name="login_profile_padding">20dp</dimen>
     <dimen name="route_plan_view_width">80dp</dimen>
     <dimen name="route_plan_view_height">80dp</dimen>
@@ -215,6 +216,6 @@
     <dimen name="comment_item_base_length">46dp</dimen>
     <dimen name="comment_item_base_padding">3dp</dimen>
     <dimen name="article_bottom_blank_height">46dp</dimen>
-    <dimen name="team_request_padding">8dp</dimen>
+    <dimen name="team_request_padding">10dp</dimen>
 
 </resources>

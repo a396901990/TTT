@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardBackgroundColor="@android:color/transparent"
-    card_view:cardCornerRadius="3dp"
-    card_view:cardElevation="3dp"
-    card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true">
-
+    android:layout_height="wrap_content">
 
     <com.dean.travltotibet.ui.MaterialRippleLayout
         android:id="@+id/ripple_view"
         style="@style/RippleStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@android:color/transparent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <include
+                layout="@layout/team_request_header_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></include>
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="@dimen/team_request_padding">
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="@dimen/team_request_padding"
+                android:paddingRight="@dimen/team_request_padding">
 
                 <TextView
                     android:id="@+id/destination_name"
-                    style="@style/TextAppearance.Medium.White"
+                    style="@style/TextAppearance.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="青藏线" />
@@ -45,84 +44,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.6"
-                    android:text="2016.01.01 - 2016.02.02"
-                    android:textColor="@color/white" />
+                    android:text="2016.01.01 - 2016.02.02" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/team_request_padding"
-                android:paddingRight="@dimen/team_request_padding">
+                android:background="@color/less_light_blue"
+                android:padding="@dimen/team_request_padding">
 
                 <TextView
                     android:id="@+id/title"
                     style="@style/TextAppearance.Micro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份."
-                    android:textColor="@color/white" />
+                    android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份." />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/watch_like"
+            <View
+                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/team_request_padding">
-
-                <TextView
-                    android:id="@+id/user_time"
-                    style="@style/TextAppearance.Mini"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:text="大苞米 | 5分钟前"
-                    android:textColor="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:src="@drawable/icon_watch" />
-
-                    <TextView
-                        android:id="@+id/watch"
-                        style="@style/TextAppearance.Mini"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="30"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:padding="5dp"
-                        android:src="@drawable/icon_like_white"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/comment"
-                        style="@style/TextAppearance.Mini"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="1"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </RelativeLayout>
+                android:layout_height="10dp" ></View>
         </LinearLayout>
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>
@@ -133,7 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/white"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <TextView
             style="@style/TextAppearance.Large"
@@ -141,4 +84,4 @@
             android:layout_height="wrap_content"
             android:text="未通过审核，请修改后重新提交！" />
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</FrameLayout>

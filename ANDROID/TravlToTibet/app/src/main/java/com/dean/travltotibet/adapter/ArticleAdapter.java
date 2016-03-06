@@ -100,6 +100,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     }
 
     public void clearData() {
+        if (mData == null) {
+            return;
+        }
         int size = this.mData.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {

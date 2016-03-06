@@ -294,6 +294,8 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
             } else {
                 teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
                 teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
+                teamRequest.setUserIcon(TTTApplication.getUserInfo().getUserIcon());
+                teamRequest.setUserGender(TTTApplication.getUserInfo().getUserGender());
                 teamRequest.setComments(0);
                 teamRequest.setWatch(0);
                 teamRequest.setIsPass(true);

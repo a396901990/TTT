@@ -54,6 +54,6 @@ public class TeamShowRequestDetailFragment extends Fragment {
     // 内容
     private void initContentContent() {
         TextView content = (TextView) root.findViewById(R.id.content_text);
-        content.setText(teamRequest.getContact());
+        content.setText(teamRequest.getContent());
     }
 }

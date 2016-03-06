@@ -16,6 +16,7 @@
     <color name="less_dark_blue">#065fb9</color>
     <color name="dark_blue">#065fb9</color>
     <color name="less_blue">#1E88E5</color>
+    <color name="less_light_blue">#0c1E88E5</color>
     <color name="half_dark_blue">#CC065fb9</color>
     <color name="blue">#0F57C2</color>
     <color name="purple_blue">#3F51B5</color>

@@ -2,13 +2,20 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
@@ -21,6 +28,8 @@ import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by DeanGuo on 2/17/16.
  */
@@ -30,8 +39,12 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
     private ArrayList<TeamRequest> mData;
 
-    public TeamRequestAdapter(Context mContext) {
+    private RequestQueue mQueue;
+
+    public TeamRequestAdapter(Context mContext)
+    {
         this.mContext = mContext;
+        mQueue = Volley.newRequestQueue(mContext);
     }
 
     private boolean isPersonal = false;
@@ -54,12 +67,35 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         }
 
         holder.mTitle.setText(request.getTitle());
-        holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE,request.getDestination(), request.getType()));
+        holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE, request.getDestination(), request.getType()));
         holder.mDate.setText(request.getDate());
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
-        holder.mUserTime.setText(String.format(Constants.TEAM_REQUEST_USER_TIME, request.getUserName(), createTime));
-        holder.mWatch.setText(request.getWatch()+"");
-        holder.mComment.setText(request.getComments() + "");
+        holder.mTime.setText(createTime);
+        holder.mUser.setText(request.getUserName());
+
+        // 设置图片
+        if (!TextUtils.isEmpty(request.getUserIcon())) {
+            ImageRequest imageRequest = new ImageRequest(
+                    request.getUserIcon(),
+                    new Response.Listener<Bitmap>() {
+                        @Override
+                        public void onResponse(Bitmap response) {
+                            holder.mUserIcon.setImageBitmap(response);
+                        }
+                    }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    holder.mUserIcon.setImageResource(R.drawable.gray_profile);
+                }
+            });
+
+            mQueue.add(imageRequest);
+        } else {
+            holder.mUserIcon.setImageResource(R.drawable.gray_profile);
+        }
+
+//        holder.mWatch.setText(request.getWatch()+"");
+//        holder.mComment.setText(request.getComments() + "");
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +142,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         private MaterialRippleLayout rippleLayout;
         private TextView mTitle;
         private TextView mDestinationName;
-        private TextView mUserTime;
+        private TextView mUser;
+        private CircleImageView mUserIcon;
+        private TextView mTime;
         private TextView mDate;
         private TextView mWatch;
         private TextView mComment;
@@ -117,7 +155,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
             mDate = (TextView) itemView.findViewById(R.id.plan_date);
-            mUserTime = (TextView) itemView.findViewById(R.id.user_time);
+            mUser = (TextView) itemView.findViewById(R.id.user_time);
+            mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
+            mTime = (TextView) itemView.findViewById(R.id.publish_time);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             mComment = (TextView) itemView.findViewById(R.id.comment);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
