@@ -18,53 +18,36 @@
         style="@style/RippleStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        >
+        android:background="@color/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:padding="@dimen/team_request_padding">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/destination_name"
+                    style="@style/TextAppearance.Medium.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
+                    android:text="青藏线" />
 
-                    <TextView
-                        android:id="@+id/destination_name"
-                        style="@style/TextAppearance.Medium.White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="青藏线" />
-
-                    <TextView
-                        android:id="@+id/plan_date"
-                        style="@style/TextAppearance.Micro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.6"
-                        android:text="2016.01.01 - 2016.02.02"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/type_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="5dp"
-                    android:src="@drawable/icon_bike_white" />
-            </RelativeLayout>
-
+                <TextView
+                    android:id="@+id/plan_date"
+                    style="@style/TextAppearance.Micro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:text="2016.01.01 - 2016.02.02"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,23 +104,23 @@
                         android:textColor="@color/white" />
 
                     <ImageView
-                        android:visibility="gone"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:padding="5dp"
-                        android:src="@drawable/icon_like_white" />
+                        android:src="@drawable/icon_like_white"
+                        android:visibility="gone" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/comment"
                         style="@style/TextAppearance.Mini"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="1"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -146,15 +129,16 @@
 
     <LinearLayout
         android:id="@+id/warning_view"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:background="@color/white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:padding="10dp">
+
         <TextView
             style="@style/TextAppearance.Large"
-            android:text="未通过审核，请修改后重新提交！"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="未通过审核，请修改后重新提交！" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

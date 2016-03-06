@@ -40,7 +40,7 @@
         <item>OTHERS</item>
     </string-array>
 
-    <string-array name="current_routes">
+    <string-array name="hot_destination">
         <item>川藏南线</item>
         <item>青藏线</item>
         <item>川藏北线</item>
@@ -49,5 +49,16 @@
         <item>珠峰线</item>
         <item>环青海湖线</item>
         <item>海南岛环线</item>
+    </string-array>
+
+    <string-array name="hot_type">
+        <item>自行车骑行</item>
+        <item>徒步+搭车</item>
+        <item>纯徒步</item>
+        <item>自驾</item>
+        <item>租车，拼车</item>
+        <item>摩托骑行</item>
+        <item>火车</item>
+        <item>飞机</item>
     </string-array>
 </resources>

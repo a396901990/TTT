@@ -47,6 +47,8 @@ public final class Constants {
 
     public static final String TEAM_REQUEST_USER_TIME = "%s | %s";
 
+    public static final String TEAM_REQUEST_TITLE = "%s（%s）";
+
     /**
      * Keys to save RouteActivity status
      */

@@ -54,8 +54,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         }
 
         holder.mTitle.setText(request.getTitle());
-        holder.mTypeIcon.setImageDrawable(TravelType.getTypeImageSrcWithColor(request.getType(), R.color.white));
-        holder.mDestinationName.setText(request.getDestination());
+        holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE,request.getDestination(), request.getType()));
         holder.mDate.setText(request.getDate());
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         holder.mUserTime.setText(String.format(Constants.TEAM_REQUEST_USER_TIME, request.getUserName(), createTime));
@@ -111,7 +110,6 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         private TextView mDate;
         private TextView mWatch;
         private TextView mComment;
-        private ImageView mTypeIcon;
         private View mWarningView;
 
         public TeamRequestViewHolder(View itemView) {
@@ -120,7 +118,6 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
             mDate = (TextView) itemView.findViewById(R.id.plan_date);
             mUserTime = (TextView) itemView.findViewById(R.id.user_time);
-            mTypeIcon = (ImageView) itemView.findViewById(R.id.type_icon);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             mComment = (TextView) itemView.findViewById(R.id.comment);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);

@@ -251,7 +251,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private void setTravelType(String type) {
         TextView travelType = (TextView) root.findViewById(R.id.type_text);
-        travelType.setText(TravelType.getTravelText(type));
+        travelType.setText(type);
         filed.set(PASS_TYPE);
         teamRequest.setType(type);
     }

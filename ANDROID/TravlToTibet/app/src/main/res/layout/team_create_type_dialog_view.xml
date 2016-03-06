@@ -2,71 +2,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border_white"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/travel_bike"
-        style="@style/TextAppearance.Large"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:text="骑行" />
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!--标题-->
+        <TextView
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="旅行类型" />
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/destination_edit_view"
+            style="@style/TextAppearance.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border_theme_line"
+            android:hint="@string/team_make_type_edit_hint"
+            android:padding="10dp"
+            />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_margin="10dp"
         android:background="@color/less_light_gray"></View>
 
-    <TextView
-        android:id="@+id/travel_hike"
-        style="@style/TextAppearance.Large"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:text="徒步，徒搭" />
+        android:orientation="vertical"
+        android:padding="10dp">
+        <!--标题-->
+        <TextView
+            android:layout_marginBottom="5dp"
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/team_make_type_hot" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/less_light_gray"></View>
+        <ListView
+            android:scrollbars="none"
+            android:id="@+id/dest_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"></ListView>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/travel_moto"
-        style="@style/TextAppearance.Large"
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        style="@style/RippleStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:text="摩托" />
+        android:layout_height="wrap_content">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/less_light_gray"></View>
+        <Button
+            android:id="@+id/ok_btn"
+            style="@style/TextAppearance.Large.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/info_bottom_btn_height"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="完成" />
 
-    <TextView
-        android:id="@+id/travel_car"
-        style="@style/TextAppearance.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:text="自驾，租车" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/less_light_gray"></View>
-
-    <TextView
-        android:id="@+id/travel_other"
-        style="@style/TextAppearance.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:text="其他" />
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
 </LinearLayout>

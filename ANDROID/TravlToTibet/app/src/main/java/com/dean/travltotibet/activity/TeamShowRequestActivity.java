@@ -26,6 +26,7 @@ import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestDetailFragment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -77,17 +78,7 @@ public class TeamShowRequestActivity extends BaseCommentActivity {
     }
 
     private void initHeader() {
-//         type btn(menu right)
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.menu_type, null);
-        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
-                android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.MATCH_PARENT);
-        layoutParams.gravity = Gravity.RIGHT;
-        setCustomView(v, layoutParams);
-        ImageView mMenuType = (ImageView) v.findViewById(R.id.header_menu_type);
-        mMenuType.setImageDrawable(TravelType.getActionBarImageSrc(teamRequest.getType()));
-
-        setTitle(teamRequest.getDestination());
+        setTitle(String.format(Constants.TEAM_REQUEST_TITLE, teamRequest.getDestination(), teamRequest.getType()));
         setSubTitle(teamRequest.getDate());
     }
 

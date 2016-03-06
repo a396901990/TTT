@@ -3,15 +3,25 @@ package com.dean.travltotibet.dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.adapter.HotDestinationAdapter;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.ScreenUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by DeanGuo on 2/24/16.
@@ -20,6 +30,10 @@ import com.dean.travltotibet.util.ScreenUtil;
 public class TeamMakeTravelTypeDialog extends DialogFragment {
 
     private View contentLayout;
+
+    private HotDestinationAdapter mAdapter;
+
+    private EditText destEditText;
 
     private TravelTypeCallback travelTypeCallback;
 
@@ -40,60 +54,40 @@ public class TeamMakeTravelTypeDialog extends DialogFragment {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_type_dialog_view, null);
 
         setUpView();
+        initListView();
         return contentLayout;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Window window = getDialog().getWindow();
-        window.setLayout(ScreenUtil.dip2px(getActivity(), 260), WindowManager.LayoutParams.WRAP_CONTENT);
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+    private void initListView() {
+        ListView listView = (ListView) contentLayout.findViewById(R.id.dest_list_view);
+        mAdapter = new HotDestinationAdapter(getActivity());
+        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
+        ArrayList<String> mData = new ArrayList<>();
+        Collections.addAll(mData, routes);
+        mAdapter.setData(mData);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String routeName = (String) mAdapter.getItem(position);
+                destEditText.setText(routeName);
+            }
+        });
+
     }
 
     private void setUpView() {
-        // bike
-        View bike = contentLayout.findViewById(R.id.travel_bike);
-        bike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(TravelType.BIKE);
-            }
-        });
+        destEditText = (EditText) contentLayout.findViewById(R.id.destination_edit_view);
 
-        // hike
-        View hike = contentLayout.findViewById(R.id.travel_hike);
-        hike.setOnClickListener(new View.OnClickListener() {
+        View okBtn = contentLayout.findViewById(R.id.ok_btn);
+        okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyItemClicked(TravelType.HIKE);
-            }
-        });
-
-        // moto
-        View moto = contentLayout.findViewById(R.id.travel_moto);
-        moto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(TravelType.MOTO);
-            }
-        });
-
-        // car
-        View car = contentLayout.findViewById(R.id.travel_car);
-        car.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(TravelType.CAR);
-            }
-        });
-
-        // other
-        View other = contentLayout.findViewById(R.id.travel_other);
-        other.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyItemClicked(TravelType.OTHER);
+                if (!TextUtils.isEmpty(destEditText.getText())) {
+                    notifyItemClicked(destEditText.getText().toString());
+                } else {
+                    dismiss();
+                }
             }
         });
     }

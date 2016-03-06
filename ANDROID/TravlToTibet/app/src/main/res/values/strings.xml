@@ -157,5 +157,7 @@
     <string name="team_make_contact_edit_hint">例：微信gxy19900711，手机15142423363</string>
     <string name="team_make_destination_edit_hint">输入目的地（例：北京-拉萨）</string>
     <string name="team_make_destination_hot">热门目的地</string>
+    <string name="team_make_type_edit_hint">输入旅行类型（可从列表中选择）</string>
+    <string name="team_make_type_hot">热门旅行类型</string>
 
 </resources>

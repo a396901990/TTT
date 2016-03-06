@@ -56,7 +56,7 @@ public class TeamMakeDestinationDialog extends DialogFragment {
     private void initListView() {
         ListView listView = (ListView) contentLayout.findViewById(R.id.dest_list_view);
         mAdapter = new HotDestinationAdapter(getActivity());
-        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.current_routes);
+        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_destination);
         ArrayList<String> mData = new ArrayList<>();
         Collections.addAll(mData, routes);
         mAdapter.setData(mData);

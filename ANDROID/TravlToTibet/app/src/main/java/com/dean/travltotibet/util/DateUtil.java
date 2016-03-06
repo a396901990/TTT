@@ -86,7 +86,7 @@ public final class DateUtil {
                 timeGap = "刚刚";
             }
             else if (l < 0) {
-                timeGap = argDateString;
+                timeGap = "刚刚";
             }
 
             return timeGap;
