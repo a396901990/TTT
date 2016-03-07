@@ -13,7 +13,7 @@ import com.dean.travltotibet.ui.CustomProgress;
 /**
  * Created by DeanGuo on 8/31/15.
  */
-public abstract class BaseHomeFragment extends Fragment {
+public abstract class RefreshFragment extends Fragment {
 
     public final static int PREPARE_LOADING = 0;
 
@@ -63,7 +63,7 @@ public abstract class BaseHomeFragment extends Fragment {
         };
     }
 
-    public void beginTodo(int message, long delayed) {
+    public void toDo(int message, long delayed) {
         mHandle.sendEmptyMessageDelayed(message, delayed);
     }
 

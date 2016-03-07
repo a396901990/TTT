@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamRequestActivity;
 import com.dean.travltotibet.adapter.TeamRequestAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
@@ -24,7 +22,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class TeamShowAllRequestFragment extends BaseHomeFragment {
+public class TeamShowAllRequestFragment extends RefreshFragment {
 
     private View root;
     private TeamRequestAdapter mAdapter;

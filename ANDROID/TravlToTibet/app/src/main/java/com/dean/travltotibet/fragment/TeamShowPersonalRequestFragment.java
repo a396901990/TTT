@@ -1,43 +1,37 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.DialogFragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.TeamRequestActivity;
-import com.dean.travltotibet.adapter.TeamRequestAdapter;
-import com.dean.travltotibet.animator.ReboundItemAnimator;
-import com.dean.travltotibet.dialog.LoginDialog;
+import com.dean.travltotibet.activity.TeamPersonalRequestActivity;
+import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.util.LoginUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by DeanGuo on 3/4/16.
  */
-public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
+public class TeamShowPersonalRequestFragment extends RefreshFragment {
 
     private View root;
-    private TeamRequestAdapter mAdapter;
+    private TeamRequestListAdapter mAdapter;
     private ArrayList<TeamRequest> teamRequests;
-    private TeamRequestActivity mActivity;
-    private RecyclerView mRecyclerView;
+    private TeamPersonalRequestActivity mActivity;
+    private ListView listView;
 
-    private View loginView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,55 +43,53 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EventBus.getDefault().register(this);
 
-        mActivity = (TeamRequestActivity) getActivity();
-        loginView = root.findViewById(R.id.login_view);
+        mActivity = (TeamPersonalRequestActivity) getActivity();
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        listView = (ListView) root.findViewById(R.id.team_request_fragment_list_rv);
 
         setUpList();
-        settingViewStatus();
+        initRefresh();
+        refresh();
     }
 
-    private void initLoginView() {
-        View loginContent = root.findViewById(R.id.login_content);
-        loginContent.setOnClickListener(new View.OnClickListener() {
+    private void initRefresh() {
+
+        // 解决listview，mSwipeRefreshLayout冲突
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment dialogFragment = new LoginDialog();
-                dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
+                if(mSwipeRefreshLayout != null) {
+                    mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                }
+            }
+        });
+
+        // 设置下拉刷新
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        //mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
             }
         });
     }
 
-    private void settingViewStatus() {
-        if (TTTApplication.hasLoggedIn()) {
-            loginView.setVisibility(View.GONE);
-            getTeamRequests();
-        } else {
-            loginView.setVisibility(View.VISIBLE);
-            initLoginView();
-        }
-    }
-
     private void setUpList() {
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.team_request_fragment_list_rv);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
-
-        mAdapter = new TeamRequestAdapter(getActivity());
+        mAdapter = new TeamRequestListAdapter(getActivity());
         mAdapter.setIsPersonal(true);
-        mRecyclerView.setAdapter(mAdapter);
+        listView.setAdapter(mAdapter);
     }
 
     private void getTeamRequests() {
         teamRequests = new ArrayList<>();
-        // 如果已经登录
-        if (TTTApplication.hasLoggedIn()) {
-
-            if (mActivity != null && mAdapter != null) {
-                mActivity.startUpdate();
-                mAdapter.clearData();
-            }
 
             BmobQuery<TeamRequest> query = new BmobQuery<>();
             query.order("-createdAt");
@@ -106,17 +98,14 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
                 @Override
                 public void onSuccess(List<TeamRequest> list) {
                     teamRequests = (ArrayList<TeamRequest>) list;
-                    updateData();
+                    toDo(LOADING_SUCCESS, 0);
                 }
 
                 @Override
                 public void onError(int i, String s) {
-                    updateData();
+                    toDo(LOADING_ERROR, 0);
                 }
             });
-        } else {
-
-        }
     }
 
     /**
@@ -135,51 +124,50 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
         }
         mAdapter.setData(teamRequests);
         mAdapter.notifyDataSetChanged();
-        mActivity.finishUpdate();
+        finishUpdate();
     }
 
     @Override
     public void update() {
-//        new refreshTask().execute();
+//        toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void refresh() {
-        getTeamRequests();
+        toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-
+        if (mActivity != null && mAdapter != null) {
+            startUpdate();
+            mAdapter.clearData();
+            toDo(ON_LOADING, 800);
+        }
     }
 
     @Override
     public void onLoading() {
-
+        getTeamRequests();
     }
 
     @Override
     public void LoadingSuccess() {
-
+        updateData();
     }
 
     @Override
     public void LoadingError() {
-
+        updateData();
     }
 
-    /**
-     * 登陆成功回调
-     */
-    public void onEventMainThread(LoginUtil.LoginEvent event) {
-        Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-        settingViewStatus();
+    public void startUpdate() {
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    /**
-     * 登陆失败回调
-     */
-    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
-        Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+    public void finishUpdate() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

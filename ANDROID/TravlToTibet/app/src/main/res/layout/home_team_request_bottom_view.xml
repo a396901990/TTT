@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/team_request_bottom_add_size"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"></LinearLayout>
+
+        <View
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/up_shade_background" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+
+            <com.dean.travltotibet.ui.MaterialRippleLayout
+                android:id="@+id/filter_team_request"
+                style="@style/RippleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/center_view"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    style="@style/TextAppearance.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="筛选结伴"
+                    android:textColor="@color/colorPrimaryDark" />
+            </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+            <View
+                android:id="@+id/center_view"
+                android:layout_width="@dimen/team_request_bottom_add_size"
+                android:layout_height="@dimen/team_request_bottom_add_size"
+                android:layout_centerInParent="true"></View>
+
+            <com.dean.travltotibet.ui.MaterialRippleLayout
+                android:id="@+id/my_team_request"
+                style="@style/RippleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/center_view"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    style="@style/TextAppearance.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="我的结伴"
+                    android:textColor="@color/colorPrimaryDark" />
+            </com.dean.travltotibet.ui.MaterialRippleLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/add_view"
+            android:layout_width="@dimen/team_request_bottom_add_size"
+            android:layout_height="@dimen/team_request_bottom_add_size"
+            android:src="@drawable/bottom_add_view"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="3dp" />
+    </LinearLayout>
+</FrameLayout>

@@ -22,7 +22,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 2/16/16.
  */
-public class HomeTopicFragment extends BaseHomeFragment {
+public class HomeTopicFragment extends RefreshFragment {
 
     private View root;
     private ArticleAdapter mAdapter;
@@ -72,12 +72,12 @@ public class HomeTopicFragment extends BaseHomeFragment {
             @Override
             public void onSuccess(List<Article> list) {
                 articles = (ArrayList<Article>) list;
-                beginTodo(LOADING_SUCCESS, 0);
+                toDo(LOADING_SUCCESS, 0);
             }
 
             @Override
             public void onError(int i, String s) {
-                beginTodo(LOADING_ERROR, 0);
+                toDo(LOADING_ERROR, 0);
             }
         });
     }
@@ -107,7 +107,7 @@ public class HomeTopicFragment extends BaseHomeFragment {
 
     @Override
     public void refresh() {
-        beginTodo(PREPARE_LOADING, 0);
+        toDo(PREPARE_LOADING, 0);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class HomeTopicFragment extends BaseHomeFragment {
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();
-            beginTodo(ON_LOADING, 800);
+            toDo(ON_LOADING, 800);
         }
     }
 

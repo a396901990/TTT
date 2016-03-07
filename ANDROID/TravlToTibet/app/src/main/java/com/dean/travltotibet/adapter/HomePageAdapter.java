@@ -28,7 +28,7 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
 
         mTitles = new SparseArray<String>();
         mTitles.put(0, "推荐");
-        mTitles.put(1, "约伴");
+        mTitles.put(1, "结伴");
         mTitles.put(2, "发现");
         mTitles.put(3, "历史");
 

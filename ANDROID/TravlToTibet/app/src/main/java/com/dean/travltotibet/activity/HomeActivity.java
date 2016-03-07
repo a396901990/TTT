@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -22,7 +21,7 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
-import com.dean.travltotibet.fragment.BaseHomeFragment;
+import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import cn.bmob.v3.update.BmobUpdateAgent;
 /**
@@ -77,7 +76,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 if (mAdapter.getAllFragments().size() > 0) {
-                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+                    RefreshFragment fragment = (RefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
                     fragment.update();
                 }
             }
@@ -107,7 +106,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 if (mAdapter.getAllFragments().size() > 0) {
-                    BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+                    RefreshFragment fragment = (RefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
                     fragment.refresh();
                 }
             }

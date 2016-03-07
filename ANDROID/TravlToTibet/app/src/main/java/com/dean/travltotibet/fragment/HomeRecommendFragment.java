@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.WhereGoActivity;
-import com.dean.travltotibet.adapter.HomeGridAdapter;
 import com.dean.travltotibet.adapter.RecommendAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
@@ -28,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 10/15/15.
  */
-public class HomeRecommendFragment extends BaseHomeFragment {
+public class HomeRecommendFragment extends RefreshFragment {
 
     private View root;
     private RecommendAdapter mAdapter;
@@ -121,7 +118,7 @@ public class HomeRecommendFragment extends BaseHomeFragment {
 
     @Override
     public void refresh() {
-        beginTodo(PREPARE_LOADING, 0);
+        toDo(PREPARE_LOADING, 200);
     }
 
     @Override
@@ -129,14 +126,14 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();
-            beginTodo(ON_LOADING, 600);
+            toDo(ON_LOADING, 600);
         }
     }
 
     @Override
     public void onLoading() {
         getRouteData();
-        beginTodo(LOADING_SUCCESS, 0);
+        toDo(LOADING_SUCCESS, 0);
     }
 
     @Override

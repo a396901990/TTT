@@ -30,7 +30,8 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/team_request_padding"
                 android:paddingRight="@dimen/team_request_padding"
-                android:paddingTop="3dp">
+                android:paddingTop="2dp"
+                >
 
                 <TextView
                     android:id="@+id/destination_name"

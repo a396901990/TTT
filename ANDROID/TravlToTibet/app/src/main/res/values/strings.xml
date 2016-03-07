@@ -141,6 +141,7 @@
 
     <string name="team_make_title">结伴</string>
     <string name="team_make_request_title">发起结伴</string>
+    <string name="team_make_personal_request_title">我的结伴</string>
     <string name="team_make_time_title">时间</string>
     <string name="team_make_destination_title">目的地</string>
     <string name="team_make_destination_type_title">计划</string>

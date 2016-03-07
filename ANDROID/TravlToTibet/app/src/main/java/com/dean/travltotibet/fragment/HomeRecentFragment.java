@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 10/10/15.
  */
-public class HomeRecentFragment extends BaseHomeFragment {
+public class HomeRecentFragment extends RefreshFragment {
 
     private View root;
     private RecentAdapter mAdapter;
@@ -142,12 +141,12 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
-        beginTodo(PREPARE_LOADING, 0);
+        toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void refresh() {
-        beginTodo(PREPARE_LOADING, 0);
+        toDo(PREPARE_LOADING, 0);
     }
 
     @Override
@@ -155,14 +154,14 @@ public class HomeRecentFragment extends BaseHomeFragment {
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();
-            beginTodo(ON_LOADING, 800);
+            toDo(ON_LOADING, 800);
         }
     }
 
     @Override
     public void onLoading() {
         getRecentData();
-        beginTodo(LOADING_SUCCESS, 0);
+        toDo(LOADING_SUCCESS, 0);
     }
 
     @Override

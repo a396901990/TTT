@@ -304,6 +304,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                     public void onSuccess() {
                         loadingView.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
+                        mActivity.setResult(mActivity.RESULT_OK);
                         mActivity.finish();
                     }
 
@@ -311,6 +312,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                     public void onFailure(int code, String msg) {
                         loadingView.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
+                        mActivity.setResult(mActivity.RESULT_CANCELED);
                         mActivity.finish();
                     }
                 });

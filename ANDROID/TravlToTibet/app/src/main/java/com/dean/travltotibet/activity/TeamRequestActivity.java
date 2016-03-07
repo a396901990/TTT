@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
-import com.dean.travltotibet.fragment.BaseHomeFragment;
+import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.fragment.TeamShowAllRequestFragment;
 import com.dean.travltotibet.fragment.TeamShowPersonalRequestFragment;
@@ -137,7 +137,7 @@ public class TeamRequestActivity extends BaseActivity implements LoginDialog.Log
 
     private void updateAll() {
         if (mAdapter != null && mAdapter.getAllFragments().size() > 0) {
-            BaseHomeFragment fragment = (BaseHomeFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            RefreshFragment fragment = (RefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
             fragment.refresh();
         }
     }
