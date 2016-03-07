@@ -55,8 +55,8 @@ public class HomeRecentFragment extends BaseHomeFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
-        getRecentData();
         setUpList();
+        refresh();
         // initFabBtn();
     }
 
@@ -69,17 +69,16 @@ public class HomeRecentFragment extends BaseHomeFragment {
         mAdapter.setRecentCallBack(new RecentAdapter.RecentCallBack() {
             @Override
             public void update() {
-                updateRecentData(getRecentData());
+                refresh();
             }
         });
         mRecyclerView.setAdapter(mAdapter);
-        updateRecentData(getRecentData());
     }
 
     /**
      * 更新recentRoutes数据
      */
-    public void updateRecentData(ArrayList<RecentRoute> recentRoutes) {
+    public void updateRecentData() {
         View noResultView = root.findViewById(R.id.no_result_content);
 
         // 无数据
@@ -92,6 +91,7 @@ public class HomeRecentFragment extends BaseHomeFragment {
         }
         mAdapter.setData(recentRoutes);
         mAdapter.notifyDataSetChanged();
+        mActivity.finishUpdate();
     }
 
     private void initFabBtn() {
@@ -142,12 +142,37 @@ public class HomeRecentFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
-        new refreshTask().execute();
+        beginTodo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void refresh() {
-        new refreshTask().execute();
+        beginTodo(PREPARE_LOADING, 0);
+    }
+
+    @Override
+    public void prepareLoading() {
+        if (mActivity != null && mAdapter != null) {
+            mActivity.startUpdate();
+            mAdapter.clearData();
+            beginTodo(ON_LOADING, 800);
+        }
+    }
+
+    @Override
+    public void onLoading() {
+        getRecentData();
+        beginTodo(LOADING_SUCCESS, 0);
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        updateRecentData();
+    }
+
+    @Override
+    public void LoadingError() {
+        updateRecentData();
     }
 
     public void fabEvent() {
@@ -166,43 +191,11 @@ public class HomeRecentFragment extends BaseHomeFragment {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         TTTApplication.getDbHelper().cleanRecentRoutes();
-                        updateRecentData(getRecentData());
+                        refresh();
                         dialog.dismiss();
                     }
                 })
                 .build()
                 .show();
-    }
-
-    private class refreshTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            if (mActivity != null && mAdapter != null) {
-                mActivity.startUpdate();
-                mAdapter.clearData();
-            }
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(800);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            updateRecentData(recentRoutes);
-            mActivity.finishUpdate();
-
-            super.onPostExecute(result);
-        }
     }
 }

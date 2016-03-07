@@ -56,8 +56,8 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
-        getRouteData();
         initList();
+        refresh();
 //        initFabBtn();
     }
 
@@ -68,7 +68,6 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(1));
 
         mAdapter = new RecommendAdapter(getActivity());
-        mAdapter.setData(routes);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -116,44 +115,39 @@ public class HomeRecommendFragment extends BaseHomeFragment {
         routes = (ArrayList<Route>) TTTApplication.getDbHelper().getRoutsList();
     }
 
-    private class refreshTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            mActivity.startUpdate();
-            mAdapter.clearData();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(800);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            getRouteData();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            mAdapter.setData(routes);
-            mActivity.finishUpdate();
-
-            super.onPostExecute(result);
-        }
-    }
-
     @Override
     public void update() {
-        // new refreshTask().execute();
     }
 
     @Override
     public void refresh() {
-        new refreshTask().execute();
+        beginTodo(PREPARE_LOADING, 0);
+    }
+
+    @Override
+    public void prepareLoading() {
+        if (mActivity != null && mAdapter != null) {
+            mActivity.startUpdate();
+            mAdapter.clearData();
+            beginTodo(ON_LOADING, 600);
+        }
+    }
+
+    @Override
+    public void onLoading() {
+        getRouteData();
+        beginTodo(LOADING_SUCCESS, 0);
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        mAdapter.setData(routes);
+        mActivity.finishUpdate();
+    }
+
+    @Override
+    public void LoadingError() {
+
     }
 
     public void fabEvent() {

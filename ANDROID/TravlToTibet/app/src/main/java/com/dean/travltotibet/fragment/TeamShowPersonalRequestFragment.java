@@ -148,6 +148,26 @@ public class TeamShowPersonalRequestFragment extends BaseHomeFragment {
         getTeamRequests();
     }
 
+    @Override
+    public void prepareLoading() {
+
+    }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void LoadingSuccess() {
+
+    }
+
+    @Override
+    public void LoadingError() {
+
+    }
+
     /**
      * 登陆成功回调
      */

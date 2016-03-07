@@ -108,13 +108,17 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     }
 
     public void clearData() {
-        int size = this.mData.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                mData.remove(0);
-            }
+        if (mData == null) {
+            return;
+        } else {
+            int size = this.mData.size();
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    mData.remove(0);
+                }
 
-            this.notifyItemRangeRemoved(0, size);
+                this.notifyItemRangeRemoved(0, size);
+            }
         }
     }
 

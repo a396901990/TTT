@@ -68,8 +68,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
         holder.mTitle.setText(article.getTitle());
 
-        holder.mWatch.setText(article.getWatch()+"");
-        holder.mLike.setText(article.getLike()+"");
+        holder.mWatch.setText(article.getWatch() + "");
+        holder.mLike.setText(article.getLike() + "");
 
         holder.mBackgroundView.setImageUrl(article.getTitleImage(), imageLoader);
 
@@ -102,14 +102,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     public void clearData() {
         if (mData == null) {
             return;
-        }
-        int size = this.mData.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                mData.remove(0);
-            }
+        } else {
+            int size = this.mData.size();
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    mData.remove(0);
+                }
 
-            this.notifyItemRangeRemoved(0, size);
+                this.notifyItemRangeRemoved(0, size);
+            }
         }
     }
 

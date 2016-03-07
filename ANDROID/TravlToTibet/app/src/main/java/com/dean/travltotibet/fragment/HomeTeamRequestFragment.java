@@ -73,12 +73,12 @@ public class HomeTeamRequestFragment extends BaseHomeFragment {
             @Override
             public void onSuccess(List<TeamRequest> list) {
                 teamRequests = (ArrayList<TeamRequest>) list;
-                updateData();
+                beginTodo(LOADING_SUCCESS, 0);
             }
 
             @Override
             public void onError(int i, String s) {
-                updateData();
+                beginTodo(LOADING_ERROR, 0);
             }
         });
     }
@@ -104,41 +104,34 @@ public class HomeTeamRequestFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
-//        new refreshTask().execute();
     }
 
     @Override
     public void refresh() {
-        new refreshTask().execute();
+        beginTodo(PREPARE_LOADING, 0);
     }
 
-    private class refreshTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            if (mActivity != null && mAdapter != null) {
-                mActivity.startUpdate();
-                mAdapter.clearData();
-            }
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(800);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            getTeamRequests();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
+    @Override
+    public void prepareLoading() {
+        if (mActivity != null && mAdapter != null) {
+            mActivity.startUpdate();
+            mAdapter.clearData();
+            beginTodo(ON_LOADING, 800);
         }
     }
 
+    @Override
+    public void onLoading() {
+        getTeamRequests();
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        updateData();
+    }
+
+    @Override
+    public void LoadingError() {
+        updateData();
+    }
 }

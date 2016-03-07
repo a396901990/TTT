@@ -72,7 +72,7 @@ public class HomeActivity extends BaseActivity {
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(1);
+        mPager.setOffscreenPageLimit(4);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -242,7 +242,9 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void finishUpdate() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
 }

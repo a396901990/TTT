@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +51,7 @@ public class HomeTopicFragment extends BaseHomeFragment {
         mActivity = (HomeActivity) getActivity();
 
         setUpList();
+        refresh();
     }
 
     private void setUpList() {
@@ -61,8 +61,6 @@ public class HomeTopicFragment extends BaseHomeFragment {
 
         mAdapter = new ArticleAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
-
-        refresh();
     }
 
     private void getArticles() {
@@ -74,12 +72,12 @@ public class HomeTopicFragment extends BaseHomeFragment {
             @Override
             public void onSuccess(List<Article> list) {
                 articles = (ArrayList<Article>) list;
-                updateData();
+                beginTodo(LOADING_SUCCESS, 0);
             }
 
             @Override
             public void onError(int i, String s) {
-                updateData();
+                beginTodo(LOADING_ERROR, 0);
             }
         });
     }
@@ -105,41 +103,34 @@ public class HomeTopicFragment extends BaseHomeFragment {
 
     @Override
     public void update() {
-//        new refreshTask().execute();
     }
 
     @Override
     public void refresh() {
-        new refreshTask().execute();
+        beginTodo(PREPARE_LOADING, 0);
     }
 
-    private class refreshTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            if (mActivity != null && mAdapter != null) {
-                mActivity.startUpdate();
-                mAdapter.clearData();
-            }
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(800);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            getArticles();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
+    @Override
+    public void prepareLoading() {
+        if (mActivity != null && mAdapter != null) {
+            mActivity.startUpdate();
+            mAdapter.clearData();
+            beginTodo(ON_LOADING, 800);
         }
     }
 
+    @Override
+    public void onLoading() {
+        getArticles();
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        updateData();
+    }
+
+    @Override
+    public void LoadingError() {
+        updateData();
+    }
 }

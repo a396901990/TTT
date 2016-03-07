@@ -111,4 +111,24 @@ public class TeamShowAllRequestFragment extends BaseHomeFragment {
         getTeamRequests();
     }
 
+    @Override
+    public void prepareLoading() {
+
+    }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void LoadingSuccess() {
+
+    }
+
+    @Override
+    public void LoadingError() {
+
+    }
+
 }
