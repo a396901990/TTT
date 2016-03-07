@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -19,8 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
@@ -29,13 +29,14 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by DeanGuo on 2/17/16.
+ * Created by DeanGuo on 3//16.
  */
-public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.TeamRequestViewHolder> {
+public class TeamRequestListAdapter extends BaseAdapter {
 
     private Context mContext;
 
@@ -43,8 +44,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
     private RequestQueue mQueue;
 
-    public TeamRequestAdapter(Context mContext)
-    {
+    public TeamRequestListAdapter(Context mContext) {
         this.mContext = mContext;
         mQueue = Volley.newRequestQueue(mContext);
     }
@@ -52,36 +52,59 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
     private boolean isPersonal = false;
 
     @Override
-    public TeamRequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_show_request_list_item, parent, false);
-        return new TeamRequestViewHolder(view);
+    public int getCount() {
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
-    public void onBindViewHolder(final TeamRequestViewHolder holder, int position) {
+    public Object getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        final TeamRequestViewHolder holder;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_show_request_list_item, parent, false);
+            holder = new TeamRequestViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (TeamRequestViewHolder) convertView.getTag();
+        }
 
         final TeamRequest request = mData.get(position);
 
+        // 是否通过审核显示警告视图
         if (request.isPass) {
             holder.mWarningView.setVisibility(View.GONE);
         } else {
             holder.mWarningView.setVisibility(View.VISIBLE);
         }
 
+        // title
         holder.mTitle.setText(request.getTitle());
+        // destination
         holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE, request.getDestination(), request.getType()));
+        // date
         holder.mDate.setText(request.getDate());
+        // publish time
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         holder.mTime.setText(createTime);
-
+        // user name
         holder.mUser.setText(request.getUserName());
         if (UserInfo.MALE.equals(request.getUserGender())) {
             holder.mUser.setTextColor(TTTApplication.getMyColor(R.color.colorPrimaryDark));
         } else {
             holder.mUser.setTextColor(TTTApplication.getMyColor(R.color.light_red));
         }
-
-        // 设置图片
+        // user icon
         if (!TextUtils.isEmpty(request.getUserIcon())) {
             ImageRequest imageRequest = new ImageRequest(
                     request.getUserIcon(),
@@ -96,14 +119,12 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
                     holder.mUserIcon.setImageResource(R.drawable.gray_profile);
                 }
             });
-
             mQueue.add(imageRequest);
         } else {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }
 
 //        holder.mWatch.setText(request.getWatch()+"");
-//        holder.mComment.setText(request.getComments() + "");
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,35 +138,24 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
                 mContext.startActivity(intent);
             }
         });
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return mData == null ? 0 : mData.size();
+        return convertView;
     }
 
     public void setData(ArrayList<TeamRequest> data) {
         this.mData = data;
-        this.notifyItemRangeInserted(0, mData.size() - 1);
+        notifyDataSetChanged();
     }
 
     public void clearData() {
         if (mData == null) {
             return;
-        }
-        int size = this.mData.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                mData.remove(0);
-            }
-
-            this.notifyItemRangeRemoved(0, size);
+        } else {
+            mData = new ArrayList<>();
+            notifyDataSetChanged();
         }
     }
 
-
-    public static class TeamRequestViewHolder extends RecyclerView.ViewHolder {
+    public class TeamRequestViewHolder {
 
         private MaterialRippleLayout rippleLayout;
         private TextView mTitle;
@@ -155,11 +165,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         private TextView mTime;
         private TextView mDate;
         private TextView mWatch;
-        private TextView mComment;
         private View mWarningView;
 
         public TeamRequestViewHolder(View itemView) {
-            super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
             mDate = (TextView) itemView.findViewById(R.id.plan_date);
@@ -167,7 +175,6 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
             mTime = (TextView) itemView.findViewById(R.id.publish_time);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
-//            mComment = (TextView) itemView.findViewById(R.id.comment);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
 
             mWarningView = itemView.findViewById(R.id.warning_view);

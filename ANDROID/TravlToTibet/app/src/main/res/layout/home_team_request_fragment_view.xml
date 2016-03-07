@@ -1,14 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/gray_background"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray_background">
 
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/team_request_fragment_list_rv"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:clipToPadding="false"-->
+    <!--/>-->
+
+    <ListView
         android:id="@+id/team_request_fragment_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        />
+        android:divider="@android:color/transparent"
+        android:dividerHeight="4dp"
+        android:footerDividersEnabled="false"
+        android:scrollbars="none"></ListView>
 
     <include
         android:id="@+id/no_result_content"

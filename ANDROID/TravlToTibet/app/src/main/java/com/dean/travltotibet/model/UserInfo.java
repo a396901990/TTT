@@ -1,6 +1,8 @@
 package com.dean.travltotibet.model;
 
 public class UserInfo {
+	public static String MALE = "m";
+	public static String FEMALE = "f";
 
 	private String userId;
 	private String userIcon;

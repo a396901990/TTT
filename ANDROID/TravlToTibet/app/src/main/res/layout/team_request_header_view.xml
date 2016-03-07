@@ -26,15 +26,23 @@
             android:layout_weight="3"
             android:background="@color/white">
 
-            <TextView
-                android:id="@+id/user_time"
-                style="@style/TextAppearance.Micro"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:paddingLeft="@dimen/team_request_profile_size"
-                android:text="@string/login_text" />
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/team_request_profile_size">
+
+                <TextView
+                    android:id="@+id/user_time"
+                    style="@style/TextAppearance.Micro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/login_text"
+                    android:textColor="@color/colorPrimaryDark" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -44,11 +52,11 @@
 
                 <TextView
                     android:id="@+id/publish_time"
-                    android:gravity="center"
                     style="@style/TextAppearance.Micro"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
+                    android:gravity="center"
                     android:text="5分钟前"
                     android:textColor="@color/gray" />
             </LinearLayout>

@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--header view -->
             <include
                 layout="@layout/team_request_header_view"
                 android:layout_width="match_parent"
@@ -26,10 +27,10 @@
                 android:layout_centerVertical="true"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/team_request_padding"
-                android:paddingRight="@dimen/team_request_padding">
+                android:paddingRight="@dimen/team_request_padding"
+                android:paddingTop="3dp">
 
                 <TextView
                     android:id="@+id/destination_name"
@@ -51,7 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/less_light_blue"
-                android:padding="@dimen/team_request_padding">
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/team_request_padding"
+                android:paddingRight="@dimen/team_request_padding"
+                android:paddingTop="8dp">
 
                 <TextView
                     android:id="@+id/title"
@@ -62,9 +66,9 @@
             </LinearLayout>
 
             <View
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" ></View>
+                android:layout_height="1dp"
+                android:background="@color/less_light_gray"></View>
         </LinearLayout>
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>

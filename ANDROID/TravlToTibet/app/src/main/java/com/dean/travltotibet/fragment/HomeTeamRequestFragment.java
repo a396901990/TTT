@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.TeamRequestActivity;
 import com.dean.travltotibet.adapter.TeamRequestAdapter;
+import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
@@ -29,10 +31,10 @@ import cn.bmob.v3.listener.FindListener;
 public class HomeTeamRequestFragment extends BaseHomeFragment {
 
     private View root;
-    private TeamRequestAdapter mAdapter;
+    private TeamRequestListAdapter mAdapter;
     private ArrayList<TeamRequest> teamRequests;
     private HomeActivity mActivity;
-    private RecyclerView mRecyclerView;
+    private ListView mRecyclerView;
 
     public static HomeTeamRequestFragment newInstance() {
         HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();
@@ -55,11 +57,8 @@ public class HomeTeamRequestFragment extends BaseHomeFragment {
     }
 
     private void setUpList() {
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.team_request_fragment_list_rv);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
-        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(20));
-        mAdapter = new TeamRequestAdapter(getActivity());
+        mRecyclerView = (ListView) root.findViewById(R.id.team_request_fragment_list_rv);
+        mAdapter = new TeamRequestListAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         refresh();
     }
