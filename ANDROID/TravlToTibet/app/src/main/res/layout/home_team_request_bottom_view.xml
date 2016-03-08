@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="筛选结伴"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimary" />
             </com.dean.travltotibet.ui.MaterialRippleLayout>
 
             <View
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="我的结伴"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimary" />
             </com.dean.travltotibet.ui.MaterialRippleLayout>
         </RelativeLayout>
     </LinearLayout>

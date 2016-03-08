@@ -68,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/info_bottom_btn_height"
             android:background="@android:color/transparent"
+            android:textColor="@color/colorPrimary"
             android:gravity="center"
             android:text="完成" />
 

@@ -1,34 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border_white"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:background="@drawable/border_gray"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/card_padding">
 
-        <!--标题-->
         <TextView
             style="@style/TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/team_make_destination_title" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:id="@+id/destination_edit_view"
-            style="@style/TextAppearance.Medium"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/border_theme_line"
-            android:hint="@string/team_make_destination_edit_hint"
-            android:padding="10dp"
-            />
+            android:text="根据路线，目的地进行筛选" />
+
+        <com.dean.travltotibet.ui.niceSpinner.NiceSpinner
+            android:layout_marginTop="20dp"
+            android:id="@+id/destination_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
     </LinearLayout>
 
     <View
@@ -38,38 +34,41 @@
         android:background="@color/less_light_gray"></View>
 
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
-        <!--标题-->
-        <TextView
-            android:layout_marginBottom="5dp"
-            style="@style/TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/team_make_destination_hot" />
+        android:padding="@dimen/card_padding">
 
-        <ListView
-            android:scrollbars="none"
-            android:id="@+id/dest_list_view"
+        <TextView
+            style="@style/TitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="根据旅行类型进行筛选" />
+
+        <com.dean.travltotibet.ui.niceSpinner.NiceSpinner
+            android:layout_marginTop="20dp"
+            android:id="@+id/type_spinner"
             android:layout_width="match_parent"
-            android:layout_height="200dp"></ListView>
+            android:layout_height="40dp" />
     </LinearLayout>
 
     <com.dean.travltotibet.ui.MaterialRippleLayout
         style="@style/RippleStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp">
 
         <Button
-            android:id="@+id/ok_btn"
+            android:id="@+id/commit_btn"
             style="@style/TextAppearance.Large.Bold"
             android:layout_width="match_parent"
             android:layout_height="@dimen/info_bottom_btn_height"
             android:background="@android:color/transparent"
-            android:textColor="@color/colorPrimary"
             android:gravity="center"
+            android:textColor="@color/colorPrimary"
             android:text="完成" />
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>

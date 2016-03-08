@@ -16,8 +16,11 @@ import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamPersonalRequestActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.dialog.LoginDialog;
+import com.dean.travltotibet.dialog.TeamMakeDateDialog;
+import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.TeamRequestFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,8 @@ public class HomeTeamRequestFragment extends RefreshFragment {
     private ListView mRecyclerView;
 
     private boolean tryToOpenMyTeamRequest = false;
+
+    private TeamRequestFilter teamRequestFilter;
 
     public static HomeTeamRequestFragment newInstance() {
         HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();
@@ -70,7 +75,15 @@ public class HomeTeamRequestFragment extends RefreshFragment {
         filterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TeamRequestFilterDialog dialogFragment = new TeamRequestFilterDialog();
+                dialogFragment.setFilterCallback(new TeamRequestFilterDialog.FilterCallback() {
+                    @Override
+                    public void filterChanged(TeamRequestFilter filter) {
+                        teamRequestFilter = filter;
+                        refresh();
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), TeamRequestFilterDialog.class.getName());
             }
         });
 
@@ -111,6 +124,15 @@ public class HomeTeamRequestFragment extends RefreshFragment {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
         query.addWhereEqualTo("isPass", true);
+        if (teamRequestFilter != null) {
+            if (!TeamRequestFilter.DEFAULT.equals(teamRequestFilter.getDestinationFilter())) {
+                query.addWhereContains("destination", teamRequestFilter.getDestinationFilter());
+            }
+
+            if (!TeamRequestFilter.DEFAULT.equals(teamRequestFilter.getTypeFilter())) {
+                query.addWhereContains("type", teamRequestFilter.getTypeFilter());
+            }
+        }
         query.findObjects(getActivity(), new FindListener<TeamRequest>() {
             @Override
             public void onSuccess(List<TeamRequest> list) {

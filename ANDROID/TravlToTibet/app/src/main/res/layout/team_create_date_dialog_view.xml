@@ -6,10 +6,10 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="@dimen/card_padding">
 
@@ -21,10 +21,10 @@
             android:text="如果你已经有了计划，请设置精确的出行日期" />
 
         <LinearLayout
-            android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:id="@+id/start_date_btn"
@@ -106,11 +106,11 @@
 
         <LinearLayout
             android:id="@+id/not_sure_btn"
-            android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
             <TextView
                 style="@style/TextAppearance.Small"
@@ -120,7 +120,6 @@
                 android:text="模糊日期" />
 
             <EditText
-                android:gravity="center"
                 android:id="@+id/not_sure_edit_view"
                 style="@style/TextAppearance.Medium"
                 android:layout_width="wrap_content"
@@ -128,6 +127,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/border_theme_line"
+                android:gravity="center"
                 android:hint="例：5-6月份"
                 android:padding="10dp" />
         </LinearLayout>
@@ -147,7 +147,8 @@
             android:layout_height="@dimen/info_bottom_btn_height"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:text="完成" />
+            android:text="完成"
+            android:textColor="@color/colorPrimary" />
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>
 </LinearLayout>
