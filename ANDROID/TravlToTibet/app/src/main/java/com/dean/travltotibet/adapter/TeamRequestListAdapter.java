@@ -3,7 +3,6 @@ package com.dean.travltotibet.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
-import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
@@ -29,7 +27,6 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -91,18 +88,23 @@ public class TeamRequestListAdapter extends BaseAdapter {
         // title
         holder.mTitle.setText(request.getTitle());
         // destination
-        holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE, request.getDestination(), request.getType()));
+        holder.mDestinationName.setText(request.getDestination());
+        // type
+        holder.mTypeName.setText(request.getType());
         // date
-        holder.mDate.setText(request.getDate());
+        holder.mDateName.setText(request.getDate());
+
         // publish time
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
-        holder.mTime.setText(createTime);
+        holder.mPublishTime.setText(createTime);
         // user name
-        holder.mUser.setText(request.getUserName());
+        holder.mUserName.setText(request.getUserName());
         if (UserInfo.MALE.equals(request.getUserGender())) {
-            holder.mUser.setTextColor(TTTApplication.getMyColor(R.color.colorPrimaryDark));
+            holder.mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
+            holder.mUserGender.setBackgroundResource(R.drawable.male_gender_view);
         } else {
-            holder.mUser.setTextColor(TTTApplication.getMyColor(R.color.light_red));
+            holder.mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
+            holder.mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
         // user icon
         if (!TextUtils.isEmpty(request.getUserIcon())) {
@@ -159,21 +161,30 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         private MaterialRippleLayout rippleLayout;
         private TextView mTitle;
+
         private TextView mDestinationName;
-        private TextView mUser;
+        private TextView mTypeName;
+        private TextView mDateName;
+
+        private TextView mUserName;
+        private View mUserGender;
         private CircleImageView mUserIcon;
-        private TextView mTime;
-        private TextView mDate;
+        private TextView mPublishTime;
+
         private TextView mWatch;
         private View mWarningView;
 
         public TeamRequestViewHolder(View itemView) {
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
-            mDate = (TextView) itemView.findViewById(R.id.plan_date);
-            mUser = (TextView) itemView.findViewById(R.id.user_time);
+            mDateName = (TextView) itemView.findViewById(R.id.date_name);
+            mTypeName = (TextView) itemView.findViewById(R.id.type_name);
+
+            mUserName = (TextView) itemView.findViewById(R.id.user_name);
+            mUserGender = itemView.findViewById(R.id.user_gender);
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
-            mTime = (TextView) itemView.findViewById(R.id.publish_time);
+
+            mPublishTime = (TextView) itemView.findViewById(R.id.publish_time);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
 

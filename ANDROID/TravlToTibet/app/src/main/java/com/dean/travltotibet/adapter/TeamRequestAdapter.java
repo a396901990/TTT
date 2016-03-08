@@ -20,7 +20,6 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
@@ -74,11 +73,13 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         holder.mTime.setText(createTime);
 
-        holder.mUser.setText(request.getUserName());
+        holder.mUserName.setText(request.getUserName());
         if (UserInfo.MALE.equals(request.getUserGender())) {
-            holder.mUser.setTextColor(TTTApplication.getMyColor(R.color.colorPrimaryDark));
+            holder.mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
+            holder.mUserGender.setBackgroundResource(R.drawable.male_gender_view);
         } else {
-            holder.mUser.setTextColor(TTTApplication.getMyColor(R.color.light_red));
+            holder.mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
+            holder.mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
 
         // 设置图片
@@ -150,7 +151,8 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         private MaterialRippleLayout rippleLayout;
         private TextView mTitle;
         private TextView mDestinationName;
-        private TextView mUser;
+        private TextView mUserName;
+        private View mUserGender;
         private CircleImageView mUserIcon;
         private TextView mTime;
         private TextView mDate;
@@ -162,8 +164,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
-            mDate = (TextView) itemView.findViewById(R.id.plan_date);
-            mUser = (TextView) itemView.findViewById(R.id.user_time);
+            mDate = (TextView) itemView.findViewById(R.id.date_name);
+            mUserName = (TextView) itemView.findViewById(R.id.user_name);
+            mUserGender = itemView.findViewById(R.id.user_gender);
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
             mTime = (TextView) itemView.findViewById(R.id.publish_time);
             mWatch = (TextView) itemView.findViewById(R.id.watch);

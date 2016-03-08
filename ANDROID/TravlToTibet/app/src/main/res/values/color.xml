@@ -17,6 +17,7 @@
     <color name="dark_blue">#065fb9</color>
     <color name="less_blue">#1E88E5</color>
     <color name="less_light_blue">#0c1E88E5</color>
+    <color name="half_blue">#B21E88E5</color>
     <color name="half_dark_blue">#CC065fb9</color>
     <color name="blue">#0F57C2</color>
     <color name="purple_blue">#3F51B5</color>
@@ -30,6 +31,7 @@
 
     <color name="light_red">#F44336</color>
     <color name="red">#B71C1C</color>
+    <color name="half_red">#B2F44336</color>
     <color name="pink">#E91E63</color>
     <color name="purple">#9C27B0</color>
     <color name="deep_purple">#673AB7</color>
