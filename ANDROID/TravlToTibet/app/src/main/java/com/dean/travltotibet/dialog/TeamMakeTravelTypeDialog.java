@@ -3,6 +3,8 @@ package com.dean.travltotibet.dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.adapter.CommonGridAdapter;
 import com.dean.travltotibet.adapter.HotDestinationAdapter;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
@@ -24,14 +27,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by DeanGuo on 2/24/16.
+ * Created by DeanGuo on 3/9/16.
  * 选择旅行类型
  */
 public class TeamMakeTravelTypeDialog extends DialogFragment {
 
     private View contentLayout;
-
-    private HotDestinationAdapter mAdapter;
 
     private EditText destEditText;
 
@@ -54,27 +55,28 @@ public class TeamMakeTravelTypeDialog extends DialogFragment {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_create_type_dialog_view, null);
 
         setUpView();
-        initListView();
+        initHotTypeView();
         return contentLayout;
     }
 
-    private void initListView() {
-        ListView listView = (ListView) contentLayout.findViewById(R.id.dest_list_view);
-        mAdapter = new HotDestinationAdapter(getActivity());
-        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
-        ArrayList<String> mData = new ArrayList<>();
-        Collections.addAll(mData, routes);
-        mAdapter.setData(mData);
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void initHotTypeView() {
+        RecyclerView hotTypeView = (RecyclerView) contentLayout.findViewById(R.id.hot_type_fragment_list_rv);
+        hotTypeView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+
+        CommonGridAdapter mAdapter = new CommonGridAdapter(getActivity());
+        mAdapter.setSelectCallBack(new CommonGridAdapter.SelectCallBack() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String routeName = (String) mAdapter.getItem(position);
-                destEditText.setText(routeName);
+            public void onItemSelect(String name) {
+                destEditText.setText(name);
             }
         });
-
+        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
+        final ArrayList<String> mData = new ArrayList<>();
+        Collections.addAll(mData, routes);
+        mAdapter.setData(mData);
+        hotTypeView.setAdapter(mAdapter);
     }
+
 
     private void setUpView() {
         destEditText = (EditText) contentLayout.findViewById(R.id.destination_edit_view);

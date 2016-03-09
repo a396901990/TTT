@@ -74,9 +74,7 @@ public class NavigationFragment extends LoginFragment {
         rateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TeamRequestActivity.class);
-                startActivity(intent);
-//                openAppMark();
+                openAppMark();
             }
         });
         // 分享视图

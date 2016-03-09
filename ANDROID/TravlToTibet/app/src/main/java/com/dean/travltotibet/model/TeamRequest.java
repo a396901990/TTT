@@ -23,8 +23,6 @@ public class TeamRequest extends BmobObject {
 
     public String type;
 
-    public String title;
-
     public String contact;
 
     public String content;
@@ -59,14 +57,6 @@ public class TeamRequest extends BmobObject {
 
     public String getDestination() {
         return destination;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {

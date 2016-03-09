@@ -114,7 +114,7 @@
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
     <!--home-->
-    <dimen name="home_recommend_item_height">240dp</dimen>
+    <dimen name="home_recommend_item_height">230dp</dimen>
     <integer name="home_page_columns_num">1</integer>
     <dimen name="home_toolbar_shadow_height">1dp</dimen>
     <dimen name="recommend_view_item_margin">0dp</dimen>

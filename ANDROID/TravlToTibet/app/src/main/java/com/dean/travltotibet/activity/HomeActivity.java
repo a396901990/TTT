@@ -246,4 +246,7 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return mSwipeRefreshLayout;
+    }
 }

@@ -3,9 +3,11 @@ package com.dean.travltotibet.fragment;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,11 +18,9 @@ import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamPersonalRequestActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.dialog.LoginDialog;
-import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.LoginUtil;
-import com.dean.travltotibet.util.TeamRequestFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class HomeTeamRequestFragment extends RefreshFragment {
 
     private boolean tryToOpenMyTeamRequest = false;
 
-    private TeamRequestFilter teamRequestFilter;
+    private String filterText;
 
     public static HomeTeamRequestFragment newInstance() {
         HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();
@@ -78,8 +78,8 @@ public class HomeTeamRequestFragment extends RefreshFragment {
                 TeamRequestFilterDialog dialogFragment = new TeamRequestFilterDialog();
                 dialogFragment.setFilterCallback(new TeamRequestFilterDialog.FilterCallback() {
                     @Override
-                    public void filterChanged(TeamRequestFilter filter) {
-                        teamRequestFilter = filter;
+                    public void filterChanged(String filter) {
+                        filterText = filter;
                         refresh();
                     }
                 });
@@ -113,6 +113,22 @@ public class HomeTeamRequestFragment extends RefreshFragment {
 
     private void setUpList() {
         mRecyclerView = (ListView) root.findViewById(R.id.team_request_fragment_list_rv);
+
+        // 解决listview，mSwipeRefreshLayout冲突
+        mRecyclerView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (mRecyclerView == null || mRecyclerView.getChildCount() == 0) ? 0 : mRecyclerView.getChildAt(0).getTop();
+                mActivity.getSwipeRefreshLayout().setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+
         mAdapter = new TeamRequestListAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         refresh();
@@ -124,14 +140,25 @@ public class HomeTeamRequestFragment extends RefreshFragment {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
         query.addWhereEqualTo("isPass", true);
-        if (teamRequestFilter != null) {
-            if (!TeamRequestFilter.DEFAULT.equals(teamRequestFilter.getDestinationFilter())) {
-                query.addWhereContains("destination", teamRequestFilter.getDestinationFilter());
-            }
+        if (!TextUtils.isEmpty(filterText)) {
+            // destination
+            BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();
+            destination.addWhereContains("destination", filterText);
+            // type
+            BmobQuery<TeamRequest> type = new BmobQuery<TeamRequest>();
+            type.addWhereContains("type", filterText);
+            // content
+            BmobQuery<TeamRequest> content = new BmobQuery<TeamRequest>();
+            content.addWhereContains("content", filterText);
 
-            if (!TeamRequestFilter.DEFAULT.equals(teamRequestFilter.getTypeFilter())) {
-                query.addWhereContains("type", teamRequestFilter.getTypeFilter());
-            }
+            // queries
+            List<BmobQuery<TeamRequest>> queries = new ArrayList<BmobQuery<TeamRequest>>();
+            queries.add(destination);
+            queries.add(type);
+            queries.add(content);
+
+            // 添加or查询
+            query.or(queries);
         }
         query.findObjects(getActivity(), new FindListener<TeamRequest>() {
             @Override

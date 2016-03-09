@@ -38,23 +38,22 @@
         android:background="@color/less_light_gray"></View>
 
     <LinearLayout
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="220dp"
+        android:orientation="vertical">
         <!--标题-->
         <TextView
-            android:layout_marginBottom="5dp"
             style="@style/TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:text="@string/team_make_type_hot" />
 
-        <ListView
-            android:scrollbars="none"
-            android:id="@+id/dest_list_view"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hot_type_fragment_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="200dp"></ListView>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <com.dean.travltotibet.ui.MaterialRippleLayout

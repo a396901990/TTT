@@ -47,8 +47,30 @@
         <item>新藏线</item>
         <item>滇藏线</item>
         <item>珠峰线</item>
+        <item>唐蕃古道</item>
         <item>环青海湖线</item>
-        <item>海南岛环线</item>
+        <item>拉萨</item>
+        <item>成都</item>
+        <item>叶城县</item>
+        <item>札达县</item>
+        <item>香格里拉</item>
+        <item>梅里雪山</item>
+        <item>昆明</item>
+        <item>大理</item>
+        <item>丽江</item>
+        <item>西宁</item>
+        <item>牛背山</item>
+        <item>新都桥</item>
+        <item>林芝</item>
+        <item>色达</item>
+        <item>青海湖</item>
+        <item>格尔木</item>
+        <item>纳木错</item>
+        <item>冈仁波齐</item>
+        <item>玛旁雍错</item>
+        <item>珠峰大本营</item>
+        <item>日喀则</item>
+        <item>羊卓雍错</item>
     </string-array>
 
     <string-array name="hot_type">

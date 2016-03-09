@@ -34,15 +34,8 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         teamShowRequestActivity = (TeamShowRequestActivity) getActivity();
         teamRequest = teamShowRequestActivity.getTeamRequest();
-        initTitleContent();
         initContactContent();
         initContentContent();
-    }
-
-    // 标题
-    private void initTitleContent() {
-        TextView title = (TextView) root.findViewById(R.id.title_text);
-        title.setText(teamRequest.getTitle());
     }
 
     // 联系方式

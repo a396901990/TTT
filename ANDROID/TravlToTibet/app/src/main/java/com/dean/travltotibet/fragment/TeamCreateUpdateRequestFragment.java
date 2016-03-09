@@ -24,8 +24,10 @@ import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.TravelType;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.StringUtil;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -41,23 +43,22 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private TeamCreateRequestActivity mActivity;
 
+    private final static int TEXT_LIMIT = 140;
+
     private int PASS_DATE = 1 << 0; // 0
 
-    private int PASS_DESTINATION = 1 << 2; // 100
+    private int PASS_DESTINATION = 1 << 1; // 10
 
-    private int PASS_TYPE = 1 << 3; // 1000
+    private int PASS_TYPE = 1 << 2; // 100
 
-    private int PASS_TITLE = 1 << 4; // 10000
+    private int PASS_CONTACT = 1 << 3; // 1000
 
-    private int PASS_CONTACT = 1 << 5; // 100000
-
-    private int PASS_CONTENT = 1 << 6; // 1000000
+    private int PASS_CONTENT = 1 << 4; // 10000
 
     private Flag filed = new Flag();
 
     private TeamRequest teamRequest;
 
-    EditText titleEdit;
     EditText contactEdit;
     EditText contentEdit;
 
@@ -81,7 +82,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
         initTravelTypeContent();
         initTravelDateContent();
 
-        initTitleContent();
         initContactContent();
         initContentContent();
 
@@ -94,10 +94,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
     private void filedItem() {
         if (teamRequest != null) {
             isUpdate = true;
-            // title
-            if (!TextUtils.isEmpty(teamRequest.getTitle())) {
-                titleEdit.setText(teamRequest.getTitle());
-            }
             // contact
             if (!TextUtils.isEmpty(teamRequest.getContact())) {
                 contactEdit.setText(teamRequest.getContact());
@@ -124,28 +120,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
         }
     }
 
-    // 标题
-    private void initTitleContent() {
-        titleEdit = (EditText) root.findViewById(R.id.title_edit_text);
-        titleEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
-        titleEdit.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filed.set(PASS_TITLE);
-                teamRequest.setTitle(titleEdit.getText().toString());
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-    }
-
     // 联系方式
     private void initContactContent() {
         contactEdit = (EditText) root.findViewById(contact_edit_text);
@@ -170,12 +144,15 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
     // 内容
     private void initContentContent() {
         contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
+        contentEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TEXT_LIMIT)});
         contentEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filed.set(PASS_CONTENT);
                 teamRequest.setContent(contentEdit.getText().toString());
+
+                updateTextLimitHint();
             }
 
             @Override
@@ -186,6 +163,12 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private void updateTextLimitHint() {
+        TextView textLimitHint = (TextView) root.findViewById(R.id.text_limit_hint);
+        String hint = String.format(Constants.TEAM_REQUEST_CONTENT_LIMIT_HINT, contentEdit.getText().length(), TEXT_LIMIT);
+        textLimitHint.setText(hint);
     }
 
     // 旅行类型
@@ -327,8 +310,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
             Toast.makeText(getActivity(), "请设置目的地", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_TYPE)) {
             Toast.makeText(getActivity(), "请设置旅行方式", Toast.LENGTH_SHORT).show();
-        } else if (!filed.isSet(PASS_TITLE)) {
-            Toast.makeText(getActivity(), "请设置标题", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_CONTACT)) {
             Toast.makeText(getActivity(), "请设置联系方式", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_CONTENT)) {

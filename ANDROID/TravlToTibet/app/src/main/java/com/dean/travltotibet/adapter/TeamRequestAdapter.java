@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -67,7 +66,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
             holder.mWarningView.setVisibility(View.VISIBLE);
         }
 
-        holder.mTitle.setText(request.getTitle());
+        holder.mContentText.setText(request.getContent());
         holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE, request.getDestination(), request.getType()));
         holder.mDate.setText(request.getDate());
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
@@ -149,7 +148,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
     public static class TeamRequestViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private TextView mTitle;
+        private TextView mContentText;
         private TextView mDestinationName;
         private TextView mUserName;
         private View mUserGender;
@@ -162,7 +161,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
         public TeamRequestViewHolder(View itemView) {
             super(itemView);
-            mTitle = (TextView) itemView.findViewById(R.id.title);
+            mContentText = (TextView) itemView.findViewById(R.id.content_text);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
             mDate = (TextView) itemView.findViewById(R.id.date_name);
             mUserName = (TextView) itemView.findViewById(R.id.user_name);

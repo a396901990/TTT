@@ -49,6 +49,8 @@ public final class Constants {
 
     public static final String TEAM_REQUEST_TITLE = "%s（%s）";
 
+    public static final String TEAM_REQUEST_CONTENT_LIMIT_HINT = "%s/%s";
+
     /**
      * Keys to save RouteActivity status
      */

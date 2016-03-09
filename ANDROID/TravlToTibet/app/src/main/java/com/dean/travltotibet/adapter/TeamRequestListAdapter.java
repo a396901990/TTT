@@ -85,8 +85,9 @@ public class TeamRequestListAdapter extends BaseAdapter {
             holder.mWarningView.setVisibility(View.VISIBLE);
         }
 
-        // title
-        holder.mTitle.setText(request.getTitle());
+        // content
+        holder.mContentText.setText(request.getContent());
+
         // destination
         holder.mDestinationName.setText(request.getDestination());
         // type
@@ -160,7 +161,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
     public class TeamRequestViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private TextView mTitle;
+        private TextView mContentText;
 
         private TextView mDestinationName;
         private TextView mTypeName;
@@ -175,7 +176,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
         private View mWarningView;
 
         public TeamRequestViewHolder(View itemView) {
-            mTitle = (TextView) itemView.findViewById(R.id.title);
+            mContentText = (TextView) itemView.findViewById(R.id.content_text);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
             mDateName = (TextView) itemView.findViewById(R.id.date_name);
             mTypeName = (TextView) itemView.findViewById(R.id.type_name);
