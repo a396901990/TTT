@@ -43,6 +43,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private static final int CREATE_REQUEST = 0;
 
     private View root;
+
     private TeamRequestListAdapter mAdapter;
     private ArrayList<TeamRequest> teamRequests;
     private HomeActivity mActivity;
@@ -52,13 +53,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     private String filterText;
 
-
-    private static final int STATE_REFRESH = 0;// 下拉刷新
-    private static final int STATE_MORE = 1;// 加载更多
-
-    private int limit = 6;        // 每页的数据是10条
-    private int curPage = 0;    // 当前页的编号，从0开始
-    private String lastTime;
+    private int limit = 6;        // 每页的数据是6条
 
     public static HomeTeamRequestFragment newInstance() {
         HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();

@@ -21,6 +21,7 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="6dp"
             android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
             android:scrollbars="none"></com.dean.travltotibet.ui.LoadMoreListView>
 
         <include

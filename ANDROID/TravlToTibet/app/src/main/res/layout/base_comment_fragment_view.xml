@@ -64,12 +64,14 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/article_bottom_blank_height">
 
-            <ListView
+            <com.dean.travltotibet.ui.LoadMoreListView
                 android:id="@+id/comment_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:headerDividersEnabled="false"
+                android:footerDividersEnabled="false"
                 android:scrollbars="none" />
 
             <include

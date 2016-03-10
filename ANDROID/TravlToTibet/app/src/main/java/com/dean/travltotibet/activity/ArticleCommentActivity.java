@@ -242,7 +242,7 @@ public class ArticleCommentActivity extends BaseCommentActivity {
         goCommentPage();
         ArticleCommentFragment articleCommentFragment = (ArticleCommentFragment) mAdapter.getFragment(1);
         if (articleCommentFragment != null) {
-            articleCommentFragment.updateComment();
+            articleCommentFragment.showNewComment();
         }
     }
 

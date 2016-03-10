@@ -29,6 +29,9 @@ public abstract class RefreshFragment extends Fragment {
 
     public final static int LOADING_MORE_ERROR = 6;
 
+    public static final int STATE_REFRESH = 999;// 下拉刷新
+    public static final int STATE_MORE = 998;// 加载更多
+
     public abstract void update();
 
     public abstract void refresh();

@@ -189,7 +189,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 			public void run() {
 				onLoadMoreComplete();
 			}
-		},2000);
+		},3000);
 	}
 
 	/**

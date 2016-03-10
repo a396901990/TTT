@@ -166,7 +166,7 @@ public class TeamShowRequestActivity extends BaseCommentActivity {
         goCommentPage();
         TeamShowRequestCommentFragment articleCommentFragment = (TeamShowRequestCommentFragment) mAdapter.getFragment(1);
         if (articleCommentFragment != null) {
-            articleCommentFragment.updateComment();
+            articleCommentFragment.showNewComment();
         }
     }
 

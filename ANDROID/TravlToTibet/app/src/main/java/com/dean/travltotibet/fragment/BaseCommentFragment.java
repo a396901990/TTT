@@ -1,18 +1,17 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.BaseCommentActivity;
 import com.dean.travltotibet.adapter.CommonCommentListAdapter;
 import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.ui.LoadMoreListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +21,7 @@ import java.util.Collections;
  * 调用此fragment，父activity必须继承自CommentBaseActivity
  * 子类必须实现getCommentData，getCommentType
  */
-public abstract class BaseCommentFragment extends Fragment {
+public abstract class BaseCommentFragment extends RefreshFragment  implements LoadMoreListView.OnLoadMoreListener  {
 
     private View root;
 
@@ -32,9 +31,11 @@ public abstract class BaseCommentFragment extends Fragment {
 
     private ArrayList<Comment> mComments;
 
-    private final static int HOT_COMMENT = 0;
+    public final static int HOT_COMMENT = 0;
 
-    private final static int NEW_COMMENT = 1;
+    public final static int NEW_COMMENT = 1;
+
+    public final static int COMMENT_LIMIT = 6;        // 每页的数据是6条
 
     private int currentTab = 0;
 
@@ -42,7 +43,7 @@ public abstract class BaseCommentFragment extends Fragment {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private ListView listView;
+    private LoadMoreListView loadMoreListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,18 +59,19 @@ public abstract class BaseCommentFragment extends Fragment {
         mActivity = (BaseCommentActivity) this.getActivity();
         noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
-        listView = (ListView) root.findViewById(R.id.comment_list_view);
+        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.comment_list_view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
 
         initCommentView();
         initBtn();
         initRefresh();
+        showHotComment();
     }
 
     private void initRefresh() {
 
         // 解决listview，mSwipeRefreshLayout冲突
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -77,7 +79,7 @@ public abstract class BaseCommentFragment extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
+                int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
                 mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
@@ -120,8 +122,9 @@ public abstract class BaseCommentFragment extends Fragment {
         final View newLine = root.findViewById(R.id.new_line);
         hotLine.setVisibility(View.VISIBLE);
         newLine.setVisibility(View.GONE);
-        Collections.sort(mComments, Comment.likeComparator);
-        setComments();
+        refresh();
+//        Collections.sort(mComments, Comment.likeComparator);
+//        setComments();
     }
 
     public void showNewComment() {
@@ -132,15 +135,16 @@ public abstract class BaseCommentFragment extends Fragment {
         final View newLine = root.findViewById(R.id.new_line);
         newLine.setVisibility(View.VISIBLE);
         hotLine.setVisibility(View.GONE);
-        Collections.sort(mComments, Comment.timeComparator);
-        setComments();
+        refresh();
+//        Collections.sort(mComments, Comment.timeComparator);
+//        setComments();
     }
 
     private void initCommentView() {
         commentListAdapter = new CommonCommentListAdapter(getActivity());
         commentListAdapter.setCommentType(getCommentType());
-        listView.setAdapter(commentListAdapter);
-        refresh();
+        loadMoreListView.setAdapter(commentListAdapter);
+        loadMoreListView.setOnLoadMoreListener(this);
     }
 
     public void setComments() {
@@ -157,50 +161,108 @@ public abstract class BaseCommentFragment extends Fragment {
         commentListAdapter.setData(mComments);
     }
 
-    public void getDataSuccess(ArrayList<Comment> comments) {
-        mSwipeRefreshLayout.setRefreshing(false);
-        mComments = comments;
-        if (mComments == null) {
-            return;
-        }
-        setCommentTab();
+    public void getDataSuccess() {
+        setComments();
+        finishUpdate();
     }
 
     public void getDataFailed() {
-        mSwipeRefreshLayout.setRefreshing(false);
-        if (mComments == null) {
-            return;
-        }
-        setCommentTab();
+        setComments();
+        finishUpdate();
     }
 
-    public void updateComment() {
-        // 更新后显示最新评论
-        currentTab = NEW_COMMENT;
-        refresh();
+    public CommonCommentListAdapter getCommentListAdapter() {
+        return commentListAdapter;
     }
 
-    public void setCommentTab() {
-        switch (currentTab) {
-            case HOT_COMMENT:
-                showHotComment();
-                break;
-            case NEW_COMMENT:
-                showNewComment();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void refresh() {
+    public void startUpdate() {
         mSwipeRefreshLayout.setRefreshing(true);
-        getCommentData();
+    }
+
+    public void finishUpdate() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    public LoadMoreListView getLoadMoreListView() {
+        return loadMoreListView;
+    }
+
+    public void setComments(ArrayList<Comment> mComments) {
+        this.mComments = mComments;
     }
 
     // 获取评论类型
     public abstract String getCommentType();
 
     // 获取评论数据
-    public abstract void getCommentData();
+    public abstract void getCommentData(final int actionType);
+
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void refresh() {
+        toDo(PREPARE_LOADING, 0);
+    }
+
+    @Override
+    public void prepareLoading() {
+        if (commentListAdapter != null) {
+            startUpdate();
+            commentListAdapter.clearData();
+            toDo(ON_LOADING, 800);
+        }
+    }
+
+    @Override
+    public void onLoading() {
+        getCommentData(STATE_REFRESH);
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        getDataSuccess();
+    }
+
+    @Override
+    public void LoadingError() {
+        getDataFailed();
+    }
+
+    @Override
+    public void onLoadMore() {
+        toDo(ON_LOADING_MORE, 800);
+    }
+
+    @Override
+    public void onLoadingMore() {
+        getCommentData(STATE_MORE);
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+        if (commentListAdapter != null) {
+            commentListAdapter.addData(mComments);
+        }
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
+    }
+
+    @Override
+    public void LoadingMoreError() {
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
+    }
+
+    public int getCurrentTab() {
+        return currentTab;
+    }
+
 }
