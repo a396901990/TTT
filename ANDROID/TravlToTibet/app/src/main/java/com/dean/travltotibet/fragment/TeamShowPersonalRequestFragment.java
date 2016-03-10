@@ -161,6 +161,21 @@ public class TeamShowPersonalRequestFragment extends RefreshFragment {
         updateData();
     }
 
+    @Override
+    public void onLoadingMore() {
+
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+
+    }
+
+    @Override
+    public void LoadingMoreError() {
+
+    }
+
     public void startUpdate() {
         mSwipeRefreshLayout.setRefreshing(true);
     }

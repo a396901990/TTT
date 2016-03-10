@@ -129,4 +129,19 @@ public class TeamShowAllRequestFragment extends RefreshFragment {
 
     }
 
+    @Override
+    public void onLoadingMore() {
+
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+
+    }
+
+    @Override
+    public void LoadingMoreError() {
+
+    }
+
 }

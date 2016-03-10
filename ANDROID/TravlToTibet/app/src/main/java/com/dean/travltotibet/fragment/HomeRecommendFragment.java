@@ -147,6 +147,21 @@ public class HomeRecommendFragment extends RefreshFragment {
 
     }
 
+    @Override
+    public void onLoadingMore() {
+
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+
+    }
+
+    @Override
+    public void LoadingMoreError() {
+
+    }
+
     public void fabEvent() {
         Intent intent = new Intent(getActivity(), WhereGoActivity.class);
         startActivity(intent);

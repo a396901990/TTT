@@ -23,6 +23,12 @@ public abstract class RefreshFragment extends Fragment {
 
     public final static int LOADING_ERROR = 3;
 
+    public final static int ON_LOADING_MORE = 4;
+
+    public final static int LOADING_MORE_SUCCESS = 5;
+
+    public final static int LOADING_MORE_ERROR = 6;
+
     public abstract void update();
 
     public abstract void refresh();
@@ -34,6 +40,12 @@ public abstract class RefreshFragment extends Fragment {
     public abstract void LoadingSuccess();
 
     public abstract void LoadingError();
+
+    public abstract void onLoadingMore();
+
+    public abstract void LoadingMoreSuccess();
+
+    public abstract void LoadingMoreError();
 
     private Handler mHandle;
 
@@ -57,6 +69,15 @@ public abstract class RefreshFragment extends Fragment {
                         break;
                     case LOADING_ERROR:
                         LoadingError();
+                        break;
+                    case ON_LOADING_MORE:
+                        onLoadingMore();
+                        break;
+                    case LOADING_MORE_SUCCESS:
+                        LoadingMoreSuccess();
+                        break;
+                    case LOADING_MORE_ERROR:
+                        LoadingMoreError();
                         break;
                 }
             }

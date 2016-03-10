@@ -174,6 +174,21 @@ public class HomeRecentFragment extends RefreshFragment {
         updateRecentData();
     }
 
+    @Override
+    public void onLoadingMore() {
+
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+
+    }
+
+    @Override
+    public void LoadingMoreError() {
+
+    }
+
     public void fabEvent() {
 
         new MaterialDialog.Builder(getActivity())

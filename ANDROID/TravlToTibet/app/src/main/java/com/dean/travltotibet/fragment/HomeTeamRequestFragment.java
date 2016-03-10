@@ -20,19 +20,25 @@ import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.ui.LoadMoreListView;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.LoginUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindListener;
 import de.greenrobot.event.EventBus;
 
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class HomeTeamRequestFragment extends RefreshFragment {
+public class HomeTeamRequestFragment extends RefreshFragment implements LoadMoreListView.OnLoadMoreListener {
 
     private static final int CREATE_REQUEST = 0;
 
@@ -40,11 +46,19 @@ public class HomeTeamRequestFragment extends RefreshFragment {
     private TeamRequestListAdapter mAdapter;
     private ArrayList<TeamRequest> teamRequests;
     private HomeActivity mActivity;
-    private ListView mRecyclerView;
+    private LoadMoreListView loadMoreListView;
 
     private boolean tryToOpenMyTeamRequest = false;
 
     private String filterText;
+
+
+    private static final int STATE_REFRESH = 0;// 下拉刷新
+    private static final int STATE_MORE = 1;// 加载更多
+
+    private int limit = 6;        // 每页的数据是10条
+    private int curPage = 0;    // 当前页的编号，从0开始
+    private String lastTime;
 
     public static HomeTeamRequestFragment newInstance() {
         HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();
@@ -68,6 +82,7 @@ public class HomeTeamRequestFragment extends RefreshFragment {
     }
 
     private void initBottomView() {
+
         View filterView = root.findViewById(R.id.filter_team_request);
         View addView = root.findViewById(R.id.add_view);
         View myView = root.findViewById(R.id.my_team_request);
@@ -112,29 +127,35 @@ public class HomeTeamRequestFragment extends RefreshFragment {
     }
 
     private void setUpList() {
-        mRecyclerView = (ListView) root.findViewById(R.id.team_request_fragment_list_rv);
+        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.team_request_fragment_list_rv);
+        final View bottomView = root.findViewById(R.id.bottom_content_view);
 
         // 解决listview，mSwipeRefreshLayout冲突
-        mRecyclerView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    bottomView.setVisibility(View.VISIBLE);
+                } else {
+                    bottomView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int topRowVerticalPosition = (mRecyclerView == null || mRecyclerView.getChildCount() == 0) ? 0 : mRecyclerView.getChildAt(0).getTop();
+                int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
                 mActivity.getSwipeRefreshLayout().setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
 
 
         mAdapter = new TeamRequestListAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        loadMoreListView.setAdapter(mAdapter);
+        loadMoreListView.setOnLoadMoreListener(this);
         refresh();
     }
 
-    private void getTeamRequests() {
+    private void getTeamRequests(final int actionType) {
         teamRequests = new ArrayList<>();
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
@@ -160,16 +181,40 @@ public class HomeTeamRequestFragment extends RefreshFragment {
             // 添加or查询
             query.or(queries);
         }
+
+        // 加载更多
+        if (actionType == STATE_MORE) {
+            // 跳过已经加载的元素
+            query.setSkip(mAdapter.getCount());
+        }
+
+        // 设置每页数据个数
+        query.setLimit(limit);
+
         query.findObjects(getActivity(), new FindListener<TeamRequest>() {
             @Override
             public void onSuccess(List<TeamRequest> list) {
                 teamRequests = (ArrayList<TeamRequest>) list;
-                toDo(LOADING_SUCCESS, 0);
+
+                if (list.size() == 0 && actionType == STATE_MORE) {
+                    loadMoreListView.onNoMoreDate();
+                } else {
+                    if (actionType == STATE_REFRESH) {
+                        toDo(LOADING_SUCCESS, 0);
+                    } else {
+                        toDo(LOADING_MORE_SUCCESS, 0);
+                    }
+                }
             }
 
             @Override
             public void onError(int i, String s) {
-                toDo(LOADING_ERROR, 0);
+
+                if (actionType == STATE_REFRESH) {
+                    toDo(LOADING_ERROR, 0);
+                } else {
+                    toDo(LOADING_MORE_ERROR, 0);
+                }
             }
         });
     }
@@ -224,7 +269,7 @@ public class HomeTeamRequestFragment extends RefreshFragment {
 
     @Override
     public void onLoading() {
-        getTeamRequests();
+        getTeamRequests(STATE_REFRESH);
     }
 
     @Override
@@ -235,6 +280,28 @@ public class HomeTeamRequestFragment extends RefreshFragment {
     @Override
     public void LoadingError() {
         updateData();
+    }
+
+    @Override
+    public void onLoadingMore() {
+        getTeamRequests(STATE_MORE);
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+        if (mAdapter != null) {
+            mAdapter.addData(teamRequests);
+        }
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
+    }
+
+    @Override
+    public void LoadingMoreError() {
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
     }
 
     /**
@@ -254,5 +321,10 @@ public class HomeTeamRequestFragment extends RefreshFragment {
      */
     public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
         Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadMore() {
+        toDo(ON_LOADING_MORE, 800);
     }
 }

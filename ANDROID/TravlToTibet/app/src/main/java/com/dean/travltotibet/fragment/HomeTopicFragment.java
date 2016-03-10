@@ -133,4 +133,19 @@ public class HomeTopicFragment extends RefreshFragment {
     public void LoadingError() {
         updateData();
     }
+
+    @Override
+    public void onLoadingMore() {
+
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+
+    }
+
+    @Override
+    public void LoadingMoreError() {
+
+    }
 }

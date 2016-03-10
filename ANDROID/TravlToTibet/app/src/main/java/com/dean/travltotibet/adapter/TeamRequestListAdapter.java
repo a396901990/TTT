@@ -127,7 +127,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }
 
-//        holder.mWatch.setText(request.getWatch()+"");
+        holder.mWatch.setText(request.getWatch()+"");
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +146,11 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
     public void setData(ArrayList<TeamRequest> data) {
         this.mData = data;
+        notifyDataSetChanged();
+    }
+
+    public void addData(ArrayList<TeamRequest> addDatas) {
+        mData.addAll(addDatas);
         notifyDataSetChanged();
     }
 
