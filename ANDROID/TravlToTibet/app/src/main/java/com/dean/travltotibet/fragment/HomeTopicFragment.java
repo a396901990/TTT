@@ -30,6 +30,8 @@ public class HomeTopicFragment extends RefreshFragment {
     private HomeActivity mActivity;
     private RecyclerView mRecyclerView;
 
+    private int limit = 4;        // 每页的数据是4条
+
     public HomeTopicFragment() {
     }
 
@@ -63,16 +65,34 @@ public class HomeTopicFragment extends RefreshFragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void getArticles() {
+    private void getArticles(final int actionType) {
         articles = new ArrayList<>();
 
         BmobQuery<Article> query = new BmobQuery<>();
         query.order("-createdAt");
+        // 加载更多
+        if (actionType == STATE_MORE) {
+            // 跳过已经加载的元素
+            query.setSkip(mAdapter.getItemCount());
+        }
+
+        // 设置每页数据个数
+        query.setLimit(limit);
+
         query.findObjects(getActivity(), new FindListener<Article>() {
             @Override
             public void onSuccess(List<Article> list) {
                 articles = (ArrayList<Article>) list;
-                toDo(LOADING_SUCCESS, 0);
+
+                if (list.size() == 0 && actionType == STATE_MORE) {
+//                    mRecyclerView.onNoMoreDate();
+                } else {
+                    if (actionType == STATE_REFRESH) {
+                        toDo(LOADING_SUCCESS, 0);
+                    } else {
+                        toDo(LOADING_MORE_SUCCESS, 0);
+                    }
+                }
             }
 
             @Override
@@ -121,7 +141,7 @@ public class HomeTopicFragment extends RefreshFragment {
 
     @Override
     public void onLoading() {
-        getArticles();
+        getArticles(STATE_REFRESH);
     }
 
     @Override
@@ -136,16 +156,27 @@ public class HomeTopicFragment extends RefreshFragment {
 
     @Override
     public void onLoadingMore() {
-
+        getArticles(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
-
+        if (mAdapter != null) {
+            mAdapter.addData(articles);
+        }
+        if (mRecyclerView != null) {
+//            mRecyclerView.notifyLoadComplete();
+        }
     }
 
     @Override
     public void LoadingMoreError() {
-
+//        mRecyclerView.notifyLoadComplete();
     }
+//
+//    @Override
+//    public void onLoadMore() {
+//        toDo(ON_LOADING_MORE, 800);
+//
+//    }
 }

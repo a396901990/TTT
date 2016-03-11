@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -99,21 +100,26 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         this.notifyItemRangeInserted(0, mData.size() - 1);
     }
 
+    public void addData(ArrayList<Article> addDatas) {
+        for (Article article : addDatas) {
+            mData.add(article);
+        }
+        this.notifyItemRangeInserted(0, mData.size() - 1);
+    }
+
     public void clearData() {
         if (mData == null) {
             return;
-        } else {
-            int size = this.mData.size();
-            if (size > 0) {
-                for (int i = 0; i < size; i++) {
-                    mData.remove(0);
-                }
-
-                this.notifyItemRangeRemoved(0, size);
+        }
+        int size = this.mData.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                mData.remove(0);
             }
+
+            this.notifyItemRangeRemoved(0, size);
         }
     }
-
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
 
