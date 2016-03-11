@@ -2,19 +2,12 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
@@ -25,6 +18,7 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,12 +33,9 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
     private ArrayList<TeamRequest> mData;
 
-    private RequestQueue mQueue;
-
     public TeamRequestAdapter(Context mContext)
     {
         this.mContext = mContext;
-        mQueue = Volley.newRequestQueue(mContext);
     }
 
     private boolean isPersonal = false;
@@ -83,21 +74,8 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
         // 设置图片
         if (!TextUtils.isEmpty(request.getUserIcon())) {
-            ImageRequest imageRequest = new ImageRequest(
-                    request.getUserIcon(),
-                    new Response.Listener<Bitmap>() {
-                        @Override
-                        public void onResponse(Bitmap response) {
-                            holder.mUserIcon.setImageBitmap(response);
-                        }
-                    }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    holder.mUserIcon.setImageResource(R.drawable.gray_profile);
-                }
-            });
-
-            mQueue.add(imageRequest);
+            Picasso.with(mContext).load(request.getUserIcon()).error(R.drawable.gray_profile).into(holder.mUserIcon);
+//
         } else {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }

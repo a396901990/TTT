@@ -2,12 +2,13 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.model.Article;
@@ -19,26 +20,45 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by DeanGuo on 2/17/16.
+ * Created by DeanGuo on 3//16.
  */
-public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
+public class ArticleListAdapter extends BaseAdapter {
 
     private Context mContext;
 
     private ArrayList<Article> mData;
 
-    public ArticleAdapter(Context mContext) {
+    public ArticleListAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @Override
-    public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_list_item, parent, false);
-        return new ArticleViewHolder(view);
+    public int getCount() {
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
-    public void onBindViewHolder(final ArticleViewHolder holder, int position) {
+    public Object getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        final ArticleViewHolder holder;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_list_item, parent, false);
+            holder = new ArticleViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ArticleViewHolder) convertView.getTag();
+        }
 
         final Article article = mData.get(position);
 
@@ -47,6 +67,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         holder.mWatch.setText(article.getWatch() + "");
         holder.mLike.setText(article.getLike() + "");
 
+        // 背景
         Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
@@ -63,40 +84,29 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             }
         });
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return mData == null ? 0 : mData.size();
+        return convertView;
     }
 
     public void setData(ArrayList<Article> data) {
         this.mData = data;
-        this.notifyItemRangeInserted(0, mData.size() - 1);
+        notifyDataSetChanged();
     }
 
     public void addData(ArrayList<Article> addDatas) {
-        for (Article article : addDatas) {
-            mData.add(article);
-        }
-//        this.notifyItemRangeInserted(0, mData.size() - 1);
+        mData.addAll(addDatas);
+        notifyDataSetChanged();
     }
 
     public void clearData() {
         if (mData == null) {
             return;
-        }
-        int size = this.mData.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                mData.remove(0);
-            }
-
-            this.notifyItemRangeRemoved(0, size);
+        } else {
+            mData = new ArrayList<>();
+            notifyDataSetChanged();
         }
     }
 
-    public static class ArticleViewHolder extends RecyclerView.ViewHolder {
+    public static class ArticleViewHolder {
 
         private MaterialRippleLayout rippleLayout;
         private TextView mTitle;
@@ -105,7 +115,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         private ImageView mBackgroundView;
 
         public ArticleViewHolder(View itemView) {
-            super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             mLike = (TextView) itemView.findViewById(R.id.like);

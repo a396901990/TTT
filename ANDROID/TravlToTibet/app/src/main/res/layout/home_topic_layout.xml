@@ -5,11 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
+    <com.dean.travltotibet.ui.LoadMoreListView
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:id="@+id/article_fragment_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false" />
+        android:divider="@null"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:scrollbars="none"></com.dean.travltotibet.ui.LoadMoreListView>
+
 
     <include
         android:id="@+id/no_result_content"

@@ -2,16 +2,18 @@ package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.ArticleAdapter;
+import com.dean.travltotibet.adapter.ArticleListAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.ui.LoadMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +24,13 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 2/16/16.
  */
-public class HomeTopicFragment extends RefreshFragment {
+public class HomeTopicFragment extends RefreshFragment implements LoadMoreListView.OnLoadMoreListener{
 
     private View root;
-    private ArticleAdapter mAdapter;
+    private ArticleListAdapter mAdapter;
     private ArrayList<Article> articles;
     private HomeActivity mActivity;
-    private RecyclerView mRecyclerView;
+    private LoadMoreListView loadMoreListView;
 
     private int limit = 4;        // 每页的数据是4条
 
@@ -57,12 +59,26 @@ public class HomeTopicFragment extends RefreshFragment {
     }
 
     private void setUpList() {
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.article_fragment_list_rv);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
+        mAdapter = new ArticleListAdapter(getActivity());
 
-        mAdapter = new ArticleAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.article_fragment_list_rv);
+
+
+        // 解决listview，mSwipeRefreshLayout冲突
+        loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
+                mActivity.getSwipeRefreshLayout().setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+        loadMoreListView.setOnLoadMoreListener(this);
+        loadMoreListView.setAdapter(mAdapter);
     }
 
     private void getArticles(final int actionType) {
@@ -73,7 +89,7 @@ public class HomeTopicFragment extends RefreshFragment {
         // 加载更多
         if (actionType == STATE_MORE) {
             // 跳过已经加载的元素
-            query.setSkip(mAdapter.getItemCount());
+            query.setSkip(mAdapter.getCount());
         }
 
         // 设置每页数据个数
@@ -85,7 +101,7 @@ public class HomeTopicFragment extends RefreshFragment {
                 articles = (ArrayList<Article>) list;
 
                 if (list.size() == 0 && actionType == STATE_MORE) {
-//                    mRecyclerView.onNoMoreDate();
+                    loadMoreListView.onNoMoreDate();
                 } else {
                     if (actionType == STATE_REFRESH) {
                         toDo(LOADING_SUCCESS, 0);
@@ -97,7 +113,12 @@ public class HomeTopicFragment extends RefreshFragment {
 
             @Override
             public void onError(int i, String s) {
-                toDo(LOADING_ERROR, 0);
+
+                if (actionType == STATE_REFRESH) {
+                    toDo(LOADING_ERROR, 0);
+                } else {
+                    toDo(LOADING_MORE_ERROR, 0);
+                }
             }
         });
     }
@@ -117,7 +138,6 @@ public class HomeTopicFragment extends RefreshFragment {
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(articles);
-        mAdapter.notifyDataSetChanged();
         mActivity.finishUpdate();
     }
 
@@ -156,6 +176,7 @@ public class HomeTopicFragment extends RefreshFragment {
 
     @Override
     public void onLoadingMore() {
+        mActivity.finishUpdate();
         getArticles(STATE_MORE);
     }
 
@@ -164,19 +185,20 @@ public class HomeTopicFragment extends RefreshFragment {
         if (mAdapter != null) {
             mAdapter.addData(articles);
         }
-        if (mRecyclerView != null) {
-//            mRecyclerView.notifyLoadComplete();
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
         }
     }
 
     @Override
     public void LoadingMoreError() {
-//        mRecyclerView.notifyLoadComplete();
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
     }
-//
-//    @Override
-//    public void onLoadMore() {
-//        toDo(ON_LOADING_MORE, 800);
-//
-//    }
+
+    @Override
+    public void onLoadMore() {
+        toDo(ON_LOADING_MORE, 800);
+    }
 }

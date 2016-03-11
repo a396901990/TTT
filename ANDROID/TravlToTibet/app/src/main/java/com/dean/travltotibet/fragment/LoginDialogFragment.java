@@ -1,23 +1,18 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.LoginUtil;
+import com.squareup.picasso.Picasso;
 
 import de.greenrobot.event.EventBus;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,12 +26,9 @@ public class LoginDialogFragment extends DialogFragment {
 
     private CircleImageView profileImage;
 
-    private RequestQueue mQueue;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQueue = Volley.newRequestQueue(getActivity());
         EventBus.getDefault().register(this);
     }
 
@@ -102,21 +94,7 @@ public class LoginDialogFragment extends DialogFragment {
         profileText.setText(userInfo.getUserName());
 
         // 设置图片
-        ImageRequest imageRequest = new ImageRequest(
-                userInfo.getUserIcon(),
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap response) {
-                        profileImage.setImageBitmap(response);
-                    }
-                }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                profileImage.setImageResource(R.drawable.gray_profile);
-            }
-        });
-
-        mQueue.add(imageRequest);
+        Picasso.with(getActivity()).load(userInfo.getUserIcon()).error(R.drawable.gray_profile).into(profileImage);
     }
 
     /**

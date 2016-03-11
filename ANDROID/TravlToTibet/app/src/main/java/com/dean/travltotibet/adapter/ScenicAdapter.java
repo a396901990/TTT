@@ -1,21 +1,14 @@
 package com.dean.travltotibet.adapter;
 
-import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundScenicActivity;
@@ -23,6 +16,7 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,26 +29,9 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
 
     private Context mContext;
 
-    private RequestQueue mQueue;
-
-    private ImageLoader imageLoader;
-
     public ScenicAdapter(Context mContext, ArrayList<Scenic> mData) {
         this.mContext = mContext;
         this.mData = mData;
-
-        mQueue = Volley.newRequestQueue(mContext);
-
-        imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
-            @Override
-            public void putBitmap(String url, Bitmap bitmap) {
-            }
-
-            @Override
-            public Bitmap getBitmap(String url) {
-                return null;
-            }
-        });
     }
 
     @Override
@@ -68,13 +45,9 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
 
         final Scenic scenic = mData.get(position);
 
-        // 默认图片
-        holder.scenicPic.setDefaultImageResId(R.color.light_gray);
-        // 错误图片
-        holder.scenicPic.setErrorImageResId(R.color.gray);
         // 图片url(取第一个)
         String picURL = scenic.getScenic_pic().split(Constants.URL_MARK)[0];
-        holder.scenicPic.setImageUrl(picURL, imageLoader);
+        Picasso.with(mContext).load(picURL).error(R.drawable.gray_profile).into(holder.scenicPic);
 
         // 设置名称
         holder.scenicName.setText(scenic.getScenic_name());
@@ -103,12 +76,12 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
     public static class ScenicViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private NetworkImageView scenicPic;
+        private ImageView scenicPic;
         private TextView scenicName;
 
         public ScenicViewHolder(View itemView) {
             super(itemView);
-            scenicPic = (NetworkImageView) itemView.findViewById(R.id.scenic_pic);
+            scenicPic = (ImageView) itemView.findViewById(R.id.scenic_pic);
             scenicName = (TextView) itemView.findViewById(R.id.scenic_name);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }

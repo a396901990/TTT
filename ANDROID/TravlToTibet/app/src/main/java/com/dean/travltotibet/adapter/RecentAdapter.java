@@ -3,7 +3,6 @@ package com.dean.travltotibet.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
@@ -27,6 +22,7 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,10 +35,6 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
     private ArrayList<RecentRoute> mData;
 
-    private RequestQueue mQueue;
-
-    private ImageLoader imageLoader;
-
     private RecentCallBack mRecentCallBack;
 
     private Activity mActivity;
@@ -54,19 +46,6 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
     public RecentAdapter(Context mContext) {
         this.mContext = mContext;
         mActivity = (Activity) mContext;
-
-        mQueue = Volley.newRequestQueue(mContext);
-
-        imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
-            @Override
-            public void putBitmap(String url, Bitmap bitmap) {
-            }
-
-            @Override
-            public Bitmap getBitmap(String url) {
-                return null;
-            }
-        });
     }
 
     @Override
@@ -96,15 +75,9 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         holder.mPlanName.setText(name);
         holder.mPlanDay.setText(day);
 
-        // 默认图片
-        holder.mBackgroundView.setDefaultImageResId(R.color.light_gray);
-        // 错误图片
-        holder.mBackgroundView.setErrorImageResId(R.color.gray);
         // 图片url(取第一个)
-
         String[] picURLs = TTTApplication.getDbHelper().getRoutePics(recentRoute.getRoute());
-
-        holder.mBackgroundView.setImageUrl(picURLs[0], imageLoader);
+        Picasso.with(mContext).load(picURLs[0]).error(R.color.light_gray).into(holder.mBackgroundView);
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +163,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         private TextView mPlanName;
         private TextView mPlanDay;
         private ImageView mDelIcon;
-        private NetworkImageView mBackgroundView;
+        private ImageView mBackgroundView;
 
         public RecentViewHolder(View itemView) {
             super(itemView);
@@ -200,7 +173,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
             mRouteStartEnd = (TextView) itemView.findViewById(R.id.route_start_end);
             mPlanName = (TextView) itemView.findViewById(R.id.route_plan_name);
             mPlanDay = (TextView) itemView.findViewById(R.id.route_plan_day);
-            mBackgroundView = (NetworkImageView) itemView.findViewById(R.id.background_image);
+            mBackgroundView = (ImageView) itemView.findViewById(R.id.background_image);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }

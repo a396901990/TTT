@@ -229,7 +229,6 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(teamRequests);
-        mAdapter.notifyDataSetChanged();
         mActivity.finishUpdate();
     }
 

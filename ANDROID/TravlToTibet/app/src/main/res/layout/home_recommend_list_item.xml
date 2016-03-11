@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
     <com.dean.travltotibet.ui.MaterialRippleLayout
         android:id="@+id/ripple_view"
@@ -11,7 +10,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="1dp">
 
-        <com.android.volley.toolbox.NetworkImageView
+        <ImageView
             android:id="@+id/background_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_recommend_item_height"
@@ -37,12 +36,12 @@
         <TextView
             android:id="@+id/sub_title"
             style="@style/TextAppearance.Large"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:alpha="0.8"
-            android:text="CHENGDU-TIBET" />
+            android:text="CHENGDU-TIBET"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </FrameLayout>

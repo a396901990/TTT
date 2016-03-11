@@ -2,17 +2,13 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.InfoActivity;
@@ -21,6 +17,7 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,25 +30,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     private ArrayList<Route> mData;
 
-    private RequestQueue mQueue;
-
-    private ImageLoader imageLoader;
-
     public RecommendAdapter(Context context) {
         this.mContext = context;
-        mQueue = Volley.newRequestQueue(mContext);
-
-        imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
-            @Override
-            public void putBitmap(String url, Bitmap bitmap) {
-            }
-
-            @Override
-            public Bitmap getBitmap(String url) {
-                return null;
-            }
-        });
-
     }
 
     @Override
@@ -64,13 +44,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
         final Route route = mData.get(position);
 
-        // 默认图片
-        holder.backgroundView.setDefaultImageResId(R.color.light_gray);
-        // 错误图片
-        holder.backgroundView.setErrorImageResId(R.color.gray);
         // 图片url(取第一个)
         String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
-        holder.backgroundView.setImageUrl(picURL, imageLoader);
+        Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.backgroundView);
 
         holder.mainTitle.setText(route.getName());
         holder.subTitle.setText(route.getDescribe());
@@ -125,13 +101,13 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     public static class RecommendViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private NetworkImageView backgroundView;
+        private ImageView backgroundView;
         private TextView mainTitle;
         private TextView subTitle;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
-            backgroundView = (NetworkImageView) itemView.findViewById(R.id.background_view);
+            backgroundView = (ImageView) itemView.findViewById(R.id.background_view);
             mainTitle = (TextView) itemView.findViewById(R.id.main_title);
             subTitle = (TextView) itemView.findViewById(R.id.sub_title);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);

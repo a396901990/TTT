@@ -2,17 +2,12 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.dean.greendao.Hotel;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
@@ -24,6 +19,7 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,29 +36,12 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
     private Context mContext;
 
-    private RequestQueue mQueue;
-
-    private ImageLoader imageLoader;
-
     private String aroundType;
 
     private boolean isForward;
 
     public AroundSelectAdapter(Context mContext) {
         this.mContext = mContext;
-
-        mQueue = Volley.newRequestQueue(mContext);
-
-        imageLoader = new ImageLoader(mQueue, new ImageLoader.ImageCache() {
-            @Override
-            public void putBitmap(String url, Bitmap bitmap) {
-            }
-
-            @Override
-            public Bitmap getBitmap(String url) {
-                return null;
-            }
-        });
     }
 
     public void setData(String routeName, String aroundBelong, String aroundType, boolean isForword) {
@@ -101,13 +80,9 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
         final AroundItem aroundItem = mData.get(position);
 
-        // 默认图片
-        holder.aroundPic.setDefaultImageResId(R.color.less_light_gray);
-        // 错误图片
-        holder.aroundPic.setErrorImageResId(R.color.colorPrimary);
         // 图片url(取第一个)
         String picURL = aroundItem.getAroundURL();
-        holder.aroundPic.setImageUrl(picURL, imageLoader);
+        Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.aroundPic);
 
         // 设置名称
         holder.aroundName.setText(aroundItem.getAroundName());
@@ -143,12 +118,12 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
     public static class AroundSelectViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private NetworkImageView aroundPic;
+        private ImageView aroundPic;
         private TextView aroundName;
 
         public AroundSelectViewHolder(View itemView) {
             super(itemView);
-            aroundPic = (NetworkImageView) itemView.findViewById(R.id.around_pic);
+            aroundPic = (ImageView) itemView.findViewById(R.id.around_pic);
             aroundName = (TextView) itemView.findViewById(R.id.around_name);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }

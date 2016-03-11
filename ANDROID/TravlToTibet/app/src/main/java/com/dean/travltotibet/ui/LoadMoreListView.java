@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -43,9 +44,10 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 	private LayoutInflater mInflater;
 
 	// footer view
-	private RelativeLayout mFooterView;
-	private TextView mLabLoadMore;
-	private ProgressBar mProgressBarLoadMore;
+	private FrameLayout mFooterView;
+	private View loadingViewContent;
+	private View noMoreDataViewContent;
+	private View footerContent;
 
 	// Listener to process load more items when user reaches the end of the list
 	private OnLoadMoreListener mOnLoadMoreListener;
@@ -77,13 +79,10 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// footer
-		mFooterView = (RelativeLayout) mInflater.inflate(
-				R.layout.load_more_footer, this, false);
-		mLabLoadMore = (TextView) mFooterView.findViewById(R.id.load_more_lab_view);
-
-		mProgressBarLoadMore = (ProgressBar) mFooterView
-				.findViewById(R.id.load_more_progressBar);
-
+		mFooterView = (FrameLayout) mInflater.inflate(R.layout.load_more_footer, this, false);
+		loadingViewContent = mFooterView.findViewById(R.id.loading_content_view);
+		noMoreDataViewContent = mFooterView.findViewById(R.id.no_more_data_content_view);
+		footerContent = mFooterView.findViewById(R.id.load_more_footer_content);
 		addFooterView(mFooterView);
 
 		super.setOnScrollListener(this);
@@ -129,8 +128,8 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 		if (mOnLoadMoreListener != null) {
 
 			if (visibleItemCount == totalItemCount) {
-				mProgressBarLoadMore.setVisibility(View.GONE);
-				 mLabLoadMore.setVisibility(View.GONE);
+				loadingViewContent.setVisibility(View.GONE);
+				noMoreDataViewContent.setVisibility(View.GONE);
 				return;
 			}
 
@@ -138,9 +137,10 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
 			if (!mIsLoadingMore && loadMore
 					&& mCurrentScrollState != SCROLL_STATE_IDLE) {
-				mProgressBarLoadMore.setVisibility(View.VISIBLE);
-				mLabLoadMore.setVisibility(View.VISIBLE);
-				mLabLoadMore.setText(mContext.getString(R.string.loading_text));
+				footerContent.setVisibility(VISIBLE);
+
+				loadingViewContent.setVisibility(View.VISIBLE);
+				noMoreDataViewContent.setVisibility(View.GONE);
 				mIsLoadingMore = true;
 				onLoadMore();
 			}
@@ -166,7 +166,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 	}
 
 	public void onLoadMore() {
-		Log.d(TAG, "onLoadMore");
+//		Log.d(TAG, "onLoadMore");
 		if (mOnLoadMoreListener != null) {
 			mOnLoadMoreListener.onLoadMore();
 		}
@@ -177,14 +177,13 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 	 */
 	public void onLoadMoreComplete() {
 		mIsLoadingMore = false;
-		mProgressBarLoadMore.setVisibility(View.GONE);
-		mLabLoadMore.setVisibility(GONE);
+		footerContent.setVisibility(GONE);
 	}
 
 	public void onNoMoreDate() {
-		mProgressBarLoadMore.setVisibility(View.GONE);
-		mLabLoadMore.setText(mContext.getString(R.string.loading_no_more_text));
-		mLabLoadMore.postDelayed(new Runnable() {
+		loadingViewContent.setVisibility(View.GONE);
+		noMoreDataViewContent.setVisibility(View.VISIBLE);
+		noMoreDataViewContent.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				onLoadMoreComplete();
