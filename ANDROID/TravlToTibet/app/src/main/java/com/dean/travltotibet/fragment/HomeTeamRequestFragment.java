@@ -155,13 +155,11 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private void setUpHeader() {
 
         final String headerHtmlURL = "http://file.bmob.cn/M03/D9/F5/oYYBAFbhfLGAPr82AAAn5dpKbPs04.html";
-        String headerImageURL = "http://file.bmob.cn/M03/D9/F5/oYYBAFbhfLGAPr82AAAn5dpKbPs04.html";
+        String headerImageURL = "http://img1.imgtn.bdimg.com/it/u=2211844266,770232967&fm=21&gp=0.jpg";
 
         articleHeader = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_header_view, null);
-
         ImageView backgroundImage = (ImageView) articleHeader.findViewById(R.id.background_image);
         Picasso.with(getActivity()).load(headerImageURL).error(R.color.light_gray).into(backgroundImage);
-
         MaterialRippleLayout contentView = (MaterialRippleLayout) articleHeader.findViewById(R.id.ripple_view);
         contentView.setOnClickListener(new View.OnClickListener() {
             @Override

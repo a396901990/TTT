@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border_white"
@@ -7,53 +7,48 @@
     android:paddingRight="5dp"
     android:paddingTop="10dp">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_above="@+id/bottom_content_view"
+        android:layout_alignParentTop="true">
 
         <WebView
-            android:layout_above="@+id/bottom_content_view"
-            android:layout_alignParentTop="true"
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"></WebView>
-
-        <com.dean.travltotibet.ui.MaterialRippleLayout
-            android:id="@+id/bottom_content_view"
-            android:layout_alignParentBottom="true"
-            style="@style/RippleStyle"
+        <!--加载背景-->
+        <RelativeLayout
+            android:id="@+id/loading_content_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="match_parent"
+            android:background="@color/less_light_gray"
+            android:visibility="visible">
 
-            <Button
-                android:id="@+id/commit_btn"
-                style="@style/TextAppearance.Large.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/info_bottom_btn_height"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:text="知道了"
-                android:textColor="@color/colorPrimary" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@anim/image_progress" />
+        </RelativeLayout>
+    </FrameLayout>
 
-        </com.dean.travltotibet.ui.MaterialRippleLayout>
-    </RelativeLayout>
-    <!--加载背景-->
-    <RelativeLayout
-        android:id="@+id/loading_content_view"
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        android:id="@+id/bottom_content_view"
+        style="@style/RippleStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/less_light_gray"
-        android:visibility="visible">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminateDrawable="@anim/image_progress" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+        <Button
+            android:id="@+id/commit_btn"
+            style="@style/TextAppearance.Large.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/info_bottom_btn_height"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="知道了"
+            android:textColor="@color/colorPrimary" />
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+</RelativeLayout>

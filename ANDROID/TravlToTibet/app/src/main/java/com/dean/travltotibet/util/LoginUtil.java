@@ -3,6 +3,7 @@ package com.dean.travltotibet.util;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.UserInfo;
 
+import cn.bmob.v3.listener.SaveListener;
 import cn.sharesdk.framework.Platform;
 
 /**
@@ -61,6 +62,19 @@ public final class LoginUtil {
             }
         }
         TTTApplication.setLoggedIn(mUserChanged, mToken);
+    }
+
+    public void uploadUserInfo(UserInfo userInfo) {
+        userInfo.setUsername(userInfo.getUserId());
+        userInfo.setPassword("123456");
+        userInfo.signUp(TTTApplication.getContext(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+            }
+            @Override
+            public void onFailure(int code, String msg) {
+            }
+        });
     }
 
     public void logout() {

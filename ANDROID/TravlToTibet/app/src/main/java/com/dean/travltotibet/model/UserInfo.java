@@ -1,6 +1,9 @@
 package com.dean.travltotibet.model;
 
-public class UserInfo {
+import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
+
+public class UserInfo extends BmobUser{
 	public static String MALE = "m";
 	public static String FEMALE = "f";
 
@@ -40,6 +43,4 @@ public class UserInfo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public static enum Gender {BOY, GIRL}
-
 }

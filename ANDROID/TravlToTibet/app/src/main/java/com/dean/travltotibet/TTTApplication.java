@@ -52,7 +52,13 @@ public class TTTApplication extends Application {
 
     public static void setLoggedIn(boolean isUserChanged, String userToken) {
         updateUserInfo(userToken);
+        // 新用则户上传备份
         EventBus.getDefault().post(new LoginUtil.LoginEvent(isUserChanged, userToken));
+        if (isUserChanged) {
+            if (userInfo != null) {
+                LoginUtil.getInstance().uploadUserInfo(userInfo);
+            }
+        }
     }
 
     public static void logout() {
