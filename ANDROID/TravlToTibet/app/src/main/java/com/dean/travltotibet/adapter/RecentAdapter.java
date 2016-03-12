@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,9 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
         // 图片url(取第一个)
         String[] picURLs = TTTApplication.getDbHelper().getRoutePics(recentRoute.getRoute());
-        Picasso.with(mContext).load(picURLs[0]).error(R.color.light_gray).into(holder.mBackgroundView);
+        if (!TextUtils.isEmpty(picURLs[0])) {
+            Picasso.with(mContext).load(picURLs[0]).error(R.color.light_gray).into(holder.mBackgroundView);
+        }
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

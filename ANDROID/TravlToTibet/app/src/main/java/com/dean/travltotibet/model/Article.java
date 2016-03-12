@@ -12,14 +12,13 @@ public class Article extends BmobObject {
     private String id;
     private String title;
     private String subTitle;
-    private String publishTime;
     private String author;
     private String titleImage;
     private String type;
     private int like;
     private int watch;
     private String url;
-
+    private boolean isDisplay;
     private String shareUrl;
 
     public String getId() {
@@ -44,14 +43,6 @@ public class Article extends BmobObject {
 
     public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
-    }
-
-    public String getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
     }
 
     public String getAuthor() {
@@ -86,6 +77,13 @@ public class Article extends BmobObject {
         this.url = url;
     }
 
+    public boolean isDisplay() {
+        return isDisplay;
+    }
+
+    public void setIsDisplay(boolean isDisplay) {
+        this.isDisplay = isDisplay;
+    }
 
     public int getLike() {
         return like;

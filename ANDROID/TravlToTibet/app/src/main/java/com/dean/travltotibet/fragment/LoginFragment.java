@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,7 +96,12 @@ public class LoginFragment extends Fragment {
         profileText.setText(userInfo.getUserName());
 
         // 设置图片
-        Picasso.with(getActivity()).load(userInfo.getUserIcon()).error(R.drawable.gray_profile).into(profileImage);
+        if (!TextUtils.isEmpty(userInfo.getUserIcon())) {
+            Picasso.with(getActivity()).load(userInfo.getUserIcon()).error(R.drawable.gray_profile).into(profileImage);
+        } else
+        {
+            profileImage.setImageResource(R.drawable.gray_profile);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@ package com.dean.travltotibet.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,9 @@ public class AroundSelectAdapter extends RecyclerView.Adapter<AroundSelectAdapte
 
         // 图片url(取第一个)
         String picURL = aroundItem.getAroundURL();
-        Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.aroundPic);
+        if (!TextUtils.isEmpty(picURL)) {
+            Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.aroundPic);
+        }
 
         // 设置名称
         holder.aroundName.setText(aroundItem.getAroundName());

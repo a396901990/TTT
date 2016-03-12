@@ -3,6 +3,7 @@ package com.dean.travltotibet.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
         // 图片url(取第一个)
         String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
-        Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.backgroundView);
+        if (!TextUtils.isEmpty(picURL)) {
+            Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.backgroundView);
+        }
 
         holder.mainTitle.setText(route.getName());
         holder.subTitle.setText(route.getDescribe());

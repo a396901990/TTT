@@ -1,6 +1,7 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,11 @@ public class CommentListAdapter extends BaseAdapter {
         holder.profileName.setText(comment.getUser_name());
 
         // profile Image
-        Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+        if (!TextUtils.isEmpty(comment.getUser_icon())) {
+            Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+        } else {
+            holder.profileImage.setImageResource(R.drawable.gray_profile);
+        }
 
         // 评论时间
         Date date = DateUtil.parse(comment.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);

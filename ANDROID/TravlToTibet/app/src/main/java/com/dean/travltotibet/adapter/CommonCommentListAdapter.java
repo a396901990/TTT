@@ -81,7 +81,11 @@ public class CommonCommentListAdapter extends BaseAdapter {
         holder.profileName.setText(comment.getUser_name());
 
         // profile Image
-        Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+        if (!TextUtils.isEmpty(comment.getUser_icon())) {
+            Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+        } else {
+            holder.profileImage.setImageResource(R.drawable.gray_profile);
+        }
 
         // 评论时间
         String time = DateUtil.getTimeGap(comment.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
@@ -158,10 +162,10 @@ public class CommonCommentListAdapter extends BaseAdapter {
         String objectId = sharedPreferences.getString(comment.getObjectId(), "");
 
         if (TextUtils.isEmpty(objectId)) {
-            holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_good_gray));
+            holder.likeIcon.setImageResource(R.drawable.icon_good_gray);
             holder.likeContent.setClickable(true);
         } else {
-            holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_good_red));
+            holder.likeIcon.setImageResource(R.drawable.icon_good_red);
             holder.likeContent.setClickable(false);
         }
     }

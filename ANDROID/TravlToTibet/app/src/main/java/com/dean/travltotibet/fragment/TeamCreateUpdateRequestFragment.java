@@ -27,6 +27,7 @@ import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.StringUtil;
 
 import cn.bmob.v3.listener.SaveListener;

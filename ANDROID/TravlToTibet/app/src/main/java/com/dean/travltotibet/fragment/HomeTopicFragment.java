@@ -85,7 +85,8 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
         articles = new ArrayList<>();
 
         BmobQuery<Article> query = new BmobQuery<>();
-        query.order("-createdAt");
+        query.order("id");
+        query.addWhereNotEqualTo("isDisplay", false);
         // 加载更多
         if (actionType == STATE_MORE) {
             // 跳过已经加载的元素

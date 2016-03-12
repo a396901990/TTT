@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,11 +19,17 @@ import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamPersonalRequestActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.dialog.LoginDialog;
+import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
+import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
+import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.LoadMoreListView;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +55,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private ArrayList<TeamRequest> teamRequests;
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
+    private View articleHeader;
 
     private boolean tryToOpenMyTeamRequest = false;
 
@@ -73,6 +81,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         mActivity = (HomeActivity) getActivity();
         EventBus.getDefault().register(this);
         setUpList();
+        setUpHeader();
         initBottomView();
     }
 
@@ -123,17 +132,11 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     private void setUpList() {
         loadMoreListView = (LoadMoreListView) root.findViewById(R.id.team_request_fragment_list_rv);
-        final View bottomView = root.findViewById(R.id.bottom_content_view);
 
         // 解决listview，mSwipeRefreshLayout冲突
         loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    bottomView.setVisibility(View.VISIBLE);
-                } else {
-                    bottomView.setVisibility(View.INVISIBLE);
-                }
             }
 
             @Override
@@ -143,11 +146,34 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             }
         });
 
-
         mAdapter = new TeamRequestListAdapter(getActivity());
         loadMoreListView.setAdapter(mAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
         refresh();
+    }
+
+    private void setUpHeader() {
+
+        final String headerHtmlURL = "http://file.bmob.cn/M03/D9/F5/oYYBAFbhfLGAPr82AAAn5dpKbPs04.html";
+        String headerImageURL = "http://file.bmob.cn/M03/D9/F5/oYYBAFbhfLGAPr82AAAn5dpKbPs04.html";
+
+        articleHeader = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_header_view, null);
+
+        ImageView backgroundImage = (ImageView) articleHeader.findViewById(R.id.background_image);
+        Picasso.with(getActivity()).load(headerImageURL).error(R.color.light_gray).into(backgroundImage);
+
+        MaterialRippleLayout contentView = (MaterialRippleLayout) articleHeader.findViewById(R.id.ripple_view);
+        contentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                ShowHtmlDialogFragment dialogFragment = new ShowHtmlDialogFragment();
+                dialogFragment.setUrl(headerHtmlURL);
+                dialogFragment.show(getFragmentManager(), ShowHtmlDialogFragment.class.getName());
+            }
+        });
     }
 
     private void getTeamRequests(final int actionType) {
@@ -259,6 +285,10 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
+
+        if (loadMoreListView.getHeaderViewsCount() > 0) {
+            loadMoreListView.removeHeaderView(articleHeader);
+        }
     }
 
     @Override
@@ -268,6 +298,13 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void LoadingSuccess() {
+
+        // 加载header
+        if (loadMoreListView.getHeaderViewsCount() == 0) {
+            loadMoreListView.addHeaderView(articleHeader);
+        }
+
+        // 更新数据
         updateData();
     }
 

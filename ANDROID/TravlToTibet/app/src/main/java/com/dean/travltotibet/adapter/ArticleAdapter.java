@@ -3,6 +3,7 @@ package com.dean.travltotibet.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         holder.mWatch.setText(article.getWatch() + "");
         holder.mLike.setText(article.getLike() + "");
 
-        Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
+        if (!TextUtils.isEmpty(article.getTitleImage())) {
+            Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
+        }
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

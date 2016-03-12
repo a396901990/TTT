@@ -75,7 +75,6 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
         // 设置图片
         if (!TextUtils.isEmpty(request.getUserIcon())) {
             Picasso.with(mContext).load(request.getUserIcon()).error(R.drawable.gray_profile).into(holder.mUserIcon);
-//
         } else {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }

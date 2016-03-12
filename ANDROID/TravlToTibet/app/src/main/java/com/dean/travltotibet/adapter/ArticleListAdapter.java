@@ -2,6 +2,7 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +69,9 @@ public class ArticleListAdapter extends BaseAdapter {
         holder.mLike.setText(article.getLike() + "");
 
         // 背景
-        Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
-
+        if (!TextUtils.isEmpty(article.getTitleImage())) {
+            Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
+        }
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
