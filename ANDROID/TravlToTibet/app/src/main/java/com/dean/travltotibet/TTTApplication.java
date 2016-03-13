@@ -92,6 +92,7 @@ public class TTTApplication extends Application {
         // 初始化PointManager
         PointManager.init(instance);
         AppUtil.saveVersionCode(context);
+        AppUtil.saveVersionName(context);
     }
 
     /**

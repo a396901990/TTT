@@ -34,8 +34,23 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         teamShowRequestActivity = (TeamShowRequestActivity) getActivity();
         teamRequest = teamShowRequestActivity.getTeamRequest();
+        initPlanContent();
         initContactContent();
         initContentContent();
+    }
+
+    private void initPlanContent() {
+        // date
+        TextView travelDate = (TextView) root.findViewById(R.id.travel_date);
+        travelDate.setText(teamRequest.getDate());
+
+        // destination
+        TextView travelDestnation = (TextView) root.findViewById(R.id.destination_text);
+        travelDestnation.setText(teamRequest.getDestination());
+
+        // type
+        TextView travelType = (TextView) root.findViewById(R.id.type_text);
+        travelType.setText(teamRequest.getType());
     }
 
     // 联系方式

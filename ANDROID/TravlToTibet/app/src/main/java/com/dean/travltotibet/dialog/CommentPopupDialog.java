@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseCommentActivity;
@@ -87,7 +88,26 @@ public class CommentPopupDialog extends DialogFragment {
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reportAction();
+                new MaterialDialog.Builder(getActivity())
+                        .title(getString(R.string.dialog_report_title))
+                        .content(getString(R.string.dialog_report_msg))
+                        .positiveText(getString(R.string.ok_btn))
+                        .negativeText(getString(R.string.cancel_btn))
+                        .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+                        .callback(new MaterialDialog.Callback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                reportAction();
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onNegative(MaterialDialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .build()
+                        .show();
             }
         });
 

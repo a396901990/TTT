@@ -9,6 +9,9 @@
     <string name="action_submit">提交</string>
     <string name="action_reset">恢复默认</string>
     <string name="action_type">旅行类型</string>
+    <string name="action_report">举报</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_del">删除</string>
 
     <string name="travel_type_bike">骑行</string>
     <string name="travel_type_hike">徒步</string>
@@ -38,6 +41,8 @@
     <string name="cancel_btn">取消</string>
     <string name="delete_recent_msg">是否要删除该条记录？</string>
     <string name="delete_recent_title">删除记录</string>
+    <string name="dialog_report_msg">是否要举报这条信息？</string>
+    <string name="dialog_report_title">举报</string>
     <string name="delete_action_msg">是否要进行删除操作？</string>
     <string name="delete_action_title">删除操作</string>
 

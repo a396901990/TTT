@@ -36,7 +36,7 @@
 
     <style name="light_toolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/colorAccent_light</item>
-        <item name="android:actionMenuTextColor">@color/colorAccent_light</item>
+        <item name="actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.Light">
@@ -48,6 +48,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="drawerArrowStyle">@style/AppTheme.MyDrawerArrowStyle</item>
+    </style>
+
+    <style name="AppTheme.Toolbar.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="AppBaseTheme.NoActionBar">

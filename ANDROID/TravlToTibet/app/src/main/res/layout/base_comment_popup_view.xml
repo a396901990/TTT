@@ -7,9 +7,9 @@
     <TextView
         android:id="@+id/reply"
         style="@style/TextAppearance.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:padding="15dp"
         android:text="@string/text_replay" />
 
@@ -21,9 +21,9 @@
     <TextView
         android:id="@+id/like"
         style="@style/TextAppearance.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:padding="15dp"
         android:text="@string/text_like"
         android:visibility="gone" />
@@ -37,9 +37,9 @@
     <TextView
         android:id="@+id/report"
         style="@style/TextAppearance.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:padding="15dp"
         android:text="@string/text_report" />
 
@@ -51,9 +51,9 @@
     <TextView
         android:id="@+id/copy"
         style="@style/TextAppearance.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:padding="15dp"
         android:text="@string/text_copy" />
 </LinearLayout>

@@ -104,23 +104,6 @@ public class MyGenerator {
         route.addStringProperty("describe").notNull();
     }
 
-    // 准备信息
-    private static void addPrepareInfo(Schema schema) {
-        Entity route = schema.addEntity("PrepareInfo");
-        route.addIdProperty();
-        route.addStringProperty("route").notNull();
-        route.addStringProperty("travel_type").notNull();
-        route.addStringProperty("budget");
-        route.addStringProperty("medicine");
-        route.addStringProperty("equip");
-        route.addStringProperty("clothing");
-        route.addStringProperty("outdoor");
-        route.addStringProperty("credential");
-        route.addStringProperty("personal");
-        route.addStringProperty("other");
-        route.addStringProperty("attention");
-    }
-
     // 记录最近路线
     private static void addRecentRoute(Schema schema) {
         Entity route = schema.addEntity("RecentRoute");

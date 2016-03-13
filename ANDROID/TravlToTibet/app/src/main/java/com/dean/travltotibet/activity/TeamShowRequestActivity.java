@@ -1,18 +1,13 @@
 package com.dean.travltotibet.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +20,7 @@ import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestDetailFragment;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.model.TeamRequestReport;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -35,6 +29,7 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by DeanGuo on 3/3/16.
@@ -78,8 +73,11 @@ public class TeamShowRequestActivity extends BaseCommentActivity {
     }
 
     private void initHeader() {
-        setTitle(String.format(Constants.TEAM_REQUEST_TITLE, teamRequest.getDestination(), teamRequest.getType()));
-        setSubTitle(teamRequest.getDate());
+        if(isPersonal){
+            setTitle("我的结伴");
+        } else {
+            setTitle("结伴详情");
+        }
     }
 
     private void initViewPage() {
@@ -193,7 +191,33 @@ public class TeamShowRequestActivity extends BaseCommentActivity {
         else if (id == R.id.action_del) {
             actionDel();
         }
+        else if (id == R.id.action_report) {
+            actionReport();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void actionReport() {
+        new MaterialDialog.Builder(this)
+                .title(getString(R.string.dialog_report_title))
+                .content(getString(R.string.dialog_report_msg))
+                .positiveText(getString(R.string.ok_btn))
+                .negativeText(getString(R.string.cancel_btn))
+                .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+                .callback(new MaterialDialog.Callback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        reportAction();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .show();
     }
 
     private void actionDel() {
@@ -234,6 +258,25 @@ public class TeamShowRequestActivity extends BaseCommentActivity {
         });
     }
 
+    private void reportAction() {
+        TeamRequestReport teamRequestReport = new TeamRequestReport();
+        teamRequestReport.setReportId(teamRequest.getObjectId());
+        teamRequestReport.setReportUserId(teamRequest.getUserId());
+        teamRequestReport.setReportUserName(teamRequest.getUserName());
+        teamRequestReport.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), getString(R.string.report_success), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(getApplicationContext(), getString(R.string.action_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
     private void actionEdit() {
         Intent intent = new Intent(this, TeamCreateRequestActivity.class);
         intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
@@ -265,13 +308,16 @@ public class TeamShowRequestActivity extends BaseCommentActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem reportItem = menu.findItem(R.id.action_report);
         MenuItem editItem = menu.findItem(R.id.action_edit);
         MenuItem delItem = menu.findItem(R.id.action_del);
 
         if (isPersonal) {
             editItem.setVisible(true);
             delItem.setVisible(true);
+            reportItem.setVisible(false);
         } else {
+            reportItem.setVisible(true);
             editItem.setVisible(false);
             delItem.setVisible(false);
         }

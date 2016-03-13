@@ -13,8 +13,7 @@
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
         android:titleTextColor="@color/white"
-        android:transitionName="actionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
+        ></android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:layout_width="match_parent"
