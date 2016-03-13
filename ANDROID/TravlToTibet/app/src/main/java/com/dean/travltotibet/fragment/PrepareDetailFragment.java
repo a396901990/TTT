@@ -1,29 +1,18 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Dialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.dean.greendao.PrepareInfo;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.InfoType;
-import com.dean.travltotibet.model.PrepareFile;
+import com.dean.travltotibet.model.PrepareInfo;
 import com.dean.travltotibet.util.Constants;
 
 import java.util.List;
@@ -83,20 +72,44 @@ public class PrepareDetailFragment extends Fragment {
         loadingView.setVisibility(View.VISIBLE);
 
         // 从PrepareInfo表中获取该路段的准备信息
-        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute, mType);
-        if (prepareInfo == null) {
-            return;
-        }
+//        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute, mType);
+//        if (prepareInfo == null) {
+//            return;
+//        }
         // 获取条目名字
-        String prepareName = InfoType.getInfoResult(mInfoType, prepareInfo);
+//        String prepareName = InfoType.getInfoResult(mInfoType, prepareInfo);
 //        Log.e("prepareName", prepareName);
-        BmobQuery<PrepareFile> query = new BmobQuery<>();
-        query.addWhereEqualTo("fileName", prepareName);
-        query.findObjects(getActivity(), new FindListener<PrepareFile>() {
+//        BmobQuery<PrepareFile> query = new BmobQuery<>();
+//        query.addWhereEqualTo("fileName", prepareName);
+//        query.findObjects(getActivity(), new FindListener<PrepareFile>() {
+//            @Override
+//            public void onSuccess(List<PrepareFile> list) {
+//                PrepareFile prepareFile = list.get(0);
+//                String url = prepareFile.getFile().getFileUrl(getActivity());
+//                // Log.e("url", url);
+//                mWebView.loadUrl(url);
+//            }
+//
+//            @Override
+//            public void onError(int i, String s) {
+//                Log.e("onError", s);
+//                if (mWebView == null || loadingView == null) {
+//                    return;
+//                }
+//                mWebView.loadUrl(Constants.EMPTY_HTML_CONTENT);
+//                loadingView.setVisibility(View.GONE);
+//            }
+//        });
+
+        BmobQuery<PrepareInfo> query = new BmobQuery<>();
+        query.addQueryKeys(InfoType.INFO_COLUMN.get(mInfoType));
+        query.addWhereEqualTo("route", mRoute);
+        query.addWhereEqualTo("travelType", mType);
+        query.findObjects(getActivity(), new FindListener<PrepareInfo>() {
             @Override
-            public void onSuccess(List<PrepareFile> list) {
-                PrepareFile prepareFile = list.get(0);
-                String url = prepareFile.getFile().getFileUrl(getActivity());
+            public void onSuccess(List<PrepareInfo> list) {
+                PrepareInfo prepareFile = list.get(0);
+                String url = InfoType.getInfoResult(mInfoType, prepareFile, getActivity());
                 // Log.e("url", url);
                 mWebView.loadUrl(url);
             }

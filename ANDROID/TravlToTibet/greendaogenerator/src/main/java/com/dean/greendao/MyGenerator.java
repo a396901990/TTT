@@ -24,7 +24,7 @@ public class MyGenerator {
         addPlan(schema);
         addRoute(schema);
         addRoutePlan(schema);
-        addPrepareInfo(schema);
+//        addPrepareInfo(schema);
         addRecentRoute(schema);
         addHotel(schema);
         addScenic(schema);

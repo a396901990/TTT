@@ -12,7 +12,6 @@ import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlanDao;
-import com.dean.greendao.PrepareInfoDao;
 import com.dean.greendao.RecentRouteDao;
 import com.dean.greendao.HotelDao;
 import com.dean.greendao.ScenicDao;
@@ -30,7 +29,6 @@ public class DaoMaster extends AbstractDaoMaster {
         PlanDao.createTable(db, ifNotExists);
         RouteDao.createTable(db, ifNotExists);
         RoutePlanDao.createTable(db, ifNotExists);
-        PrepareInfoDao.createTable(db, ifNotExists);
         RecentRouteDao.createTable(db, ifNotExists);
         HotelDao.createTable(db, ifNotExists);
         ScenicDao.createTable(db, ifNotExists);
@@ -42,7 +40,6 @@ public class DaoMaster extends AbstractDaoMaster {
         PlanDao.dropTable(db, ifExists);
         RouteDao.dropTable(db, ifExists);
         RoutePlanDao.dropTable(db, ifExists);
-        PrepareInfoDao.dropTable(db, ifExists);
         RecentRouteDao.dropTable(db, ifExists);
         HotelDao.dropTable(db, ifExists);
         ScenicDao.dropTable(db, ifExists);
@@ -81,7 +78,6 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(PlanDao.class);
         registerDaoClass(RouteDao.class);
         registerDaoClass(RoutePlanDao.class);
-        registerDaoClass(PrepareInfoDao.class);
         registerDaoClass(RecentRouteDao.class);
         registerDaoClass(HotelDao.class);
         registerDaoClass(ScenicDao.class);

@@ -1,6 +1,7 @@
 package com.dean.travltotibet.model;
 
-import com.dean.greendao.PrepareInfo;
+import android.content.Context;
+
 import com.dean.travltotibet.R;
 
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ public enum InfoType {
     BUDGET,         // 预算
     MEDICINE,       // 药品
     EQUIP,          // 装备
-    CLOTHING,       // 衣物
     OUTDOOR,        // 户外装备
     CREDENTIALS,    // 证件
     PERSONAL,       // 个人用品
@@ -22,6 +22,7 @@ public enum InfoType {
     ATTENTION;      // 注意事项
 
     public static final Map<InfoType, String> INFO_TEXT = new HashMap<InfoType, String>();
+    public static final Map<InfoType, String> INFO_COLUMN = new HashMap<InfoType, String>();
     public static final Map<InfoType, Integer> INFO_IMAGE = new HashMap<InfoType, Integer>();
     public static final Map<InfoType, Integer> INFO_COLOR = new HashMap<InfoType, Integer>();
 
@@ -32,7 +33,6 @@ public enum InfoType {
         INFO_TYPES.add(InfoType.BUDGET);
         INFO_TYPES.add(InfoType.MEDICINE);
         INFO_TYPES.add(InfoType.EQUIP);
-//        INFO_TYPES.add(InfoType.CLOTHING);
         INFO_TYPES.add(InfoType.ATTENTION);
         INFO_TYPES.add(InfoType.OUTDOOR);
         INFO_TYPES.add(InfoType.PERSONAL);
@@ -42,17 +42,24 @@ public enum InfoType {
         INFO_TEXT.put(InfoType.BUDGET, "预算");
         INFO_TEXT.put(InfoType.MEDICINE, "药品");
         INFO_TEXT.put(InfoType.EQUIP, "装备");
-        INFO_TEXT.put(InfoType.CLOTHING, "衣物");
         INFO_TEXT.put(InfoType.OUTDOOR, "户外装备");
         INFO_TEXT.put(InfoType.CREDENTIALS, "证件");
         INFO_TEXT.put(InfoType.PERSONAL, "个人物品");
         INFO_TEXT.put(InfoType.OTHER, "其他");
         INFO_TEXT.put(InfoType.ATTENTION, "注意事项");
 
+        INFO_COLUMN.put(InfoType.BUDGET, "budget");
+        INFO_COLUMN.put(InfoType.MEDICINE, "medicine");
+        INFO_COLUMN.put(InfoType.EQUIP, "equip");
+        INFO_COLUMN.put(InfoType.OUTDOOR, "outdoor");
+        INFO_COLUMN.put(InfoType.CREDENTIALS, "credential");
+        INFO_COLUMN.put(InfoType.PERSONAL, "personal");
+        INFO_COLUMN.put(InfoType.OTHER, "other");
+        INFO_COLUMN.put(InfoType.ATTENTION, "attention");
+
         INFO_IMAGE.put(InfoType.BUDGET, R.drawable.icon_budget);
         INFO_IMAGE.put(InfoType.MEDICINE, R.drawable.icon_medicine);
         INFO_IMAGE.put(InfoType.EQUIP, R.drawable.icon_equip);
-        INFO_IMAGE.put(InfoType.CLOTHING, R.drawable.icon_clothing);
         INFO_IMAGE.put(InfoType.OUTDOOR, R.drawable.icon_outdoor);
         INFO_IMAGE.put(InfoType.CREDENTIALS, R.drawable.icon_card);
         INFO_IMAGE.put(InfoType.PERSONAL, R.drawable.icon_person);
@@ -63,7 +70,6 @@ public enum InfoType {
         INFO_COLOR.put(InfoType.MEDICINE, R.color.light_red);
         INFO_COLOR.put(InfoType.EQUIP, R.color.light_blue);
         INFO_COLOR.put(InfoType.ATTENTION, R.color.dark_orange);
-        INFO_COLOR.put(InfoType.CLOTHING, R.color.sky_blue);
         INFO_COLOR.put(InfoType.OUTDOOR, R.color.gray);
         INFO_COLOR.put(InfoType.CREDENTIALS, R.color.light_green);
         INFO_COLOR.put(InfoType.PERSONAL, R.color.orange_red);
@@ -71,26 +77,24 @@ public enum InfoType {
 
     }
 
-    public static String getInfoResult(InfoType type, PrepareInfo prepareInfo) {
+    public static String getInfoResult(InfoType type, PrepareInfo prepareInfo, Context mContent) {
         switch (type) {
             case BUDGET:
-                return prepareInfo.getBudget();
+                return prepareInfo.getBudget().getFileUrl(mContent);
             case MEDICINE:
-                return prepareInfo.getMedicine();
+                return prepareInfo.getMedicine().getFileUrl(mContent);
             case EQUIP:
-                return prepareInfo.getEquip();
-            case CLOTHING:
-                return prepareInfo.getClothing();
+                return prepareInfo.getEquip().getFileUrl(mContent);
             case OUTDOOR:
-                return prepareInfo.getOutdoor();
+                return prepareInfo.getOutdoor().getFileUrl(mContent);
             case CREDENTIALS:
-                return prepareInfo.getCredential();
+                return prepareInfo.getCredential().getFileUrl(mContent);
             case PERSONAL:
-                return prepareInfo.getPersonal();
+                return prepareInfo.getPersonal().getFileUrl(mContent);
             case OTHER:
-                return prepareInfo.getOther();
+                return prepareInfo.getOther().getFileUrl(mContent);
             case ATTENTION:
-                return prepareInfo.getAttention();
+                return prepareInfo.getAttention().getFileUrl(mContent);
         }
         return null;
     }

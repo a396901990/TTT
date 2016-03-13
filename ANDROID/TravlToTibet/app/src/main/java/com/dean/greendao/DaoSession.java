@@ -13,7 +13,6 @@ import com.dean.greendao.Geocode;
 import com.dean.greendao.Plan;
 import com.dean.greendao.Route;
 import com.dean.greendao.RoutePlan;
-import com.dean.greendao.PrepareInfo;
 import com.dean.greendao.RecentRoute;
 import com.dean.greendao.Hotel;
 import com.dean.greendao.Scenic;
@@ -22,7 +21,6 @@ import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlanDao;
-import com.dean.greendao.PrepareInfoDao;
 import com.dean.greendao.RecentRouteDao;
 import com.dean.greendao.HotelDao;
 import com.dean.greendao.ScenicDao;
@@ -40,7 +38,6 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig planDaoConfig;
     private final DaoConfig routeDaoConfig;
     private final DaoConfig routePlanDaoConfig;
-    private final DaoConfig prepareInfoDaoConfig;
     private final DaoConfig recentRouteDaoConfig;
     private final DaoConfig hotelDaoConfig;
     private final DaoConfig scenicDaoConfig;
@@ -49,7 +46,6 @@ public class DaoSession extends AbstractDaoSession {
     private final PlanDao planDao;
     private final RouteDao routeDao;
     private final RoutePlanDao routePlanDao;
-    private final PrepareInfoDao prepareInfoDao;
     private final RecentRouteDao recentRouteDao;
     private final HotelDao hotelDao;
     private final ScenicDao scenicDao;
@@ -70,9 +66,6 @@ public class DaoSession extends AbstractDaoSession {
         routePlanDaoConfig = daoConfigMap.get(RoutePlanDao.class).clone();
         routePlanDaoConfig.initIdentityScope(type);
 
-        prepareInfoDaoConfig = daoConfigMap.get(PrepareInfoDao.class).clone();
-        prepareInfoDaoConfig.initIdentityScope(type);
-
         recentRouteDaoConfig = daoConfigMap.get(RecentRouteDao.class).clone();
         recentRouteDaoConfig.initIdentityScope(type);
 
@@ -86,7 +79,6 @@ public class DaoSession extends AbstractDaoSession {
         planDao = new PlanDao(planDaoConfig, this);
         routeDao = new RouteDao(routeDaoConfig, this);
         routePlanDao = new RoutePlanDao(routePlanDaoConfig, this);
-        prepareInfoDao = new PrepareInfoDao(prepareInfoDaoConfig, this);
         recentRouteDao = new RecentRouteDao(recentRouteDaoConfig, this);
         hotelDao = new HotelDao(hotelDaoConfig, this);
         scenicDao = new ScenicDao(scenicDaoConfig, this);
@@ -95,7 +87,6 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(Plan.class, planDao);
         registerDao(Route.class, routeDao);
         registerDao(RoutePlan.class, routePlanDao);
-        registerDao(PrepareInfo.class, prepareInfoDao);
         registerDao(RecentRoute.class, recentRouteDao);
         registerDao(Hotel.class, hotelDao);
         registerDao(Scenic.class, scenicDao);
@@ -106,7 +97,6 @@ public class DaoSession extends AbstractDaoSession {
         planDaoConfig.getIdentityScope().clear();
         routeDaoConfig.getIdentityScope().clear();
         routePlanDaoConfig.getIdentityScope().clear();
-        prepareInfoDaoConfig.getIdentityScope().clear();
         recentRouteDaoConfig.getIdentityScope().clear();
         hotelDaoConfig.getIdentityScope().clear();
         scenicDaoConfig.getIdentityScope().clear();
@@ -126,10 +116,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public RoutePlanDao getRoutePlanDao() {
         return routePlanDao;
-    }
-
-    public PrepareInfoDao getPrepareInfoDao() {
-        return prepareInfoDao;
     }
 
     public RecentRouteDao getRecentRouteDao() {

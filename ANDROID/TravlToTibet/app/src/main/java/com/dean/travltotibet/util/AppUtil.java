@@ -23,6 +23,7 @@ public final class AppUtil {
     public static final String CURRENT_VERSION = "CURRENT_VERSION";
 
     public static final String CURRENT_VERSION_CODE = "CURRENT_VERSION_CODE";
+    public static final String CURRENT_VERSION_NAME = "CURRENT_VERSION_NAME";
     public static final String APP_SHOWN = "app_shown";
 
 
@@ -49,8 +50,17 @@ public final class AppUtil {
         TTTApplication.getSharedPreferences().edit().putInt(CURRENT_VERSION_CODE, currentVersionCode).commit();
     }
 
+    public static void saveVersionName(Context context) {
+        String currentVersionName = getVersionName(context);
+        TTTApplication.getSharedPreferences().edit().putString(CURRENT_VERSION_NAME, currentVersionName).commit();
+    }
+
     public static int getCurrentVersionCode() {
         return TTTApplication.getSharedPreferences().getInt(CURRENT_VERSION_CODE, VERSION_CODE_DEFAULT);
+    }
+
+    public static String getCurrentVersionName() {
+        return TTTApplication.getSharedPreferences().getString(CURRENT_VERSION_NAME, VERSION_DEFAULT);
     }
 
     /**
@@ -75,7 +85,12 @@ public final class AppUtil {
     public static boolean isNewVersion(Context context) {
         int oldVersionCode = getCurrentVersionCode();
         int currentVersionCode = getVersionCode(context);
-        return currentVersionCode != oldVersionCode;
+        boolean isVersionCode = currentVersionCode != oldVersionCode;
+
+        String oldVersionName = getCurrentVersionName();
+        String currentVersionName = getVersionName(context);
+        boolean isVersionName = !oldVersionName.equals(currentVersionName);
+        return isVersionCode || isVersionName;
     }
 
     //版本名

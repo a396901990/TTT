@@ -5,27 +5,14 @@ import android.os.Environment;
 
 import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeOld;
-import com.dean.greendao.Plan;
-import com.dean.greendao.PrepareDetail;
-import com.dean.greendao.PrepareInfo;
-import com.dean.greendao.Route;
-import com.dean.greendao.RoutePlan;
 import com.dean.travltotibet.R;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**

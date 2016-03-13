@@ -1,9 +1,6 @@
 package com.dean.travltotibet.database;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.baidu.mapapi.model.LatLng;
 import com.dean.greendao.DaoSession;
@@ -15,15 +12,9 @@ import com.dean.greendao.Hotel;
 import com.dean.greendao.HotelDao;
 import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
-import com.dean.greendao.PrepareDetail;
-import com.dean.greendao.PrepareDetailDao;
-import com.dean.greendao.PrepareInfo;
-import com.dean.greendao.PrepareInfoDao;
 import com.dean.greendao.RecentRoute;
 import com.dean.greendao.RecentRouteDao;
 import com.dean.greendao.Route;
-import com.dean.greendao.RouteAttention;
-import com.dean.greendao.RouteAttentionDao;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
 import com.dean.greendao.RoutePlanDao;
@@ -31,22 +22,16 @@ import com.dean.greendao.Scenic;
 import com.dean.greendao.ScenicDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.WelcomeActivity;
 import com.dean.travltotibet.model.Location;
-import com.dean.travltotibet.ui.chart.IndicatorSeries;
-import com.dean.travltotibet.ui.chart.MountainSeries;
-import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.StringUtil;
-import com.dean.travltotibet.util.SystemUtil;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.dao.query.DeleteQuery;
@@ -66,8 +51,6 @@ public class DBHelper {
     private PlanDao planDao;
 
     private RoutePlanDao routePlanDao;
-
-    private PrepareInfoDao prepareInfoDao;
 
     private RecentRouteDao recentRouteDao;
 
@@ -91,7 +74,6 @@ public class DBHelper {
             instance.routeDao = daoSession.getRouteDao();
             instance.planDao = daoSession.getPlanDao();
             instance.routePlanDao = daoSession.getRoutePlanDao();
-            instance.prepareInfoDao = daoSession.getPrepareInfoDao();
             instance.recentRouteDao = daoSession.getRecentRouteDao();
             instance.hotelDao = daoSession.getHotelDao();
             instance.scenicDao = daoSession.getScenicDao();
@@ -474,16 +456,6 @@ public class DBHelper {
      */
     public List<Geocode> getGeocode() {
         return geocodeDao.loadAll();
-    }
-
-    /**
-     * 根据路线名称，获取准备信息
-     */
-    public PrepareInfo getPrepareInfo(String routeName, String travelType) {
-        QueryBuilder<PrepareInfo> qb = prepareInfoDao.queryBuilder();
-        qb.where(PrepareInfoDao.Properties.Route.eq(routeName));
-        qb.where(PrepareInfoDao.Properties.Travel_type.eq(travelType));
-        return qb.list().get(0);
     }
 
     /**
