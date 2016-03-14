@@ -3,22 +3,15 @@ package com.dean.travltotibet.adapter;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -309,9 +302,7 @@ public class GuideLineAdapter extends BaseAdapter {
             layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 3);
 
             ImageView imageView = new ImageView(mContext);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.border_gray));
-            }
+            imageView.setBackgroundResource(R.drawable.border_gray);
 
             int padding = ScreenUtil.dip2px(mContext, 2);
             imageView.setPadding(padding, padding, padding, padding);

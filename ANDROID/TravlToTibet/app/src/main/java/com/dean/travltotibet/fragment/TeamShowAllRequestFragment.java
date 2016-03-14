@@ -65,7 +65,7 @@ public class TeamShowAllRequestFragment extends RefreshFragment {
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
-        query.addWhereEqualTo("isPass", true);
+        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
         query.findObjects(getActivity(), new FindListener<TeamRequest>() {
             @Override
             public void onSuccess(List<TeamRequest> list) {

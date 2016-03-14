@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,9 +27,11 @@ import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
+import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -88,7 +91,6 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private void initBottomView() {
 
         View filterView = root.findViewById(R.id.filter_team_request);
-        View addView = root.findViewById(R.id.add_view);
         View myView = root.findViewById(R.id.my_team_request);
 
         filterView.setOnClickListener(new View.OnClickListener() {
@@ -106,15 +108,6 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             }
         });
 
-        addView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
-                startActivityForResult(intent, CREATE_REQUEST);
-                getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
-            }
-        });
-
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +119,20 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
                     DialogFragment dialogFragment = new LoginDialog();
                     dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
                 }
+            }
+        });
+
+        FloatingActionMenu mFloatingActionMenu = (FloatingActionMenu) root.findViewById(R.id.add_btn);
+        mFloatingActionMenu.setIconAnimated(false);
+        mFloatingActionMenu.setMenuButtonColorNormal(TTTApplication.getMyColor(R.color.colorPrimary));
+        mFloatingActionMenu.setMenuButtonColorPressed(TTTApplication.getMyColor(R.color.colorPrimaryDark));
+        mFloatingActionMenu.getMenuIconView().setImageResource(R.drawable.fab_add);
+        mFloatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+            @Override
+            public void onMenuToggle(boolean opened) {
+                Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
+                startActivityForResult(intent, CREATE_REQUEST);
+                getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
             }
         });
     }
@@ -155,7 +162,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private void setUpHeader() {
 
         final String headerHtmlURL = "http://file.bmob.cn/M03/D9/F5/oYYBAFbhfLGAPr82AAAn5dpKbPs04.html";
-        String headerImageURL = "http://img1.imgtn.bdimg.com/it/u=2211844266,770232967&fm=21&gp=0.jpg";
+        String headerImageURL = "http://7xr1ra.com1.z0.glb.clouddn.com/ruheyueban.png";
 
         articleHeader = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_header_view, null);
         ImageView backgroundImage = (ImageView) articleHeader.findViewById(R.id.background_image);
@@ -179,7 +186,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
-        query.addWhereEqualTo("isPass", true);
+        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
         if (!TextUtils.isEmpty(filterText)) {
             // destination
             BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();

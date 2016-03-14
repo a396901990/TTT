@@ -132,7 +132,7 @@
     <string name="contact_qq">1815608211</string>
     <string name="contact_email">huwaitanzi@163.com</string>
     <string name="copy">点击复制</string>
-    <string name="copy_success">复制到剪贴板</string>
+    <string name="copy_success">已复制到剪贴板</string>
     <string name="text_send">转发</string>
     <string name="text_comment">评论</string>
     <string name="text_good">赞</string>
@@ -167,5 +167,12 @@
     <string name="team_make_type_hot">热门旅行类型</string>
     <string name="loading_text">努力加载中...</string>
     <string name="loading_no_more_text">已经到底了~</string>
+    <string name="wechat_text">微信</string>
+    <string name="setting_qq_text">设置QQ</string>
+    <string name="setting_phone_text">设置手机</string>
+    <string name="setting_wechat_text">设置微信</string>
+    <string name="contact_default_text">未设置</string>
+    <string name="warning_no_pass">未通过审核，请修改后重新提交！</string>
+    <string name="warning_wait_pass">正在审核中，请耐心等待！</string>
 
 </resources>

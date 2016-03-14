@@ -5,23 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.CommonGridAdapter;
-import com.dean.travltotibet.adapter.HotDestinationAdapter;
-import com.dean.travltotibet.model.TravelType;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,9 +25,11 @@ import java.util.Collections;
  */
 public class TeamMakeTravelTypeDialog extends DialogFragment {
 
+    private final static int TRAVEL_LIMIT = 12;
+
     private View contentLayout;
 
-    private EditText destEditText;
+    private EditText travelEditText;
 
     private TravelTypeCallback travelTypeCallback;
 
@@ -67,7 +62,7 @@ public class TeamMakeTravelTypeDialog extends DialogFragment {
         mAdapter.setSelectCallBack(new CommonGridAdapter.SelectCallBack() {
             @Override
             public void onItemSelect(String name) {
-                destEditText.setText(name);
+                travelEditText.setText(name);
             }
         });
         String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
@@ -79,14 +74,14 @@ public class TeamMakeTravelTypeDialog extends DialogFragment {
 
 
     private void setUpView() {
-        destEditText = (EditText) contentLayout.findViewById(R.id.destination_edit_view);
-
+        travelEditText = (EditText) contentLayout.findViewById(R.id.destination_edit_view);
+        travelEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TRAVEL_LIMIT)});
         View okBtn = contentLayout.findViewById(R.id.ok_btn);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(destEditText.getText())) {
-                    notifyItemClicked(destEditText.getText().toString());
+                if (!TextUtils.isEmpty(travelEditText.getText().toString().trim())) {
+                    notifyItemClicked(travelEditText.getText().toString().trim());
                 } else {
                     dismiss();
                 }

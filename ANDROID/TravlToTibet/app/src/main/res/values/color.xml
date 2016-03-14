@@ -86,4 +86,8 @@
     <color name="colorPrimaryLight_light">#7FFFFFFF</color>
     <color name="colorPrimaryDark_light">#424242</color>
     <color name="colorAccent_light">#424242</color>
+
+    <color name="tab_one">#9989d889</color>
+    <color name="tab_two">#99f88779</color>
+    <color name="tab_three">#997583ee</color>
 </resources>

@@ -19,6 +19,7 @@
             android:text="旅行类型" />
 
         <EditText
+            android:singleLine="true"
             android:layout_marginTop="10dp"
             android:id="@+id/destination_edit_view"
             style="@style/TextAppearance.Medium"

@@ -3,180 +3,21 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <!--计划-->
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
-            card_view:cardCornerRadius="3dp"
-            card_view:cardElevation="3dp"
-            card_view:cardPreventCornerOverlap="false"
-            card_view:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/card_padding">
-
-                <!--标题-->
-                <TextView
-                    style="@style/TitleText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/team_make_destination_type_title" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
-
-
-                    <LinearLayout
-                        android:id="@+id/date_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/TextAppearance.Micro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/team_make_time_date" />
-
-                        <TextView
-                            android:id="@+id/travel_date"
-                            style="@style/TextAppearance.Theme.Regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:text="设置日期" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/less_light_gray"></View>
-
-                    <LinearLayout
-                        android:id="@+id/destination_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            style="@style/TextAppearance.Micro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/team_make_destination_title" />
-
-
-                        <TextView
-                            android:id="@+id/destination_text"
-                            style="@style/TextAppearance.Theme.Regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:text="设置目的地" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/less_light_gray"></View>
-
-                    <LinearLayout
-                        android:id="@+id/type_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/TextAppearance.Micro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/team_make_type_title" />
-
-                        <TextView
-                            android:id="@+id/type_text"
-                            style="@style/TextAppearance.Theme.Regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:text="设置旅行方式" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+        <include
+            android:id="@+id/contact_content_view"
+            layout="@layout/team_create_request_plan_content_view"></include>
 
         <!--联系方式-->
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
-            card_view:cardCornerRadius="3dp"
-            card_view:cardElevation="3dp"
-            card_view:cardPreventCornerOverlap="false"
-            card_view:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/card_padding">
-
-                <!--标题-->
-                <TextView
-                    style="@style/TitleText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/team_make_contact_title" />
-
-                <EditText
-                    android:imeOptions="actionNext"
-                    android:nextFocusForward="@+id/content_edit_text"
-                    android:id="@+id/contact_edit_text"
-                    style="@style/TextAppearance.Medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="bottom"
-                    android:hint="@string/team_make_contact_edit_hint"
-                    android:paddingTop="10dp" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+        <include
+            android:id="@+id/contact_content_view"
+            layout="@layout/team_create_request_contact_content_view"></include>
 
         <!--内容-->
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -203,24 +44,25 @@
                     android:layout_height="wrap_content">
                     <!--内容-->
                     <TextView
-                        android:layout_alignParentLeft="true"
                         style="@style/TitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:text="@string/team_make_content_title" />
 
                     <TextView
                         android:id="@+id/text_limit_hint"
-                        android:layout_alignParentRight="true"
                         style="@style/TitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0/140" />
+                        android:layout_alignParentRight="true"
+                        android:text="0/666" />
                 </RelativeLayout>
 
                 <EditText
                     android:id="@+id/content_edit_text"
                     style="@style/TextAppearance.Medium"
+                    android:textColor="@color/dark_gray"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"

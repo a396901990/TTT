@@ -51,11 +51,8 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
 
         final TeamRequest request = mData.get(position);
 
-        if (request.isPass) {
             holder.mWarningView.setVisibility(View.GONE);
-        } else {
             holder.mWarningView.setVisibility(View.VISIBLE);
-        }
 
         holder.mContentText.setText(request.getContent());
         holder.mDestinationName.setText(String.format(Constants.TEAM_REQUEST_TITLE, request.getDestination(), request.getType()));

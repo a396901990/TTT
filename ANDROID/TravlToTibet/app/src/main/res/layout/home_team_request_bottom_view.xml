@@ -5,16 +5,11 @@
     android:background="@android:color/transparent">
 
     <LinearLayout
+        android:layout_gravity="bottom"
         android:layout_width="match_parent"
+        android:background="@android:color/transparent"
         android:layout_height="@dimen/team_request_bottom_add_size"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:orientation="horizontal"></LinearLayout>
 
         <View
             android:id="@+id/topLine"
@@ -24,8 +19,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="40dp"
             android:background="@color/white">
 
             <com.dean.travltotibet.ui.MaterialRippleLayout
@@ -70,18 +64,21 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/add_view"
-            android:layout_width="@dimen/team_request_bottom_add_size"
-            android:layout_height="@dimen/team_request_bottom_add_size"
-            android:src="@drawable/bottom_add_view"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="3dp" />
-    </LinearLayout>
+        <com.dean.travltotibet.ui.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/add_btn"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            fab:menu_animationDelayPerItem="0"
+            fab:menu_labels_ellipsize="end"
+            fab:menu_labels_singleLine="true"
+            fab:menu_openDirection="up"></com.dean.travltotibet.ui.fab.FloatingActionMenu>
+
+    </RelativeLayout>
 </FrameLayout>

@@ -147,7 +147,7 @@ public class BaseCommentDialog extends LoginDialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(s)) {
+                if (!TextUtils.isEmpty(s.toString().trim())) {
                     mHandle.sendEmptyMessage(SUBMIT_ENABLE);
                 } else {
                     mHandle.sendEmptyMessage(SUBMIT_DISABLE);

@@ -195,7 +195,7 @@
     <dimen name="travel_type_dialog_image_size">80dp</dimen>
     <dimen name="login_profile_size">68dp</dimen>
     <dimen name="team_request_profile_size">40dp</dimen>
-    <dimen name="team_request_bottom_add_size">64dp</dimen>
+    <dimen name="team_request_bottom_add_size">44dp</dimen>
     <dimen name="login_profile_padding">20dp</dimen>
     <dimen name="route_plan_view_width">80dp</dimen>
     <dimen name="route_plan_view_height">80dp</dimen>
@@ -221,4 +221,5 @@
 
     <dimen name="three_grid_unit">24dp</dimen>
     <dimen name="one_and_a_half_grid_unit">12dp</dimen>
+    <dimen name="team_request_create_contact_text_height">35dp</dimen>
 </resources>

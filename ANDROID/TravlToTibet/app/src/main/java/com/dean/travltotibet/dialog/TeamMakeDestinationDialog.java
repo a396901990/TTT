@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import java.util.Collections;
  * Created by DeanGuo on 2/24/16.
  */
 public class TeamMakeDestinationDialog extends DialogFragment {
+
+    private final static int DEST_LIMIT = 20;
 
     private View contentLayout;
 
@@ -79,13 +82,13 @@ public class TeamMakeDestinationDialog extends DialogFragment {
 
     private void setUpView() {
         destEditText = (EditText) contentLayout.findViewById(R.id.destination_edit_view);
-
+        destEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEST_LIMIT)});
         View okBtn = contentLayout.findViewById(R.id.ok_btn);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(destEditText.getText())) {
-                    notifyItemClicked(destEditText.getText().toString());
+                if (!TextUtils.isEmpty(destEditText.getText().toString().trim())) {
+                    notifyItemClicked(destEditText.getText().toString().trim());
                 } else {
                     dismiss();
                 }

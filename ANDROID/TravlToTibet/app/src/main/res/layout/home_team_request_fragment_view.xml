@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <com.dean.travltotibet.ui.LoadMoreListView
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="@dimen/team_request_bottom_add_size"
             android:id="@+id/team_request_fragment_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

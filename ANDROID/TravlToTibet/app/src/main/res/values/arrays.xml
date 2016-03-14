@@ -52,7 +52,6 @@
         <item>拉萨</item>
         <item>成都</item>
         <item>叶城县</item>
-        <item>札达县</item>
         <item>香格里拉</item>
         <item>梅里雪山</item>
         <item>昆明</item>
@@ -61,7 +60,6 @@
         <item>西宁</item>
         <item>牛背山</item>
         <item>新都桥</item>
-        <item>林芝</item>
         <item>色达</item>
         <item>青海湖</item>
         <item>格尔木</item>
@@ -78,9 +76,11 @@
         <item>徒步+搭车</item>
         <item>纯徒步</item>
         <item>自驾</item>
-        <item>租车，拼车</item>
+        <item>拼车</item>
+        <item>租车</item>
         <item>摩托骑行</item>
         <item>火车</item>
         <item>飞机</item>
+        <item>其他</item>
     </string-array>
 </resources>

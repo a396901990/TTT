@@ -31,6 +31,8 @@ import java.util.Date;
  */
 public class TeamMakeDateDialog extends DialogFragment {
 
+    private final static int NO_SURE_LIMIT = 12;
+
     private View contentLayout;
 
     private TravelDateCallback dateCallback;
@@ -100,13 +102,13 @@ public class TeamMakeDateDialog extends DialogFragment {
 
     private void initNotSureTimeContent() {
         notSureEditText = (EditText) contentLayout.findViewById(R.id.not_sure_edit_view);
-        notSureEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
+        notSureEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(NO_SURE_LIMIT)});
         notSureEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(s)) {
-                    dateText = notSureEditText.getText().toString();
+                if (!TextUtils.isEmpty(s.toString().trim())) {
+                    dateText = notSureEditText.getText().toString().trim();
                     startDateTextView.setText(getString(R.string.team_make_date_setting_text));
                     startDateText = "";
                     endDateTextView.setText(getString(R.string.team_make_date_setting_text));

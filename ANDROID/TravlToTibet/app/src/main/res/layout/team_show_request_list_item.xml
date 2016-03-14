@@ -130,13 +130,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
-                            android:background="@drawable/border_light_theme"
+                            android:background="@drawable/border_tab_one"
                             android:paddingBottom="2dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
                             android:paddingTop="2dp"
                             android:text="川藏线"
-                            android:textColor="@color/gray" />
+                            android:textColor="@color/background_selected" />
 
                         <TextView
                             android:id="@+id/type_name"
@@ -144,13 +144,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
-                            android:background="@drawable/border_light_theme"
+                            android:background="@drawable/border_tab_two"
                             android:paddingBottom="2dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
                             android:paddingTop="2dp"
                             android:text="自行车骑行"
-                            android:textColor="@color/gray" />
+                            android:textColor="@color/background_selected" />
 
                         <TextView
                             android:id="@+id/date_name"
@@ -158,13 +158,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
-                            android:background="@drawable/border_light_theme"
+                            android:background="@drawable/border_tab_three"
                             android:paddingBottom="2dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
                             android:paddingTop="2dp"
                             android:text="2015.3.3 - 2014.5.39"
-                            android:textColor="@color/gray" />
+                            android:textColor="@color/background_selected" />
                     </LinearLayout>
 
                     <!--观看-->
@@ -202,19 +202,21 @@
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/warning_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/half_dark_gray"
         android:visibility="gone">
 
         <TextView
-            style="@style/TextAppearance.Large"
+            android:id="@+id/warning_text"
+            style="@style/TextAppearance.Large.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="未通过审核，请修改后重新提交！" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:background="@color/dark_gray"
+            android:padding="10dp"
+            android:text="@string/warning_no_pass" />
+    </RelativeLayout>
 </FrameLayout>

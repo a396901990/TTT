@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,21 +20,19 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamShowRequestActivity;
+import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.ScreenUtil;
-import com.dean.travltotibet.util.StringUtil;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-import static com.dean.travltotibet.R.id.contact_edit_text;
+import static com.dean.travltotibet.R.id.contact_btn;
 
 /**
  * Created by DeanGuo on 2/23/16.
@@ -44,7 +43,9 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private TeamCreateRequestActivity mActivity;
 
-    private final static int TEXT_LIMIT = 140;
+    private final static int TEXT_MAX_LIMIT = 666;
+
+    private final static int TEXT_MIN_LIMIT = 10;
 
     private int PASS_DATE = 1 << 0; // 0
 
@@ -60,7 +61,6 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private TeamRequest teamRequest;
 
-    EditText contactEdit;
     EditText contentEdit;
 
     private boolean isUpdate = false;
@@ -95,10 +95,11 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
     private void filedItem() {
         if (teamRequest != null) {
             isUpdate = true;
-            // contact
-            if (!TextUtils.isEmpty(teamRequest.getContact())) {
-                contactEdit.setText(teamRequest.getContact());
-            }
+            // contact phone,qq,wechat
+            setContact(teamRequest.getContactPhone(), TeamMakeContactDialog.PHONE);
+            setContact(teamRequest.getContactQQ(), TeamMakeContactDialog.QQ);
+            setContact(teamRequest.getContactWeChat(), TeamMakeContactDialog.WECHAT);
+
             // content
             if (!TextUtils.isEmpty(teamRequest.getContent())) {
                 contentEdit.setText(teamRequest.getContent());
@@ -123,21 +124,54 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     // 联系方式
     private void initContactContent() {
-        contactEdit = (EditText) root.findViewById(contact_edit_text);
-        contactEdit.addTextChangedListener(new TextWatcher() {
-
+        // phone
+        View phoneBtn = root.findViewById(R.id.phone_content);
+        phoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filed.set(PASS_CONTACT);
-                teamRequest.setContact(contactEdit.getText().toString());
+            public void onClick(View v) {
+                TeamMakeContactDialog dialogFragment = new TeamMakeContactDialog();
+                dialogFragment.setContactType(TeamMakeContactDialog.PHONE);
+                dialogFragment.setContactCallback(new TeamMakeContactDialog.ContactCallback() {
+                    @Override
+                    public void contactChanged(String contact) {
+                        setContact(contact, TeamMakeContactDialog.PHONE);
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), TeamMakeContactDialog.class.getName());
             }
+        });
 
+        // qq
+        View qqBtn = root.findViewById(R.id.qq_content);
+        qqBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onClick(View v) {
+                TeamMakeContactDialog dialogFragment = new TeamMakeContactDialog();
+                dialogFragment.setContactType(TeamMakeContactDialog.QQ);
+                dialogFragment.setContactCallback(new TeamMakeContactDialog.ContactCallback() {
+                    @Override
+                    public void contactChanged(String contact) {
+                        setContact(contact, TeamMakeContactDialog.QQ);
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), TeamMakeContactDialog.class.getName());
             }
+        });
 
+        // wechat
+        View wechatBtn = root.findViewById(R.id.wechat_content);
+        wechatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void onClick(View v) {
+                TeamMakeContactDialog dialogFragment = new TeamMakeContactDialog();
+                dialogFragment.setContactType(TeamMakeContactDialog.WECHAT);
+                dialogFragment.setContactCallback(new TeamMakeContactDialog.ContactCallback() {
+                    @Override
+                    public void contactChanged(String contact) {
+                        setContact(contact, TeamMakeContactDialog.WECHAT);
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), TeamMakeContactDialog.class.getName());
             }
         });
     }
@@ -145,14 +179,11 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
     // 内容
     private void initContentContent() {
         contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
-        contentEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TEXT_LIMIT)});
+        contentEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TEXT_MAX_LIMIT)});
         contentEdit.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filed.set(PASS_CONTENT);
-                teamRequest.setContent(contentEdit.getText().toString());
-
                 updateTextLimitHint();
             }
 
@@ -168,7 +199,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private void updateTextLimitHint() {
         TextView textLimitHint = (TextView) root.findViewById(R.id.text_limit_hint);
-        String hint = String.format(Constants.TEAM_REQUEST_CONTENT_LIMIT_HINT, contentEdit.getText().length(), TEXT_LIMIT);
+        String hint = String.format(Constants.TEAM_REQUEST_CONTENT_LIMIT_HINT, contentEdit.getText().length(), TEXT_MAX_LIMIT);
         textLimitHint.setText(hint);
     }
 
@@ -233,6 +264,42 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
         teamRequest.setDate(date);
     }
 
+    private void setContact(String contact, int contactType) {
+
+        switch (contactType) {
+            case TeamMakeContactDialog.PHONE:
+                TextView phoneText = (TextView) root.findViewById(R.id.phone_text);
+                if (!TextUtils.isEmpty(contact)) {
+                    phoneText.setText(contact);
+                    teamRequest.setContactPhone(contact);
+                } else {
+                    phoneText.setText(getString(R.string.setting_phone_text));
+                    teamRequest.setContactPhone("");
+                }
+                break;
+            case TeamMakeContactDialog.QQ:
+                TextView qqText = (TextView) root.findViewById(R.id.qq_text);
+                if (!TextUtils.isEmpty(contact)) {
+                    qqText.setText(contact);
+                    teamRequest.setContactQQ(contact);
+                } else {
+                    qqText.setText(getString(R.string.setting_qq_text));
+                    teamRequest.setContactQQ("");
+                }
+                break;
+            case TeamMakeContactDialog.WECHAT:
+                TextView wechatText = (TextView) root.findViewById(R.id.wechat_text);
+                if (!TextUtils.isEmpty(contact)) {
+                    wechatText.setText(contact);
+                    teamRequest.setContactWeChat(contact);
+                } else {
+                    wechatText.setText(getString(R.string.setting_wechat_text));
+                    teamRequest.setContactWeChat("");
+                }
+                break;
+        }
+    }
+
     private void setTravelType(String type) {
         TextView travelType = (TextView) root.findViewById(R.id.type_text);
         travelType.setText(type);
@@ -249,12 +316,28 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     // 提交请求
     public void commitRequest() {
+        // set content value
+        String contentString = contentEdit.getText().toString().trim();
+        if (!TextUtils.isEmpty(contentString) && contentString.length() >= TEXT_MIN_LIMIT) {
+            filed.set(PASS_CONTENT);
+            teamRequest.setContent(contentEdit.getText().toString().trim());
+        } else {
+            filed.clear(PASS_CONTENT);
+        }
+
         if (checkIsOk()) {
             final View loadingView = root.findViewById(R.id.loading_content_view);
             loadingView.setVisibility(View.VISIBLE);
 
             if (isUpdate) {
-                teamRequest.setIsPass(true);
+                // 如果之前已经通过，则这次也通过
+                if (TeamRequest.PASS_STATUS.equals(teamRequest.getStatus())) {
+                    teamRequest.setStatus(TeamRequest.PASS_STATUS);
+                }
+                // 如果之前是审核或者未通过，这次是审核
+                else {
+                    teamRequest.setStatus(TeamRequest.WAIT_STATUS);
+                }
                 teamRequest.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
@@ -282,7 +365,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                 teamRequest.setUserGender(TTTApplication.getUserInfo().getUserGender());
                 teamRequest.setComments(0);
                 teamRequest.setWatch(0);
-                teamRequest.setIsPass(true);
+                teamRequest.setStatus(TeamRequest.PASS_STATUS);
                 teamRequest.save(getActivity(), new SaveListener() {
                     @Override
                     public void onSuccess() {
@@ -305,6 +388,17 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
     }
 
     private boolean checkIsOk() {
+
+        // 设置contact是否通过，如果不等于默认值则通过
+        TextView phoneText = (TextView) root.findViewById(R.id.phone_text);
+        TextView qqText = (TextView) root.findViewById(R.id.qq_text);
+        TextView wechatText = (TextView) root.findViewById(R.id.wechat_text);
+        if (getString(R.string.setting_phone_text).equals(phoneText.getText()) && getString(R.string.setting_qq_text).equals(qqText.getText()) && getString(R.string.setting_wechat_text).equals(wechatText.getText())) {
+            filed.clear(PASS_CONTACT);
+        } else {
+            filed.set(PASS_CONTACT);
+        }
+
         if (!filed.isSet(PASS_DATE)) {
             Toast.makeText(getActivity(), "请设置出行日期", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_DESTINATION)) {
@@ -314,7 +408,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
         } else if (!filed.isSet(PASS_CONTACT)) {
             Toast.makeText(getActivity(), "请设置联系方式", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_CONTENT)) {
-            Toast.makeText(getActivity(), "请设置内容", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "内容不得少于10个字", Toast.LENGTH_SHORT).show();
         } else {
             return true;
         }

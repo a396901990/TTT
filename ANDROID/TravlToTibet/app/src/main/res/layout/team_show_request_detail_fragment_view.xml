@@ -1,223 +1,113 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:scrollbars="none">
 
-
-    <!--计划-->
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="3dp"
-        card_view:cardElevation="3dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!--计划-->
+        <include
+            android:id="@+id/contact_content_view"
+            layout="@layout/team_create_request_plan_content_view"></include>
+
+        <!--联系方式-->
+        <include
+            android:id="@+id/contact_content_view"
+            layout="@layout/team_create_request_contact_content_view"></include>
+
+        <!--内容-->
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/card_padding">
-
-            <!--标题-->
-            <TextView
-                style="@style/TitleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/team_make_destination_type_title" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp">
-
-
-                <LinearLayout
-                    android:id="@+id/date_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.Micro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/team_make_time_date" />
-
-                    <TextView
-                        android:id="@+id/travel_date"
-                        style="@style/TextAppearance.Theme.Regular"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:text="" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/less_light_gray"></View>
-
-                <LinearLayout
-                    android:id="@+id/destination_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        style="@style/TextAppearance.Micro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/team_make_destination_title" />
-
-
-                    <TextView
-                        android:id="@+id/destination_text"
-                        style="@style/TextAppearance.Theme.Regular"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:text="" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/less_light_gray"></View>
-
-                <LinearLayout
-                    android:id="@+id/type_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.Micro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/team_make_type_title" />
-
-                    <TextView
-                        android:id="@+id/type_text"
-                        style="@style/TextAppearance.Theme.Regular"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:text="" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <!--联系方式-->
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="3dp"
-        card_view:cardElevation="3dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/card_padding">
-
-            <!--标题-->
-            <TextView
-                style="@style/TitleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/team_make_contact_title" />
+            android:layout_marginBottom="@dimen/article_bottom_height"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="3dp"
+            card_view:cardElevation="3dp"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
 
-                <TextView
-                    android:id="@+id/contact_text"
-                    style="@style/TextAppearance.Medium"
+                <!--header-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--头像-->
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/user_icon"
+                        android:layout_width="@dimen/team_request_profile_size"
+                        android:layout_height="@dimen/team_request_profile_size"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/gray_profile"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="0dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/user_icon"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp">
+
+                        <!--用户名称-->
+                        <TextView
+                            android:id="@+id/user_name"
+                            style="@style/TextAppearance.Micro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="户外探子"
+                            android:textColor="@color/colorPrimary" />
+
+                        <!--用户性别-->
+                        <View
+                            android:id="@+id/user_gender"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/male_gender_view" />
+                    </LinearLayout>
+
+                    <!--发布时间-->
+                    <TextView
+                        android:id="@+id/publish_time"
+                        style="@style/TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="5分钟前"
+                        android:textColor="@color/gray" />
+                </RelativeLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="bottom"
-                    android:paddingTop="10dp" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/content_text"
+                        style="@style/TextAppearance.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="top"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/dark_gray" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <!--内容-->
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="@dimen/article_bottom_height"
-        android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="3dp"
-        card_view:cardElevation="3dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/card_padding">
-
-            <!--内容-->
-            <TextView
-                style="@style/TitleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/team_make_content_title" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/content_text"
-                    style="@style/TextAppearance.Medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:background="@color/white"
-                    android:gravity="top"
-                    android:paddingTop="10dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

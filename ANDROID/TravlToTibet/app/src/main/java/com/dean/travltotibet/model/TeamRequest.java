@@ -7,7 +7,13 @@ import cn.bmob.v3.BmobObject;
  */
 public class TeamRequest extends BmobObject {
 
-    public boolean isPass;
+    public final static String PASS_STATUS = "P";
+
+    public final static String WAIT_STATUS = "W";
+
+    public final static String NO_PASS_STATUS = "N";
+
+    public String status;
 
     public String userId;
 
@@ -23,7 +29,11 @@ public class TeamRequest extends BmobObject {
 
     public String type;
 
-    public String contact;
+    public String contactPhone;
+
+    public String contactQQ;
+
+    public String contactWeChat;
 
     public String content;
 
@@ -31,12 +41,12 @@ public class TeamRequest extends BmobObject {
 
     private int watch;
 
-    public boolean isPass() {
-        return isPass;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIsPass(boolean isPass) {
-        this.isPass = isPass;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUserName() {
@@ -67,12 +77,28 @@ public class TeamRequest extends BmobObject {
         this.content = content;
     }
 
-    public String getContact() {
-        return contact;
+    public String getContactPhone() {
+        return contactPhone;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getContactQQ() {
+        return contactQQ;
+    }
+
+    public void setContactQQ(String contactQQ) {
+        this.contactQQ = contactQQ;
+    }
+
+    public String getContactWeChat() {
+        return contactWeChat;
+    }
+
+    public void setContactWeChat(String contactWeChat) {
+        this.contactWeChat = contactWeChat;
     }
 
     public int getComments() {

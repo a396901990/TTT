@@ -129,6 +129,7 @@
                 android:background="@drawable/border_theme_line"
                 android:gravity="center"
                 android:hint="例：5-6月份"
+                android:singleLine="true"
                 android:padding="10dp" />
         </LinearLayout>
 

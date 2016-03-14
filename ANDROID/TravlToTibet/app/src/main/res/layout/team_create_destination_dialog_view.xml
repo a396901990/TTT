@@ -19,6 +19,7 @@
             android:text="@string/team_make_destination_title" />
 
         <EditText
+            android:singleLine="true"
             android:layout_marginTop="10dp"
             android:id="@+id/destination_edit_view"
             style="@style/TextAppearance.Medium"

@@ -69,11 +69,15 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         final TeamRequest request = mData.get(position);
 
-        // 是否通过审核显示警告视图
-        if (request.isPass) {
-            holder.mWarningView.setVisibility(View.GONE);
-        } else {
+        // 审核未通过和等待审核需要显示提示框
+        if (TeamRequest.NO_PASS_STATUS.equals(request.getStatus())) {
             holder.mWarningView.setVisibility(View.VISIBLE);
+            holder.mWarningText.setText(mContext.getString(R.string.warning_no_pass));
+        } else if (TeamRequest.WAIT_STATUS.equals(request.getStatus())) {
+            holder.mWarningView.setVisibility(View.VISIBLE);
+            holder.mWarningText.setText(mContext.getString(R.string.warning_wait_pass));
+        } else {
+            holder.mWarningView.setVisibility(View.GONE);
         }
 
         // content
@@ -157,6 +161,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         private TextView mWatch;
         private View mWarningView;
+        private TextView mWarningText;
 
         public TeamRequestViewHolder(View itemView) {
             mContentText = (TextView) itemView.findViewById(R.id.content_text);
@@ -173,6 +178,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
 
             mWarningView = itemView.findViewById(R.id.warning_view);
+            mWarningText = (TextView) itemView.findViewById(R.id.warning_text);
         }
     }
 

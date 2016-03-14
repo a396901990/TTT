@@ -2,28 +2,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        >
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="@dimen/travel_type_dialog_padding">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/login_qq"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/travel_type_dialog_image_size"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/icon_qq" />
+                android:padding="12dp"
+                android:src="@drawable/icon_qq_login" />
 
             <TextView
                 style="@style/TextAppearance.Micro"
@@ -36,18 +39,18 @@
 
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="@dimen/travel_type_dialog_padding">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/login_wechat"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/travel_type_dialog_image_size"
                 android:layout_gravity="center_horizontal"
+                android:padding="12dp"
                 android:src="@drawable/icon_wechat" />
 
             <TextView
@@ -64,15 +67,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="@dimen/travel_type_dialog_padding">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/login_sina"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/travel_type_dialog_image_size"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/icon_sina" />
+                android:padding="12dp"
+                android:src="@drawable/icon_sina_login" />
 
             <TextView
                 style="@style/TextAppearance.Micro"

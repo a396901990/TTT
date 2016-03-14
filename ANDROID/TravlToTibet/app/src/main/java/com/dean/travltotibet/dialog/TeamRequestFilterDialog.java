@@ -58,7 +58,7 @@ public class TeamRequestFilterDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (filterCallback != null) {
-                    filterCallback.filterChanged(searchView.getText().toString());
+                    filterCallback.filterChanged(searchView.getText().toString().trim());
                 }
                 dismiss();
             }
