@@ -71,36 +71,6 @@ public class PrepareDetailFragment extends Fragment {
 
         loadingView.setVisibility(View.VISIBLE);
 
-        // 从PrepareInfo表中获取该路段的准备信息
-//        PrepareInfo prepareInfo = TTTApplication.getDbHelper().getPrepareInfo(mRoute, mType);
-//        if (prepareInfo == null) {
-//            return;
-//        }
-        // 获取条目名字
-//        String prepareName = InfoType.getInfoResult(mInfoType, prepareInfo);
-//        Log.e("prepareName", prepareName);
-//        BmobQuery<PrepareFile> query = new BmobQuery<>();
-//        query.addWhereEqualTo("fileName", prepareName);
-//        query.findObjects(getActivity(), new FindListener<PrepareFile>() {
-//            @Override
-//            public void onSuccess(List<PrepareFile> list) {
-//                PrepareFile prepareFile = list.get(0);
-//                String url = prepareFile.getFile().getFileUrl(getActivity());
-//                // Log.e("url", url);
-//                mWebView.loadUrl(url);
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//                Log.e("onError", s);
-//                if (mWebView == null || loadingView == null) {
-//                    return;
-//                }
-//                mWebView.loadUrl(Constants.EMPTY_HTML_CONTENT);
-//                loadingView.setVisibility(View.GONE);
-//            }
-//        });
-
         BmobQuery<PrepareInfo> query = new BmobQuery<>();
         query.addQueryKeys(InfoType.INFO_COLUMN.get(mInfoType));
         query.addWhereEqualTo("route", mRoute);
@@ -109,18 +79,17 @@ public class PrepareDetailFragment extends Fragment {
             @Override
             public void onSuccess(List<PrepareInfo> list) {
                 PrepareInfo prepareFile = list.get(0);
-                String url = InfoType.getInfoResult(mInfoType, prepareFile, getActivity());
+                String url = InfoType.getInfoResult(mInfoType, prepareFile);
                 // Log.e("url", url);
                 mWebView.loadUrl(url);
             }
 
             @Override
             public void onError(int i, String s) {
-                Log.e("onError", s);
                 if (mWebView == null || loadingView == null) {
                     return;
                 }
-                mWebView.loadUrl(Constants.EMPTY_HTML_CONTENT);
+                mWebView.setVisibility(View.GONE);
                 loadingView.setVisibility(View.GONE);
             }
         });

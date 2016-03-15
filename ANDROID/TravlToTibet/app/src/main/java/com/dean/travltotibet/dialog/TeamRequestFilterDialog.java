@@ -1,36 +1,37 @@
 package com.dean.travltotibet.dialog;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.CommonGridAdapter;
-
-import java.util.ArrayList;
-import java.util.Collections;
+import com.dean.travltotibet.activity.TeamShowRequestTypeActivity;
+import com.dean.travltotibet.ui.FlowLayout;
+import com.dean.travltotibet.util.IntentExtra;
 
 /**
  * Created by DeanGuo on 3/8/16.
  */
-public class TeamRequestFilterDialog extends DialogFragment {
+public class TeamRequestFilterDialog extends DialogFragment implements View.OnClickListener{
 
     private View contentLayout;
 
-    private FilterCallback filterCallback;
-
     private EditText searchView;
 
-    public static interface FilterCallback {
-        void filterChanged(String filter);
+    private ViewGroup.LayoutParams layoutParams;
+
+    @Override
+    public void onClick(View v) {
+        final String symbol = ((TextView) v).getText().toString();
+        searchView.setText(symbol);
     }
 
     @Override
@@ -44,10 +45,57 @@ public class TeamRequestFilterDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_filter_dialog_view, null);
+        layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         initSearchView();
-        initHotDestinationView();
         initHotTypeView();
+        initHotRouteView();
+        initHotDestinationView();
+        initHotScenicView();
         return contentLayout;
+    }
+
+    private View addItem(String name) {
+        View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_item_view, null, false);
+        ((TextView) itemView.findViewById(R.id.item_name)).setText(name);
+        itemView.findViewById(R.id.item_name).setOnClickListener(this);
+        return itemView;
+    }
+
+    private void initHotScenicView() {
+        FlowLayout flowLayout = (FlowLayout) contentLayout.findViewById(R.id.hot_scenic_flow_layout);
+        flowLayout.removeAllViews();
+        String[] scenics = TTTApplication.getMyResources().getStringArray(R.array.hot_scenic);
+        for (String scienc : scenics) {
+            flowLayout.addView(addItem(scienc), layoutParams);
+        }
+    }
+
+    private void initHotRouteView() {
+        FlowLayout flowLayout = (FlowLayout) contentLayout.findViewById(R.id.hot_route_flow_layout);
+        flowLayout.removeAllViews();
+        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_routes);
+        for (String route : routes) {
+            flowLayout.addView(addItem(route), layoutParams);
+        }
+    }
+
+    private void initHotDestinationView() {
+        FlowLayout flowLayout = (FlowLayout) contentLayout.findViewById(R.id.hot_dest_flow_layout);
+        flowLayout.removeAllViews();
+        String[] destinations = TTTApplication.getMyResources().getStringArray(R.array.hot_destination);
+        for (String dest : destinations) {
+            flowLayout.addView(addItem(dest), layoutParams);
+        }
+    }
+
+    private void initHotTypeView() {
+        FlowLayout flowLayout = (FlowLayout) contentLayout.findViewById(R.id.hot_type_flow_layout);
+        flowLayout.removeAllViews();
+        String[] types = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
+        for (String type : types) {
+            flowLayout.addView(addItem(type), layoutParams);
+        }
     }
 
     private void initSearchView() {
@@ -57,52 +105,16 @@ public class TeamRequestFilterDialog extends DialogFragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (filterCallback != null) {
-                    filterCallback.filterChanged(searchView.getText().toString().trim());
+                String filter = searchView.getText().toString().trim();
+                if (!TextUtils.isEmpty(filter)) {
+                    Intent intent = new Intent(getActivity(), TeamShowRequestTypeActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_SHOW_TYPE, TeamShowRequestTypeActivity.SHOW_SEARCH);
+                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_SEARCH_FILTER, filter);
+                    startActivity(intent);
                 }
+
                 dismiss();
             }
         });
-    }
-
-    private void initHotDestinationView() {
-        RecyclerView mRecyclerView = (RecyclerView) contentLayout.findViewById(R.id.hot_destination_fragment_list_rv);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-
-        CommonGridAdapter mAdapter = new CommonGridAdapter(getActivity());
-        mAdapter.setSelectCallBack(new CommonGridAdapter.SelectCallBack() {
-            @Override
-            public void onItemSelect(String name) {
-                searchView.setText(name);
-            }
-        });
-
-        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_destination);
-        final ArrayList<String> mData = new ArrayList<>();
-        Collections.addAll(mData, routes);
-        mAdapter.setData(mData);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void initHotTypeView() {
-        RecyclerView hotTypeView = (RecyclerView) contentLayout.findViewById(R.id.hot_type_fragment_list_rv);
-        hotTypeView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-
-        CommonGridAdapter mAdapter = new CommonGridAdapter(getActivity());
-        mAdapter.setSelectCallBack(new CommonGridAdapter.SelectCallBack() {
-            @Override
-            public void onItemSelect(String name) {
-                searchView.setText(name);
-            }
-        });
-        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
-        final ArrayList<String> mData = new ArrayList<>();
-        Collections.addAll(mData, routes);
-        mAdapter.setData(mData);
-        hotTypeView.setAdapter(mAdapter);
-    }
-
-    public void setFilterCallback(FilterCallback filterCallback) {
-        this.filterCallback = filterCallback;
     }
 }

@@ -22,8 +22,8 @@
         android:layout_below="@+id/toolbar">
 
         <fragment
-            android:id="@+id/team_personal_request_fragment"
-            android:name="com.dean.travltotibet.fragment.TeamShowPersonalRequestFragment"
+            android:id="@+id/team_show_request_type_fragment"
+            android:name="com.dean.travltotibet.fragment.TeamShowRequestTypeFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>

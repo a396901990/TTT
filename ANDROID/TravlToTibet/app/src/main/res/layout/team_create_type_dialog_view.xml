@@ -11,13 +11,6 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <!--标题-->
-        <TextView
-            style="@style/TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="旅行类型" />
-
         <EditText
             android:singleLine="true"
             android:layout_marginTop="10dp"
@@ -32,16 +25,41 @@
             />
     </LinearLayout>
 
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="@color/less_light_gray"></View>
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/center_hint"
+            android:background="@color/less_light_gray"></View>
+
+        <TextView
+            android:id="@+id/center_hint"
+            style="@style/TextAppearance.Small.Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="热门关键字" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/center_hint"
+            android:background="@color/less_light_gray"></View>
+    </RelativeLayout>
 
     <LinearLayout
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <!--标题-->
         <TextView
@@ -49,12 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/team_make_type_hot" />
+            android:text="热门旅行类型" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/hot_type_fragment_list_rv"
+        <com.dean.travltotibet.ui.FlowLayout
+            android:id="@+id/hot_type_flow_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
     </LinearLayout>
 
     <com.dean.travltotibet.ui.MaterialRippleLayout

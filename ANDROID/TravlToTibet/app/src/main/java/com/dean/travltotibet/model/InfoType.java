@@ -77,24 +77,24 @@ public enum InfoType {
 
     }
 
-    public static String getInfoResult(InfoType type, PrepareInfo prepareInfo, Context mContent) {
+    public static String getInfoResult(InfoType type, PrepareInfo prepareInfo) {
         switch (type) {
             case BUDGET:
-                return prepareInfo.getBudget().getFileUrl(mContent);
+                return prepareInfo.getBudget();
             case MEDICINE:
-                return prepareInfo.getMedicine().getFileUrl(mContent);
+                return prepareInfo.getMedicine();
             case EQUIP:
-                return prepareInfo.getEquip().getFileUrl(mContent);
+                return prepareInfo.getEquip();
             case OUTDOOR:
-                return prepareInfo.getOutdoor().getFileUrl(mContent);
+                return prepareInfo.getOutdoor();
             case CREDENTIALS:
-                return prepareInfo.getCredential().getFileUrl(mContent);
+                return prepareInfo.getCredential();
             case PERSONAL:
-                return prepareInfo.getPersonal().getFileUrl(mContent);
+                return prepareInfo.getPersonal();
             case OTHER:
-                return prepareInfo.getOther().getFileUrl(mContent);
+                return prepareInfo.getOther();
             case ATTENTION:
-                return prepareInfo.getAttention().getFileUrl(mContent);
+                return prepareInfo.getAttention();
         }
         return null;
     }

@@ -34,7 +34,7 @@ import cn.bmob.v3.listener.SaveListener;
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class TeamShowRequestActivity extends BaseCommentActivity {
+public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     private TeamRequest teamRequest;
 

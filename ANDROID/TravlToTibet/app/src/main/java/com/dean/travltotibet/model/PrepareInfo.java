@@ -10,14 +10,79 @@ public class PrepareInfo extends BmobObject {
 
     private String route;
     private String travelType;
-    private BmobFile budget;
-    private BmobFile medicine;
-    private BmobFile equip;
-    private BmobFile outdoor;
-    private BmobFile credential;
-    private BmobFile personal;
-    private BmobFile attention;
-    private BmobFile other;
+
+    private String budget;
+    private String medicine;
+    private String equip;
+    private String outdoor;
+    private String credential;
+    private String personal;
+    private String attention;
+    private String other;
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
+    }
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
+    }
+
+    public String getEquip() {
+        return equip;
+    }
+
+    public void setEquip(String equip) {
+        this.equip = equip;
+    }
+
+    public String getOutdoor() {
+        return outdoor;
+    }
+
+    public void setOutdoor(String outdoor) {
+        this.outdoor = outdoor;
+    }
+
+    public String getCredential() {
+        return credential;
+    }
+
+    public void setCredential(String credential) {
+        this.credential = credential;
+    }
+
+    public String getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(String personal) {
+        this.personal = personal;
+    }
+
+    public String getAttention() {
+        return attention;
+    }
+
+    public void setAttention(String attention) {
+        this.attention = attention;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
 
     public String getRoute() {
         return route;
@@ -35,67 +100,4 @@ public class PrepareInfo extends BmobObject {
         this.travelType = travelType;
     }
 
-    public BmobFile getBudget() {
-        return budget;
-    }
-
-    public void setBudget(BmobFile budget) {
-        this.budget = budget;
-    }
-
-    public BmobFile getMedicine() {
-        return medicine;
-    }
-
-    public void setMedicine(BmobFile medicine) {
-        this.medicine = medicine;
-    }
-
-    public BmobFile getEquip() {
-        return equip;
-    }
-
-    public void setEquip(BmobFile equip) {
-        this.equip = equip;
-    }
-
-    public BmobFile getOutdoor() {
-        return outdoor;
-    }
-
-    public void setOutdoor(BmobFile outdoor) {
-        this.outdoor = outdoor;
-    }
-
-    public BmobFile getCredential() {
-        return credential;
-    }
-
-    public void setCredential(BmobFile credential) {
-        this.credential = credential;
-    }
-
-    public BmobFile getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(BmobFile personal) {
-        this.personal = personal;
-    }
-
-    public BmobFile getAttention() {
-        return attention;
-    }
-
-    public void setAttention(BmobFile attention) {
-        this.attention = attention;
-    }
-
-    public BmobFile getOther() {
-        return other;
-    }
-
-    public void setOther(BmobFile other) {
-        this.other = other;
-    }
 }

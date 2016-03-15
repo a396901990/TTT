@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.TeamShowRequestActivity;
+import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
@@ -85,7 +85,7 @@ public class TeamRequestAdapter extends RecyclerView.Adapter<TeamRequestAdapter.
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                Intent intent = new Intent(mContext, TeamShowRequestActivity.class);
+                Intent intent = new Intent(mContext, TeamShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, request);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
                 mContext.startActivity(intent);

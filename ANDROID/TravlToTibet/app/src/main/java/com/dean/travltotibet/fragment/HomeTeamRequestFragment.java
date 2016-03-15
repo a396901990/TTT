@@ -2,7 +2,6 @@ package com.dean.travltotibet.fragment;
 
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,38 +9,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
-import com.dean.travltotibet.activity.TeamPersonalRequestActivity;
+import com.dean.travltotibet.activity.TeamShowRequestTypeActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
-import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
-import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindListener;
 import de.greenrobot.event.EventBus;
 
@@ -61,8 +52,6 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private View articleHeader;
 
     private boolean tryToOpenMyTeamRequest = false;
-
-    private String filterText;
 
     private int limit = 6;        // 每页的数据是6条
 
@@ -93,26 +82,22 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         View filterView = root.findViewById(R.id.filter_team_request);
         View myView = root.findViewById(R.id.my_team_request);
 
+        // 搜索结伴
         filterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TeamRequestFilterDialog dialogFragment = new TeamRequestFilterDialog();
-                dialogFragment.setFilterCallback(new TeamRequestFilterDialog.FilterCallback() {
-                    @Override
-                    public void filterChanged(String filter) {
-                        filterText = filter;
-                        refresh();
-                    }
-                });
                 dialogFragment.show(getFragmentManager(), TeamRequestFilterDialog.class.getName());
             }
         });
 
+        // 我的结伴
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), TeamPersonalRequestActivity.class);
+                    Intent intent = new Intent(getActivity(), TeamShowRequestTypeActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_SHOW_TYPE, TeamShowRequestTypeActivity.SHOW_PERSONAL);
                     startActivity(intent);
                 } else {
                     tryToOpenMyTeamRequest = true;
@@ -122,6 +107,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             }
         });
 
+        // 添加结伴
         FloatingActionMenu mFloatingActionMenu = (FloatingActionMenu) root.findViewById(R.id.add_btn);
         mFloatingActionMenu.setIconAnimated(false);
         mFloatingActionMenu.setMenuButtonColorNormal(TTTApplication.getMyColor(R.color.colorPrimary));
@@ -187,26 +173,6 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
-        if (!TextUtils.isEmpty(filterText)) {
-            // destination
-            BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();
-            destination.addWhereContains("destination", filterText);
-            // type
-            BmobQuery<TeamRequest> type = new BmobQuery<TeamRequest>();
-            type.addWhereContains("type", filterText);
-            // content
-            BmobQuery<TeamRequest> content = new BmobQuery<TeamRequest>();
-            content.addWhereContains("content", filterText);
-
-            // queries
-            List<BmobQuery<TeamRequest>> queries = new ArrayList<BmobQuery<TeamRequest>>();
-            queries.add(destination);
-            queries.add(type);
-            queries.add(content);
-
-            // 添加or查询
-            query.or(queries);
-        }
 
         // 加载更多
         if (actionType == STATE_MORE) {
@@ -346,7 +312,8 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     public void onEventMainThread(LoginUtil.LoginEvent event) {
         if (tryToOpenMyTeamRequest) {
             Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), TeamPersonalRequestActivity.class);
+            Intent intent = new Intent(getActivity(), TeamShowRequestTypeActivity.class);
+            intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_SHOW_TYPE, TeamShowRequestTypeActivity.SHOW_PERSONAL);
             startActivity(intent);
             tryToOpenMyTeamRequest = false;
         }

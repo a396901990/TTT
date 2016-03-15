@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.TeamShowRequestActivity;
+import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
@@ -31,7 +31,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
     private TeamRequest teamRequest;
 
-    private TeamShowRequestActivity teamShowRequestActivity;
+    private TeamShowRequestDetailActivity teamShowRequestDetailActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +44,8 @@ public class TeamShowRequestDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        teamShowRequestActivity = (TeamShowRequestActivity) getActivity();
-        teamRequest = teamShowRequestActivity.getTeamRequest();
+        teamShowRequestDetailActivity = (TeamShowRequestDetailActivity) getActivity();
+        teamRequest = teamShowRequestDetailActivity.getTeamRequest();
         initPlanContent();
         initContactContent();
         initHeaderView();

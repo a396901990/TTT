@@ -11,13 +11,6 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <!--标题-->
-        <TextView
-            style="@style/TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/team_make_destination_title" />
-
         <EditText
             android:singleLine="true"
             android:layout_marginTop="10dp"
@@ -32,16 +25,10 @@
             />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="@color/less_light_gray"></View>
-
     <LinearLayout
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <!--标题-->
         <TextView
@@ -49,12 +36,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/team_make_destination_hot" />
+            android:text="热门线路" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/hot_destination_fragment_list_rv"
+        <com.dean.travltotibet.ui.FlowLayout
+            android:id="@+id/hot_route_flow_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--标题-->
+        <TextView
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="热门目的地" />
+
+        <com.dean.travltotibet.ui.FlowLayout
+            android:id="@+id/hot_dest_flow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--标题-->
+        <TextView
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="热门景点" />
+
+        <com.dean.travltotibet.ui.FlowLayout
+            android:id="@+id/hot_scenic_flow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
     </LinearLayout>
 
 

@@ -1,12 +1,10 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,7 +17,7 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
-import com.dean.travltotibet.activity.TeamShowRequestActivity;
+import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
@@ -31,8 +29,6 @@ import com.dean.travltotibet.util.IntentExtra;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
-
-import static com.dean.travltotibet.R.id.contact_btn;
 
 /**
  * Created by DeanGuo on 2/23/16.
@@ -344,7 +340,7 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                         loadingView.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(getActivity(), TeamShowRequestActivity.class);
+                        Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
                         intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
                         intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
                         getActivity().startActivity(intent);

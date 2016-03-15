@@ -17,7 +17,7 @@ import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.fragment.TeamShowAllRequestFragment;
-import com.dean.travltotibet.fragment.TeamShowPersonalRequestFragment;
+import com.dean.travltotibet.fragment.TeamShowRequestTypeFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -49,7 +49,7 @@ public class TeamRequestActivity extends BaseActivity implements LoginDialog.Log
             mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
         }
         mAdapter.add(TeamShowAllRequestFragment.class, null, "最新结伴");
-        mAdapter.add(TeamShowPersonalRequestFragment.class, null, "我的结伴");
+        mAdapter.add(TeamShowRequestTypeFragment.class, null, "我的结伴");
         mPager.setAdapter(mAdapter);
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
