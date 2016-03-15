@@ -6,7 +6,7 @@ import com.dean.travltotibet.dialog.BaseCommentDialog;
 
 import cn.bmob.v3.BmobObject;
 
-public class BaseCommentActivity extends  BaseActivity implements BaseCommentDialog.CommentCallBack  {
+public abstract class BaseCommentActivity extends  BaseActivity implements BaseCommentDialog.CommentCallBack  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,5 @@ public class BaseCommentActivity extends  BaseActivity implements BaseCommentDia
 
     }
 
-    public BmobObject getObj() {
-        return null;
-    }
+    abstract public BmobObject getObj();
 }

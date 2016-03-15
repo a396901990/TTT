@@ -18,7 +18,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseCommentActivity;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.model.CommentReport;
+import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
@@ -143,24 +143,8 @@ public class CommentPopupDialog extends DialogFragment {
     }
 
     private void reportAction() {
-        CommentReport commentReport = new CommentReport();
-        commentReport.setReportId(mComment.getObjectId());
-        commentReport.setReportUser(mComment.getUser_name());
-        commentReport.setReportType(mCommentType);
-        commentReport.save(getActivity(), new SaveListener() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getActivity(), getActivity().getString(R.string.report_success), Toast.LENGTH_SHORT).show();
-                getDialog().dismiss();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(getActivity(), getActivity().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
-                getDialog().dismiss();
-            }
-        });
-
+        new Report().toReport(getActivity(), Report.REPORT_COMMENT, mComment.getObjectId(), mComment.getUser_id(), mComment.getUser_name());
+        getDialog().dismiss();
     }
 
     private void copyAction() {

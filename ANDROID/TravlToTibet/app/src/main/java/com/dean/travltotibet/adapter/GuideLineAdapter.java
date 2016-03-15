@@ -308,7 +308,6 @@ public class GuideLineAdapter extends BaseAdapter {
             imageView.setPadding(padding, padding, padding, padding);
             imageView.setLayoutParams(layoutParams);
 
-
             // 如果是风景类型，做特殊逻辑
             if (around.contains(AroundType.SCENIC)) {
                 // 风景 || 正风景切正向 || 反风景且是反向

@@ -87,7 +87,7 @@ public class TeamShowRequestTypeFragment extends RefreshFragment implements Load
 
     private void setUpList() {
         mAdapter = new TeamRequestListAdapter(getActivity());
-        mAdapter.setIsPersonal(true);
+        mAdapter.setIsPersonal(mActivity.getCurrentShowType() == mActivity.SHOW_PERSONAL);
         loadMoreListView.setAdapter(mAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
     }
@@ -197,6 +197,10 @@ public class TeamShowRequestTypeFragment extends RefreshFragment implements Load
 
     @Override
     public void prepareLoading() {
+
+        View noResultView = root.findViewById(R.id.no_result_content);
+        noResultView.setVisibility(View.GONE);
+
         if (mActivity != null && mAdapter != null) {
             startUpdate();
             mAdapter.clearData();

@@ -82,6 +82,10 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
     }
 
     private void getArticles(final int actionType) {
+        if (getActivity() == null) {
+            return;
+        }
+
         articles = new ArrayList<>();
 
         BmobQuery<Article> query = new BmobQuery<>();
@@ -153,6 +157,10 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
 
     @Override
     public void prepareLoading() {
+
+        View noResultView = root.findViewById(R.id.no_result_content);
+        noResultView.setVisibility(View.GONE);
+
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();

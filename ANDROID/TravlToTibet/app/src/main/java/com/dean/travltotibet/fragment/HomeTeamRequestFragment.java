@@ -171,7 +171,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         teamRequests = new ArrayList<>();
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
-        query.order("-createdAt");
+        query.order("-comments,-createdAt");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
 
         // 加载更多
@@ -251,6 +251,9 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void prepareLoading() {
+        View noResultView = root.findViewById(R.id.no_result_content);
+        noResultView.setVisibility(View.GONE);
+
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();

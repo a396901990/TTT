@@ -108,8 +108,7 @@ public class TTTApplication extends Application {
         Platform[] platforms = ShareSDK.getPlatformList();
         // 未检查到token，没登陆
         if (TextUtils.isEmpty(token)) {
-            userInfo = new UserInfo();
-            userInfo.setUserName("游客");
+            userInfo = null;
             logedin = false;
         } else {
             for (Platform platform : platforms) {

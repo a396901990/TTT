@@ -17,6 +17,7 @@
             android:src="@drawable/icon_no_result" />
 
         <TextView
+            android:id="@+id/no_result_text"
             style="@style/TextAppearance.Large.Gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

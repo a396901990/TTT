@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.CommentPopupDialog;
-import com.dean.travltotibet.model.ArticleComment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
@@ -34,7 +33,7 @@ import cn.bmob.v3.listener.UpdateListener;
 /**
  * Created by DeanGuo on 2/19/16.
  */
-public class CommonCommentListAdapter extends BaseAdapter {
+public class ReplyCommentListAdapter extends BaseAdapter {
 
     Context mContext;
 
@@ -42,7 +41,7 @@ public class CommonCommentListAdapter extends BaseAdapter {
 
     private ArrayList<Comment> mData = new ArrayList<>();
 
-    public CommonCommentListAdapter(Context context) {
+    public ReplyCommentListAdapter(Context context) {
         mContext = context;
     }
 
@@ -130,11 +129,11 @@ public class CommonCommentListAdapter extends BaseAdapter {
 
     private void setCommentView(final CommentViewHolder holder, final Comment comment) {
         if (!TextUtils.isEmpty(comment.getQuote_id())) {
-            BmobQuery<ArticleComment> query = new BmobQuery<ArticleComment>();
-            query.getObject(mContext, comment.getQuote_id(), new GetListener<ArticleComment>() {
+            BmobQuery<Comment> query = new BmobQuery<Comment>();
+            query.getObject(mContext, comment.getQuote_id(), new GetListener<Comment>() {
 
                 @Override
-                public void onSuccess(ArticleComment reply) {
+                public void onSuccess(Comment reply) {
                     holder.replyContent.setVisibility(View.VISIBLE);
 
                     holder.replyUserName.setText(reply.getUser_name());

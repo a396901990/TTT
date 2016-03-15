@@ -123,6 +123,7 @@ public class HomeRecommendFragment extends RefreshFragment {
 
     @Override
     public void prepareLoading() {
+
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();

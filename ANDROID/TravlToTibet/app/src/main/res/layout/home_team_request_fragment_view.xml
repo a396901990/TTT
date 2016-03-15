@@ -15,10 +15,10 @@
         android:layout_height="match_parent">
 
         <com.dean.travltotibet.ui.LoadMoreListView
-            android:layout_marginBottom="@dimen/team_request_bottom_add_size"
             android:id="@+id/team_request_fragment_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/team_request_bottom_add_size"
             android:divider="@android:color/transparent"
             android:dividerHeight="6dp"
             android:footerDividersEnabled="false"
@@ -36,5 +36,6 @@
         layout="@layout/no_result_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="top" />
+        android:layout_gravity="top"
+        android:visibility="gone" />
 </FrameLayout>

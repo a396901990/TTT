@@ -19,8 +19,8 @@ import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestDetailFragment;
+import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.TeamRequestReport;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -29,7 +29,6 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.GetListener;
-import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by DeanGuo on 3/3/16.
@@ -73,7 +72,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     private void initHeader() {
-        if(isPersonal){
+        if (isPersonal) {
             setTitle("我的结伴");
         } else {
             setTitle("结伴详情");
@@ -173,6 +172,11 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     @Override
+    public BmobObject getObj() {
+        return teamRequest;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_team_request_show, menu);
         return true;
@@ -184,14 +188,11 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         // 结束
         if (item.getItemId() == android.R.id.home) {
             finish();
-        }
-        else if (id == R.id.action_edit) {
+        } else if (id == R.id.action_edit) {
             actionEdit();
-        }
-        else if (id == R.id.action_del) {
+        } else if (id == R.id.action_del) {
             actionDel();
-        }
-        else if (id == R.id.action_report) {
+        } else if (id == R.id.action_report) {
             actionReport();
         }
         return super.onOptionsItemSelected(item);
@@ -258,23 +259,9 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         });
     }
 
+    // 举报
     private void reportAction() {
-        TeamRequestReport teamRequestReport = new TeamRequestReport();
-        teamRequestReport.setReportId(teamRequest.getObjectId());
-        teamRequestReport.setReportUserId(teamRequest.getUserId());
-        teamRequestReport.setReportUserName(teamRequest.getUserName());
-        teamRequestReport.save(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), getString(R.string.report_success), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(getApplicationContext(), getString(R.string.action_error), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        new Report().toReport(this, Report.REPORT_TEAM_REQUEST, teamRequest.getObjectId(), teamRequest.getUserId(), teamRequest.getUserName());
     }
 
     private void actionEdit() {
@@ -323,11 +310,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         }
 
         return true;
-    }
-
-    @Override
-    public BmobObject getObj() {
-        return teamRequest;
     }
 
     @Override

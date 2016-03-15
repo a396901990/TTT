@@ -8,26 +8,26 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.BaseCommentActivity;
-import com.dean.travltotibet.adapter.CommonCommentListAdapter;
+import com.dean.travltotibet.adapter.ReplyCommentListAdapter;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.ui.LoadMoreListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by DeanGuo on 3/3/16.
  * 调用此fragment，父activity必须继承自CommentBaseActivity
- * 子类必须实现getCommentData，getCommentType
+ * 子类必须实现getCommentTypeObjectId，getCommentType
  */
 public abstract class BaseCommentFragment extends RefreshFragment  implements LoadMoreListView.OnLoadMoreListener  {
 
     private View root;
 
-    public BaseCommentActivity mActivity;
-
-    private CommonCommentListAdapter commentListAdapter;
+    private ReplyCommentListAdapter commentListAdapter;
 
     private ArrayList<Comment> mComments;
 
@@ -38,8 +38,6 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     public final static int COMMENT_LIMIT = 6;        // 每页的数据是6条
 
     private int currentTab = 0;
-
-    private View noResultView;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -56,9 +54,6 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActivity = (BaseCommentActivity) this.getActivity();
-        noResultView = root.findViewById(R.id.no_result_content);
-        noResultView.setVisibility(View.GONE);
         loadMoreListView = (LoadMoreListView) root.findViewById(R.id.comment_list_view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
 
@@ -141,14 +136,14 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     }
 
     private void initCommentView() {
-        commentListAdapter = new CommonCommentListAdapter(getActivity());
+        commentListAdapter = new ReplyCommentListAdapter(getActivity());
         commentListAdapter.setCommentType(getCommentType());
         loadMoreListView.setAdapter(commentListAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
     }
 
     public void setComments() {
-
+        View noResultView = root.findViewById(R.id.no_result_content);
         // 无数据
         if (mComments == null || mComments.size() == 0) {
             noResultView.setVisibility(View.VISIBLE);
@@ -171,7 +166,7 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         finishUpdate();
     }
 
-    public CommonCommentListAdapter getCommentListAdapter() {
+    public ReplyCommentListAdapter getCommentListAdapter() {
         return commentListAdapter;
     }
 
@@ -196,9 +191,53 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     // 获取评论类型
     public abstract String getCommentType();
 
-    // 获取评论数据
-    public abstract void getCommentData(final int actionType);
+    public abstract String getCommentTypeObjectId();
 
+    // 获取评论数据
+    public void getCommentData(final int actionType) {
+
+        BmobQuery<Comment> query = new BmobQuery<>();
+        query.addWhereEqualTo("type", getCommentType());
+        query.addWhereEqualTo("type_object_id", getCommentTypeObjectId());
+
+        // 加载更多
+        if (actionType == STATE_MORE) {
+            // 跳过已经加载的元素
+            query.setSkip(getCommentListAdapter().getCount());
+        }
+
+        // 设置每页数据个数
+        query.setLimit(COMMENT_LIMIT);
+
+        if (BaseCommentFragment.HOT_COMMENT == getCurrentTab()) {
+            query.order("-like");
+        } else if (BaseCommentFragment.NEW_COMMENT == getCurrentTab()) {
+            query.order("-createdAt");
+        }
+
+        query.findObjects(getActivity(), new FindListener<Comment>() {
+            @Override
+            public void onSuccess(List<Comment> list) {
+
+                setComments((ArrayList<Comment>) list);
+
+                if (list.size() == 0 && actionType == STATE_MORE) {
+                    getLoadMoreListView().onNoMoreDate();
+                } else {
+                    if (actionType == STATE_REFRESH) {
+                        toDo(LOADING_SUCCESS, 0);
+                    } else {
+                        toDo(LOADING_MORE_SUCCESS, 0);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                getDataFailed();
+            }
+        });
+    }
 
     @Override
     public void update() {
@@ -212,6 +251,10 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
 
     @Override
     public void prepareLoading() {
+
+        View noResultView = root.findViewById(R.id.no_result_content);
+        noResultView.setVisibility(View.GONE);
+
         if (commentListAdapter != null) {
             startUpdate();
             commentListAdapter.clearData();

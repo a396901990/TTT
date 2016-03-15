@@ -18,17 +18,19 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.LoginDialogFragment;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.LoginUtil;
 
 /**
  * Created by DeanGuo on 1/20/16.
  * 选择旅行类型
  */
-public class BaseCommentDialog extends LoginDialogFragment {
+public abstract class BaseCommentDialog extends LoginDialogFragment {
 
     private View contentLayout;
 
@@ -190,7 +192,13 @@ public class BaseCommentDialog extends LoginDialogFragment {
     }
 
     public void submitCommit() {
-        mHandle.sendEmptyMessage(SUBMIT_BEGIN);
+        if (TTTApplication.hasLoggedIn()) {
+            mHandle.sendEmptyMessage(SUBMIT_BEGIN);
+        } else {
+            DialogFragment dialogFragment = new LoginDialog();
+            dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+            return;
+        }
     }
 
     @Override
@@ -211,11 +219,6 @@ public class BaseCommentDialog extends LoginDialogFragment {
 
     protected Handler getHandle() {
         return mHandle;
-    }
-
-
-    public CommentCallBack getCommentCallBack() {
-        return commentCallBack;
     }
 
     public void setCommentCallBack(CommentCallBack commentCallBack) {

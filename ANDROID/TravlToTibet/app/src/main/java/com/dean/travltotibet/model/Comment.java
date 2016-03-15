@@ -13,13 +13,14 @@ import cn.bmob.v3.BmobObject;
  */
 public class Comment extends BmobObject {
 
-    public  final static String ARTICLE_COMMENT = "article_comment";
-    public  final static String TEAM_REQUEST_COMMENT = "team_request_comment";
-    public  final static String HOTEL_COMMENT = "hotel_comment";
-    public  final static String SCENIC_COMMENT = "scenic_comment";
+    public  final static String ARTICLE_COMMENT = "article";
+    public  final static String TEAM_REQUEST_COMMENT = "teamRequest";
+    public  final static String HOTEL_COMMENT = "hotel";
+    public  final static String SCENIC_COMMENT = "scenic";
 
-    private int like;
-    private int dislike;
+    private String type_object_id;
+    private String type;
+    private String type_desc;
     private String rating;
     private String quote_id;
     private String quote_text;
@@ -28,6 +29,32 @@ public class Comment extends BmobObject {
     private String user_id;
     private String user_icon;
     private String user_name;
+    private int like;
+    private int dislike;
+
+    public String getType_object_id() {
+        return type_object_id;
+    }
+
+    public void setType_object_id(String type_object_id) {
+        this.type_object_id = type_object_id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType_desc() {
+        return type_desc;
+    }
+
+    public void setType_desc(String type_desc) {
+        this.type_desc = type_desc;
+    }
 
     public String getRating() {
         return rating;

@@ -151,6 +151,10 @@ public class HomeRecentFragment extends RefreshFragment {
 
     @Override
     public void prepareLoading() {
+
+        View noResultView = root.findViewById(R.id.no_result_content);
+        noResultView.setVisibility(View.GONE);
+
         if (mActivity != null && mAdapter != null) {
             mActivity.startUpdate();
             mAdapter.clearData();

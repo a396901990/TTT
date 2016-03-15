@@ -178,7 +178,7 @@ public class HomeActivity extends BaseActivity {
 
     private void checkForUpdate() {
         // only wifi
-        BmobUpdateAgent.update(this);
+        BmobUpdateAgent.forceUpdate(this);
     }
 
     @Override
