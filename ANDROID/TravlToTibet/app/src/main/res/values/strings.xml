@@ -144,6 +144,7 @@
     <string name="text_commented">您已经赞过啦，亲~</string>
     <string name="report_success">举报成功，正在审核中...</string>
     <string name="favorite_success">收藏成功，可在我的约伴中查看</string>
+    <string name="cancel_favorite_success">取消收藏</string>
     <string name="action_error">操作失败</string>
 
     <string name="team_make_title">结伴</string>

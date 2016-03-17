@@ -19,7 +19,7 @@ public class UserFavorites extends BmobObject{
 
     private String userId;
     private String userName;
-    private String type_object_id;
+    private String typeObjectId;
     private String type;
 
     public String getUserId() {
@@ -38,12 +38,12 @@ public class UserFavorites extends BmobObject{
         this.userName = userName;
     }
 
-    public String getType_object_id() {
-        return type_object_id;
+    public String getTypeObjectId() {
+        return typeObjectId;
     }
 
-    public void setType_object_id(String type_object_id) {
-        this.type_object_id = type_object_id;
+    public void setTypeObjectId(String typeObjectId) {
+        this.typeObjectId = typeObjectId;
     }
 
     public String getType() {
@@ -56,7 +56,7 @@ public class UserFavorites extends BmobObject{
 
     public void addFavorite(final Context context, String favoriteType, String favoriteId) {
         UserFavorites userFavorites = new UserFavorites();
-        userFavorites.setType_object_id(favoriteId);
+        userFavorites.setTypeObjectId(favoriteId);
         userFavorites.setType(favoriteType);
         if (TTTApplication.hasLoggedIn() && TTTApplication.getUserInfo() != null) {
             userFavorites.setUserId(TTTApplication.getUserInfo().getUserId());

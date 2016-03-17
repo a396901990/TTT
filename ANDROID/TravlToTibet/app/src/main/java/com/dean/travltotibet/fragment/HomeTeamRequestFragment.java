@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -14,12 +16,14 @@ import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamRequestPersonalActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +32,7 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by DeanGuo on 3/3/16.
@@ -43,6 +48,10 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
     private View articleHeader;
+
+    private boolean tryToOpenMyTeamRequest = false;
+
+    private boolean tryToCreateTeamRequest = false;
 
     private int limit = 6;        // 每页的数据是6条
 
@@ -62,6 +71,8 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
+        EventBus.getDefault().register(this);
+
         setUpList();
         setUpHeader();
         initBottomView();
@@ -85,8 +96,14 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
-                startActivity(intent);
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
+                    startActivity(intent);
+                } else {
+                    tryToOpenMyTeamRequest = true;
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
             }
         });
 
@@ -99,9 +116,15 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         mFloatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
-                Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
-                startActivityForResult(intent, CREATE_REQUEST);
-                getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
+                    startActivityForResult(intent, CREATE_REQUEST);
+                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                } else {
+                    tryToCreateTeamRequest = true;
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
             }
         });
     }
@@ -296,4 +319,31 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
     public void onLoadMore() {
         toDo(ON_LOADING_MORE, 800);
     }
+
+    /**
+     * 登陆成功回调
+     */
+    public void onEventMainThread(LoginUtil.LoginEvent event) {
+        Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+        if (tryToOpenMyTeamRequest) {
+            Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
+            startActivity(intent);
+            tryToOpenMyTeamRequest = false;
+        }
+        else if (tryToCreateTeamRequest) {
+            Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
+            startActivityForResult(intent, CREATE_REQUEST);
+            getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+            tryToCreateTeamRequest = false;
+        }
+    }
+
+    /**
+     * 登陆失败回调
+     */
+    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
+        Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+    }
+
+
 }

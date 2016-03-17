@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserFavorites;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,16 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class TeamRequestFavoriteFragment extends TeamShowRequestBaseFragment {
 
+    List<String> favorites;
+
     public void getTeamRequests(final int actionType) {
 
         teamRequests = new ArrayList<>();
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
-        query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
+        query.addWhereContainedIn("objectId", favorites);
+        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
 
         // 加载更多
         if (actionType == STATE_MORE) {
@@ -55,6 +59,32 @@ public class TeamRequestFavoriteFragment extends TeamShowRequestBaseFragment {
                 } else {
                     toDo(LOADING_MORE_ERROR, 0);
                 }
+            }
+        });
+    }
+
+    @Override
+    protected void prepareLoadingWork() {
+        getFavorites();
+    }
+
+    private void getFavorites() {
+        BmobQuery<UserFavorites> query = new BmobQuery<UserFavorites>();
+        query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
+        query.addWhereEqualTo("type", UserFavorites.TEAM_REQUEST);
+        query.findObjects(getActivity(), new FindListener<UserFavorites>() {
+            @Override
+            public void onSuccess(List<UserFavorites> list) {
+                favorites = new ArrayList<String>();
+                for (UserFavorites f : list) {
+                    favorites.add(f.getTypeObjectId());
+                }
+                toDo(ON_LOADING, 800);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
             }
         });
     }

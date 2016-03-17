@@ -12,7 +12,6 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.RefreshFragment;
-import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.fragment.TeamRequestFavoriteFragment;
 import com.dean.travltotibet.fragment.TeamRequestMyselfFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
@@ -22,15 +21,11 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
  * Created by DeanGuo on 3/16/16.
  * 个人记录（包括个人发布，个人收藏，个人回复），先登录后查看
  */
-public class TeamRequestPersonalActivity extends BaseActivity implements LoginDialog.LoginListener {
+public class TeamRequestPersonalActivity extends BaseActivity {
 
     private ViewPager mPager;
 
     private ViewPageFragmentAdapter mAdapter;
-
-    private View loginView;
-
-    private LoginDialog loginDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,37 +33,7 @@ public class TeamRequestPersonalActivity extends BaseActivity implements LoginDi
         setContentView(R.layout.team_request_personal_view);
 
         initToolBar();
-        initLoginView();
         initPager();
-        checkLogin();
-    }
-
-    private void initLoginView() {
-        loginDialog = new LoginDialog();
-        loginDialog.setLoginListener(this);
-
-        loginView = findViewById(R.id.login_view);
-        loginView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
-            }
-        });
-    }
-
-    private void checkLogin() {
-        if (!TTTApplication.hasLoggedIn()) {
-            loginView.setVisibility(View.VISIBLE);
-        } else {
-            loginView.setVisibility(View.GONE);
-
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    updateAll();
-                }
-            });
-        }
     }
 
     private void initPager() {
@@ -79,9 +44,8 @@ public class TeamRequestPersonalActivity extends BaseActivity implements LoginDi
         }
         mAdapter.add(TeamRequestMyselfFragment.class, null, "我的发布");
         mAdapter.add(TeamRequestFavoriteFragment.class, null, "我的收藏");
-        mAdapter.add(TeamRequestMyselfFragment.class, null, "我的回复");
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(1);
         mPager.setCurrentItem(0, true);
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);
@@ -99,23 +63,6 @@ public class TeamRequestPersonalActivity extends BaseActivity implements LoginDi
     @Override
     protected boolean needShowSystemBar() {
         return true;
-    }
-
-    @Override
-    public void loginSuccess() {
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                loginView.setVisibility(View.GONE);
-                updateAll();
-            }
-        });
-        Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void loginFailed() {
-        Toast.makeText(getApplicationContext(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
     }
 
     private void updateAll() {

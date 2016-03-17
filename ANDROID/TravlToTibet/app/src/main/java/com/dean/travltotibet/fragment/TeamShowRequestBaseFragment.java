@@ -23,6 +23,7 @@ import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by DeanGuo on 3/4/16.
+ * 子类需要重写getTeamRequests,prepareLoadingWork
  */
 public abstract class TeamShowRequestBaseFragment extends RefreshFragment implements LoadMoreListView.OnLoadMoreListener {
 
@@ -34,6 +35,11 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
     protected SwipeRefreshLayout mSwipeRefreshLayout;
 
     protected int limit = 8;        // 每页的数据是6条
+
+    // 获取数据
+    protected abstract void getTeamRequests(final int actionType);
+    // 获取准备数据
+    protected abstract void prepareLoadingWork();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +57,7 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
 
         setUpList();
         initRefresh();
+        refresh();
     }
 
     private void initRefresh() {
@@ -89,8 +96,6 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
         loadMoreListView.setOnLoadMoreListener(this);
     }
 
-    abstract void getTeamRequests(final int actionType);
-
     /**
      * 更新recentRoutes数据
      */
@@ -127,8 +132,9 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
         if (getActivity() != null && mAdapter != null) {
             startUpdate();
             mAdapter.clearData();
-            toDo(ON_LOADING, 800);
         }
+
+        prepareLoadingWork();
     }
 
     @Override

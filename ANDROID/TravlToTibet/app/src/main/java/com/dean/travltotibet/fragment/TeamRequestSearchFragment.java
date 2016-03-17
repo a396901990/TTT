@@ -95,6 +95,11 @@ public class TeamRequestSearchFragment extends TeamShowRequestBaseFragment {
     }
 
     @Override
+    protected void prepareLoadingWork() {
+        toDo(ON_LOADING, 800);
+    }
+
+    @Override
     public boolean isPersonal() {
         return false;
     }

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestDetailFragment;
@@ -23,13 +25,20 @@ import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserFavorites;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.DeleteListener;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.SaveListener;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by DeanGuo on 3/3/16.
@@ -46,11 +55,14 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     static final int UPDATE_REQUEST = 0;
 
+    private UserFavorites curUserFavorite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.team_show_request_view);
+        EventBus.getDefault().register(this);
 
         if (getIntent() != null) {
             teamRequest = (TeamRequest) getIntent().getSerializableExtra(IntentExtra.INTENT_TEAM_REQUEST);
@@ -77,6 +89,28 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             setTitle("我的结伴");
         } else {
             setTitle("结伴详情");
+            updateMenu();
+        }
+    }
+
+    private void updateMenu() {
+        if (TTTApplication.hasLoggedIn()) {
+            BmobQuery<UserFavorites> query = new BmobQuery<UserFavorites>();
+            query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
+            query.addWhereEqualTo("type", UserFavorites.TEAM_REQUEST);
+            query.addWhereEqualTo("typeObjectId", teamRequest.getObjectId());
+            query.findObjects(this, new FindListener<UserFavorites>() {
+                @Override
+                public void onSuccess(List<UserFavorites> list) {
+                    curUserFavorite = list.get(0);
+                    invalidateOptionsMenu();
+                }
+
+                @Override
+                public void onError(int i, String s) {
+
+                }
+            });
         }
     }
 
@@ -202,7 +236,51 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     private void actionFavorite() {
-        new UserFavorites().addFavorite(this, UserFavorites.TEAM_REQUEST, teamRequest.getObjectId());
+
+        // 没登陆
+        if (!TTTApplication.hasLoggedIn() ||  TTTApplication.getUserInfo() == null) {
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
+        } else {
+            // 已经收藏，则取消收藏
+            if (curUserFavorite != null) {
+                curUserFavorite.delete(this, new DeleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.cancel_favorite_success), Toast.LENGTH_SHORT).show();
+                        curUserFavorite = null;
+                        invalidateOptionsMenu();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            // 没有收藏则收藏
+            else {
+                curUserFavorite = new UserFavorites();
+                curUserFavorite.setTypeObjectId(teamRequest.getObjectId());
+                curUserFavorite.setType(UserFavorites.TEAM_REQUEST);
+                curUserFavorite.setUserId(TTTApplication.getUserInfo().getUserId());
+                curUserFavorite.setUserName(TTTApplication.getUserInfo().getUserName());
+                curUserFavorite.save(this, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+                        invalidateOptionsMenu();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        curUserFavorite = null;
+                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
     }
 
     private void actionReport() {
@@ -317,6 +395,12 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             reportItem.setVisible(true);
             editItem.setVisible(false);
             delItem.setVisible(false);
+
+            if (curUserFavorite != null) {
+                favoriteItem.setIcon(R.drawable.icon_favorite_red);
+            } else {
+                favoriteItem.setIcon(R.drawable.icon_favorite);
+            }
         }
 
         return true;
@@ -331,4 +415,18 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         return teamRequest;
     }
 
+    /**
+     * 登陆成功回调
+     */
+    public void onEventMainThread(LoginUtil.LoginEvent event) {
+        Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+        updateMenu();
+    }
+
+    /**
+     * 登陆失败回调
+     */
+    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
+        Toast.makeText(getApplicationContext(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+    }
 }
