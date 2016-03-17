@@ -41,28 +41,47 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_container"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/appbar">
+            android:layout_below="@id/appbar"
+            android:fillViewport="true"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:fillViewport="true"
-                android:flipInterval="30"
-                android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <FrameLayout
+            android:id="@+id/login_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/item_content"
+            android:layout_below="@id/appbar"
+            android:background="@color/gray_background">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="@dimen/login_profile_size"
+                    android:layout_height="@dimen/login_profile_size"
+                    android:src="@drawable/gray_profile"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/profile_text"
+                    style="@style/TextAppearance.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="@string/login_text"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+        </FrameLayout>
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:clickable="true" />
 </android.support.design.widget.CoordinatorLayout>

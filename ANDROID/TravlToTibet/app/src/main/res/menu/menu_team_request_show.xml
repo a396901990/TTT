@@ -2,6 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/icon_favorite"
+        android:orderInCategory="100"
+        android:title="@string/action_favorite"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_report"
         android:icon="@drawable/icon_report"
         android:orderInCategory="100"

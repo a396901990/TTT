@@ -72,7 +72,7 @@ public class Report extends BmobObject {
         this.reportUserName = reportUserName;
     }
 
-    public void toReport(final Context context, String reportType, String reportId, String reportUserId, String reprotUserName) {
+    public void addReport(final Context context, String reportType, String reportId, String reportUserId, String reprotUserName) {
         Report report = new Report();
         report.setReportId(reportId);
         report.setReportType(reportType);

@@ -41,7 +41,6 @@ public class HomeActivity extends BaseActivity {
     private Toolbar toolbar;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ProgressBar mProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,9 +54,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void update() {
-        if (mAdapter.getAllFragments().size() > 0) {
-
-        }
     }
 
     private void setUpToolBar() {

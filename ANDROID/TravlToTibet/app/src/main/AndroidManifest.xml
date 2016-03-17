@@ -154,7 +154,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.TeamRequestActivity"
+            android:name=".activity.TeamRequestPersonalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
@@ -166,7 +166,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.TeamShowRequestTypeActivity"
+            android:name=".activity.TeamShowRequestSearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
@@ -192,8 +192,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.BaseCommentActivity" >
-        </activity>
     </application>
 
 </manifest>

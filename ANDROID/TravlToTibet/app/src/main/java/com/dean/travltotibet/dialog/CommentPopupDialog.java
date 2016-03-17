@@ -22,7 +22,6 @@ import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -143,7 +142,7 @@ public class CommentPopupDialog extends DialogFragment {
     }
 
     private void reportAction() {
-        new Report().toReport(getActivity(), Report.REPORT_COMMENT, mComment.getObjectId(), mComment.getUser_id(), mComment.getUser_name());
+        new Report().addReport(getActivity(), Report.REPORT_COMMENT, mComment.getObjectId(), mComment.getUser_id(), mComment.getUser_name());
         getDialog().dismiss();
     }
 

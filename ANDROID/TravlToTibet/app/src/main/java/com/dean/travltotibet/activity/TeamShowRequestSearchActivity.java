@@ -6,21 +6,18 @@ import android.support.v7.widget.Toolbar;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.fragment.TeamRequestSearchFragment;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 /**
  * Created by DeanGuo on 3/7/16.
  */
-public class TeamShowRequestTypeActivity extends BaseActivity {
-
-    public static final int SHOW_SEARCH = 0;
-
-    public static final int SHOW_PERSONAL = 1;
-
-    private int currentShowType;
+public class TeamShowRequestSearchActivity extends BaseActivity {
 
     private String searchFilter;
+
+    private TeamRequestSearchFragment searchTypeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,25 +25,17 @@ public class TeamShowRequestTypeActivity extends BaseActivity {
         setContentView(R.layout.team_show_request_type_view);
 
         if (getIntent() != null) {
-            currentShowType = getIntent().getIntExtra(IntentExtra.INTENT_TEAM_REQUEST_SHOW_TYPE, 0);
             searchFilter = getIntent().getStringExtra(IntentExtra.INTENT_TEAM_REQUEST_SEARCH_FILTER);
         }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
+        setTitle(searchFilter);
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
-        initHeader();
-    }
-
-    private void initHeader() {
-        if (currentShowType == SHOW_SEARCH) {
-            setTitle(searchFilter);
-        }
-        else if (currentShowType == SHOW_PERSONAL) {
-            setTitle(getString(R.string.team_make_personal_request_title));
-        }
+        searchTypeFragment = (TeamRequestSearchFragment) getFragmentManager().findFragmentById(R.id.team_request_search_type_fragment);
+        searchTypeFragment.setSearchFilter(searchFilter);
     }
 
     @Override
@@ -54,11 +43,4 @@ public class TeamShowRequestTypeActivity extends BaseActivity {
         return true;
     }
 
-    public int getCurrentShowType() {
-        return currentShowType;
-    }
-
-    public String getSearchFilter() {
-        return searchFilter;
-    }
 }

@@ -21,6 +21,7 @@ import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestDetailFragment;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserFavorites;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -192,10 +193,16 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             actionEdit();
         } else if (id == R.id.action_del) {
             actionDel();
+        } else if (id == R.id.action_favorite) {
+            actionFavorite();
         } else if (id == R.id.action_report) {
             actionReport();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void actionFavorite() {
+        new UserFavorites().addFavorite(this, UserFavorites.TEAM_REQUEST, teamRequest.getObjectId());
     }
 
     private void actionReport() {
@@ -261,7 +268,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     // 举报
     private void reportAction() {
-        new Report().toReport(this, Report.REPORT_TEAM_REQUEST, teamRequest.getObjectId(), teamRequest.getUserId(), teamRequest.getUserName());
+        new Report().addReport(this, Report.REPORT_TEAM_REQUEST, teamRequest.getObjectId(), teamRequest.getUserId(), teamRequest.getUserName());
     }
 
     private void actionEdit() {
@@ -295,6 +302,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem favoriteItem = menu.findItem(R.id.action_favorite);
         MenuItem reportItem = menu.findItem(R.id.action_report);
         MenuItem editItem = menu.findItem(R.id.action_edit);
         MenuItem delItem = menu.findItem(R.id.action_del);
@@ -302,8 +310,10 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         if (isPersonal) {
             editItem.setVisible(true);
             delItem.setVisible(true);
+            favoriteItem.setVisible(false);
             reportItem.setVisible(false);
         } else {
+            favoriteItem.setVisible(true);
             reportItem.setVisible(true);
             editItem.setVisible(false);
             delItem.setVisible(false);

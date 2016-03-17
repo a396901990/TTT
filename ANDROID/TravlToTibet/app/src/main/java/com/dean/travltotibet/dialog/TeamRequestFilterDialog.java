@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.TeamShowRequestTypeActivity;
+import com.dean.travltotibet.activity.TeamShowRequestSearchActivity;
 import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.util.IntentExtra;
 
@@ -107,8 +107,7 @@ public class TeamRequestFilterDialog extends DialogFragment implements View.OnCl
             public void onClick(View v) {
                 String filter = searchView.getText().toString().trim();
                 if (!TextUtils.isEmpty(filter)) {
-                    Intent intent = new Intent(getActivity(), TeamShowRequestTypeActivity.class);
-                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_SHOW_TYPE, TeamShowRequestTypeActivity.SHOW_SEARCH);
+                    Intent intent = new Intent(getActivity(), TeamShowRequestSearchActivity.class);
                     intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_SEARCH_FILTER, filter);
                     startActivity(intent);
                 }
