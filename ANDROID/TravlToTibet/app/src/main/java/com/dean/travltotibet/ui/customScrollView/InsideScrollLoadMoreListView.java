@@ -1,20 +1,14 @@
-package com.dean.travltotibet.ui;
+package com.dean.travltotibet.ui.customScrollView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 
@@ -35,7 +29,7 @@ import com.dean.travltotibet.R;
  * limitations under the License.
  */
 
-public class LoadMoreListView extends ListView implements OnScrollListener {
+public class InsideScrollLoadMoreListView extends ListView implements OnScrollListener {
 
     private static final String TAG = "LoadMoreListView";
 
@@ -58,17 +52,17 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
     private int mCurrentScrollState;
     private Context mContext;
 
-    public LoadMoreListView(Context context) {
+    public InsideScrollLoadMoreListView(Context context) {
         super(context);
         init(context);
     }
 
-    public LoadMoreListView(Context context, AttributeSet attrs) {
+    public InsideScrollLoadMoreListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
+    public InsideScrollLoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
@@ -202,4 +196,9 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
         public void onLoadMore();
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        super.onMeasure(widthMeasureSpec, expandSpec);
+    }
 }

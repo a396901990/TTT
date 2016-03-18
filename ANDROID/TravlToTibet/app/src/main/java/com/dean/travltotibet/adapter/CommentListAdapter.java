@@ -34,7 +34,7 @@ public class CommentListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mData != null ? mData.size() : 0;
     }
 
     @Override
@@ -89,6 +89,19 @@ public class CommentListAdapter extends BaseAdapter {
 
     public void setData(ArrayList<Comment> data) {
         this.mData = data;
+        notifyDataSetChanged();
+    }
+
+    public void addData(ArrayList<Comment> addDatas) {
+        if (addDatas == null) {
+            return;
+        }
+        mData.addAll(addDatas);
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        mData = new ArrayList<Comment>();
         notifyDataSetChanged();
     }
 

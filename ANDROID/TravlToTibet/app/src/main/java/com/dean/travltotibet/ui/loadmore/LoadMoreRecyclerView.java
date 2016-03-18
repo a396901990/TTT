@@ -86,7 +86,7 @@ public class LoadMoreRecyclerView extends RecyclerView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (null != mListener && mIsFooterEnable && !mIsLoadingMore && dy > 0) {
+                if (null != mListener && mIsFooterEnable && !mIsLoadingMore && (dx > 0 || dy > 0)) {
                     int lastVisiblePosition = getLastVisiblePosition();
                     if (lastVisiblePosition + 1 == mAutoLoadAdapter.getItemCount()) {
                         setLoadingMore(true);

@@ -49,23 +49,7 @@ public class AroundHotelActivity extends AroundBaseActivity {
         return true;
     }
 
-    @Override
-    public String getAroundType() {
-        return AroundType.HOTEL;
-    }
-
-    @Override
-    public String[] getHeaderURL() {
-        return null;
-    }
-
-    @Override
     public Object getAroundObj() {
         return mHotel;
-    }
-
-    @Override
-    public boolean getDir() {
-        return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.adapter.CommentListAdapter;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.Comment;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundCommentFragment extends AroundBaseFragment implements BaseCommentDialog.CommentCallBack {
+public class AroundCommentFragment extends Fragment implements BaseCommentDialog.CommentCallBack {
 
     private View root;
 
@@ -35,12 +37,12 @@ public class AroundCommentFragment extends AroundBaseFragment implements BaseCom
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initCommentView();
+//        initCommentView();
+        initFloatBtn();
     }
 
-    private void initFloatBtn() {
-        FloatingActionButton mFab = getAroundActivity().getFloatingBtn();
-        mFab.setVisibility(View.VISIBLE);
+    public void initFloatBtn() {
+        FloatingActionButton mFab = ((AroundBaseActivity)getActivity()).getFloatingBtn();
         mFab.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_edit, TTTApplication.getMyColor(R.color.white)));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,11 +82,6 @@ public class AroundCommentFragment extends AroundBaseFragment implements BaseCom
             noResultView.setVisibility(View.GONE);
         }
         commentListAdapter.setData(mComments);
-    }
-
-    @Override
-    public void onTabChanged() {
-        initFloatBtn();
     }
 
     @Override

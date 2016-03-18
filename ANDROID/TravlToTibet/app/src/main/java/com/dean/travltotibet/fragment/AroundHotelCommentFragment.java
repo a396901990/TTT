@@ -25,7 +25,7 @@ public class AroundHotelCommentFragment extends AroundCommentFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHotel = (Hotel) getAroundActivity().getAroundObj();
+//        mHotel = (Hotel) getAroundActivity().getAroundObj();
     }
 
     @Override

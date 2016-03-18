@@ -68,18 +68,15 @@
         android:fillViewport="true"
         android:flipInterval="30"
         android:persistentDrawingCache="animation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-    </android.support.v4.view.ViewPager>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
 
     <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:clickable="true" />
+        android:clickable="true"
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

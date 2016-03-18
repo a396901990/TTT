@@ -22,6 +22,7 @@ import com.dean.travltotibet.fragment.BaseInfoFragment;
 import com.dean.travltotibet.dialog.TutorialDialog;
 import com.dean.travltotibet.dialog.InfoPlanConfirmDialog;
 import com.dean.travltotibet.dialog.InfoTravelTypeDialog;
+import com.dean.travltotibet.fragment.InfoScenicFragment;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -38,7 +39,7 @@ public class InfoActivity extends BaseActivity {
     private String routeType;
 
     private BaseInfoFragment headerFragment;
-    private BaseInfoFragment scenicFragment;
+    private InfoScenicFragment scenicFragment;
     private BaseInfoFragment prepareFragment;
 
     private FloatingActionButton fab;
@@ -56,7 +57,7 @@ public class InfoActivity extends BaseActivity {
         }
 
         headerFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_header_fragment);
-        scenicFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_scenic_fragment);
+        scenicFragment = (InfoScenicFragment) getFragmentManager().findFragmentById(R.id.info_scenic_fragment);
         prepareFragment = (BaseInfoFragment) getFragmentManager().findFragmentById(R.id.info_prepare_fragment);
 
         initView();
@@ -195,7 +196,6 @@ public class InfoActivity extends BaseActivity {
         }
         // update scenicFragment
         if (scenicFragment.isAdded()) {
-            scenicFragment.updateType(routeType);
         }
         // update prepareFragment
         if (prepareFragment.isAdded()) {

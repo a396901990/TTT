@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundScenicActivity;
+import com.dean.travltotibet.model.GalleryInfo;
+import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
@@ -24,35 +26,34 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 12/17/15.
  */
-public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
 
-    private ArrayList<Scenic> mData;
+    private ArrayList<GalleryInfo> mData;
 
     private Context mContext;
 
-    public ScenicAdapter(Context mContext, ArrayList<Scenic> mData) {
+    public GalleryAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mData = mData;
     }
 
     @Override
-    public ScenicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GalleryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_scenic_list_item_view, parent, false);
-        return new ScenicViewHolder(view);
+        return new GalleryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ScenicViewHolder holder, int position) {
+    public void onBindViewHolder(GalleryViewHolder holder, int position) {
 
-        final Scenic scenic = mData.get(position);
+        final GalleryInfo galleryInfo = mData.get(position);
 
         // 图片url(取第一个)
-        String picURL = scenic.getScenic_pic().split(Constants.URL_MARK)[0];
+        String picURL = galleryInfo.getUrl().split(Constants.URL_MARK)[0];
         if (!TextUtils.isEmpty(picURL)) {
-            Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.scenicPic);
+            Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.urlPic);
         }
         // 设置名称
-        holder.scenicName.setText(scenic.getScenic_name());
+        holder.urlName.setText(galleryInfo.getName());
 
         // 点击处理
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
@@ -63,28 +64,44 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ScenicView
                 }
                 // 跳转
                 Intent intent = new Intent(mContext, AroundScenicActivity.class);
-                intent.putExtra(IntentExtra.INTENT_SCENIC, scenic);
+                intent.putExtra(IntentExtra.INTENT_GALLERY, galleryInfo);
                 intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, true);
                 mContext.startActivity(intent);
             }
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return mData.size();
+    public void setData(ArrayList<GalleryInfo> data) {
+        this.mData = data;
     }
 
-    public static class ScenicViewHolder extends RecyclerView.ViewHolder {
+    public void clearData() {
+        if (mData == null) {
+            return;
+        } else {
+            mData = new ArrayList<>();
+        }
+    }
+
+    public void addData(ArrayList<GalleryInfo> addDatas) {
+        mData.addAll(addDatas);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mData != null ? mData.size() : 0;
+    }
+
+    public static class GalleryViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private ImageView scenicPic;
-        private TextView scenicName;
+        private ImageView urlPic;
+        private TextView urlName;
 
-        public ScenicViewHolder(View itemView) {
+        public GalleryViewHolder(View itemView) {
             super(itemView);
-            scenicPic = (ImageView) itemView.findViewById(R.id.scenic_pic);
-            scenicName = (TextView) itemView.findViewById(R.id.scenic_name);
+            urlPic = (ImageView) itemView.findViewById(R.id.scenic_pic);
+            urlName = (TextView) itemView.findViewById(R.id.scenic_name);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }
