@@ -26,9 +26,8 @@ public class MyGenerator {
         addRoutePlan(schema);
 //        addPrepareInfo(schema);
         addRecentRoute(schema);
-        addHotel(schema);
-        addScenic(schema);
-
+//        addHotel(schema);
+//        addScenic(schema);
         //生成Dao文件路径
         new DaoGenerator().generateAll(schema, DAO_PATH);
     }

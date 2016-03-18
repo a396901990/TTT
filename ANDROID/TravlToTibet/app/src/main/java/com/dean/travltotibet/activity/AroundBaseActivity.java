@@ -9,14 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
-import com.dean.travltotibet.dialog.BaseCommentDialog;
-import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
-import com.dean.travltotibet.fragment.AroundBaseFragment;
-import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.fragment.BaseRatingCommentFragment;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;

@@ -7,20 +7,6 @@
         <attr name="gridThickness" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="ChangeColorIconWithTextView">
-        <attr name="icon_bg" format="reference" />
-        <attr name="text_color" format="color" />
-        <attr name="text" format="string" />
-        <attr name="text_size" format="dimension" />
-    </declare-styleable>
-
-    <declare-styleable name="ChangeColorIconView">
-        <attr name="icon_bg" />
-        <attr name="color" />
-        <attr name="text" />
-        <attr name="text_size" />
-    </declare-styleable>
-
     <declare-styleable name="ExpandableTextView">
         <attr name="text_expanded" format="boolean" />
         <attr name="minLines" format="integer" />
@@ -289,10 +275,5 @@
         <attr name="rating_default_color" format="color"/>
 
         <attr name="rating_title_visible" format="boolean"/>
-    </declare-styleable>
-
-    <declare-styleable name="NiceSpinner">
-        <attr name="arrowTint" format="color" />
-        <attr name="hideArrow" format="boolean" />
     </declare-styleable>
 </resources>

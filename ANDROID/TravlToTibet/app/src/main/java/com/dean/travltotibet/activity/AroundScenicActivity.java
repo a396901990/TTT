@@ -3,10 +3,8 @@ package com.dean.travltotibet.activity;
 import android.os.Bundle;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.fragment.AroundCommentFragment;
 import com.dean.travltotibet.fragment.AroundScenicCommentFragment;
 import com.dean.travltotibet.fragment.AroundScenicDetailFragment;
-import com.dean.travltotibet.fragment.BaseRatingCommentFragment;
 
 /**
  * Created by DeanGuo on 1/13/16.

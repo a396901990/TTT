@@ -8,8 +8,6 @@ import com.dean.greendao.Geocode;
 import com.dean.greendao.GeocodeDao;
 import com.dean.greendao.GeocodeDao.Properties;
 import com.dean.greendao.GeocodeOld;
-import com.dean.greendao.Hotel;
-import com.dean.greendao.HotelDao;
 import com.dean.greendao.Plan;
 import com.dean.greendao.PlanDao;
 import com.dean.greendao.RecentRoute;
@@ -18,8 +16,6 @@ import com.dean.greendao.Route;
 import com.dean.greendao.RouteDao;
 import com.dean.greendao.RoutePlan;
 import com.dean.greendao.RoutePlanDao;
-import com.dean.greendao.Scenic;
-import com.dean.greendao.ScenicDao;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
@@ -54,10 +50,6 @@ public class DBHelper {
 
     private RecentRouteDao recentRouteDao;
 
-    private HotelDao hotelDao;
-
-    private ScenicDao scenicDao;
-
     private DBHelper() {
     }
 
@@ -75,8 +67,6 @@ public class DBHelper {
             instance.planDao = daoSession.getPlanDao();
             instance.routePlanDao = daoSession.getRoutePlanDao();
             instance.recentRouteDao = daoSession.getRecentRouteDao();
-            instance.hotelDao = daoSession.getHotelDao();
-            instance.scenicDao = daoSession.getScenicDao();
         }
         return instance;
     }
@@ -403,39 +393,6 @@ public class DBHelper {
             stringBuffer.append(routePlan.getType());
         }
         return stringBuffer.toString();
-    }
-
-    public List<Scenic> getScenicList(String route) {
-        QueryBuilder<Scenic> qb = scenicDao.queryBuilder();
-        qb.where(ScenicDao.Properties.Route.eq(route));
-        return qb.list();
-    }
-
-    public List<Scenic> getScenicWithBelongName(String route, String belongName, boolean isForword) {
-        QueryBuilder<Scenic> qb = scenicDao.queryBuilder();
-        qb.where(ScenicDao.Properties.Route.eq(route));
-        if (isForword) {
-            qb.where(ScenicDao.Properties.Scenic_f_belong.eq(belongName));
-        } else {
-            qb.where(ScenicDao.Properties.Scenic_r_belong.eq(belongName));
-        }
-
-        return qb.list();
-    }
-
-    public List<Hotel> getHotelListWithBelongName(String route, String place) {
-        QueryBuilder<Hotel> qb = hotelDao.queryBuilder();
-//        qb.where(HotelDao.Properties.Route.eq(route));
-        qb.where(HotelDao.Properties.Hotel_belong.eq(place));
-        return qb.list();
-    }
-
-    public boolean placeHasHotel(String route, String place) {
-        QueryBuilder<Hotel> qb = hotelDao.queryBuilder();
-//        qb.where(HotelDao.Properties.Route.eq(route));
-        qb.where(HotelDao.Properties.Hotel_belong.eq(place));
-
-        return qb.count() > 0 ? true : false;
     }
 
     /**

@@ -3,20 +3,10 @@ package com.dean.travltotibet.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.dean.greendao.Hotel;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.dialog.AroundHotelCommentDialog;
-import com.dean.travltotibet.dialog.AroundScenicCommentDialog;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.model.HotelComment;
-import com.dean.travltotibet.util.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by DeanGuo on 1/22/16.

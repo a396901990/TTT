@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dean.greendao.Hotel;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.model.HotelInfo;
-import com.dean.travltotibet.model.ScenicInfo;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.GetListener;

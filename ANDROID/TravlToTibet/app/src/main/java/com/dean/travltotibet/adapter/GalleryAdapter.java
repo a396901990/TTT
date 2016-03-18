@@ -10,14 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundHotelActivity;
 import com.dean.travltotibet.activity.AroundScenicActivity;
 import com.dean.travltotibet.model.AroundType;
-import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.GalleryInfo;
-import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;

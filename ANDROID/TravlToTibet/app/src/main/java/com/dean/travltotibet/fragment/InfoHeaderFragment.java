@@ -5,21 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dean.greendao.RouteAttention;
-import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.ui.sliderview.Animations.DescriptionAnimation;
 import com.dean.travltotibet.ui.sliderview.SliderLayout;
-import com.dean.travltotibet.ui.sliderview.SliderTypes.BaseSliderView;
 import com.dean.travltotibet.ui.sliderview.SliderTypes.BurnsSliderView;
-import com.dean.travltotibet.ui.sliderview.SliderTypes.DefaultSliderView;
-import com.dean.travltotibet.ui.sliderview.SliderTypes.TextSliderView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by DeanGuo on 9/19/15.

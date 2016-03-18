@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.dialog.AroundDialogFragment;
 import com.dean.travltotibet.dialog.AroundHotelInfoDialogFragment;
 import com.dean.travltotibet.dialog.AroundScenicInfoDialogFragment;
 import com.dean.travltotibet.model.AroundType;
