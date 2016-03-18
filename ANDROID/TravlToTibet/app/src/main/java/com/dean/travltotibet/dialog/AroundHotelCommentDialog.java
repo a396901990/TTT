@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.dean.greendao.Hotel;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.HotelComment;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -17,9 +18,8 @@ import cn.bmob.v3.listener.SaveListener;
  * Created by DeanGuo on 1/20/16.
  * 选择旅行类型
  */
-public class AroundHotelCommentDialog extends BaseCommentDialog {
+public class AroundHotelCommentDialog extends ReplyCommentDialog {
 
-    private Hotel mHotel;
 
     private AroundBaseActivity aroundActivity;
 
@@ -28,50 +28,21 @@ public class AroundHotelCommentDialog extends BaseCommentDialog {
         super.onCreate(savedInstanceState);
 
         aroundActivity = (AroundBaseActivity) getActivity();
-        mHotel = (Hotel) aroundActivity.getAroundObj();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
-    public void submitCommit() {
-        HotelComment hotelComment = new HotelComment();
-        // route name
-        hotelComment.setRoute(mHotel.getRoute());
-        // hotel name
-        hotelComment.setHotel_name(mHotel.getHotel_name());
-        // hotel belong
-        hotelComment.setHotel_belong(mHotel.getHotel_belong());
-        // 评论
-        hotelComment.setComment(getComment());
-        // 评分
-        hotelComment.setRating(getRatting());
-        // user id
-        hotelComment.setUser_id(TTTApplication.getUserInfo().getUserId());
-        // user name
-        hotelComment.setUser_name(TTTApplication.getUserInfo().getUserName());
-        // pic url
-        hotelComment.setUser_icon(TTTApplication.getUserInfo().getUserIcon());
+    public String getCommentType() {
+        return Comment.HOTEL_COMMENT;
+    }
 
-        hotelComment.setLike(0);
-        hotelComment.setDislike(0);
+    @Override
+    public String getCommentTypeObjectId() {
+        return aroundActivity.getTypeObjectId();
+    }
 
-        hotelComment.save(getActivity(), new SaveListener() {
-            @Override
-            public void onSuccess() {
-                getHandle().sendEmptyMessage(SUBMIT_SUCCESS);
-            }
-
-            @Override
-            public void onFailure(int code, String msg) {
-                getHandle().sendEmptyMessage(SUBMIT_FAILURE);
-            }
-        });
-        super.submitCommit();
+    @Override
+    public String getCommentTypeDesc() {
+        return aroundActivity.getHeaderName();
     }
 
     @Override

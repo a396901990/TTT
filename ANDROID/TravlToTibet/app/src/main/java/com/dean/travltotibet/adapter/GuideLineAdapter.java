@@ -20,7 +20,9 @@ import android.widget.TextView;
 import com.dean.greendao.Geocode;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.AroundDialogFragment;
+import com.dean.travltotibet.dialog.AroundDialogFragment;
+import com.dean.travltotibet.dialog.AroundHotelInfoDialogFragment;
+import com.dean.travltotibet.dialog.AroundScenicInfoDialogFragment;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
@@ -191,7 +193,8 @@ public class GuideLineAdapter extends BaseAdapter {
         if (TextUtils.isEmpty(around)) {
             return;
         } else {
-            if (around.contains(AroundType.HOTEL) && TTTApplication.getDbHelper().placeHasHotel(geocode.getRoute(), geocode.getName())) {
+            if (around.contains(AroundType.HOTEL)) {
+                // check has hotel or not
                 holder.hotelBtn.setVisibility(View.VISIBLE);
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -199,14 +202,12 @@ public class GuideLineAdapter extends BaseAdapter {
                         if (ScreenUtil.isFastClick()) {
                             return;
                         }
-                        DialogFragment dialogFragment = new AroundDialogFragment();
+                        DialogFragment dialogFragment = new AroundHotelInfoDialogFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
                         bundle.putString(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                        bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.HOTEL);
-                        bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
                         dialogFragment.setArguments(bundle);
-                        dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundDialogFragment.class.getName());
+                        dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundHotelInfoDialogFragment.class.getName());
                     }
                 });
             }
@@ -221,14 +222,13 @@ public class GuideLineAdapter extends BaseAdapter {
                     holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            DialogFragment dialogFragment = new AroundDialogFragment();
+                            DialogFragment dialogFragment = new AroundScenicInfoDialogFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
                             bundle.putString(IntentExtra.INTENT_AROUND_BELONG, geocode.getName());
-                            bundle.putString(IntentExtra.INTENT_AROUND_TYPE, AroundType.SCENIC);
                             bundle.putBoolean(IntentExtra.INTENT_ROUTE_DIR, isForward);
                             dialogFragment.setArguments(bundle);
-                            dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundDialogFragment.class.getName());
+                            dialogFragment.show(((Activity) mContext).getFragmentManager(), AroundScenicInfoDialogFragment.class.getName());
                         }
                     });
                 }

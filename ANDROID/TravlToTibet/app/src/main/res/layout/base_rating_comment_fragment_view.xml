@@ -26,9 +26,8 @@
                 android:id="@+id/no_result_content"
                 layout="@layout/no_result_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
+                android:layout_height="300dp"
+                android:layout_gravity="center" />
         </FrameLayout>
 
     </android.support.v4.widget.NestedScrollView>

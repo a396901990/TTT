@@ -53,8 +53,6 @@ public abstract class AroundBaseActivity extends BaseActivity {
         initToolbar();
     }
 
-    public abstract Object getAroundObj();
-
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);

@@ -1,7 +1,7 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +9,31 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dean.greendao.Hotel;
-import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
-import com.dean.travltotibet.activity.AroundScenicActivity;
+import com.dean.travltotibet.model.HotelInfo;
+import com.dean.travltotibet.model.ScenicInfo;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.GetListener;
 
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundHotelDetailFragment extends AroundBaseFragment {
+public class AroundHotelDetailFragment extends RefreshFragment {
 
     private View root;
 
-    private Hotel mHotel;
+    private HotelInfo hotelInfo;
+
+    private View noResultView;
+
+    private View contentView;
+
+    private AroundBaseActivity aroundBaseActivity;
+
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +45,27 @@ public class AroundHotelDetailFragment extends AroundBaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mHotel = (Hotel) getAroundActivity().getAroundObj();
-        initContentView();
+        aroundBaseActivity = (AroundBaseActivity) getActivity();
+
+        noResultView = root.findViewById(R.id.no_result_view);
+        contentView = root.findViewById(R.id.content_view);
+
+        initRefreshView();
+        refresh();
+    }
+
+
+    private void initRefreshView() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        // 设置下拉刷新
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        //mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
     }
 
     private void initContentView() {
@@ -47,7 +78,7 @@ public class AroundHotelDetailFragment extends AroundBaseFragment {
         View hotelAddressContent = root.findViewById(R.id.hotel_address_content);
 
         // 细节
-        String detail = mHotel.getHotel_detail();
+        String detail = hotelInfo.getHotelDetail();
         if (!TextUtils.isEmpty(detail)) {
             hotelDetailContent.setVisibility(View.VISIBLE);
             hotelDetail.setText(detail);
@@ -56,7 +87,7 @@ public class AroundHotelDetailFragment extends AroundBaseFragment {
         }
 
         // 电话
-        String tel = mHotel.getHotel_tel();
+        String tel = hotelInfo.getHotelTel();
         if (!TextUtils.isEmpty(tel)) {
             hotelTelContent.setVisibility(View.VISIBLE);
             hotelTel.setText(tel);
@@ -65,7 +96,7 @@ public class AroundHotelDetailFragment extends AroundBaseFragment {
         }
 
         // 地址
-        String address = mHotel.getHotel_address();
+        String address = hotelInfo.getHotelAddress();
         if (!TextUtils.isEmpty(address)) {
             hotelAddressContent.setVisibility(View.VISIBLE);
             hotelAddress.setText(address);
@@ -74,8 +105,87 @@ public class AroundHotelDetailFragment extends AroundBaseFragment {
         }
     }
 
+
+    public void getHotelInfo() {
+
+        BmobQuery<HotelInfo> query = new BmobQuery<HotelInfo>();
+        query.getObject(getActivity(), aroundBaseActivity.getTypeObjectId(), new GetListener<HotelInfo>() {
+
+            @Override
+            public void onSuccess(HotelInfo object) {
+                hotelInfo = object;
+                toDo(LOADING_SUCCESS, 0);
+            }
+
+            @Override
+            public void onFailure(int code, String arg0) {
+                toDo(LOADING_ERROR, 0);
+            }
+
+        });
+    }
+
     @Override
-    public void onTabChanged() {
-        getAroundActivity().getFloatingBtn().setVisibility(View.GONE);
+    public void update() {
+
+    }
+
+    @Override
+    public void refresh() {
+        toDo(PREPARE_LOADING, 0);
+    }
+
+    @Override
+    public void prepareLoading() {
+        startUpdate();
+        contentView.setVisibility(View.INVISIBLE);
+        noResultView.setVisibility(View.GONE);
+        toDo(ON_LOADING, 800);
+    }
+
+    @Override
+    public void onLoading()
+    {
+        getHotelInfo();
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        finishUpdate();
+        contentView.setVisibility(View.VISIBLE);
+        noResultView.setVisibility(View.GONE);
+        initContentView();
+    }
+
+    @Override
+    public void LoadingError() {
+        finishUpdate();
+        contentView.setVisibility(View.INVISIBLE);
+        noResultView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onLoadingMore() {
+
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+
+    }
+
+    @Override
+    public void LoadingMoreError() {
+
+    }
+
+    public void startUpdate() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    public void finishUpdate() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

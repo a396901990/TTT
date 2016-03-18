@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.dean.greendao.Scenic;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.activity.AroundHotelActivity;
 import com.dean.travltotibet.activity.AroundScenicActivity;
+import com.dean.travltotibet.model.AroundType;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
@@ -27,6 +30,8 @@ import java.util.ArrayList;
  * Created by DeanGuo on 12/17/15.
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
+
+    private String type;
 
     private ArrayList<GalleryInfo> mData;
 
@@ -62,11 +67,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                // 跳转
-                Intent intent = new Intent(mContext, AroundScenicActivity.class);
-                intent.putExtra(IntentExtra.INTENT_GALLERY, galleryInfo);
-                intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, true);
-                mContext.startActivity(intent);
+                // hotel
+                if (AroundType.HOTEL.equals(type)) {
+                    Intent intent = new Intent(mContext, AroundHotelActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_GALLERY, galleryInfo);
+                    mContext.startActivity(intent);
+                }
+                // scenic
+                else if (AroundType.SCENIC.equals(type)) {
+                    Intent intent = new Intent(mContext, AroundScenicActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_GALLERY, galleryInfo);
+                    intent.putExtra(IntentExtra.INTENT_ROUTE_DIR, true);
+                    mContext.startActivity(intent);
+                }
             }
         });
     }
@@ -105,4 +118,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

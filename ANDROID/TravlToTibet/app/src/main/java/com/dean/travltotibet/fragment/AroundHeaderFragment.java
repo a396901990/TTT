@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,11 @@ public class AroundHeaderFragment extends Fragment {
         // 设置图片
         if (urls != null) {
             for (String url : urls) {
-                DefaultSliderView textSliderView = new DefaultSliderView(getActivity());
-                textSliderView.image(url);
-                mDefaultIndicator.addSlider(textSliderView);
+                if (!TextUtils.isEmpty(url)) {
+                    DefaultSliderView textSliderView = new DefaultSliderView(getActivity());
+                    textSliderView.image(url);
+                    mDefaultIndicator.addSlider(textSliderView);
+                }
             }
         }
     }

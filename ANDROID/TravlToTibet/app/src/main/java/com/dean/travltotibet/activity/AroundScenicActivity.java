@@ -27,8 +27,4 @@ public class AroundScenicActivity extends AroundBaseActivity {
         return true;
     }
 
-    @Override
-    public Object getAroundObj() {
-        return null;
-    }
 }

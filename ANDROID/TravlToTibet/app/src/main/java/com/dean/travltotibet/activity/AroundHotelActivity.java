@@ -27,17 +27,9 @@ import com.mikepenz.iconics.IconicsDrawable;
  */
 public class AroundHotelActivity extends AroundBaseActivity {
 
-    private Hotel mHotel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getIntent() != null) {
-            mHotel = (Hotel) getIntent().getSerializableExtra(IntentExtra.INTENT_HOTEL);
-        }
-
-        setPageTitle(mHotel.getHotel_name());
 
         addPageTab(AroundHotelDetailFragment.class, null, getString(R.string.around_overview));
         addPageTab(AroundHotelCommentFragment.class, null, getString(R.string.around_comment));
@@ -49,7 +41,4 @@ public class AroundHotelActivity extends AroundBaseActivity {
         return true;
     }
 
-    public Object getAroundObj() {
-        return mHotel;
-    }
 }

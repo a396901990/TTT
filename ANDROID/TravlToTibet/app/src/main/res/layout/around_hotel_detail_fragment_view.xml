@@ -1,83 +1,103 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
-    <!--简介视图-->
-    <LinearLayout
-        android:id="@+id/hotel_detail_content"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <!--plan简介-->
-        <TextView
-            android:id="@+id/hotel_detail"
-            style="@style/TextAppearance.Regular"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="25-40元/晚/床位 骑友多，饭菜味道很好，情商哥人不错，晚上还会讲解 318 攻略和注意事项什么的 "
-            android:textColor="@color/dark_gray" />
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <!--电话视图-->
-        <LinearLayout
-            android:id="@+id/hotel_tel_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
-
-            <!--简介title-->
-            <TextView
-                style="@style/AroundTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="电话" />
-
-            <!--plan简介-->
-            <TextView
-                android:id="@+id/hotel_tel"
-                style="@style/TextAppearance.Small"
+            <LinearLayout
+                android:id="@+id/content_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="phone"
-                android:text="情商哥 13980170770 "
-                android:textColor="@color/dark_gray" />
-        </LinearLayout>
+                android:background="@color/white"
+                android:orientation="vertical">
+                <!--简介视图-->
+                <LinearLayout
+                    android:id="@+id/hotel_detail_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-        <!--电话视图-->
-        <LinearLayout
-            android:id="@+id/hotel_address_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+                    <!--plan简介-->
+                    <TextView
+                        android:id="@+id/hotel_detail"
+                        style="@style/TextAppearance.Regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="25-40元/晚/床位 骑友多，饭菜味道很好，情商哥人不错，晚上还会讲解 318 攻略和注意事项什么的 "
+                        android:textColor="@color/dark_gray" />
 
-            <!--简介title-->
-            <TextView
-                style="@style/AroundTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="地址" />
+                </LinearLayout>
 
-            <!--plan简介-->
-            <TextView
-                android:id="@+id/hotel_address"
-                style="@style/TextAppearance.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="马踏飞燕雕像附近300米 "
-                android:textColor="@color/dark_gray" />
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <!--电话视图-->
+                    <LinearLayout
+                        android:id="@+id/hotel_tel_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--简介title-->
+                        <TextView
+                            style="@style/AroundTitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="电话" />
+
+                        <!--plan简介-->
+                        <TextView
+                            android:id="@+id/hotel_tel"
+                            style="@style/TextAppearance.Small"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:autoLink="phone"
+                            android:text="情商哥 13980170770 "
+                            android:textColor="@color/dark_gray" />
+                    </LinearLayout>
+
+                    <!--电话视图-->
+                    <LinearLayout
+                        android:id="@+id/hotel_address_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--简介title-->
+                        <TextView
+                            style="@style/AroundTitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="地址" />
+
+                        <!--plan简介-->
+                        <TextView
+                            android:id="@+id/hotel_address"
+                            style="@style/TextAppearance.Small"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="马踏飞燕雕像附近300米 "
+                            android:textColor="@color/dark_gray" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/no_result_view"></include>
+        </FrameLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

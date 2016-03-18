@@ -1,19 +1,10 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.dialog;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.adapter.GalleryAdapter;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.GalleryInfo;
+import com.dean.travltotibet.model.HotelInfo;
 import com.dean.travltotibet.model.ScenicInfo;
-import com.dean.travltotibet.ui.loadmore.LoadMoreRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +13,18 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * Created by DeanGuo on 12/17/15.
+ * Created by DeanGuo on 1/13/16.
  */
-public class InfoScenicFragment extends GalleryInfoFragment {
-
-    private InfoActivity infoActivity;
+public class AroundHotelInfoDialogFragment extends GalleryInfoDialogFragment {
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        infoActivity = (InfoActivity) getActivity();
-    }
-
     public void getResult(final int actionType) {
 
-        BmobQuery<ScenicInfo> query = new BmobQuery<>();
+        BmobQuery<HotelInfo> query = new BmobQuery<>();
         query.order("-comment,-createdAt");
-        query.addWhereContains("route", infoActivity.getRoute());
-        query.addQueryKeys("objectId,scenicName,scenic_Pic");
+        query.addWhereContains("route", getRouteName());
+        query.addWhereContains("hotelBelong", getAroundBelong());
+        query.addQueryKeys("objectId,hotel_Name,hotelPic");
 
         // 加载更多
         if (actionType == STATE_MORE) {
@@ -48,21 +33,21 @@ public class InfoScenicFragment extends GalleryInfoFragment {
         }
 
         // 设置每页数据个数
-        query.setLimit(6);
+        query.setLimit(ITEM_LIMIT);
 
-        query.findObjects(getActivity(), new FindListener<ScenicInfo>() {
+        query.findObjects(getActivity(), new FindListener<HotelInfo>() {
             @Override
-            public void onSuccess(List<ScenicInfo> list) {
+            public void onSuccess(List<HotelInfo> list) {
                 galleryInfos = new ArrayList<GalleryInfo>();
-                for (ScenicInfo scenicInfo : list) {
+                for (HotelInfo hotelInfo : list) {
                     GalleryInfo galleryInfo = new GalleryInfo();
-                    galleryInfo.setName(scenicInfo.getScenicName());
-                    galleryInfo.setUrl(scenicInfo.getScenic_Pic());
-                    galleryInfo.setObjectId(scenicInfo.getObjectId());
+                    galleryInfo.setName(hotelInfo.getHotel_Name());
+                    galleryInfo.setUrl(hotelInfo.getHotelPic());
+                    galleryInfo.setObjectId(hotelInfo.getObjectId());
                     galleryInfos.add(galleryInfo);
                 }
 
-                if (list.size() == 0) {
+                if (list.size() == 0 && actionType == STATE_MORE) {
                     loadMoreRecyclerView.notifyMoreFinish(false);
                 } else {
                     if (actionType == STATE_REFRESH) {
@@ -87,6 +72,6 @@ public class InfoScenicFragment extends GalleryInfoFragment {
 
     @Override
     public String getType() {
-        return AroundType.SCENIC;
+        return AroundType.HOTEL;
     }
 }
