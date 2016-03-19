@@ -21,6 +21,7 @@ import com.dean.travltotibet.fragment.ArticleFragment;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.fragment.ArticleCommentFragment;
 import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -75,6 +76,7 @@ public class ArticleCommentActivity extends BaseCommentActivity {
         updateWatch();
         initBtn();
         initViewPage();
+        CountUtil.countArticle(this, mArticle.getTitle());
     }
 
     private void initViewPage() {

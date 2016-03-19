@@ -58,7 +58,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                // 跳转到RouteActivity
                 Intent intent = new Intent(mContext, ArticleCommentActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
                 intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleCommentActivity.FROM_HOME);

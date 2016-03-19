@@ -15,6 +15,7 @@ import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.ui.ratingview.RatingBar;
 import com.dean.travltotibet.ui.ratingview.RatingView;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -106,6 +107,7 @@ public class RouteActivity
         updateHeader(isRoute, currentPlan);
 
         initTutorialPage();
+        CountUtil.countRoute(this, routeName, routeType);
     }
 
     /**

@@ -1,10 +1,13 @@
 package com.dean.travltotibet.util;
 
+import android.text.TextUtils;
+
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.UserInfo;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by DeanGuo on 1/21/16.
@@ -78,6 +81,14 @@ public final class LoginUtil {
     }
 
     public void logout() {
+
+        // 清空授权
+        Platform[] platforms = ShareSDK.getPlatformList();
+        // 未检查到token，没登陆
+        for (Platform platform : platforms) {
+            platform.removeAccount();
+        }
+        // clear token
         mToken = getLastToken();
         if (mToken != null) {
             mToken = "";

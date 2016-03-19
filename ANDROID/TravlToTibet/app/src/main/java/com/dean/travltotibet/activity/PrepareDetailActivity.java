@@ -11,6 +11,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.PrepareDetailPageAdapter;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -52,6 +53,7 @@ public class PrepareDetailActivity extends BaseActivity {
         setTitle("准备信息");
         initViewPagerAndTab();
 
+        CountUtil.countPrepareInfo(this, mRoute, mInfoType.name(), mType);
     }
 
     @Override

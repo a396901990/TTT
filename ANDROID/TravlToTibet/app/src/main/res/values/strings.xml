@@ -120,7 +120,7 @@
     <string name="unknow_user">匿名用户</string>
     <string name="around_overview">简介</string>
     <string name="around_comment">评论</string>
-    <string name="no_result">暂无数据</string>
+    <string name="no_result">暂无数据，或网络出错</string>
     <string name="network_no_result">网络出错，点击重试</string>
     <string name="plan_header_hint">点击返回总览</string>
     <string name="exit">再按一次退出程序</string>

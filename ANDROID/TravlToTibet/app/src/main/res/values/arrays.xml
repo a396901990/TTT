@@ -8,6 +8,7 @@
         <item>VILLAGE</item>
         <item>TUNNEL</item>
         <item>CHECK_POINT</item>
+        <item>CAMP_SPOT</item>
         <item>OTHERS</item>
     </string-array>
 

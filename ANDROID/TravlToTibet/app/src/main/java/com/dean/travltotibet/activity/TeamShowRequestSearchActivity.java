@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.TeamRequestSearchFragment;
+import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
@@ -36,6 +37,8 @@ public class TeamShowRequestSearchActivity extends BaseActivity {
 
         searchTypeFragment = (TeamRequestSearchFragment) getFragmentManager().findFragmentById(R.id.team_request_search_type_fragment);
         searchTypeFragment.setSearchFilter(searchFilter);
+
+        CountUtil.countTeamSearch(this, searchFilter);
     }
 
     @Override
