@@ -23,6 +23,8 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
 import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
 import cn.bmob.v3.update.BmobUpdateAgent;
 /**
  * Created by DeanGuo on 9/30/15.
@@ -42,6 +44,8 @@ public class HomeActivity extends BaseActivity {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private SlidingMenu mSlidingMenu;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,29 @@ public class HomeActivity extends BaseActivity {
         setUpHomeTab();
         setUpNavigationDrawer();
         checkForUpdate();
+        initMenu();
+    }
+
+    private void initMenu() {
+
+        mSlidingMenu = new SlidingMenu(this);
+        // 设置滑动方向
+        mSlidingMenu.setMode(SlidingMenu.RIGHT);
+        // 设置触摸屏幕的模式 全屏：TOUCHMODE_FULLSCREEN ；边缘：TOUCHMODE_MARGIN ；不打开：TOUCHMODE_NONE
+        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width);
+        // 设置是否淡入淡出
+        mSlidingMenu.setFadeEnabled(true);
+        mSlidingMenu.setFadeDegree(0.35f);
+
+        // 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
+         mSlidingMenu.setShadowDrawable(R.drawable.shadowright);
+
+        // 设置偏移量。说明：设置menu全部打开后，主界面剩余部分与屏幕边界的距离，值写在dimens里面:60dp
+        mSlidingMenu.setBehindOffsetRes(R.dimen.home_slidingmenu_offset);
+
+        mSlidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        mSlidingMenu.setMenu(R.layout.sliding_recent_fragment_layout);
     }
 
     public void update() {
@@ -67,7 +94,7 @@ public class HomeActivity extends BaseActivity {
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(4);
+        mPager.setOffscreenPageLimit(3);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -204,6 +231,12 @@ public class HomeActivity extends BaseActivity {
                 return true;
             }
 
+            // 如果打开侧滑历史
+            if (mSlidingMenu.isMenuShowing()) {
+                mSlidingMenu.toggle();
+                return true;
+            }
+
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 1200) {//如果两次按键时间间隔大于1200毫秒，则不退出
                 Toast.makeText(this, getString(R.string.exit), Toast.LENGTH_SHORT).show();
@@ -245,4 +278,9 @@ public class HomeActivity extends BaseActivity {
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return mSwipeRefreshLayout;
     }
+
+    public SlidingMenu getSlidingMenu() {
+        return mSlidingMenu;
+    }
+
 }

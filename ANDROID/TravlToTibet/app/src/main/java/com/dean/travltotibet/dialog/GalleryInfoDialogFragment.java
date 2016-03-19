@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.GalleryAdapter;
+import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.ui.loadmore.LoadMoreRecyclerView;
 import com.dean.travltotibet.util.IntentExtra;
@@ -95,12 +97,22 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
         mAdapter = new GalleryAdapter(getActivity());
         mAdapter.setType(getType());
+
         loadMoreRecyclerView = (LoadMoreRecyclerView) root.findViewById(R.id.scenic_recycler);
         // 设置横向layout manager
         loadMoreRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         loadMoreRecyclerView.setHasFixedSize(true);
         loadMoreRecyclerView.setAdapter(mAdapter);
         loadMoreRecyclerView.setLoadMoreListener(this);
+
+        // title
+        TextView title = (TextView) root.findViewById(R.id.title_text);
+        if (AroundType.HOTEL.equals(getType())) {
+            title.setText("住宿");
+        }
+        else if (AroundType.SCENIC.equals(getType())) {
+            title.setText("风景");
+        }
     }
 
     @Override

@@ -59,7 +59,12 @@ public class ShowHtmlDialogFragment extends DialogFragment {
         bottomView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                if (getDialog() != null) {
+                    getDialog().dismiss();
+                }
             }
         });
 

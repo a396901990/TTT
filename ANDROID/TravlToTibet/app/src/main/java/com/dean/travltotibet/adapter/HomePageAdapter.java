@@ -30,13 +30,11 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
         mTitles.put(0, "推荐");
         mTitles.put(1, "结伴");
         mTitles.put(2, "发现");
-        mTitles.put(3, "历史");
 
         mFragments = new SparseArray<Fragment>();
         mFragments.put(0, HomeRecommendFragment.newInstance());
         mFragments.put(1, HomeTeamRequestFragment.newInstance());
         mFragments.put(2, HomeTopicFragment.newInstance());
-        mFragments.put(3, HomeRecentFragment.newInstance());
     }
 
     @Override

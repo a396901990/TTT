@@ -276,4 +276,5 @@
 
         <attr name="rating_title_visible" format="boolean"/>
     </declare-styleable>
+
 </resources>

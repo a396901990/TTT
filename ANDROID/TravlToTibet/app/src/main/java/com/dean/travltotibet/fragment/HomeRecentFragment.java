@@ -1,25 +1,18 @@
 package com.dean.travltotibet.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.greendao.RecentRoute;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.RecentAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
-import com.dean.travltotibet.ui.fab.FloatingActionButton;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.ArrayList;
 
@@ -31,8 +24,8 @@ public class HomeRecentFragment extends RefreshFragment {
     private View root;
     private RecentAdapter mAdapter;
     private ArrayList<RecentRoute> recentRoutes;
-    private HomeActivity mActivity;
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public HomeRecentFragment() {
     }
@@ -52,15 +45,34 @@ public class HomeRecentFragment extends RefreshFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (HomeActivity) getActivity();
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.recent_fragment_list_rv);
 
+        initRefreshView();
         setUpList();
         refresh();
         // initFabBtn();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    private void initRefreshView() {
+        // 设置下拉刷新
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        //mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+    }
+
     private void setUpList() {
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.recent_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
 
@@ -89,54 +101,19 @@ public class HomeRecentFragment extends RefreshFragment {
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(recentRoutes);
-        mAdapter.notifyDataSetChanged();
-        mActivity.finishUpdate();
-    }
-
-    private void initFabBtn() {
-        final FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
-        fab.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_delete).color(Color.WHITE).actionBar());
-        fab.hide(false);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fab.show(true);
-                fab.setShowAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom));
-                fab.setHideAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.hide_to_bottom));
-            }
-        }, 300);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fabEvent();
-            }
-        });
-
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    fab.hide(true);
-                } else {
-                    fab.show(true);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+        finishUpdate();
     }
 
     /**
      * 获取最近显示数据
      */
-    private ArrayList<RecentRoute> getRecentData() {
+    private void getRecentData() {
         recentRoutes = (ArrayList<RecentRoute>) TTTApplication.getDbHelper().getRecentRoute();
-        return recentRoutes;
+        if (recentRoutes != null) {
+            toDo(LOADING_SUCCESS, 0);
+        } else {
+            toDo(LOADING_ERROR, 0);
+        }
     }
 
     @Override
@@ -155,8 +132,8 @@ public class HomeRecentFragment extends RefreshFragment {
         View noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
 
-        if (mActivity != null && mAdapter != null) {
-            mActivity.startUpdate();
+        if (mAdapter != null) {
+            startUpdate();
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
@@ -165,7 +142,6 @@ public class HomeRecentFragment extends RefreshFragment {
     @Override
     public void onLoading() {
         getRecentData();
-        toDo(LOADING_SUCCESS, 0);
     }
 
     @Override
@@ -193,27 +169,13 @@ public class HomeRecentFragment extends RefreshFragment {
 
     }
 
-    public void fabEvent() {
+    public void startUpdate() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
 
-        new MaterialDialog.Builder(getActivity())
-                .title(getString(R.string.delete_recent_title))
-                .content(getString(R.string.delete_recent_msg))
-                .positiveText(getString(R.string.cancel_btn))
-                .negativeText(getString(R.string.ok_btn))
-                .callback(new MaterialDialog.Callback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        TTTApplication.getDbHelper().cleanRecentRoutes();
-                        refresh();
-                        dialog.dismiss();
-                    }
-                })
-                .build()
-                .show();
+    public void finishUpdate() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

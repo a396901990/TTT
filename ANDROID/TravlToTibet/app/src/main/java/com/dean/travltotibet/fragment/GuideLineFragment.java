@@ -48,6 +48,7 @@ public class GuideLineFragment extends BaseGuideFragment {
         setFooterView(mListView);
 
         GuideLineAdapter mAdapter = new GuideLineAdapter(getActivity());
+        mAdapter.setCurRoute(routeActivity.getRouteName());
         // 设置正反
         mAdapter.setIsForward(routeActivity.isForward());
         // 初始化数据adapter并赋值

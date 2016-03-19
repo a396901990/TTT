@@ -23,6 +23,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.AroundHotelInfoDialogFragment;
 import com.dean.travltotibet.dialog.AroundScenicInfoDialogFragment;
 import com.dean.travltotibet.model.AroundType;
+import com.dean.travltotibet.model.HotelInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
@@ -31,6 +32,9 @@ import com.dean.travltotibet.util.StringUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.CountListener;
 
 /**
  * Created by DeanGuo on 1/10/16.
@@ -51,6 +55,8 @@ public class GuideLineAdapter extends BaseAdapter {
         super();
         this.mContext = context;
     }
+
+    private String curRoute;
 
     public static interface ExpandableListener {
         public void onExpand();
@@ -193,8 +199,8 @@ public class GuideLineAdapter extends BaseAdapter {
             return;
         } else {
             if (around.contains(AroundType.HOTEL)) {
-                // check has hotel or not
-                holder.hotelBtn.setVisibility(View.VISIBLE);
+                // 当打开详细时会判断是否有旅店数据
+                holder.hotelBtn.setTag(geocode.getName());
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -221,6 +227,9 @@ public class GuideLineAdapter extends BaseAdapter {
                     holder.scenicBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (ScreenUtil.isFastClick()) {
+                                return;
+                            }
                             DialogFragment dialogFragment = new AroundScenicInfoDialogFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString(IntentExtra.INTENT_ROUTE, geocode.getRoute());
@@ -394,7 +403,34 @@ public class GuideLineAdapter extends BaseAdapter {
         holder.detailToggleLayout.setVisibility(View.VISIBLE);
         holder.distanceDivideContent.setVisibility(View.GONE);
 
+        setHotelBtnVisibility(holder);
+
         mExpandableListener.onExpand();
+
+    }
+
+    private void setHotelBtnVisibility(final GuideDetailViewHolder holder) {
+        String hotelBelong = (String) holder.hotelBtn.getTag();
+        if (!TextUtils.isEmpty(hotelBelong)) {
+            BmobQuery<HotelInfo> query = new BmobQuery<HotelInfo>();
+            query.addWhereEqualTo("route", curRoute);
+            query.addWhereEqualTo("hotelBelong", hotelBelong);
+            query.count(mContext, HotelInfo.class, new CountListener() {
+                @Override
+                public void onSuccess(int count) {
+                    if (count > 0) {
+                        holder.hotelBtn.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.hotelBtn.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(int code, String msg) {
+                    holder.hotelBtn.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     /**
@@ -454,5 +490,13 @@ public class GuideLineAdapter extends BaseAdapter {
 
     public void setExpandableListener(ExpandableListener mExpandableListener) {
         this.mExpandableListener = mExpandableListener;
+    }
+
+    public String getCurRoute() {
+        return curRoute;
+    }
+
+    public void setCurRoute(String curRoute) {
+        this.curRoute = curRoute;
     }
 }

@@ -159,11 +159,11 @@ public class RouteActivity
         mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width);
         // 设置是否淡入淡出
-        //mSlidingMenu.setFadeEnabled(true);
+        mSlidingMenu.setFadeEnabled(true);
         mSlidingMenu.setFadeDegree(0.35f);
 
         // 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
-        // mSlidingMenu.setShadowDrawable(R.drawable.shadow);
+        mSlidingMenu.setShadowDrawable(R.drawable.shadowright);
 
         // 设置偏移量。说明：设置menu全部打开后，主界面剩余部分与屏幕边界的距离，值写在dimens里面:60dp
         mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);

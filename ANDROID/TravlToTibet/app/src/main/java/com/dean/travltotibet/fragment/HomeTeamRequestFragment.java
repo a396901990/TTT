@@ -87,6 +87,9 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         filterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 TeamRequestFilterDialog dialogFragment = new TeamRequestFilterDialog();
                 dialogFragment.show(getFragmentManager(), TeamRequestFilterDialog.class.getName());
             }
@@ -96,6 +99,9 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 if (TTTApplication.hasLoggedIn()) {
                     Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
                     startActivity(intent);
@@ -116,6 +122,9 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         mFloatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 if (TTTApplication.hasLoggedIn()) {
                     Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
                     startActivityForResult(intent, CREATE_REQUEST);

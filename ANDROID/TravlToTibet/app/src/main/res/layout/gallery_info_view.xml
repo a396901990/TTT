@@ -7,6 +7,7 @@
 
     <!--标题-->
     <TextView
+        android:id="@+id/title_text"
         style="@style/TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

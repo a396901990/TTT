@@ -26,6 +26,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by DeanGuo on 11/30/15.
@@ -56,7 +57,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
     }
 
     @Override
-    public void onBindViewHolder(final RecentViewHolder holder, int position) {
+    public void onBindViewHolder(final RecentViewHolder holder, final int position) {
 
         final RecentRoute recentRoute = mData.get(position);
         // 类型图片
@@ -76,10 +77,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         holder.mPlanName.setText(name);
         holder.mPlanDay.setText(day);
 
-        // 图片url(取第一个)
+        // 图片url(随机)
         String[] picURLs = TTTApplication.getDbHelper().getRoutePics(recentRoute.getRoute());
-        if (!TextUtils.isEmpty(picURLs[0])) {
-            Picasso.with(mContext).load(picURLs[0]).error(R.color.light_gray).into(holder.mBackgroundView);
+        Random random = new Random();
+        int picId = random.nextInt(picURLs.length);
+        if (!TextUtils.isEmpty(picURLs[picId])) {
+            Picasso.with(mContext).load(picURLs[picId]).error(R.color.light_gray).into(holder.mBackgroundView);
         }
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +105,15 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         holder.mDelIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteRouteRecent(recentRoute);
+                deleteRouteRecent(recentRoute, position);
             }
         });
     }
 
-    private void deleteRouteRecent(final RecentRoute recentRoute) {
+    private void deleteRouteRecent(final RecentRoute recentRoute, final int position) {
+        if (ScreenUtil.isFastClick()) {
+            return;
+        }
         new MaterialDialog.Builder(mActivity)
                 .title(mActivity.getString(R.string.delete_recent_title))
                 .content(mActivity.getString(R.string.delete_recent_msg))
@@ -118,7 +124,10 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         TTTApplication.getDbHelper().deleteRecentRoute(recentRoute);
-                        mRecentCallBack.update();
+                        mData.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mData.size());
+                        notifyDataSetChanged();
                         dialog.dismiss();
                     }
 
@@ -138,7 +147,8 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
 
     public void setData(ArrayList<RecentRoute> data) {
         this.mData = data;
-        this.notifyItemRangeInserted(0, mData.size() - 1);
+//        this.notifyItemRangeInserted(0, mData.size() - 1);
+        this.notifyDataSetChanged();
     }
 
     public void clearData() {
@@ -155,7 +165,6 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
             }
         }
     }
-
 
     public static class RecentViewHolder extends RecyclerView.ViewHolder {
 

@@ -25,7 +25,7 @@
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/home_recent_item_height"
+                android:layout_height="140dp"
                 android:background="@color/gray"
                 android:orientation="vertical">
 
@@ -39,7 +39,7 @@
 
                 <TextView
                     android:id="@+id/route_name"
-                    style="@style/TextAppearance.XXLarge.White"
+                    style="@style/TextAppearance.Large.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -48,7 +48,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/half_dark_gray"
                     >
@@ -57,19 +57,20 @@
                         android:background="@color/dark_gray_background"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp">
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
 
                         <TextView
                             android:id="@+id/route_plan_day"
-                            style="@style/TextAppearance.XXLarge.White"
+                            style="@style/TextAppearance.Large.White"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="27" />
 
                         <TextView
-                            style="@style/TextAppearance.Small.White"
+                            style="@style/TextAppearance.Micro"
+                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/route_plan_day"
@@ -92,14 +93,15 @@
 
                             <TextView
                                 android:id="@+id/route_start_end"
-                                style="@style/TextAppearance.Large.White"
+                                style="@style/TextAppearance.Small.White"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="成都 > 拉萨" />
 
                             <TextView
                                 android:id="@+id/route_plan_name"
-                                style="@style/TextAppearance.Regular.White"
+                                style="@style/TextAppearance.Micro"
+                                android:textColor="@color/white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="正常难度" />
@@ -107,8 +109,8 @@
 
                         <ImageView
                             android:id="@+id/type_icon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:paddingRight="10dp"
@@ -118,11 +120,10 @@
             </RelativeLayout>
         </com.dean.travltotibet.ui.MaterialRippleLayout>
 
-
         <ImageView
             android:id="@+id/del_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="top|right"
             android:padding="10dp"
             android:paddingRight="10dp"

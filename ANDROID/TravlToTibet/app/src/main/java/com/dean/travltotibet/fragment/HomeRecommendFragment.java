@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
-import com.dean.travltotibet.activity.WhereGoActivity;
 import com.dean.travltotibet.adapter.RecommendAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
@@ -32,6 +30,7 @@ public class HomeRecommendFragment extends RefreshFragment {
     private ArrayList<Route> routes;
     private HomeActivity mActivity;
     private RecyclerView mRecyclerView;
+    private FloatingActionButton fab;
 
     public HomeRecommendFragment() {
     }
@@ -55,7 +54,7 @@ public class HomeRecommendFragment extends RefreshFragment {
 
         initList();
         refresh();
-//        initFabBtn();
+        initFabBtn();
     }
 
     private void initList() {
@@ -69,7 +68,9 @@ public class HomeRecommendFragment extends RefreshFragment {
     }
 
     private void initFabBtn() {
-        final FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab.setColorNormalResId(R.color.colorPrimary);
+        fab.setColorPressedResId(R.color.colorPrimaryDark);
         fab.hide(false);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -80,10 +81,15 @@ public class HomeRecommendFragment extends RefreshFragment {
             }
         }, 300);
 
+        // 点击打开slidingMenu
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fabEvent();
+                if (mActivity.getSlidingMenu().isMenuShowing()) {
+                    mActivity.getSlidingMenu().showMenu(true);
+                } else {
+                    mActivity.getSlidingMenu().showMenu(false);
+                }
             }
         });
 
@@ -161,10 +167,5 @@ public class HomeRecommendFragment extends RefreshFragment {
     @Override
     public void LoadingMoreError() {
 
-    }
-
-    public void fabEvent() {
-        Intent intent = new Intent(getActivity(), WhereGoActivity.class);
-        startActivity(intent);
     }
 }
