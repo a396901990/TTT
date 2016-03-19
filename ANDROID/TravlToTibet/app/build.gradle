@@ -30,6 +30,7 @@ android {
         open {
         }
         wandoujia{}
+        xiaomi{}
     }
 
     //这个是解决lint报错的代码
