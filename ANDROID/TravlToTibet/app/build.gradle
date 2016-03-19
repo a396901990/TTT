@@ -19,16 +19,11 @@ android {
 
     //渠道
     productFlavors {
-        c360 {
-        }
-        baidu {
-        }
-        qq {
-        }
-        pp {
-        }
-        open {
-        }
+        c360 {}
+        baidu {}
+        qq {}
+        pp {}
+        open {}
         wandoujia{}
         xiaomi{}
     }
