@@ -337,8 +337,11 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                 teamRequest.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
+                        if (mActivity == null) {
+                            return;
+                        }
                         loadingView.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "修改成功", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
                         intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
@@ -349,8 +352,11 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
                     @Override
                     public void onFailure(int i, String s) {
+                        if (mActivity == null) {
+                            return;
+                        }
                         loadingView.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "修改失败", Toast.LENGTH_SHORT).show();
                         mActivity.finish();
                     }
                 });
@@ -365,16 +371,22 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                 teamRequest.save(getActivity(), new SaveListener() {
                     @Override
                     public void onSuccess() {
+                        if (mActivity == null) {
+                            return;
+                        }
                         loadingView.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "提交成功", Toast.LENGTH_SHORT).show();
                         mActivity.setResult(mActivity.RESULT_OK);
                         mActivity.finish();
                     }
 
                     @Override
                     public void onFailure(int code, String msg) {
+                        if (mActivity == null) {
+                            return;
+                        }
                         loadingView.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "提交失败", Toast.LENGTH_SHORT).show();
                         mActivity.setResult(mActivity.RESULT_CANCELED);
                         mActivity.finish();
                     }

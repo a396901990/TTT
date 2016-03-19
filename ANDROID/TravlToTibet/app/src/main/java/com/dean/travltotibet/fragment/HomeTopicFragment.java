@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.HomeActivity;
@@ -144,6 +145,36 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
         // 无数据
         if (articles == null || articles.size() == 0) {
             noResultView.setVisibility(View.VISIBLE);
+            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+            if (noResultText != null) {
+                noResultText.setText(getString(R.string.no_result));
+            }
+        }
+        // 有数据
+        else {
+            noResultView.setVisibility(View.GONE);
+        }
+        mAdapter.setData(articles);
+        mActivity.finishUpdate();
+    }
+
+    public void updateError() {
+        if (mAdapter == null || mActivity == null) {
+            return;
+        }
+
+        View noResultView = root.findViewById(R.id.no_result_content);
+        if (noResultView == null) {
+            return;
+        }
+
+        // 无数据
+        if (articles == null || articles.size() == 0) {
+            noResultView.setVisibility(View.VISIBLE);
+            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+            if (noResultText != null) {
+                noResultText.setText(getString(R.string.no_network_result));
+            }
         }
         // 有数据
         else {
@@ -187,7 +218,7 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
 
     @Override
     public void LoadingError() {
-        updateData();
+        updateError();
     }
 
     @Override

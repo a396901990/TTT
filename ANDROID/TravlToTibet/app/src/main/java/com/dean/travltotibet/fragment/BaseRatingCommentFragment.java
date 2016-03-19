@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
@@ -117,11 +118,19 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
     public void getDataSuccess() {
         setComments();
         finishUpdate();
+        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+        if (noResultText != null) {
+            noResultText.setText(getString(R.string.no_result));
+        }
     }
 
     public void getDataFailed() {
         setComments();
         finishUpdate();
+        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+        if (noResultText != null) {
+            noResultText.setText(getString(R.string.no_network_result));
+        }
     }
 
     public CommentListAdapter getCommentListAdapter() {

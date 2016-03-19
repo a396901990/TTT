@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
@@ -238,6 +239,30 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         // 无数据
         if (teamRequests == null || teamRequests.size() == 0) {
             noResultView.setVisibility(View.VISIBLE);
+            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+            if (noResultText != null) {
+                noResultText.setText(getString(R.string.no_result));
+            }
+        }
+        // 有数据
+        else {
+            noResultView.setVisibility(View.GONE);
+        }
+        mAdapter.setData(teamRequests);
+        mActivity.finishUpdate();
+    }
+
+
+    public void updateError() {
+        View noResultView = root.findViewById(R.id.no_result_content);
+
+        // 无数据
+        if (teamRequests == null || teamRequests.size() == 0) {
+            noResultView.setVisibility(View.VISIBLE);
+            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+            if (noResultText != null) {
+                noResultText.setText(getString(R.string.no_network_result));
+            }
         }
         // 有数据
         else {
@@ -302,7 +327,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void LoadingError() {
-        updateData();
+        updateError();
     }
 
     @Override

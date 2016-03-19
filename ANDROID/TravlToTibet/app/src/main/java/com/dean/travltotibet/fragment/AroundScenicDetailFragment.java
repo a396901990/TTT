@@ -164,6 +164,10 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         finishUpdate();
         contentView.setVisibility(View.VISIBLE);
         noResultView.setVisibility(View.GONE);
+        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+        if (noResultText != null) {
+            noResultText.setText(getString(R.string.no_result));
+        }
         initContentView();
     }
 
@@ -172,6 +176,10 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         finishUpdate();
         contentView.setVisibility(View.INVISIBLE);
         noResultView.setVisibility(View.VISIBLE);
+        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
+        if (noResultText != null) {
+            noResultText.setText(getString(R.string.no_network_result));
+        }
     }
 
     @Override

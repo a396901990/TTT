@@ -128,6 +128,7 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
 
     private void login(String loginType) {
 
+        ShareSDK.initSDK(getActivity());
         Platform platform = ShareSDK.getPlatform(getActivity(), loginType);
         platform.setPlatformActionListener(this);
 
