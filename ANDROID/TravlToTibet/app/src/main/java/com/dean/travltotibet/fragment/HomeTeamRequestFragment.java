@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,12 +163,14 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     private void setUpHeader() {
 
-        final String headerHtmlURL = "http://file.bmob.cn/M03/D9/F5/oYYBAFbhfLGAPr82AAAn5dpKbPs04.html";
+        final String headerHtmlURL = "http://7xrvj0.com1.z0.glb.clouddn.com/rule.html";
         String headerImageURL = "http://7xr1ra.com1.z0.glb.clouddn.com/ruheyueban.png";
 
         articleHeader = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_header_view, null);
         ImageView backgroundImage = (ImageView) articleHeader.findViewById(R.id.background_image);
-        Picasso.with(getActivity()).load(headerImageURL).error(R.color.light_gray).into(backgroundImage);
+        if (!TextUtils.isEmpty(headerImageURL)) {
+            Picasso.with(getActivity()).load(headerImageURL).error(R.color.light_gray).into(backgroundImage);
+        }
         MaterialRippleLayout contentView = (MaterialRippleLayout) articleHeader.findViewById(R.id.ripple_view);
         contentView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,6 +28,7 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by DeanGuo on 9/30/15.

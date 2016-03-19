@@ -90,7 +90,13 @@ public class HomeRecentFragment extends RefreshFragment {
      * 更新recentRoutes数据
      */
     public void updateRecentData() {
+        if (mAdapter == null || getActivity() == null) {
+            return;
+        }
         View noResultView = root.findViewById(R.id.no_result_content);
+        if (noResultView == null) {
+            return;
+        }
 
         // 无数据
         if (recentRoutes == null || recentRoutes.size() == 0) {

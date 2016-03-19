@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,9 +80,13 @@ public class PrepareDetailFragment extends Fragment {
             @Override
             public void onSuccess(List<PrepareInfo> list) {
                 PrepareInfo prepareFile = list.get(0);
-                String url = InfoType.getInfoResult(mInfoType, prepareFile);
-                // Log.e("url", url);
-                mWebView.loadUrl(url);
+                if (prepareFile != null) {
+                    String url = InfoType.getInfoResult(mInfoType, prepareFile);
+                    // Log.e("url", url);
+                    if (!TextUtils.isEmpty(url)) {
+                        mWebView.loadUrl(url);
+                    }
+                }
             }
 
             @Override

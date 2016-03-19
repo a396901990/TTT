@@ -132,7 +132,14 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
      * 更新recentRoutes数据
      */
     public void updateData() {
+        if (mAdapter == null || mActivity == null) {
+            return;
+        }
+
         View noResultView = root.findViewById(R.id.no_result_content);
+        if (noResultView == null) {
+            return;
+        }
 
         // 无数据
         if (articles == null || articles.size() == 0) {

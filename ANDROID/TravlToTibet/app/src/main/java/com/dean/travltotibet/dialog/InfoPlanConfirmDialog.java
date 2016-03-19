@@ -287,8 +287,6 @@ public class InfoPlanConfirmDialog extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                dismiss();
-
                 // 跳转到RouteActivity
                 if (ScreenUtil.isFastClick()) {
                     return;
@@ -302,7 +300,7 @@ public class InfoPlanConfirmDialog extends DialogFragment {
 
                 // 插入最近路线数据
                 insertRecentData(position);
-
+                dismiss();
             }
         });
     }

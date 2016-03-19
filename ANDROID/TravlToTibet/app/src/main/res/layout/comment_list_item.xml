@@ -70,7 +70,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:padding="5dp"
-                    android:text="2015-09-17" />
+                    android:text="2016-01-1" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -113,7 +113,7 @@
                 style="@style/TextAppearance.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />
+                android:text="" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

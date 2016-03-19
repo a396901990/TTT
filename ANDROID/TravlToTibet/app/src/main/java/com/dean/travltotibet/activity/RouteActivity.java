@@ -19,6 +19,7 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.MenuUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -30,6 +31,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 /**
  * Created by DeanGuo on 7/19/15.

@@ -176,7 +176,12 @@ public class InfoTravelTypeDialog extends DialogFragment {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        ((InfoActivity) getActivity()).updateType(type);
+                        if (getActivity() == null) {
+                            return;
+                        }
+                        else {
+                            ((InfoActivity) getActivity()).updateType(type);
+                        }
                         dismiss();
                     }
 

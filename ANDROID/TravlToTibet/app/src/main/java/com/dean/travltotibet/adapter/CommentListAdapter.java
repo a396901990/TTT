@@ -76,10 +76,14 @@ public class CommentListAdapter extends BaseAdapter {
         // 评论时间
         Date date = DateUtil.parse(comment.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         String time = DateUtil.formatDate(date, Constants.YYYY_MM_DD);
-        holder.commentDate.setText(time);
+        if (!TextUtils.isEmpty(time)) {
+            holder.commentDate.setText(time);
+        }
 
         // 评论
-        holder.commentText.setText(comment.getComment());
+        if (!TextUtils.isEmpty(comment.getComment())) {
+            holder.commentText.setText(comment.getComment());
+        }
 
         // 星
         holder.ratingBar.setRating(Float.parseFloat(comment.getRating()));

@@ -17,6 +17,7 @@ import com.dean.travltotibet.adapter.RecommendAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -116,6 +117,11 @@ public class HomeRecommendFragment extends RefreshFragment {
      */
     private void getRouteData() {
         routes = (ArrayList<Route>) TTTApplication.getDbHelper().getRoutsList();
+        if (routes != null) {
+            toDo(LOADING_SUCCESS, 0);
+        } else {
+            toDo(LOADING_ERROR, 0);
+        }
     }
 
     @Override
@@ -140,18 +146,19 @@ public class HomeRecommendFragment extends RefreshFragment {
     @Override
     public void onLoading() {
         getRouteData();
-        toDo(LOADING_SUCCESS, 0);
     }
 
     @Override
     public void LoadingSuccess() {
-        mAdapter.setData(routes);
-        mActivity.finishUpdate();
+        if (mActivity != null || mAdapter != null) {
+            mAdapter.setData(routes);
+            mActivity.finishUpdate();
+        }
     }
 
     @Override
     public void LoadingError() {
-
+        mActivity.finishUpdate();
     }
 
     @Override
