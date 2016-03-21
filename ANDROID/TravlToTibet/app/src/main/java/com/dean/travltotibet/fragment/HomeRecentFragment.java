@@ -129,7 +129,7 @@ public class HomeRecentFragment extends RefreshFragment {
 
     @Override
     public void refresh() {
-        toDo(PREPARE_LOADING, 0);
+        toDo(PREPARE_LOADING, 1000);
     }
 
     @Override

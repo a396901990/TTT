@@ -234,6 +234,10 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
      * 更新recentRoutes数据
      */
     public void updateData() {
+        if (mAdapter == null || mActivity == null) {
+            return;
+        }
+
         View noResultView = root.findViewById(R.id.no_result_content);
 
         // 无数据
@@ -254,6 +258,9 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
 
     public void updateError() {
+        if (mAdapter == null || mActivity == null) {
+            return;
+        }
         View noResultView = root.findViewById(R.id.no_result_content);
 
         // 无数据

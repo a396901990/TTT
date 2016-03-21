@@ -88,7 +88,9 @@ public abstract class RefreshFragment extends Fragment {
     }
 
     public void toDo(int message, long delayed) {
-        mHandle.sendEmptyMessageDelayed(message, delayed);
+        if (getActivity() != null) {
+            mHandle.sendEmptyMessageDelayed(message, delayed);
+        }
     }
 
 }
