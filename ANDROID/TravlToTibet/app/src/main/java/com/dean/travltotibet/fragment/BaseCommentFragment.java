@@ -208,7 +208,7 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", getCommentType());
         query.addWhereEqualTo("type_object_id", getCommentTypeObjectId());
-
+        query.include("commentQuote,user");
         // 加载更多
         if (actionType == STATE_MORE) {
             // 跳过已经加载的元素

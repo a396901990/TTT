@@ -1,18 +1,21 @@
 package com.dean.travltotibet.util;
 
-import android.text.TextUtils;
-
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.UserInfo;
 
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by DeanGuo on 1/21/16.
  */
 public final class LoginUtil {
+
+    public final static String DEFAULT_PASSWORD = "123456";
 
     public static interface LoginListener {
         void onLoggedIn(LoginEvent event);
@@ -32,9 +35,6 @@ public final class LoginUtil {
             this.token = userToken;
         }
     }
-    private String mToken;
-
-    private boolean mUserChanged;
 
     private static LoginUtil sInstance = new LoginUtil();
 
@@ -43,86 +43,71 @@ public final class LoginUtil {
         return sInstance;
     }
 
-    private LoginUtil()
-    {
-    }
-
-    public void login( final String token )
-    {
-        if (token == null)
-        {
-            mToken = null;
-            mUserChanged = true;
-        }
-        else
-        {
-            mToken = token;
-            mUserChanged = !mToken.equals(getLastToken());
-
-            if (mUserChanged)
-            {
-                saveToken();
-            }
-        }
-        TTTApplication.setLoggedIn(mUserChanged, mToken);
-    }
-
-    public void uploadUserInfo(UserInfo userInfo) {
+    public void uploadUserInfo(final UserInfo userInfo) {
         userInfo.setUsername(userInfo.getUserId());
-        userInfo.setPassword("123456");
+        userInfo.setPassword(DEFAULT_PASSWORD);
         userInfo.signUp(TTTApplication.getContext(), new SaveListener() {
             @Override
             public void onSuccess() {
+                bmobLogin(userInfo.getUserId());
             }
+
             @Override
             public void onFailure(int code, String msg) {
+                if (msg.contains("already taken")) {
+                    bmobLogin(userInfo.getUserId());
+                } else {
+                    loginFailed();
+                }
+            }
+        });
+    }
+
+    public void bmobLogin(final String userId) {
+        BmobUser.loginByAccount(TTTApplication.getContext(), userId, DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
+
+            @Override
+            public void done(UserInfo user, BmobException e) {
+                if (user != null) {
+                    updateUserInfo();
+                    EventBus.getDefault().post(new LoginUtil.LoginEvent(false, user.getUserId()));
+                }
             }
         });
     }
 
     public void logout() {
-
-        // 清空授权
-        Platform[] platforms = ShareSDK.getPlatformList();
-        // 未检查到token，没登陆
-        for (Platform platform : platforms) {
-            platform.removeAccount();
-        }
-        // clear token
-        mToken = getLastToken();
-        if (mToken != null) {
-            mToken = "";
-            saveToken();
-        }
-        TTTApplication.logout();
+        TTTApplication.setUserInfo(null);
+        TTTApplication.setLogedIn(false);
+        BmobUser.logOut(TTTApplication.getContext());
+        EventBus.getDefault().post(new LoginUtil.LogoutEvent());
     }
-
 
     public void login( final Platform platform )
     {
-        String token = platform.getDb().getToken();
-        if (token == null)
-        {
-            mToken = null;
-            mUserChanged = true;
-        }
-        else
-        {
-            mToken = token;
-            mUserChanged = !mToken.equals(getLastToken());
-
-            if (mUserChanged)
-            {
-                saveToken();
-            }
-        }
-
         UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(platform.getDb().getUserId());
         userInfo.setUserName(platform.getDb().getUserName());
         userInfo.setUserGender(platform.getDb().getUserGender());
         userInfo.setUserIcon(platform.getDb().getUserIcon());
+        LoginUtil.getInstance().uploadUserInfo(userInfo);
+    }
 
-        TTTApplication.setLoggedIn(mUserChanged, mToken);
+    public void updateUserInfo() {
+        UserInfo userInfo = BmobUser.getCurrentUser(TTTApplication.getContext(), UserInfo.class);
+        if (userInfo != null) {
+            TTTApplication.setUserInfo(userInfo);
+            TTTApplication.setLogedIn(true);
+        } else {
+            TTTApplication.setUserInfo(null);
+            TTTApplication.setLogedIn(false);
+        }
+    }
+
+    public void loginFailed() {
+        TTTApplication.setLogedIn(false);
+        TTTApplication.setUserInfo(null);
+        EventBus.getDefault().post(new LoginUtil.LoginFailedEvent());
     }
 
     public static class LogoutEvent {
@@ -131,15 +116,5 @@ public final class LoginUtil {
 
     public static class LoginFailedEvent {
 
-    }
-
-    public String getLastToken()
-    {
-        return TTTApplication.getSharedPreferences().getString(Constants.KEY_LAST_TOKEN, "");
-    }
-
-    private void saveToken()
-    {
-        TTTApplication.getSharedPreferences().edit().putString(Constants.KEY_LAST_TOKEN, mToken).commit();
     }
 }

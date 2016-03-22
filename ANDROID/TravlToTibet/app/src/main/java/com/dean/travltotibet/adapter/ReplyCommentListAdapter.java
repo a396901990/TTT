@@ -75,15 +75,21 @@ public class ReplyCommentListAdapter extends BaseAdapter {
 
         final Comment comment = mData.get(position);
 
-
-        // profile Text
-        holder.profileName.setText(comment.getUser_name());
-
-        // profile Image
-        if (!TextUtils.isEmpty(comment.getUser_icon())) {
-            Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+        // profile Text old/new logic
+        if (comment.getUser() != null && !TextUtils.isEmpty(comment.getUser().getUserName())) {
+            holder.profileName.setText(comment.getUser().getUserName());
         } else {
-            holder.profileImage.setImageResource(R.drawable.gray_profile);
+            holder.profileName.setText(comment.getUser_name());
+        }
+        // profile Image old/new logic
+        if (comment.getUser() != null && !TextUtils.isEmpty(comment.getUser().getUserIcon())) {
+            Picasso.with(mContext).load(comment.getUser().getUserIcon()).error(R.drawable.gray_profile).into(holder.profileImage);
+        } else {
+            if (!TextUtils.isEmpty(comment.getUser_icon())) {
+                Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+            } else {
+                holder.profileImage.setImageResource(R.drawable.gray_profile);
+            }
         }
 
         // 评论时间
@@ -128,27 +134,12 @@ public class ReplyCommentListAdapter extends BaseAdapter {
     }
 
     private void setCommentView(final CommentViewHolder holder, final Comment comment) {
-        if (!TextUtils.isEmpty(comment.getQuote_id())) {
-            BmobQuery<Comment> query = new BmobQuery<Comment>();
-            query.getObject(mContext, comment.getQuote_id(), new GetListener<Comment>() {
+        if (comment.getCommentQuote() != null) {
+            holder.replyContent.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onSuccess(Comment reply) {
-                    holder.replyContent.setVisibility(View.VISIBLE);
-
-                    holder.replyUserName.setText(reply.getUser_name());
-                    holder.replyComment.setText(reply.getComment());
-                    holder.commentText.setText(comment.getComment());
-                }
-
-                @Override
-                public void onFailure(int code, String arg0) {
-                    holder.replyContent.setVisibility(View.GONE);
-                    holder.commentText.setText(comment.getComment());
-                }
-
-            });
-
+            holder.replyUserName.setText(comment.getCommentQuote().getUser_name());
+            holder.replyComment.setText(comment.getCommentQuote().getComment());
+            holder.commentText.setText(comment.getComment());
         } else {
             holder.replyContent.setVisibility(View.GONE);
             holder.commentText.setText(comment.getComment());

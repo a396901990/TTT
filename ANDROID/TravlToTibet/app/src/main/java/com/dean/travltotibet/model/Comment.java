@@ -22,23 +22,14 @@ public class Comment extends BmobObject {
     private String type;
     private String type_desc;
     private String rating;
-    private String quote_id;
-    private String quote_text;
-    private String quote_user_name;
+    private String quote_id; // old logic
     private String comment;
-    private String user_id;
-    private String user_icon;
-    private String user_name;
+    private Comment commentQuote;
+    private UserInfo user;
+    private String user_icon; // old logic
+    private String user_name; // old logic
     private int like;
     private int dislike;
-
-    public String getType_object_id() {
-        return type_object_id;
-    }
-
-    public void setType_object_id(String type_object_id) {
-        this.type_object_id = type_object_id;
-    }
 
     public String getType() {
         return type;
@@ -112,30 +103,6 @@ public class Comment extends BmobObject {
         this.user_name = user_name;
     }
 
-    public String getQuote_text() {
-        return quote_text;
-    }
-
-    public void setQuote_text(String quote_text) {
-        this.quote_text = quote_text;
-    }
-
-    public String getQuote_user_name() {
-        return quote_user_name;
-    }
-
-    public void setQuote_user_name(String quote_user_name) {
-        this.quote_user_name = quote_user_name;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
     public static Comparator<Comment> likeComparator = new Comparator<Comment>() {
         @Override
         public int compare(Comment c1, Comment c2) {
@@ -160,4 +127,28 @@ public class Comment extends BmobObject {
             }
         }
     };
+
+    public UserInfo getUser() {
+        return user;
+    }
+
+    public void setUser(UserInfo user) {
+        this.user = user;
+    }
+
+    public Comment getCommentQuote() {
+        return commentQuote;
+    }
+
+    public void setCommentQuote(Comment commentQuote) {
+        this.commentQuote = commentQuote;
+    }
+
+    public String getType_object_id() {
+        return type_object_id;
+    }
+
+    public void setType_object_id(String type_object_id) {
+        this.type_object_id = type_object_id;
+    }
 }

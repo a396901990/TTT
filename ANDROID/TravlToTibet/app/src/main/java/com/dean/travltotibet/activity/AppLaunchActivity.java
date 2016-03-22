@@ -13,12 +13,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.AppUtil;
-import com.dean.travltotibet.util.SystemUtil;
+import com.dean.travltotibet.util.LoginUtil;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
@@ -62,7 +60,7 @@ public class AppLaunchActivity extends Activity {
         ShareSDK.initSDK(this);
 
         // 设置登陆状态
-        TTTApplication.initLoginStatus();
+        LoginUtil.getInstance().updateUserInfo();
 
         initView();
     }

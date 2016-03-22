@@ -68,20 +68,17 @@ public abstract class ReplyCommentDialog extends BaseCommentDialog {
         comment.setComment(getComment());
         // 评分
         comment.setRating(getRatting());
-        // user id
-        comment.setUser_id(TTTApplication.getUserInfo().getUserId());
-        // user name
+        // user name (old logic)
         comment.setUser_name(TTTApplication.getUserInfo().getUserName());
-        // pic url
+        // pic url (old logic)
         comment.setUser_icon(TTTApplication.getUserInfo().getUserIcon());
 
         comment.setLike(0);
         comment.setDislike(0);
         if (replyComment != null) {
-            comment.setQuote_id(replyComment.getObjectId());
-            comment.setQuote_text(replyComment.getComment());
-            comment.setQuote_user_name(replyComment.getUser_name());
+            comment.setCommentQuote(replyComment);
         }
+        comment.setUser(TTTApplication.getUserInfo());
 
         comment.save(getActivity(), new SaveListener() {
             @Override

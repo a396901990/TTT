@@ -20,6 +20,7 @@ import com.dean.travltotibet.util.ResourceUtil;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 
+import cn.bmob.v3.BmobUser;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import de.greenrobot.event.EventBus;
@@ -42,34 +43,12 @@ public class TTTApplication extends Application {
 
     private static Context context;
 
-    private static boolean logedin;
+    private static boolean logedIn;
 
     private static UserInfo userInfo;
 
     public static boolean hasLoggedIn() {
-        return logedin;
-    }
-
-    public static void setLoggedIn(boolean isUserChanged, String userToken) {
-        updateUserInfo(userToken);
-        // 新用则户上传备份
-        EventBus.getDefault().post(new LoginUtil.LoginEvent(isUserChanged, userToken));
-        if (isUserChanged) {
-            if (userInfo != null) {
-                LoginUtil.getInstance().uploadUserInfo(userInfo);
-            }
-        }
-    }
-
-    public static void logout() {
-        logedin = false;
-        updateUserInfo("");
-        EventBus.getDefault().post(new LoginUtil.LogoutEvent());
-    }
-
-    public static void loginFailed() {
-        logedin = false;
-        EventBus.getDefault().post(new LoginUtil.LoginFailedEvent());
+        return logedIn;
     }
 
     @Override
@@ -93,36 +72,6 @@ public class TTTApplication extends Application {
         PointManager.init(instance);
         AppUtil.saveVersionCode(context);
         AppUtil.saveVersionName(context);
-    }
-
-    /**
-     * 初始化用户信息和登陆状态
-     */
-    public static void initLoginStatus() {
-        String lastToken = LoginUtil.getInstance().getLastToken();
-        updateUserInfo(lastToken);
-    }
-
-    private static void updateUserInfo(String token) {
-
-        Platform[] platforms = ShareSDK.getPlatformList();
-        // 未检查到token，没登陆
-        if (TextUtils.isEmpty(token)) {
-            userInfo = null;
-            logedin = false;
-        } else {
-            for (Platform platform : platforms) {
-                // token相同，可以登陆
-                if (token.equals(platform.getDb().getToken())) {
-                    userInfo = new UserInfo();
-                    userInfo.setUserId(platform.getDb().getUserId());
-                    userInfo.setUserIcon(platform.getDb().getUserIcon());
-                    userInfo.setUserName(platform.getDb().getUserName());
-                    userInfo.setUserGender(platform.getDb().getUserGender());
-                    logedin = true;
-                }
-            }
-        }
     }
 
     private void initPreferences() {
@@ -188,8 +137,18 @@ public class TTTApplication extends Application {
     public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
         return new IconicsDrawable(context, icon).color(color).sizeDp(20);
     }
+    public static void setUserInfo(UserInfo userInfo) {
+        TTTApplication.userInfo = userInfo;
+    }
 
     public static UserInfo getUserInfo() {
         return userInfo;
+    }
+    public static boolean isLogedIn() {
+        return logedIn;
+    }
+
+    public static void setLogedIn(boolean logedIn) {
+        TTTApplication.logedIn = logedIn;
     }
 }

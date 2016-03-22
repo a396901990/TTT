@@ -142,7 +142,7 @@ public class CommentPopupDialog extends DialogFragment {
     }
 
     private void reportAction() {
-        new Report().addReport(getActivity(), Report.REPORT_COMMENT, mComment.getObjectId(), mComment.getUser_id(), mComment.getUser_name());
+        new Report().addReport(getActivity(), Report.REPORT_COMMENT, mComment.getObjectId(), "", mComment.getUser_name());
         getDialog().dismiss();
     }
 
