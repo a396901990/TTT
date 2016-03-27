@@ -1,5 +1,8 @@
 package com.dean.travltotibet.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -42,6 +45,8 @@ public class TeamRequest extends BmobObject {
     private int watch;
 
     private UserInfo user;
+
+    private List imgUrls;
 
     public String getStatus() {
         return status;
@@ -161,5 +166,13 @@ public class TeamRequest extends BmobObject {
 
     public void setUser(UserInfo user) {
         this.user = user;
+    }
+
+    public List getImgUrls() {
+        return imgUrls;
+    }
+
+    public void setImgUrls(List imgUrls) {
+        this.imgUrls = imgUrls;
     }
 }

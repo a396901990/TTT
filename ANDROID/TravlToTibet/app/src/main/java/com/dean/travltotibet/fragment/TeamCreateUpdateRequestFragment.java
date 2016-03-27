@@ -1,11 +1,9 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -25,6 +23,7 @@ import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.adapter.ImagePickAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
@@ -39,15 +38,17 @@ import com.pizidea.imagepicker.bean.ImageItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadBatchListener;
 
 /**
  * Created by DeanGuo on 2/23/16.
  */
-public class TeamCreateUpdateRequestFragment extends Fragment  implements AndroidImagePicker.OnPictureTakeCompleteListener,AndroidImagePicker.OnImagePickCompleteListener{
+public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment implements AndroidImagePicker.OnPictureTakeCompleteListener,AndroidImagePicker.OnImagePickCompleteListener{
 
-    private static final int REQ_IMAGE = 111;
     private View root;
 
     private TeamCreateRequestActivity mActivity;
@@ -371,80 +372,150 @@ public class TeamCreateUpdateRequestFragment extends Fragment  implements Androi
         }
 
         if (checkIsOk()) {
-            final View loadingView = root.findViewById(R.id.loading_content_view);
-            loadingView.setVisibility(View.VISIBLE);
-
-            if (isUpdate) {
-                // 如果之前已经通过，则这次也通过
-                if (TeamRequest.PASS_STATUS.equals(teamRequest.getStatus())) {
-                    teamRequest.setStatus(TeamRequest.PASS_STATUS);
-                }
-                // 如果之前是审核或者未通过，这次是审核
-                else {
-                    teamRequest.setStatus(TeamRequest.WAIT_STATUS);
-                }
-                teamRequest.update(getActivity(), new UpdateListener() {
-                    @Override
-                    public void onSuccess() {
-                        if (mActivity == null) {
-                            return;
-                        }
-                        loadingView.setVisibility(View.GONE);
-                        Toast.makeText(mActivity, "修改成功", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
-                        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
-                        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
-                        getActivity().startActivity(intent);
-                        mActivity.finish();
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        if (mActivity == null) {
-                            return;
-                        }
-                        loadingView.setVisibility(View.GONE);
-                        Toast.makeText(mActivity, "修改失败", Toast.LENGTH_SHORT).show();
-                        mActivity.finish();
-                    }
-                });
-            } else {
-                teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
-                teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
-                teamRequest.setUserIcon(TTTApplication.getUserInfo().getUserIcon());
-                teamRequest.setUserGender(TTTApplication.getUserInfo().getUserGender());
-                teamRequest.setComments(0);
-                teamRequest.setWatch(0);
-                teamRequest.setStatus(TeamRequest.PASS_STATUS);
-                if (TTTApplication.getUserInfo() != null) {
-                    teamRequest.setUser(TTTApplication.getUserInfo());
-                }
-                teamRequest.save(getActivity(), new SaveListener() {
-                    @Override
-                    public void onSuccess() {
-                        if (mActivity == null) {
-                            return;
-                        }
-                        loadingView.setVisibility(View.GONE);
-                        Toast.makeText(mActivity, "提交成功", Toast.LENGTH_SHORT).show();
-                        mActivity.setResult(mActivity.RESULT_OK);
-                        mActivity.finish();
-                    }
-
-                    @Override
-                    public void onFailure(int code, String msg) {
-                        if (mActivity == null) {
-                            return;
-                        }
-                        loadingView.setVisibility(View.GONE);
-                        Toast.makeText(mActivity, "提交失败", Toast.LENGTH_SHORT).show();
-                        mActivity.setResult(mActivity.RESULT_CANCELED);
-                        mActivity.finish();
-                    }
-                });
-            }
+            toDo(PREPARE_LOADING, 0);
         }
+    }
+
+    @Override
+    public void prepareLoading() {
+        super.prepareLoading();
+        final View loadingView = root.findViewById(R.id.loading_content_view);
+        loadingView.setVisibility(View.VISIBLE);
+        uploadImage();
+    }
+
+    @Override
+    public void onLoading() {
+        super.onLoading();
+        saveOrUpdate();
+    }
+
+    @Override
+    public void LoadingSuccess() {
+        super.LoadingSuccess();
+
+        final View loadingView = root.findViewById(R.id.loading_content_view);
+        loadingView.setVisibility(View.GONE);
+
+        if (isUpdate) {
+            Toast.makeText(mActivity, "修改成功", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
+            intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
+            intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
+            getActivity().startActivity(intent);
+            mActivity.finish();
+        } else {
+            Toast.makeText(mActivity, "提交成功", Toast.LENGTH_SHORT).show();
+            mActivity.setResult(mActivity.RESULT_OK);
+            mActivity.finish();
+        }
+    }
+
+    @Override
+    public void LoadingError() {
+        super.LoadingError();
+
+        final View loadingView = root.findViewById(R.id.loading_content_view);
+        loadingView.setVisibility(View.GONE);
+
+        if (isUpdate) {
+            Toast.makeText(mActivity, "修改失败", Toast.LENGTH_SHORT).show();
+            mActivity.finish();
+        } else {
+            Toast.makeText(mActivity, "提交失败", Toast.LENGTH_SHORT).show();
+            mActivity.setResult(mActivity.RESULT_CANCELED);
+            mActivity.finish();
+        }
+    }
+
+    private void saveOrUpdate() {
+        if (isUpdate) {
+            // 如果之前已经通过，则这次也通过
+            if (TeamRequest.PASS_STATUS.equals(teamRequest.getStatus())) {
+                teamRequest.setStatus(TeamRequest.PASS_STATUS);
+            }
+            // 如果之前是审核或者未通过，这次是审核
+            else {
+                teamRequest.setStatus(TeamRequest.WAIT_STATUS);
+            }
+            teamRequest.update(getActivity(), new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    if (mActivity == null) {
+                        return;
+                    }
+                    toDo(LOADING_SUCCESS, 0);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    if (mActivity == null) {
+                        return;
+                    }
+                    toDo(LOADING_ERROR, 0);
+                }
+            });
+        } else {
+
+            teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
+            teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
+            teamRequest.setUserIcon(TTTApplication.getUserInfo().getUserIcon());
+            teamRequest.setUserGender(TTTApplication.getUserInfo().getUserGender());
+            teamRequest.setComments(0);
+            teamRequest.setWatch(0);
+            teamRequest.setStatus(TeamRequest.PASS_STATUS);
+            if (TTTApplication.getUserInfo() != null) {
+                teamRequest.setUser(TTTApplication.getUserInfo());
+            }
+            teamRequest.save(getActivity(), new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    if (mActivity == null) {
+                        return;
+                    }
+                    toDo(LOADING_SUCCESS, 0);
+                }
+
+                @Override
+                public void onFailure(int code, String msg) {
+                    if (mActivity == null) {
+                        return;
+                    }
+                    toDo(LOADING_ERROR, 0);
+                }
+            });
+        }
+    }
+
+    private void uploadImage() {
+        if (imagePickAdapter.getData().size() == 0) {
+            return;
+        }
+        String[] imgs = new String[imagePickAdapter.getData().size()];
+        imgs = imagePickAdapter.getData().toArray(imgs);
+        final int size = imgs.length;
+
+        Bmob.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
+
+            @Override
+            public void onSuccess(List<BmobFile> files, List<String> urls) {
+                // 全部上传完毕
+                if (size == files.size()) {
+                    teamRequest.setImgUrls(urls);
+                    toDo(ON_LOADING, 0);
+                }
+            }
+
+            @Override
+            public void onError(int statuscode, String errormsg) {
+                Toast.makeText(mActivity, "网络不稳定，请重试！", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
+//                Log.e("onProgress: ", "  curIndex"+curIndex+"   curPercent"+curPercent+"  total"+total+"  totalPercent"+totalPercent);
+            }
+        });
     }
 
     private boolean checkIsOk() {
