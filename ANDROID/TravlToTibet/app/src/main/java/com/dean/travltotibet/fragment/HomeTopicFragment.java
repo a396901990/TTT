@@ -1,7 +1,6 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,8 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.HomeActivity;
-import com.dean.travltotibet.adapter.ArticleAdapter;
 import com.dean.travltotibet.adapter.ArticleListAdapter;
-import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.ui.LoadMoreListView;
 
@@ -25,7 +23,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 2/16/16.
  */
-public class HomeTopicFragment extends RefreshFragment implements LoadMoreListView.OnLoadMoreListener{
+public class HomeTopicFragment extends BaseRefreshFragment {
 
     private View root;
     private ArticleListAdapter mAdapter;
@@ -55,8 +53,9 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
+        setSwipeRefreshLayout(mActivity.getSwipeRefreshLayout());
         setUpList();
-        refresh();
+        onRefresh();
     }
 
     private void setUpList() {
@@ -78,8 +77,8 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
             }
         });
 
-        loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setAdapter(mAdapter);
+        setLoadMoreListView(loadMoreListView);
     }
 
     private void getArticles(final int actionType) {
@@ -155,7 +154,7 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(articles);
-        mActivity.finishUpdate();
+        finishRefresh();
     }
 
     public void updateError() {
@@ -181,26 +180,23 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(articles);
-        mActivity.finishUpdate();
+        finishRefresh();
     }
 
     @Override
-    public void update() {
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-
+        super.prepareLoading();
         View noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
 
         if (mActivity != null && mAdapter != null) {
-            mActivity.startUpdate();
+            startRefresh();
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
@@ -208,27 +204,32 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getArticles(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
+        super.LoadingSuccess();
         updateData();
     }
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
         updateError();
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadingMore();
         mActivity.finishUpdate();
         getArticles(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
+        super.LoadingMoreSuccess();
         if (mAdapter != null) {
             mAdapter.addData(articles);
         }
@@ -239,6 +240,7 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
 
     @Override
     public void LoadingMoreError() {
+        super.LoadingMoreError();
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();
         }
@@ -246,6 +248,7 @@ public class HomeTopicFragment extends RefreshFragment implements LoadMoreListVi
 
     @Override
     public void onLoadMore() {
+        super.onLoadMore();
         toDo(ON_LOADING_MORE, 800);
     }
 }

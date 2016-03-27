@@ -1,12 +1,17 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +21,10 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
+import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
@@ -26,6 +33,11 @@ import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
+import com.pizidea.imagepicker.AndroidImagePicker;
+import com.pizidea.imagepicker.bean.ImageItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -33,8 +45,9 @@ import cn.bmob.v3.listener.UpdateListener;
 /**
  * Created by DeanGuo on 2/23/16.
  */
-public class TeamCreateUpdateRequestFragment extends Fragment {
+public class TeamCreateUpdateRequestFragment extends Fragment  implements AndroidImagePicker.OnPictureTakeCompleteListener,AndroidImagePicker.OnImagePickCompleteListener{
 
+    private static final int REQ_IMAGE = 111;
     private View root;
 
     private TeamCreateRequestActivity mActivity;
@@ -61,6 +74,8 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
     private boolean isUpdate = false;
 
+    private ImagePickAdapter imagePickAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,8 +96,42 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
 
         initContactContent();
         initContentContent();
-
+        initImagePickerContent();
         filedItem();
+    }
+
+    private void initImagePickerContent() {
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.picker_image_list_rv);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.setHasFixedSize(true);
+        imagePickAdapter = new ImagePickAdapter(getActivity());
+        imagePickAdapter.setAddImageListener(new ImagePickAdapter.AddImageListener() {
+            @Override
+            public void onAddImage() {
+                Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
+                intent.putExtra(IntentExtra.INTENT_IMAGE_SELECTED, imagePickAdapter.getData().size());
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(imagePickAdapter);
+    }
+
+    @Override
+    public void onPictureTakeComplete(String picturePath) {
+        ArrayList<String> urlList = new ArrayList<>();
+        urlList.add(picturePath);
+        imagePickAdapter.clearData();
+        imagePickAdapter.addData(urlList);
+    }
+
+    @Override
+    public void onImagePickComplete(List<ImageItem> items) {
+        List<ImageItem> imageList = AndroidImagePicker.getInstance().getSelectedImages();
+        ArrayList<String> urlList = new ArrayList<>();
+        for (ImageItem i : imageList) {
+            urlList.add(i.path);
+        }
+        imagePickAdapter.addData(urlList);
     }
 
     /**
@@ -368,6 +417,9 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
                 teamRequest.setComments(0);
                 teamRequest.setWatch(0);
                 teamRequest.setStatus(TeamRequest.PASS_STATUS);
+                if (TTTApplication.getUserInfo() != null) {
+                    teamRequest.setUser(TTTApplication.getUserInfo());
+                }
                 teamRequest.save(getActivity(), new SaveListener() {
                     @Override
                     public void onSuccess() {
@@ -421,6 +473,20 @@ public class TeamCreateUpdateRequestFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        AndroidImagePicker.getInstance().setOnPictureTakeCompleteListener(this);
+        AndroidImagePicker.getInstance().setOnImagePickCompleteListener(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        AndroidImagePicker.getInstance().deleteOnImagePickCompleteListener(this);
+        AndroidImagePicker.getInstance().deleteOnPictureTakeCompleteListener(this);
+        super.onDestroy();
     }
 
 }

@@ -191,14 +191,14 @@ public class InfoActivity extends BaseActivity {
         // 更新图标
         updateMenu(true);
 
-        // update headerFragment
+        // onUpdate headerFragment
         if (headerFragment.isAdded()) {
             headerFragment.updateType(routeType);
         }
-        // update scenicFragment
+        // onUpdate scenicFragment
         if (scenicFragment.isAdded()) {
         }
-        // update prepareFragment
+        // onUpdate prepareFragment
         if (prepareFragment.isAdded()) {
             prepareFragment.updateType(routeType);
         }

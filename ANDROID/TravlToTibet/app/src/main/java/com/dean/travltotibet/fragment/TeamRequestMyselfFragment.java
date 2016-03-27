@@ -1,11 +1,7 @@
 package com.dean.travltotibet.fragment;
 
-import android.os.Bundle;
-
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.ui.LoadMoreListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +61,7 @@ public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
     @Override
     public void refresh() {
         if (TTTApplication.getUserInfo() == null) {
-            finishUpdate();
+            finishRefresh();
             return;
         }
         super.refresh();

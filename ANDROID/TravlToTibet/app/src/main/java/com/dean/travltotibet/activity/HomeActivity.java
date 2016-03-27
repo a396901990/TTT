@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -80,13 +81,9 @@ public class HomeActivity extends BaseActivity {
         mSlidingMenu.setMenu(R.layout.sliding_recent_fragment_layout);
     }
 
-    public void update() {
-    }
-
     private void setUpToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
     }
 
     private void setUpView() {
@@ -95,15 +92,6 @@ public class HomeActivity extends BaseActivity {
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(3);
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                if (mAdapter.getAllFragments().size() > 0) {
-                    RefreshFragment fragment = (RefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
-                    fragment.update();
-                }
-            }
-        });
         // 解决Viewpager和SwipeRefreshLayout滑动冲突
         mPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -129,8 +117,8 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 if (mAdapter.getAllFragments().size() > 0) {
-                    RefreshFragment fragment = (RefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
-                    fragment.refresh();
+                    BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
+                    fragment.onRefresh();
                 }
             }
         });

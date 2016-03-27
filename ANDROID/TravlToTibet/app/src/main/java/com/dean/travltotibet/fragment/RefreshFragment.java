@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.RouteActivity;
@@ -52,6 +53,8 @@ public abstract class RefreshFragment extends Fragment {
 
     private Handler mHandle;
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +90,37 @@ public abstract class RefreshFragment extends Fragment {
         };
     }
 
+    @Override
+    public void onDestroy() {
+        if (getSwipeRefreshLayout() != null && getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().setRefreshing(false);
+        }
+        super.onDestroy();
+    }
+
     public void toDo(int message, long delayed) {
         if (getActivity() != null) {
             mHandle.sendEmptyMessageDelayed(message, delayed);
+        }
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return mSwipeRefreshLayout;
+    }
+
+    public void setSwipeRefreshLayout(SwipeRefreshLayout mSwipeRefreshLayout) {
+        this.mSwipeRefreshLayout = mSwipeRefreshLayout;
+    }
+
+    public void startRefresh() {
+        if (mSwipeRefreshLayout != null ) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
+    }
+
+    public void finishRefresh() {
+        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 

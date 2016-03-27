@@ -42,6 +42,8 @@
     <string name="cancel_btn">取消</string>
     <string name="delete_recent_msg">是否要删除该条记录？</string>
     <string name="delete_recent_title">删除记录</string>
+    <string name="delete_image_msg">是否要删除该张图片？</string>
+    <string name="delete_image_title">删除图片</string>
     <string name="dialog_report_msg">是否要举报这条信息？</string>
     <string name="dialog_report_title">举报</string>
     <string name="delete_action_msg">是否要进行删除操作？</string>
@@ -180,4 +182,9 @@
     <string name="warning_no_pass">未通过审核，请修改后重新提交！</string>
     <string name="warning_wait_pass">正在审核中，请耐心等待！</string>
 
+    <string name="piece">张</string>
+    <string name="you_have_a_select_limit">最多选择%1$s张图片</string>
+    <string name="select_complete">完成(%1$s/%2$s)</string>
+    <string name="complete">完成</string>
+    <string name="all_images">全部图片</string>
 </resources>

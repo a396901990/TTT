@@ -102,6 +102,9 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
     }
 
     public void setComments() {
+        if (mActivity == null || commentListAdapter == null) {
+            return;
+        }
         View noResultView = root.findViewById(R.id.no_result_content);
         // 无数据
         if (mComments == null || mComments.size() == 0) {
@@ -116,32 +119,35 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
     }
 
     public void getDataSuccess() {
-        setComments();
-        finishUpdate();
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
         if (noResultText != null) {
             noResultText.setText(getString(R.string.no_result));
         }
+        setComments();
+        finishRefresh();
     }
 
     public void getDataFailed() {
-        setComments();
-        finishUpdate();
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
         if (noResultText != null) {
             noResultText.setText(getString(R.string.no_network_result));
         }
+        setComments();
+        finishRefresh();
     }
 
     public CommentListAdapter getCommentListAdapter() {
         return commentListAdapter;
     }
 
-    public void startUpdate() {
+    public void startRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    public void finishUpdate() {
+    public void finishRefresh() {
+        if (mActivity == null || commentListAdapter == null) {
+            return;
+        }
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -213,7 +219,7 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
         noResultView.setVisibility(View.GONE);
 
         if (commentListAdapter != null) {
-            startUpdate();
+            startRefresh();
             commentListAdapter.clearData();
             toDo(ON_LOADING, 800);
         }

@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,8 +159,11 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     }
 
     public void getDataSuccess() {
+        if (getActivity() == null) {
+            return;
+        }
         setComments();
-        finishUpdate();
+        finishRefresh();
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
         if (noResultText != null) {
             noResultText.setText(getString(R.string.no_result));
@@ -167,8 +171,11 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     }
 
     public void getDataFailed() {
+        if (getActivity() == null) {
+            return;
+        }
         setComments();
-        finishUpdate();
+        finishRefresh();
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
         if (noResultText != null) {
             noResultText.setText(getString(R.string.no_network_result));
@@ -179,11 +186,11 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         return commentListAdapter;
     }
 
-    public void startUpdate() {
+    public void startRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    public void finishUpdate() {
+    public void finishRefresh() {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -206,8 +213,12 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     public void getCommentData(final int actionType) {
 
         BmobQuery<Comment> query = new BmobQuery<>();
-        query.addWhereEqualTo("type", getCommentType());
-        query.addWhereEqualTo("type_object_id", getCommentTypeObjectId());
+        if (!TextUtils.isEmpty(getCommentType())) {
+            query.addWhereEqualTo("type", getCommentType());
+        }
+        if (!TextUtils.isEmpty(getCommentTypeObjectId())) {
+            query.addWhereEqualTo("type_object_id", getCommentTypeObjectId());
+        }
         query.include("commentQuote,user");
         // 加载更多
         if (actionType == STATE_MORE) {
@@ -227,7 +238,9 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         query.findObjects(getActivity(), new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
-
+                if (getActivity() == null) {
+                    return;
+                }
                 setComments((ArrayList<Comment>) list);
 
                 if (list.size() == 0 && actionType == STATE_MORE) {
@@ -243,6 +256,9 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
 
             @Override
             public void onError(int i, String s) {
+                if (getActivity() == null) {
+                    return;
+                }
                 getDataFailed();
             }
         });
@@ -265,7 +281,7 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         noResultView.setVisibility(View.GONE);
 
         if (commentListAdapter != null) {
-            startUpdate();
+            startRefresh();
             commentListAdapter.clearData();
             toDo(ON_LOADING, 800);
         }

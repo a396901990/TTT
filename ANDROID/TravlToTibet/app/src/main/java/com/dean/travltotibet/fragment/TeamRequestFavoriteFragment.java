@@ -92,7 +92,7 @@ public class TeamRequestFavoriteFragment extends TeamShowRequestBaseFragment {
     @Override
     public void refresh() {
         if (TTTApplication.getUserInfo() == null) {
-            finishUpdate();
+            finishRefresh();
             return;
         }
         super.refresh();

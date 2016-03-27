@@ -13,13 +13,14 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.RecentAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 
 import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 10/10/15.
  */
-public class HomeRecentFragment extends RefreshFragment {
+public class HomeRecentFragment extends BaseRefreshFragment {
 
     private View root;
     private RecentAdapter mAdapter;
@@ -48,16 +49,17 @@ public class HomeRecentFragment extends RefreshFragment {
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.recent_fragment_list_rv);
 
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
         initRefreshView();
         setUpList();
-        refresh();
+        onRefresh();
         // initFabBtn();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        onRefresh();
     }
 
     private void initRefreshView() {
@@ -67,7 +69,7 @@ public class HomeRecentFragment extends RefreshFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+                onRefresh();
             }
         });
     }
@@ -80,7 +82,7 @@ public class HomeRecentFragment extends RefreshFragment {
         mAdapter.setRecentCallBack(new RecentAdapter.RecentCallBack() {
             @Override
             public void update() {
-                refresh();
+                onRefresh();
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -107,7 +109,7 @@ public class HomeRecentFragment extends RefreshFragment {
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(recentRoutes);
-        finishUpdate();
+        finishRefresh();
     }
 
     /**
@@ -123,23 +125,25 @@ public class HomeRecentFragment extends RefreshFragment {
     }
 
     @Override
-    public void update() {
+    public void onUpdate() {
+        super.onUpdate();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 1000);
     }
 
     @Override
     public void prepareLoading() {
-
+        super.prepareLoading();
         View noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
 
         if (mAdapter != null) {
-            startUpdate();
+            startRefresh();
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
@@ -147,41 +151,20 @@ public class HomeRecentFragment extends RefreshFragment {
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getRecentData();
     }
 
     @Override
     public void LoadingSuccess() {
+        super.LoadingSuccess();
         updateRecentData();
     }
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
         updateRecentData();
     }
 
-    @Override
-    public void onLoadingMore() {
-
-    }
-
-    @Override
-    public void LoadingMoreSuccess() {
-
-    }
-
-    @Override
-    public void LoadingMoreError() {
-
-    }
-
-    public void startUpdate() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishUpdate() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-    }
 }

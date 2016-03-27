@@ -148,7 +148,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
 
     @Override
     public void prepareLoading() {
-        startUpdate();
+        startRefresh();
         contentView.setVisibility(View.INVISIBLE);
         noResultView.setVisibility(View.GONE);
         toDo(ON_LOADING, 800);
@@ -161,7 +161,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
 
     @Override
     public void LoadingSuccess() {
-        finishUpdate();
+        finishRefresh();
         contentView.setVisibility(View.VISIBLE);
         noResultView.setVisibility(View.GONE);
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
@@ -173,7 +173,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
 
     @Override
     public void LoadingError() {
-        finishUpdate();
+        finishRefresh();
         contentView.setVisibility(View.INVISIBLE);
         noResultView.setVisibility(View.VISIBLE);
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
@@ -197,11 +197,11 @@ public class AroundScenicDetailFragment extends RefreshFragment {
 
     }
 
-    public void startUpdate() {
+    public void startRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    public void finishUpdate() {
+    public void finishRefresh() {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

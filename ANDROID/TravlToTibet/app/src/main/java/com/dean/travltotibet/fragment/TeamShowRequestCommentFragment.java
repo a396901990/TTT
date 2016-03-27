@@ -17,6 +17,9 @@ public class TeamShowRequestCommentFragment extends BaseCommentFragment {
 
     @Override
     public String getCommentTypeObjectId() {
+        if (getActivity() == null) {
+            return null;
+        }
         return ((BaseCommentActivity) getActivity()).getObj().getObjectId();
     }
 }

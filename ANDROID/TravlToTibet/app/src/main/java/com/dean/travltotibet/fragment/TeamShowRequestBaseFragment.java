@@ -2,7 +2,6 @@ package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +9,11 @@ import android.widget.AbsListView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.TeamShowRequestSearchActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.LoadMoreListView;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by DeanGuo on 3/4/16.
@@ -116,7 +109,7 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(teamRequests);
-        finishUpdate();
+        finishRefresh();
     }
 
     public void updateError() {
@@ -135,7 +128,7 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(teamRequests);
-        finishUpdate();
+        finishRefresh();
     }
 
     @Override
@@ -154,7 +147,7 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
         noResultView.setVisibility(View.GONE);
 
         if (getActivity() != null && mAdapter != null) {
-            startUpdate();
+            startRefresh();
             mAdapter.clearData();
         }
 
@@ -198,11 +191,11 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
         }
     }
 
-    public void startUpdate() {
+    public void startRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    public void finishUpdate() {
+    public void finishRefresh() {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

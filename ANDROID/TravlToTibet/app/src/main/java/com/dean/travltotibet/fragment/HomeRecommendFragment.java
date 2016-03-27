@@ -15,16 +15,16 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.RecommendAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 10/15/15.
  */
-public class HomeRecommendFragment extends RefreshFragment {
+public class HomeRecommendFragment extends BaseRefreshFragment {
 
     private View root;
     private RecommendAdapter mAdapter;
@@ -53,8 +53,9 @@ public class HomeRecommendFragment extends RefreshFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
+        setSwipeRefreshLayout(mActivity.getSwipeRefreshLayout());
         initList();
-        refresh();
+        onRefresh();
         initFabBtn();
     }
 
@@ -125,54 +126,35 @@ public class HomeRecommendFragment extends RefreshFragment {
     }
 
     @Override
-    public void update() {
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onUpdate();
         toDo(PREPARE_LOADING, 200);
     }
 
     @Override
     public void prepareLoading() {
-
-        if (mActivity != null && mAdapter != null) {
-            mActivity.startUpdate();
-            mAdapter.clearData();
-            toDo(ON_LOADING, 600);
-        }
+        super.prepareLoading();
+        startRefresh();
+        mAdapter.clearData();
+        toDo(ON_LOADING, 600);
     }
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getRouteData();
     }
 
     @Override
     public void LoadingSuccess() {
-        if (mActivity != null || mAdapter != null) {
-            mAdapter.setData(routes);
-            mActivity.finishUpdate();
-        }
+        super.LoadingSuccess();
+        mAdapter.setData(routes);
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
-        mActivity.finishUpdate();
-    }
-
-    @Override
-    public void onLoadingMore() {
-
-    }
-
-    @Override
-    public void LoadingMoreSuccess() {
-
-    }
-
-    @Override
-    public void LoadingMoreError() {
-
+        super.LoadingError();
+        finishRefresh();
     }
 }

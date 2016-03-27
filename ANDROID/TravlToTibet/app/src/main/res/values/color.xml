@@ -37,6 +37,13 @@
     <color name="deep_purple">#673AB7</color>
     <color name="indigo">#3F51B5</color>
 
+    <color name="oval_pink">#fe9393</color>
+    <color name="oval_light_yellow">#f4b400</color>
+    <color name="oval_light_blue">#427fed</color>
+    <color name="oval_light_green">#67cdb7</color>
+    <color name="oval_purple">#9b73e6</color>
+    <color name="oval_brown">#CCFD8225</color>
+
     <color name="white_gray">#E0E0E0</color>
     <color name="dark_white">#B2FFFFFF</color>
     <color name="light_white">#4cFFFFFF</color>

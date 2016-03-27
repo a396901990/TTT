@@ -18,6 +18,7 @@ import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamRequestPersonalActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
@@ -39,7 +40,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class HomeTeamRequestFragment extends RefreshFragment implements LoadMoreListView.OnLoadMoreListener {
+public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
     private static final int CREATE_REQUEST = 0;
 
@@ -75,9 +76,11 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         mActivity = (HomeActivity) getActivity();
         EventBus.getDefault().register(this);
 
+        setSwipeRefreshLayout(mActivity.getSwipeRefreshLayout());
         setUpList();
         setUpHeader();
         initBottomView();
+        onRefresh();
     }
 
     private void initBottomView() {
@@ -158,8 +161,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
         mAdapter = new TeamRequestListAdapter(getActivity());
         loadMoreListView.setAdapter(mAdapter);
-        loadMoreListView.setOnLoadMoreListener(this);
-        refresh();
+        setLoadMoreListView(loadMoreListView);
     }
 
     private void setUpHeader() {
@@ -192,7 +194,6 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-comments,-createdAt");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
-
         // 加载更多
         if (actionType == STATE_MORE) {
             // 跳过已经加载的元素
@@ -253,7 +254,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(teamRequests);
-        mActivity.finishUpdate();
+        finishRefresh();
     }
 
 
@@ -276,7 +277,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
             noResultView.setVisibility(View.GONE);
         }
         mAdapter.setData(teamRequests);
-        mActivity.finishUpdate();
+        finishRefresh();
     }
 
     @Override
@@ -285,27 +286,25 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
         if (requestCode == CREATE_REQUEST) {
             if (resultCode == getActivity().RESULT_OK) {
-                refresh();
+                onRefresh();
             }
         }
     }
 
     @Override
-    public void update() {
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
+        super.prepareLoading();
         View noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
 
         if (mActivity != null && mAdapter != null) {
-            mActivity.startUpdate();
+            startRefresh();
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
@@ -317,12 +316,13 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getTeamRequests(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
-
+        super.LoadingSuccess();
         // 加载header
         if (loadMoreListView.getHeaderViewsCount() == 0) {
             loadMoreListView.addHeaderView(articleHeader);
@@ -334,16 +334,19 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
         updateError();
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadingMore();
         getTeamRequests(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
+        super.LoadingMoreSuccess();
         if (mAdapter != null) {
             mAdapter.addData(teamRequests);
         }
@@ -354,6 +357,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void LoadingMoreError() {
+        super.LoadingMoreError();
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();
         }
@@ -361,6 +365,7 @@ public class HomeTeamRequestFragment extends RefreshFragment implements LoadMore
 
     @Override
     public void onLoadMore() {
+        super.onLoadMore();
         toDo(ON_LOADING_MORE, 800);
     }
 

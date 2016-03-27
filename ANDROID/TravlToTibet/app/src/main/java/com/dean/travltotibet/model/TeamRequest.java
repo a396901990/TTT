@@ -41,6 +41,8 @@ public class TeamRequest extends BmobObject {
 
     private int watch;
 
+    private UserInfo user;
+
     public String getStatus() {
         return status;
     }
@@ -151,5 +153,13 @@ public class TeamRequest extends BmobObject {
 
     public void setUserGender(String userGender) {
         this.userGender = userGender;
+    }
+
+    public UserInfo getUser() {
+        return user;
+    }
+
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 }

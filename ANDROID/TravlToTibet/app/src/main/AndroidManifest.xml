@@ -110,11 +110,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.AttentionActivity"
-            android:label="@string/title_attention"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
-        <activity
             android:name=".activity.ChartSettingActivity"
             android:label="@string/title_chart_setting"
             android:screenOrientation="portrait"
@@ -162,6 +157,9 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.TeamShowRequestSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.ImagePickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity

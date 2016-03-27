@@ -750,7 +750,7 @@ public class RouteChartView
                     lastSpanX = spanX;
                     //lastSpanY = spanY;
 
-                    // update indicator when chart scale
+                    // onUpdate indicator when chart scale
                     if (mChartListener != null)
                     {
                         mChartListener.onChartScale(mCurrentViewport);
@@ -942,7 +942,7 @@ public class RouteChartView
             float currYRange = AXIS_Y_MAX - (AXIS_Y_MAX - AXIS_Y_MIN) * currY / mSurfaceSizeBuffer.y;
             setViewportBottomLeft(currXRange, currYRange);
 
-            // update indicator when chart scroll
+            // onUpdate indicator when chart scroll
             if (mChartListener != null)
             {
                 mChartListener.onChartScroll(mCurrentViewport);
@@ -971,7 +971,7 @@ public class RouteChartView
             }
             constrainViewport();
 
-            // update indicator when zoom
+            // onUpdate indicator when zoom
             if (mChartListener != null)
             {
                 mChartListener.onChartScale(mCurrentViewport);
