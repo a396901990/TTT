@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
     private HomeActivity mActivity;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public HomeRecommendFragment() {
     }
@@ -53,10 +55,16 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
-        setSwipeRefreshLayout(mActivity.getSwipeRefreshLayout());
+        initRefreshView();
         initList();
-        onRefresh();
         initFabBtn();
+
+        onRefresh();
+    }
+
+    private void initRefreshView() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     private void initList() {

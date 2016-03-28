@@ -1,34 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_background">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_background">
 
-        <com.dean.travltotibet.ui.LoadMoreListView
-            android:id="@+id/team_request_fragment_list_rv"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/team_request_bottom_add_size"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="6dp"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
-            android:scrollbars="none"></com.dean.travltotibet.ui.LoadMoreListView>
+            android:layout_height="match_parent">
+
+            <com.dean.travltotibet.ui.LoadMoreListView
+                android:id="@+id/team_request_fragment_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/team_request_bottom_add_size"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="6dp"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:scrollbars="none"></com.dean.travltotibet.ui.LoadMoreListView>
+
+            <include
+                android:id="@+id/bottom_content_view"
+                layout="@layout/home_team_request_bottom_view"></include>
+
+        </FrameLayout>
 
         <include
-            android:id="@+id/bottom_content_view"
-            layout="@layout/home_team_request_bottom_view"></include>
-
+            android:id="@+id/no_result_content"
+            layout="@layout/no_result_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:visibility="gone" />
     </FrameLayout>
-
-    <include
-        android:id="@+id/no_result_content"
-        layout="@layout/no_result_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:visibility="gone" />
-</FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

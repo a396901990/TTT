@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     private ArrayList<Article> articles;
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private int limit = 4;        // 每页的数据是4条
 
@@ -53,9 +55,14 @@ public class HomeTopicFragment extends BaseRefreshFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
-        setSwipeRefreshLayout(mActivity.getSwipeRefreshLayout());
+        initRefreshView();
         setUpList();
         onRefresh();
+    }
+
+    private void initRefreshView() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     private void setUpList() {
@@ -73,7 +80,7 @@ public class HomeTopicFragment extends BaseRefreshFragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
-                mActivity.getSwipeRefreshLayout().setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
 
@@ -223,7 +230,7 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     @Override
     public void onLoadingMore() {
         super.onLoadingMore();
-        mActivity.finishUpdate();
+        finishRefresh();
         getArticles(STATE_MORE);
     }
 

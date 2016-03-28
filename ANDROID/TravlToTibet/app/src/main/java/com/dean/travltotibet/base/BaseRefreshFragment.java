@@ -6,12 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.dean.travltotibet.R;
 import com.dean.travltotibet.ui.LoadMoreListView;
+import com.pizidea.imagepicker.AndroidImagePicker;
 
 /**
  * Created by DeanGuo on 8/31/15.
  */
-public class BaseRefreshFragment extends Fragment implements LoadMoreListView.OnLoadMoreListener {
+public class BaseRefreshFragment extends Fragment implements LoadMoreListView.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     public final static int PREPARE_LOADING = 0;
 
@@ -72,8 +74,20 @@ public class BaseRefreshFragment extends Fragment implements LoadMoreListView.On
     }
 
     @Override
+    public void onResume() {
+        if (getActivity() != null && getSwipeRefreshLayout() != null) {
+            getSwipeRefreshLayout().setOnRefreshListener(this);
+        }
+
+        if (getActivity() != null && getLoadMoreListView() != null) {
+            getLoadMoreListView().setOnLoadMoreListener(this);
+        }
+        super.onResume();
+    }
+
+    @Override
     public void onDestroy() {
-        if (getActivity() != null && getSwipeRefreshLayout() != null && getSwipeRefreshLayout().isRefreshing()) {
+        if (getActivity() != null && getSwipeRefreshLayout() != null) {
             getSwipeRefreshLayout().setRefreshing(false);
             getSwipeRefreshLayout().setOnRefreshListener(null);
         }
@@ -97,6 +111,8 @@ public class BaseRefreshFragment extends Fragment implements LoadMoreListView.On
 
     public void setSwipeRefreshLayout(SwipeRefreshLayout mSwipeRefreshLayout) {
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
+        this.mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        this.mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     public LoadMoreListView getLoadMoreListView() {
@@ -133,6 +149,7 @@ public class BaseRefreshFragment extends Fragment implements LoadMoreListView.On
         }
     }
 
+    @Override
     public void onRefresh() {
         if (getActivity() == null){
             return;

@@ -508,6 +508,8 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
 
             @Override
             public void onError(int statuscode, String errormsg) {
+                final View loadingView = root.findViewById(R.id.loading_content_view);
+                loadingView.setVisibility(View.GONE);
                 Toast.makeText(mActivity, "网络不稳定，请重试！", Toast.LENGTH_SHORT).show();
             }
 

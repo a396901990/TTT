@@ -3,6 +3,7 @@ package com.dean.travltotibet.fragment;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,8 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     private ArrayList<TeamRequest> teamRequests;
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     private View articleHeader;
 
     private boolean tryToOpenMyTeamRequest = false;
@@ -76,11 +79,16 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         mActivity = (HomeActivity) getActivity();
         EventBus.getDefault().register(this);
 
-        setSwipeRefreshLayout(mActivity.getSwipeRefreshLayout());
+        initRefreshView();
         setUpList();
         setUpHeader();
         initBottomView();
         onRefresh();
+    }
+
+    private void initRefreshView() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     private void initBottomView() {
@@ -155,7 +163,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
-                mActivity.getSwipeRefreshLayout().setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
 

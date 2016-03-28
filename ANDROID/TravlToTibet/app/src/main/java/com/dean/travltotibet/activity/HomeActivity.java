@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -13,16 +12,12 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
-import com.dean.travltotibet.base.BaseRefreshFragment;
-import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -42,8 +37,6 @@ public class HomeActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
-
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private SlidingMenu mSlidingMenu;
 
@@ -92,36 +85,6 @@ public class HomeActivity extends BaseActivity {
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(3);
-        // 解决Viewpager和SwipeRefreshLayout滑动冲突
-        mPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_MOVE:
-                        mSwipeRefreshLayout.setEnabled(false);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        mSwipeRefreshLayout.setEnabled(true);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        // 设置下拉刷新
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        //mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mAdapter.getAllFragments().size() > 0) {
-                    BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
-                    fragment.onRefresh();
-                }
-            }
-        });
     }
 
     private void setUpHomeTab() {
@@ -251,20 +214,6 @@ public class HomeActivity extends BaseActivity {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
-    }
-
-    public void startUpdate() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishUpdate() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    public SwipeRefreshLayout getSwipeRefreshLayout() {
-        return mSwipeRefreshLayout;
     }
 
     public SlidingMenu getSlidingMenu() {
