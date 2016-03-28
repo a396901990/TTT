@@ -3,10 +3,12 @@ package com.dean.travltotibet.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -21,6 +23,7 @@ import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -111,6 +114,8 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         holder.mWatch.setText(request.getWatch()+"");
 
+        setUpImageContent(holder, position);
+
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +129,48 @@ public class TeamRequestListAdapter extends BaseAdapter {
             }
         });
         return convertView;
+    }
+
+    private void setUpImageContent(TeamRequestViewHolder holder, int position) {
+        final TeamRequest request = mData.get(position);
+        List<String> imgUrls = request.getImgUrls();
+        if (imgUrls != null && imgUrls.size() != 0) {
+            for (int i=0; i<imgUrls.size(); i++) {
+
+                ImageView imageView = null;
+                View imageContentView = null;
+
+                switch (i) {
+                    case 0:
+                        imageView = (ImageView) holder.imageContent.findViewById(R.id.image_view_1);
+                        imageContentView = holder.imageContent.findViewById(R.id.image_content_1);
+                        break;
+                    case 1:
+                        imageView = (ImageView) holder.imageContent.findViewById(R.id.image_view_2);
+                        imageContentView = holder.imageContent.findViewById(R.id.image_content_2);
+                        break;
+                    case 2:
+                        imageView = (ImageView) holder.imageContent.findViewById(R.id.image_view_3);
+                        imageContentView = holder.imageContent.findViewById(R.id.image_content_3);
+                        break;
+                }
+
+                String url = imgUrls.get(i);
+                if (!TextUtils.isEmpty(url)) {
+                    holder.imageContent.setVisibility(View.VISIBLE);
+                    imageContentView.setVisibility(View.VISIBLE);
+                    Picasso.with(mContext)
+                            .load(url)
+                            .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                            .placeholder(R.color.less_light_gray)
+                            .centerInside()
+                            .error(R.color.light_gray)
+                            .into(imageView);
+                }
+            }
+        } else {
+            holder.imageContent.setVisibility(View.GONE);
+        }
     }
 
     public void setData(ArrayList<TeamRequest> data) {
@@ -163,6 +210,8 @@ public class TeamRequestListAdapter extends BaseAdapter {
         private View mWarningView;
         private TextView mWarningText;
 
+        private View imageContent;
+
         public TeamRequestViewHolder(View itemView) {
             mContentText = (TextView) itemView.findViewById(R.id.content_text);
             mDestinationName = (TextView) itemView.findViewById(R.id.destination_name);
@@ -179,6 +228,8 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
             mWarningView = itemView.findViewById(R.id.warning_view);
             mWarningText = (TextView) itemView.findViewById(R.id.warning_text);
+
+            imageContent = itemView.findViewById(R.id.image_content);
         }
     }
 

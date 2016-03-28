@@ -1,6 +1,5 @@
 package com.dean.travltotibet.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;

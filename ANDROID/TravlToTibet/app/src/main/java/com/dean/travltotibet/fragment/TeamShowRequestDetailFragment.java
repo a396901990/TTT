@@ -1,7 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,13 +15,18 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
+import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.IntentExtra;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,6 +40,8 @@ public class TeamShowRequestDetailFragment extends Fragment {
     private TeamRequest teamRequest;
 
     private TeamShowRequestDetailActivity teamShowRequestDetailActivity;
+
+    private ImagePickAdapter imagePickAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +60,30 @@ public class TeamShowRequestDetailFragment extends Fragment {
         initContactContent();
         initHeaderView();
         initContentContent();
+        initImageContent();
+    }
+
+    private void initImageContent() {
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.picker_image_list_rv);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.setHasFixedSize(true);
+        imagePickAdapter = new ImagePickAdapter(getActivity());
+        imagePickAdapter.setAddImageListener(new ImagePickAdapter.AddImageListener() {
+            @Override
+            public void onAddImage() {
+                Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
+                intent.putExtra(IntentExtra.INTENT_IMAGE_SELECTED, imagePickAdapter.getData().size());
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(imagePickAdapter);
+
+        if (teamRequest.getImgUrls() == null || teamRequest.getImgUrls().size() == 0) {
+            return;
+        } else {
+            imagePickAdapter.setIsOnlyShow(true);
+            imagePickAdapter.addData((ArrayList<String>) teamRequest.getImgUrls());
+        }
     }
 
     private void initHeaderView() {

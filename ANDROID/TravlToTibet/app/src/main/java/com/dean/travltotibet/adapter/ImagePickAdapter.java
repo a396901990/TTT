@@ -50,6 +50,8 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private AddImageListener addImageListener;
 
+    private boolean isOnlyShow = false;
+
     public ImagePickAdapter(Context mContext) {
         this.mContext = mContext;
     }
@@ -94,21 +96,32 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 url = mData.get(position);
             }
 
-            // 图片url(取第一个)
+            // 图片url
             if (!TextUtils.isEmpty(url)) {
-                Picasso.with(mContext)
-                        .load(new File(url))
-                        .error(R.color.light_gray)
-                        .into(((ImagePickViewHolder) holder).urlPic);
-            }
+                if (isOnlyShow) {
+                    Picasso.with(mContext)
+                            .load(url)
+                            .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                            .error(R.color.light_gray)
+                            .centerInside()
+                            .into(((ImagePickViewHolder) holder).urlPic);
+                } else {
+                    Picasso.with(mContext)
+                            .load(new File(url))
+                            .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                            .error(R.color.light_gray)
+                            .centerInside()
+                            .into(((ImagePickViewHolder) holder).urlPic);
 
-            ((ImagePickViewHolder) holder).urlPic.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    deleteImage(position);
-                    return false;
+                    ((ImagePickViewHolder) holder).urlPic.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            deleteImage(position);
+                            return false;
+                        }
+                    });
                 }
-            });
+            }
 
         }
     }
@@ -145,23 +158,35 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         int size = mData != null ? mData.size() : 0;
 
         int type = TYPE_ADD_VIEW;
-        // 没选全，则有添加按钮
-        if (size < count) {
-            if (position < size) {
-                type = TYPE_SHOW_VIEW;
-            } else {
-                type = TYPE_ADD_VIEW;
-            }
-        }
-        // 都选了
-        else if (size == count) {
+
+        if (isOnlyShow) {
             type = TYPE_SHOW_VIEW;
+        } else {
+            // 没选全，则有添加按钮
+            if (size < count) {
+                if (position < size) {
+                    type = TYPE_SHOW_VIEW;
+                } else {
+                    type = TYPE_ADD_VIEW;
+                }
+            }
+            // 都选了
+            else if (size == count) {
+                type = TYPE_SHOW_VIEW;
+            }
         }
         return type;
     }
 
     public void addData(ArrayList<String> data) {
-        mData.addAll(data);
+        if (data == null || data.size() == 0) {
+            return;
+        }
+        for (String d : data) {
+            if (!TextUtils.isEmpty(d)) {
+                mData.add(d);
+            }
+        }
         notifyDataSetChanged();
 //        this.notifyItemRangeInserted(0, mData.size());
     }
@@ -182,13 +207,18 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        int count = 1;
-        if (mData == null) {
-            count = 1;
-        } else if (mData.size() < TYPE_SHOW_LIMIT) {
-            count = mData.size() + 1;
-        } else if (mData.size() == TYPE_SHOW_LIMIT) {
-            count = TYPE_SHOW_LIMIT;
+        int count = 0;
+
+        if (isOnlyShow) {
+            count = mData == null ? 0 : mData.size();
+        } else {
+            if (mData == null) {
+                count = 1;
+            } else if (mData.size() < TYPE_SHOW_LIMIT) {
+                count = mData.size() + 1;
+            } else if (mData.size() == TYPE_SHOW_LIMIT) {
+                count = TYPE_SHOW_LIMIT;
+            }
         }
         return count;
     }
@@ -223,5 +253,13 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public ArrayList<String> getData() {
         return mData;
+    }
+
+    public boolean isOnlyShow() {
+        return isOnlyShow;
+    }
+
+    public void setIsOnlyShow(boolean isOnlyShow) {
+        this.isOnlyShow = isOnlyShow;
     }
 }

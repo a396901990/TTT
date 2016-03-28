@@ -121,8 +121,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
                          int visibleItemCount, int totalItemCount) {
 
         if (mOnScrollListener != null) {
-            mOnScrollListener.onScroll(view, firstVisibleItem,
-                    visibleItemCount, totalItemCount);
+            mOnScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
 
         if (mOnLoadMoreListener != null) {
@@ -151,10 +150,10 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-        //bug fix: listview was not clickable after scroll
-        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-            view.invalidateViews();
-        }
+//        //bug fix: listview was not clickable after scroll
+//        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+//            view.invalidateViews();
+//        }
 
         mCurrentScrollState = scrollState;
 

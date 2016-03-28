@@ -162,7 +162,9 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
             if (!TextUtils.isEmpty(teamRequest.getDestination())) {
                 setTravelDestination(teamRequest.getDestination());
             }
-
+            // image
+            imagePickAdapter.addData((ArrayList<String>) teamRequest.getImgUrls());
+            imagePickAdapter.setIsOnlyShow(isUpdate);
         } else {
             teamRequest = new TeamRequest();
         }
@@ -381,7 +383,11 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         super.prepareLoading();
         final View loadingView = root.findViewById(R.id.loading_content_view);
         loadingView.setVisibility(View.VISIBLE);
-        uploadImage();
+        if (isUpdate) {
+            toDo(ON_LOADING, 0);
+        } else {
+            uploadImage();
+        }
     }
 
     @Override
@@ -464,6 +470,7 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
             teamRequest.setComments(0);
             teamRequest.setWatch(0);
             teamRequest.setStatus(TeamRequest.PASS_STATUS);
+//            teamRequest.setStatus("Test");
             if (TTTApplication.getUserInfo() != null) {
                 teamRequest.setUser(TTTApplication.getUserInfo());
             }

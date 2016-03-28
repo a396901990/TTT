@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp">
+
+    <FrameLayout
+        android:id="@+id/image_content_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/image_pick_height"
+        android:layout_weight="1"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/image_view_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/image_content_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/image_pick_height"
+        android:layout_marginLeft="@dimen/image_pick_margin"
+        android:layout_weight="1"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/image_view_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/image_content_3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/image_pick_height"
+        android:layout_marginLeft="@dimen/image_pick_margin"
+        android:layout_weight="1"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/image_view_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+</LinearLayout>

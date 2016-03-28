@@ -84,6 +84,7 @@
 
                 <!--content-->
                 <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
@@ -99,6 +100,11 @@
                         android:maxLines="3"
                         android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份."
                         android:textColor="@color/dark_gray" />
+
+                    <include
+                        android:visibility="gone"
+                        android:id="@+id/image_content"
+                        layout="@layout/show_image_content_view"></include>
                 </LinearLayout>
 
                 <!--bottom 标签+观看次数-->
