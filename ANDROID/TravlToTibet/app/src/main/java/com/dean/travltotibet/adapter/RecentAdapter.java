@@ -82,7 +82,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         Random random = new Random();
         int picId = random.nextInt(picURLs.length);
         if (!TextUtils.isEmpty(picURLs[picId])) {
-            Picasso.with(mContext).load(picURLs[picId]).error(R.color.light_gray).into(holder.mBackgroundView);
+            Picasso.with(mContext)
+                    .load(picURLs[picId])
+                    .resizeDimen(R.dimen.home_recent_item_height, R.dimen.home_recent_item_height)
+                    .error(R.color.light_gray)
+                    .centerInside()
+                    .into(holder.mBackgroundView);
         }
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {

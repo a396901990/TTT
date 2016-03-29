@@ -2,6 +2,7 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,7 +108,12 @@ public class TeamRequestListAdapter extends BaseAdapter {
         }
         // user icon
         if (!TextUtils.isEmpty(request.getUserIcon())) {
-            Picasso.with(mContext).load(request.getUserIcon()).error(R.drawable.gray_profile).into(holder.mUserIcon);
+            Picasso.with(mContext)
+                    .load(request.getUserIcon())
+                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .centerInside()
+                    .error(R.drawable.gray_profile)
+                    .into(holder.mUserIcon);
         } else {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }
@@ -161,9 +167,10 @@ public class TeamRequestListAdapter extends BaseAdapter {
                     imageContentView.setVisibility(View.VISIBLE);
                     Picasso.with(mContext)
                             .load(url)
+                            .config(Bitmap.Config.RGB_565)
                             .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
-                            .placeholder(R.color.less_light_gray)
                             .centerInside()
+                            .placeholder(R.color.less_light_gray)
                             .error(R.color.light_gray)
                             .into(imageView);
                 }

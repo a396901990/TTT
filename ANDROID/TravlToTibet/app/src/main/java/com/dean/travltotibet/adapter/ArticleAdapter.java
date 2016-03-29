@@ -49,7 +49,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         holder.mLike.setText(article.getLike() + "");
 
         if (!TextUtils.isEmpty(article.getTitleImage())) {
-            Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
+            Picasso.with(mContext)
+                    .load(article.getTitleImage())
+                    .resizeDimen(R.dimen.home_recent_item_height, R.dimen.home_recent_item_height)
+                    .error(R.color.light_gray)
+                    .centerInside()
+                    .into(holder.mBackgroundView);
         }
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {

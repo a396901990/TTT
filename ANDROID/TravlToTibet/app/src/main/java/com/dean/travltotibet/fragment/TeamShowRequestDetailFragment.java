@@ -79,8 +79,10 @@ public class TeamShowRequestDetailFragment extends Fragment {
         recyclerView.setAdapter(imagePickAdapter);
 
         if (teamRequest.getImgUrls() == null || teamRequest.getImgUrls().size() == 0) {
+            recyclerView.setVisibility(View.GONE);
             return;
         } else {
+            recyclerView.setVisibility(View.VISIBLE);
             imagePickAdapter.setIsOnlyShow(true);
             imagePickAdapter.addData((ArrayList<String>) teamRequest.getImgUrls());
         }

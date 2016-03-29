@@ -22,6 +22,89 @@ public class Geocode {
     private double longitude;
     private String road;
 
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    public double getF_distance() {
+        return f_distance;
+    }
+
+    public void setF_distance(double f_distance) {
+        this.f_distance = f_distance;
+    }
+
+    public double getR_distance() {
+        return r_distance;
+    }
+
+    public void setR_distance(double r_distance) {
+        this.r_distance = r_distance;
+    }
+
+    public String getF_detail() {
+        return f_detail;
+    }
+
+    public void setF_detail(String f_detail) {
+        this.f_detail = f_detail;
+    }
+
+    public String getR_detail() {
+        return r_detail;
+    }
+
+    public void setR_detail(String r_detail) {
+        this.r_detail = r_detail;
+    }
+
+    public String getE_detail() {
+        return e_detail;
+    }
+
+    public void setE_detail(String e_detail) {
+        this.e_detail = e_detail;
+    }
+
+    public String getF_distance_point() {
+        return f_distance_point;
+    }
+
+    public void setF_distance_point(String f_distance_point) {
+        this.f_distance_point = f_distance_point;
+    }
+
+    public String getR_distance_point() {
+        return r_distance_point;
+    }
+
+    public void setR_distance_point(String r_distance_point) {
+        this.r_distance_point = r_distance_point;
+    }
+
+    public String getAround_type() {
+        return around_type;
+    }
+
+    public void setAround_type(String around_type) {
+        this.around_type = around_type;
+    }
+
+    private String route;
+    private double f_distance;
+    private double r_distance;
+    private String f_detail;
+    private String r_detail;
+    private String e_detail;
+    private String f_distance_point;
+    private String r_distance_point;
+    private String around_type;
+
     /**
      * Not-null value.
      */

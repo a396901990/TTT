@@ -48,7 +48,12 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         // 图片url(取第一个)
         String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
         if (!TextUtils.isEmpty(picURL)) {
-            Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.backgroundView);
+            Picasso.with(mContext)
+                    .load(picURL)
+                    .resizeDimen(R.dimen.home_recommend_item_height, R.dimen.home_recommend_item_height)
+                    .error(R.color.light_gray)
+                    .centerInside()
+                    .into(holder.backgroundView);
         }
 
         holder.mainTitle.setText(route.getName());

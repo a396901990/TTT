@@ -2,6 +2,7 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -52,7 +53,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         // 图片url(取第一个)
         String picURL = galleryInfo.getUrl().split(Constants.URL_MARK)[0];
         if (!TextUtils.isEmpty(picURL)) {
-            Picasso.with(mContext).load(picURL).error(R.color.light_gray).into(holder.urlPic);
+            Picasso.with(mContext)
+                    .load(picURL)
+                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .config(Bitmap.Config.RGB_565)
+                    .centerInside()
+                    .error(R.color.light_gray)
+                    .into(holder.urlPic);
         }
         // 设置名称
         holder.urlName.setText(galleryInfo.getName());

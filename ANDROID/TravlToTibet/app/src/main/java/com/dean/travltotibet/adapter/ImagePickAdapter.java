@@ -2,39 +2,27 @@ package com.dean.travltotibet.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.AroundHotelActivity;
-import com.dean.travltotibet.activity.AroundScenicActivity;
-import com.dean.travltotibet.model.AroundType;
-import com.dean.travltotibet.model.Article;
-import com.dean.travltotibet.model.GalleryInfo;
-import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.ScreenUtil;
+import com.dean.travltotibet.dialog.ImagePreviewDialogFragment;
+import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.pizidea.imagepicker.AndroidImagePicker;
-import com.pizidea.imagepicker.bean.ImageItem;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by DeanGuo on 12/17/15.
+ * Created by DeanGuo on 3/29/16.
  */
 public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -108,11 +96,12 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else {
                     Picasso.with(mContext)
                             .load(new File(url))
-                            .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                            .resizeDimen(R.dimen.scenic_card_height, R.dimen.scenic_card_height)
                             .error(R.color.light_gray)
                             .centerInside()
                             .into(((ImagePickViewHolder) holder).urlPic);
 
+                    // 长按删除
                     ((ImagePickViewHolder) holder).urlPic.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
@@ -122,6 +111,19 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     });
                 }
             }
+
+            ((ImagePickViewHolder) holder).urlPic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImagePreviewDialogFragment fragment = new ImagePreviewDialogFragment();
+                    fragment.setIsURL(isOnlyShow);
+                    Bundle data = new Bundle();
+                    data.putStringArrayList(AndroidImagePicker.KEY_PIC_PATH, mData);
+                    data.putInt(AndroidImagePicker.KEY_PIC_SELECTED_POSITION, position);
+                    fragment.setArguments(data);
+                    fragment.show(((Activity)mContext).getFragmentManager(), TeamMakeTravelTypeDialog.class.getName());
+                }
+            });
 
         }
     }

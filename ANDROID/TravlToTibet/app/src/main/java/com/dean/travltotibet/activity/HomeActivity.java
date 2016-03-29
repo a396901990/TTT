@@ -84,7 +84,7 @@ public class HomeActivity extends BaseActivity {
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(1);
     }
 
     private void setUpHomeTab() {

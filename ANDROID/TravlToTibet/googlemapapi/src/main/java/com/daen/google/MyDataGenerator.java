@@ -17,21 +17,30 @@ public class MyDataGenerator {
     public static void main(String[] args) throws Exception {
 
         geocodes = new ArrayList<>();
-//        geocodes.add(new Geocode("倒淌河镇", 1, Constants.TOWN));
-//        geocodes.add(new Geocode("共和县", 2, Constants.COUNTY));
-//        geocodes.add(new Geocode("铁盖乡", 3, Constants.VILLAGE));
-//        geocodes.add(new Geocode("河卡镇", 4, Constants.TOWN));
-//        geocodes.add(new Geocode("青根河村", 5, Constants.VILLAGE));
-//        geocodes.add(new Geocode("花石峡镇", 6, Constants.TOWN));
-//        geocodes.add(new Geocode("玛多县", 7, Constants.COUNTY));
-        geocodes.add(new Geocode("青海省清水河镇", 8, Constants.TOWN));
-        geocodes.add(new Geocode("珍秦镇", 9, Constants.TOWN));
-        geocodes.add(new Geocode("歇武镇", 10, Constants.TOWN));
-        geocodes.add(new Geocode("玉树", 11, Constants.CITY));
-        geocodes.add(new Geocode("下拉秀镇", 12, Constants.TOWN));
-        geocodes.add(new Geocode("囊谦县", 13, Constants.COUNTY));
-        geocodes.add(new Geocode("类乌齐镇", 14, Constants.TOWN));
-        geocodes.add(new Geocode("类乌齐县", 15, Constants.COUNTY));
+//        geocodes.add(new Geocode("狮泉河镇", 1, Constants.CITY));
+//        geocodes.add(new Geocode("左左乡", 2, Constants.VILLAGE));
+//        geocodes.add(new Geocode("革吉县", 3, Constants.COUNTY));
+//        geocodes.add(new Geocode("雄巴乡", 4, Constants.VILLAGE));
+//        geocodes.add(new Geocode("盐湖乡", 5, Constants.VILLAGE));
+//        geocodes.add(new Geocode("物玛乡", 6, Constants.VILLAGE));
+//        geocodes.add(new Geocode("改则镇", 7, Constants.TOWN));
+//
+//        geocodes.add(new Geocode("洞措乡", 8, Constants.VILLAGE));
+//        geocodes.add(new Geocode("中仓乡", 9, Constants.VILLAGE));
+//        geocodes.add(new Geocode("尼玛县", 10, Constants.COUNTY));
+//        geocodes.add(new Geocode("措折罗玛镇", 11, Constants.TOWN));
+//        geocodes.add(new Geocode("布嘎村申扎县", 12, Constants.VILLAGE));
+        geocodes.add(new Geocode("雄梅镇", 13, Constants.TOWN));
+
+        geocodes.add(new Geocode("班戈县", 14, Constants.COUNTY));
+        geocodes.add(new Geocode("下荣班戈县", 15, Constants.VILLAGE));
+        geocodes.add(new Geocode("加苏村班戈县", 16, Constants.VILLAGE));
+        geocodes.add(new Geocode("青龙乡班戈县", 17, Constants.VILLAGE));
+
+        geocodes.add(new Geocode("东嘎村班戈县", 18, Constants.VILLAGE));
+        geocodes.add(new Geocode("苦玛村班戈县", 19, Constants.VILLAGE));
+        geocodes.add(new Geocode("纳木错乡", 20, Constants.VILLAGE));
+        geocodes.add(new Geocode("当雄县", 21, Constants.COUNTY));
 
         DataGeneratorUtil api = new DataGeneratorUtil();
         api.getData(geocodes);
