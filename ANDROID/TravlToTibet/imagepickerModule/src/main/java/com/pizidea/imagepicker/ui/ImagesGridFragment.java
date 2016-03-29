@@ -86,6 +86,8 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
 
     private OnItemClickListener mOnItemClickListener;//Grid Item click Listener
 
+    int lastSelect = 0;
+
     private static final int ITEM_TYPE_CAMERA = 0;//the first Item may be Camera
     private static final int ITEM_TYPE_NORMAL = 1;
 
@@ -294,7 +296,7 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
                 holder.cbSelected.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(androidImagePicker.getSelectImageCount() > androidImagePicker.getSelectLimit()){
+                        if(androidImagePicker.getSelectImageCount()+getLastSelect() > androidImagePicker.getSelectLimit()){
                             if(holder.cbSelected.isChecked()){
                                 //had better use ImageView instead of CheckBox
                                 holder.cbSelected.toggle();//do this because CheckBox will auto toggle when clicking,must inverse
@@ -554,8 +556,8 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
         androidImagePicker.removeOnImageItemSelectedListener(this);
         androidImagePicker.removeOnImageCropCompleteListener(this);
         //androidImagePicker.clear();
-        Log.i(TAG,"=====removeOnImageItemSelectedListener");
-        Log.i(TAG,"=====removeOnImageCropCompleteListener");
+        Log.i(TAG, "=====removeOnImageItemSelectedListener");
+        Log.i(TAG, "=====removeOnImageCropCompleteListener");
         super.onDestroy();
     }
 
@@ -573,6 +575,14 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
             }
         }
 
+    }
+
+    public void setLastSelect(int lastSelect) {
+        this.lastSelect = lastSelect;
+    }
+
+    public int getLastSelect() {
+        return lastSelect;
     }
 
 }

@@ -22,6 +22,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
     ImagesGridFragment mFragment;
     AndroidImagePicker androidImagePicker;
     String imagePath;
+    int selectedCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +42,18 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         androidImagePicker.setSelectLimit(3);
         androidImagePicker.clearSelectedImages();
 
-        int selectedCount;
         if (getIntent() != null) {
             selectedCount = getIntent().getIntExtra(IntentExtra.INTENT_IMAGE_SELECTED, 0);
         } else {
             selectedCount = androidImagePicker.getSelectImageCount();
         }
-        onImageSelected(0, null, selectedCount, androidImagePicker.getSelectLimit());
+
+        onImageSelected(0, null, 0, androidImagePicker.getSelectLimit());
     }
 
     private void initFragment() {
         mFragment = new ImagesGridFragment();
+        mFragment.setLastSelect(selectedCount);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mFragment).commit();
 
     }
@@ -71,9 +73,9 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onImageSelected(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
-        if(selectedItemsCount > 0){
+        if(selectedItemsCount+selectedCount > 0){
             mBtnOk.setEnabled(true);
-            mBtnOk.setText(getResources().getString(R.string.select_complete,selectedItemsCount,maxSelectLimit));
+            mBtnOk.setText(getResources().getString(R.string.select_complete,selectedItemsCount+selectedCount,maxSelectLimit));
         }else{
             mBtnOk.setText(getResources().getString(R.string.complete));
             mBtnOk.setEnabled(false);
