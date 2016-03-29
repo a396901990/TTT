@@ -173,6 +173,7 @@
     <string name="team_make_type_edit_hint">输入旅行类型（可从列表中选择）</string>
     <string name="team_make_type_hot">热门旅行类型</string>
     <string name="loading_text">努力加载中...</string>
+    <string name="loading_press_text">点击加载更多</string>
     <string name="loading_no_more_text">已经到底了~</string>
     <string name="wechat_text">微信</string>
     <string name="setting_qq_text">设置QQ</string>

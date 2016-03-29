@@ -1,14 +1,13 @@
 package com.dean.travltotibet.fragment;
 
 import com.dean.travltotibet.activity.BaseCommentActivity;
-import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
+import com.dean.travltotibet.base.BaseInsideCommentFragment;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.model.TeamRequest;
 
 /**
  * Created by DeanGuo on 3/3/16.
  */
-public class TeamShowRequestCommentFragment extends BaseCommentFragment {
+public class TeamShowRequestCommentFragment extends BaseInsideCommentFragment {
 
     @Override
     public String getCommentType() {

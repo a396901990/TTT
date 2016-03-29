@@ -13,7 +13,7 @@ import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.ArticleListAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.model.Article;
-import com.dean.travltotibet.ui.LoadMoreListView;
+import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;

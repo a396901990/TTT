@@ -1,18 +1,18 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.base;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ReplyCommentListAdapter;
+import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
+import com.dean.travltotibet.ui.customScrollView.InsideScrollLoadMorePressListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import cn.bmob.v3.listener.FindListener;
  * 调用此fragment，父activity必须继承自CommentBaseActivity
  * 子类必须实现getCommentTypeObjectId，getCommentType
  */
-public abstract class BaseCommentFragment extends RefreshFragment  implements LoadMoreListView.OnLoadMoreListener  {
+public abstract class BaseInsideCommentFragment extends RefreshFragment  implements InsideScrollLoadMorePressListView.OnLoadMoreListener  {
 
     private View root;
 
@@ -33,22 +33,16 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
 
     private ArrayList<Comment> mComments;
 
-    public final static int HOT_COMMENT = 0;
-
-    public final static int NEW_COMMENT = 1;
-
-    public final static int COMMENT_LIMIT = 6;        // 每页的数据是6条
+    public final static int COMMENT_LIMIT = 4;        // 每页的数据是6条
 
     private int currentTab = 0;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private LoadMoreListView loadMoreListView;
+    private InsideScrollLoadMorePressListView loadMoreListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.base_comment_fragment_view, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.base_inside_comment_fragment_view, null);
         return root;
     }
 
@@ -56,85 +50,9 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.comment_list_view);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
-
+        loadMoreListView = (InsideScrollLoadMorePressListView) root.findViewById(R.id.comment_list_view);
         initCommentView();
-        initBtn();
-        initRefresh();
-        showHotComment();
-    }
-
-    private void initRefresh() {
-
-        // 解决listview，mSwipeRefreshLayout冲突
-        loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
-                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
-            }
-        });
-
-        // 设置下拉刷新
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        //mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
-    }
-
-    private void initBtn() {
-        View hotComment = root.findViewById(R.id.hot_comment);
-        View newComment = root.findViewById(R.id.new_comment);
-
-        hotComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showHotComment();
-            }
-        });
-
-        newComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNewComment();
-            }
-        });
-    }
-
-    public void showHotComment() {
-
-        currentTab = HOT_COMMENT;
-
-        final View hotLine = root.findViewById(R.id.hot_line);
-        final View newLine = root.findViewById(R.id.new_line);
-        hotLine.setVisibility(View.VISIBLE);
-        newLine.setVisibility(View.GONE);
         refresh();
-//        Collections.sort(mComments, Comment.likeComparator);
-//        setComments();
-    }
-
-    public void showNewComment() {
-
-        currentTab = NEW_COMMENT;
-
-        final View hotLine = root.findViewById(R.id.hot_line);
-        final View newLine = root.findViewById(R.id.new_line);
-        newLine.setVisibility(View.VISIBLE);
-        hotLine.setVisibility(View.GONE);
-        refresh();
-//        Collections.sort(mComments, Comment.timeComparator);
-//        setComments();
     }
 
     private void initCommentView() {
@@ -186,17 +104,7 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         return commentListAdapter;
     }
 
-    public void startRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    public LoadMoreListView getLoadMoreListView() {
+    public InsideScrollLoadMorePressListView getLoadMoreListView() {
         return loadMoreListView;
     }
 
@@ -229,11 +137,7 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
         // 设置每页数据个数
         query.setLimit(COMMENT_LIMIT);
 
-        if (BaseCommentFragment.HOT_COMMENT == getCurrentTab()) {
-            query.order("-like");
-        } else if (BaseCommentFragment.NEW_COMMENT == getCurrentTab()) {
-            query.order("-createdAt");
-        }
+        query.order("-createdAt");
 
         query.findObjects(getActivity(), new FindListener<Comment>() {
             @Override

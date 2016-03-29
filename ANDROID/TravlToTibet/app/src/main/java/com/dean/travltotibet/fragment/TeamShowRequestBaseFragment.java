@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.ui.LoadMoreListView;
+import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
 import java.util.ArrayList;
 

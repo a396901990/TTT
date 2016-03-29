@@ -215,7 +215,7 @@
 
 
     <dimen name="article_bottom_height">50dp</dimen>
-    <dimen name="comment_item_base_length">46dp</dimen>
+    <dimen name="comment_item_base_length">38dp</dimen>
     <dimen name="comment_item_base_padding">3dp</dimen>
     <dimen name="article_bottom_blank_height">46dp</dimen>
     <dimen name="team_request_padding">10dp</dimen>

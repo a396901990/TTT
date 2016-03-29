@@ -3,24 +3,21 @@ package com.dean.travltotibet.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
-import com.dean.travltotibet.fragment.TeamShowRequestDetailFragment;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserFavorites;
@@ -33,7 +30,6 @@ import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
@@ -47,15 +43,13 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     private TeamRequest teamRequest;
 
-    private ViewPager mPager;
-
-    private ViewPageFragmentAdapter mAdapter;
-
     private boolean isPersonal = false;
 
     static final int UPDATE_REQUEST = 0;
 
     private UserFavorites curUserFavorite;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,17 +73,38 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
         updateWatch();
-        initViewPage();
         initHeader();
         initBottom();
     }
 
     private void initHeader() {
+        // mSwipeRefreshLayout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+        TeamShowRequestCommentFragment fragment = (TeamShowRequestCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
+        if (fragment != null) {
+            fragment.setSwipeRefreshLayout(mSwipeRefreshLayout);
+        }
+
+        // title
         if (isPersonal) {
             setTitle("我的结伴");
         } else {
             setTitle("结伴详情");
             updateMenu();
+        }
+    }
+
+    private void refresh() {
+        TeamShowRequestCommentFragment fragment = (TeamShowRequestCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
+        if (fragment != null && fragment.isAdded()) {
+            fragment.refresh();
         }
     }
 
@@ -112,29 +127,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                 }
             });
         }
-    }
-
-    private void initViewPage() {
-        mPager = (ViewPager) findViewById(R.id.view_pager);
-        mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
-
-        // 为adapter添加数据
-        mAdapter.add(TeamShowRequestDetailFragment.class, null, "");
-        mAdapter.add(TeamShowRequestCommentFragment.class, null, "");
-        mPager.setAdapter(mAdapter);
-
-        mPager.setOffscreenPageLimit(0);
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    goArticlePage();
-                } else {
-                    goCommentPage();
-                }
-            }
-        });
     }
 
     private void updateWatch() {
@@ -163,25 +155,11 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPager.getCurrentItem() == 0) {
-                    goCommentPage();
-                } else if (mPager.getCurrentItem() == 1) {
-                    goArticlePage();
-                }
+                View commentView = findViewById(R.id.comment_content_view);
+                NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scroll_view);
+                scrollView.smoothScrollTo(0, commentView.getTop());
             }
         });
-    }
-
-    private void goCommentPage() {
-        TextView switchBtn = (TextView) findViewById(R.id.comment_switch_icon);
-        switchBtn.setText("原文");
-        mPager.setCurrentItem(1, true);
-    }
-
-    private void goArticlePage() {
-        TextView switchBtn = (TextView) findViewById(R.id.comment_switch_icon);
-        switchBtn.setText("评论");
-        mPager.setCurrentItem(0, true);
     }
 
     private void commentAction() {
@@ -195,11 +173,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     @Override
     public void onCommentSuccess() {
-        goCommentPage();
-        TeamShowRequestCommentFragment articleCommentFragment = (TeamShowRequestCommentFragment) mAdapter.getFragment(1);
-        if (articleCommentFragment != null) {
-            articleCommentFragment.showNewComment();
-        }
+        refresh();
     }
 
     @Override
@@ -404,6 +378,10 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         }
 
         return true;
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return mSwipeRefreshLayout;
     }
 
     @Override

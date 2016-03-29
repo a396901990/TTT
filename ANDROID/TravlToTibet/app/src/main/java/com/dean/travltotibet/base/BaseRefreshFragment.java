@@ -7,8 +7,7 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.ui.LoadMoreListView;
-import com.pizidea.imagepicker.AndroidImagePicker;
+import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
 /**
  * Created by DeanGuo on 8/31/15.

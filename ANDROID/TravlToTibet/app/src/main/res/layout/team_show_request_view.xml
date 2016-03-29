@@ -12,34 +12,65 @@
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
-        android:titleTextColor="@color/white"
-        ></android.support.v7.widget.Toolbar>
+        android:titleTextColor="@color/white"></android.support.v7.widget.Toolbar>
 
-    <FrameLayout
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:fillViewport="true"
-            android:flipInterval="30"
-            android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
+            android:layout_height="match_parent">
 
-        <!--阴影、去空白-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/home_toolbar_shadow_height"
-            android:background="@drawable/top_shade_background" />
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/article_bottom_height"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/base_comment_bottom_view"></include>
+                <LinearLayout
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-    </FrameLayout>
+                    <!--详细-->
+                    <fragment
+                        android:id="@+id/detail_fragment"
+                        android:name="com.dean.travltotibet.fragment.TeamShowRequestDetailFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
+                    <!--评论-->
+                    <FrameLayout
+                        android:id="@+id/comment_content_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <fragment
+                            android:id="@+id/comment_fragment"
+                            android:name="com.dean.travltotibet.fragment.TeamShowRequestCommentFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+            <!--阴影、去空白-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_toolbar_shadow_height"
+                android:background="@drawable/top_shade_background" />
+
+            <!--底部-->
+            <include layout="@layout/base_comment_bottom_view"></include>
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
 
 

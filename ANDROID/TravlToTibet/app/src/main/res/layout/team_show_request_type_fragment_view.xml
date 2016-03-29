@@ -11,14 +11,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.dean.travltotibet.ui.LoadMoreListView
+            <com.dean.travltotibet.ui.loadmore.LoadMoreListView
                 android:id="@+id/team_request_fragment_list_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="6dp"
                 android:footerDividersEnabled="false"
-                android:scrollbars="none"></com.dean.travltotibet.ui.LoadMoreListView>
+                android:scrollbars="none"></com.dean.travltotibet.ui.loadmore.LoadMoreListView>
 
             <include
                 android:visibility="gone"

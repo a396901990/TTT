@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/profile_text"
-                    style="@style/TextAppearance.Medium"
+                    style="@style/TextAppearance.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="匿名用户"
@@ -49,7 +49,7 @@
 
                 <TextView
                     android:id="@+id/comment_date"
-                    style="@style/TextAppearance.Small.Gray"
+                    style="@style/TextAppearance.Micro.Gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
@@ -66,7 +66,7 @@
 
                 <TextView
                     android:id="@+id/like_text"
-                    style="@style/TextAppearance.Medium.Gray"
+                    style="@style/TextAppearance.Regular.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -75,8 +75,8 @@
 
                 <ImageView
                     android:id="@+id/like_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:paddingLeft="@dimen/comment_item_base_padding"
                     android:src="@drawable/icon_like_gray" />
@@ -99,7 +99,8 @@
                 android:background="@drawable/border_reply_comment_background"
                 android:orientation="vertical"
                 android:padding="6dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                >
 
                 <TextView
                     android:id="@+id/reply_comment_username"
@@ -119,7 +120,7 @@
 
             <TextView
                 android:id="@+id/comment_text"
-                style="@style/TextAppearance.Medium"
+                style="@style/TextAppearance.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />

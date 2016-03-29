@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/article_bottom_blank_height">
 
-            <com.dean.travltotibet.ui.LoadMoreListView
+            <com.dean.travltotibet.ui.loadmore.LoadMoreListView
                 android:id="@+id/comment_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

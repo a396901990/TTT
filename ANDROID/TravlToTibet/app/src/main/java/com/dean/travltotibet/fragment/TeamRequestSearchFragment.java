@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.ui.LoadMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;

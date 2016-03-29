@@ -1,14 +1,20 @@
-package com.dean.travltotibet.ui.customScrollView;
+package com.dean.travltotibet.ui.loadmore;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 
@@ -29,7 +35,7 @@ import com.dean.travltotibet.R;
  * limitations under the License.
  */
 
-public class InsideScrollLoadMoreListView extends ListView implements OnScrollListener {
+public class LoadMoreListView extends ListView implements OnScrollListener {
 
     private static final String TAG = "LoadMoreListView";
 
@@ -52,17 +58,17 @@ public class InsideScrollLoadMoreListView extends ListView implements OnScrollLi
     private int mCurrentScrollState;
     private Context mContext;
 
-    public InsideScrollLoadMoreListView(Context context) {
+    public LoadMoreListView(Context context) {
         super(context);
         init(context);
     }
 
-    public InsideScrollLoadMoreListView(Context context, AttributeSet attrs) {
+    public LoadMoreListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public InsideScrollLoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
+    public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
@@ -76,6 +82,12 @@ public class InsideScrollLoadMoreListView extends ListView implements OnScrollLi
 
         // footer
         mFooterView = (FrameLayout) mInflater.inflate(R.layout.load_more_footer, this, false);
+        mFooterView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLoadMore();
+            }
+        });
         loadingViewContent = mFooterView.findViewById(R.id.loading_content_view);
         noMoreDataViewContent = mFooterView.findViewById(R.id.no_more_data_content_view);
         footerContent = mFooterView.findViewById(R.id.load_more_footer_content);
@@ -115,8 +127,7 @@ public class InsideScrollLoadMoreListView extends ListView implements OnScrollLi
                          int visibleItemCount, int totalItemCount) {
 
         if (mOnScrollListener != null) {
-            mOnScrollListener.onScroll(view, firstVisibleItem,
-                    visibleItemCount, totalItemCount);
+            mOnScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
 
         if (mOnLoadMoreListener != null) {
@@ -145,10 +156,10 @@ public class InsideScrollLoadMoreListView extends ListView implements OnScrollLi
 
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-        //bug fix: listview was not clickable after scroll
-        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-            // view.invalidateViews();
-        }
+//        //bug fix: listview was not clickable after scroll
+//        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+//            view.invalidateViews();
+//        }
 
         mCurrentScrollState = scrollState;
 
@@ -196,9 +207,4 @@ public class InsideScrollLoadMoreListView extends ListView implements OnScrollLi
         public void onLoadMore();
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
-        super.onMeasure(widthMeasureSpec, expandSpec);
-    }
 }

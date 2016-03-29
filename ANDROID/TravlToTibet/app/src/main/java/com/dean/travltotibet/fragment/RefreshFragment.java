@@ -1,15 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-
-import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.ui.CustomProgress;
 
 /**
  * Created by DeanGuo on 8/31/15.
