@@ -123,11 +123,12 @@
                         android:src="@drawable/icon_tag" />
 
                     <!--标签-->
-                    <LinearLayout
+                    <com.dean.travltotibet.ui.FlowLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tag_icon"
+                        android:layout_toLeftOf="@+id/watch_content"
                         android:orientation="horizontal">
 
                         <TextView
@@ -141,7 +142,7 @@
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
                             android:paddingTop="2dp"
-                            android:text="川藏线"
+                            android:text="川藏线,川藏线,川藏线,川藏线,川藏线,川藏线"
                             android:textColor="@color/background_selected" />
 
                         <TextView
@@ -171,10 +172,11 @@
                             android:paddingTop="2dp"
                             android:text="2015.3.3 - 2014.5.39"
                             android:textColor="@color/background_selected" />
-                    </LinearLayout>
+                    </com.dean.travltotibet.ui.FlowLayout>
 
                     <!--观看-->
                     <LinearLayout
+                        android:id="@+id/watch_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

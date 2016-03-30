@@ -12,7 +12,7 @@ import android.os.Build;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
+import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.model.Article;
 import com.google.gson.Gson;
 
@@ -59,9 +59,9 @@ public class NotificationHelper {
                 if (article == null) {
                     return;
                 }
-                Intent contentIntent = new Intent(TTTApplication.getInstance(), ArticleCommentActivity.class);
+                Intent contentIntent = new Intent(TTTApplication.getInstance(), ArticleActivity.class);
                 contentIntent.putExtra(IntentExtra.INTENT_ARTICLE, article);
-                contentIntent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleCommentActivity.FROM_NOTIFICATION);
+                contentIntent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_NOTIFICATION);
 
                 NotificationHelper.notify(context, article.getTitle(), article.getSubTitle(), contentIntent);
             }

@@ -5,10 +5,13 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import com.dean.travltotibet.dialog.ArticleCommentDialog;
 import com.dean.travltotibet.fragment.ArticleFragment;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.fragment.ArticleCommentFragment;
+import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
@@ -34,7 +38,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by DeanGuo on 2/17/16.
  */
-public class ArticleCommentActivity extends BaseCommentActivity {
+public class ArticleActivity extends BaseCommentActivity {
 
     public static final String FROM_HOME = "from_home";
 
@@ -44,9 +48,7 @@ public class ArticleCommentActivity extends BaseCommentActivity {
 
     private Article mArticle;
 
-    private ViewPager mPager;
-
-    private ViewPageFragmentAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,38 +70,39 @@ public class ArticleCommentActivity extends BaseCommentActivity {
         }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isDoubleClick()) {
+                    gotoArticle();
+                }
+            }
+        });
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
 //        setTitle(mArticle.getTitle());
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
+        initHeader();
         updateWatch();
         initBtn();
-        initViewPage();
         CountUtil.countArticle(this, mArticle.getTitle());
     }
 
-    private void initViewPage() {
-        mPager = (ViewPager) findViewById(R.id.view_pager);
-        mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
-
-        // 为adapter添加数据
-        mAdapter.add(ArticleFragment.class, null, "");
-        mAdapter.add(ArticleCommentFragment.class, null, "");
-        mPager.setAdapter(mAdapter);
-
-        mPager.setOffscreenPageLimit(0);
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
+    private void initHeader() {
+        // mSwipeRefreshLayout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    goArticlePage();
-                } else {
-                    goCommentPage();
-                }
+            public void onRefresh() {
+                refresh();
             }
         });
+        ArticleCommentFragment fragment = (ArticleCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
+        if (fragment != null) {
+            fragment.setSwipeRefreshLayout(mSwipeRefreshLayout);
+        }
     }
 
     private void updateWatch() {
@@ -128,25 +131,38 @@ public class ArticleCommentActivity extends BaseCommentActivity {
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPager.getCurrentItem() == 0) {
-                    goCommentPage();
-                } else if (mPager.getCurrentItem() == 1) {
-                    goArticlePage();
-                }
+                gotoComment();
             }
         });
     }
 
-    private void goCommentPage() {
-        TextView switchBtn = (TextView) findViewById(R.id.comment_switch_icon);
-        switchBtn.setText("原文");
-        mPager.setCurrentItem(1, true);
+    private void gotoComment() {
+        final View commentView = findViewById(R.id.comment_content_view);
+        final NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scroll_view);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, commentView.getTop());
+            }
+        });
     }
 
-    private void goArticlePage() {
-        TextView switchBtn = (TextView) findViewById(R.id.comment_switch_icon);
-        switchBtn.setText("评论");
-        mPager.setCurrentItem(0, true);
+    private void gotoArticle() {
+        final View articleView = findViewById(R.id.article_content_view);
+        final NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scroll_view);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, articleView.getTop());
+            }
+        });
+    }
+
+    private void refresh() {
+        ArticleCommentFragment fragment = (ArticleCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
+        if (fragment != null && fragment.isAdded()) {
+            fragment.onRefresh();
+        }
     }
 
     private void commentAction() {
@@ -241,11 +257,8 @@ public class ArticleCommentActivity extends BaseCommentActivity {
 
     @Override
     public void onCommentSuccess() {
-        goCommentPage();
-        ArticleCommentFragment articleCommentFragment = (ArticleCommentFragment) mAdapter.getFragment(1);
-        if (articleCommentFragment != null) {
-            articleCommentFragment.showNewComment();
-        }
+        refresh();
+        gotoComment();
     }
 
     @Override

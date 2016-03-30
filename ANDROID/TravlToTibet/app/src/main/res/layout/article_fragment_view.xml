@@ -1,21 +1,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/article_bottom_blank_height"></WebView>
+        android:layout_height="match_parent"></WebView>
 
     <!--加载背景-->
     <RelativeLayout
         android:id="@+id/loading_content_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/less_light_gray"
+        android:layout_height="500dp"
+        android:background="@color/white"
         android:visibility="visible">
 
         <ProgressBar

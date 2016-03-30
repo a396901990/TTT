@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
+import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.util.Constants;
 
 /**
@@ -24,7 +24,7 @@ public class ArticleFragment extends Fragment {
 
     private View loadingView;
 
-    private ArticleCommentActivity mActivity;
+    private ArticleActivity mActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +37,7 @@ public class ArticleFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActivity = (ArticleCommentActivity) this.getActivity();
+        mActivity = (ArticleActivity) this.getActivity();
 
         mWebView = (WebView) root.findViewById(R.id.web_view);
         mWebView.setWebViewClient(new SimpleWebViewClient());

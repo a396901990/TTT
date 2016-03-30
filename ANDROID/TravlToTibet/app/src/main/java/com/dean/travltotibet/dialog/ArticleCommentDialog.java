@@ -2,7 +2,7 @@ package com.dean.travltotibet.dialog;
 
 import android.os.Bundle;
 
-import com.dean.travltotibet.activity.ArticleCommentActivity;
+import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.Comment;
 
@@ -13,12 +13,12 @@ public class ArticleCommentDialog extends ReplyCommentDialog {
 
     private Article mArticle;
 
-    private ArticleCommentActivity articleActivity;
+    private ArticleActivity articleActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        articleActivity = (ArticleCommentActivity) getActivity();
+        articleActivity = (ArticleActivity) getActivity();
         mArticle = articleActivity.getArticle();
     }
 

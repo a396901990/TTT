@@ -1,10 +1,8 @@
 package com.dean.travltotibet.dialog;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.activity.ArticleCommentActivity;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.ScreenUtil;
 
