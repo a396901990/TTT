@@ -42,8 +42,9 @@ public class LoadMorePressListView extends ListView implements OnScrollListener 
     // footer view
     private FrameLayout mFooterView;
     private View loadingViewContent;
-    private View noMoreDataViewContent;
     private View footerContent;
+    private View loadingMoreTexttView;
+    private View loadingProgressbar;
 
     // Listener to process load more items when user reaches the end of the list
     private OnLoadMoreListener mOnLoadMoreListener;
@@ -79,12 +80,19 @@ public class LoadMorePressListView extends ListView implements OnScrollListener 
         mFooterView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingMoreTexttView.setVisibility(GONE);
+                loadingProgressbar.setVisibility(VISIBLE);
                 onLoadMore();
             }
         });
         loadingViewContent = mFooterView.findViewById(R.id.loading_content_view);
-        noMoreDataViewContent = mFooterView.findViewById(R.id.no_more_data_content_view);
         footerContent = mFooterView.findViewById(R.id.load_more_footer_content);
+        loadingMoreTexttView = mFooterView.findViewById(R.id.loading_more_text_view);
+        loadingProgressbar = mFooterView.findViewById(R.id.load_more_progressBar);
+
+        footerContent.setVisibility(GONE);
+        loadingViewContent.setVisibility(View.GONE);
+        
         addFooterView(mFooterView);
 
         super.setOnScrollListener(this);
@@ -128,7 +136,6 @@ public class LoadMorePressListView extends ListView implements OnScrollListener 
 
             if (visibleItemCount == totalItemCount) {
                 loadingViewContent.setVisibility(View.VISIBLE);
-                noMoreDataViewContent.setVisibility(View.GONE);
                 return;
             }
 
@@ -137,9 +144,9 @@ public class LoadMorePressListView extends ListView implements OnScrollListener 
             if (!mIsLoadingMore && loadMore
                     && mCurrentScrollState != SCROLL_STATE_IDLE) {
                 footerContent.setVisibility(VISIBLE);
-
                 loadingViewContent.setVisibility(View.VISIBLE);
-                noMoreDataViewContent.setVisibility(View.GONE);
+                loadingMoreTexttView.setVisibility(GONE);
+                loadingProgressbar.setVisibility(VISIBLE);
                 mIsLoadingMore = true;
                 onLoadMore();
             }
@@ -175,19 +182,27 @@ public class LoadMorePressListView extends ListView implements OnScrollListener 
      */
     public void onLoadMoreComplete() {
         mIsLoadingMore = false;
+        loadingMoreTexttView.setVisibility(VISIBLE);
+        loadingProgressbar.setVisibility(GONE);
 //        footerContent.setVisibility(GONE);
     }
 
     public void onNoMoreDate() {
         footerContent.setVisibility(GONE);
         loadingViewContent.setVisibility(View.GONE);
-        noMoreDataViewContent.setVisibility(View.VISIBLE);
-        noMoreDataViewContent.postDelayed(new Runnable() {
+        footerContent.postDelayed(new Runnable() {
             @Override
             public void run() {
                 onLoadMoreComplete();
             }
         }, 2000);
+    }
+
+    public void hasMoreDate() {
+        footerContent.setVisibility(VISIBLE);
+        loadingViewContent.setVisibility(VISIBLE);
+        loadingMoreTexttView.setVisibility(VISIBLE);
+        loadingProgressbar.setVisibility(GONE);
     }
 
     /**

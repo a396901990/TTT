@@ -37,7 +37,7 @@ public abstract class BaseCommentFragment extends RefreshFragment  implements Lo
 
     public final static int NEW_COMMENT = 1;
 
-    public final static int COMMENT_LIMIT = 6;        // 每页的数据是6条
+    public final static int COMMENT_LIMIT = 8;        // 每页的数据是6条
 
     private int currentTab = 0;
 

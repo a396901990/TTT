@@ -14,9 +14,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
 
             <TextView
+                android:id="@+id/loading_more_text_view"
                 style="@style/TextAppearance.Theme.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,24 +26,15 @@
                 android:padding="3dp"
                 android:text="@string/loading_press_text"
                 />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/no_more_data_content_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/TextAppearance.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ProgressBar
+                android:visibility="gone"
                 android:layout_centerVertical="true"
-                android:padding="3dp"
-                android:text="@string/loading_no_more_text"
-                android:textColor="@color/dark_gray" />
-
+                android:id="@+id/load_more_progressBar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:padding="3dp" />
         </RelativeLayout>
     </FrameLayout>
 </FrameLayout>

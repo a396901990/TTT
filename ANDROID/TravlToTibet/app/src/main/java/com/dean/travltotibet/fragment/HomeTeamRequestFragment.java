@@ -59,7 +59,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
     private boolean tryToCreateTeamRequest = false;
 
-    private int limit = 6;        // 每页的数据是6条
+    private int limit = 8;        // 每页的数据是8条
 
     public static HomeTeamRequestFragment newInstance() {
         HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();

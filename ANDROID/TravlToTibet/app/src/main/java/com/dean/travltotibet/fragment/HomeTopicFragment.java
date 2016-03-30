@@ -33,7 +33,7 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     private LoadMoreListView loadMoreListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private int limit = 4;        // 每页的数据是4条
+    private int limit = 6;        // 每页的数据是6条
 
     public HomeTopicFragment() {
     }

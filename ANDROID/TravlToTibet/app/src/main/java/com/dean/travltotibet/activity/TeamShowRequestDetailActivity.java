@@ -104,7 +104,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     private void refresh() {
         TeamShowRequestCommentFragment fragment = (TeamShowRequestCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
         if (fragment != null && fragment.isAdded()) {
-            fragment.refresh();
+            fragment.onRefresh();
         }
     }
 

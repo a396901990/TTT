@@ -25,7 +25,7 @@ import cn.bmob.v3.listener.FindListener;
  * 调用此fragment，父activity必须继承自CommentBaseActivity
  * 子类必须实现getCommentTypeObjectId，getCommentType
  */
-public abstract class BaseInsideCommentFragment extends RefreshFragment  implements InsideScrollLoadMorePressListView.OnLoadMoreListener  {
+public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  implements InsideScrollLoadMorePressListView.OnLoadMoreListener  {
 
     private View root;
 
@@ -33,9 +33,7 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
 
     private ArrayList<Comment> mComments;
 
-    public final static int COMMENT_LIMIT = 4;        // 每页的数据是6条
-
-    private int currentTab = 0;
+    public final static int COMMENT_LIMIT = 8;        // 每页的数据是8条
 
     private InsideScrollLoadMorePressListView loadMoreListView;
 
@@ -52,7 +50,7 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
 
         loadMoreListView = (InsideScrollLoadMorePressListView) root.findViewById(R.id.comment_list_view);
         initCommentView();
-        refresh();
+        onRefresh();
     }
 
     private void initCommentView() {
@@ -84,7 +82,7 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
         finishRefresh();
         TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
         if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_result));
+            noResultText.setText(getString(R.string.no_comment_result));
         }
     }
 
@@ -104,7 +102,7 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
         return commentListAdapter;
     }
 
-    public InsideScrollLoadMorePressListView getLoadMoreListView() {
+    public InsideScrollLoadMorePressListView getLoadMorePressListView() {
         return loadMoreListView;
     }
 
@@ -137,7 +135,7 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
         // 设置每页数据个数
         query.setLimit(COMMENT_LIMIT);
 
-        query.order("-createdAt");
+        query.order("-like,-createdAt");
 
         query.findObjects(getActivity(), new FindListener<Comment>() {
             @Override
@@ -147,14 +145,16 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
                 }
                 setComments((ArrayList<Comment>) list);
 
-                if (list.size() == 0 && actionType == STATE_MORE) {
+                if (list.size() < COMMENT_LIMIT) {
                     getLoadMoreListView().onNoMoreDate();
                 } else {
-                    if (actionType == STATE_REFRESH) {
-                        toDo(LOADING_SUCCESS, 0);
-                    } else {
-                        toDo(LOADING_MORE_SUCCESS, 0);
-                    }
+                    getLoadMorePressListView().hasMoreDate();
+                }
+
+                if (actionType == STATE_REFRESH) {
+                    toDo(LOADING_SUCCESS, 0);
+                } else {
+                    toDo(LOADING_MORE_SUCCESS, 0);
                 }
             }
 
@@ -163,24 +163,24 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
                 if (getActivity() == null) {
                     return;
                 }
-                getDataFailed();
+                if (TextUtils.isEmpty(s)) {
+                    toDo(LOADING_SUCCESS, 0);
+                } else {
+                    toDo(LOADING_ERROR, 0);
+                }
             }
         });
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-
+        super.prepareLoading();
         View noResultView = root.findViewById(R.id.no_result_content);
         noResultView.setVisibility(View.GONE);
 
@@ -193,31 +193,37 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getCommentData(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
+        super.LoadingSuccess();
         getDataSuccess();
     }
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
         getDataFailed();
     }
 
     @Override
     public void onLoadMore() {
+        super.onLoadMore();
         toDo(ON_LOADING_MORE, 800);
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadingMore();
         getCommentData(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
+        super.LoadingMoreSuccess();
         if (commentListAdapter != null) {
             commentListAdapter.addData(mComments);
         }
@@ -228,13 +234,10 @@ public abstract class BaseInsideCommentFragment extends RefreshFragment  impleme
 
     @Override
     public void LoadingMoreError() {
+        super.LoadingMoreError();
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();
         }
-    }
-
-    public int getCurrentTab() {
-        return currentTab;
     }
 
 }
