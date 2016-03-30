@@ -3,12 +3,12 @@ package com.dean.travltotibet.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -156,7 +156,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             @Override
             public void onClick(View v) {
                 View commentView = findViewById(R.id.comment_content_view);
-                NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scroll_view);
+                ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
                 scrollView.smoothScrollTo(0, commentView.getTop());
             }
         });

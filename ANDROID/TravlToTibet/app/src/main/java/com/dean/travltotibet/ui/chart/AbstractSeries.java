@@ -251,7 +251,7 @@ public abstract class AbstractSeries
 
         for (int i = 0; i < points.size(); i++) {
             AbstractPoint p = points.get(i);
-            if (PointManager.PATH.equals(p.getCategory())) {
+            if (PointManager.PATH.equals(p.getCategory()) || PointManager.MAP.equals(p.getCategory())) {
                 return null;
             } else {
                 return point.getName();

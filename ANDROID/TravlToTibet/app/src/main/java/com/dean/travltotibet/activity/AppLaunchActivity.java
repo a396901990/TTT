@@ -1,10 +1,14 @@
 package com.dean.travltotibet.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -62,7 +66,16 @@ public class AppLaunchActivity extends Activity {
         // 设置登陆状态
         LoginUtil.getInstance().updateUserInfo();
 
-        initView();
+        // 6.0 检查运行时权限
+        checkSystemPermission();
+    }
+
+    private void checkSystemPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
+        } else {
+            initView();
+        }
     }
 
     private void initView() {
@@ -175,5 +188,11 @@ public class AppLaunchActivity extends Activity {
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        initView();
     }
 }

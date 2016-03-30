@@ -21,7 +21,6 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
     private TextView mBtnOk;
     ImagesGridFragment mFragment;
     AndroidImagePicker androidImagePicker;
-    String imagePath;
     int selectedCount;
 
     @Override

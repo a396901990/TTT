@@ -21,6 +21,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.MapUtil;
 import com.dean.travltotibet.util.StringUtil;
 import com.google.gson.Gson;
 
@@ -142,6 +143,43 @@ public class DBHelper {
     }
 
     /**
+     * 查询两个名字之间的地理位置信息
+     */
+    public List<Geocode> getNonPathMapGeocodeListWithNameAndRoute(String route, String start, String end, boolean isForward) {
+        // 取出起始点id
+        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
+        qb.where(Properties.Name.eq(start));
+        long startID = qb.list().get(0).getId();
+
+        // 取出终点id
+        qb = geocodeDao.queryBuilder();
+        qb.where(Properties.Route.eq(route));
+        qb.where(Properties.Name.eq(end));
+        long endID = qb.list().get(0).getId();
+
+        // 取出起点终点间不是path的数据
+        qb = geocodeDao.queryBuilder();
+        if (startID < endID) {
+            qb.where(Properties.Id.between(startID, endID));
+        } else {
+            qb.where(Properties.Id.between(endID, startID));
+        }
+
+        qb.where(Properties.Types.notEq("PATH"));
+        qb.where(Properties.Types.notEq("MAP"));
+
+        // 根据正反排序
+        if (isForward) {
+            qb.orderAsc(Properties.Id);
+        } else {
+            qb.orderDesc(Properties.Id);
+        }
+
+        return qb.list();
+    }
+
+    /**
      * 根据name获取海拔
      *
      * @param name
@@ -215,7 +253,8 @@ public class DBHelper {
     }
 
     public Location getLocationWithGeocode(Geocode geocode) {
-        return new Location(geocode.getLatitude(), geocode.getLongitude());
+        Location location = MapUtil.google_bd_encrypt(geocode.getLatitude(), geocode.getLongitude());
+        return location;
     }
 
     public LatLng getLatLngWithGeocode(Geocode geocode) {

@@ -54,7 +54,7 @@ public class ArticleFragment extends Fragment {
      */
     private void initData() {
         String url = mActivity.getArticle().getUrl();
-        loadingView.setVisibility(View.VISIBLE);
+//        loadingView.setVisibility(View.VISIBLE);
         mWebView.loadUrl(url);
     }
 
@@ -74,7 +74,7 @@ public class ArticleFragment extends Fragment {
                 super.onPageFinished(view, url);
                 return;
             }
-            loadingView.setVisibility(View.GONE);
+//            loadingView.setVisibility(View.GONE);
         }
     }
 

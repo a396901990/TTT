@@ -1,8 +1,12 @@
 package com.dean.travltotibet.fragment;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -109,9 +113,13 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         imagePickAdapter.setAddImageListener(new ImagePickAdapter.AddImageListener() {
             @Override
             public void onAddImage() {
-                Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
-                intent.putExtra(IntentExtra.INTENT_IMAGE_SELECTED, imagePickAdapter.getData().size());
-                startActivity(intent);
+
+                // 6.0 检查存储运行权限
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                } else {
+                    goToPicker();
+                }
             }
         });
         recyclerView.setAdapter(imagePickAdapter);
@@ -133,6 +141,12 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
             urlList.add(i.path);
         }
         imagePickAdapter.addData(urlList);
+    }
+
+    public void goToPicker() {
+        Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
+        intent.putExtra(IntentExtra.INTENT_IMAGE_SELECTED, imagePickAdapter.getData().size());
+        startActivity(intent);
     }
 
     /**
@@ -491,6 +505,15 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
                     toDo(LOADING_ERROR, 0);
                 }
             });
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            goToPicker();
+        } else {
         }
     }
 

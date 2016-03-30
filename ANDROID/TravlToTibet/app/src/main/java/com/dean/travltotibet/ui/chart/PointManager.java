@@ -45,6 +45,8 @@ public final class PointManager {
     // 路径
     public static final String PATH = "PATH";
 
+    public static final String MAP = "MAP";
+
     private static PointManager sInstance;
 
     private final Context mContext;
