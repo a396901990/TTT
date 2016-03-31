@@ -45,6 +45,9 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
     private static final int CREATE_REQUEST = 0;
 
+    private static final String HEADER_HTML_URL = "http://7xrvj0.com1.z0.glb.clouddn.com/rule.html";
+    private static final String HEADER_IMAGE_URL = "http://7xr1ra.com1.z0.glb.clouddn.com/ruheyueban.png";
+
     private View root;
 
     private TeamRequestListAdapter mAdapter;
@@ -174,13 +177,10 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
     private void setUpHeader() {
 
-        final String headerHtmlURL = "http://7xrvj0.com1.z0.glb.clouddn.com/rule.html";
-        String headerImageURL = "http://7xr1ra.com1.z0.glb.clouddn.com/ruheyueban.png";
-
         articleHeader = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_header_view, null);
         ImageView backgroundImage = (ImageView) articleHeader.findViewById(R.id.background_image);
-        if (!TextUtils.isEmpty(headerImageURL)) {
-            Picasso.with(getActivity()).load(headerImageURL).error(R.color.light_gray).into(backgroundImage);
+        if (!TextUtils.isEmpty(HEADER_IMAGE_URL)) {
+            Picasso.with(getActivity()).load(HEADER_IMAGE_URL).error(R.color.light_gray).into(backgroundImage);
         }
         MaterialRippleLayout contentView = (MaterialRippleLayout) articleHeader.findViewById(R.id.ripple_view);
         contentView.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +190,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
                     return;
                 }
                 ShowHtmlDialogFragment dialogFragment = new ShowHtmlDialogFragment();
-                dialogFragment.setUrl(headerHtmlURL);
+                dialogFragment.setUrl(HEADER_HTML_URL);
                 dialogFragment.show(getFragmentManager(), ShowHtmlDialogFragment.class.getName());
             }
         });

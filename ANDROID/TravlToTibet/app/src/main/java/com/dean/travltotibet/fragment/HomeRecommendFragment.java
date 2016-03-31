@@ -78,6 +78,9 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
     }
 
     private void initFabBtn() {
+        if (getActivity() == null) {
+            return;
+        }
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
         fab.setColorNormalResId(R.color.colorPrimary);
         fab.setColorPressedResId(R.color.colorPrimaryDark);

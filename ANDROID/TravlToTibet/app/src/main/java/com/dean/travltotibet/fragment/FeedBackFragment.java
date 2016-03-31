@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.model.FeedBack;
+import com.dean.travltotibet.util.LoadingManager;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -36,19 +37,11 @@ public class FeedbackFragment extends Fragment {
 
     private boolean isEnable = false;
 
-    private ProgressDialog mProgressDialog;
-
     private static final int ENABLE_ALPHA = 255;
 
     private static final int DISABLE_ALPHA = (int) (ENABLE_ALPHA * 0.3);
 
-    private Handler mHandle;
-
-    private final static int SHOW_DIALOG = 0;
-    private final static int DISMISS_DIALOG_SUCCESS = 1;
-    private final static int DISMISS_DIALOG_FAILURE = 2;
-    private final static int SUBMIT_SUCCESS = 3;
-    private final static int SUBMIT_FAILURE = 4;
+    private LoadingManager mLoadingManager;
 
     public FeedbackFragment() {
     }
@@ -64,33 +57,7 @@ public class FeedbackFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mHandle = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case SHOW_DIALOG:
-                        // show loading progress bar
-                        showLoading(R.string.submit_feedback);
-                        break;
-                    case DISMISS_DIALOG_SUCCESS:
-                        dismissLoading();
-                        clear();
-                        break;
-                    case SUBMIT_SUCCESS:
-                        mProgressDialog.setMessage("提交成功，感谢您的帮助！");
-                        mHandle.sendEmptyMessageDelayed(DISMISS_DIALOG_SUCCESS, 1000);
-                        break;
-                    case SUBMIT_FAILURE:
-                        mProgressDialog.setMessage("提交失败！");
-                        mHandle.sendEmptyMessageDelayed(DISMISS_DIALOG_FAILURE, 1000);
-                        break;
-                    case DISMISS_DIALOG_FAILURE:
-                        dismissLoading();
-                        break;
-                }
-            }
-        };
+        mLoadingManager = new LoadingManager(getActivity());
 
         initView();
     }
@@ -161,7 +128,7 @@ public class FeedbackFragment extends Fragment {
 
     private void commitNote() {
 
-        mHandle.sendEmptyMessage(SHOW_DIALOG);
+        mLoadingManager.showLoading();
 
         FeedBack feedBack = new FeedBack();
         feedBack.setFeedback(note.getText().toString());
@@ -171,12 +138,17 @@ public class FeedbackFragment extends Fragment {
         feedBack.save(getActivity(), new SaveListener() {
             @Override
             public void onSuccess() {
-                mHandle.sendEmptyMessageDelayed(SUBMIT_SUCCESS, 1000);
+                mLoadingManager.loadingSuccess(new LoadingManager.LoadingSuccessCallBack() {
+                    @Override
+                    public void afterLoadingSuccess() {
+                        clear();
+                    }
+                });
             }
 
             @Override
             public void onFailure(int code, String msg) {
-                mHandle.sendEmptyMessageDelayed(SUBMIT_FAILURE, 1000);
+                mLoadingManager.loadingFailed(null);
             }
         });
 
@@ -186,22 +158,6 @@ public class FeedbackFragment extends Fragment {
         note.setText("");
         phone.setText("");
         email.setText("");
-    }
-
-    protected void showLoading(final int argResourceId) {
-        if (mProgressDialog == null || !mProgressDialog.isShowing()) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mProgressDialog.setMessage(getString(argResourceId));
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-        }
-    }
-
-    protected void dismissLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
     }
 
 }

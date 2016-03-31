@@ -167,11 +167,11 @@ public class RouteDetailFragment extends BaseRouteFragment {
     private void destroyFragmentView() {
         FragmentManager fm = getFragmentManager();
         Fragment detailFrag = fm.findFragmentById(R.id.guide_detail_fragment);
-        if (detailFrag != null) {
+        if (detailFrag != null && getActivity() != null) {
             fm.beginTransaction().remove(detailFrag).commitAllowingStateLoss();
         }
         Fragment planFrag = fm.findFragmentById(R.id.guide_plan_fragment);
-        if (planFrag != null) {
+        if (planFrag != null && getActivity() != null) {
             fm.beginTransaction().remove(planFrag).commitAllowingStateLoss();
         }
     }

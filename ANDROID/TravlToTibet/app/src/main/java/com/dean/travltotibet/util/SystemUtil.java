@@ -6,12 +6,14 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.util.Log;
 import android.util.TypedValue;
 
 import com.dean.travltotibet.BuildConfig;
 import com.dean.travltotibet.TTTApplication;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -134,5 +136,28 @@ public final class SystemUtil {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, TTTApplication.getMyResources().getDisplayMetrics());
         }
         return actionBarHeight;
+    }
+
+    public static String getInnerSDCardPath() {
+        return Environment.getExternalStorageDirectory().getPath();
+    }
+
+    public static void createTempFile() {
+        File file=new File(getMyPicPath());
+        if(!file.exists())
+            file.mkdir();
+    }
+
+
+    public static void delTempFile() {
+
+        File file=new File(getMyPicPath());
+        if(!file.exists())
+            file.delete();
+    }
+
+    public static String getMyPicPath() {
+        File sd=Environment.getExternalStorageDirectory();
+        return sd.getPath()+"/tanzi";
     }
 }

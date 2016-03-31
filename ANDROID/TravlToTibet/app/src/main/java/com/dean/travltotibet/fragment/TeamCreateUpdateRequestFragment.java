@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,9 +37,14 @@ import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.LoadingManager;
+import com.dean.travltotibet.util.SystemUtil;
+import com.dean.travltotibet.util.VolleyImageUtils;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.bean.ImageItem;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +87,8 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
 
     private ImagePickAdapter imagePickAdapter;
 
+    private LoadingManager loadingManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,6 +102,7 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
 
         mActivity = (TeamCreateRequestActivity) this.getActivity();
         teamRequest = mActivity.getTeamRequest();
+        loadingManager = new LoadingManager(getActivity());
 
         initTravelDestinationContent();
         initTravelTypeContent();
@@ -395,11 +404,16 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
     @Override
     public void prepareLoading() {
         super.prepareLoading();
-        final View loadingView = root.findViewById(R.id.loading_content_view);
-        loadingView.setVisibility(View.VISIBLE);
+
+        // show loading dialog
+        loadingManager.showLoading();
+
+        // update不需要上传图片，直接操作
         if (isUpdate) {
             toDo(ON_LOADING, 0);
-        } else {
+        }
+        // save上传图片后操作
+        else {
             uploadImage();
         }
     }
@@ -414,100 +428,108 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
     public void LoadingSuccess() {
         super.LoadingSuccess();
 
-        final View loadingView = root.findViewById(R.id.loading_content_view);
-        loadingView.setVisibility(View.GONE);
-
-        if (isUpdate) {
-            Toast.makeText(mActivity, "修改成功", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
-            intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
-            intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
-            getActivity().startActivity(intent);
-            mActivity.finish();
-        } else {
-            Toast.makeText(mActivity, "提交成功", Toast.LENGTH_SHORT).show();
-            mActivity.setResult(mActivity.RESULT_OK);
-            mActivity.finish();
-        }
+        loadingManager.loadingSuccess(new LoadingManager.LoadingSuccessCallBack() {
+            @Override
+            public void afterLoadingSuccess() {
+                if (isUpdate) {
+                    Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
+                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
+                    getActivity().startActivity(intent);
+                    mActivity.finish();
+                } else {
+                    mActivity.setResult(mActivity.RESULT_OK);
+                    mActivity.finish();
+                }
+            }
+        });
     }
 
     @Override
     public void LoadingError() {
         super.LoadingError();
 
-        final View loadingView = root.findViewById(R.id.loading_content_view);
-        loadingView.setVisibility(View.GONE);
-
-        if (isUpdate) {
-            Toast.makeText(mActivity, "修改失败", Toast.LENGTH_SHORT).show();
-            mActivity.finish();
-        } else {
-            Toast.makeText(mActivity, "提交失败", Toast.LENGTH_SHORT).show();
-            mActivity.setResult(mActivity.RESULT_CANCELED);
-            mActivity.finish();
-        }
+        loadingManager.loadingFailed(new LoadingManager.LoadingFailedCallBack() {
+            @Override
+            public void afterLoadingFailed() {
+            }
+        });
     }
 
     private void saveOrUpdate() {
         if (isUpdate) {
-            // 如果之前已经通过，则这次也通过
-            if (TeamRequest.PASS_STATUS.equals(teamRequest.getStatus())) {
-                teamRequest.setStatus(TeamRequest.PASS_STATUS);
-            }
-            // 如果之前是审核或者未通过，这次是审核
-            else {
-                teamRequest.setStatus(TeamRequest.WAIT_STATUS);
-            }
-            teamRequest.update(getActivity(), new UpdateListener() {
-                @Override
-                public void onSuccess() {
-                    if (mActivity == null) {
-                        return;
-                    }
-                    toDo(LOADING_SUCCESS, 0);
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-                    if (mActivity == null) {
-                        return;
-                    }
-                    toDo(LOADING_ERROR, 0);
-                }
-            });
+            updateAction();
         } else {
-
-            teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
-            teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
-            teamRequest.setUserIcon(TTTApplication.getUserInfo().getUserIcon());
-            teamRequest.setUserGender(TTTApplication.getUserInfo().getUserGender());
-            teamRequest.setComments(0);
-            teamRequest.setWatch(0);
-            teamRequest.setStatus(TeamRequest.PASS_STATUS);
-//            teamRequest.setStatus("Test");
-            if (TTTApplication.getUserInfo() != null) {
-                teamRequest.setUser(TTTApplication.getUserInfo());
-            }
-            teamRequest.save(getActivity(), new SaveListener() {
-                @Override
-                public void onSuccess() {
-                    if (mActivity == null) {
-                        return;
-                    }
-                    toDo(LOADING_SUCCESS, 0);
-                }
-
-                @Override
-                public void onFailure(int code, String msg) {
-                    if (mActivity == null) {
-                        return;
-                    }
-                    toDo(LOADING_ERROR, 0);
-                }
-            });
+            saveAction();
         }
     }
 
+    public void updateAction() {
+        // 如果之前已经通过，则这次也通过
+        if (TeamRequest.PASS_STATUS.equals(teamRequest.getStatus())) {
+            teamRequest.setStatus(TeamRequest.PASS_STATUS);
+        }
+        // 如果之前是审核或者未通过，这次是审核
+        else {
+            teamRequest.setStatus(TeamRequest.WAIT_STATUS);
+        }
+        teamRequest.update(getActivity(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                if (mActivity == null) {
+                    return;
+                }
+                toDo(LOADING_SUCCESS, 0);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                if (mActivity == null) {
+                    return;
+                }
+                toDo(LOADING_ERROR, 0);
+            }
+        });
+    }
+
+    public void saveAction() {
+
+        if (TTTApplication.getUserInfo() == null) {
+            toDo(LOADING_ERROR, 0);
+        }
+
+        teamRequest.setUser(TTTApplication.getUserInfo());
+        teamRequest.setUserId(TTTApplication.getUserInfo().getUserId());
+        teamRequest.setUserName(TTTApplication.getUserInfo().getUserName());
+        teamRequest.setUserIcon(TTTApplication.getUserInfo().getUserIcon());
+        teamRequest.setUserGender(TTTApplication.getUserInfo().getUserGender());
+        teamRequest.setComments(0);
+        teamRequest.setWatch(0);
+        teamRequest.setStatus(TeamRequest.PASS_STATUS);
+//        teamRequest.setStatus("Test");
+
+        teamRequest.save(getActivity(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+                if (mActivity == null) {
+                    return;
+                }
+                toDo(LOADING_SUCCESS, 0);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                if (mActivity == null) {
+                    return;
+                }
+                toDo(LOADING_ERROR, 0);
+            }
+        });
+    }
+
+    /**
+     * 权限申请回调
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -517,30 +539,41 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         }
     }
 
+    /**
+     * 上传图片
+     */
     private void uploadImage() {
         if (imagePickAdapter.getData().size() == 0) {
             return;
         }
         String[] imgs = new String[imagePickAdapter.getData().size()];
-        imgs = imagePickAdapter.getData().toArray(imgs);
-        final int size = imgs.length;
+        // 创建temp文件
+        SystemUtil.createTempFile();
+        // 循环压缩图片
+        for (int i=0; i < imagePickAdapter.getData().size(); i++) {
+            String outFileUrl = SystemUtil.getMyPicPath() + "/" + TTTApplication.getUserInfo().getUserName() + i + ".jpg";
+            VolleyImageUtils.compress(imagePickAdapter.getData().get(i), outFileUrl, 600, 800, 100);
+            imgs[i] = outFileUrl;
+        }
 
+        // 批量上传图片
         Bmob.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
 
             @Override
             public void onSuccess(List<BmobFile> files, List<String> urls) {
                 // 全部上传完毕
-                if (size == files.size()) {
+                if (imagePickAdapter.getData().size() == files.size()) {
                     teamRequest.setImgUrls(urls);
+                    // 删除temp文件
+                    SystemUtil.delTempFile();
+
                     toDo(ON_LOADING, 0);
                 }
             }
 
             @Override
             public void onError(int statuscode, String errormsg) {
-                final View loadingView = root.findViewById(R.id.loading_content_view);
-                loadingView.setVisibility(View.GONE);
-                Toast.makeText(mActivity, "网络不稳定，请重试！", Toast.LENGTH_SHORT).show();
+                toDo(LOADING_ERROR, 0);
             }
 
             @Override

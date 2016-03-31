@@ -86,17 +86,20 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             // 图片url
             if (!TextUtils.isEmpty(url)) {
+                // 只显示图片，不显示添加，从url加载
                 if (isOnlyShow) {
                     Picasso.with(mContext)
                             .load(url)
-                            .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                            .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
                             .error(R.color.light_gray)
                             .centerInside()
                             .into(((ImagePickViewHolder) holder).urlPic);
-                } else {
+                }
+                // 显示添加，从本地加载图片
+                else {
                     Picasso.with(mContext)
                             .load(new File(url))
-                            .resizeDimen(R.dimen.scenic_card_height, R.dimen.scenic_card_height)
+                            .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
                             .error(R.color.light_gray)
                             .centerInside()
                             .into(((ImagePickViewHolder) holder).urlPic);

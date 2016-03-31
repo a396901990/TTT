@@ -146,7 +146,7 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
                 setComments((ArrayList<Comment>) list);
 
                 if (list.size() < COMMENT_LIMIT) {
-                    getLoadMoreListView().onNoMoreDate();
+                    getLoadMorePressListView().onNoMoreDate();
                 } else {
                     getLoadMorePressListView().hasMoreDate();
                 }

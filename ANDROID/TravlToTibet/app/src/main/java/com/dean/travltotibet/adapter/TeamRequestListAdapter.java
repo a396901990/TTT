@@ -140,9 +140,11 @@ public class TeamRequestListAdapter extends BaseAdapter {
     private void setUpImageContent(TeamRequestViewHolder holder, int position) {
         final TeamRequest request = mData.get(position);
         List<String> imgUrls = request.getImgUrls();
-        if (imgUrls != null && imgUrls.size() != 0) {
-            for (int i=0; i<imgUrls.size(); i++) {
+        resetImage(holder);
 
+        if (imgUrls != null && imgUrls.size() != 0) {
+
+            for (int i=0; i<imgUrls.size(); i++) {
                 ImageView imageView = null;
                 View imageContentView = null;
 
@@ -161,14 +163,16 @@ public class TeamRequestListAdapter extends BaseAdapter {
                         break;
                 }
 
+                imageView.setVisibility(View.VISIBLE);
+                imageContentView.setVisibility(View.VISIBLE);
+
                 String url = imgUrls.get(i);
                 if (!TextUtils.isEmpty(url)) {
                     holder.imageContent.setVisibility(View.VISIBLE);
                     imageContentView.setVisibility(View.VISIBLE);
                     Picasso.with(mContext)
                             .load(url)
-                            .config(Bitmap.Config.RGB_565)
-                            .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                            .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
                             .centerInside()
                             .placeholder(R.color.less_light_gray)
                             .error(R.color.light_gray)
@@ -179,6 +183,16 @@ public class TeamRequestListAdapter extends BaseAdapter {
             holder.imageContent.setVisibility(View.GONE);
         }
     }
+
+    public void resetImage(TeamRequestViewHolder holder) {
+        holder.imageContent.findViewById(R.id.image_view_1).setVisibility(View.INVISIBLE);
+        holder.imageContent.findViewById(R.id.image_content_1).setVisibility(View.INVISIBLE);
+        holder.imageContent.findViewById(R.id.image_view_2).setVisibility(View.INVISIBLE);
+        holder.imageContent.findViewById(R.id.image_content_2).setVisibility(View.INVISIBLE);
+        holder.imageContent.findViewById(R.id.image_view_3).setVisibility(View.INVISIBLE);
+        holder.imageContent.findViewById(R.id.image_content_3).setVisibility(View.INVISIBLE);
+    }
+
 
     public void setData(ArrayList<TeamRequest> data) {
         this.mData = data;
