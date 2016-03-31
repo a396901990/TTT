@@ -156,7 +156,9 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
         Log.e("onError:", "onError");
-        getDialog().dismiss();
+        if (getDialog() != null) {
+            getDialog().dismiss();
+        }
         // 不成功执行失败操作
         LoginUtil.getInstance().loginFailed();
         if (loginListener != null) {
@@ -167,7 +169,9 @@ public class LoginDialog extends DialogFragment implements PlatformActionListene
     @Override
     public void onCancel(Platform platform, int i) {
         Log.e("onCancel:", "onCancel");
-        getDialog().dismiss();
+        if (getDialog() != null) {
+            getDialog().dismiss();
+        }
     }
 
     public void setLoginListener(LoginListener loginListener) {
