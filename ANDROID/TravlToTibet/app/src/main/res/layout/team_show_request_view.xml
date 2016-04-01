@@ -14,63 +14,57 @@
         android:minHeight="?attr/actionBarSize"
         android:titleTextColor="@color/white"></android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/swipe_container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <FrameLayout
+        <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/article_bottom_height"
+            android:nestedScrollingEnabled="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <ScrollView
-                android:id="@+id/scroll_view"
+            <LinearLayout
+                android:id="@+id/content"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/article_bottom_height"
                 android:layout_height="match_parent"
-                android:nestedScrollingEnabled="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/content"
+                <!--详细-->
+                <fragment
+                    android:id="@+id/detail_fragment"
+                    android:name="com.dean.travltotibet.fragment.TeamShowRequestDetailFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content" />
 
-                    <!--详细-->
+                <!--评论-->
+                <FrameLayout
+                    android:id="@+id/comment_content_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
                     <fragment
-                        android:id="@+id/detail_fragment"
-                        android:name="com.dean.travltotibet.fragment.TeamShowRequestDetailFragment"
+                        android:id="@+id/comment_fragment"
+                        android:name="com.dean.travltotibet.fragment.TeamShowRequestCommentFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+                </FrameLayout>
 
-                    <!--评论-->
-                    <FrameLayout
-                        android:id="@+id/comment_content_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+            </LinearLayout>
+        </ScrollView>
 
-                        <fragment
-                            android:id="@+id/comment_fragment"
-                            android:name="com.dean.travltotibet.fragment.TeamShowRequestCommentFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </FrameLayout>
+        <!--阴影、去空白-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_toolbar_shadow_height"
+            android:background="@drawable/top_shade_background" />
 
-                </LinearLayout>
-            </ScrollView>
-
-            <!--阴影、去空白-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_toolbar_shadow_height"
-                android:background="@drawable/top_shade_background" />
-
-            <!--底部-->
-            <include layout="@layout/base_comment_bottom_view"></include>
-        </FrameLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <!--底部-->
+        <include layout="@layout/base_comment_bottom_view"></include>
+    </FrameLayout>
 </RelativeLayout>
 
 

@@ -3,8 +3,8 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.model.PrepareInfo;
 import com.dean.travltotibet.util.Constants;
@@ -26,8 +27,6 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class PrepareDetailFragment extends Fragment {
 
-    private View root;
-
     private String mRoute;
 
     private String mType;
@@ -36,7 +35,9 @@ public class PrepareDetailFragment extends Fragment {
 
     private WebView mWebView;
 
-    private View loadingView;
+    private View root;
+
+    private LoadingBackgroundManager loadingBackgroundManager;
 
     public PrepareDetailFragment(InfoType infoType, String route, String type) {
         this.mInfoType = infoType;
@@ -44,9 +45,9 @@ public class PrepareDetailFragment extends Fragment {
         this.mType = type;
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = LayoutInflater.from(getActivity()).inflate(R.layout.prepare_detail_fragment_view, null);
         return root;
     }
@@ -59,10 +60,14 @@ public class PrepareDetailFragment extends Fragment {
         mWebView.setWebViewClient(new SimpleWebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
 
-        loadingView = root.findViewById(R.id.loading_content_view);
-
         // 初始化数据
+        initLoadingBackground();
         initData();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     /**
@@ -70,7 +75,7 @@ public class PrepareDetailFragment extends Fragment {
      */
     private void initData() {
 
-        loadingView.setVisibility(View.VISIBLE);
+        loadingBackgroundManager.showLoadingView();
 
         BmobQuery<PrepareInfo> query = new BmobQuery<>();
         query.addQueryKeys(InfoType.INFO_COLUMN.get(mInfoType));
@@ -91,11 +96,15 @@ public class PrepareDetailFragment extends Fragment {
 
             @Override
             public void onError(int i, String s) {
-                if (mWebView == null || loadingView == null) {
+                if (mWebView == null) {
                     return;
                 }
-                mWebView.setVisibility(View.GONE);
-                loadingView.setVisibility(View.GONE);
+                loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+                    @Override
+                    public void retry() {
+                        initData();
+                    }
+                });
             }
         });
     }
@@ -118,7 +127,7 @@ public class PrepareDetailFragment extends Fragment {
                 super.onPageFinished(view, url);
                 return;
             }
-            loadingView.setVisibility(View.GONE);
+            loadingBackgroundManager.loadingSuccess();
         }
     }
 

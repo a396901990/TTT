@@ -59,12 +59,12 @@ public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
     }
 
     @Override
-    public void refresh() {
+    public void onRefresh() {
         if (TTTApplication.getUserInfo() == null) {
             finishRefresh();
             return;
         }
-        super.refresh();
+        super.onRefresh();
     }
 
     @Override

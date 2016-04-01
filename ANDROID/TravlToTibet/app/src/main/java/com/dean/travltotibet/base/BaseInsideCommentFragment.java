@@ -5,13 +5,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ReplyCommentListAdapter;
-import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.ui.customScrollView.InsideScrollLoadMorePressListView;
 
 import java.util.ArrayList;
@@ -37,20 +34,28 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
 
     private InsideScrollLoadMorePressListView loadMoreListView;
 
+    private LoadingBackgroundManager loadingBackgroundManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = LayoutInflater.from(getActivity()).inflate(R.layout.base_inside_comment_fragment_view, null);
         return root;
     }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         loadMoreListView = (InsideScrollLoadMorePressListView) root.findViewById(R.id.comment_list_view);
+
+        initLoadingBackground();
         initCommentView();
         onRefresh();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     private void initCommentView() {
@@ -58,44 +63,6 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
         commentListAdapter.setCommentType(getCommentType());
         loadMoreListView.setAdapter(commentListAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
-    }
-
-    public void setComments() {
-        View noResultView = root.findViewById(R.id.no_result_content);
-        // 无数据
-        if (mComments == null || mComments.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-
-        commentListAdapter.setData(mComments);
-    }
-
-    public void getDataSuccess() {
-        if (getActivity() == null) {
-            return;
-        }
-        setComments();
-        finishRefresh();
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_comment_result));
-        }
-    }
-
-    public void getDataFailed() {
-        if (getActivity() == null) {
-            return;
-        }
-        setComments();
-        finishRefresh();
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_network_result));
-        }
     }
 
     public ReplyCommentListAdapter getCommentListAdapter() {
@@ -181,11 +148,10 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
     @Override
     public void prepareLoading() {
         super.prepareLoading();
-        View noResultView = root.findViewById(R.id.no_result_content);
-        noResultView.setVisibility(View.GONE);
+
+        loadingBackgroundManager.showLoadingView();
 
         if (commentListAdapter != null) {
-            startRefresh();
             commentListAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
@@ -200,13 +166,27 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
     @Override
     public void LoadingSuccess() {
         super.LoadingSuccess();
-        getDataSuccess();
+        // 无数据
+        if (mComments == null || mComments.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
+
+        }
+        // 有数据
+        else {
+            loadingBackgroundManager.loadingSuccess();
+            commentListAdapter.setData(mComments);
+        }
     }
 
     @Override
     public void LoadingError() {
         super.LoadingError();
-        getDataFailed();
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
     }
 
     @Override
@@ -239,5 +219,4 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
             loadMoreListView.onLoadMoreComplete();
         }
     }
-
 }

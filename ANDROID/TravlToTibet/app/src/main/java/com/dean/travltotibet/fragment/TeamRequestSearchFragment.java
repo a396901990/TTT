@@ -21,7 +21,7 @@ public class TeamRequestSearchFragment extends TeamShowRequestBaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        refresh();
+        onRefresh();
     }
 
     public void getTeamRequests(final int actionType) {

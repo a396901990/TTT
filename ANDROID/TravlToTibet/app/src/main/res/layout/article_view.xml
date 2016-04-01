@@ -17,67 +17,61 @@
         android:transitionName="actionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/swipe_container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <FrameLayout
+        <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/article_bottom_height"
+            android:descendantFocusability="blocksDescendants">
 
-            <ScrollView
-                android:id="@+id/scroll_view"
+            <LinearLayout
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/article_bottom_height"
-                android:descendantFocusability="blocksDescendants">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/content"
+                <!--详细-->
+                <FrameLayout
+                    android:id="@+id/article_content_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <!--详细-->
-                    <FrameLayout
-                        android:id="@+id/article_content_view"
+                    <fragment
+                        android:id="@+id/detail_fragment"
+                        android:name="com.dean.travltotibet.fragment.ArticleFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+                <!--评论-->
+                <FrameLayout
+                    android:id="@+id/comment_content_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                        <fragment
-                            android:id="@+id/detail_fragment"
-                            android:name="com.dean.travltotibet.fragment.ArticleFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </FrameLayout>
-                    <!--评论-->
-                    <FrameLayout
-                        android:id="@+id/comment_content_view"
+                    <fragment
+                        android:id="@+id/comment_fragment"
+                        android:name="com.dean.travltotibet.fragment.ArticleCommentFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
 
-                        <fragment
-                            android:id="@+id/comment_fragment"
-                            android:name="com.dean.travltotibet.fragment.ArticleCommentFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
 
-                </LinearLayout>
-            </ScrollView>
+        <!--阴影、去空白-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_toolbar_shadow_height"
+            android:background="@drawable/top_shade_background" />
 
-            <!--阴影、去空白-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_toolbar_shadow_height"
-                android:background="@drawable/top_shade_background" />
-
-            <!--底部-->
-            <include layout="@layout/base_comment_bottom_view"></include>
-        </FrameLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <!--底部-->
+        <include layout="@layout/base_comment_bottom_view"></include>
+    </FrameLayout>
 </RelativeLayout>
 
 

@@ -15,6 +15,7 @@
         android:text="@string/info_scenic_title" />
 
     <FrameLayout
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/scenic_card_height">
         <!--内容视图-->
@@ -27,7 +28,6 @@
             android:fadeScrollbars="true"
             android:scrollbars="none" />
 
-        <include layout="@layout/loading_no_result_view" ></include>
     </FrameLayout>
 </LinearLayout>
 

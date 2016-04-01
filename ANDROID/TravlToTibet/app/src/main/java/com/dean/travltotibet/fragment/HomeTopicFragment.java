@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.adapter.ArticleListAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
@@ -32,6 +32,8 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private LoadingBackgroundManager loadingBackgroundManager;
 
     private int limit = 6;        // 每页的数据是6条
 
@@ -55,9 +57,15 @@ public class HomeTopicFragment extends BaseRefreshFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
+        initLoadingBackground();
         initRefreshView();
         setUpList();
         onRefresh();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     private void initRefreshView() {
@@ -89,9 +97,6 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     }
 
     private void getArticles(final int actionType) {
-        if (getActivity() == null) {
-            return;
-        }
 
         articles = new ArrayList<>();
 
@@ -135,61 +140,6 @@ public class HomeTopicFragment extends BaseRefreshFragment {
         });
     }
 
-    /**
-     * 更新recentRoutes数据
-     */
-    public void updateData() {
-        if (mAdapter == null || mActivity == null) {
-            return;
-        }
-
-        View noResultView = root.findViewById(R.id.no_result_content);
-        if (noResultView == null) {
-            return;
-        }
-
-        // 无数据
-        if (articles == null || articles.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-            if (noResultText != null) {
-                noResultText.setText(getString(R.string.no_result));
-            }
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-        mAdapter.setData(articles);
-        finishRefresh();
-    }
-
-    public void updateError() {
-        if (mAdapter == null || mActivity == null) {
-            return;
-        }
-
-        View noResultView = root.findViewById(R.id.no_result_content);
-        if (noResultView == null) {
-            return;
-        }
-
-        // 无数据
-        if (articles == null || articles.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-            if (noResultText != null) {
-                noResultText.setText(getString(R.string.no_network_result));
-            }
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-        mAdapter.setData(articles);
-        finishRefresh();
-    }
-
     @Override
     public void onRefresh() {
         super.onRefresh();
@@ -199,8 +149,8 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     @Override
     public void prepareLoading() {
         super.prepareLoading();
-        View noResultView = root.findViewById(R.id.no_result_content);
-        noResultView.setVisibility(View.GONE);
+
+        loadingBackgroundManager.resetLoadingView();
 
         if (mActivity != null && mAdapter != null) {
             startRefresh();
@@ -218,13 +168,28 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     @Override
     public void LoadingSuccess() {
         super.LoadingSuccess();
-        updateData();
+
+        // 无数据
+        if (articles == null || articles.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
+        }
+        if (mAdapter != null) {
+            mAdapter.setData(articles);
+        }
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
         super.LoadingError();
-        updateError();
+
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
+        finishRefresh();
     }
 
     @Override

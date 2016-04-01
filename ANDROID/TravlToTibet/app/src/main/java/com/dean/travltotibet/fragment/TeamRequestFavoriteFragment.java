@@ -84,18 +84,18 @@ public class TeamRequestFavoriteFragment extends TeamShowRequestBaseFragment {
 
             @Override
             public void onError(int i, String s) {
-
+                toDo(LOADING_ERROR, 800);
             }
         });
     }
 
     @Override
-    public void refresh() {
+    public void onRefresh() {
         if (TTTApplication.getUserInfo() == null) {
             finishRefresh();
             return;
         }
-        super.refresh();
+        super.onRefresh();
     }
 
     @Override

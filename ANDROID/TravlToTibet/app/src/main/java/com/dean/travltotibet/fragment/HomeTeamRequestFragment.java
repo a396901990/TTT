@@ -20,6 +20,7 @@ import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.activity.TeamRequestPersonalActivity;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
 import com.dean.travltotibet.dialog.TeamRequestFilterDialog;
@@ -55,7 +56,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
+    private LoadingBackgroundManager loadingBackgroundManager;
     private View articleHeader;
 
     private boolean tryToOpenMyTeamRequest = false;
@@ -82,11 +83,17 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         mActivity = (HomeActivity) getActivity();
         EventBus.getDefault().register(this);
 
+        initLoadingBackground();
         initRefreshView();
         setUpList();
         setUpHeader();
         initBottomView();
         onRefresh();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     private void initRefreshView() {
@@ -239,55 +246,6 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         });
     }
 
-    /**
-     * 更新recentRoutes数据
-     */
-    public void updateData() {
-        if (mAdapter == null || mActivity == null) {
-            return;
-        }
-
-        View noResultView = root.findViewById(R.id.no_result_content);
-
-        // 无数据
-        if (teamRequests == null || teamRequests.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-            if (noResultText != null) {
-                noResultText.setText(getString(R.string.no_result));
-            }
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-        mAdapter.setData(teamRequests);
-        finishRefresh();
-    }
-
-
-    public void updateError() {
-        if (mAdapter == null || mActivity == null) {
-            return;
-        }
-        View noResultView = root.findViewById(R.id.no_result_content);
-
-        // 无数据
-        if (teamRequests == null || teamRequests.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-            if (noResultText != null) {
-                noResultText.setText(getString(R.string.no_network_result));
-            }
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-        mAdapter.setData(teamRequests);
-        finishRefresh();
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -308,8 +266,8 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     @Override
     public void prepareLoading() {
         super.prepareLoading();
-        View noResultView = root.findViewById(R.id.no_result_content);
-        noResultView.setVisibility(View.GONE);
+
+        loadingBackgroundManager.resetLoadingView();
 
         if (mActivity != null && mAdapter != null) {
             startRefresh();
@@ -336,14 +294,27 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
             loadMoreListView.addHeaderView(articleHeader);
         }
 
-        // 更新数据
-        updateData();
+        // 无数据
+        if (teamRequests == null || teamRequests.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
+        }
+
+        if (mAdapter != null) {
+            mAdapter.setData(teamRequests);
+        }
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
         super.LoadingError();
-        updateError();
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
+        finishRefresh();
     }
 
     @Override

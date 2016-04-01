@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -49,8 +50,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     private UserFavorites curUserFavorite;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,20 +77,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     private void initHeader() {
-        // mSwipeRefreshLayout
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
-        TeamShowRequestCommentFragment fragment = (TeamShowRequestCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
-        if (fragment != null) {
-            fragment.setSwipeRefreshLayout(mSwipeRefreshLayout);
-        }
-
         // title
         if (isPersonal) {
             setTitle("我的结伴");
@@ -378,10 +363,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         }
 
         return true;
-    }
-
-    public SwipeRefreshLayout getSwipeRefreshLayout() {
-        return mSwipeRefreshLayout;
     }
 
     @Override

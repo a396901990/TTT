@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray_background">
@@ -28,13 +29,5 @@
                 layout="@layout/home_team_request_bottom_view"></include>
 
         </FrameLayout>
-
-        <include
-            android:id="@+id/no_result_content"
-            layout="@layout/no_result_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:visibility="gone" />
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

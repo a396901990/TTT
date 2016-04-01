@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.TeamRequestListAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  * Created by DeanGuo on 3/4/16.
  * 子类需要重写getTeamRequests,prepareLoadingWork
  */
-public abstract class TeamShowRequestBaseFragment extends RefreshFragment implements LoadMoreListView.OnLoadMoreListener {
+public abstract class TeamShowRequestBaseFragment extends BaseRefreshFragment implements LoadMoreListView.OnLoadMoreListener {
 
     protected View root;
     protected TeamRequestListAdapter mAdapter;
@@ -27,6 +29,7 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
     protected LoadMoreListView loadMoreListView;
 
     protected SwipeRefreshLayout mSwipeRefreshLayout;
+    private LoadingBackgroundManager loadingBackgroundManager;
 
     protected int limit = 8;        // 每页的数据是6条
 
@@ -46,15 +49,20 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
-        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.team_request_fragment_list_rv);
-
+        initLoadingBackground();
         setUpList();
         initRefresh();
-        refresh();
+        onRefresh();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     private void initRefresh() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
 
         // 解决listview，mSwipeRefreshLayout冲突
         loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -71,80 +79,26 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
                 }
             }
         });
-
-        // 设置下拉刷新
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        //mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
     }
 
     private void setUpList() {
+        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.team_request_fragment_list_rv);
         mAdapter = new TeamRequestListAdapter(getActivity());
         mAdapter.setIsPersonal(isPersonal());
         loadMoreListView.setAdapter(mAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
     }
 
-    /**
-     * 更新recentRoutes数据
-     */
-    public void updateData() {
-        View noResultView = root.findViewById(R.id.no_result_content);
-
-        // 无数据
-        if (teamRequests == null || teamRequests.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-            if (noResultText != null) {
-                noResultText.setText(getString(R.string.no_result));
-            }
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-        mAdapter.setData(teamRequests);
-        finishRefresh();
-    }
-
-    public void updateError() {
-        View noResultView = root.findViewById(R.id.no_result_content);
-
-        // 无数据
-        if (teamRequests == null || teamRequests.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-            TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-            if (noResultText != null) {
-                noResultText.setText(getString(R.string.no_network_result));
-            }
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-        mAdapter.setData(teamRequests);
-        finishRefresh();
-    }
-
     @Override
-    public void update() {
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-
-        View noResultView = root.findViewById(R.id.no_result_content);
-        noResultView.setVisibility(View.GONE);
+        super.prepareLoading();
+        loadingBackgroundManager.resetLoadingView();
 
         if (getActivity() != null && mAdapter != null) {
             startRefresh();
@@ -156,26 +110,46 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getTeamRequests(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
-        updateData();
+        super.LoadingSuccess();
+
+        // 无数据
+        if (teamRequests == null || teamRequests.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
+        }
+
+        if (mAdapter != null) {
+            mAdapter.setData(teamRequests);
+        }
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
-        updateError();
+        super.LoadingError();
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
+        finishRefresh();
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadingMore();
         getTeamRequests(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
+        super.LoadingMoreSuccess();
         if (mAdapter != null) {
             mAdapter.addData(teamRequests);
         }
@@ -186,23 +160,15 @@ public abstract class TeamShowRequestBaseFragment extends RefreshFragment implem
 
     @Override
     public void LoadingMoreError() {
+        super.LoadingMoreError();
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();
         }
     }
 
-    public void startRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
     @Override
     public void onLoadMore() {
+        super.onLoadMore();
         toDo(ON_LOADING_MORE, 800);
     }
 

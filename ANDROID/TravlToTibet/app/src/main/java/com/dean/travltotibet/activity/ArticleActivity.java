@@ -43,8 +43,6 @@ public class ArticleActivity extends BaseCommentActivity {
 
     private Article mArticle;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,38 +76,9 @@ public class ArticleActivity extends BaseCommentActivity {
 //        setTitle(mArticle.getTitle());
         setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
 
-        initHeader();
         updateWatch();
         initBtn();
         CountUtil.countArticle(this, mArticle.getTitle());
-    }
-
-    private void initHeader() {
-        // mSwipeRefreshLayout
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
-        ArticleCommentFragment fragment = (ArticleCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
-        if (fragment != null) {
-            fragment.setSwipeRefreshLayout(mSwipeRefreshLayout);
-        }
-
-        final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-
-            @Override
-            public void onScrollChanged() {
-                int scrollY = scrollView.getScrollY();
-                if(scrollY == 0) mSwipeRefreshLayout.setEnabled(true);
-                else mSwipeRefreshLayout.setEnabled(false);
-
-            }
-        });
     }
 
     private void updateWatch() {

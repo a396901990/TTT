@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.GalleryAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.ui.loadmore.LoadMoreRecyclerView;
 import com.dean.travltotibet.util.IntentExtra;
@@ -16,10 +18,8 @@ import java.util.ArrayList;
 
 /**
  * Created by DeanGuo on 3/18/16.
- * <p/>
- * 用来显示route风景视图
  */
-public abstract class GalleryInfoFragment extends RefreshFragment implements LoadMoreRecyclerView.LoadMoreListener {
+public abstract class GalleryInfoFragment extends BaseRefreshFragment implements LoadMoreRecyclerView.LoadMoreListener {
 
     protected int ITEM_LIMIT = 6;
 
@@ -31,17 +31,13 @@ public abstract class GalleryInfoFragment extends RefreshFragment implements Loa
 
     protected LoadMoreRecyclerView loadMoreRecyclerView;
 
-    protected View loadingView;
-
-    protected View loadingProgressView;
-
-    protected View loadingNoResultView;
-
     protected String routeName;
 
     protected String aroundBelong;
 
     protected boolean isForward;
+
+    private LoadingBackgroundManager loadingBackgroundManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +55,14 @@ public abstract class GalleryInfoFragment extends RefreshFragment implements Loa
             aroundBelong = getArguments().getString(IntentExtra.INTENT_AROUND_BELONG);
             isForward = getArguments().getBoolean(IntentExtra.INTENT_ROUTE_DIR);
         }
+        initLoadingBackground();
         initView();
-        refresh();
+        onRefresh();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     public abstract void getResult(int actionType);
@@ -68,16 +70,6 @@ public abstract class GalleryInfoFragment extends RefreshFragment implements Loa
     public abstract String getType();
 
     private void initView() {
-
-        loadingView = root.findViewById(R.id.loading_view);
-        loadingProgressView = root.findViewById(R.id.loading_progress_view);
-        loadingNoResultView = root.findViewById(R.id.no_result_view);
-        loadingNoResultView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
 
         mAdapter = new GalleryAdapter(getActivity());
         mAdapter.setType(getType());
@@ -95,20 +87,16 @@ public abstract class GalleryInfoFragment extends RefreshFragment implements Loa
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-        loadingView.setVisibility(View.VISIBLE);
-        loadingProgressView.setVisibility(View.VISIBLE);
-        loadingNoResultView.setVisibility(View.GONE);
+        super.prepareLoading();
+        loadingBackgroundManager.showLoadingView();
+
         if (getActivity() != null && mAdapter != null) {
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
@@ -117,36 +105,47 @@ public abstract class GalleryInfoFragment extends RefreshFragment implements Loa
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getResult(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
-        loadingView.setVisibility(View.GONE);
-        mAdapter.setData(galleryInfos);
-        loadMoreRecyclerView.notifyMoreFinish(galleryInfos.size() >= ITEM_LIMIT);
+        super.LoadingSuccess();
+        // 无数据
+        if (galleryInfos == null || galleryInfos.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
+        }
+        // 有数据
+        else {
+            loadingBackgroundManager.loadingSuccess();
+            mAdapter.setData(galleryInfos);
+            loadMoreRecyclerView.notifyMoreFinish(galleryInfos.size() >= ITEM_LIMIT);
+        }
     }
 
     @Override
     public void LoadingError() {
-        loadingView.setVisibility(View.VISIBLE);
-        loadingProgressView.setVisibility(View.GONE);
-        loadingNoResultView.setVisibility(View.VISIBLE);
+        super.LoadingError();
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadingMore();
         getResult(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
+        super.LoadingMoreSuccess();
         mAdapter.addData(galleryInfos);
         loadMoreRecyclerView.notifyMoreFinish(true);
-    }
-
-    @Override
-    public void LoadingMoreError() {
     }
 
     public String getRouteName() {

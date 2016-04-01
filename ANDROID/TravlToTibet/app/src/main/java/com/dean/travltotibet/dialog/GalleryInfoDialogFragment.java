@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.GalleryAdapter;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.ui.loadmore.LoadMoreRecyclerView;
@@ -36,23 +37,20 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
     protected LoadMoreRecyclerView loadMoreRecyclerView;
 
-    protected View loadingView;
-
-    protected View loadingProgressView;
-
-    protected View loadingNoResultView;
-
     protected String routeName;
 
     protected String aroundBelong;
 
     protected boolean isForward;
 
+    private LoadingBackgroundManager loadingBackgroundManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.gallery_info_view, container, false);
 
+        initLoadingBackground();
         initView();
         refresh();
         return root;
@@ -79,21 +77,16 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.PopupDialog);
     }
 
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
+    }
+
     public abstract void getResult(int actionType);
 
     public abstract String getType();
 
     private void initView() {
-
-        loadingView = root.findViewById(R.id.loading_view);
-        loadingProgressView = root.findViewById(R.id.loading_progress_view);
-        loadingNoResultView = root.findViewById(R.id.no_result_view);
-        loadingNoResultView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
 
         mAdapter = new GalleryAdapter(getActivity());
         mAdapter.setType(getType());
@@ -132,9 +125,7 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
     @Override
     public void prepareLoading() {
-        loadingView.setVisibility(View.VISIBLE);
-        loadingProgressView.setVisibility(View.VISIBLE);
-        loadingNoResultView.setVisibility(View.GONE);
+        loadingBackgroundManager.showLoadingView();
         if (getActivity() != null && mAdapter != null) {
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
@@ -148,16 +139,27 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
     @Override
     public void LoadingSuccess() {
-        loadingView.setVisibility(View.GONE);
-        mAdapter.setData(galleryInfos);
-        loadMoreRecyclerView.notifyMoreFinish(galleryInfos.size() >= ITEM_LIMIT);
+
+        // 无数据
+        if (galleryInfos == null || galleryInfos.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
+        }
+        // 有数据
+        else {
+            loadingBackgroundManager.loadingSuccess();
+            mAdapter.setData(galleryInfos);
+            loadMoreRecyclerView.notifyMoreFinish(galleryInfos.size() >= ITEM_LIMIT);
+        }
     }
 
     @Override
     public void LoadingError() {
-        loadingView.setVisibility(View.VISIBLE);
-        loadingProgressView.setVisibility(View.GONE);
-        loadingNoResultView.setVisibility(View.VISIBLE);
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                refresh();
+            }
+        });
     }
 
     @Override
