@@ -64,6 +64,15 @@ public class TeamMakeContactDialog extends DialogFragment {
 
     private void initContact() {
         contactText = (EditText) contentLayout.findViewById(R.id.contact_edit_text);
+        contactText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
+            }
+        });
+
         switch (contactType) {
             case PHONE:
                 contactText.setHint("请输入您的手机号");
@@ -77,9 +86,11 @@ public class TeamMakeContactDialog extends DialogFragment {
                 break;
             case WECHAT:
                 contactText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(WECHAT_LIMIT)});
+                contactText.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
                 contactText.setHint("请输入您的微信号");
                 break;
         }
+        contactText.requestFocus();
     }
 
     @Override

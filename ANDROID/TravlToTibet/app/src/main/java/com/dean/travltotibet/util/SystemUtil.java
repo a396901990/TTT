@@ -152,7 +152,7 @@ public final class SystemUtil {
     public static void delTempFile() {
 
         File file=new File(getMyPicPath());
-        if(!file.exists())
+        if(file.exists())
             file.delete();
     }
 

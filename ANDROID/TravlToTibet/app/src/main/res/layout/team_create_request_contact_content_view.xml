@@ -15,16 +15,15 @@
         android:id="@+id/contact_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/card_half_padding"
-        android:paddingTop="@dimen/card_half_padding">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/contact_hint_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/card_padding"
             android:paddingRight="@dimen/card_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:visibility="gone">
             <!--标题-->
             <TextView
                 style="@style/TitleText"
@@ -45,8 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="@dimen/card_half_padding"
+            android:paddingTop="@dimen/card_half_padding">
 
             <LinearLayout
                 android:id="@+id/wechat_content"
@@ -54,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
@@ -118,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView

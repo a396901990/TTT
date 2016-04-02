@@ -64,7 +64,7 @@
     </style>
 
     <style name="TeamMakeTextStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textSize">@dimen/text_micro</item>
         <item name="android:textColor">@color/dark_gray</item>
     </style>
 

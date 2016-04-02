@@ -49,6 +49,7 @@ public class AroundHotelInfoDialogFragment extends GalleryInfoDialogFragment {
 
                 if (list.size() == 0 && actionType == STATE_MORE) {
                     loadMoreRecyclerView.notifyMoreFinish(false);
+                    toDo(LOADING_SUCCESS, 0);
                 } else {
                     if (actionType == STATE_REFRESH) {
                         toDo(LOADING_SUCCESS, 0);

@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/profile_text"
-                    style="@style/TextAppearance.Regular"
+                    style="@style/TextAppearance.Micro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="匿名用户"
@@ -49,7 +49,8 @@
 
                 <TextView
                     android:id="@+id/comment_date"
-                    style="@style/TextAppearance.Micro.Gray"
+                    style="@style/TextAppearance.Mini"
+                    android:textColor="@color/gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
@@ -66,7 +67,7 @@
 
                 <TextView
                     android:id="@+id/like_text"
-                    style="@style/TextAppearance.Regular.Gray"
+                    style="@style/TextAppearance.Small.Gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -104,14 +105,14 @@
 
                 <TextView
                     android:id="@+id/reply_comment_username"
-                    style="@style/TextAppearance.Theme.Small.Dark"
+                    style="@style/TextAppearance.Theme.Micro.Dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="户外探子" />
 
                 <TextView
                     android:id="@+id/reply_comment_text"
-                    style="@style/TextAppearance.Small"
+                    style="@style/TextAppearance.Micro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"

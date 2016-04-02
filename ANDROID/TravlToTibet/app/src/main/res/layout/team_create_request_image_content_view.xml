@@ -1,0 +1,61 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="3dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/contact_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/card_half_padding">
+
+        <RelativeLayout
+            android:id="@+id/contact_hint_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_padding"
+            android:paddingRight="@dimen/card_padding">
+            <!--标题-->
+            <TextView
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="照片" />
+
+            <TextView
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="上传生活照增加约伴成功率" />
+        </RelativeLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/card_half_padding"
+            android:paddingTop="@dimen/card_half_padding"
+            android:paddingBottom="@dimen/card_half_padding"
+            android:paddingRight="@dimen/card_half_padding">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/picker_image_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_pick_height"
+                android:layout_alignParentBottom="true"
+                android:fadeScrollbars="false"
+                android:fadingEdge="none" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

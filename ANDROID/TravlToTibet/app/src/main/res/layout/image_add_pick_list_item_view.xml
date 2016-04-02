@@ -1,25 +1,14 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/add_pick_item"
     android:layout_width="match_parent"
     android:layout_height="@dimen/image_pick_height"
-    card_view:cardBackgroundColor="@color/white"
-    card_view:cardCornerRadius="3dp"
-    card_view:cardElevation="3dp"
-    card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true">
+    android:background="@drawable/border_gray_background">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/less_light_gray">
-
-        <ImageView
-            android:id="@+id/add_pic"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@drawable/fab_add"
-            android:scaleType="centerCrop" />
-    </FrameLayout>
-</android.support.v7.widget.CardView>
+    <ImageView
+        android:id="@+id/add_pic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@drawable/icon_cross"
+        android:scaleType="centerCrop" />
+</FrameLayout>

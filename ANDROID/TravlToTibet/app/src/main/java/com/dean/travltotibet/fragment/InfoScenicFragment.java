@@ -64,6 +64,7 @@ public class InfoScenicFragment extends GalleryInfoFragment {
 
                 if (list.size() == 0) {
                     loadMoreRecyclerView.notifyMoreFinish(false);
+                    toDo(LOADING_SUCCESS, 0);
                 } else {
                     if (actionType == STATE_REFRESH) {
                         toDo(LOADING_SUCCESS, 0);

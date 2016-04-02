@@ -26,7 +26,7 @@ import java.util.Collections;
  */
 public class TeamMakeDestinationDialog extends DialogFragment implements View.OnClickListener {
 
-    private final static int DEST_LIMIT = 20;
+    private final static int DEST_LIMIT = 30;
 
     private View contentLayout;
 

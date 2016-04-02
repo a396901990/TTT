@@ -114,7 +114,7 @@ public abstract class GalleryInfoFragment extends BaseRefreshFragment implements
         super.LoadingSuccess();
         // 无数据
         if (galleryInfos == null || galleryInfos.size() == 0) {
-            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
         }
         // 有数据
         else {

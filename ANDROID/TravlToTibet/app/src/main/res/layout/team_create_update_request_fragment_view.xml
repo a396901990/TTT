@@ -19,6 +19,11 @@
             android:id="@+id/contact_content_view"
             layout="@layout/team_create_request_contact_content_view"></include>
 
+        <!--图片-->
+        <include
+            android:id="@+id/contact_content_view"
+            layout="@layout/team_create_request_image_content_view"></include>
+
         <!--内容-->
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -62,7 +67,7 @@
 
                 <EditText
                     android:id="@+id/content_edit_text"
-                    style="@style/TextAppearance.Medium"
+                    style="@style/TextAppearance.Regular"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/picker_image_list_rv"
@@ -73,13 +78,6 @@
                     android:paddingTop="10dp"
                     android:textColor="@color/dark_gray" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/picker_image_list_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_pick_height"
-                    android:layout_alignParentBottom="true"
-                    android:fadeScrollbars="false"
-                    android:fadingEdge="none" />
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>

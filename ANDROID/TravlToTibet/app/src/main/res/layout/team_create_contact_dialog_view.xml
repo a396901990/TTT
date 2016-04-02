@@ -12,6 +12,7 @@
         android:padding="10dp">
 
         <EditText
+            android:focusableInTouchMode="true"
             android:focusable="true"
             android:id="@+id/contact_edit_text"
             style="@style/TextAppearance.Medium"

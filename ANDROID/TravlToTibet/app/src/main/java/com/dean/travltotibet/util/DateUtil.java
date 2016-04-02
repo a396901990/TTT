@@ -58,7 +58,7 @@ public final class DateUtil {
             Date nowTime = new Date();
             long l=nowTime.getTime()-targetTime.getTime();
 
-            int year= (int) (l/(24*60*60*1000*365));
+//            int year= (int) Math.floor(l / (24 * 60 * 60 * 1000 * 365));
 
             int day= (int) (l/(24*60*60*1000));
 
@@ -68,10 +68,10 @@ public final class DateUtil {
 
             int s= (int) (l/1000-day*24*60*60-hour*60*60-min*60);
 
-//            Log.e("时间相差：", day + "天" + hour + "小时" + min + "分钟" + s + "秒。");
+//            Log.e("时间相差：", year+"年"+day + "天" + hour + "小时" + min + "分钟" + s + "秒。");
 
-            if (year > 0) {
-                timeGap = year+"年前";
+            if (day > 365) {
+                timeGap = Math.floor(day/365)+"年前";
             }
             else if (day > 0) {
                 timeGap = day+"天前";

@@ -30,8 +30,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="5dp"
             android:text="川藏线" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="-4dp"
+            android:id="@+id/road_title"
+            style="@style/TextAppearance.Small.White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:alpha="0.9"
+            android:text="G219" />
 
         <TextView
             android:id="@+id/sub_title"
@@ -40,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:alpha="0.8"
+            android:paddingTop="3dp"
             android:text="CHENGDU-TIBET"
             android:textColor="@color/white" />
     </LinearLayout>

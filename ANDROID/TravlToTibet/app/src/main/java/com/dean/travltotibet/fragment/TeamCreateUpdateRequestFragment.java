@@ -34,10 +34,13 @@ import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.ui.HorizontalItemDecoration;
+import com.dean.travltotibet.ui.SpaceItemDecoration;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoadingManager;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SystemUtil;
 import com.dean.travltotibet.util.VolleyImageUtils;
 import com.pizidea.imagepicker.AndroidImagePicker;
@@ -118,6 +121,7 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.picker_image_list_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new HorizontalItemDecoration(ScreenUtil.dip2px(getActivity(), 2)));
         imagePickAdapter = new ImagePickAdapter(getActivity());
         imagePickAdapter.setAddImageListener(new ImagePickAdapter.AddImageListener() {
             @Override
@@ -573,6 +577,8 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
 
             @Override
             public void onError(int statuscode, String errormsg) {
+                // 删除temp文件
+                SystemUtil.delTempFile();
                 toDo(LOADING_ERROR, 0);
             }
 
@@ -602,7 +608,7 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         } else if (!filed.isSet(PASS_TYPE)) {
             Toast.makeText(getActivity(), "请设置旅行方式", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_CONTACT)) {
-            Toast.makeText(getActivity(), "请设置联系方式", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "请设置至少一种联系方式", Toast.LENGTH_SHORT).show();
         } else if (!filed.isSet(PASS_CONTENT)) {
             Toast.makeText(getActivity(), "内容不得少于10个字", Toast.LENGTH_SHORT).show();
         } else {

@@ -58,7 +58,12 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
         holder.mainTitle.setText(route.getName());
         holder.subTitle.setText(route.getDescribe());
-
+//        if (!TextUtils.isEmpty(route.getDay())) {
+//            holder.roadTitle.setText(route.getDay());
+//            holder.roadTitle.setVisibility(View.VISIBLE);
+//        } else {
+//            holder.roadTitle.setVisibility(View.GONE);
+//        }
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +117,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         private ImageView backgroundView;
         private TextView mainTitle;
         private TextView subTitle;
+        private TextView roadTitle;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
@@ -119,6 +125,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             mainTitle = (TextView) itemView.findViewById(R.id.main_title);
             subTitle = (TextView) itemView.findViewById(R.id.sub_title);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
+            roadTitle = (TextView) itemView.findViewById(R.id.road_title);
         }
     }
 }
