@@ -25,7 +25,7 @@ public class FeedbackActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
         setTitle(null);
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
     }
 
     @Override

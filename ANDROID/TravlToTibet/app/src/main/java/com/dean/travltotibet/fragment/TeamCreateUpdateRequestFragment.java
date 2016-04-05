@@ -1,10 +1,8 @@
 package com.dean.travltotibet.fragment;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,7 +12,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +30,9 @@ import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
+import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.HorizontalItemDecoration;
-import com.dean.travltotibet.ui.SpaceItemDecoration;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
@@ -46,9 +43,9 @@ import com.dean.travltotibet.util.VolleyImageUtils;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.bean.ImageItem;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
@@ -190,8 +187,10 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
                 setTravelDestination(teamRequest.getDestination());
             }
             // image
-            imagePickAdapter.addData((ArrayList<String>) teamRequest.getImgUrls());
-            imagePickAdapter.setIsOnlyShow(isUpdate);
+            if (teamRequest.getImageFile() != null) {
+                imagePickAdapter.setImageFile(teamRequest.getImageFile());
+                imagePickAdapter.addData(teamRequest.getImageFile().getImageUrls(getActivity()));
+            }
         } else {
             teamRequest = new TeamRequest();
         }
@@ -412,13 +411,27 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         // show loading dialog
         loadingManager.showLoading();
 
-        // update不需要上传图片，直接操作
+        // update不需要上传图片，直接操作（判断图片是新添加还是网络图片，新添加从新上传，网络图片不处理）
         if (isUpdate) {
-            toDo(ON_LOADING, 0);
+            if (imagePickAdapter.getData() == null || imagePickAdapter.getData().size() == 0) {
+                toDo(ON_LOADING, 0);
+            } else {
+                String firstItemURL = imagePickAdapter.getData().get(0);
+                File file = new File(firstItemURL);
+                if (file.exists()) {
+                    uploadImage();
+                } else {
+                    toDo(ON_LOADING, 0);
+                }
+            }
         }
         // save上传图片后操作
         else {
-            uploadImage();
+            if (imagePickAdapter.getData() == null || imagePickAdapter.getData().size() == 0) {
+                toDo(ON_LOADING, 0);
+            } else {
+                uploadImage();
+            }
         }
     }
 
@@ -435,16 +448,16 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         loadingManager.loadingSuccess(new LoadingManager.LoadingSuccessCallBack() {
             @Override
             public void afterLoadingSuccess() {
-                if (isUpdate) {
-                    Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
-                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
-                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
-                    getActivity().startActivity(intent);
-                    mActivity.finish();
-                } else {
-                    mActivity.setResult(mActivity.RESULT_OK);
-                    mActivity.finish();
-                }
+//                if (isUpdate) {
+//                    Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
+//                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
+//                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
+//                    getActivity().startActivity(intent);
+//                    getActivity().finish();
+//                } else {
+                    getActivity().setResult(getActivity().RESULT_OK);
+                    getActivity().finish();
+//                }
             }
         });
     }
@@ -547,44 +560,54 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
      * 上传图片
      */
     private void uploadImage() {
-        if (imagePickAdapter.getData().size() == 0) {
-            return;
-        }
-        String[] imgs = new String[imagePickAdapter.getData().size()];
-        // 创建temp文件
-        SystemUtil.createTempFile();
-        // 循环压缩图片
-        for (int i=0; i < imagePickAdapter.getData().size(); i++) {
-            String outFileUrl = SystemUtil.getMyPicPath() + "/" + TTTApplication.getUserInfo().getUserName() + i + ".jpg";
-            VolleyImageUtils.compress(imagePickAdapter.getData().get(i), outFileUrl, 600, 800, 100);
-            imgs[i] = outFileUrl;
-        }
 
-        // 批量上传图片
+        // 获取压缩后的图片，原图/缩略图
+        String[] imgs = ImageFile.getCompressUrl(imagePickAdapter.getData());
+
+        // 批量上传图片up
         Bmob.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
 
             @Override
             public void onSuccess(List<BmobFile> files, List<String> urls) {
-                // 全部上传完毕
-                if (imagePickAdapter.getData().size() == files.size()) {
-                    teamRequest.setImgUrls(urls);
-                    // 删除temp文件
-                    SystemUtil.delTempFile();
 
-                    toDo(ON_LOADING, 0);
+                // 全部上传完毕， 大图+缩略图
+                if (imagePickAdapter.getData().size() * 2 == files.size()) {
+                    setTeamRequestImageFile(files);
                 }
             }
 
             @Override
             public void onError(int statuscode, String errormsg) {
                 // 删除temp文件
-                SystemUtil.delTempFile();
+                ImageFile.delTempFile();
                 toDo(LOADING_ERROR, 0);
             }
 
             @Override
             public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
 //                Log.e("onProgress: ", "  curIndex"+curIndex+"   curPercent"+curPercent+"  total"+total+"  totalPercent"+totalPercent);
+            }
+        });
+    }
+
+    private void setTeamRequestImageFile(List<BmobFile> files) {
+        final ImageFile imageFile = new ImageFile();
+
+        // setup ImageFile
+        imageFile.setFiles(files);
+
+        // save
+        imageFile.save(getActivity(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+                teamRequest.setImageFile(imageFile);
+                ImageFile.delTempFile();
+                toDo(ON_LOADING, 0);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                toDo(LOADING_ERROR, 0);
             }
         });
     }

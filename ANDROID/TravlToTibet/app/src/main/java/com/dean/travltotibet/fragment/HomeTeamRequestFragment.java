@@ -208,6 +208,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-comments,-createdAt");
+        query.include("imageFile");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
         // 加载更多
         if (actionType == STATE_MORE) {

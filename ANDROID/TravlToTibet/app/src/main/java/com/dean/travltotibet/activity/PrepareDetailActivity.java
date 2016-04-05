@@ -48,7 +48,7 @@ public class PrepareDetailActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+        setHomeIndicator();
         // 设置标题
         setTitle("准备信息");
         initViewPagerAndTab();

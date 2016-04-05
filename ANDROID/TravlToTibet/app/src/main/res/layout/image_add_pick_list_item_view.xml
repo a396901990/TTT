@@ -2,7 +2,7 @@
     android:id="@+id/add_pick_item"
     android:layout_width="match_parent"
     android:layout_height="@dimen/image_pick_height"
-    android:background="@drawable/border_gray_background">
+    android:background="@color/less_light_gray">
 
     <ImageView
         android:id="@+id/add_pic"

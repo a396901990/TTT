@@ -55,7 +55,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         if (!TextUtils.isEmpty(picURL)) {
             Picasso.with(mContext)
                     .load(picURL)
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
                     .config(Bitmap.Config.RGB_565)
                     .centerInside()
                     .error(R.color.light_gray)

@@ -45,7 +45,7 @@ public class TeamRequest extends BmobObject {
 
     private UserInfo user;
 
-    private List imgUrls;
+    private ImageFile imageFile;
 
     public String getStatus() {
         return status;
@@ -167,11 +167,11 @@ public class TeamRequest extends BmobObject {
         this.user = user;
     }
 
-    public List getImgUrls() {
-        return imgUrls;
+    public ImageFile getImageFile() {
+        return imageFile;
     }
 
-    public void setImgUrls(List imgUrls) {
-        this.imgUrls = imgUrls;
+    public void setImageFile(ImageFile imageFile) {
+        this.imageFile = imageFile;
     }
 }

@@ -3,12 +3,10 @@ package com.dean.travltotibet.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -25,7 +23,6 @@ import com.dean.travltotibet.model.UserFavorites;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.List;
 
@@ -45,8 +42,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     private TeamRequest teamRequest;
 
     private boolean isPersonal = false;
-
-    static final int UPDATE_REQUEST = 0;
 
     private UserFavorites curUserFavorite;
 
@@ -69,7 +64,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
 
         updateWatch();
         initHeader();
@@ -245,7 +240,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     private void actionReport() {
         new MaterialDialog.Builder(this)
                 .title(getString(R.string.dialog_report_title))
-                .content(getString(R.string.dialog_report_msg))
                 .positiveText(getString(R.string.ok_btn))
                 .negativeText(getString(R.string.cancel_btn))
                 .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
@@ -268,7 +262,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     private void actionDel() {
         new MaterialDialog.Builder(this)
                 .title(getString(R.string.delete_action_title))
-                .content(getString(R.string.delete_action_msg))
                 .positiveText(getString(R.string.ok_btn))
                 .negativeText(getString(R.string.cancel_btn))
                 .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
@@ -288,11 +281,25 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                 .show();
     }
 
+    private void actionEdit() {
+        Intent intent = new Intent(this, TeamCreateRequestActivity.class);
+        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
+        startActivityForResult(intent, UPDATE_REQUEST);
+        setResult(RESULT_OK);
+        finish();
+    }
+
     private void deleteTeamRequest() {
+
         teamRequest.delete(this, new DeleteListener() {
             @Override
             public void onSuccess() {
+                // 删除文件
+                if (teamRequest.getImageFile() != null) {
+                    teamRequest.getImageFile().deleteAll(getApplicationContext());
+                }
                 Toast.makeText(getApplicationContext(), getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
                 finish();
             }
 
@@ -306,13 +313,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     // 举报
     private void reportAction() {
         new Report().addReport(this, Report.REPORT_TEAM_REQUEST, teamRequest.getObjectId(), teamRequest.getUserId(), teamRequest.getUserName());
-    }
-
-    private void actionEdit() {
-        Intent intent = new Intent(this, TeamCreateRequestActivity.class);
-        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
-        startActivity(intent);
-        finish();
     }
 
     @Override

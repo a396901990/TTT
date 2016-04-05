@@ -77,7 +77,7 @@ public class FullChartScreenActivity
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(mToolbar);
         setSupportActionBar(mToolbar);
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
     }
 
     @Override

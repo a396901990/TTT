@@ -1,6 +1,9 @@
 package com.dean.travltotibet.fragment;
 
+import android.content.Intent;
+
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
         query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
+        query.include("imageFile");
 
         // 加载更多
         if (actionType == STATE_MORE) {
@@ -75,6 +79,17 @@ public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
     @Override
     public boolean isPersonal() {
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == BaseActivity.UPDATE_REQUEST) {
+            if (resultCode == getActivity().RESULT_OK) {
+                onRefresh();
+            }
+        }
     }
 
 }

@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -21,6 +23,8 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    public static final int UPDATE_REQUEST = 0;
+
     @Override
     public void setContentView(final int layoutResID) {
         if (needShowSystemBar()) {
@@ -28,7 +32,7 @@ public class BaseActivity extends AppCompatActivity {
                 setTranslucentStatus(true);
                 SystemBarTintManager tintManager = new SystemBarTintManager(this);
                 tintManager.setStatusBarTintEnabled(true);
-                tintManager.setStatusBarTintResource(R.color.colorPrimary);
+                tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
             }
         }
         super.setContentView(layoutResID);
@@ -46,13 +50,13 @@ public class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(false);
     }
 
-    public void setHomeIndicator(Drawable drawable) {
+    public void setHomeIndicator() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setHomeAsUpIndicator(drawable);
+            actionBar.setHomeAsUpIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
         }
     }
 

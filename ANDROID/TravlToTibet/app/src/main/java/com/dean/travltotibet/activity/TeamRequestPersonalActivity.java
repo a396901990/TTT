@@ -1,5 +1,6 @@
 package com.dean.travltotibet.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,11 +12,16 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.fragment.TeamRequestFavoriteFragment;
 import com.dean.travltotibet.fragment.TeamRequestMyselfFragment;
+import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.GetListener;
 
 /**
  * Created by DeanGuo on 3/16/16.
@@ -57,7 +63,7 @@ public class TeamRequestPersonalActivity extends BaseActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
         setTitle("我的结伴");
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
     }
 
     @Override
@@ -67,8 +73,19 @@ public class TeamRequestPersonalActivity extends BaseActivity {
 
     private void updateAll() {
         if (mAdapter != null && mAdapter.getAllFragments().size() > 0) {
-            RefreshFragment fragment = (RefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
-            fragment.refresh();
+            BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            fragment.onRefresh();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == UPDATE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                updateAll();
+            }
         }
     }
 }

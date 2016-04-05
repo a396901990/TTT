@@ -132,7 +132,6 @@ public class ChartSettingFragment extends Fragment implements PointCheck.PointCh
     public void reset() {
         new com.afollestad.materialdialogs.MaterialDialog.Builder(getActivity())
                 .title(getString(R.string.reset_dialog_title))
-                .content(getString(R.string.reset_dialog_msg))
                 .positiveText(getString(R.string.cancel_btn))
                 .negativeText(getString(R.string.ok_btn))
                 .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))

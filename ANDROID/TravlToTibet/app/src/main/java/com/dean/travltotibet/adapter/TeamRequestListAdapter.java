@@ -1,19 +1,21 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
+import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
@@ -24,7 +26,6 @@ import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -118,9 +119,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }
 
-        holder.mWatch.setText(request.getWatch()+"");
-
-        setUpImageContent(holder, position);
+        holder.mWatch.setText(request.getWatch() + "");
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,68 +130,48 @@ public class TeamRequestListAdapter extends BaseAdapter {
                 Intent intent = new Intent(mContext, TeamShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, request);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
-                mContext.startActivity(intent);
+                ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });
+
+        // 设置图片视图
+        setUpImageContent(holder, position);
+
         return convertView;
     }
 
     private void setUpImageContent(TeamRequestViewHolder holder, int position) {
         final TeamRequest request = mData.get(position);
-        List<String> imgUrls = request.getImgUrls();
         resetImage(holder);
 
-        if (imgUrls != null && imgUrls.size() != 0) {
+        ImageFile imageFile = request.getImageFile();
+        if (imageFile != null) {
+            holder.imageContent.setVisibility(View.VISIBLE);
+            // image 1
+            ImageView image1 = (ImageView) holder.imageContent.findViewById(R.id.image_view_1);
+            ImageFile.setThumbnailImage(mContext, imageFile.getThumbnail1(), image1);
+//            ImageFile.setImagePreview(mContext, imageFile, image1, position);
 
-            for (int i=0; i<imgUrls.size(); i++) {
-                ImageView imageView = null;
-                View imageContentView = null;
+            // image 2
+            ImageView image2 = (ImageView) holder.imageContent.findViewById(R.id.image_view_2);
+            ImageFile.setThumbnailImage(mContext, imageFile.getThumbnail2(), image2);
+//            ImageFile.setImagePreview(mContext, imageFile, image2, position);
 
-                switch (i) {
-                    case 0:
-                        imageView = (ImageView) holder.imageContent.findViewById(R.id.image_view_1);
-                        imageContentView = holder.imageContent.findViewById(R.id.image_content_1);
-                        break;
-                    case 1:
-                        imageView = (ImageView) holder.imageContent.findViewById(R.id.image_view_2);
-                        imageContentView = holder.imageContent.findViewById(R.id.image_content_2);
-                        break;
-                    case 2:
-                        imageView = (ImageView) holder.imageContent.findViewById(R.id.image_view_3);
-                        imageContentView = holder.imageContent.findViewById(R.id.image_content_3);
-                        break;
-                }
-
-                imageView.setVisibility(View.VISIBLE);
-                imageContentView.setVisibility(View.VISIBLE);
-
-                String url = imgUrls.get(i);
-                if (!TextUtils.isEmpty(url)) {
-                    holder.imageContent.setVisibility(View.VISIBLE);
-                    imageContentView.setVisibility(View.VISIBLE);
-                    Picasso.with(mContext)
-                            .load(url)
-                            .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
-                            .centerInside()
-                            .placeholder(R.color.less_light_gray)
-                            .error(R.color.light_gray)
-                            .into(imageView);
-                }
-            }
+            // image 3
+            ImageView image3 = (ImageView) holder.imageContent.findViewById(R.id.image_view_3);
+            ImageFile.setThumbnailImage(mContext, imageFile.getThumbnail3(), image3);
+//            ImageFile.setImagePreview(mContext, imageFile, image3, position);
         } else {
             holder.imageContent.setVisibility(View.GONE);
         }
+
     }
 
     public void resetImage(TeamRequestViewHolder holder) {
         holder.imageContent.findViewById(R.id.image_view_1).setVisibility(View.INVISIBLE);
-        holder.imageContent.findViewById(R.id.image_content_1).setVisibility(View.INVISIBLE);
         holder.imageContent.findViewById(R.id.image_view_2).setVisibility(View.INVISIBLE);
-        holder.imageContent.findViewById(R.id.image_content_2).setVisibility(View.INVISIBLE);
         holder.imageContent.findViewById(R.id.image_view_3).setVisibility(View.INVISIBLE);
-        holder.imageContent.findViewById(R.id.image_content_3).setVisibility(View.INVISIBLE);
     }
-
 
     public void setData(ArrayList<TeamRequest> data) {
         this.mData = data;

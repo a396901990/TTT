@@ -108,6 +108,9 @@ public class InfoPlanConfirmDialog extends DialogFragment {
             contentLayout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    if (getActivity() == null) {
+                        return;
+                    }
                     DialogFragment tutorialDialog = new TutorialDialog();
                     Bundle bundle = new Bundle();
                     bundle.putString(IntentExtra.INTENT_GUIDE_FROM, TutorialDialog.CONFIRM_GUIDE);

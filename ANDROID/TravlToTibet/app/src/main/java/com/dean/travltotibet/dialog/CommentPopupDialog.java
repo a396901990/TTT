@@ -89,7 +89,6 @@ public class CommentPopupDialog extends DialogFragment {
             public void onClick(View v) {
                 new MaterialDialog.Builder(getActivity())
                         .title(getString(R.string.dialog_report_title))
-                        .content(getString(R.string.dialog_report_msg))
                         .positiveText(getString(R.string.ok_btn))
                         .negativeText(getString(R.string.cancel_btn))
                         .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))

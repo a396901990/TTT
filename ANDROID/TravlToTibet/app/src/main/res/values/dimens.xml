@@ -224,9 +224,11 @@
     <dimen name="one_and_a_half_grid_unit">12dp</dimen>
     <dimen name="team_request_create_contact_text_height">35dp</dimen>
 
-    <dimen name="image_pick_height">72dp</dimen>
-    <dimen name="image_pick_show_height">120dp</dimen>
+    <dimen name="image_pick_height">76dp</dimen>
+    <dimen name="image_pick_show_height">100dp</dimen>
     <dimen name="image_pick_margin">6dp</dimen>
+    <dimen name="image_thumbnail_width">180dp</dimen>
+    <dimen name="image_thumbnail_height">120dp</dimen>
 
     <dimen name="flowlayout_horizontal_padding">5dp</dimen>
     <dimen name="flowlayout_vertical_padding">0dp</dimen>

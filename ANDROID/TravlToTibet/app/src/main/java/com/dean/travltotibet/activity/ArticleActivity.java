@@ -74,7 +74,7 @@ public class ArticleActivity extends BaseCommentActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
 //        setTitle(mArticle.getTitle());
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
 
         updateWatch();
         initBtn();

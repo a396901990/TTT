@@ -1,52 +1,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/image_pick_height"
     android:background="@color/white"
     android:orientation="horizontal"
     android:paddingBottom="3dp"
-    android:paddingTop="3dp">
+    android:paddingTop="6dp">
 
-    <FrameLayout
-        android:id="@+id/image_content_1"
+    <ImageView
+        android:id="@+id/image_view_1"
         android:layout_width="0dp"
-        android:layout_height="@dimen/image_pick_height"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:visibility="invisible">
+        android:background="@color/less_light_gray"
+        android:scaleType="centerCrop"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/image_view_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/image_content_2"
+    <ImageView
+        android:id="@+id/image_view_2"
         android:layout_width="0dp"
-        android:layout_height="@dimen/image_pick_height"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/image_pick_margin"
         android:layout_weight="1"
-        android:visibility="invisible">
+        android:background="@color/less_light_gray"
+        android:scaleType="centerCrop"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/image_view_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/image_content_3"
+    <ImageView
+        android:id="@+id/image_view_3"
         android:layout_width="0dp"
-        android:layout_height="@dimen/image_pick_height"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/image_pick_margin"
         android:layout_weight="1"
-        android:visibility="invisible">
-
-        <ImageView
-            android:id="@+id/image_view_3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-    </FrameLayout>
+        android:background="@color/less_light_gray"
+        android:scaleType="centerCrop"
+        android:visibility="invisible" />
 </LinearLayout>

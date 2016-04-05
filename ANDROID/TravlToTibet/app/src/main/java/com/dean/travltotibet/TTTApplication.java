@@ -135,7 +135,7 @@ public class TTTApplication extends Application {
     }
 
     public static Drawable getGoogleIconDrawable(final IIcon icon, int color) {
-        return new IconicsDrawable(context, icon).color(color).sizeDp(20);
+        return new IconicsDrawable(context, icon).color(color).sizeDp(18);
     }
     public static void setUserInfo(UserInfo userInfo) {
         TTTApplication.userInfo = userInfo;

@@ -142,22 +142,25 @@ public final class SystemUtil {
         return Environment.getExternalStorageDirectory().getPath();
     }
 
-    public static void createTempFile() {
-        File file=new File(getMyPicPath());
-        if(!file.exists())
-            file.mkdir();
-    }
-
-
-    public static void delTempFile() {
-
-        File file=new File(getMyPicPath());
-        if(file.exists())
-            file.delete();
-    }
-
-    public static String getMyPicPath() {
-        File sd=Environment.getExternalStorageDirectory();
-        return sd.getPath()+"/tanzi";
+    public static void deleteFile(File file) {
+        if (file.exists() == false) {
+            return;
+        } else {
+            if (file.isFile()) {
+                file.delete();
+                return;
+            }
+            if (file.isDirectory()) {
+                File[] childFile = file.listFiles();
+                if (childFile == null || childFile.length == 0) {
+                    file.delete();
+                    return;
+                }
+                for (File f : childFile) {
+                    deleteFile(f);
+                }
+                file.delete();
+            }
+        }
     }
 }

@@ -15,11 +15,14 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.ImagePreviewDialogFragment;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
+import com.dean.travltotibet.model.ImageFile;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by DeanGuo on 3/29/16.
@@ -38,7 +41,7 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private AddImageListener addImageListener;
 
-    private boolean isOnlyShow = false;
+    private ImageFile imageFile;
 
     public ImagePickAdapter(Context mContext) {
         this.mContext = mContext;
@@ -79,52 +82,48 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         // show image
         if (TYPE_SHOW_VIEW == getItemViewType(position)) {
 
-            String url = null;
-            if (mData != null && mData.size() != 0) {
-                url = mData.get(position);
+            if (mData == null && mData.size() == 0) {
+                return;
             }
 
-            // 图片url
-            if (!TextUtils.isEmpty(url)) {
-                // 只显示图片，不显示添加，从url加载
-                if (isOnlyShow) {
-                    Picasso.with(mContext)
-                            .load(url)
-                            .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
-                            .error(R.color.light_gray)
-                            .centerInside()
-                            .into(((ImagePickViewHolder) holder).urlPic);
-                }
-                // 显示添加，从本地加载图片
-                else {
-                    Picasso.with(mContext)
-                            .load(new File(url))
-                            .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
-                            .error(R.color.light_gray)
-                            .centerInside()
-                            .into(((ImagePickViewHolder) holder).urlPic);
+            // 显示网络图片
+            if (imageFile != null) {
+                // 设置缩略图
+                BmobFile file = imageFile.getThumbnailFile(position);
+                ImageFile.setThumbnailImage(mContext, file, ((ImagePickViewHolder) holder).urlPic);
+                // 隐藏删除按钮
+                ((ImagePickViewHolder) holder).delPic.setVisibility(View.GONE);
+            }
+            // 显示添加，从本地加载图片
+            else {
+                String url = mData.get(position);
+                Picasso.with(mContext)
+                        .load(new File(url))
+                        .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
+                        .error(R.color.light_gray)
+                        .centerInside()
+                        .into(((ImagePickViewHolder) holder).urlPic);
 
-                    // 长按删除
-                    ((ImagePickViewHolder) holder).urlPic.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            deleteImage(position);
-                            return false;
-                        }
-                    });
-                }
+                // 长按删除
+                ((ImagePickViewHolder) holder).delPic.setVisibility(View.VISIBLE);
+                ((ImagePickViewHolder) holder).delPic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteImage(position);
+                    }
+                });
             }
 
             ((ImagePickViewHolder) holder).urlPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ImagePreviewDialogFragment fragment = new ImagePreviewDialogFragment();
-                    fragment.setIsURL(isOnlyShow);
+                    fragment.setIsURL(imageFile != null);
                     Bundle data = new Bundle();
                     data.putStringArrayList(AndroidImagePicker.KEY_PIC_PATH, mData);
                     data.putInt(AndroidImagePicker.KEY_PIC_SELECTED_POSITION, position);
                     fragment.setArguments(data);
-                    fragment.show(((Activity)mContext).getFragmentManager(), TeamMakeTravelTypeDialog.class.getName());
+                    fragment.show(((Activity) mContext).getFragmentManager(), TeamMakeTravelTypeDialog.class.getName());
                 }
             });
 
@@ -134,7 +133,6 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void deleteImage(final int position) {
         new MaterialDialog.Builder((Activity) mContext)
                 .title(mContext.getString(R.string.delete_image_title))
-                .content(mContext.getString(R.string.delete_image_msg))
                 .positiveText(mContext.getString(R.string.ok_btn))
                 .negativeText(mContext.getString(R.string.cancel_btn))
                 .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
@@ -164,7 +162,7 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         int type = TYPE_ADD_VIEW;
 
-        if (isOnlyShow) {
+        if (imageFile != null) {
             type = TYPE_SHOW_VIEW;
         } else {
             // 没选全，则有添加按钮
@@ -214,9 +212,12 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemCount() {
         int count = 0;
 
-        if (isOnlyShow) {
+        // 网络图片，不显示添加
+        if (imageFile != null) {
             count = mData == null ? 0 : mData.size();
-        } else {
+        }
+        // 本地图片，显示添加
+        else {
             if (mData == null) {
                 count = 1;
             } else if (mData.size() < TYPE_SHOW_LIMIT) {
@@ -231,10 +232,12 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static class ImagePickViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView urlPic;
+        private ImageView delPic;
 
         public ImagePickViewHolder(View itemView) {
             super(itemView);
             urlPic = (ImageView) itemView.findViewById(R.id.pick_pic);
+            delPic = (ImageView) itemView.findViewById(R.id.del_pic);
         }
     }
 
@@ -260,11 +263,11 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return mData;
     }
 
-    public boolean isOnlyShow() {
-        return isOnlyShow;
+    public ImageFile getImageFile() {
+        return imageFile;
     }
 
-    public void setIsOnlyShow(boolean isOnlyShow) {
-        this.isOnlyShow = isOnlyShow;
+    public void setImageFile(ImageFile imageFile) {
+        this.imageFile = imageFile;
     }
 }

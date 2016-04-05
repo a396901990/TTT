@@ -4,8 +4,18 @@
     android:layout_height="@dimen/image_pick_height">
 
     <ImageView
+        android:background="@color/less_light_gray"
         android:id="@+id/pick_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/del_pic"
+        android:padding="6dp"
+        android:layout_gravity="right"
+        android:src="@drawable/icon_del"
+        android:layout_width="26dp"
+        android:layout_height="26dp" />
 </FrameLayout>

@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -246,9 +247,13 @@ public class RouteActivity
             headerStartEnd.setText(String.format(Constants.HEADER_START_END, getCurrentStart(), getCurrentEnd()));
             headerDistance.setText(currentRoute.getDistance());
             headerHourContent.setVisibility(View.INVISIBLE);
-            headerHour.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+            if (!TextUtils.isEmpty(currentRoute.getDay())) {
+                headerHour.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
+            }
         } else {
-            headerPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
+            if (!TextUtils.isEmpty(currentPlan.getDay())) {
+                headerPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
+            }
 
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_hard()), getString(R.string.rating_hard)));
             ratingView.addRatingBar(new RatingBar(Integer.parseInt(getCurrentPlan().getRank_view()), getString(R.string.rating_view)));

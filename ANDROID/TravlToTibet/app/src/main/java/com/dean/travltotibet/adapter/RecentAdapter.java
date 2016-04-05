@@ -121,7 +121,6 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         }
         new MaterialDialog.Builder(mActivity)
                 .title(mActivity.getString(R.string.delete_recent_title))
-                .content(mActivity.getString(R.string.delete_recent_msg))
                 .positiveText(mActivity.getString(R.string.ok_btn))
                 .negativeText(mActivity.getString(R.string.cancel_btn))
                 .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))

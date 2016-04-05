@@ -66,7 +66,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(TTTApplication.getMyColor(R.color.white));
         setUpToolBar(toolbar);
-        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+        setHomeIndicator();
         setTitle("选择图片");
     }
 

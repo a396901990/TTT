@@ -40,15 +40,13 @@
     <!--recent dialog-->
     <string name="ok_btn">确定</string>
     <string name="cancel_btn">取消</string>
-    <string name="delete_recent_msg">是否要删除该条记录？</string>
-    <string name="delete_recent_title">删除记录</string>
-    <string name="delete_image_msg">是否要删除该张图片？</string>
-    <string name="delete_image_title">删除图片</string>
-    <string name="dialog_report_msg">是否要举报这条信息？</string>
-    <string name="dialog_report_title">举报</string>
-    <string name="delete_action_msg">是否要进行删除操作？</string>
-    <string name="delete_action_title">删除操作</string>
-
+    <string name="delete_recent_title">是否要删除该条记录？</string>
+    <string name="delete_image_title">是否要删除该张图片？</string>
+    <string name="dialog_report_title">是否要举报这条信息？</string>
+    <string name="delete_action_title">是否要进行删除操作？</string>
+    <string name="back_action_title">是否退出此次编辑？</string>
+    <string name="reset_dialog_title">是否要恢复默认设置？</string>
+    <string name="logout_dialog_title">是否退出登陆？</string>
     <string name="delete_success">删除成功</string>
     <string name="delete_failed">删除失败</string>
 
@@ -59,10 +57,6 @@
     <string name="title_attention">注意事项</string>
     <string name="title_chart_setting">设置</string>
     <string name="title_activity_about_setting">关于</string>
-
-    <!--chart setting dialog-->
-    <string name="reset_dialog_msg">是否要恢复默认设置？</string>
-    <string name="reset_dialog_title">恢复默认</string>
 
     <string name="ptr_pull_text">下拉刷新</string>
     <string name="ptr_refreshing_text">加载中...</string>
@@ -131,8 +125,6 @@
     <string name="no_support">暂不支持</string>
 
     <string name="login_text">点击登陆</string>
-    <string name="logout_dialog_title">提示</string>
-    <string name="logout_dialog_msg">是否退出登陆？</string>
     <string name="logout">退出登陆</string>
     <string name="version_name">版本</string>
     <string name="contact_qq">1815608211</string>

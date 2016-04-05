@@ -33,7 +33,7 @@ public class TeamShowRequestSearchActivity extends BaseActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
         setTitle(searchFilter);
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
 
         searchTypeFragment = (TeamRequestSearchFragment) getFragmentManager().findFragmentById(R.id.team_request_search_type_fragment);
         searchTypeFragment.setSearchFilter(searchFilter);

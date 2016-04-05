@@ -23,7 +23,7 @@ public class AboutSettingActivity extends BaseActivity {
         setContentView(R.layout.about_setting);
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ChartSettingActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
 
         if (getIntent() != null) {
             int orient = getIntent().getIntExtra(IntentExtra.INTENT_ROUTE_ORIENTATION, 0);

@@ -51,7 +51,7 @@ public abstract class AroundBaseActivity extends BaseActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+        setHomeIndicator();
         setPageTitle(getHeaderName());
     }
 

@@ -30,6 +30,7 @@ public class TeamRequestSearchFragment extends TeamShowRequestBaseFragment {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
+        query.include("imageFile");
         String filterText = getSearchFilter();
         if (!TextUtils.isEmpty(filterText)) {
             // destination

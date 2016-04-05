@@ -2,11 +2,15 @@ package com.dean.travltotibet.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.TeamCreateUpdateRequestFragment;
@@ -36,7 +40,7 @@ public class TeamCreateRequestActivity extends BaseActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
         setTitle(getString(R.string.team_make_request_title));
-        setHomeIndicator(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_arrow_back, TTTApplication.getMyColor(R.color.white)));
+        setHomeIndicator();
 
         teamCreateUpdateRequestFragment = (TeamCreateUpdateRequestFragment) getFragmentManager().findFragmentById(R.id.team_make_request_fragment);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -55,11 +59,46 @@ public class TeamCreateRequestActivity extends BaseActivity {
         if (id == R.id.action_submit) {
             teamCreateUpdateRequestFragment.commitRequest();
         }
+        if (id == android.R.id.home) {
+            actionBack();
+            return false;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     public TeamRequest getTeamRequest() {
         return teamRequest;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            actionBack();
+        }
+        return false;
+    }
+
+    private void actionBack() {
+
+        new MaterialDialog.Builder(this)
+                .title(getString(R.string.back_action_title))
+                .positiveText(getString(R.string.ok_btn))
+                .negativeText(getString(R.string.cancel_btn))
+                .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+                .callback(new MaterialDialog.Callback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        finish();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .show();
     }
 
     @Override

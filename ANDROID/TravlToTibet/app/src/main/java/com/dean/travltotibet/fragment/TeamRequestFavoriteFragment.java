@@ -24,6 +24,7 @@ public class TeamRequestFavoriteFragment extends TeamShowRequestBaseFragment {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
         query.addWhereContainedIn("objectId", favorites);
+        query.include("imageFile");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
 
         // 加载更多

@@ -21,9 +21,11 @@ import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.ui.HorizontalItemDecoration;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
     private void initImageContent() {
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.picker_image_list_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.addItemDecoration(new HorizontalItemDecoration(ScreenUtil.dip2px(getActivity(), 2)));
         recyclerView.setHasFixedSize(true);
         imagePickAdapter = new ImagePickAdapter(getActivity());
         imagePickAdapter.setAddImageListener(new ImagePickAdapter.AddImageListener() {
@@ -78,13 +81,13 @@ public class TeamShowRequestDetailFragment extends Fragment {
         });
         recyclerView.setAdapter(imagePickAdapter);
 
-        if (teamRequest.getImgUrls() == null || teamRequest.getImgUrls().size() == 0) {
+        if (teamRequest.getImageFile() == null) {
             recyclerView.setVisibility(View.GONE);
             return;
         } else {
             recyclerView.setVisibility(View.VISIBLE);
-            imagePickAdapter.setIsOnlyShow(true);
-            imagePickAdapter.addData((ArrayList<String>) teamRequest.getImgUrls());
+            imagePickAdapter.setImageFile(teamRequest.getImageFile());
+            imagePickAdapter.addData(teamRequest.getImageFile().getImageUrls(getActivity()));
         }
     }
 
@@ -106,7 +109,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
             mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
             mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
-        // user icon
+        // user icono
         if (!TextUtils.isEmpty(teamRequest.getUserIcon())) {
             Picasso.with(getActivity()).load(teamRequest.getUserIcon()).error(R.drawable.gray_profile).into(mUserIcon);
         } else {

@@ -83,7 +83,7 @@ public class InfoActivity extends BaseActivity {
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setHomeIndicator(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+        setHomeIndicator();
 
         // type btn(menu right)
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -157,12 +157,14 @@ public class InfoActivity extends BaseActivity {
                     return;
                 }
                 DialogFragment dialogFragment = InfoPlanConfirmDialog.getInstance();
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
-                bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
-                bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, getRouteType());
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(), InfoPlanConfirmDialog.class.getName());
+                if (!dialogFragment.isAdded()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
+                    bundle.putString(IntentExtra.INTENT_ROUTE_NAME, getRouteName());
+                    bundle.putString(IntentExtra.INTENT_ROUTE_TYPE, getRouteType());
+                    dialogFragment.setArguments(bundle);
+                    dialogFragment.show(getFragmentManager(), InfoPlanConfirmDialog.class.getName());
+                }
             }
         });
 
