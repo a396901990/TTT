@@ -14,6 +14,7 @@ public final class CountUtil {
     public final static String ROUTE = "route";
     public final static String TEAM_SEARCH = "team_search";
     public final static String PREPARE_INFO = "prepare_info";
+    public final static String ROUTE_WAY_INFO = "route_way_info";
 
     public static void countArticle(Context mContext, String articleName) {
         HashMap<String,String> map = new HashMap<String,String>();
@@ -40,5 +41,23 @@ public final class CountUtil {
         map.put("prepareType", prepareType);
         map.put("travelType", travelType);
         MobclickAgent.onEvent(mContext, PREPARE_INFO, map);
+    }
+
+    public static void countRouteWayInfo(Context mContext, int position) {
+        HashMap<String,String> map = new HashMap<String,String>();
+        String routeWay = null;
+        switch (position) {
+            case 0:
+                routeWay = "攻略";
+                break;
+            case 1:
+                routeWay = "海拔";
+                break;
+            case 2:
+                routeWay = "地图";
+                break;
+        }
+        map.put("routeWay", routeWay);
+        MobclickAgent.onEvent(mContext, ROUTE_WAY_INFO, map);
     }
 }

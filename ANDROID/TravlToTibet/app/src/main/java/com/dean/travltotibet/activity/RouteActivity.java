@@ -199,6 +199,9 @@ public class RouteActivity
 
                 // 初始化菜单
                 initFABMenu();
+
+                // 记录方式
+                CountUtil.countRouteWayInfo(getApplicationContext(), position);
             }
         });
 

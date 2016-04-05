@@ -29,11 +29,7 @@ android {
         jifeng{}
         yingyonghui{}
         anzhi{}
-        tianyi{}
         chuizi{}
-        nduo{}
-        youyi{}
-        mumayi{}
     }
 
     //这个是解决lint报错的代码

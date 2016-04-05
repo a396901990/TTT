@@ -19,6 +19,10 @@ public class ArticleCommentFragment extends BaseInsideCommentFragment {
         if (getActivity() == null) {
             return null;
         }
+
+        if (((BaseCommentActivity) getActivity()).getObj() == null) {
+            return null;
+        }
         return ((BaseCommentActivity) getActivity()).getObj().getObjectId();
     }
 }

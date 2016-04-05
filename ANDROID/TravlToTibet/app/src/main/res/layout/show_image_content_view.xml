@@ -3,8 +3,8 @@
     android:layout_height="@dimen/image_pick_height"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingBottom="3dp"
-    android:paddingTop="6dp">
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="6dp">
 
     <ImageView
         android:id="@+id/image_view_1"
