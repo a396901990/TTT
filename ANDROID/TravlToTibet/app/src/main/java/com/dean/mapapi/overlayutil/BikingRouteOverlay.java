@@ -13,6 +13,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.route.BikingRouteLine;
 import com.baidu.mapapi.search.route.DrivingRouteLine;
 import com.baidu.mapapi.search.route.DrivingRouteLine.DrivingStep;
 import com.dean.travltotibet.R;
@@ -24,20 +25,20 @@ import java.util.List;
 /**
  * 用于显示一条驾车路线的overlay，自3.4.0版本起可实例化多个添加在地图中显示，当数据中包含路况数据时，则默认使用路况纹理分段绘制
  */
-public class DrivingRouteOverlay extends OverlayManager {
+public class BikingRouteOverlay extends OverlayManager {
 
     public static String START_MARKER = "start_marker";
     public static String END_MARKER = "end_marker";
-    private DrivingRouteLine mRouteLine = null;
+    private BikingRouteLine mRouteLine = null;
     boolean focus = false;
 
     /**
      * 构造函数
-     * 
+     *
      * @param baiduMap
      *            该DrivingRouteOvelray引用的 BaiduMap
      */
-    public DrivingRouteOverlay(BaiduMap baiduMap) {
+    public BikingRouteOverlay(BaiduMap baiduMap) {
         super(baiduMap);
     }
 
@@ -101,7 +102,7 @@ public class DrivingRouteOverlay extends OverlayManager {
         if (mRouteLine.getAllStep() != null
                 && mRouteLine.getAllStep().size() > 0) {
         
-            List<DrivingStep> steps = mRouteLine.getAllStep();
+            List<BikingRouteLine.BikingStep> steps = mRouteLine.getAllStep();
             int stepNum = steps.size();
             
             
@@ -113,13 +114,6 @@ public class DrivingRouteOverlay extends OverlayManager {
                     points.addAll(steps.get(i).getWayPoints());
                 } else {
                     points.addAll(steps.get(i).getWayPoints().subList(0, steps.get(i).getWayPoints().size() - 1));
-                }
-                
-                totalTraffic += steps.get(i).getWayPoints().size() - 1;
-                if (steps.get(i).getTrafficList() != null && steps.get(i).getTrafficList().length > 0) {
-                    for (int j = 0;j < steps.get(i).getTrafficList().length;j++) {
-                        traffics.add(steps.get(i).getTrafficList()[j]);
-                    }
                 }
             }
             
@@ -155,7 +149,7 @@ public class DrivingRouteOverlay extends OverlayManager {
      * @param routeLine
      *            路线数据
      */
-    public void setData(DrivingRouteLine routeLine) {
+    public void setData(BikingRouteLine routeLine) {
         this.mRouteLine = routeLine;
     }
 

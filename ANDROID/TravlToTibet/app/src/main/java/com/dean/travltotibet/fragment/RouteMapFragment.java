@@ -19,8 +19,11 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.route.BikingRoutePlanOption;
+import com.baidu.mapapi.search.route.BikingRouteResult;
 import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.dean.greendao.Geocode;
+import com.dean.mapapi.overlayutil.BikingRouteOverlay;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
@@ -30,6 +33,7 @@ import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.dean.mapapi.overlayutil.OverlayManager;
 import com.dean.mapapi.overlayutil.WalkingRouteOverlay;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -75,7 +79,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     // 搜索模块，也可去掉地图模块独立使用
     private RoutePlanSearch mSearch = null;
 
-    private DrivingRouteOverlay overlay;
+    private OverlayManager overlay;
 
     // 默认俯视角度
     private final static int OVERLOOK_ANGLE = -45;
@@ -224,6 +228,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                         .passBy(planNodes));
             }
         });
+
+        mSearch.bikingSearch(new BikingRoutePlanOption().from(stNode).to(enNode));
     }
 
     /**
@@ -431,7 +437,34 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
             overlay = new CustomDrivingRouteOverlay(mBaiduMap);
             mBaiduMap.setOnMarkerClickListener(overlay);
-            overlay.setData(result.getRouteLines().get(0));
+            ((DrivingRouteOverlay)overlay).setData(result.getRouteLines().get(0));
+            overlay.addToMap();
+            overlay.zoomToSpan();
+        }
+
+        // stop loading view
+        View viewContent = rootView.findViewById(R.id.loading_content_view);
+        if (viewContent != null) {
+            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
+            loadingView.stop();
+            viewContent.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
+        if (bikingRouteResult == null || bikingRouteResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            // 错误
+        }
+        if (bikingRouteResult.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
+            //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
+            bikingRouteResult.getSuggestAddrInfo();
+            return;
+        }
+        if (bikingRouteResult.error == SearchResult.ERRORNO.NO_ERROR) {
+            overlay = new CustomBikeRouteOverlay(mBaiduMap);
+            mBaiduMap.setOnMarkerClickListener(overlay);
+            ((BikingRouteOverlay)overlay).setData(bikingRouteResult.getRouteLines().get(0));
             overlay.addToMap();
             overlay.zoomToSpan();
         }
@@ -448,6 +481,18 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     public class CustomDrivingRouteOverlay extends DrivingRouteOverlay {
 
         public CustomDrivingRouteOverlay(BaiduMap baiduMap) {
+            super(baiduMap);
+        }
+
+        @Override
+        public int getLineColor() {
+            return TTTApplication.getMyColor(R.color.colorPrimaryDark);
+        }
+    }
+
+    public class CustomBikeRouteOverlay extends BikingRouteOverlay {
+
+        public CustomBikeRouteOverlay(BaiduMap baiduMap) {
             super(baiduMap);
         }
 

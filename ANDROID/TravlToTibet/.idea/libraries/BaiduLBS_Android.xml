@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="BmobSDK_V3.4.5_1111">
+  <library name="BaiduLBS_Android">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/BmobSDK_V3.4.5_1111.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/libs/BaiduLBS_Android.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
