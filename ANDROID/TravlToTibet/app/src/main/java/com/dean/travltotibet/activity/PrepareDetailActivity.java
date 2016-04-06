@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.dean.travltotibet.R;
@@ -53,7 +54,9 @@ public class PrepareDetailActivity extends BaseActivity {
         setTitle("准备信息");
         initViewPagerAndTab();
 
-        CountUtil.countPrepareInfo(this, mRoute, mInfoType.name(), mType);
+        if (!TextUtils.isEmpty(mInfoType.name())) {
+            CountUtil.countPrepareInfo(this, mRoute, mInfoType.name(), mType);
+        }
     }
 
     @Override

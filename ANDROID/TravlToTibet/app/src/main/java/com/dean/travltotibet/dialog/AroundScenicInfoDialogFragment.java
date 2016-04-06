@@ -49,15 +49,10 @@ public class AroundScenicInfoDialogFragment extends GalleryInfoDialogFragment {
                     galleryInfos.add(galleryInfo);
                 }
 
-                if (list.size() == 0 && actionType == STATE_MORE) {
-                    loadMoreRecyclerView.notifyMoreFinish(false);
+                if (actionType == STATE_REFRESH) {
                     toDo(LOADING_SUCCESS, 0);
                 } else {
-                    if (actionType == STATE_REFRESH) {
-                        toDo(LOADING_SUCCESS, 0);
-                    } else {
-                        toDo(LOADING_MORE_SUCCESS, 0);
-                    }
+                    toDo(LOADING_MORE_SUCCESS, 0);
                 }
             }
 

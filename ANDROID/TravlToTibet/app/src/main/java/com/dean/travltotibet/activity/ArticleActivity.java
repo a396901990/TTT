@@ -78,7 +78,10 @@ public class ArticleActivity extends BaseCommentActivity {
 
         updateWatch();
         initBtn();
-        CountUtil.countArticle(this, mArticle.getTitle());
+
+        if (!TextUtils.isEmpty(mArticle.getTitle())) {
+            CountUtil.countArticle(this, mArticle.getTitle());
+        }
     }
 
     private void updateWatch() {

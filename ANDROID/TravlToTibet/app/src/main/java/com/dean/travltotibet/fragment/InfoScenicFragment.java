@@ -1,19 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.InfoActivity;
-import com.dean.travltotibet.adapter.GalleryAdapter;
 import com.dean.travltotibet.model.AroundType;
-import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.model.ScenicInfo;
-import com.dean.travltotibet.ui.loadmore.LoadMoreRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +39,7 @@ public class InfoScenicFragment extends GalleryInfoFragment {
         }
 
         // 设置每页数据个数
-        query.setLimit(6);
+        query.setLimit(ITEM_LIMIT);
 
         query.findObjects(getActivity(), new FindListener<ScenicInfo>() {
             @Override
@@ -62,15 +53,10 @@ public class InfoScenicFragment extends GalleryInfoFragment {
                     galleryInfos.add(galleryInfo);
                 }
 
-                if (list.size() == 0) {
-                    loadMoreRecyclerView.notifyMoreFinish(false);
+                if (actionType == STATE_REFRESH) {
                     toDo(LOADING_SUCCESS, 0);
                 } else {
-                    if (actionType == STATE_REFRESH) {
-                        toDo(LOADING_SUCCESS, 0);
-                    } else {
-                        toDo(LOADING_MORE_SUCCESS, 0);
-                    }
+                    toDo(LOADING_MORE_SUCCESS, 0);
                 }
             }
 

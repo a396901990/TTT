@@ -123,15 +123,27 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         // date
         TextView travelDate = (TextView) root.findViewById(R.id.travel_date);
-        travelDate.setText(teamRequest.getDate());
+        if (!TextUtils.isEmpty(teamRequest.getDate())) {
+            travelDate.setText(teamRequest.getDate());
+        } else {
+            travelDate.setText("");
+        }
 
         // destination
-        TextView travelDestnation = (TextView) root.findViewById(R.id.destination_text);
-        travelDestnation.setText(teamRequest.getDestination());
+        TextView travelDestination = (TextView) root.findViewById(R.id.destination_text);
+        if (!TextUtils.isEmpty(teamRequest.getDestination())) {
+            travelDestination.setText(teamRequest.getDestination());
+        } else {
+            travelDestination.setText("");
+        }
 
         // type
         TextView travelType = (TextView) root.findViewById(R.id.type_text);
-        travelType.setText(teamRequest.getType());
+        if (!TextUtils.isEmpty(teamRequest.getType())) {
+            travelType.setText(teamRequest.getType());
+        } else {
+            travelType.setText("");
+        }
     }
 
     // 联系方式

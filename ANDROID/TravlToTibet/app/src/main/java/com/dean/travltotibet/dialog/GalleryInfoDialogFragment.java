@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.GalleryAdapter;
+import com.dean.travltotibet.base.BaseRefreshDialogFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.AroundType;
 import com.dean.travltotibet.model.GalleryInfo;
@@ -25,9 +26,9 @@ import java.util.ArrayList;
  * Created by DeanGuo on 3/18/16.
  * same code with GalleryInfoFragment bad design
  */
-public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment implements LoadMoreRecyclerView.LoadMoreListener {
+public abstract class GalleryInfoDialogFragment extends BaseRefreshDialogFragment implements LoadMoreRecyclerView.LoadMoreListener {
 
-    protected int ITEM_LIMIT = 6;
+    public final static int ITEM_LIMIT = 6;
 
     protected View root;
 
@@ -52,7 +53,7 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
         initLoadingBackground();
         initView();
-        refresh();
+        onRefresh();
         return root;
     }
 
@@ -114,18 +115,16 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
+        super.prepareLoading();
         loadingBackgroundManager.showLoadingView();
+
         if (getActivity() != null && mAdapter != null) {
             mAdapter.clearData();
             toDo(ON_LOADING, 800);
@@ -134,12 +133,13 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getResult(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
-
+        super.LoadingSuccess();
         // 无数据
         if (galleryInfos == null || galleryInfos.size() == 0) {
             loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
@@ -154,27 +154,31 @@ public abstract class GalleryInfoDialogFragment extends RefreshDialogFragment im
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
         loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
             @Override
             public void retry() {
-                refresh();
+                onRefresh();
             }
         });
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadingMore();
         getResult(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
-        mAdapter.addData(galleryInfos);
-        loadMoreRecyclerView.notifyMoreFinish(true);
-    }
+        super.LoadingMoreSuccess();
 
-    @Override
-    public void LoadingMoreError() {
+        if (mAdapter != null) {
+            mAdapter.addData(galleryInfos);
+        }
+        if (loadMoreRecyclerView != null) {
+            loadMoreRecyclerView.notifyMoreFinish(galleryInfos.size() >= ITEM_LIMIT);
+        }
     }
 
     public String getRouteName() {

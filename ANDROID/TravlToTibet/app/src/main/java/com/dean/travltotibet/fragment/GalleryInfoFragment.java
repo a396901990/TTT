@@ -144,8 +144,13 @@ public abstract class GalleryInfoFragment extends BaseRefreshFragment implements
     @Override
     public void LoadingMoreSuccess() {
         super.LoadingMoreSuccess();
-        mAdapter.addData(galleryInfos);
-        loadMoreRecyclerView.notifyMoreFinish(true);
+
+        if (mAdapter != null) {
+            mAdapter.addData(galleryInfos);
+        }
+        if (loadMoreRecyclerView != null) {
+            loadMoreRecyclerView.notifyMoreFinish(galleryInfos.size() >= ITEM_LIMIT);
+        }
     }
 
     public String getRouteName() {
