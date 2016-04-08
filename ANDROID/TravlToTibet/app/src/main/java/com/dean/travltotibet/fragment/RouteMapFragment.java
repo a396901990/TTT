@@ -38,9 +38,7 @@ import com.dean.mapapi.overlayutil.WalkingRouteOverlay;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.model.Location;
 import com.dean.travltotibet.ui.RotateLoading;
-import com.dean.travltotibet.ui.SwitchButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.MenuUtil;
 

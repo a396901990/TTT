@@ -27,7 +27,7 @@ public class RouteDetailFragment extends BaseRouteFragment {
 
     private BaseGuideFragment detailFragment;
 
-    private RoutePlanFragment planFragment;
+    private RouteHomeFragment planFragment;
 
     private final static String ROOT_VIEW_ROUTE = "route";
 
@@ -109,8 +109,7 @@ public class RouteDetailFragment extends BaseRouteFragment {
         try {
             contentView = inflater.inflate(R.layout.guide_plan_fragment_view, null, false);
             // plan fragment
-            planFragment = (RoutePlanFragment) getFragmentManager().findFragmentById(R.id.guide_plan_fragment);
-            planFragment.hideHeaderView();
+            planFragment = (RouteHomeFragment) getFragmentManager().findFragmentById(R.id.guide_plan_fragment);
         } catch (InflateException e) {
             // 报错则存在，就用之前的视图。。。
         }

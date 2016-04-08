@@ -162,6 +162,9 @@
         <activity android:name=".activity.ImagePickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.RoadInfoCreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

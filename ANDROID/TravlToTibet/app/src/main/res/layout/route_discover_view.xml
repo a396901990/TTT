@@ -1,0 +1,101 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <!--路况-->
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="3dp"
+            card_view:cardElevation="3dp"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/card_padding">
+
+                <RelativeLayout
+                    android:id="@+id/header_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+                    <!--内容-->
+                    <TextView
+                        style="@style/TitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="最新路况" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_below="@+id/header_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/content_edit_text"
+                        android:text="新都桥发生泥石流，目前汽车无法通行！"
+                        style="@style/TextAppearance.Regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:hint="@string/team_make_content_edit_hint"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:text="理塘到巴塘300KM在修路，预计10月份完工。"
+                        style="@style/TextAppearance.Regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:hint="@string/team_make_content_edit_hint"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/dark_gray" />
+
+                </LinearLayout>
+
+
+                <com.dean.travltotibet.ui.MaterialRippleLayout
+                    android:id="@+id/search_btn"
+                    style="@style/RippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        style="@style/TextAppearance.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_theme"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="上传路况"
+                        android:textColor="@color/white" />
+
+                </com.dean.travltotibet.ui.MaterialRippleLayout>
+            </RelativeLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</FrameLayout>

@@ -175,6 +175,7 @@
     <string name="contact_default_text">未设置</string>
     <string name="warning_no_pass">未通过审核，请修改后重新提交！</string>
     <string name="warning_wait_pass">正在审核中，请耐心等待！</string>
+    <string name="road_feedback_hint">亲爱的驴友，请把您途中出现自然灾害、道路中断、交通管制、道路新建、翻修等路况变化信息反馈给我们，经过户外探子确认后将会广播通告给驴友们。您的举手之劳，将会极大的帮助广大驴友。</string>
 
     <string name="piece">张</string>
     <string name="you_have_a_select_limit">最多选择%1$s张图片</string>

@@ -9,6 +9,7 @@ import com.dean.travltotibet.fragment.BaseRouteFragment;
 import com.dean.travltotibet.dialog.TutorialDialog;
 import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteDetailFragment;
+import com.dean.travltotibet.fragment.RouteDiscoverFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;

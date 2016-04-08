@@ -7,7 +7,7 @@
     <!--详细-->
     <fragment
         android:id="@+id/guide_plan_fragment"
-        android:name="com.dean.travltotibet.fragment.RoutePlanFragment"
+        android:name="com.dean.travltotibet.fragment.RouteHomeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </FrameLayout>

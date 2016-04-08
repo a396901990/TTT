@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <include
+        android:visibility="gone"
         android:id="@+id/overall_route"
         layout="@layout/route_plan_overall_view"
         android:layout_width="match_parent"

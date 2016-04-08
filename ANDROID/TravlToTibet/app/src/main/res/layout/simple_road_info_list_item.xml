@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        android:id="@+id/ripple_view"
+        style="@style/RippleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ImageView
+                android:padding="5dp"
+                android:id="@+id/priority_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/common_warning_badge"/>
+            <TextView
+                android:layout_toRightOf="@+id/priority_icon"
+                android:id="@+id/road_text"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                style="@style/TextAppearance.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D1" />
+        </RelativeLayout>
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+</FrameLayout>

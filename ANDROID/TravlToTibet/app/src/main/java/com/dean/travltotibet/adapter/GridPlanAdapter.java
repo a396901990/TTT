@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by DeanGuo on 12/04/15.
  */
-public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
+public class GridPlanAdapter extends RecyclerView.Adapter<GridPlanAdapter.PlanViewHolder> {
 
     private Context mContext;
 
@@ -25,13 +25,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     private PlanItemListener mListener;
 
-    public PlanAdapter(Context mContext) {
+    public GridPlanAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @Override
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_plan_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_grid_plan_list_item, parent, false);
         return new PlanViewHolder(view);
     }
 

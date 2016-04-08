@@ -1,23 +1,31 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.greendao.Plan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 /**
- * Created by DeanGuo on 12/04/15.
+ * Created by DeanGuo on 3//16.
  */
-public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
+public class PlanListAdapter extends BaseAdapter {
 
     private Context mContext;
 
@@ -25,18 +33,42 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     private PlanItemListener mListener;
 
-    public PlanAdapter(Context mContext) {
+    public static interface PlanItemListener {
+        public void onPlanClick(Plan plan);
+    }
+
+    public PlanListAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @Override
-    public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_plan_list_item, parent, false);
-        return new PlanViewHolder(view);
+    public int getCount() {
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
-    public void onBindViewHolder(PlanViewHolder holder, int position) {
+    public Object getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        final PlanViewHolder holder;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_home_plan_list_item, parent, false);
+            holder = new PlanViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (PlanViewHolder) convertView.getTag();
+        }
+
 
         final Plan plan = mData.get(position);
 
@@ -52,35 +84,25 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 mListener.onPlanClick(plan);
             }
         });
-    }
 
-    @Override
-    public int getItemCount() {
-        return mData == null ? 0 : mData.size();
+        return convertView;
     }
 
     public void setData(ArrayList<Plan> data) {
         this.mData = data;
-        this.notifyItemRangeInserted(0, mData.size() - 1);
+        notifyDataSetChanged();
     }
 
     public void clearData() {
-        int size = this.mData.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                mData.remove(0);
-            }
-
-            this.notifyItemRangeRemoved(0, size);
+        if (mData == null) {
+            return;
+        } else {
+            mData = new ArrayList<>();
+            notifyDataSetChanged();
         }
     }
 
-    public void setPlanListener(PlanItemListener planListener) {
-        this.mListener = planListener;
-    }
-
-
-    public static class PlanViewHolder extends RecyclerView.ViewHolder {
+    public static class PlanViewHolder {
 
         private MaterialRippleLayout rippleLayout;
         private TextView data;
@@ -89,7 +111,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         private TextView distance;
 
         public PlanViewHolder(View itemView) {
-            super(itemView);
             data = (TextView) itemView.findViewById(R.id.plan_date);
             detail_start = (TextView) itemView.findViewById(R.id.plan_detail_start);
             detail_end = (TextView) itemView.findViewById(R.id.plan_detail_end);
@@ -98,8 +119,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         }
     }
 
-    public static interface PlanItemListener {
-        public void onPlanClick(Plan plan);
+    public void setListener(PlanItemListener mListener) {
+        this.mListener = mListener;
     }
 
 }
