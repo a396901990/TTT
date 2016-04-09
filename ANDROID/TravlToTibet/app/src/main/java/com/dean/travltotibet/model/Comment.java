@@ -17,6 +17,7 @@ public class Comment extends BmobObject {
     public  final static String TEAM_REQUEST_COMMENT = "teamRequest";
     public  final static String HOTEL_COMMENT = "hotel";
     public  final static String SCENIC_COMMENT = "scenic";
+    public  final static String ROAD_INFO_COMMENT = "roadInfo";
 
     private String type_object_id;
     private String type;

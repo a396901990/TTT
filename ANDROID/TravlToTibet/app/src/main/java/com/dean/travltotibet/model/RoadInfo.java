@@ -27,7 +27,7 @@ public class RoadInfo extends BmobObject {
 
     public String content;
 
-    public int id;
+    public int comment;
 
     public String priority;
 
@@ -36,6 +36,8 @@ public class RoadInfo extends BmobObject {
     private UserInfo user;
 
     private ImageFile imageFile;
+
+    private int watch;
 
     public String getStatus() {
         return status;
@@ -69,14 +71,6 @@ public class RoadInfo extends BmobObject {
         this.priority = priority;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getContent() {
         return content;
     }
@@ -104,14 +98,28 @@ public class RoadInfo extends BmobObject {
     public static int getPriorityIcon(String priority) {
         if (WARRING.equals(priority)) {
             return R.drawable.common_warning_badge;
-        }
-        else if (IMPORTANT.equals(priority)) {
+        } else if (IMPORTANT.equals(priority)) {
             return R.drawable.common_caution_badge;
-        }
-        else if (NORMAL.equals(priority)) {
+        } else if (NORMAL.equals(priority)) {
             return R.drawable.common_info_badge;
         }
 
         return 0;
+    }
+
+    public int getWatch() {
+        return watch;
+    }
+
+    public void setWatch(int watch) {
+        this.watch = watch;
+    }
+
+    public int getComment() {
+        return comment;
+    }
+
+    public void setComment(int comment) {
+        this.comment = comment;
     }
 }

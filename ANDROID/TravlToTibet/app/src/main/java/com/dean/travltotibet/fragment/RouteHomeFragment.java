@@ -3,7 +3,6 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,19 +15,10 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RoadInfoCreateActivity;
 import com.dean.travltotibet.activity.RouteActivity;
-import com.dean.travltotibet.adapter.GridPlanAdapter;
-import com.dean.travltotibet.adapter.PlanAdapter;
 import com.dean.travltotibet.adapter.PlanListAdapter;
 import com.dean.travltotibet.adapter.SimpleRoadInfoAdapter;
-import com.dean.travltotibet.animator.ReboundItemAnimator;
 import com.dean.travltotibet.model.RoadInfo;
-import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.ui.FullyGridLayoutManager;
-import com.dean.travltotibet.ui.FullyLinearLayoutManager;
-import com.dean.travltotibet.ui.GridItemDecoration;
-import com.dean.travltotibet.ui.SpaceItemDecoration;
 import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +73,6 @@ public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanI
         RecyclerView mRecyclerView = (RecyclerView) roadInfoView.findViewById(R.id.road_info_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ArrayList<String> t = new ArrayList<>();
-        t.add("ahahahah");
-        t.add("ahahahah");
-        t.add("ahahahah");
-
         adapter = new SimpleRoadInfoAdapter(getActivity());
         mRecyclerView.setAdapter(adapter);
         listView.addHeaderView(roadInfoView);
@@ -107,8 +92,9 @@ public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanI
 
     private void getRoadInfo() {
         BmobQuery<RoadInfo> query = new BmobQuery<>();
-        query.order("-id,-createdAt");
+        query.order("-comment,-createdAt");
         query.addQueryKeys("title,priority");
+        query.addWhereEqualTo("route", routeActivity.getRouteName());
 //        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
 //        query.setLimit(3);
 

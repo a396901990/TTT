@@ -13,6 +13,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.RoadInfoCreateFragment;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 /**
  * Created by DeanGuo on 4/8/16.
@@ -31,7 +32,7 @@ public class RoadInfoCreateActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
-        setTitle("路线反馈");
+        setTitle("路况反馈");
         setHomeIndicator();
 
         if (getIntent() != null) {
@@ -53,6 +54,9 @@ public class RoadInfoCreateActivity extends BaseActivity {
         int id = item.getItemId();
         // 提交按钮
         if (id == R.id.action_submit) {
+            if (ScreenUtil.isFastClick()) {
+                return true;
+            }
             roadInfoCreateFragment.commitRequest();
         }
         if (id == android.R.id.home) {

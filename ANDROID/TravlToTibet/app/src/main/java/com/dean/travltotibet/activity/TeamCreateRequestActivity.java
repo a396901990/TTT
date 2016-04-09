@@ -16,6 +16,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.TeamCreateUpdateRequestFragment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 /**
@@ -57,6 +58,9 @@ public class TeamCreateRequestActivity extends BaseActivity {
         int id = item.getItemId();
         // 提交按钮
         if (id == R.id.action_submit) {
+            if (ScreenUtil.isFastClick()) {
+                return true;
+            }
             teamCreateUpdateRequestFragment.commitRequest();
         }
         if (id == android.R.id.home) {

@@ -1,6 +1,7 @@
 package com.dean.travltotibet.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 
 import com.dean.greendao.Plan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.activity.RoadInfoDetailActivity;
 import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
+import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,17 @@ public class SimpleRoadInfoAdapter extends RecyclerView.Adapter<SimpleRoadInfoAd
         final RoadInfo roadInfo = mData.get(position);
         holder.roadText.setText(roadInfo.getTitle());
         holder.priorityIcon.setImageResource(RoadInfo.getPriorityIcon(roadInfo.getPriority()));
+        holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                Intent intent = new Intent(mContext, RoadInfoDetailActivity.class);
+                intent.putExtra(IntentExtra.INTENT_ROAD, roadInfo);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

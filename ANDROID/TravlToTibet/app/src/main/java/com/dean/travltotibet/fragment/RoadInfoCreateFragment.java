@@ -89,6 +89,9 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
         TextView imageHint = (TextView) root.findViewById(R.id.image_hint);
         imageHint.setVisibility(View.GONE);
 
+        TextView imageTitle = (TextView) root.findViewById(R.id.image_hint);
+        imageTitle.setText("路况照片");
+
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.picker_image_list_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         recyclerView.setHasFixedSize(true);
@@ -231,6 +234,8 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
         roadInfo.setStatus(RoadInfo.WAIT_STATUS);
         roadInfo.setRoute(mActivity.getRouteName());
         roadInfo.setTitle("");
+        roadInfo.setWatch(0);
+        roadInfo.setComment(0);
         roadInfo.setPriority(RoadInfo.NORMAL);
         roadInfo.save(getActivity(), new SaveListener() {
             @Override
@@ -321,15 +326,19 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
     @Override
     public void onResume() {
-        AndroidImagePicker.getInstance().setOnPictureTakeCompleteListener(this);
-        AndroidImagePicker.getInstance().setOnImagePickCompleteListener(this);
+        if (getActivity() != null) {
+            AndroidImagePicker.getInstance().setOnPictureTakeCompleteListener(this);
+            AndroidImagePicker.getInstance().setOnImagePickCompleteListener(this);
+        }
         super.onResume();
     }
 
     @Override
     public void onDestroy() {
-        AndroidImagePicker.getInstance().deleteOnImagePickCompleteListener(this);
-        AndroidImagePicker.getInstance().deleteOnPictureTakeCompleteListener(this);
+        if (getActivity() != null) {
+            AndroidImagePicker.getInstance().deleteOnImagePickCompleteListener(this);
+            AndroidImagePicker.getInstance().deleteOnPictureTakeCompleteListener(this);
+        }
         super.onDestroy();
     }
 
