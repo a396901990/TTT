@@ -29,7 +29,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="greendao-generator-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="freemarker-2.3.20" level="project" />
-    <orderEntry type="library" exported="" name="_Users_DeanGuo_Github_Workspace_ANDROID_TravlToTibet_Bmob_BmobSDK_V3_4_5_1111_jar" level="project" />
+    <orderEntry type="library" exported="" name="BmobSDK_V3.4.5_1111" level="project" />
     <orderEntry type="library" exported="" name="greendaogenerator.greendaogenerator" level="project" />
   </component>
 </module>

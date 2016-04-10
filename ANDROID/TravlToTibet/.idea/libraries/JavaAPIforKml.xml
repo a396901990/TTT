@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JavaAPIforKml">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/googlemapapi/libs/JavaAPIforKml.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
