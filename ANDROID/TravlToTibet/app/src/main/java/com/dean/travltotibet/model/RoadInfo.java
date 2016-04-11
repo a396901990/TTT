@@ -37,6 +37,8 @@ public class RoadInfo extends BmobObject {
 
     private ImageFile imageFile;
 
+    private String belong;
+
     private int watch;
 
     public String getStatus() {
@@ -105,6 +107,14 @@ public class RoadInfo extends BmobObject {
         }
 
         return 0;
+    }
+
+    public String getBelong() {
+        return belong;
+    }
+
+    public void setBelong(String belong) {
+        this.belong = belong;
     }
 
     public int getWatch() {

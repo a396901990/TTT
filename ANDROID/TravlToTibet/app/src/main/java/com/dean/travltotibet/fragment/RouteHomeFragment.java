@@ -1,10 +1,6 @@
 package com.dean.travltotibet.fragment;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +9,9 @@ import android.widget.ListView;
 import com.dean.greendao.Plan;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.RoadInfoCreateActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.PlanListAdapter;
-import com.dean.travltotibet.adapter.SimpleRoadInfoAdapter;
 import com.dean.travltotibet.model.RoadInfo;
-import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +22,15 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 8/13/15.
  */
-public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanItemListener {
+public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdapter.PlanItemListener {
 
     private View root;
 
     private RouteActivity routeActivity;
 
-    private SimpleRoadInfoAdapter adapter;
+    private ListView listView;
+
+    private View roadMessageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +42,6 @@ public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanI
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
-
         initPlanList();
     }
 
@@ -62,35 +56,14 @@ public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanI
         adapter.setListener(this);
         adapter.setData(plans);
 
-        ListView listView = (ListView) root.findViewById(R.id.plan_list);
+        listView = (ListView) root.findViewById(R.id.plan_list);
         listView.setAdapter(adapter);
-
-        setHeaderView(listView);
+        roadMessageView = getRoadMessageView();
+        listView.addHeaderView(roadMessageView);
+        getRoadMessageInfo();
     }
 
-    private void setHeaderView(ListView listView) {
-        View roadInfoView = LayoutInflater.from(getActivity()).inflate(R.layout.road_info_view, null);
-        RecyclerView mRecyclerView = (RecyclerView) roadInfoView.findViewById(R.id.road_info_list_rv);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        adapter = new SimpleRoadInfoAdapter(getActivity());
-        mRecyclerView.setAdapter(adapter);
-        listView.addHeaderView(roadInfoView);
-
-        View feedbackBtn = roadInfoView.findViewById(R.id.feedback_btn);
-        feedbackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RoadInfoCreateActivity.class);
-                intent.putExtra(IntentExtra.INTENT_ROUTE, routeActivity.getRouteName());
-                getActivity().startActivity(intent);
-            }
-        });
-
-        getRoadInfo();
-    }
-
-    private void getRoadInfo() {
+    private void getRoadMessageInfo() {
         BmobQuery<RoadInfo> query = new BmobQuery<>();
         query.order("-comment,-createdAt");
         query.addQueryKeys("title,priority");
@@ -101,7 +74,7 @@ public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanI
         query.findObjects(getActivity(), new FindListener<RoadInfo>() {
             @Override
             public void onSuccess(List<RoadInfo> list) {
-                adapter.setData((ArrayList<RoadInfo>) list);
+                setUpMessage(list, roadMessageView);
             }
 
             @Override
@@ -128,4 +101,8 @@ public class RouteHomeFragment extends Fragment implements PlanListAdapter.PlanI
         update(false, plan);
     }
 
+    @Override
+    public void update() {
+
+    }
 }

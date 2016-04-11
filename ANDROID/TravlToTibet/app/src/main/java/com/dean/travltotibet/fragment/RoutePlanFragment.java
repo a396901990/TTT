@@ -83,7 +83,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.plan_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(ScreenUtil.dip2px(getActivity(), 8)));
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(ScreenUtil.dip2px(getActivity(), 6)));
 
         mRecyclerView.setAdapter(adapter);
 

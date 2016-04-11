@@ -128,10 +128,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         TTTApplication.getDbHelper().deleteRecentRoute(recentRoute);
-                        mData.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, mData.size());
-                        notifyDataSetChanged();
+                        if (mData!= null && mData.size() >= position) {
+                            mData.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mData.size());
+                            notifyDataSetChanged();
+                        }
                         dialog.dismiss();
                     }
 
