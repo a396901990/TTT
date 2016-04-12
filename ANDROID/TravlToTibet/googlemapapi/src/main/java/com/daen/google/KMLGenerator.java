@@ -25,6 +25,9 @@ public class KMLGenerator {
     private static ArrayList<Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
+        LatLng firstLatlnga = new LatLng(28.396302, 98.466483);
+        LatLng secondLatlnga = new LatLng(28.384696, 98.462672);
+        double distancea = KMLGeneratorUtil.getDistance(firstLatlnga, secondLatlnga);
 
         geocodes = new ArrayList<>();
 
@@ -52,26 +55,24 @@ public class KMLGenerator {
             geocode.setMilestone(0);
             geocode.setTypes(Constants.PATH);
 
-            // distance
-            double distance = 0;
-            if (i < folderSize - 1) {
-                Placemark nextPlacemark = (Placemark) childFolder.getFeature().get(i+1);
-                Point nextPoint = (Point) nextPlacemark.getGeometry();
-                Coordinate nextCoordinate = nextPoint.getCoordinates().get(0);
-
-                LatLng firstLatlng = new LatLng(coordinate.getLatitude(), coordinate.getLongitude());
-                LatLng secondLatlng = new LatLng(nextCoordinate.getLatitude(), nextCoordinate.getLongitude());
-                distance = KMLGeneratorUtil.getDistance(firstLatlng, secondLatlng);
-            }
-
-            geocode.setDistance(distance);
             geocodes.add(geocode);
         }
+        geocodes = KMLGeneratorUtil.reOrder(geocodes, false);
+        geocodes = KMLGeneratorUtil.getDistanceForGeo(geocodes);
 
         ArrayList<Geocode> newGeo = KMLGeneratorUtil.getNewGeocodes(geocodes, 280);
+        ArrayList<String> addPoint = new ArrayList<>();
+        addPoint.add("-19582");
+        addPoint.add("-18553");
+        addPoint.add("-17714");
+        addPoint.add("-17340");
+        addPoint.add("-15220");
+        addPoint.add("-14525");
+        addPoint.add("-0");
+        newGeo = KMLGeneratorUtil.addPoint(newGeo, geocodes, addPoint);
+        newGeo = KMLGeneratorUtil.reOrder(newGeo, false);
         ArrayList<Geocode> finalGeo = KMLGeneratorUtil.getGeoDistance(newGeo, geocodes);
-        finalGeo = KMLGeneratorUtil.reOrder(finalGeo);
-        finalGeo = KMLGeneratorUtil.addStartEnd(finalGeo, geocodes);
+
         ParseJson.parseToFile(finalGeo);
     }
 }

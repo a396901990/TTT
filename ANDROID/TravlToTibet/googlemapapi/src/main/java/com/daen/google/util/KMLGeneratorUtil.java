@@ -13,6 +13,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import de.micromata.opengis.kml.v_2_2_0.Coordinate;
+import de.micromata.opengis.kml.v_2_2_0.Placemark;
+import de.micromata.opengis.kml.v_2_2_0.Point;
+
 /**
  * Created by Dean on 2015/5/28.
  */
@@ -115,8 +119,9 @@ public final class KMLGeneratorUtil {
 
     public static double getDistance(ArrayList<Geocode> geos, Geocode firstGeo, Geocode nextGeo) {
         double distance = 0;
-        int start = (int) firstGeo.getMileage();
-        int end = (int) nextGeo.getMileage();
+
+        int start = firstGeo.getMileage() > nextGeo.getMileage() ? (int) nextGeo.getMileage() : (int) firstGeo.getMileage();;
+        int end = firstGeo.getMileage() < nextGeo.getMileage() ? (int) nextGeo.getMileage() : (int) firstGeo.getMileage();;
         for (int i = start; i < end; i++) {
             if ((i) < geos.size()) {
                 Geocode geocode = geos.get(i);
@@ -172,24 +177,10 @@ public final class KMLGeneratorUtil {
             dividePoint.add(newOrderByHeight.get(i));
         }
 
-        // 排序，目前是反序，根据点顺序来
-        Collections.sort(dividePoint, new Comparator<Geocode>() {
-            @Override
-            public int compare(Geocode o1, Geocode o2) {
-                if (o1.getMileage() > o2.getMileage()) {
-                    return 1;
-                } else if (o1.getMileage() < o2.getMileage()) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            }
-        });
-
         return dividePoint;
     }
 
-    public static ArrayList<Geocode> reOrder(ArrayList<Geocode> geocodes) {
+    public static ArrayList<Geocode> reOrder(ArrayList<Geocode> geocodes, final boolean isForword) {
 
         ArrayList<Geocode> reOrderGeos = geocodes;
 
@@ -197,9 +188,9 @@ public final class KMLGeneratorUtil {
             @Override
             public int compare(Geocode o1, Geocode o2) {
                 if (o1.getMileage() > o2.getMileage()) {
-                    return -1;
+                    return isForword ? 1 : -1;
                 } else if (o1.getMileage() < o2.getMileage()) {
-                    return 1;
+                    return isForword ? -1 : 1;
                 } else {
                     return 0;
                 }
@@ -210,27 +201,60 @@ public final class KMLGeneratorUtil {
         return reOrderGeos;
     }
 
-    public static ArrayList<Geocode> addStartEnd(ArrayList<Geocode> newGeos, ArrayList<Geocode> oldGeos) {
+    public static ArrayList<Geocode> getDistanceForGeo(ArrayList<Geocode> geocodes) {
 
+        ArrayList<Geocode> reOrderGeos = geocodes;
 
-        // first geocode, 第一个元素应该是老集合中最后一个元素
-        Geocode firstGeo = oldGeos.get(oldGeos.size() - 1);
-        double firstDis = getDistance(oldGeos, newGeos.get(0), firstGeo);
-        firstGeo.setDistance(firstDis);
-        firstGeo.setTypes(Constants.CITY);
-        newGeos.add(0, firstGeo);
+        for (int i=0; i<reOrderGeos.size();i++) {
 
-        // last geocode，反之
-        Geocode lastGeo = oldGeos.get(0);
+            Geocode firstGeo = reOrderGeos.get(i);
+            // distance
+            double distance = 0;
+            if (i < reOrderGeos.size() - 1) {
+                Geocode nextGeo = reOrderGeos.get(i + 1);
 
-        Geocode secondGeo = newGeos.get(newGeos.size() - 1);
-        double secondGeoDis = getDistance(oldGeos, lastGeo, secondGeo);
-        secondGeo.setDistance(secondGeoDis);
+                LatLng firstLatlng = new LatLng(firstGeo.getLatitude(), firstGeo.getLongitude());
+                LatLng secondLatlng = new LatLng(nextGeo.getLatitude(), nextGeo.getLongitude());
+                distance = KMLGeneratorUtil.getDistance(firstLatlng, secondLatlng);
+            }
+            firstGeo.setDistance(distance);
+        }
 
-        lastGeo.setDistance(0);
-        lastGeo.setTypes(Constants.CITY);
-        newGeos.add(lastGeo);
+        return reOrderGeos;
+    }
+
+    public static ArrayList<Geocode> addPoint(ArrayList<Geocode> newGeos, ArrayList<Geocode> oldGeos, ArrayList<String> point) {
+        ArrayList<Geocode> tempGeo = newGeos;
+
+        for (String pointName : point) {
+            // 如果不包含这个点，要加上这个点
+            if (!hasPoint(tempGeo, pointName)) {
+                Geocode addGeo = getPoint(oldGeos, pointName);
+                if (addGeo != null) {
+                    addGeo.setTypes(Constants.CITY);
+                    newGeos.add(addGeo);
+                }
+            }
+        }
 
         return newGeos;
+    }
+
+    private static boolean hasPoint(ArrayList<Geocode> newGeos, String pointName) {
+        for (Geocode geocode : newGeos) {
+            if (pointName.equals(geocode.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Geocode getPoint(ArrayList<Geocode> oldGeos, String pointName) {
+        for (Geocode geocode : oldGeos) {
+            if (pointName.equals(geocode.getName())) {
+                return geocode;
+            }
+        }
+        return null;
     }
 }
