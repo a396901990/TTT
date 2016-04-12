@@ -11,7 +11,10 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+
+import sun.rmi.runtime.Log;
 
 /**
  * Created by Dean on 2015/5/28.
@@ -158,61 +161,5 @@ public final class DataGeneratorUtil {
         }
 
         return geocodes;
-    }
-
-    public static double getDistance(LatLng start,LatLng end){
-        double lat1 = (Math.PI/180)*start.getLatitude();
-        double lat2 = (Math.PI/180)*end.getLatitude();
-
-        double lon1 = (Math.PI/180)*start.getLongitude();
-        double lon2 = (Math.PI/180)*end.getLongitude();
-
-//      double Lat1r = (Math.PI/180)*(gp1.getLatitudeE6()/1E6);
-//      double Lat2r = (Math.PI/180)*(gp2.getLatitudeE6()/1E6);
-//      double Lon1r = (Math.PI/180)*(gp1.getLongitudeE6()/1E6);
-//      double Lon2r = (Math.PI/180)*(gp2.getLongitudeE6()/1E6);
-
-        //地球半径
-        double R = 6371;
-
-        //两点间距离 km，如果想要米的话，结果*1000就可以了
-        double d =  Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*R;
-
-        return d;
-    }
-
-    public static ArrayList<Geocode> getNewGeocodes(ArrayList<Geocode> oldGeos, int kilos) {
-        int points = kilos * 1000 / 1000;
-        final int pointsGap = oldGeos.size() / points;
-
-        ArrayList<Geocode> newGeos = new ArrayList<>();
-        for (int i = 0; i < oldGeos.size(); i += pointsGap) {
-            Geocode geocode = oldGeos.get(i);
-            double distance = getDistance(oldGeos, i, pointsGap);
-            geocode.setDistance(distance);
-            if (i == 0) {
-                geocode.setTypes(Constants.CITY);
-            }
-            newGeos.add(geocode);
-        }
-
-        // last geocode
-        Geocode lastGeo = oldGeos.get(oldGeos.size()-1);
-        lastGeo.setDistance(0);
-        lastGeo.setTypes(Constants.CITY);
-        newGeos.add(lastGeo);
-        return newGeos;
-    }
-
-    public static double getDistance(ArrayList<Geocode> geos, int start, int pointGap) {
-        double distance = 0;
-        for (int i = start; i < start + pointGap; i ++) {
-            if (i < geos.size()) {
-                Geocode geocode = geos.get(i);
-                distance += geocode.getDistance();
-            }
-        }
-
-        return distance;
     }
 }

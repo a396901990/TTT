@@ -4,6 +4,7 @@ import com.daen.google.module.Constants;
 import com.daen.google.module.Geocode;
 import com.daen.google.module.LatLng;
 import com.daen.google.util.DataGeneratorUtil;
+import com.daen.google.util.KMLGeneratorUtil;
 import com.daen.google.util.ParseJson;
 
 import java.io.File;
@@ -35,7 +36,7 @@ public class KMLGenerator {
         int folderSize = childFolder.getFeature().size();
 
         // loop over all countries / Placemarks
-        for (int i = folderSize-1; i >= 0; i--) {
+        for (int i = 0; i <folderSize ; i++) {
 
             Placemark placemark = (Placemark) childFolder.getFeature().get(i);
             Point point = (Point) placemark.getGeometry();
@@ -47,27 +48,30 @@ public class KMLGenerator {
             geocode.setLatitude(coordinate.getLatitude());
             geocode.setElevation(coordinate.getAltitude());
             geocode.setAddress("");
-            geocode.setMileage(0);
+            geocode.setMileage(i);
             geocode.setMilestone(0);
             geocode.setTypes(Constants.PATH);
 
             // distance
             double distance = 0;
-            if (i > 0) {
-                Placemark nextPlacemark = (Placemark) childFolder.getFeature().get(i-1);
+            if (i < folderSize - 1) {
+                Placemark nextPlacemark = (Placemark) childFolder.getFeature().get(i+1);
                 Point nextPoint = (Point) nextPlacemark.getGeometry();
                 Coordinate nextCoordinate = nextPoint.getCoordinates().get(0);
 
                 LatLng firstLatlng = new LatLng(coordinate.getLatitude(), coordinate.getLongitude());
                 LatLng secondLatlng = new LatLng(nextCoordinate.getLatitude(), nextCoordinate.getLongitude());
-                distance = DataGeneratorUtil.getDistance(firstLatlng, secondLatlng);
+                distance = KMLGeneratorUtil.getDistance(firstLatlng, secondLatlng);
             }
 
             geocode.setDistance(distance);
             geocodes.add(geocode);
         }
 
-        geocodes = DataGeneratorUtil.getNewGeocodes(geocodes, 280);
-        ParseJson.parseToFile(geocodes);
+        ArrayList<Geocode> newGeo = KMLGeneratorUtil.getNewGeocodes(geocodes, 280);
+        ArrayList<Geocode> finalGeo = KMLGeneratorUtil.getGeoDistance(newGeo, geocodes);
+        finalGeo = KMLGeneratorUtil.reOrder(finalGeo);
+        finalGeo = KMLGeneratorUtil.addStartEnd(finalGeo, geocodes);
+        ParseJson.parseToFile(finalGeo);
     }
 }
