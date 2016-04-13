@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.ClipboardManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.RoadInfoDetailActivity;
 import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
+import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.ui.HorizontalItemDecoration;
 import com.dean.travltotibet.util.Constants;
@@ -40,6 +44,8 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
     private RoadInfoDetailActivity roadInfoDetailActivity;
 
     private ImagePickAdapter imagePickAdapter;
+
+    private Article article;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,11 +89,38 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
         }
     }
 
-   // title
+    // title
     private void initTitleContent() {
         TextView title = (TextView) root.findViewById(R.id.title_text);
         title.setText(roadInfo.getTitle());
         setCopyView(title);
+    }
+
+    // article
+    private void initLinkContent() {
+        // 有文章的话
+        if (article != null) {
+            View articleContent = root.findViewById(R.id.article_content_view);
+            articleContent.setVisibility(View.VISIBLE);
+
+            TextView articleText = (TextView) root.findViewById(R.id.link_text);
+            articleText.setText(article.getTitle());
+
+            View linkBtn = root.findViewById(R.id.link_btn);
+            linkBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ScreenUtil.isFastClick()) {
+                        return;
+                    }
+                    // 跳转到RouteActivity
+                    Intent intent = new Intent(getActivity(), ArticleActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
+                    intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
     }
 
     // 内容
@@ -103,7 +136,7 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
         setCopyView(content);
     }
 
-    private void setCopyView (final TextView textView) {
+    private void setCopyView(final TextView textView) {
         textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -131,21 +164,27 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
     public void onLoading() {
         super.onLoading();
         BmobQuery<RoadInfo> query = new BmobQuery<RoadInfo>();
-        query.include("imageFile");
+        query.include("imageFile,article");
         query.getObject(getActivity(), roadInfo.getObjectId(), new GetListener<RoadInfo>() {
 
             @Override
             public void onSuccess(RoadInfo object) {
                 roadInfo = object;
-                initTitleContent();
-                initContentContent();
-                initImageContent();
+                article = object.getArticle();
+                initView();
             }
 
             @Override
             public void onFailure(int code, String arg0) {
             }
         });
+    }
+
+    public void initView() {
+        initTitleContent();
+        initContentContent();
+        initLinkContent();
+        initImageContent();
     }
 
     @Override

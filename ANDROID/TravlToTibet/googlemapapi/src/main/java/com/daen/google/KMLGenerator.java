@@ -3,7 +3,6 @@ package com.daen.google;
 import com.daen.google.module.Constants;
 import com.daen.google.module.Geocode;
 import com.daen.google.module.LatLng;
-import com.daen.google.util.DataGeneratorUtil;
 import com.daen.google.util.KMLGeneratorUtil;
 import com.daen.google.util.ParseJson;
 
@@ -25,8 +24,8 @@ public class KMLGenerator {
     private static ArrayList<Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
-        LatLng firstLatlnga = new LatLng(28.396302, 98.466483);
-        LatLng secondLatlnga = new LatLng(28.384696, 98.462672);
+        LatLng firstLatlnga = new LatLng(28.557, 98.22337);
+        LatLng secondLatlnga = new LatLng(28.559945, 98.212197);
         double distancea = KMLGeneratorUtil.getDistance(firstLatlnga, secondLatlnga);
 
         geocodes = new ArrayList<>();
@@ -57,21 +56,46 @@ public class KMLGenerator {
 
             geocodes.add(geocode);
         }
-        geocodes = KMLGeneratorUtil.reOrder(geocodes, false);
         geocodes = KMLGeneratorUtil.getDistanceForGeo(geocodes);
-
         ArrayList<Geocode> newGeo = KMLGeneratorUtil.getNewGeocodes(geocodes, 280);
         ArrayList<String> addPoint = new ArrayList<>();
         addPoint.add("-19582");
+        addPoint.add("-19450");
         addPoint.add("-18553");
+        addPoint.add("-17999");
+        addPoint.add("-17998");
         addPoint.add("-17714");
         addPoint.add("-17340");
+        addPoint.add("-16740");
+        addPoint.add("-16071");
+        addPoint.add("-15730");
+        addPoint.add("-15640");
         addPoint.add("-15220");
         addPoint.add("-14525");
+        addPoint.add("-13580");
+        addPoint.add("-12820");
+        addPoint.add("-12665");
+        addPoint.add("-12510");
+        addPoint.add("-11450");
+        addPoint.add("-9800");
+        addPoint.add("-9380");
+        addPoint.add("-7457");
+        addPoint.add("-7008");
+        addPoint.add("-6100");
+        addPoint.add("-5175");
+        addPoint.add("-4570");
+        addPoint.add("-2560");
+        addPoint.add("-1630");
+        addPoint.add("-1195");
+        addPoint.add("-740");
+        addPoint.add("-580");
+        addPoint.add("-170");
         addPoint.add("-0");
         newGeo = KMLGeneratorUtil.addPoint(newGeo, geocodes, addPoint);
-        newGeo = KMLGeneratorUtil.reOrder(newGeo, false);
+        newGeo = KMLGeneratorUtil.reOrder(newGeo, true);
+
         ArrayList<Geocode> finalGeo = KMLGeneratorUtil.getGeoDistance(newGeo, geocodes);
+        finalGeo = KMLGeneratorUtil.getReversGeo(finalGeo);
 
         ParseJson.parseToFile(finalGeo);
     }

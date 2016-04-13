@@ -27,7 +27,6 @@ import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.RoadInfo;
-import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.HorizontalItemDecoration;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
@@ -55,11 +54,11 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
     private final static int TEXT_MAX_LIMIT = 140;
 
-    private final static int TEXT_MIN_LIMIT = 6;
+    private final static int TEXT_MIN_LIMIT = 8;
 
     private RoadInfo roadInfo;
 
-    EditText contentEdit;
+    private EditText contentEdit;
 
     private ImagePickAdapter imagePickAdapter;
 
@@ -173,7 +172,7 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
             toDo(PREPARE_LOADING, 0);
         } else {
-            Toast.makeText(getActivity(), "内容不得少于10个字", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "内容不得少于"+TEXT_MIN_LIMIT+"个字", Toast.LENGTH_SHORT).show();
         }
     }
 

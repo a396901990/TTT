@@ -3,6 +3,7 @@ package com.dean.travltotibet.dialog;
 import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.ScreenUtil;
+
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * Created by DeanGuo on 3/12/16.
@@ -27,6 +31,8 @@ public class ShowHtmlDialogFragment extends DialogFragment {
     private View loadingView;
 
     private String url;
+
+    private String shareUrl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,33 @@ public class ShowHtmlDialogFragment extends DialogFragment {
 
         loadingView = root.findViewById(R.id.loading_content_view);
 
+        if (!TextUtils.isEmpty(shareUrl)) {
+            initShareBtn();
+        } else {
+            initDismissBtn();
+        }
+        // 初始化数据
+        initData();
+    }
+
+    private void initShareBtn() {
         View bottomView = root.findViewById(R.id.bottom_content_view);
+        Button bottomTextView = (Button) root.findViewById(R.id.commit_btn);
+        bottomTextView.setText("分享");
+        bottomView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+            }
+        });
+    }
+
+    private void initDismissBtn() {
+        View bottomView = root.findViewById(R.id.bottom_content_view);
+        Button bottomTextView = (Button) root.findViewById(R.id.commit_btn);
+        bottomTextView.setText("知道了");
         bottomView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +96,6 @@ public class ShowHtmlDialogFragment extends DialogFragment {
                 }
             }
         });
-
-        // 初始化数据
-        initData();
     }
 
     @Override
@@ -122,4 +151,7 @@ public class ShowHtmlDialogFragment extends DialogFragment {
         super.onDestroy();
     }
 
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
+    }
 }

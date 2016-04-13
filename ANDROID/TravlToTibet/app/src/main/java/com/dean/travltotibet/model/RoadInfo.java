@@ -41,6 +41,8 @@ public class RoadInfo extends BmobObject {
 
     private int watch;
 
+    private Article article;
+
     public String getStatus() {
         return status;
     }
@@ -97,18 +99,6 @@ public class RoadInfo extends BmobObject {
         this.route = route;
     }
 
-    public static int getPriorityIcon(String priority) {
-        if (WARRING.equals(priority)) {
-            return R.drawable.common_warning_badge;
-        } else if (IMPORTANT.equals(priority)) {
-            return R.drawable.common_caution_badge;
-        } else if (NORMAL.equals(priority)) {
-            return R.drawable.common_info_badge;
-        }
-
-        return 0;
-    }
-
     public String getBelong() {
         return belong;
     }
@@ -132,4 +122,25 @@ public class RoadInfo extends BmobObject {
     public void setComment(int comment) {
         this.comment = comment;
     }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public static int getPriorityIcon(String priority) {
+        if (WARRING.equals(priority)) {
+            return R.drawable.common_warning_badge;
+        } else if (IMPORTANT.equals(priority)) {
+            return R.drawable.common_caution_badge;
+        } else if (NORMAL.equals(priority)) {
+            return R.drawable.common_info_badge;
+        }
+
+        return 0;
+    }
+
 }

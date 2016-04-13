@@ -257,4 +257,29 @@ public final class KMLGeneratorUtil {
         }
         return null;
     }
+
+    public static ArrayList<Geocode> getReversGeo(ArrayList<Geocode> newGeos) {
+
+        // 设置反向distance,用setMilestone暂存
+        for (int i = 0; i < newGeos.size(); i++) {
+            Geocode geocode = newGeos.get(i);
+            double r_distance;
+            if (i == 0) {
+                r_distance = 0;
+            } else {
+                r_distance = newGeos.get(i - 1).getDistance();
+            }
+            geocode.setMilestone(r_distance);
+        }
+
+        // 反转元素
+        newGeos = reOrder(newGeos, false);
+
+        // 调换正反distance
+        for (int i = 0; i < newGeos.size(); i++) {
+            Geocode geocode = newGeos.get(i);
+            geocode.setDistance(geocode.getMilestone());
+        }
+        return newGeos;
+    }
 }
