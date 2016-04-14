@@ -1,7 +1,10 @@
 package com.dean.travltotibet.activity;
 
 import android.os.Bundle;
+import android.view.ViewGroup;
 
+import com.dean.travltotibet.R;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 
 import cn.bmob.v3.BmobObject;
@@ -24,4 +27,19 @@ public abstract class BaseCommentActivity extends  BaseActivity implements BaseC
     }
 
     abstract public BmobObject getObj();
+
+    private LoadingBackgroundManager loadingBackgroundManager;
+
+    public void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) this.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(this, contentView);
+    }
+
+    public LoadingBackgroundManager getLoadingBackgroundManager() {
+        return loadingBackgroundManager;
+    }
+
+    public void setLoadingBackgroundManager(LoadingBackgroundManager loadingBackgroundManager) {
+        this.loadingBackgroundManager = loadingBackgroundManager;
+    }
 }

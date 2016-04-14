@@ -107,7 +107,6 @@ public class AppLaunchActivity extends Activity {
         logoText.startAnimation(alphaAnimation);
     }
 
-
     private void logoMsgAnimation() {
         View logoMsg = this.findViewById(R.id.logo_msg);
         logoMsg.setVisibility(View.VISIBLE);

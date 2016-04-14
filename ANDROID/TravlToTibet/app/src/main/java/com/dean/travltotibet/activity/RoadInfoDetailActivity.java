@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.RoadInfoCommentDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
@@ -43,6 +45,7 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
 
         updateWatch();
         initBottom();
+        initLoadingBackground();
     }
 
     private void refresh() {
@@ -116,4 +119,5 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
     public RoadInfo getRoadInfo() {
         return roadInfo;
     }
+
 }

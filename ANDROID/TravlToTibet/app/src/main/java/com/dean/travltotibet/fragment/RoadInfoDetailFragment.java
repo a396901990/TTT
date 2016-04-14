@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.ClipboardManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.RoadInfoDetailActivity;
 import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
-import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.ui.HorizontalItemDecoration;
@@ -157,6 +156,10 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
     @Override
     public void prepareLoading() {
         super.prepareLoading();
+        // show loading
+        if (roadInfoDetailActivity.getLoadingBackgroundManager() != null) {
+            roadInfoDetailActivity.getLoadingBackgroundManager().showLoadingView();
+        }
         toDo(ON_LOADING, 800);
     }
 
@@ -169,13 +172,27 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
 
             @Override
             public void onSuccess(RoadInfo object) {
-                roadInfo = object;
-                article = object.getArticle();
-                initView();
+                // 无数据
+                if (object == null) {
+                    roadInfoDetailActivity.getLoadingBackgroundManager().loadingFaild(getString(R.string.no_result), null);
+                }
+                // 有数据
+                else {
+                    roadInfoDetailActivity.getLoadingBackgroundManager().loadingSuccess();
+                    roadInfo = object;
+                    article = object.getArticle();
+                    initView();
+                }
             }
 
             @Override
             public void onFailure(int code, String arg0) {
+                roadInfoDetailActivity.getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+                    @Override
+                    public void retry() {
+                        onRefresh();
+                    }
+                });
             }
         });
     }

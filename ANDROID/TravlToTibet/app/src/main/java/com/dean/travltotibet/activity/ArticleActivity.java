@@ -63,6 +63,7 @@ public class ArticleActivity extends BaseCommentActivity {
         }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        // 双击两次返回顶部
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,12 +74,13 @@ public class ArticleActivity extends BaseCommentActivity {
         });
         toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
-//        setTitle(mArticle.getTitle());
         setHomeIndicator();
 
         updateWatch();
         initBtn();
+        initLoadingBackground();
 
+        // 统计文章
         if (!TextUtils.isEmpty(mArticle.getTitle())) {
             CountUtil.countArticle(this, mArticle.getTitle());
         }

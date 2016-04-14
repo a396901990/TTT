@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.ArticleActivity;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.SystemUtil;
 
 /**
  * Created by DeanGuo on 2/18/16.
@@ -21,8 +25,6 @@ public class ArticleFragment extends Fragment {
     private View root;
 
     private WebView mWebView;
-
-    private View loadingView;
 
     private ArticleActivity mActivity;
 
@@ -43,8 +45,6 @@ public class ArticleFragment extends Fragment {
         mWebView.setWebViewClient(new SimpleWebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
 
-        loadingView = root.findViewById(R.id.loading_content_view);
-
         // 初始化数据
         initData();
     }
@@ -53,12 +53,14 @@ public class ArticleFragment extends Fragment {
      * 初始化数据
      */
     private void initData() {
+        mActivity.getLoadingBackgroundManager().showLoadingView();
         String url = mActivity.getArticle().getUrl();
-//        loadingView.setVisibility(View.VISIBLE);
         mWebView.loadUrl(url);
     }
 
     public class SimpleWebViewClient extends WebViewClient {
+
+        boolean isError;
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -66,6 +68,7 @@ public class ArticleFragment extends Fragment {
                 super.onPageStarted(view, url, favicon);
                 return;
             }
+            isError = false;
         }
 
         @Override
@@ -74,7 +77,23 @@ public class ArticleFragment extends Fragment {
                 super.onPageFinished(view, url);
                 return;
             }
-//            loadingView.setVisibility(View.GONE);
+
+            if (!isError) {
+                mActivity.getLoadingBackgroundManager().loadingSuccess();
+            } else {
+                mActivity.getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+                    @Override
+                    public void retry() {
+                        initData();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+            isError = true;
         }
     }
 

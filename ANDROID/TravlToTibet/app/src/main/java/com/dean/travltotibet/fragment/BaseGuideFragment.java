@@ -41,6 +41,12 @@ public abstract class BaseGuideFragment extends Fragment {
         feedbackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getActivity() == null) {
+                    return;
+                }
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), RoadInfoCreateActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ROUTE, routeActivity.getRouteName());
                 getActivity().startActivity(intent);

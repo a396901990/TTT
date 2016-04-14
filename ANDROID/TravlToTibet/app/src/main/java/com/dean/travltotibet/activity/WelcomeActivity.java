@@ -1,12 +1,9 @@
 package com.dean.travltotibet.activity;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.LinearLayout;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.ChartPagerAdapter;
 import com.dean.travltotibet.adapter.WelcomePageAdapter;
 import com.dean.travltotibet.fragment.WelcomePageFragment;
 import com.dean.travltotibet.util.SystemUtil;
@@ -36,7 +32,6 @@ public class WelcomeActivity extends Activity {
     static final int TOTAL_PAGES = 4;
 
     ViewPager pager;
-    PagerAdapter pagerAdapter;
     LinearLayout circles;
     Button btnDone;
     ImageButton btnPre;
