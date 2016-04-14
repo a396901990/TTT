@@ -76,9 +76,11 @@ public abstract class BaseGuideFragment extends Fragment {
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                Intent intent = new Intent(getActivity(), RoadInfoDetailActivity.class);
-                intent.putExtra(IntentExtra.INTENT_ROAD, roadInfo);
-                getActivity().startActivity(intent);
+                if (getActivity() != null) {
+                    Intent intent = new Intent(getActivity(), RoadInfoDetailActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_ROAD, roadInfo);
+                    getActivity().startActivity(intent);
+                }
             }
         });
 

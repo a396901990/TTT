@@ -397,7 +397,8 @@ public class AndroidImagePicker {
     }
 
     /**
-     * take picture
+     * ta
+     * ke picture
      */
     public void takePicture(Fragment fragment, int requestCode) throws IOException {
 

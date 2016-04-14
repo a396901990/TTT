@@ -140,6 +140,9 @@ public abstract class GalleryInfoDialogFragment extends BaseRefreshDialogFragmen
     @Override
     public void LoadingSuccess() {
         super.LoadingSuccess();
+        if (loadingBackgroundManager == null) {
+            return;
+        }
         // 无数据
         if (galleryInfos == null || galleryInfos.size() == 0) {
             loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);

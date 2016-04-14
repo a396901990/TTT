@@ -58,7 +58,7 @@ public class AppLaunchActivity extends Activity {
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务
-        BmobPush.startWork(this, BMOB_APPLICATION_ID);
+        BmobPush.startWork(this);
 
         // 初始化share sdk
         ShareSDK.initSDK(this);
@@ -66,8 +66,9 @@ public class AppLaunchActivity extends Activity {
         // 设置登陆状态
         LoginUtil.getInstance().updateUserInfo();
 
+        initView();
         // 6.0 检查运行时权限
-        checkSystemPermission();
+//        checkSystemPermission();
     }
 
     private void checkSystemPermission() {
@@ -79,10 +80,8 @@ public class AppLaunchActivity extends Activity {
     }
 
     private void initView() {
-
          logoTextAnimation();
     }
-
 
     private void logoTextAnimation() {
         ImageView logoText = (ImageView) this.findViewById(R.id.logo_text);

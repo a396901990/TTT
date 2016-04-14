@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -38,8 +39,8 @@ import com.pizidea.imagepicker.bean.ImageItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.helper.PermissionListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 
@@ -102,7 +103,32 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
                 // 6.0 检查存储运行权限
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                    mActivity.getPermissionManager()
+                            .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                            .setPermissionsListener(new PermissionListener() {
+                                @Override
+                                public void onGranted() {
+                                    goToPicker();
+                                }
+
+                                @Override
+                                public void onDenied() {
+
+                                }
+
+                                @Override
+                                public void onShowRationale(String[] strings) {
+                                    Snackbar.make(root, "需要内存卡读取权限、摄像头权限来访问照片", Snackbar.LENGTH_INDEFINITE)
+                                            .setAction("确定", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    //必须调用该`setIsPositive(true)`方法
+                                                    mActivity.getPermissionManager().setIsPositive(true);
+                                                    mActivity.getPermissionManager().request();
+                                                }
+                                            }).show();
+                                }
+                            }).request();
                 } else {
                     goToPicker();
                 }
@@ -276,7 +302,7 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
         String[] imgs = ImageFile.getCompressUrl(imagePickAdapter.getData());
 
         // 批量上传图片up
-        Bmob.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
+        BmobFile.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
 
             @Override
             public void onSuccess(List<BmobFile> files, List<String> urls) {

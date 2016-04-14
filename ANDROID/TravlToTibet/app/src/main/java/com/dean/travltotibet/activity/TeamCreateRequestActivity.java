@@ -19,6 +19,8 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
+import cn.bmob.v3.helper.PermissionManager;
+
 /**
  * Created by DeanGuo on 3/3/16.
  */

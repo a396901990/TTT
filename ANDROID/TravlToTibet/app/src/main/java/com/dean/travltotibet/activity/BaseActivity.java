@@ -3,6 +3,7 @@ package com.dean.travltotibet.activity;
 import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,12 +19,22 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
+import cn.bmob.v3.helper.PermissionManager;
+
 /**
  * Created by DeanGuo on 12/2/15.
  */
 public class BaseActivity extends AppCompatActivity {
 
     public static final int UPDATE_REQUEST = 0;
+
+    PermissionManager permissionManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        permissionManager = PermissionManager.with(this);
+    }
 
     @Override
     public void setContentView(final int layoutResID) {
@@ -126,5 +137,18 @@ public class BaseActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    public PermissionManager getPermissionManager() {
+        return permissionManager;
+    }
+
+    /**
+     * 权限申请回调
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionManager.onPermissionResult(permissions, grantResults);
     }
 }

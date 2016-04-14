@@ -18,14 +18,18 @@
 
 package com.pizidea.imagepicker.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -265,10 +269,12 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            androidImagePicker.takePicture(ImagesGridFragment.this,AndroidImagePicker.REQ_CAMERA);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+
+                        // 检查拍照权限
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 0);
+                        } else {
+                            takePicAction ();
                         }
                     }
                 });
@@ -353,6 +359,14 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
 
             return convertView;
 
+        }
+
+        public void takePicAction () {
+            try {
+                androidImagePicker.takePicture(ImagesGridFragment.this,AndroidImagePicker.REQ_CAMERA);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         class ViewHolder{
@@ -573,6 +587,16 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
             }else{
                 Log.i(TAG,"didn't save to your path");
             }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            mAdapter.takePicAction();
+        } else {
         }
 
     }

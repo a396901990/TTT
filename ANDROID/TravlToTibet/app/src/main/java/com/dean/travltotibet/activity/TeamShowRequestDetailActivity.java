@@ -97,7 +97,9 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             query.findObjects(this, new FindListener<UserFavorites>() {
                 @Override
                 public void onSuccess(List<UserFavorites> list) {
-                    curUserFavorite = list.get(0);
+                    if (list!=null && list.size() > 0) {
+                        curUserFavorite = list.get(0);
+                    }
                     invalidateOptionsMenu();
                 }
 

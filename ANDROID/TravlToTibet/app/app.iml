@@ -124,7 +124,7 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="circleimageview-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="Bmob_Push_V0.6beta_20150408" level="project" />
+    <orderEntry type="library" exported="" name="BmobSDK_V3.4.6_0413" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
@@ -133,10 +133,11 @@
     <orderEntry type="library" exported="" name="material-dialogs-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="analytics-5.6.7" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="Bmob_Push_V0.8beta_20160315" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="org.apache.http.legacy" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="BmobSDK_V3.4.5_1111" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
     <orderEntry type="library" exported="" name="google-material-typeface-2.1.0.1.original" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />

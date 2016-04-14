@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,7 +24,6 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
-import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
@@ -38,18 +38,15 @@ import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoadingManager;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.dean.travltotibet.util.SystemUtil;
-import com.dean.travltotibet.util.VolleyImageUtils;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.bean.ImageItem;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.helper.PermissionListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadBatchListener;
@@ -126,7 +123,32 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
 
                 // 6.0 检查存储运行权限
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                    mActivity.getPermissionManager()
+                            .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                            .setPermissionsListener(new PermissionListener() {
+                                @Override
+                                public void onGranted() {
+                                    goToPicker();
+                                }
+
+                                @Override
+                                public void onDenied() {
+
+                                }
+
+                                @Override
+                                public void onShowRationale(String[] strings) {
+                                    Snackbar.make(root, "需要内存卡读取权限和摄像头权限来访问照片", Snackbar.LENGTH_INDEFINITE)
+                                            .setAction("确定", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    //必须调用该`setIsPositive(true)`方法
+                                                    mActivity.getPermissionManager().setIsPositive(true);
+                                                    mActivity.getPermissionManager().request();
+                                                }
+                                            }).show();
+                                }
+                            }).request();
                 } else {
                     goToPicker();
                 }
@@ -448,16 +470,8 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         loadingManager.loadingSuccess(new LoadingManager.LoadingSuccessCallBack() {
             @Override
             public void afterLoadingSuccess() {
-//                if (isUpdate) {
-//                    Intent intent = new Intent(getActivity(), TeamShowRequestDetailActivity.class);
-//                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
-//                    intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, true);
-//                    getActivity().startActivity(intent);
-//                    getActivity().finish();
-//                } else {
-                    getActivity().setResult(getActivity().RESULT_OK);
-                    getActivity().finish();
-//                }
+                getActivity().setResult(getActivity().RESULT_OK);
+                getActivity().finish();
             }
         });
     }
@@ -545,18 +559,6 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
     }
 
     /**
-     * 权限申请回调
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            goToPicker();
-        } else {
-        }
-    }
-
-    /**
      * 上传图片
      */
     private void uploadImage() {
@@ -565,7 +567,7 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         String[] imgs = ImageFile.getCompressUrl(imagePickAdapter.getData());
 
         // 批量上传图片up
-        Bmob.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
+        BmobFile.uploadBatch(getActivity(), imgs, new UploadBatchListener() {
 
             @Override
             public void onSuccess(List<BmobFile> files, List<String> urls) {

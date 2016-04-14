@@ -17,8 +17,12 @@ import com.dean.travltotibet.util.SystemUtil;
 import org.json.JSONArray;
 
 
+import java.util.List;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.update.AppVersion;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -143,22 +147,14 @@ public class NavigationFragment extends LoginFragment {
 
         final int currentVersion = SystemUtil.getAppVersionCode(mContext);
 
-        BmobQuery bmobQuery;
-        (bmobQuery = new BmobQuery("AppVersion")).addWhereEqualTo("platform", "Android");
-        bmobQuery.order("-version_i");
-        bmobQuery.findObjects(mContext, new FindCallback() {
+        BmobQuery<AppVersion> appVersionBmobQuery = new BmobQuery<AppVersion>();
+        appVersionBmobQuery.addWhereEqualTo("platform", "Android");
+        appVersionBmobQuery.order("-version_i");
+        appVersionBmobQuery.findObjects(mContext, new FindListener<AppVersion>() {
             @Override
-            public void onFailure(int i, String s) {
-                // 已经是最后版本
-                lastVersionView.setVisibility(View.VISIBLE);
-                newVersionView.setVisibility(View.INVISIBLE);
-                versionCheckView.setClickable(false);
-            }
-
-            @Override
-            public void onSuccess(JSONArray jsonArray) {
-                if (jsonArray.length() > 0) {
-                    UpdateResponse updateInfo = new UpdateResponse(mContext, jsonArray.optJSONObject(0));
+            public void onSuccess(List<AppVersion> apps) {
+                if (apps.size() > 0) {
+                    UpdateResponse updateInfo = new UpdateResponse(mContext, apps.get(0));
                     if (updateInfo.version_i > currentVersion) {
 
                         // 发现新版本
@@ -171,6 +167,14 @@ public class NavigationFragment extends LoginFragment {
                         versionCheckView.setClickable(false);
                     }
                 }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                // 已经是最后版本
+                lastVersionView.setVisibility(View.VISIBLE);
+                newVersionView.setVisibility(View.INVISIBLE);
+                versionCheckView.setClickable(false);
             }
         });
     }
