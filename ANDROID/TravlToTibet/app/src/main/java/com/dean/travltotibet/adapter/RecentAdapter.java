@@ -64,7 +64,17 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         holder.mTitleView.setImageDrawable(TravelType.getTypeImageSrcWithColor(recentRoute.getType(), R.color.white));
 
         // 路线名称
-        holder.mRouteName.setText(recentRoute.getRoute_name());
+        String routeName = recentRoute.getRoute_name();
+        holder.mRouteName.setText(routeName);
+
+        // sub name
+        String subName = TTTApplication.getDbHelper().getRoadSubNameWithName(routeName);
+        if (!TextUtils.isEmpty(subName)) {
+            holder.mSubRouteName.setText(subName);
+        } else {
+            holder.mSubRouteName.setText("");
+        }
+
         // 路线起点,终点
         String start = TTTApplication.getDbHelper().getFromName(recentRoute.getRoute(), recentRoute.getFR());
         String end = TTTApplication.getDbHelper().getToName(recentRoute.getRoute(), recentRoute.getFR());
@@ -177,6 +187,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         private MaterialRippleLayout rippleLayout;
         private ImageView mTitleView;
         private TextView mRouteName;
+        private TextView mSubRouteName;
         private TextView mRouteStartEnd;
         private TextView mPlanName;
         private TextView mPlanDay;
@@ -188,6 +199,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
             mTitleView = (ImageView) itemView.findViewById(R.id.type_icon);
             mDelIcon = (ImageView) itemView.findViewById(R.id.del_icon);
             mRouteName = (TextView) itemView.findViewById(R.id.route_name);
+            mSubRouteName = (TextView) itemView.findViewById(R.id.route_sub_name);
             mRouteStartEnd = (TextView) itemView.findViewById(R.id.route_start_end);
             mPlanName = (TextView) itemView.findViewById(R.id.route_plan_name);
             mPlanDay = (TextView) itemView.findViewById(R.id.route_plan_day);

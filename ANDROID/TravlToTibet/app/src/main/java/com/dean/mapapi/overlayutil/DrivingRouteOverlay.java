@@ -81,7 +81,7 @@ public class DrivingRouteOverlay extends OverlayManager {
 
         if (mRouteLine.getStarting() != null) {
             overlayOptionses.add((new MarkerOptions())
-                    .position(mRouteLine.getStarting().getLocation()).title(START_MARKER)
+                    .position(mRouteLine.getStarting().getLocation()).title(LineOverlay.START_MARKER)
                     .icon(getStartMarker() != null ? getStartMarker() :
                             BitmapDescriptorFactory
                                     .fromAssetWithDpi("Icon_start.png")).zIndex(10));
@@ -89,7 +89,7 @@ public class DrivingRouteOverlay extends OverlayManager {
         if (mRouteLine.getTerminal() != null) {
             overlayOptionses
                     .add((new MarkerOptions())
-                            .position(mRouteLine.getTerminal().getLocation()).title(END_MARKER)
+                            .position(mRouteLine.getTerminal().getLocation()).title(LineOverlay.END_MARKER)
                             .icon(getTerminalMarker() != null ? getTerminalMarker() :
                                     BitmapDescriptorFactory
                                             .fromAssetWithDpi("Icon_end.png"))

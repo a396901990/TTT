@@ -33,6 +33,8 @@ public final class Constants {
 
     public static final String RECENT_PLAN_NAME_DAY = "%s，%s天";
 
+    public static final String ROUTE_NAME = "%s(%s)";
+
     public static final String NAME_VERSION = "%s %s";
 
     public static final String TIMELINE_DISTANCE = "%skm";

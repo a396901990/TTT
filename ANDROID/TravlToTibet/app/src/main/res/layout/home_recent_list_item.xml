@@ -2,8 +2,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recent_card_list_item"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:foreground="?android:attr/selectableItemBackground"
@@ -37,26 +37,38 @@
                     android:layout_gravity="center"
                     android:scaleType="centerCrop" />
 
-                <TextView
-                    android:id="@+id/route_name"
-                    style="@style/TextAppearance.Large.White"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:padding="10dp"
-                    android:text="川藏南线" />
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/route_name"
+                        style="@style/TextAppearance.Large.White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="川藏南线" />
+
+                    <TextView
+                        android:id="@+id/route_sub_name"
+                        style="@style/TextAppearance.Small.White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="G318" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/half_dark_gray"
-                    >
+                    android:background="@color/half_dark_gray">
 
                     <RelativeLayout
-                        android:background="@color/dark_gray_background"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/dark_gray_background"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp">
 
@@ -70,12 +82,12 @@
 
                         <TextView
                             style="@style/TextAppearance.Micro"
-                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/route_plan_day"
                             android:layout_toRightOf="@+id/route_plan_day"
-                            android:text="天" />
+                            android:text="天"
+                            android:textColor="@color/white" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -101,10 +113,10 @@
                             <TextView
                                 android:id="@+id/route_plan_name"
                                 style="@style/TextAppearance.Micro"
-                                android:textColor="@color/white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="正常难度" />
+                                android:text="正常难度"
+                                android:textColor="@color/white" />
                         </LinearLayout>
 
                         <ImageView

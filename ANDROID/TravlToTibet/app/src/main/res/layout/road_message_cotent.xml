@@ -54,11 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"></LinearLayout>
     </LinearLayout>
-    <!--divide line-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/gray_background"></View>
+
 </LinearLayout>
 
 

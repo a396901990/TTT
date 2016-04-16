@@ -57,6 +57,9 @@ public abstract class BaseGuideFragment extends Fragment {
 
     public void setUpMessage(List<RoadInfo> list, View container) {
         ViewGroup roadContent = (ViewGroup) container.findViewById(R.id.road_message_content_view);
+        if (roadContent == null) {
+            return;
+        }
         roadContent.removeAllViews();
         for (RoadInfo roadInfo : list)
         {

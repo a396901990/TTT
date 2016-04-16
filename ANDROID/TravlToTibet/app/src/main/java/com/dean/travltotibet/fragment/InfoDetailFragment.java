@@ -1,7 +1,7 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +13,6 @@ import com.dean.travltotibet.activity.InfoActivity;
 import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.ExpandableTextView;
 import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.IntentExtra;
-import com.dean.travltotibet.util.ScreenUtil;
 
 /**
  * Created by DeanGuo on 10/14/15.
@@ -25,16 +23,6 @@ public class InfoDetailFragment extends BaseInfoFragment {
     private InfoActivity infoActivity;
 
     private View root;
-
-    private ExpandableTextView expandableTextView;
-
-    private View shadeView;
-
-    private TextView routeName;
-
-    private TextView routeStartEnd;
-
-    private TextView routeDistance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,13 +42,23 @@ public class InfoDetailFragment extends BaseInfoFragment {
     }
 
     private void initDetail() {
-        routeStartEnd = (TextView) root.findViewById(R.id.detail_route_start_end);
-        routeDistance = (TextView) root.findViewById(R.id.detail_route_distance);
+        TextView routeStartEnd = (TextView) root.findViewById(R.id.detail_route_start_end);
+        TextView routeDistance = (TextView) root.findViewById(R.id.detail_route_distance);
+        TextView routeSubName = (TextView) root.findViewById(R.id.detail_route_sub_name);
 
         // 设置路线起始终点
         String start = TTTApplication.getDbHelper().getFromName(infoActivity.getRoute(), true);
         String end = TTTApplication.getDbHelper().getToName(infoActivity.getRoute(), true);
         routeStartEnd.setText(String.format(Constants.HEADER_START_END, start, end));
+
+        // sub name
+        String subName = TTTApplication.getDbHelper().getRoadSubNameWithName(infoActivity.getRouteName());
+        if (!TextUtils.isEmpty(subName)) {
+            routeSubName.setVisibility(View.VISIBLE);
+            routeSubName.setText(subName);
+        } else {
+            routeSubName.setVisibility(View.GONE);
+        }
 
         // 设置路线距离
         String distance = TTTApplication.getDbHelper().getRouteDistance(infoActivity.getRoute());
@@ -71,8 +69,8 @@ public class InfoDetailFragment extends BaseInfoFragment {
      * 初始化ExpandableTextView
      */
     private void initExpandableTextView() {
-        expandableTextView = (ExpandableTextView) root.findViewById(R.id.expandable_text_view);
-        shadeView = root.findViewById(R.id.bottom_shade);
+        final ExpandableTextView expandableTextView = (ExpandableTextView) root.findViewById(R.id.expandable_text_view);
+        final View shadeView = root.findViewById(R.id.bottom_shade);
 
         // 设置文字
         String detail = TTTApplication.getDbHelper().getRouteDetail(infoActivity.getRoute());

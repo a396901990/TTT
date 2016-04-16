@@ -82,6 +82,7 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
         initContentContent();
         initImagePickerContent();
+        updateTextLimitHint();
     }
 
     private void initImagePickerContent() {

@@ -1,8 +1,6 @@
 package com.dean.travltotibet.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +17,9 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.Polyline;
-import com.baidu.mapapi.map.PolylineOptions;
-import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.BikingRoutePlanOption;
 import com.baidu.mapapi.search.route.BikingRouteResult;
-import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.dean.greendao.Geocode;
 import com.dean.mapapi.overlayutil.BikingRouteOverlay;
 import com.dean.mapapi.overlayutil.DrivingRouteOverlay;
@@ -40,7 +33,6 @@ import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.dean.mapapi.overlayutil.LineOverlay;
 import com.dean.mapapi.overlayutil.OverlayManager;
-import com.dean.mapapi.overlayutil.WalkingRouteOverlay;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
@@ -54,8 +46,7 @@ import java.util.List;
 /**
  * Created by DeanGuo on 8/30/15.
  */
-public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMapClickListener,
-        OnGetRoutePlanResultListener {
+public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMapClickListener {
 
     private final static int SATELLITE = 0;
     private final static String SATELLITE_TITLE = "卫星地图";
@@ -66,7 +57,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     private final static int OVERVIEW = 2;
     private final static String OVERVIEW_TITLE = "3D俯视图";
 
-    private int currentShowType = 1;
+    private int currentShowType = 1;  // 默认显示2d平面
 
     private View rootView;
 
@@ -80,10 +71,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private InfoWindow mInfoWindow;
 
-    // 搜索模块，也可去掉地图模块独立使用
-    private RoutePlanSearch mSearch = null;
-
-    private OverlayManager overlay;
+    private LineOverlay overlay;
 
     // 默认俯视角度
     private final static int OVERLOOK_ANGLE = -45;
@@ -145,16 +133,11 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         mBaiduMap = mMapView.getMap();
         //地图点击事件处理
         mBaiduMap.setOnMapClickListener(this);
-
-        // 初始化搜索模块，注册事件监听
-        mSearch = RoutePlanSearch.newInstance();
-        mSearch.setOnGetRoutePlanResultListener(this);
     }
 
     @Override
     protected void onLoading() {
-//        searchRoute();
-        drawKMLRoute();
+        drawRoute();
     }
 
     @Override
@@ -162,93 +145,27 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         ((ViewGroup) rootView).addView(contentView);
     }
 
-    public void drawKMLRoute() {
+    public void drawRoute() {
         mBaiduMap.clear();
 
         // start loading view
         showLoading();
 
+        // set overlay
         overlay = new LineOverlay(mBaiduMap);
-
         List<Geocode> mGeocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
-        ((LineOverlay)overlay).setData(mGeocodes);
+        overlay.setData(mGeocodes);
+        overlay.setIsRoute(routeActivity.isRoute());
 
-        getActivity().runOnUiThread(new Runnable() {
+        // add to map
+        rootView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 overlay.addToMap();
                 overlay.zoomToSpan();
                 dismissLoading();
             }
-        });
-    }
-
-    /**
-     * 搜索路线
-     */
-    public void searchRoute() {
-
-//        if (overlay != null) {
-//            overlay.removeFromMap();
-//        }
-        mBaiduMap.clear();
-
-        // start loading view
-        View viewContent = rootView.findViewById(R.id.loading_content_view);
-        if (viewContent != null) {
-            viewContent.setVisibility(View.VISIBLE);
-            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
-            loadingView.start();
-        }
-
-        List<Geocode> mGeocodes = TTTApplication.getDbHelper().getNonPathGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
-//        List<Geocode> mGeocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
-
-        // 设置起点信息
-        LatLng startLL = TTTApplication.getDbHelper().getLatLngWithGeocode(mGeocodes.get(0));
-        final PlanNode stNode = PlanNode.withLocation(startLL);
-
-        // 设置终点信息
-        LatLng endLL = TTTApplication.getDbHelper().getLatLngWithGeocode(mGeocodes.get(mGeocodes.size() - 1));
-        final PlanNode enNode = PlanNode.withLocation(endLL);
-
-        // 路过点(当该路线有6个点以上时判断做中间点处理)
-        final List<PlanNode> planNodes = new ArrayList<>();
-//        if (mGeocodes.size() > 6) {
-//            // 大于20个点，取5个pass by，否则取3个
-//            int divideLength = mGeocodes.size() > 20 ? mGeocodes.size() / 10 : mGeocodes.size() / 3;
-////            // 获取中间点为pass by点
-//            for (int i = divideLength; i < mGeocodes.size(); i += divideLength) {
-////                Log.e("divideLength:", i + "");
-//                Geocode passByGeocode = mGeocodes.get(i);
-//                LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
-//                PlanNode pbNode = PlanNode.withLocation(passByLL);
-//                planNodes.add(pbNode);
-//            }
-////
-//        }
-        for (int i = 1; i < mGeocodes.size()-1; i++) {
-            Geocode passByGeocode = mGeocodes.get(i);
-            LatLng passByLL = TTTApplication.getDbHelper().getLatLngWithGeocode(passByGeocode);
-            PlanNode pbNode = PlanNode.withLocation(passByLL);
-            planNodes.add(pbNode);
-        }
-
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // 实际使用中请对起点终点城市进行正确的设定
-                mSearch.drivingSearch((new DrivingRoutePlanOption())
-                        .from(stNode)
-                        .to(enNode)
-//                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_DIS_FIRST)
-                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_FEE_FIRST)
-//                        .policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_TIME_FIRST)
-                        .passBy(planNodes));
-            }
-        });
-
-        mSearch.bikingSearch(new BikingRoutePlanOption().from(stNode).to(enNode));
+        }, 1000);
     }
 
     /**
@@ -262,40 +179,30 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
                 LayoutInflater layoutInflater = LayoutInflater.from(routeActivity);
                 ViewGroup showLayout = (ViewGroup) layoutInflater.inflate(R.layout.map_show_detail_layout, null);
-                InfoWindow.OnInfoWindowClickListener listener = null;
-                TextView title = (TextView) showLayout.findViewById(R.id.map_show_title);
-                TextView height = (TextView) showLayout.findViewById(R.id.map_show_height);
-                TextView mile = (TextView) showLayout.findViewById(R.id.map_show_mile);
 
-                // start
-                if (OverlayManager.START_MARKER.equals(marker.getTitle())) {
-                    listener = new InfoWindow.OnInfoWindowClickListener() {
-                        public void onInfoWindowClick() {
-                            mBaiduMap.hideInfoWindow();
-                        }
-                    };
-                    LatLng ll = marker.getPosition();
+                InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
+                    public void onInfoWindowClick() {
+                        mBaiduMap.hideInfoWindow();
+                    }
+                };
 
-                    title.setText(routeActivity.getCurrentStart());
-                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getCurrentStart()));
-                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getCurrentStart()));
+                LatLng ll = marker.getPosition();
+                Bundle extraInfo = marker.getExtraInfo();
+                if (extraInfo != null) {
 
-                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(showLayout), ll, -47, listener);
-                    mBaiduMap.showInfoWindow(mInfoWindow);
-                }
-                // end
-                else if (OverlayManager.END_MARKER.equals(marker.getTitle())) {
-                    listener = new InfoWindow.OnInfoWindowClickListener() {
-                        public void onInfoWindowClick() {
-                            mBaiduMap.hideInfoWindow();
-                        }
-                    };
-                    LatLng ll = marker.getPosition();
+                    // title
+                    TextView title = (TextView) showLayout.findViewById(R.id.map_show_title);
+                    title.setText(extraInfo.getString(LineOverlay.GEO_NAME));
 
-                    title.setText(routeActivity.getCurrentEnd());
-                    height.setText(TTTApplication.getDbHelper().getElevationWithNameString(routeActivity.getCurrentEnd()));
-                    mile.setText(TTTApplication.getDbHelper().getRoadMileWithName(routeActivity.getCurrentEnd()));
+                    // height
+                    TextView height = (TextView) showLayout.findViewById(R.id.map_show_height);
+                    height.setText(extraInfo.getString(LineOverlay.GEO_HEIGHT));
 
+                    // milestone
+                    TextView mile = (TextView) showLayout.findViewById(R.id.map_show_mile);
+                    mile.setText(extraInfo.getString(LineOverlay.GEO_MILESTONE));
+
+                    // show pop window
                     mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(showLayout), ll, -47, listener);
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 }
@@ -328,8 +235,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     public void updateRoute() {
-        // searchRoute();
-        drawKMLRoute();
+        drawRoute();
     }
 
     @Override
@@ -434,94 +340,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         return false;
     }
 
-    @Override
-    public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
-
-    }
-
-    @Override
-    public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
-
-    }
-
-    @Override
-    public void onGetDrivingRouteResult(DrivingRouteResult result) {
-        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-            // 错误
-        }
-        if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
-            //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
-            result.getSuggestAddrInfo();
-            return;
-        }
-        if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            overlay = new CustomDrivingRouteOverlay(mBaiduMap);
-            mBaiduMap.setOnMarkerClickListener(overlay);
-            ((DrivingRouteOverlay)overlay).setData(result.getRouteLines().get(0));
-            overlay.addToMap();
-            overlay.zoomToSpan();
-        }
-
-        // stop loading view
-        View viewContent = rootView.findViewById(R.id.loading_content_view);
-        if (viewContent != null) {
-            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
-            loadingView.stop();
-            viewContent.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    @Override
-    public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
-        if (bikingRouteResult == null || bikingRouteResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            // 错误
-        }
-        if (bikingRouteResult.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
-            //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
-            bikingRouteResult.getSuggestAddrInfo();
-            return;
-        }
-        if (bikingRouteResult.error == SearchResult.ERRORNO.NO_ERROR) {
-            overlay = new CustomBikeRouteOverlay(mBaiduMap);
-            mBaiduMap.setOnMarkerClickListener(overlay);
-            ((BikingRouteOverlay)overlay).setData(bikingRouteResult.getRouteLines().get(0));
-            overlay.addToMap();
-            overlay.zoomToSpan();
-        }
-
-        // stop loading view
-        View viewContent = rootView.findViewById(R.id.loading_content_view);
-        if (viewContent != null) {
-            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
-            loadingView.stop();
-            viewContent.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    public class CustomDrivingRouteOverlay extends DrivingRouteOverlay {
-
-        public CustomDrivingRouteOverlay(BaiduMap baiduMap) {
-            super(baiduMap);
-        }
-
-        @Override
-        public int getLineColor() {
-            return TTTApplication.getMyColor(R.color.colorPrimaryDark);
-        }
-    }
-
-    public class CustomBikeRouteOverlay extends BikingRouteOverlay {
-
-        public CustomBikeRouteOverlay(BaiduMap baiduMap) {
-            super(baiduMap);
-        }
-
-        @Override
-        public int getLineColor() {
-            return TTTApplication.getMyColor(R.color.colorPrimaryDark);
-        }
-    }
-
     public void showLoading() {
         View viewContent = rootView.findViewById(R.id.loading_content_view);
         if (viewContent != null) {
@@ -555,9 +373,6 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     public void onDestroy() {
-        if (mSearch != null) {
-            mSearch.destroy();
-        }
         mMapView.onDestroy();
         super.onDestroy();
     }

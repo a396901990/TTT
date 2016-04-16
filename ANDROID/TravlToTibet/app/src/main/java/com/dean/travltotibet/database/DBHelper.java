@@ -238,18 +238,12 @@ public class DBHelper {
         return StringUtil.formatDoubleToInteger(mileage);
     }
 
-    /**
-     * 根据name获取经纬度信息为Location赋值
-     *
-     * @param name
-     * @return
-     */
-    public Location getLocationWithName(String name) {
-        QueryBuilder<Geocode> qb = geocodeDao.queryBuilder();
+    public String getRoadSubNameWithName(String name) {
+        QueryBuilder<Route> qb = routeDao.queryBuilder();
         qb.where(Properties.Name.eq(name));
-        Geocode geocode = qb.list().get(0);
+        Route route = qb.list().get(0);
 
-        return new Location(geocode.getLatitude(), geocode.getLongitude());
+        return route.getDay();
     }
 
     public Location getLocationWithGeocode(Geocode geocode) {

@@ -20,13 +20,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/detail_route_start_end"
-            style="@style/TextAppearance.Medium"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="成都-拉萨"
-            android:textColor="@color/dark_gray" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/detail_route_start_end"
+                style="@style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="成都-拉萨"
+                android:textColor="@color/dark_gray" />
+
+            <TextView
+                android:id="@+id/detail_route_sub_name"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/border_red"
+                android:text="G318"
+                style="@style/TextAppearance.Micro"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/detail_route_distance"

@@ -62,7 +62,7 @@ public class PlanListAdapter extends BaseAdapter {
         final PlanViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_home_plan_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_plan_list_item, parent, false);
             holder = new PlanViewHolder(convertView);
             convertView.setTag(holder);
         } else {

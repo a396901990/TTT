@@ -21,7 +21,7 @@
     <dimen name="indicator_chartview_height">40dip</dimen>
     <dimen name="chart_header_menu_height">40dip</dimen>
     <dimen name="chart_header_content_height">40dip</dimen>
-    <dimen name="slidingmenu_offset">80dp</dimen>
+    <dimen name="slidingmenu_offset">68dp</dimen>
     <dimen name="home_slidingmenu_offset">80dp</dimen>
     <dimen name="shadow_width">5dp</dimen>
     <dimen name="header_tab_btn_width">180dp</dimen>

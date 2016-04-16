@@ -8,6 +8,12 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <!--divide line-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/gray_background"></View>
+
     <!--简介title-->
     <TextView
         style="@style/TitleText"
