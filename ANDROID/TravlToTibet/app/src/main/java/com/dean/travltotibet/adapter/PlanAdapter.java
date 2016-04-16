@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.dean.greendao.Plan;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 
@@ -25,6 +26,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     private PlanItemListener mListener;
 
+    private Plan lastPlan;
+
     public PlanAdapter(Context mContext) {
         this.mContext = mContext;
     }
@@ -39,6 +42,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public void onBindViewHolder(PlanViewHolder holder, int position) {
 
         final Plan plan = mData.get(position);
+
+        // 设置背景颜色
+        if (plan.equals(lastPlan)) {
+            holder.planContentView.setBackgroundColor(TTTApplication.getMyColor(R.color.half_colorPrimary));
+        } else {
+            holder.planContentView.setBackgroundColor(TTTApplication.getMyColor(R.color.less_gray_background));
+        }
 
         holder.data.setText(String.format(Constants.HEADER_DAY, plan.getDay()));
         holder.detail_start.setText(plan.getStart());
@@ -83,6 +93,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public static class PlanViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialRippleLayout rippleLayout;
+        private View planContentView;
         private TextView data;
         private TextView detail_start;
         private TextView detail_end;
@@ -95,6 +106,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             detail_end = (TextView) itemView.findViewById(R.id.plan_detail_end);
             distance = (TextView) itemView.findViewById(R.id.plan_distance);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
+            planContentView = itemView.findViewById(R.id.plan_content_view);
         }
     }
 
@@ -102,4 +114,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         public void onPlanClick(Plan plan);
     }
 
+    public void setLastPlan(Plan lastPlan) {
+        this.lastPlan = lastPlan;
+        notifyDataSetChanged();
+    }
 }

@@ -28,6 +28,9 @@ import static com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
  */
 public abstract class OverlayManager implements OnMarkerClickListener, OnPolylineClickListener {
 
+    public static String START_MARKER = "start_marker";
+    public static String END_MARKER = "end_marker";
+
     BaiduMap mBaiduMap = null;
     private List<OverlayOptions> mOverlayOptionList = null;
 

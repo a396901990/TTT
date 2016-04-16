@@ -26,8 +26,6 @@ import java.util.List;
  */
 public class DrivingRouteOverlay extends OverlayManager {
 
-    public static String START_MARKER = "start_marker";
-    public static String END_MARKER = "end_marker";
     private DrivingRouteLine mRouteLine = null;
     boolean focus = false;
 

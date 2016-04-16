@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,10 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.Polyline;
+import com.baidu.mapapi.map.PolylineOptions;
+import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.BikingRoutePlanOption;
 import com.baidu.mapapi.search.route.BikingRouteResult;
@@ -33,6 +38,7 @@ import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.dean.mapapi.overlayutil.LineOverlay;
 import com.dean.mapapi.overlayutil.OverlayManager;
 import com.dean.mapapi.overlayutil.WalkingRouteOverlay;
 import com.dean.travltotibet.R;
@@ -139,6 +145,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         mBaiduMap = mMapView.getMap();
         //地图点击事件处理
         mBaiduMap.setOnMapClickListener(this);
+
         // 初始化搜索模块，注册事件监听
         mSearch = RoutePlanSearch.newInstance();
         mSearch.setOnGetRoutePlanResultListener(this);
@@ -146,20 +153,34 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     protected void onLoading() {
-        searchRoute();
+//        searchRoute();
+        drawKMLRoute();
     }
 
     @Override
     protected void onLoadFinished() {
         ((ViewGroup) rootView).addView(contentView);
+    }
+
+    public void drawKMLRoute() {
+        mBaiduMap.clear();
 
         // start loading view
-        View viewContent = rootView.findViewById(R.id.loading_content_view);
-        if (viewContent != null) {
-            viewContent.setVisibility(View.VISIBLE);
-            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
-            loadingView.start();
-        }
+        showLoading();
+
+        overlay = new LineOverlay(mBaiduMap);
+
+        List<Geocode> mGeocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
+        ((LineOverlay)overlay).setData(mGeocodes);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                overlay.addToMap();
+                overlay.zoomToSpan();
+                dismissLoading();
+            }
+        });
     }
 
     /**
@@ -247,7 +268,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                 TextView mile = (TextView) showLayout.findViewById(R.id.map_show_mile);
 
                 // start
-                if (DrivingRouteOverlay.START_MARKER.equals(marker.getTitle())) {
+                if (OverlayManager.START_MARKER.equals(marker.getTitle())) {
                     listener = new InfoWindow.OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
                             mBaiduMap.hideInfoWindow();
@@ -263,7 +284,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 }
                 // end
-                else if (DrivingRouteOverlay.END_MARKER.equals(marker.getTitle())) {
+                else if (OverlayManager.END_MARKER.equals(marker.getTitle())) {
                     listener = new InfoWindow.OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
                             mBaiduMap.hideInfoWindow();
@@ -307,7 +328,8 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     @Override
     public void updateRoute() {
-        searchRoute();
+        // searchRoute();
+        drawKMLRoute();
     }
 
     @Override
@@ -497,6 +519,25 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         @Override
         public int getLineColor() {
             return TTTApplication.getMyColor(R.color.colorPrimaryDark);
+        }
+    }
+
+    public void showLoading() {
+        View viewContent = rootView.findViewById(R.id.loading_content_view);
+        if (viewContent != null) {
+            viewContent.setVisibility(View.VISIBLE);
+            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
+            loadingView.start();
+        }
+    }
+
+    public void dismissLoading() {
+        // stop loading view
+        View viewContent = rootView.findViewById(R.id.loading_content_view);
+        if (viewContent != null) {
+            RotateLoading loadingView = (RotateLoading) rootView.findViewById(R.id.rotate_loading);
+            loadingView.stop();
+            viewContent.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -33,6 +33,8 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
 
     private View headerView;
 
+    private PlanAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.route_plan_fragment_view, null);
@@ -44,7 +46,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
 
-        updateRouteOverall();
+//        updateRouteOverall();
         initPlanList();
     }
 
@@ -76,7 +78,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         // 获取数据库路线
         final ArrayList<Plan> plans = (ArrayList<Plan>) TTTApplication.getDbHelper().getPlanList(routeActivity.getRoutePlanId());
 
-        PlanAdapter adapter = new PlanAdapter(getActivity());
+        adapter = new PlanAdapter(getActivity());
         adapter.setPlanListener(this);
         adapter.setData(plans);
 
@@ -104,6 +106,9 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
     @Override
     public void onPlanClick(Plan plan) {
         update(false, plan);
+        if (adapter != null) {
+            adapter.setLastPlan(plan);
+        }
     }
 
     public void showHeaderView() {
