@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.HotelInfo;
 
 import cn.bmob.v3.BmobQuery;
@@ -18,20 +20,15 @@ import cn.bmob.v3.listener.GetListener;
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundHotelDetailFragment extends RefreshFragment {
+public class AroundHotelDetailFragment extends BaseRefreshFragment {
 
     private View root;
 
     private HotelInfo hotelInfo;
 
-    private View noResultView;
-
-    private View contentView;
-
     private AroundBaseActivity aroundBaseActivity;
 
     protected SwipeRefreshLayout mSwipeRefreshLayout;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,25 +42,15 @@ public class AroundHotelDetailFragment extends RefreshFragment {
         super.onActivityCreated(savedInstanceState);
         aroundBaseActivity = (AroundBaseActivity) getActivity();
 
-        noResultView = root.findViewById(R.id.no_result_view);
-        contentView = root.findViewById(R.id.content_view);
-
+        initLoadingBackground(root);
         initRefreshView();
-        refresh();
+        onRefresh();
     }
 
 
     private void initRefreshView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
-        // 设置下拉刷新
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        //mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     private void initContentView() {
@@ -124,74 +111,46 @@ public class AroundHotelDetailFragment extends RefreshFragment {
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-        startRefresh();
-        contentView.setVisibility(View.INVISIBLE);
-        noResultView.setVisibility(View.GONE);
+        getLoadingBackgroundManager().resetLoadingView();
+        hotelInfo = null;
         toDo(ON_LOADING, 800);
     }
 
     @Override
     public void onLoading()
     {
+        super.onLoading();
         getHotelInfo();
     }
 
     @Override
     public void LoadingSuccess() {
-        finishRefresh();
-        contentView.setVisibility(View.VISIBLE);
-        noResultView.setVisibility(View.GONE);
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_result));
+        if (hotelInfo == null) {
+            getLoadingBackgroundManager().loadingFaild(getString(R.string.no_result), null);
+        } else {
+            getLoadingBackgroundManager().loadingSuccess();
+            initContentView();
         }
-        initContentView();
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
+        initContentView();
+        getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
         finishRefresh();
-        contentView.setVisibility(View.INVISIBLE);
-        noResultView.setVisibility(View.VISIBLE);
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_network_result));
-        }
-    }
-
-    @Override
-    public void onLoadingMore() {
-
-    }
-
-    @Override
-    public void LoadingMoreSuccess() {
-
-    }
-
-    @Override
-    public void LoadingMoreError() {
-
-    }
-
-    public void startRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 }

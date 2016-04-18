@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
 import com.dean.travltotibet.adapter.CommentListAdapter;
+import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.ui.customScrollView.InsideScrollLoadMoreListView;
@@ -24,7 +26,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by DeanGuo on 3/16/16.
  */
-public abstract class BaseRatingCommentFragment extends RefreshFragment implements InsideScrollLoadMoreListView.OnLoadMoreListener, BaseCommentDialog.CommentCallBack  {
+public abstract class BaseRatingCommentFragment extends BaseRefreshFragment implements InsideScrollLoadMoreListView.OnLoadMoreListener, BaseCommentDialog.CommentCallBack  {
 
     private View root;
 
@@ -62,10 +64,12 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
         loadMoreListView = (InsideScrollLoadMoreListView) root.findViewById(R.id.comment_list_view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
         mActivity = (AroundBaseActivity) getActivity();
+
+        initLoadingBackground(root);
         initCommentAction();
         initCommentView();
         initRefresh();
-        refresh();
+        onRefresh();
     }
 
     private void initRefresh() {
@@ -85,14 +89,7 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
         });
 
         // 设置下拉刷新
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        //mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     private void initCommentView() {
@@ -101,56 +98,8 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
         loadMoreListView.setOnLoadMoreListener(this);
     }
 
-    public void setComments() {
-        if (mActivity == null || commentListAdapter == null) {
-            return;
-        }
-        View noResultView = root.findViewById(R.id.no_result_content);
-        // 无数据
-        if (mComments == null || mComments.size() == 0) {
-            noResultView.setVisibility(View.VISIBLE);
-        }
-        // 有数据
-        else {
-            noResultView.setVisibility(View.GONE);
-        }
-
-        commentListAdapter.setData(mComments);
-    }
-
-    public void getDataSuccess() {
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_result));
-        }
-        setComments();
-        finishRefresh();
-    }
-
-    public void getDataFailed() {
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_network_result));
-        }
-        setComments();
-        finishRefresh();
-    }
-
     public CommentListAdapter getCommentListAdapter() {
         return commentListAdapter;
-    }
-
-    public void startRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishRefresh() {
-        if (mActivity == null || commentListAdapter == null) {
-            return;
-        }
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 
     public InsideScrollLoadMoreListView getLoadMoreListView() {
@@ -197,29 +146,24 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
 
             @Override
             public void onError(int i, String s) {
-                getDataFailed();
+                toDo(LOADING_ERROR, 0);
             }
         });
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
+        super.prepareLoading();
 
-        View noResultView = root.findViewById(R.id.no_result_content);
-        noResultView.setVisibility(View.GONE);
+        getLoadingBackgroundManager().resetLoadingView();
 
         if (commentListAdapter != null) {
-            startRefresh();
             commentListAdapter.clearData();
             toDo(ON_LOADING, 800);
         }
@@ -227,26 +171,48 @@ public abstract class BaseRatingCommentFragment extends RefreshFragment implemen
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getCommentData(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
-        getDataSuccess();
+        super.LoadingSuccess();
+
+        // 无数据
+        if (mComments == null || mComments.size() == 0) {
+            getLoadingBackgroundManager().loadingFaild(getString(R.string.no_comment_result), null);
+
+        }
+        // 有数据
+        else {
+            commentListAdapter.setData(mComments);
+        }
+
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
-        getDataFailed();
+        super.LoadingError();
+        finishRefresh();
+        getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
     }
 
     @Override
     public void onLoadMore() {
+        super.onLoadMore();
         toDo(ON_LOADING_MORE, 800);
     }
 
     @Override
     public void onLoadingMore() {
+        super.onLoadMore();
         getCommentData(STATE_MORE);
     }
 

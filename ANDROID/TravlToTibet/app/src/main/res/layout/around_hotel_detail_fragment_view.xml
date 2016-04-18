@@ -9,17 +9,18 @@
         android:background="@color/white">
 
         <FrameLayout
+            android:id="@+id/content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/content_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical">
                 <!--简介视图-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/hotel_detail_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
 
                     <!--电话视图-->
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/hotel_tel_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
 
                     <!--电话视图-->
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/hotel_address_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -96,8 +99,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <include layout="@layout/no_result_view"></include>
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

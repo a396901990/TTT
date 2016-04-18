@@ -3,25 +3,15 @@ package com.dean.travltotibet.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Toast;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
-import com.dean.travltotibet.fragment.RefreshFragment;
 import com.dean.travltotibet.fragment.TeamRequestFavoriteFragment;
 import com.dean.travltotibet.fragment.TeamRequestMyselfFragment;
-import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.GetListener;
 
 /**
  * Created by DeanGuo on 3/16/16.

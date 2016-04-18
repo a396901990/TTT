@@ -1,15 +1,14 @@
-package com.dean.travltotibet.fragment;
+package com.dean.travltotibet.base;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 
 /**
  * Created by DeanGuo on 8/31/15.
  */
-public abstract class RefreshFragment extends Fragment {
+public abstract class BaseLoadingFragment extends Fragment {
 
     public final static int PREPARE_LOADING = 0;
 
@@ -25,30 +24,7 @@ public abstract class RefreshFragment extends Fragment {
 
     public final static int LOADING_MORE_ERROR = 6;
 
-    public static final int STATE_REFRESH = 999;// 下拉刷新
-    public static final int STATE_MORE = 998;// 加载更多
-
-    public abstract void update();
-
-    public abstract void refresh();
-
-    public abstract void prepareLoading();
-
-    public abstract void onLoading();
-
-    public abstract void LoadingSuccess();
-
-    public abstract void LoadingError();
-
-    public abstract void onLoadingMore();
-
-    public abstract void LoadingMoreSuccess();
-
-    public abstract void LoadingMoreError();
-
     private Handler mHandle;
-
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,37 +61,51 @@ public abstract class RefreshFragment extends Fragment {
         };
     }
 
-    @Override
-    public void onDestroy() {
-        if (getSwipeRefreshLayout() != null && getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().setRefreshing(false);
+    public void prepareLoading() {
+        if (getActivity() == null){
+            return;
         }
-        super.onDestroy();
+    }
+
+    public void onLoading() {
+        if (getActivity() == null){
+            return;
+        }
+    }
+
+    public void LoadingSuccess() {
+        if (getActivity() == null){
+            return;
+        }
+    }
+
+    public void LoadingError() {
+        if (getActivity() == null){
+            return;
+        }
+    }
+
+    public void onLoadingMore() {
+        if (getActivity() == null){
+            return;
+        }
+    }
+
+    public void LoadingMoreSuccess() {
+        if (getActivity() == null){
+            return;
+        }
+    }
+
+    public void LoadingMoreError() {
+        if (getActivity() == null){
+            return;
+        }
     }
 
     public void toDo(int message, long delayed) {
-        if (getActivity() != null) {
+        if (getActivity() != null && mHandle != null) {
             mHandle.sendEmptyMessageDelayed(message, delayed);
-        }
-    }
-
-    public SwipeRefreshLayout getSwipeRefreshLayout() {
-        return mSwipeRefreshLayout;
-    }
-
-    public void setSwipeRefreshLayout(SwipeRefreshLayout mSwipeRefreshLayout) {
-        this.mSwipeRefreshLayout = mSwipeRefreshLayout;
-    }
-
-    public void startRefresh() {
-        if (mSwipeRefreshLayout != null ) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
-    }
-
-    public void finishRefresh() {
-        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 

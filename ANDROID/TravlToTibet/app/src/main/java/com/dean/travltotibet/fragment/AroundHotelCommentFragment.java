@@ -48,7 +48,7 @@ public class AroundHotelCommentFragment extends BaseRatingCommentFragment {
 
     @Override
     public void onCommentSuccess() {
-        refresh();
+        onRefresh();
     }
 
     @Override

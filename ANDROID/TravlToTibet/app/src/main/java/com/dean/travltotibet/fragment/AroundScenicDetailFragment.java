@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.ScenicInfo;
 
 import cn.bmob.v3.BmobQuery;
@@ -18,15 +20,11 @@ import cn.bmob.v3.listener.GetListener;
 /**
  * Created by DeanGuo on 1/13/16.
  */
-public class AroundScenicDetailFragment extends RefreshFragment {
+public class AroundScenicDetailFragment extends BaseRefreshFragment {
 
     private View root;
 
     private ScenicInfo mScenicInfo;
-
-    private View noResultView;
-
-    private View contentView;
 
     private AroundBaseActivity aroundBaseActivity;
 
@@ -44,24 +42,15 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         super.onActivityCreated(savedInstanceState);
         aroundBaseActivity = (AroundBaseActivity) getActivity();
 
-        noResultView = root.findViewById(R.id.no_result_view);
-        contentView = root.findViewById(R.id.content_view);
-
+        initLoadingBackground(root);
         initRefreshView();
-        refresh();
+        onRefresh();
     }
 
     private void initRefreshView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
         // 设置下拉刷新
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.half_dark_gray));
-        //mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     public void getScenicInfo() {
@@ -92,6 +81,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         if (TextUtils.isEmpty(detail)) {
             scenicDetailContent.setVisibility(View.GONE);
         } else {
+            scenicDetailContent.setVisibility(View.VISIBLE);
             scenicDetail.setText(detail);
         }
 
@@ -102,6 +92,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         if (TextUtils.isEmpty(fee)) {
             scenicFeeContent.setVisibility(View.GONE);
         } else {
+            scenicFeeContent.setVisibility(View.VISIBLE);
             scenicFee.setText(fee);
         }
 
@@ -112,6 +103,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         if (TextUtils.isEmpty(opening)) {
             scenicOpeningContent.setVisibility(View.GONE);
         } else {
+            scenicOpeningContent.setVisibility(View.VISIBLE);
             scenicOpening.setText(opening);
         }
 
@@ -122,6 +114,7 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         if (TextUtils.isEmpty(traffic)) {
             scenicTrafficContent.setVisibility(View.GONE);
         } else {
+            scenicTrafficContent.setVisibility(View.VISIBLE);
             scenicTraffic.setText(traffic);
         }
 
@@ -132,78 +125,52 @@ public class AroundScenicDetailFragment extends RefreshFragment {
         if (TextUtils.isEmpty(address)) {
             scenicAddressContent.setVisibility(View.GONE);
         } else {
+            scenicAddressContent.setVisibility(View.VISIBLE);
             scenicAddress.setText(address);
         }
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void onRefresh() {
+        super.onRefresh();
         toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
-        startRefresh();
-        contentView.setVisibility(View.INVISIBLE);
-        noResultView.setVisibility(View.GONE);
+        getLoadingBackgroundManager().resetLoadingView();
+        mScenicInfo = null;
         toDo(ON_LOADING, 800);
     }
 
     @Override
     public void onLoading() {
+        super.onLoading();
         getScenicInfo();
     }
 
+
     @Override
     public void LoadingSuccess() {
-        finishRefresh();
-        contentView.setVisibility(View.VISIBLE);
-        noResultView.setVisibility(View.GONE);
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_result));
+        if (mScenicInfo == null) {
+            getLoadingBackgroundManager().loadingFaild(getString(R.string.no_result), null);
+        } else {
+            getLoadingBackgroundManager().loadingSuccess();
+            initContentView();
         }
-        initContentView();
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
+        super.LoadingError();
+        initContentView();
+        getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
         finishRefresh();
-        contentView.setVisibility(View.INVISIBLE);
-        noResultView.setVisibility(View.VISIBLE);
-        TextView noResultText = (TextView) root.findViewById(R.id.no_result_text);
-        if (noResultText != null) {
-            noResultText.setText(getString(R.string.no_network_result));
-        }
-    }
-
-    @Override
-    public void onLoadingMore() {
-
-    }
-
-    @Override
-    public void LoadingMoreSuccess() {
-
-    }
-
-    @Override
-    public void LoadingMoreError() {
-
-    }
-
-    public void startRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
-
-    public void finishRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 }
