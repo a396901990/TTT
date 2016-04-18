@@ -94,7 +94,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         if (!TextUtils.isEmpty(picURLs[picId])) {
             Picasso.with(mContext)
                     .load(picURLs[picId])
-                    .resizeDimen(R.dimen.home_recent_item_height, R.dimen.home_recent_item_height)
+                    .resizeDimen(R.dimen.home_recent_item_width, R.dimen.home_recent_item_height)
                     .error(R.color.light_gray)
                     .centerInside()
                     .into(holder.mBackgroundView);

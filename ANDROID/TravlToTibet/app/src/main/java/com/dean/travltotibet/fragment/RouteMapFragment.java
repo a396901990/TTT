@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.MenuUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,10 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
     private final static int OVERVIEW = 2;
     private final static String OVERVIEW_TITLE = "3D俯视图";
+
+    private final static String DISPLAY_MORE_TITLE = "显示山峰信息";
+
+    private final static String HIDDEN_MORE_TITLE = "隐藏山峰信息";
 
     private int currentShowType = 1;  // 默认显示2d平面
 
@@ -79,6 +85,7 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
     private com.dean.travltotibet.ui.fab.FloatingActionButton satellite;
     private com.dean.travltotibet.ui.fab.FloatingActionButton normalMap;
     private com.dean.travltotibet.ui.fab.FloatingActionButton overViewMap;
+    private com.dean.travltotibet.ui.fab.FloatingActionButton showMore;
 
     public static RouteMapFragment newInstance() {
         return new RouteMapFragment();
@@ -155,7 +162,11 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         overlay = new LineOverlay(mBaiduMap);
         List<Geocode> mGeocodes = TTTApplication.getDbHelper().getGeocodeListWithNameAndRoute(routeActivity.getRouteName(), routeActivity.getCurrentStart(), routeActivity.getCurrentEnd(), routeActivity.isForward());
         overlay.setData(mGeocodes);
-        overlay.setIsRoute(routeActivity.isRoute());
+
+        // 当不显示更多和路线时不显示更多
+        boolean isShowMore = showMore.getTag() != null ? (boolean) showMore.getTag() : true;
+        boolean isPlan = !routeActivity.isRoute();
+        overlay.setShowMore(isPlan && isShowMore);
 
         // add to map
         rootView.postDelayed(new Runnable() {
@@ -247,6 +258,12 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
 
         super.initMenu(menu);
 
+
+        // 显示更多(默认显示,但提示隐藏)
+        showMore = MenuUtil.getFAB(getActivity(), HIDDEN_MORE_TITLE, GoogleMaterial.Icon.gmd_gps_off);
+        showMore.setTag(true);
+        menu.addMenuButton(showMore);
+
         // 卫星地图
         satellite = MenuUtil.initFAB(getActivity(), SATELLITE_TITLE, R.drawable.ic_ab_back_icon);
         menu.addMenuButton(satellite);
@@ -279,6 +296,25 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
             @Override
             public void onClick(View v) {
                 setCurrentShowType(OVERVIEW);
+            }
+        });
+
+        showMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isShow = (boolean) showMore.getTag();
+                // 如果当前是显示,点击后则隐藏,还应该是显示的提示
+                if (isShow) {
+                    showMore.setTag(false);
+                    showMore.setLabelText(DISPLAY_MORE_TITLE);
+                    showMore.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_gps_fixed, Color.WHITE));
+                } else {
+                    showMore.setTag(true);
+                    showMore.setLabelText(HIDDEN_MORE_TITLE);
+                    showMore.setImageDrawable(TTTApplication.getGoogleIconDrawable(GoogleMaterial.Icon.gmd_gps_off, Color.WHITE));
+                }
+                // 重画路线
+                drawRoute();
             }
         });
     }

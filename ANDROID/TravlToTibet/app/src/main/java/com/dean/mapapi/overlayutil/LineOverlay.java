@@ -37,11 +37,9 @@ public class LineOverlay extends OverlayManager{
     public static String GEO_HEIGHT = "geo_height";
     public static String GEO_MILESTONE = "geo_milestone";
 
-    private List<LatLng> mPoints;
-
     private List<Geocode> mGeocodes;
 
-    private boolean isRoute = true;
+    private boolean isShowMore = false;
 
     public LineOverlay(BaiduMap baiduMap) {
         super(baiduMap);
@@ -92,7 +90,7 @@ public class LineOverlay extends OverlayManager{
         overlayOptionses.add(ooPolyline);
 
         /** point，route时候不显示点，因为点太多 **/
-        if (!isRoute) {
+        if (isShowMore) {
             for (Geocode geocode : mGeocodes) {
 
                 // MOUNTAIN
@@ -172,7 +170,7 @@ public class LineOverlay extends OverlayManager{
         this.mGeocodes = geocodes;
     }
 
-    public void setIsRoute(boolean isRoute) {
-        this.isRoute = isRoute;
+    public void setShowMore(boolean showMore) {
+        isShowMore = showMore;
     }
 }

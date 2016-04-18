@@ -115,11 +115,13 @@
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
     <!--home-->
-    <dimen name="home_recommend_item_height">230dp</dimen>
+    <dimen name="home_recommend_item_width">230dp</dimen>
+    <dimen name="home_recommend_item_height">180dp</dimen>
     <integer name="home_page_columns_num">1</integer>
     <dimen name="home_toolbar_shadow_height">1dp</dimen>
     <dimen name="recommend_view_item_margin">0dp</dimen>
-    <dimen name="home_recent_item_height">200dp</dimen>
+    <dimen name="home_recent_item_width">180dp</dimen>
+    <dimen name="home_recent_item_height">150dp</dimen>
 
     <!--setting-->
     <dimen name="setting_item_height">44dp</dimen>

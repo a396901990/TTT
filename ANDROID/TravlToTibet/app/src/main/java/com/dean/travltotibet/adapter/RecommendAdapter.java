@@ -50,7 +50,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         if (!TextUtils.isEmpty(picURL)) {
             Picasso.with(mContext)
                     .load(picURL)
-                    .resizeDimen(R.dimen.home_recommend_item_height, R.dimen.home_recommend_item_height)
+                    .resizeDimen(R.dimen.home_recommend_item_width, R.dimen.home_recommend_item_height)
                     .error(R.color.light_gray)
                     .centerInside()
                     .into(holder.backgroundView);
