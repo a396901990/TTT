@@ -91,7 +91,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         String[] picURLs = TTTApplication.getDbHelper().getRoutePics(recentRoute.getRoute());
         Random random = new Random();
         int picId = random.nextInt(picURLs.length);
-        if (!TextUtils.isEmpty(picURLs[picId])) {
+        if (!TextUtils.isEmpty(picURLs[picId].trim())) {
             Picasso.with(mContext)
                     .load(picURLs[picId])
                     .resizeDimen(R.dimen.home_recent_item_width, R.dimen.home_recent_item_height)
@@ -138,7 +138,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         TTTApplication.getDbHelper().deleteRecentRoute(recentRoute);
-                        if (mData!= null && mData.size() >= position) {
+                        if (mData!= null && mData.size() > position) {
                             mData.remove(position);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, mData.size());

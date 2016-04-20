@@ -2,25 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:background="@color/white"
     android:orientation="vertical">
 
     <include
-        android:visibility="gone"
         android:id="@+id/overall_route"
-        layout="@layout/route_plan_overall_view"
+        layout="@layout/route_plan_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"></include>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/plan_fragment_list_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
 

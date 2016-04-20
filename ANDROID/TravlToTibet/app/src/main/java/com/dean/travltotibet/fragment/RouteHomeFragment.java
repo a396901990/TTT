@@ -64,17 +64,26 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
     }
 
     private void getRoadMessageInfo() {
+
+        // 避免多次重复取数据,因为更新不频繁
+        if (routeActivity.getRoadInfos() != null) {
+            setUpMessage(routeActivity.getRoadInfos(), roadMessageView);
+            return;
+        }
+
         BmobQuery<RoadInfo> query = new BmobQuery<>();
         query.order("-comment,-createdAt");
-        query.addQueryKeys("title,priority");
-        query.addWhereEqualTo("route", routeActivity.getRouteName());
-//        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
-//        query.setLimit(3);
+        query.addQueryKeys("title,priority,belong");
+        query.addWhereContains("route", routeActivity.getRouteName());
+        query.addWhereEqualTo("status", RoadInfo.PASS_STATUS);
 
         query.findObjects(getActivity(), new FindListener<RoadInfo>() {
             @Override
             public void onSuccess(List<RoadInfo> list) {
-                setUpMessage(list, roadMessageView);
+                if (list != null && list.size() > 0) {
+                    routeActivity.setRoadInfos((ArrayList<RoadInfo>) list);
+                    setUpMessage(list, roadMessageView);
+                }
             }
 
             @Override

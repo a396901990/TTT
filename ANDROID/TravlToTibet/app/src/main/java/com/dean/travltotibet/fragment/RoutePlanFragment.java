@@ -17,6 +17,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.adapter.PlanAdapter;
 import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.SpaceItemDecoration;
 import com.dean.travltotibet.util.ScreenUtil;
 
@@ -46,7 +47,7 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
 
-//        updateRouteOverall();
+        updateRouteOverall();
         initPlanList();
     }
 
@@ -56,11 +57,21 @@ public class RoutePlanFragment extends Fragment implements PlanAdapter.PlanItemL
     private void updateRouteOverall() {
         headerView = root.findViewById(R.id.overall_route);
         View overall = headerView.findViewById(R.id.ripple_view);
-        final TextView overallText = (TextView) headerView.findViewById(R.id.overall_text);
 
         // 获取当前的路线
         final Route route = routeActivity.getCurrentRoute();
-        overallText.setText(route.getName());
+
+        TextView data = (TextView) headerView.findViewById(R.id.plan_date);
+        data.setText(route.getName());
+
+        TextView detail_start = (TextView) headerView.findViewById(R.id.plan_detail_start);
+        detail_start.setText(route.getStart());
+
+        TextView detail_end = (TextView) headerView.findViewById(R.id.plan_detail_end);
+        detail_end.setText(route.getEnd());
+
+        TextView distance = (TextView) headerView.findViewById(R.id.plan_distance);
+        distance.setText(route.getDistance());
 
         // 切换到路线总览
         overall.setOnClickListener(new View.OnClickListener() {

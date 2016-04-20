@@ -46,8 +46,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         final Route route = mData.get(position);
 
         // 图片url(取第一个)
-        String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
-        if (!TextUtils.isEmpty(picURL)) {
+        if (!TextUtils.isEmpty(route.getPic_url().trim())) {
+            String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
             Picasso.with(mContext)
                     .load(picURL)
                     .resizeDimen(R.dimen.home_recommend_item_width, R.dimen.home_recommend_item_height)

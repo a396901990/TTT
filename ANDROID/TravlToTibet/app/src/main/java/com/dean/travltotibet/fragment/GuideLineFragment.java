@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,24 +49,28 @@ public class GuideLineFragment extends BaseGuideFragment {
     }
 
     private void getRoadMessageInfo() {
-        BmobQuery<RoadInfo> query = new BmobQuery<>();
-        query.order("-comment,-createdAt");
-        query.addQueryKeys("title,priority");
-        query.addWhereEqualTo("route", routeActivity.getRouteName());
-        query.addWhereContainedIn("belong", getBelongList());
-//        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
-//        query.setLimit(3);
 
-        query.findObjects(getActivity(), new FindListener<RoadInfo>() {
-            @Override
-            public void onSuccess(List<RoadInfo> list) {
-                setUpMessage(list, roadMessage);
-            }
+        if (routeActivity.getRoadInfos() == null) {
+            return;
+        }
 
-            @Override
-            public void onError(int i, String s) {
+        ArrayList<String> belongs = getBelongList();
+
+        ArrayList<RoadInfo> curRoadInfo = new ArrayList<>();
+
+        for (RoadInfo roadInfo : routeActivity.getRoadInfos()) {
+            // 属于当前线路的点
+            for (String belong : belongs) {
+                String routeBelong = roadInfo.getBelong();
+                if (!TextUtils.isEmpty(routeBelong) && routeBelong.contains(belong)) {
+                    if (!curRoadInfo.contains(roadInfo)) {
+                        curRoadInfo.add(roadInfo);
+                    }
+                }
             }
-        });
+        }
+
+        setUpMessage(curRoadInfo, roadMessage);
     }
 
     private void initListView() {

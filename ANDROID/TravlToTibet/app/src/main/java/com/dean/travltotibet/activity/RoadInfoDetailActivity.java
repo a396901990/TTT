@@ -26,11 +26,14 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
 
     private RoadInfo roadInfo;
 
+    private ScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.road_info_show_detail_view);
+        scrollView = (ScrollView) findViewById(R.id.scroll_view);
 
         if (getIntent() != null) {
             roadInfo = (RoadInfo) getIntent().getSerializableExtra(IntentExtra.INTENT_ROAD);
@@ -46,7 +49,18 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
         updateWatch();
         initBottom();
         initLoadingBackground();
+
     }
+
+    public void gotoTop() {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, 0);
+            }
+        });
+    }
+
 
     private void refresh() {
         RoadInfoCommentFragment fragment = (RoadInfoCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
@@ -82,7 +96,7 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
             @Override
             public void onClick(View v) {
                 View commentView = findViewById(R.id.comment_content_view);
-                ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
+                scrollView = (ScrollView) findViewById(R.id.scroll_view);
                 scrollView.smoothScrollTo(0, commentView.getTop());
             }
         });

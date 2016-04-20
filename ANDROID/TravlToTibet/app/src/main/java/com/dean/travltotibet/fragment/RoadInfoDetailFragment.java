@@ -202,6 +202,7 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
         initContentContent();
         initLinkContent();
         initImageContent();
+        roadInfoDetailActivity.gotoTop();
     }
 
     @Override

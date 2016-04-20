@@ -11,6 +11,7 @@ import com.dean.travltotibet.fragment.RouteChartFragment;
 import com.dean.travltotibet.fragment.RouteDetailFragment;
 import com.dean.travltotibet.fragment.RouteDiscoverFragment;
 import com.dean.travltotibet.fragment.RouteMapFragment;
+import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.ui.ratingview.RatingBar;
@@ -35,6 +36,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -73,6 +75,8 @@ public class RouteActivity
 
     // mPage当前页码
     private int currentPage;
+
+    private ArrayList<RoadInfo> roadInfos;
 
     // 悬浮按钮菜单
     private FloatingActionMenu mFloatingActionMenu;
@@ -355,6 +359,14 @@ public class RouteActivity
         outState.putBoolean(Constants.ROUTE_ACTIVITY_IS_ROUTE, isRoute);
 
         // plan status
+    }
+
+    public ArrayList<RoadInfo> getRoadInfos() {
+        return roadInfos;
+    }
+
+    public void setRoadInfos(ArrayList<RoadInfo> roadInfos) {
+        this.roadInfos = roadInfos;
     }
 
     public FloatingActionMenu getFloatingActionMenu() {

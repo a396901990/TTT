@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +49,10 @@ public class InfoHeaderFragment extends BaseInfoFragment {
         // 设置图片
         for (String url : urls) {
             BurnsSliderView textSliderView = new BurnsSliderView(getActivity());
-            textSliderView.image(url);
-            mDefaultIndicator.addSlider(textSliderView);
+            if (!TextUtils.isEmpty(url.trim())) {
+                textSliderView.image(url);
+                mDefaultIndicator.addSlider(textSliderView);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,14 @@ public abstract class BaseGuideFragment extends Fragment {
     private void generateMessage( final ViewGroup container, final RoadInfo roadInfo)
     {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.road_message_item, null);
-        ((ImageView) view.findViewById(R.id.priority_icon)).setImageResource(RoadInfo.getPriorityIcon(roadInfo.getPriority()));
-        ((TextView) view.findViewById(R.id.road_text)).setText(roadInfo.getTitle());
+        // Priority
+        if (!TextUtils.isEmpty(roadInfo.getPriority())) {
+            ((ImageView) view.findViewById(R.id.priority_icon)).setImageResource(RoadInfo.getPriorityIcon(roadInfo.getPriority()));
+        }
+        // Title
+        if (!TextUtils.isEmpty(roadInfo.getTitle())) {
+            ((TextView) view.findViewById(R.id.road_text)).setText(roadInfo.getTitle());
+        }
         MaterialRippleLayout materialRippleLayout = (MaterialRippleLayout) view.findViewById(R.id.ripple_view);
         materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
