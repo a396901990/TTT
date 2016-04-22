@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,6 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
 
     private ListView listView;
 
-    private View roadMessageView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.route_home_fragment_view, null);
@@ -43,6 +42,7 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
         super.onActivityCreated(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
         initPlanList();
+        getRoadMessageInfo();
     }
 
     /**
@@ -58,12 +58,15 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
 
         listView = (ListView) root.findViewById(R.id.plan_list);
         listView.setAdapter(adapter);
-        roadMessageView = getRoadMessageView();
-        listView.addHeaderView(roadMessageView);
-        getRoadMessageInfo();
     }
 
     private void getRoadMessageInfo() {
+
+        View roadMessageView = getRoadMessageView();
+        if (listView.getHeaderViewsCount() > 0) {
+            listView.removeHeaderView(roadMessageView);
+        }
+        listView.addHeaderView(roadMessageView);
 
         // 避免多次重复取数据,因为更新不频繁
         if (routeActivity.getRoadInfos() != null) {
@@ -112,6 +115,5 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
 
     @Override
     public void update() {
-
     }
 }

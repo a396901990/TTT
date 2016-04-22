@@ -38,14 +38,16 @@ public abstract class BaseGuideFragment extends Fragment {
 
     public View getRoadMessageView() {
 
-        roadMessageContent = LayoutInflater.from(getActivity()).inflate(R.layout.road_message_cotent, null);
+        roadMessageContent = LayoutInflater.from(routeActivity).inflate(R.layout.road_message_cotent, null);
         // 隐藏阴影
         expandBtn = roadMessageContent.findViewById(R.id.expand_btn);
         expandBtn.setVisibility(View.GONE);
         expandBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showMore();
+                if (routeActivity != null) {
+                    showMore();
+                }
             }
         });
 
@@ -54,7 +56,9 @@ public abstract class BaseGuideFragment extends Fragment {
         collapseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLess();
+                if (routeActivity != null) {
+                    showLess();
+                }
             }
         });
 
@@ -62,15 +66,15 @@ public abstract class BaseGuideFragment extends Fragment {
         feedbackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getActivity() == null) {
+                if (routeActivity == null) {
                     return;
                 }
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                Intent intent = new Intent(getActivity(), RoadInfoCreateActivity.class);
+                Intent intent = new Intent(routeActivity, RoadInfoCreateActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ROUTE, routeActivity.getRouteName());
-                getActivity().startActivity(intent);
+                routeActivity.startActivity(intent);
             }
         });
         return roadMessageContent;
@@ -140,7 +144,7 @@ public abstract class BaseGuideFragment extends Fragment {
 
     private void generateMessage( final ViewGroup container, final RoadInfo roadInfo)
     {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.road_message_item, null);
+        View view = LayoutInflater.from(routeActivity).inflate(R.layout.road_message_item, null);
         // Priority
         if (!TextUtils.isEmpty(roadInfo.getPriority())) {
             ((ImageView) view.findViewById(R.id.priority_icon)).setImageResource(RoadInfo.getPriorityIcon(roadInfo.getPriority()));
@@ -156,10 +160,10 @@ public abstract class BaseGuideFragment extends Fragment {
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                if (getActivity() != null) {
-                    Intent intent = new Intent(getActivity(), RoadInfoDetailActivity.class);
+                if (routeActivity != null) {
+                    Intent intent = new Intent(routeActivity, RoadInfoDetailActivity.class);
                     intent.putExtra(IntentExtra.INTENT_ROAD, roadInfo);
-                    getActivity().startActivity(intent);
+                    routeActivity.startActivity(intent);
                 }
             }
         });

@@ -413,8 +413,8 @@ public class GuideLineAdapter extends BaseAdapter {
         String hotelBelong = (String) holder.hotelBtn.getTag();
         if (!TextUtils.isEmpty(hotelBelong)) {
             BmobQuery<HotelInfo> query = new BmobQuery<HotelInfo>();
-            query.addWhereEqualTo("route", curRoute);
-            query.addWhereEqualTo("hotelBelong", hotelBelong);
+//            query.addWhereContains("route", curRoute);
+            query.addWhereContains("hotelBelong", hotelBelong);
             query.count(mContext, HotelInfo.class, new CountListener() {
                 @Override
                 public void onSuccess(int count) {

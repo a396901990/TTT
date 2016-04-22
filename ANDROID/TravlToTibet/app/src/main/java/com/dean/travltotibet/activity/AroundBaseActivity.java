@@ -108,7 +108,7 @@ public abstract class AroundBaseActivity extends BaseActivity {
     }
 
     public String[] getHeaderURL() {
-        if (mGalleryInfo != null) {
+        if (mGalleryInfo != null && mGalleryInfo.getUrl() != null) {
             return mGalleryInfo.getUrl().split(Constants.URL_MARK);
         }
         return null;

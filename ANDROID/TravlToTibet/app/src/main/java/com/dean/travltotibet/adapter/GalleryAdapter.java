@@ -51,16 +51,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         final GalleryInfo galleryInfo = mData.get(position);
 
         // 图片url(取第一个)
-        String picURL = galleryInfo.getUrl().split(Constants.URL_MARK)[0];
-        if (!TextUtils.isEmpty(picURL)) {
-            Picasso.with(mContext)
-                    .load(picURL)
-                    .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
-                    .config(Bitmap.Config.RGB_565)
-                    .centerInside()
-                    .error(R.color.light_gray)
-                    .into(holder.urlPic);
+        if (galleryInfo.getUrl() != null) {
+            String picURL = galleryInfo.getUrl().split(Constants.URL_MARK)[0];
+            if (!TextUtils.isEmpty(picURL)) {
+                Picasso.with(mContext)
+                        .load(picURL)
+                        .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
+                        .config(Bitmap.Config.RGB_565)
+                        .centerInside()
+                        .error(R.color.light_gray)
+                        .into(holder.urlPic);
+            }
         }
+
         // 设置名称
         holder.urlName.setText(galleryInfo.getName());
 

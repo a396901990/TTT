@@ -135,6 +135,11 @@ public class RouteDetailFragment extends BaseRouteFragment {
             initPlanView();
             ((ViewGroup) rootView).addView(contentView);
             initMenu(routeActivity.getFloatingActionMenu());
+
+            // 刷新
+            if (planFragment != null && planFragment.isAdded()) {
+                planFragment.update();
+            }
         } else {
             // 如果当前rootView为route视图，则换成guide视图。
             // 如果已经是guide视图，则不需要改变

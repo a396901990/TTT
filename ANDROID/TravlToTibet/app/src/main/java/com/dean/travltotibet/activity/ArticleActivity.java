@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.listener.UpdateListener;

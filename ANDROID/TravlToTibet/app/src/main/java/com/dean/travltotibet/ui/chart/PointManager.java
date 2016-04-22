@@ -93,8 +93,8 @@ public final class PointManager {
         COLORS.put(SCENIC_SPOT, R.color.blue_gray);
         COLORS.put(CHECK_POINT, R.color.orange);
         COLORS.put(BRIDGE, R.color.green);
-        COLORS.put(GAS_STATION, R.color.deep_purple);
-        COLORS.put(OTHERS, R.color.lime);
+        COLORS.put(GAS_STATION, R.color.lime);
+        COLORS.put(OTHERS, R.color.oval_purple);
     }
 
     // 颜色

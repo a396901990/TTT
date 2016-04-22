@@ -32,6 +32,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -289,6 +290,14 @@ public class RouteActivity
                 fragment.setCurrentPlan(getCurrentStart(), getCurrentEnd());
             }
         }
+//
+//        if (mPager.getCurrentItem() == 0) {
+//            BaseRouteFragment fragment = (BaseRouteFragment) mAdapter.getFragment(0);
+//            if (fragment != null && fragment.isAdded()) {
+//                fragment.updateRoute();
+//                Log.e("update", " 000000");
+//            }
+//        }
     }
 
     public String getCurrentStart() {

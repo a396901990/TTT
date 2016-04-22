@@ -22,7 +22,7 @@ public class AroundHotelInfoDialogFragment extends GalleryInfoDialogFragment {
 
         BmobQuery<HotelInfo> query = new BmobQuery<>();
         query.order("-comment,-createdAt");
-        query.addWhereContains("route", getRouteName());
+//        query.addWhereContains("route", getRouteName());
         query.addWhereContains("hotelBelong", getAroundBelong());
         query.addQueryKeys("objectId,hotel_Name,hotelPic");
 
@@ -47,15 +47,10 @@ public class AroundHotelInfoDialogFragment extends GalleryInfoDialogFragment {
                     galleryInfos.add(galleryInfo);
                 }
 
-                if (list.size() == 0 && actionType == STATE_MORE) {
-                    loadMoreRecyclerView.notifyMoreFinish(false);
+                if (actionType == STATE_REFRESH) {
                     toDo(LOADING_SUCCESS, 0);
                 } else {
-                    if (actionType == STATE_REFRESH) {
-                        toDo(LOADING_SUCCESS, 0);
-                    } else {
-                        toDo(LOADING_MORE_SUCCESS, 0);
-                    }
+                    toDo(LOADING_MORE_SUCCESS, 0);
                 }
             }
 

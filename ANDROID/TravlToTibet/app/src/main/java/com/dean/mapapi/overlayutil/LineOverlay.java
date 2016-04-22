@@ -1,6 +1,7 @@
 package com.dean.mapapi.overlayutil;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -118,9 +119,20 @@ public class LineOverlay extends OverlayManager{
         bundle.putString(GEO_NAME, geocode.getName());
 
         String height = StringUtil.formatDoubleToInteger(geocode.getElevation());
+        height = String.format(Constants.GUIDE_OVERALL_HEIGHT_FORMAT, height);
         bundle.putString(GEO_HEIGHT, height);
 
-        String milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_WITHOUT_TITLE_FORMAT, geocode.getRoad(), geocode.getMilestone());
+        String road = geocode.getRoad();
+        String milestone = geocode.getMilestone();
+        if (!TextUtils.isEmpty(milestone)) {
+            if (TextUtils.isEmpty(road)) {
+                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT_NO_ROAD, milestone);
+            } else {
+                milestone = String.format(Constants.GUIDE_OVERALL_MILESTONE_FORMAT, road, milestone);
+            }
+        } else {
+            milestone = String.format(Constants.GUIDE_OVERALL_ROAD_FORMAT, road);
+        }
         bundle.putString(GEO_MILESTONE, milestone);
 
         return bundle;

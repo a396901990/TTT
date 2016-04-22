@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.MenuUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 

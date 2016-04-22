@@ -6,11 +6,12 @@
     android:orientation="vertical">
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/map_show_title"
         style="@style/TextAppearance.Small.White"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:padding="@dimen/map_show_icon_padding"
         android:text="叶城县" />
 
@@ -23,21 +24,13 @@
         android:paddingRight="@dimen/map_show_detail_padding">
 
         <TextView
-            style="@style/TextAppearance.Mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="海拔："
-            android:textColor="@color/light_blue" />
-
-        <TextView
             android:id="@+id/map_show_height"
             style="@style/TextAppearance.Mini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="2865KM"
-            android:textColor="@color/light_green" />
+            android:textColor="@color/light_blue" />
     </LinearLayout>
 
     <!--全长-->
@@ -47,14 +40,6 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/map_show_detail_padding"
         android:paddingRight="@dimen/map_show_detail_padding">
-
-        <TextView
-            style="@style/TextAppearance.Mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="里程："
-            android:textColor="@color/light_blue" />
 
         <TextView
             android:id="@+id/map_show_mile"
