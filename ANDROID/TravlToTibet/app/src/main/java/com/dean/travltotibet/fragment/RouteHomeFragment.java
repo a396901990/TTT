@@ -67,7 +67,7 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
 
         // 避免多次重复取数据,因为更新不频繁
         if (routeActivity.getRoadInfos() != null) {
-            setUpMessage(routeActivity.getRoadInfos(), roadMessageView);
+            showLess();
             return;
         }
 
@@ -82,7 +82,7 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
             public void onSuccess(List<RoadInfo> list) {
                 if (list != null && list.size() > 0) {
                     routeActivity.setRoadInfos((ArrayList<RoadInfo>) list);
-                    setUpMessage(list, roadMessageView);
+                    showLess();
                 }
             }
 

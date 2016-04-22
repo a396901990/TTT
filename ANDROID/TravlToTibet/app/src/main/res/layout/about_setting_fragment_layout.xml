@@ -76,6 +76,7 @@
 
         <!--欢迎页-->
         <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:visibility="gone"
             android:id="@+id/about_welcome"
             style="@style/RippleStyle"
             android:layout_width="match_parent"

@@ -143,13 +143,14 @@ public class AppLaunchActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                String currentAppVersion = AppUtil.getVersionName(getApplicationContext());
-                if (!WelcomeActivity.hasShown(currentAppVersion)) {
-                    gotoWhatsNew();
-                } else {
-                    gotoHome();
-                }
+                // 2.2版以后不显示开场动画
+                gotoHome();
+//                String currentAppVersion = AppUtil.getVersionName(getApplicationContext());
+//                if (!WelcomeActivity.hasShown(currentAppVersion)) {
+//                    gotoWhatsNew();
+//                } else {
+//                    gotoHome();
+//                }
 
             }
         }, SPLASH_DISPLAY_LENGTH);

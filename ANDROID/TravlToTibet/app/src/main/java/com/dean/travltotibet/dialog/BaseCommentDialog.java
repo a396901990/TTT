@@ -100,8 +100,12 @@ public abstract class BaseCommentDialog extends LoginDialogFragment {
                         submitContent.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                getDialog().dismiss();
-                                commentCallBack.onCommentSuccess();
+                                if (getDialog() != null) {
+                                    getDialog().dismiss();
+                                }
+                                if (commentCallBack != null) {
+                                    commentCallBack.onCommentSuccess();
+                                }
                             }
                         }, 1000);
                         break;

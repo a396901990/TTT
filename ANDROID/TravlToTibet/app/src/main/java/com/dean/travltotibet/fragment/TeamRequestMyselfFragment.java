@@ -22,7 +22,8 @@ public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt");
-        query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
+        String userId = TTTApplication.getUserInfo() == null ? "no_result" : TTTApplication.getUserInfo().getUserId();
+        query.addWhereEqualTo("userId", userId);
         query.include("imageFile");
 
         // 加载更多

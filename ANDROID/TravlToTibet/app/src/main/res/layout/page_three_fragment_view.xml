@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/page_three_background_inside" />
+            android:src="@drawable/icon_attention" />
 
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
-            android:src="@drawable/page_three_background_outside" />
+            android:src="@drawable/icon_attention" />
 
 
     </FrameLayout>

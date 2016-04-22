@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:padding="50dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/page_two_background" />
+            android:src="@drawable/icon_attention" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,28 +42,28 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/page_icon_bike" />
+                    android:src="@drawable/icon_attention" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/page_icon_hike" />
+                    android:src="@drawable/icon_attention" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/page_icon_car" />
+                    android:src="@drawable/icon_attention" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/page_icon_moto" />
+                    android:src="@drawable/icon_attention" />
 
             </LinearLayout>
         </RelativeLayout>

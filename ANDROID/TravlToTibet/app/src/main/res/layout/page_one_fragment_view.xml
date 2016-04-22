@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/page_one_background" />
+            android:src="@drawable/icon_attention" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="80dp"
-                android:src="@drawable/page_icon_fangda" />
+                android:src="@drawable/icon_attention" />
 
         </RelativeLayout>
 

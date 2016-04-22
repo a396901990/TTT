@@ -2,8 +2,6 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,9 +15,7 @@ import com.dean.travltotibet.activity.RoadInfoCreateActivity;
 import com.dean.travltotibet.activity.RoadInfoDetailActivity;
 import com.dean.travltotibet.activity.RouteActivity;
 import com.dean.travltotibet.model.RoadInfo;
-import com.dean.travltotibet.ui.CustomProgress;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.ui.fab.FloatingActionMenu;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
@@ -32,11 +28,35 @@ public abstract class BaseGuideFragment extends Fragment {
 
     private RouteActivity routeActivity;
 
+    private View expandBtn, collapseBtn;
+
+    private View roadMessageContent;
+
+    private static final int SHOW_SIZE = 6;
+
     public abstract void update();
 
     public View getRoadMessageView() {
 
-        View roadMessageContent = LayoutInflater.from(getActivity()).inflate(R.layout.road_message_cotent, null);
+        roadMessageContent = LayoutInflater.from(getActivity()).inflate(R.layout.road_message_cotent, null);
+        // 隐藏阴影
+        expandBtn = roadMessageContent.findViewById(R.id.expand_btn);
+        expandBtn.setVisibility(View.GONE);
+        expandBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMore();
+            }
+        });
+
+        collapseBtn = roadMessageContent.findViewById(R.id.collapse_btn);
+        collapseBtn.setVisibility(View.GONE);
+        collapseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLess();
+            }
+        });
 
         View feedbackBtn = roadMessageContent.findViewById(R.id.feedback_btn);
         feedbackBtn.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +76,55 @@ public abstract class BaseGuideFragment extends Fragment {
         return roadMessageContent;
     }
 
+    public void showMore() {
+        List<RoadInfo> list = routeActivity.getRoadInfos();
+
+        ViewGroup roadContent = (ViewGroup) roadMessageContent.findViewById(R.id.road_message_content_view);
+        if (roadContent == null) {
+            return;
+        }
+
+        for (int i = SHOW_SIZE; i < list.size(); i++) {
+            RoadInfo roadInfo = list.get(i);
+            generateMessage(roadContent, roadInfo);
+        }
+
+        // 隐藏展开按钮
+        expandBtn.setVisibility(View.GONE);
+        collapseBtn.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                collapseBtn.setVisibility(View.VISIBLE);
+            }
+        }, 500);
+    }
+
+    public void showLess() {
+
+        List<RoadInfo> list = routeActivity.getRoadInfos();
+
+        ViewGroup roadContent = (ViewGroup) roadMessageContent.findViewById(R.id.road_message_content_view);
+        if (roadContent == null) {
+            return;
+        }
+        roadContent.removeAllViews();
+
+        for (int i=0; i<list.size(); i++) {
+
+            // 少于或等于不显示更多按钮
+            if (i < SHOW_SIZE) {
+                expandBtn.setVisibility(View.GONE);
+                RoadInfo roadInfo = list.get(i);
+                generateMessage(roadContent, roadInfo);
+            }
+            else {
+                expandBtn.setVisibility(View.VISIBLE);
+            }
+        }
+
+        collapseBtn.setVisibility(View.GONE);
+    }
+
     public void setUpMessage(List<RoadInfo> list, View container) {
         ViewGroup roadContent = (ViewGroup) container.findViewById(R.id.road_message_content_view);
         if (roadContent == null) {
@@ -67,6 +136,7 @@ public abstract class BaseGuideFragment extends Fragment {
             generateMessage(roadContent, roadInfo);
         }
     }
+
 
     private void generateMessage( final ViewGroup container, final RoadInfo roadInfo)
     {
@@ -102,4 +172,5 @@ public abstract class BaseGuideFragment extends Fragment {
         super.onCreate(savedInstanceState);
         routeActivity = (RouteActivity) getActivity();
     }
+
 }

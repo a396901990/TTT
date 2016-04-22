@@ -126,7 +126,7 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
     private void initContentContent() {
 
         TextView time = (TextView) root.findViewById(R.id.publish_time);
-        Date publishDate = DateUtil.parse(roadInfo.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
+        Date publishDate = DateUtil.parse(roadInfo.getUpdatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         String publishTime = DateUtil.formatDate(publishDate, Constants.YYYY_MM_DD);
         time.setText(publishTime);
 

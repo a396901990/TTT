@@ -70,6 +70,7 @@ public class AboutSettingFragment extends Fragment {
         contactUsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // qq
                 final View contactView = LayoutInflater.from(getActivity()).inflate(R.layout.contact_dialog_layout, null);
                 View qqCopy = contactView.findViewById(R.id.qq_copy_btn);
                 qqCopy.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,19 @@ public class AboutSettingFragment extends Fragment {
                     }
                 });
 
+                // qq group
+                View qqGroupCopy = contactView.findViewById(R.id.qq_group_copy_btn);
+                qqGroupCopy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+                        TextView qqGroupText = (TextView) contactView.findViewById(R.id.qq_group_text);
+                        cmb.setText(qqGroupText.getText().toString());
+                        Toast.makeText(getActivity(), getString(R.string.copy_success),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                // email
                 View emailCopy = contactView.findViewById(R.id.email_copy_btn);
                 emailCopy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -92,6 +106,7 @@ public class AboutSettingFragment extends Fragment {
                         Toast.makeText(getActivity(),getString(R.string.copy_success),Toast.LENGTH_LONG).show();
                     }
                 });
+
                 new MaterialDialog.Builder(getActivity())
                         .customView(contactView)
                         .positiveText(R.string.ok_btn)
