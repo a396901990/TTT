@@ -40,10 +40,13 @@ public class PrepareDetailFragment extends Fragment {
     private LoadingBackgroundManager loadingBackgroundManager;
 
     public PrepareDetailFragment(InfoType infoType, String route, String type) {
-        super();
         this.mInfoType = infoType;
         this.mRoute = route;
         this.mType = type;
+    }
+
+    public PrepareDetailFragment() {
+        super();
     }
 
     @Nullable

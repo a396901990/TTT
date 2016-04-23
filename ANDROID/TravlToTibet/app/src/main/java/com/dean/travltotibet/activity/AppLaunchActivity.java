@@ -58,7 +58,7 @@ public class AppLaunchActivity extends Activity {
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务
-        BmobPush.startWork(this);
+        BmobPush.startWork(this, BMOB_APPLICATION_ID);
 
         // 初始化share sdk
         ShareSDK.initSDK(this);

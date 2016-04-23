@@ -41,12 +41,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/baiduDebug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/baiduDebug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/baiduDebug/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/baidu/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/baidu/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/baidu/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/baidu/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/baidu/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/baidu/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testBaiduDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testBaiduDebug/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testBaiduDebug/assets" type="java-test-resource" />
@@ -54,6 +48,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testBaiduDebug/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testBaiduDebug/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testBaiduDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/baidu/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/baidu/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/baidu/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/baidu/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/baidu/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/baidu/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baidu/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baidu/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baidu/assets" type="java-resource" />
@@ -153,6 +153,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="circleimageview-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="BmobSDK_V3.4.6_0413" level="project" />
+    <orderEntry type="library" exported="" name="Bmob_Push_V0.6beta_20150408" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
@@ -161,7 +162,6 @@
     <orderEntry type="library" exported="" name="material-dialogs-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="analytics-5.6.7" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="Bmob_Push_V0.8beta_20160315" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="org.apache.http.legacy" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
