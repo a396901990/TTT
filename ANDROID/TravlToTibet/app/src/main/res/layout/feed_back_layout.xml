@@ -11,18 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
-        android:gravity="top"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:text="反馈"
-            android:textColor="@color/white" />
-    </android.support.v7.widget.Toolbar>
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="@color/white"></android.support.v7.widget.Toolbar>
 
     <fragment
         android:id="@+id/feedback_fragment"

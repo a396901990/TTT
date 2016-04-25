@@ -19,8 +19,8 @@ public class FeedbackActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
-        setTitle(null);
         setHomeIndicator();
+        setTitle(getString(R.string.feedback_title));
     }
 
     @Override

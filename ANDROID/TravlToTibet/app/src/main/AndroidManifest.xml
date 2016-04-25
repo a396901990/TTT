@@ -107,7 +107,6 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.FeedbackActivity"
-            android:label="@string/title_setting_feedback"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity

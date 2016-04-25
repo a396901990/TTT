@@ -40,8 +40,6 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
         }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
         setHomeIndicator();
         setTitle("路况详情");
