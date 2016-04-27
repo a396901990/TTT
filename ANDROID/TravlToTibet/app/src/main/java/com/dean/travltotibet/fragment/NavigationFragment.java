@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
+import com.dean.travltotibet.activity.TeamRequestPersonalActivity;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -51,9 +55,50 @@ public class NavigationFragment extends LoginFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initLoginView(root);
+
+        initProfileView();
         initSettingItemView();
         updateVersionCheck(getActivity());
+    }
+
+    private void initProfileView() {
+        initLoginView(root);
+
+        // my publish
+        View myPublish = root.findViewById(R.id.my_publish);
+        myPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
+                    startActivity(intent);
+                } else {
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
+            }
+        });
+
+        View myFavorite = root.findViewById(R.id.my_favorite);
+        myFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
+                    startActivity(intent);
+                } else {
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
+            }
+        });
+
     }
 
     private void initSettingItemView() {

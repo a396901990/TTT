@@ -32,24 +32,24 @@
                 android:background="@android:color/transparent">
 
                 <LinearLayout
-                    android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
-                        android:src="@drawable/icon_search"/>
+                        android:src="@drawable/icon_search" />
 
                     <TextView
-                        android:paddingTop="3dp"
                         style="@style/TextAppearance.Mini"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="搜索结伴"
+                        android:paddingTop="3dp"
+                        android:text="结伴"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
             </com.dean.travltotibet.ui.MaterialRippleLayout>
@@ -69,24 +69,24 @@
                 android:background="@android:color/transparent">
 
                 <LinearLayout
-                    android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
-                        android:src="@drawable/icon_personal"/>
+                        android:src="@drawable/icon_personal" />
 
                     <TextView
-                        android:paddingTop="3dp"
                         style="@style/TextAppearance.Mini"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="我的结伴"
+                        android:paddingTop="3dp"
+                        android:text="问答"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
             </com.dean.travltotibet.ui.MaterialRippleLayout>
@@ -100,14 +100,35 @@
 
         <com.dean.travltotibet.ui.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
             android:id="@+id/add_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
             android:elevation="4dp"
             fab:menu_animationDelayPerItem="0"
+            fab:menu_backgroundColor="@color/background_selected"
             fab:menu_labels_ellipsize="end"
+            fab:menu_labels_position="left"
             fab:menu_labels_singleLine="true"
-            fab:menu_openDirection="up"></com.dean.travltotibet.ui.fab.FloatingActionMenu>
+            fab:menu_openDirection="up">
+
+            <com.dean.travltotibet.ui.fab.FloatingActionButton
+                android:id="@+id/team_create_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_search"
+                fab:fab_size="mini"
+                fab:fab_label="发布结伴信息" />
+
+            <com.dean.travltotibet.ui.fab.FloatingActionButton
+                android:id="@+id/ask_create_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_search"
+                fab:fab_size="mini"
+                fab:fab_label="发布问题" />
+
+        </com.dean.travltotibet.ui.fab.FloatingActionMenu>
 
     </RelativeLayout>
 </FrameLayout>

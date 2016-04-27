@@ -9,25 +9,15 @@
         android:layout_height="match_parent"
         android:background="@color/gray_background">
 
-        <FrameLayout
+        <com.dean.travltotibet.ui.loadmore.LoadMoreListView
+            android:id="@+id/team_request_fragment_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="6dp"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:scrollbars="none"></com.dean.travltotibet.ui.loadmore.LoadMoreListView>
 
-            <com.dean.travltotibet.ui.loadmore.LoadMoreListView
-                android:id="@+id/team_request_fragment_list_rv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/team_request_bottom_add_size"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="6dp"
-                android:footerDividersEnabled="false"
-                android:headerDividersEnabled="false"
-                android:scrollbars="none"></com.dean.travltotibet.ui.loadmore.LoadMoreListView>
-
-            <include
-                android:id="@+id/bottom_content_view"
-                layout="@layout/home_team_request_bottom_view"></include>
-
-        </FrameLayout>
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

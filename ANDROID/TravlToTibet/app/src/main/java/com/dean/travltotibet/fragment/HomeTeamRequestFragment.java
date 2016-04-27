@@ -59,10 +59,6 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     private LoadingBackgroundManager loadingBackgroundManager;
     private View articleHeader;
 
-    private boolean tryToOpenMyTeamRequest = false;
-
-    private boolean tryToCreateTeamRequest = false;
-
     private int limit = 8;        // 每页的数据是8条
 
     public static HomeTeamRequestFragment newInstance() {
@@ -81,13 +77,11 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
-        EventBus.getDefault().register(this);
 
         initLoadingBackground();
         initRefreshView();
         setUpList();
         setUpHeader();
-        initBottomView();
         onRefresh();
     }
 
@@ -99,66 +93,6 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     private void initRefreshView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
         setSwipeRefreshLayout(mSwipeRefreshLayout);
-    }
-
-    private void initBottomView() {
-
-        View filterView = root.findViewById(R.id.filter_team_request);
-        View myView = root.findViewById(R.id.my_team_request);
-
-        // 搜索结伴
-        filterView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ScreenUtil.isFastClick()) {
-                    return;
-                }
-                TeamRequestFilterDialog dialogFragment = new TeamRequestFilterDialog();
-                dialogFragment.show(getFragmentManager(), TeamRequestFilterDialog.class.getName());
-            }
-        });
-
-        // 我的结伴
-        myView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ScreenUtil.isFastClick()) {
-                    return;
-                }
-                if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
-                    startActivity(intent);
-                } else {
-                    tryToOpenMyTeamRequest = true;
-                    DialogFragment dialogFragment = new LoginDialog();
-                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
-                }
-            }
-        });
-
-        // 添加结伴
-        FloatingActionMenu mFloatingActionMenu = (FloatingActionMenu) root.findViewById(R.id.add_btn);
-        mFloatingActionMenu.setIconAnimated(false);
-        mFloatingActionMenu.setMenuButtonColorNormal(TTTApplication.getMyColor(R.color.colorPrimary));
-        mFloatingActionMenu.setMenuButtonColorPressed(TTTApplication.getMyColor(R.color.colorPrimaryDark));
-        mFloatingActionMenu.getMenuIconView().setImageResource(R.drawable.fab_add);
-        mFloatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
-            @Override
-            public void onMenuToggle(boolean opened) {
-                if (ScreenUtil.isFastClick()) {
-                    return;
-                }
-                if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
-                    startActivityForResult(intent, CREATE_REQUEST);
-                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
-                } else {
-                    tryToCreateTeamRequest = true;
-                    DialogFragment dialogFragment = new LoginDialog();
-                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
-                }
-            }
-        });
     }
 
     private void setUpList() {
@@ -348,31 +282,5 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         super.onLoadMore();
         toDo(ON_LOADING_MORE, 800);
     }
-
-    /**
-     * 登陆成功回调
-     */
-    public void onEventMainThread(LoginUtil.LoginEvent event) {
-        Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-        if (tryToOpenMyTeamRequest) {
-            Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
-            startActivity(intent);
-            tryToOpenMyTeamRequest = false;
-        }
-        else if (tryToCreateTeamRequest) {
-            Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
-            startActivityForResult(intent, CREATE_REQUEST);
-            getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
-            tryToCreateTeamRequest = false;
-        }
-    }
-
-    /**
-     * 登陆失败回调
-     */
-    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
-        Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
-    }
-
 
 }

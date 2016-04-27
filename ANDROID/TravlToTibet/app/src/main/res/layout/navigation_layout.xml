@@ -3,47 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:clickable="true">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/item_content"
-        android:background="@color/gray_background">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="@dimen/login_profile_size"
-                android:layout_height="@dimen/login_profile_size"
-                android:src="@drawable/gray_profile"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="2dp" />
-
-            <TextView
-                android:id="@+id/profile_text"
-                style="@style/TextAppearance.Small"
-                android:textColor="@color/gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="10dp"
-                android:text="@string/login_text" />
-        </LinearLayout>
-    </FrameLayout>
+    <include
+        android:id="@+id/profile_content"
+        layout="@layout/profile_layout"></include>
 
     <LinearLayout
         android:id="@+id/item_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/profile_content"
         android:orientation="vertical"
         android:padding="7dp">
         <!--版本检查-->
@@ -79,13 +50,13 @@
 
                 <!--发现新版本-->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/version_check_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/setting_arrow_icon_padding">
+                    android:padding="@dimen/setting_arrow_icon_padding"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="wrap_content"
