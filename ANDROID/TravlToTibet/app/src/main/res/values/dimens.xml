@@ -118,7 +118,7 @@
     <dimen name="home_recommend_item_width">320dp</dimen>
     <dimen name="home_recommend_item_height">230dp</dimen>
     <integer name="home_page_columns_num">1</integer>
-    <dimen name="home_toolbar_shadow_height">1dp</dimen>
+    <dimen name="home_toolbar_shadow_height">3dp</dimen>
     <dimen name="recommend_view_item_margin">0dp</dimen>
     <dimen name="home_recent_item_width">250dp</dimen>
     <dimen name="home_recent_item_height">180dp</dimen>
@@ -182,11 +182,14 @@
     <dimen name="fab_normal_margin_top">-33dp</dimen>
 
     <dimen name="card_margin">10dp</dimen>
+    <dimen name="card_icon_size">18dp</dimen>
     <dimen name="card_padding">10dp</dimen>
+    <dimen name="card_large_padding">20dp</dimen>
     <dimen name="card_half_padding">5dp</dimen>
     <dimen name="navigation_item_padding">15dp</dimen>
     <dimen name="scenic_card_width">200dp</dimen>
     <dimen name="scenic_card_height">140dp</dimen>
+
 
     <!--guide line-->
     <dimen name="guide_line_padding">10dp</dimen>
@@ -196,7 +199,7 @@
 
     <dimen name="travel_type_dialog_padding">25dp</dimen>
     <dimen name="travel_type_dialog_image_size">80dp</dimen>
-    <dimen name="login_profile_size">68dp</dimen>
+    <dimen name="login_profile_size">60dp</dimen>
     <dimen name="team_request_profile_size">38dp</dimen>
     <dimen name="team_request_bottom_add_size">48dp</dimen>
     <dimen name="login_profile_padding">20dp</dimen>

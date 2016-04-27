@@ -35,7 +35,7 @@
         <!--导航-->
         <LinearLayout
             android:id="@+id/left_drawer"
-            android:layout_width="280dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/gray_background"
@@ -52,9 +52,9 @@
 
     <!--阴影、去空白-->
     <View
+        android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_toolbar_shadow_height"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/top_shade_background" />
-
 </RelativeLayout>

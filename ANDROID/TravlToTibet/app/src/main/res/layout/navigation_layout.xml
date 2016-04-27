@@ -16,7 +16,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/profile_content"
         android:orientation="vertical"
-        android:padding="7dp">
+        android:padding="8dp">
+
         <!--版本检查-->
         <com.dean.travltotibet.ui.MaterialRippleLayout
             android:id="@+id/setting_version_check"

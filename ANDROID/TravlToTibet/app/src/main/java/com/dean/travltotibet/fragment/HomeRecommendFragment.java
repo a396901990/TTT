@@ -71,7 +71,7 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.recommend_fragment_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new ReboundItemAnimator());
-        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(1));
+        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(3));
 
         mAdapter = new RecommendAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);

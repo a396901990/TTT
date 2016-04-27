@@ -82,7 +82,7 @@
 
     <!--theme-->
     <color name="colorPrimary">#1E88E5</color>
-    <color name="theme_background_color">#0c1E88E5</color>
+    <color name="theme_background_color">#EFEFEF</color>
     <color name="half_colorPrimary">#4C1E88E5</color>
     <color name="colorPrimaryLight">#87CEFA</color>
     <color name="colorPrimaryDark">#065fb9</color>

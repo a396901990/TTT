@@ -3,74 +3,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/search_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:layout_gravity="top">
+
+            <include layout="@layout/widget_search_bar"></include>
+        </LinearLayout>
+
         <com.dean.travltotibet.ui.PagerSlidingTabStrip
+            android:layout_below="@+id/search_content"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            app:pstsActivateTextColor="@color/dark_gray"
-            app:pstsDeactivateTextColor="@color/gray"
+            android:layout_height="36dp"
+            android:background="@color/colorPrimary"
+            app:pstsActivateTextColor="@color/white"
+            app:pstsDeactivateTextColor="@color/half_white"
             app:pstsDividerColor="@android:color/transparent"
-            app:pstsIndicatorColor="@color/colorPrimary"
-            app:pstsIndicatorHeight="10px"
+            app:pstsIndicatorColor="@color/white"
+            app:pstsIndicatorHeight="6px"
             app:pstsShouldExpand="true"
             app:pstsTabSwitch="true"
-            app:pstsUnderlineColor="@color/less_light_gray"
-            app:pstsUnderlineHeight="1dp" />
+            app:pstsUnderlineColor="@android:color/transparent"
+            app:pstsUnderlineHeight="0dp" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+        <!--阴影、去空白-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_toolbar_shadow_height"
+            android:layout_below="@+id/toolbar"
+            android:background="@drawable/top_shade_background" />
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tabs"
-            android:fillViewport="true"
-            android:flipInterval="30"
-            android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
+            android:layout_below="@id/tabs">
 
-    </RelativeLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+                android:fillViewport="true"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
 
-        <com.dean.travltotibet.ui.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/add_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:elevation="4dp"
-            android:padding="10dp"
-            fab:menu_animationDelayPerItem="0"
-            fab:menu_backgroundColor="@color/less_light_gray"
-            fab:menu_labels_ellipsize="end"
-            fab:menu_labels_position="left"
-            fab:menu_labels_singleLine="true"
-            fab:menu_openDirection="up">
-
-            <com.dean.travltotibet.ui.fab.FloatingActionButton
-                android:id="@+id/team_create_fab"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_search"
-                fab:fab_label="发布结伴信息"
-                fab:fab_size="mini" />
+                android:layout_gravity="bottom">
 
-            <com.dean.travltotibet.ui.fab.FloatingActionButton
-                android:id="@+id/ask_create_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_search"
-                fab:fab_label="发布问题"
-                fab:fab_size="mini" />
+                <com.dean.travltotibet.ui.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/add_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+                    fab:menu_animationDelayPerItem="0"
+                    fab:menu_backgroundColor="@color/less_light_gray"
+                    fab:menu_labels_ellipsize="end"
+                    fab:menu_labels_position="left"
+                    fab:menu_labels_singleLine="true"
+                    fab:menu_openDirection="up">
 
-        </com.dean.travltotibet.ui.fab.FloatingActionMenu>
+                    <com.dean.travltotibet.ui.fab.FloatingActionButton
+                        android:id="@+id/team_create_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_friend"
+                        fab:fab_label="发布结伴"
+                        fab:fab_size="mini" />
 
-    </RelativeLayout>
+                    <com.dean.travltotibet.ui.fab.FloatingActionButton
+                        android:id="@+id/ask_create_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_ask"
+                        fab:fab_label="发布问题"
+                        fab:fab_size="mini" />
+
+                </com.dean.travltotibet.ui.fab.FloatingActionMenu>
+
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+
 
 </FrameLayout>

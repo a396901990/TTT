@@ -1,5 +1,6 @@
 package com.dean.travltotibet.activity;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
+import com.dean.travltotibet.fragment.BaseRatingCommentFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -37,6 +39,7 @@ public class HomeActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
+    private View toolbarShadow;
 
     private SlidingMenu mSlidingMenu;
 
@@ -80,11 +83,28 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setUpView() {
+        toolbarShadow = findViewById(R.id.toolbar_shadow);
         // 设置viewpager
         mAdapter = new HomePageAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(1);
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                // 第二页
+                if (position == 1) {
+                    mTabs.setIndicatorHeight(0);
+                    mTabs.invalidate();
+                    toolbarShadow.setVisibility(View.GONE);
+                } else {
+                    mTabs.setIndicatorHeight(6);
+                    mTabs.invalidate();
+                    toolbarShadow.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void setUpHomeTab() {
@@ -103,8 +123,8 @@ public class HomeActivity extends BaseActivity {
         mTabs.setIndicatorColor(TTTApplication.getMyColor(R.color.white));
         mTabs.setUnderlineColor(TTTApplication.getMyColor(android.R.color.transparent));
 
-        mTabs.setIndicatorHeight(10);
-        mTabs.setUnderlineHeight(10);
+        mTabs.setIndicatorHeight(6);
+        mTabs.setUnderlineHeight(0);
         // 是否拉伸
         mTabs.setShouldExpand(false);
         // tab间的分割线 -- 透明表示没有

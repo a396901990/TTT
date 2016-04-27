@@ -3,36 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="@color/less_light_gray">
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
+        android:layout_margin="@dimen/card_large_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/profile_image">
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/profile_image"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/profile_text"
-                style="@style/TextAppearance.XXLarge.White"
+                style="@style/TextAppearance.XLarge.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_gravity="top"
                 android:text="@string/login_text" />
-
-            <!--用户性别-->
-            <View
-                android:id="@+id/user_gender"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/male_gender_view" />
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -48,40 +40,124 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/card_padding"
+        android:layout_marginRight="@dimen/card_padding"
+        android:orientation="horizontal">
+
+        <LinearLayout
             android:id="@+id/my_publish"
-            android:padding="5dp"
-            android:background="@drawable/border_gray_background"
-            android:layout_marginRight="10dp"
-            style="@style/TextAppearance.Small.White"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="我的发布" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_gravity="center"
+                android:layout_width="@dimen/card_icon_size"
+                android:layout_height="@dimen/card_icon_size"
+                app:iiv_color="@color/white"
+                app:iiv_icon="gmd_date_range" />
+
+            <TextView
+                style="@style/TextAppearance.Mini.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="5dp"
+                android:text="我的发布" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/my_favorite"
-            android:padding="5dp"
-            android:background="@drawable/border_gray_background"
-            android:layout_marginRight="10dp"
-            style="@style/TextAppearance.Small.White"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="我的收藏" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:padding="5dp"
-            android:background="@drawable/border_gray_background"
-            style="@style/TextAppearance.Small.White"
-            android:layout_width="wrap_content"
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_gravity="center"
+                android:layout_width="@dimen/card_icon_size"
+                android:layout_height="@dimen/card_icon_size"
+                app:iiv_color="@color/white"
+                app:iiv_icon="gmd_favorite" />
+
+            <TextView
+                style="@style/TextAppearance.Mini.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="5dp"
+                android:text="我的收藏" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="回复" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_gravity="center"
+                android:layout_width="@dimen/card_icon_size"
+                android:layout_height="@dimen/card_icon_size"
+                app:iiv_color="@color/white"
+                app:iiv_icon="gmd_notifications" />
+
+            <TextView
+                style="@style/TextAppearance.Mini.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="5dp"
+                android:text="提醒" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_gravity="center"
+                android:layout_width="@dimen/card_icon_size"
+                android:layout_height="@dimen/card_icon_size"
+                app:iiv_color="@color/white"
+                app:iiv_icon="gmd_settings" />
+
+            <TextView
+                style="@style/TextAppearance.Mini.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="5dp"
+                android:text="设置" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_gravity="center"
+                android:layout_width="@dimen/card_icon_size"
+                android:layout_height="@dimen/card_icon_size"
+                app:iiv_color="@color/white"
+                app:iiv_icon="gmd_power_settings_new" />
+
+            <TextView
+                style="@style/TextAppearance.Mini.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="5dp"
+                android:text="退出登陆" />
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>
