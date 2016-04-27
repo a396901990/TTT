@@ -5,10 +5,8 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 
-import com.dean.travltotibet.fragment.HomeDiscoverFragment;
+import com.dean.travltotibet.fragment.HomeCommunityFragment;
 import com.dean.travltotibet.fragment.HomeRecommendFragment;
-import com.dean.travltotibet.fragment.HomeRecentFragment;
-import com.dean.travltotibet.fragment.HomeTeamRequestFragment;
 import com.dean.travltotibet.fragment.HomeTopicFragment;
 
 /**
@@ -29,12 +27,12 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
 
         mTitles = new SparseArray<String>();
         mTitles.put(0, "推荐");
-        mTitles.put(1, "结伴");
+        mTitles.put(1, "社区");
         mTitles.put(2, "发现");
 
         mFragments = new SparseArray<Fragment>();
         mFragments.put(0, HomeRecommendFragment.newInstance());
-        mFragments.put(1, HomeDiscoverFragment.newInstance());
+        mFragments.put(1, HomeCommunityFragment.newInstance());
         mFragments.put(2, HomeTopicFragment.newInstance());
     }
 

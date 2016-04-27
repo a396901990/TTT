@@ -10,7 +10,7 @@
         <!--控件颜色-->
         <item name="colorAccent">@color/colorAccent</item>
         <!--背景颜色-->
-        <item name="android:windowBackground">@color/gray_background</item>
+        <item name="android:windowBackground">@color/theme_background_color</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light">

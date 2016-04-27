@@ -37,63 +37,54 @@
                     <!--头像-->
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/user_icon"
-                        android:layout_width="@dimen/team_request_profile_size"
-                        android:layout_height="@dimen/team_request_profile_size"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/gray_profile"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="0dp" />
 
-                    <LinearLayout
+                    <!--用户名称-->
+                    <TextView
+                        android:id="@+id/user_name"
+                        style="@style/TextAppearance.Micro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/user_icon"
                         android:orientation="vertical"
-                        android:paddingLeft="5dp">
+                        android:paddingLeft="5dp"
+                        android:text="户外探子"
+                        android:textColor="@color/colorPrimary" />
 
-                        <!--用户名称-->
-                        <TextView
-                            android:id="@+id/user_name"
-                            style="@style/TextAppearance.Micro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="户外探子"
-                            android:textColor="@color/colorPrimary" />
-
-                        <!--用户性别-->
-                        <View
-                            android:id="@+id/user_gender"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/male_gender_view" />
-                    </LinearLayout>
-
-                    <!--发布时间    -->
                     <TextView
-                        android:id="@+id/publish_time"
-                        style="@style/TextAppearance.Small"
+                        android:id="@+id/watch"
+                        style="@style/TextAppearance.Mini"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:text="5分钟前"
-                        android:textColor="@color/gray" />
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/border_half_blue"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:paddingTop="1dp"
+                        android:text="30"
+                        android:textColor="@color/colorPrimary" />
                 </RelativeLayout>
 
                 <!--content-->
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="8dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="5dp">
 
                     <TextView
                         android:id="@+id/content_text"
-                        style="@style/TextAppearance.Regular"
+                        style="@style/TextAppearance.Small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -102,9 +93,9 @@
                         android:textColor="@color/dark_gray" />
 
                     <include
-                        android:visibility="gone"
                         android:id="@+id/image_content"
-                        layout="@layout/show_image_content_view"></include>
+                        layout="@layout/show_image_content_view"
+                        android:visibility="gone"></include>
                 </LinearLayout>
 
                 <!--bottom 标签+观看次数-->
@@ -128,7 +119,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tag_icon"
-                        android:layout_toLeftOf="@+id/watch_content"
                         android:orientation="horizontal">
 
                         <TextView
@@ -138,10 +128,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:background="@drawable/border_tab_one"
-                            android:paddingBottom="2dp"
+                            android:paddingBottom="1dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
-                            android:paddingTop="2dp"
+                            android:paddingTop="1dp"
                             android:text="川藏线,川藏线,川藏线,川藏线,川藏线,川藏线"
                             android:textColor="@color/background_selected" />
 
@@ -152,10 +142,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:background="@drawable/border_tab_two"
-                            android:paddingBottom="2dp"
+                            android:paddingBottom="1dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
-                            android:paddingTop="2dp"
+                            android:paddingTop="1dp"
                             android:text="自行车骑行"
                             android:textColor="@color/background_selected" />
 
@@ -166,39 +156,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:background="@drawable/border_tab_three"
-                            android:paddingBottom="2dp"
+                            android:paddingBottom="1dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
-                            android:paddingTop="2dp"
+                            android:paddingTop="1dp"
                             android:text="2015.3.3 - 2014.5.39"
                             android:textColor="@color/background_selected" />
                     </com.dean.travltotibet.ui.FlowLayout>
-
-                    <!--观看-->
-                    <LinearLayout
-                        android:id="@+id/watch_content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:padding="4dp"
-                            android:src="@drawable/icon_gray_watch" />
-
-                        <TextView
-                            android:id="@+id/watch"
-                            style="@style/TextAppearance.Micro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="30"
-                            android:textColor="@color/gray" />
-                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
 

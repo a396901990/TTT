@@ -168,8 +168,8 @@ public abstract class BaseInsideCommentFragment extends BaseRefreshFragment  imp
         super.LoadingSuccess();
         // 无数据
         if (mComments == null || mComments.size() == 0) {
-            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
-
+//            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
+            loadingBackgroundManager.loadingSuccess();
         }
         // 有数据
         else {

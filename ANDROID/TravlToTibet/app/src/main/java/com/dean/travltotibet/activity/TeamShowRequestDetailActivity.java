@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -20,6 +19,8 @@ import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserFavorites;
+import com.dean.travltotibet.ui.like.LikeButton;
+import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -45,6 +46,8 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     private UserFavorites curUserFavorite;
 
+    private LikeButton favoriteBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         setUpToolBar(toolbar);
         setHomeIndicator();
 
+        favoriteBtn = (LikeButton) findViewById(R.id.favorite_button);
         updateWatch();
         initHeader();
         initBottom();
@@ -77,7 +81,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             setTitle("我的结伴");
         } else {
             setTitle("结伴详情");
-            updateMenu();
+            updateFavorite();
         }
     }
 
@@ -88,7 +92,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         }
     }
 
-    private void updateMenu() {
+    private void updateFavorite() {
         if (TTTApplication.hasLoggedIn()) {
             BmobQuery<UserFavorites> query = new BmobQuery<UserFavorites>();
             query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
@@ -99,13 +103,15 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                 public void onSuccess(List<UserFavorites> list) {
                     if (list!=null && list.size() > 0) {
                         curUserFavorite = list.get(0);
+                        favoriteBtn.setLiked(true);
+                    } else {
+                        favoriteBtn.setLiked(false);
                     }
-                    invalidateOptionsMenu();
                 }
 
                 @Override
                 public void onError(int i, String s) {
-
+                    favoriteBtn.setLiked(false);
                 }
             });
         }
@@ -123,23 +129,39 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     private void initBottom() {
-        // 评论
-        View commentBtn = findViewById(R.id.send_comment_btn);
+
+        // like
+        LikeButton likeBtn = (LikeButton) findViewById(R.id.like_button);
+        likeBtn.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                updateWatch();
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+            }
+        });
+
+        favoriteBtn.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                actionFavorite(favoriteBtn);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                actionFavorite(favoriteBtn);
+            }
+        });
+
+        // comment
+        View commentBtn = findViewById(R.id.comment_btn);
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 commentAction();
-            }
-        });
-
-        // 切换按钮
-        View switchBtn = findViewById(R.id.comment_switch_icon);
-        switchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View commentView = findViewById(R.id.comment_content_view);
-                ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
-                scrollView.smoothScrollTo(0, commentView.getTop());
             }
         });
     }
@@ -183,20 +205,19 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             actionEdit();
         } else if (id == R.id.action_del) {
             actionDel();
-        } else if (id == R.id.action_favorite) {
-            actionFavorite();
         } else if (id == R.id.action_report) {
             actionReport();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void actionFavorite() {
+    private void actionFavorite(final LikeButton likeButton) {
 
         // 没登陆
         if (!TTTApplication.hasLoggedIn() ||  TTTApplication.getUserInfo() == null) {
             LoginDialog loginDialog = new LoginDialog();
             loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
+            likeButton.setLiked(false);
         } else {
             // 已经收藏，则取消收藏
             if (curUserFavorite != null) {
@@ -205,7 +226,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.cancel_favorite_success), Toast.LENGTH_SHORT).show();
                         curUserFavorite = null;
-                        invalidateOptionsMenu();
                     }
 
                     @Override
@@ -225,7 +245,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
-                        invalidateOptionsMenu();
                     }
 
                     @Override
@@ -341,7 +360,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem favoriteItem = menu.findItem(R.id.action_favorite);
         MenuItem reportItem = menu.findItem(R.id.action_report);
         MenuItem editItem = menu.findItem(R.id.action_edit);
         MenuItem delItem = menu.findItem(R.id.action_del);
@@ -349,19 +367,11 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         if (isPersonal) {
             editItem.setVisible(true);
             delItem.setVisible(true);
-            favoriteItem.setVisible(false);
             reportItem.setVisible(false);
         } else {
-            favoriteItem.setVisible(true);
             reportItem.setVisible(true);
             editItem.setVisible(false);
             delItem.setVisible(false);
-
-            if (curUserFavorite != null) {
-                favoriteItem.setIcon(R.drawable.icon_favorite_red);
-            } else {
-                favoriteItem.setIcon(R.drawable.icon_favorite);
-            }
         }
 
         return true;
@@ -381,7 +391,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
      */
     public void onEventMainThread(LoginUtil.LoginEvent event) {
         Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-        updateMenu();
+        updateFavorite();
     }
 
     /**

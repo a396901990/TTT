@@ -97,15 +97,16 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         // publish time
         String createTime = DateUtil.getTimeGap(request.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
-        holder.mPublishTime.setText(createTime);
+//        holder.mPublishTime.setText(createTime);
+
         // user name
         holder.mUserName.setText(request.getUserName());
         if (UserInfo.MALE.equals(request.getUserGender())) {
             holder.mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
-            holder.mUserGender.setBackgroundResource(R.drawable.male_gender_view);
+//            holder.mUserGender.setBackgroundResource(R.drawable.male_gender_view);
         } else {
             holder.mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
-            holder.mUserGender.setBackgroundResource(R.drawable.female_gender_view);
+//            holder.mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
         // user icon
         if (!TextUtils.isEmpty(request.getUserIcon())) {
@@ -219,10 +220,10 @@ public class TeamRequestListAdapter extends BaseAdapter {
             mTypeName = (TextView) itemView.findViewById(R.id.type_name);
 
             mUserName = (TextView) itemView.findViewById(R.id.user_name);
-            mUserGender = itemView.findViewById(R.id.user_gender);
+//            mUserGender = itemView.findViewById(R.id.user_gender);
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
 
-            mPublishTime = (TextView) itemView.findViewById(R.id.publish_time);
+//            mPublishTime = (TextView) itemView.findViewById(R.id.publish_time);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
 
