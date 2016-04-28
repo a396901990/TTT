@@ -98,4 +98,8 @@
     <color name="tab_one">#9989d889</color>
     <color name="tab_two">#99f88779</color>
     <color name="tab_three">#997583ee</color>
+
+    <color name="month_color">#9CCC65</color>
+    <color name="type_color">#F44336</color>
+    <color name="route_color">#f4b400</color>
 </resources>

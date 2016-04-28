@@ -21,28 +21,32 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:importantForAccessibility="no"
             android:padding="2dp"
             android:src="@drawable/ic_search"
             android:tint="@color/gray" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:paddingLeft="2dp"
             android:id="@+id/search_box_start_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.dean.travltotibet.ui.tagview.TagView
+                android:id="@+id/tags_content"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.dean.travltotibet.ui.tagview.TagView>
 
             <TextView
                 android:id="@+id/search_box_collapsed_hint"
                 style="@style/TextAppearance.Regular"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textColorHint="@color/gray" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>

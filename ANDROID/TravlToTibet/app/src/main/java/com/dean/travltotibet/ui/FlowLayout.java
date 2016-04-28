@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 
 public class FlowLayout
     extends ViewGroup
@@ -107,6 +109,17 @@ public class FlowLayout
             }
             child.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
             childLeft += childWidth + paddingHorizontal;
+        }
+    }
+
+    public void resetChildColor() {
+
+        for (int i = 0; i < getChildCount(); i++) {
+            View v = getChildAt(i);
+            if (v instanceof TextView) {
+                ((TextView) v).setTextColor(TTTApplication.getMyColor(R.color.dark_gray));
+            }
+            v.setBackgroundResource(0);
         }
     }
 }

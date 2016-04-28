@@ -39,7 +39,7 @@
             style="@style/TextAppearance.Medium"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@drawable/border_gray_background"
+            android:background="@drawable/border_month"
             android:gravity="top"
             android:hint="@string/around_feedback_hint"
             android:padding="10dp" />

@@ -1,20 +1,37 @@
 package com.dean.travltotibet.fragment;
 
 import android.annotation.TargetApi;
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
+import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.dialog.LoginDialog;
+import com.dean.travltotibet.dialog.SearchDialog;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.ui.tagview.OnTagDeleteListener;
+import com.dean.travltotibet.ui.tagview.Tag;
+import com.dean.travltotibet.ui.tagview.TagView;
+import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.ScreenUtil;
+
+import java.util.ArrayList;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by DeanGuo on 3/3/16.
@@ -31,6 +48,16 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
 
     private ViewPageFragmentAdapter mAdapter;
 
+    private View searchBar;
+
+    private TagView tagView;
+
+    SearchDialog searchDialog;
+
+    ArrayList<Tag> searchTags = new ArrayList<>();
+
+    private boolean tryToCreateTeamRequest = false;
+
     public static HomeCommunityFragment newInstance() {
         HomeCommunityFragment fragment = new HomeCommunityFragment();
         return fragment;
@@ -46,10 +73,64 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        EventBus.getDefault().register(this);
+
         mActivity = (HomeActivity) getActivity();
 
         initPager();
         initCreateBtn();
+        initSearchView();
+    }
+
+    private void initSearchView() {
+        searchBar = root.findViewById(R.id.search_view_container);
+        tagView = (TagView) root.findViewById(R.id.tags_content);
+
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchDialog != null) {
+                    searchDialog.setTags(searchTags);
+                    searchDialog.show(getFragmentManager(), SearchDialog.class.getName());
+                }
+            }
+        });
+
+        tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
+            @Override
+            public void onTagDeleted(TagView view, Tag tag, int position) {
+                searchTags.remove(tag);
+                startSearch();
+                view.addTags(searchTags);
+
+            }
+        });
+
+        setSearchHint("筛选-结伴信息");
+
+        searchDialog = new SearchDialog();
+        searchDialog.setSearchCallBack(new SearchDialog.SearchCallBack() {
+            @Override
+            public void onFilter(ArrayList<Tag> tags) {
+                searchTags = tags;
+                startSearch();
+            }
+        });
+    }
+
+    public void startSearch() {
+        tagView.addTags(searchTags);
+
+        if (searchTags.size() == 0) {
+            setSearchHint("搜索/筛选结伴信息");
+        } else {
+            setSearchHint("");
+        }
+    }
+
+    private void setSearchHint(String hint) {
+        TextView view = (TextView) root.findViewById(R.id.search_box_collapsed_hint);
+        view.setHint(hint);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -78,12 +159,54 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
         mFloatingActionMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mFloatingActionMenu.isOpened()) {
-                }
-
                 mFloatingActionMenu.toggle(true);
             }
         });
+
+        // 发起组队
+        teamFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFloatingActionMenu.isOpened()) {
+                    mFloatingActionMenu.toggle(true);
+                }
+
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
+                    startActivityForResult(intent, CREATE_REQUEST);
+                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                } else {
+                    tryToCreateTeamRequest = true;
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
+
+            }
+        });
     }
+
+    /**
+     * 登陆成功回调
+     */
+    public void onEventMainThread(LoginUtil.LoginEvent event) {
+        Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+        if (tryToCreateTeamRequest) {
+            Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
+            startActivityForResult(intent, CREATE_REQUEST);
+            getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+            tryToCreateTeamRequest = false;
+        }
+    }
+
+    /**
+     * 登陆失败回调
+     */
+    public void onEventMainThread(LoginUtil.LoginFailedEvent event) {
+        Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+    }
+
 
 }

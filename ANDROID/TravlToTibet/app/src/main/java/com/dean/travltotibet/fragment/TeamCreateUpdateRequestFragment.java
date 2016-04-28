@@ -430,7 +430,7 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
     public void prepareLoading() {
         super.prepareLoading();
 
-        // show loading dialog
+        // show loading searchDialog
         loadingManager.showLoading();
 
         // update不需要上传图片，直接操作（判断图片是新添加还是网络图片，新添加从新上传，网络图片不处理）

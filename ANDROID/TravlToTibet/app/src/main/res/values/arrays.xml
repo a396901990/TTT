@@ -44,13 +44,30 @@
     <string-array name="hot_routes">
         <item>川藏南线</item>
         <item>青藏线</item>
-        <item>川藏北线</item>
         <item>新藏线</item>
         <item>滇藏线</item>
+        <item>丙察察线</item>
+        <item>川藏北线</item>
+        <item>阿里北线</item>
         <item>珠峰线</item>
         <item>唐蕃古道</item>
         <item>环青海湖</item>
         <item>环海南岛</item>
+    </string-array>
+
+    <string-array name="hot_month">
+        <item>1月</item>
+        <item>2月</item>
+        <item>3月</item>
+        <item>4月</item>
+        <item>5月</item>
+        <item>6月</item>
+        <item>7月</item>
+        <item>8月</item>
+        <item>9月</item>
+        <item>10月</item>
+        <item>11月</item>
+        <item>12月</item>
     </string-array>
 
     <string-array name="hot_scenic">
@@ -87,12 +104,12 @@
 
     <string-array name="hot_type">
         <item>自行车骑行</item>
+        <item>自驾</item>
         <item>徒步+搭车</item>
         <item>纯徒步</item>
-        <item>自驾</item>
+        <item>摩托骑行</item>
         <item>拼车</item>
         <item>租车</item>
-        <item>摩托骑行</item>
         <item>火车</item>
         <item>飞机</item>
         <item>其他</item>

@@ -114,7 +114,9 @@ public class RouteDetailFragment extends BaseRouteFragment {
             // 报错则存在，就用之前的视图。。。
         }
 
-        contentView.setTag(ROOT_VIEW_ROUTE);
+        if (contentView != null) {
+            contentView.setTag(ROOT_VIEW_ROUTE);
+        }
     }
 
     @Override

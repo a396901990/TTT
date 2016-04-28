@@ -207,7 +207,7 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
     public void prepareLoading() {
         super.prepareLoading();
 
-        // show loading dialog
+        // show loading searchDialog
         loadingManager.showLoading();
 
         // save上传图片后操作
