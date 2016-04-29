@@ -19,7 +19,9 @@ import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
+import com.dean.travltotibet.ui.tagview.Tag;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.dean.travltotibet.util.SearchFilterManger;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -133,6 +135,41 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         query.order("-comments,-createdAt");
         query.include("imageFile");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
+
+        // 搜索条件
+        if (SearchFilterManger.getTeamFilterTags().size() > 0) {
+
+            // queries
+            List<BmobQuery<TeamRequest>> queries = new ArrayList<BmobQuery<TeamRequest>>();
+
+            // destination
+            String routeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_ROUTE);
+            if (!TextUtils.isEmpty(routeTag)) {
+                BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();
+                destination.addWhereContains("destination", routeTag);
+                queries.add(destination);
+            }
+
+            // type
+            String typeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_TYPE);
+            if (!TextUtils.isEmpty(typeTag)) {
+                BmobQuery<TeamRequest> type = new BmobQuery<TeamRequest>();
+                type.addWhereContains("type", typeTag);
+                queries.add(type);
+            }
+
+            // date
+            String dateTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_MONTH);
+            if (!TextUtils.isEmpty(typeTag)) {
+                BmobQuery<TeamRequest> date = new BmobQuery<TeamRequest>();
+                date.addWhereContains("date", dateTag);
+                queries.add(date);
+            }
+
+            // 添加and查询
+            query.and(queries);
+        }
+
         // 加载更多
         if (actionType == STATE_MORE) {
             // 跳过已经加载的元素

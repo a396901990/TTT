@@ -1,6 +1,5 @@
 package com.dean.travltotibet.activity;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -19,8 +18,8 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
-import com.dean.travltotibet.fragment.BaseRatingCommentFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -53,6 +52,9 @@ public class HomeActivity extends BaseActivity {
         setUpNavigationDrawer();
         checkForUpdate();
         initMenu();
+
+        // 初始化搜索过滤
+        SearchFilterManger.init(this);
     }
 
     private void initMenu() {

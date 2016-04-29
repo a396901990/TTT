@@ -1,23 +1,18 @@
 package com.dean.travltotibet.dialog;
 
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.TeamShowRequestSearchActivity;
 import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.ui.tagview.Tag;
-import com.dean.travltotibet.ui.tagview.TagView;
-import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.SearchFilterManger;
 
 import java.util.ArrayList;
 
@@ -25,10 +20,6 @@ import java.util.ArrayList;
  * Created by DeanGuo on 3/8/16.
  */
 public class SearchDialog extends DialogFragment implements View.OnClickListener {
-
-    public static final String SEARCH_MONTH = "month";
-    public static final String SEARCH_TYPE = "type";
-    public static final String SEARCH_ROUTE = "route";
 
     private View contentLayout;
 
@@ -53,27 +44,22 @@ public class SearchDialog extends DialogFragment implements View.OnClickListener
         tag.isDeletable = true;
 
         // month
-        if (SEARCH_MONTH.equals(viewTag)) {
+        if (SearchFilterManger.SEARCH_MONTH.equals(viewTag)) {
             tag.layoutColor = TTTApplication.getMyColor(R.color.month_color);
             tag.setType(viewTag);
         }
         // type
-        else if (SEARCH_TYPE.equals(viewTag)) {
+        else if (SearchFilterManger.SEARCH_TYPE.equals(viewTag)) {
             tag.layoutColor = TTTApplication.getMyColor(R.color.type_color);
-            tag.setType(SEARCH_TYPE);
+            tag.setType(SearchFilterManger.SEARCH_TYPE);
         }
         // route
-        else if (SEARCH_ROUTE.equals(viewTag)) {
+        else if (SearchFilterManger.SEARCH_ROUTE.equals(viewTag)) {
             tag.layoutColor = TTTApplication.getMyColor(R.color.route_color);
-            tag.setType(SEARCH_ROUTE);
+            tag.setType(SearchFilterManger.SEARCH_ROUTE);
         }
 
-        // 有同种类型，替换名字   没有则添加
-        if (hasSameTypeTags(tags, tag)) {
-        } else {
-            tags.add(tag);
-        }
-
+        SearchFilterManger.addTagForTeamFilter(tag);
         searchCallBack.onFilter(tags);
         getDialog().dismiss();
     }
@@ -91,7 +77,7 @@ public class SearchDialog extends DialogFragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        tags = SearchFilterManger.getTeamFilterTags();
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.TravelTypeDialog);
     }
 
@@ -112,7 +98,7 @@ public class SearchDialog extends DialogFragment implements View.OnClickListener
         monthFlowLayout.removeAllViews();
         String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_month);
         for (String route : routes) {
-            monthFlowLayout.addView(addItem(route, SEARCH_MONTH), layoutParams);
+            monthFlowLayout.addView(addItem(route, SearchFilterManger.SEARCH_MONTH), layoutParams);
         }
     }
 
@@ -131,7 +117,7 @@ public class SearchDialog extends DialogFragment implements View.OnClickListener
         routeFlowLayout.removeAllViews();
         String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_routes);
         for (String route : routes) {
-            routeFlowLayout.addView(addItem(route, SEARCH_ROUTE), layoutParams);
+            routeFlowLayout.addView(addItem(route, SearchFilterManger.SEARCH_ROUTE), layoutParams);
         }
     }
 
@@ -140,7 +126,7 @@ public class SearchDialog extends DialogFragment implements View.OnClickListener
         typeFlowLayout.removeAllViews();
         String[] types = TTTApplication.getMyResources().getStringArray(R.array.hot_type);
         for (String type : types) {
-            typeFlowLayout.addView(addItem(type, SEARCH_TYPE), layoutParams);
+            typeFlowLayout.addView(addItem(type, SearchFilterManger.SEARCH_TYPE), layoutParams);
         }
     }
 

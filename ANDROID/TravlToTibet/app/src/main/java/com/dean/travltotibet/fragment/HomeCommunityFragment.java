@@ -28,6 +28,7 @@ import com.dean.travltotibet.ui.tagview.Tag;
 import com.dean.travltotibet.ui.tagview.TagView;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.dean.travltotibet.util.SearchFilterManger;
 
 import java.util.ArrayList;
 
@@ -53,8 +54,6 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
     private TagView tagView;
 
     SearchDialog searchDialog;
-
-    ArrayList<Tag> searchTags = new ArrayList<>();
 
     private boolean tryToCreateTeamRequest = false;
 
@@ -90,7 +89,6 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
             @Override
             public void onClick(View v) {
                 if (searchDialog != null) {
-                    searchDialog.setTags(searchTags);
                     searchDialog.show(getFragmentManager(), SearchDialog.class.getName());
                 }
             }
@@ -99,32 +97,34 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
             @Override
             public void onTagDeleted(TagView view, Tag tag, int position) {
-                searchTags.remove(tag);
+                SearchFilterManger.removeTagForTeamFilter(tag);
                 startSearch();
-                view.addTags(searchTags);
-
             }
         });
 
-        setSearchHint("筛选-结伴信息");
+        setSearchHint(getString(R.string.team_make_filter_hint));
 
         searchDialog = new SearchDialog();
         searchDialog.setSearchCallBack(new SearchDialog.SearchCallBack() {
             @Override
             public void onFilter(ArrayList<Tag> tags) {
-                searchTags = tags;
                 startSearch();
             }
         });
     }
 
     public void startSearch() {
-        tagView.addTags(searchTags);
+        tagView.addTags(SearchFilterManger.getTeamFilterTags());
 
-        if (searchTags.size() == 0) {
-            setSearchHint("搜索/筛选结伴信息");
+        if (SearchFilterManger.getTeamFilterTags().size() == 0) {
+            setSearchHint(getString(R.string.team_make_filter_hint));
         } else {
             setSearchHint("");
+        }
+
+        BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
+        if (fragment != null) {
+            fragment.onRefresh();
         }
     }
 

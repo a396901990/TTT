@@ -183,4 +183,6 @@
     <string name="select_complete">完成(%1$s/%2$s)</string>
     <string name="complete">完成</string>
     <string name="all_images">全部图片</string>
+
+    <string name="team_make_filter_hint">筛选结伴信息</string>
 </resources>

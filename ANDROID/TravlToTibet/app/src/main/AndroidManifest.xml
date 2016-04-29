@@ -155,10 +155,6 @@
             android:name=".activity.TeamShowRequestDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-        <activity
-            android:name=".activity.TeamShowRequestSearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
         <activity android:name=".activity.ImagePickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
