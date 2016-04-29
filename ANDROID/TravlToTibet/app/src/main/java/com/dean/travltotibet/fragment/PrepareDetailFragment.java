@@ -92,7 +92,7 @@ public class PrepareDetailFragment extends Fragment {
                 if (prepareFile != null) {
                     String url = InfoType.getInfoResult(mInfoType, prepareFile);
                     // Log.e("url", url);
-                    if (!TextUtils.isEmpty(url)) {
+                    if (mWebView!=null && !TextUtils.isEmpty(url)) {
                         mWebView.loadUrl(url);
                     }
                 }
