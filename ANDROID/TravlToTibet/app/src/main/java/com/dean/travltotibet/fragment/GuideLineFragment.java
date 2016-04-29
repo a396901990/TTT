@@ -76,6 +76,9 @@ public class GuideLineFragment extends BaseGuideFragment {
     private void initListView() {
         mListView = (ListView) root.findViewById(R.id.detail_list);
 
+        setHeaderView(mListView);
+        setFooterView(mListView);
+
         GuideLineAdapter mAdapter = new GuideLineAdapter(getActivity());
         mAdapter.setCurRoute(routeActivity.getRouteName());
         // 设置正反
@@ -96,9 +99,6 @@ public class GuideLineFragment extends BaseGuideFragment {
                 }
             });
         }
-
-        setHeaderView(mListView);
-        setFooterView(mListView);
     }
 
     private void setFooterView(ListView listView) {

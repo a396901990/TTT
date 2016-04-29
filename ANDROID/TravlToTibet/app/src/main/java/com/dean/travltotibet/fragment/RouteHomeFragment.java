@@ -40,9 +40,10 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        listView = (ListView) root.findViewById(R.id.plan_list);
         routeActivity = (RouteActivity) getActivity();
-        initPlanList();
         getRoadMessageInfo();
+        initPlanList();
     }
 
     /**
@@ -56,7 +57,6 @@ public class RouteHomeFragment extends BaseGuideFragment implements PlanListAdap
         adapter.setListener(this);
         adapter.setData(plans);
 
-        listView = (ListView) root.findViewById(R.id.plan_list);
         listView.setAdapter(adapter);
     }
 
