@@ -108,9 +108,9 @@
     <!--theme dialog-->
     <dimen name="theme_dialog_width">280dp</dimen>
     <dimen name="theme_dialog_image_height">200dp</dimen>
-    <dimen name="theme_dialog_title_height">80dp</dimen>
+    <dimen name="theme_dialog_title_height">50dp</dimen>
     <dimen name="theme_dialog_content_height">50dp</dimen>
-    <dimen name="theme_dialog_button_height">40dp</dimen>
+    <dimen name="theme_dialog_button_height">50dp</dimen>
     <dimen name="theme_dialog_content_padding">10dp</dimen>
     <dimen name="theme_dialog_close_icon_margin">15dp</dimen>
 
@@ -229,13 +229,23 @@
     <dimen name="one_and_a_half_grid_unit">12dp</dimen>
     <dimen name="team_request_create_contact_text_height">35dp</dimen>
 
+    <!--image_pick-->
     <dimen name="image_pick_height">72dp</dimen>
     <dimen name="image_pick_show_height">100dp</dimen>
     <dimen name="image_pick_margin">6dp</dimen>
     <dimen name="image_thumbnail_width">180dp</dimen>
     <dimen name="image_thumbnail_height">120dp</dimen>
 
+    <!--flowlayout-->
     <dimen name="flowlayout_horizontal_padding">5dp</dimen>
     <dimen name="flowlayout_vertical_padding">0dp</dimen>
     <dimen name="flowlayout_end_padding">0dp</dimen>
+
+    <!--calender-->
+    <dimen name="text_size_day">16sp</dimen>
+    <dimen name="text_size_month">16sp</dimen>
+    <dimen name="text_size_day_name">10sp</dimen>
+    <dimen name="header_month_height">50dip</dimen>
+    <dimen name="selected_day_radius">16dip</dimen>
+    <dimen name="calendar_height">270dip</dimen>
 </resources>

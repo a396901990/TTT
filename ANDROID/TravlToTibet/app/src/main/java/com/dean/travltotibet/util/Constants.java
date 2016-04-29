@@ -85,4 +85,10 @@ public final class Constants {
 
     public static final String YYYY_MM_DD_POINT = "yyyy.MM.dd";
 
+    public static final String YYYY_M_D_POINT = "yyyy.M.d";
+
+    public static final String M_D_CHINA = "M月d日";
+
+    public static final String DATE_OK_BTN = "完成（%s天）";
+
 }

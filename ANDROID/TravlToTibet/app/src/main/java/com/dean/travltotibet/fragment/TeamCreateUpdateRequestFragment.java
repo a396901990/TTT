@@ -26,6 +26,7 @@ import com.dean.travltotibet.activity.ImagePickerActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.adapter.ImagePickAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.dialog.CalenderSelectedDialog;
 import com.dean.travltotibet.dialog.TeamMakeContactDialog;
 import com.dean.travltotibet.dialog.TeamMakeDateDialog;
 import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
@@ -341,14 +342,14 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamMakeDateDialog dialogFragment = new TeamMakeDateDialog();
-                dialogFragment.setDateCallback(new TeamMakeDateDialog.TravelDateCallback() {
+                CalenderSelectedDialog dialogFragment = new CalenderSelectedDialog();
+                dialogFragment.setDateCallback(new CalenderSelectedDialog.TravelDateCallback() {
                     @Override
                     public void dateChanged(String date) {
                         setTravelDate(date);
                     }
                 });
-                dialogFragment.show(getFragmentManager(), TeamMakeDateDialog.class.getName());
+                dialogFragment.show(getFragmentManager(), CalenderSelectedDialog.class.getName());
             }
         });
     }

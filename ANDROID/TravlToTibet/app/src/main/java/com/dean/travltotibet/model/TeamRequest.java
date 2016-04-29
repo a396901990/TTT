@@ -37,6 +37,8 @@ public class TeamRequest extends BmobObject {
 
     public String content;
 
+    public String month;
+
     private int comments;
 
     private int watch;
@@ -171,5 +173,13 @@ public class TeamRequest extends BmobObject {
 
     public void setImageFile(ImageFile imageFile) {
         this.imageFile = imageFile;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 }

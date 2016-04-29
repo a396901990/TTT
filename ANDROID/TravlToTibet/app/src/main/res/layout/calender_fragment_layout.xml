@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:calendar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/header_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/theme_dialog_title_height"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.Large.White"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="设置日期" />
+    </RelativeLayout>
+
+    <com.dean.travltotibet.ui.calender.DayPickerView
+        android:id="@+id/pickerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_content"
+        android:layout_below="@+id/header_content"
+        calendar:drawRoundRect="true" />
+
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        android:id="@+id/btn_content"
+        style="@style/RippleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/ok_btn"
+            style="@style/TextAppearance.Large.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/theme_dialog_button_height"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@color/colorPrimary" />
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+</RelativeLayout>
