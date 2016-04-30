@@ -54,7 +54,7 @@ public class TeamMakeDestinationDialog extends DialogFragment implements View.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.TravelTypeDialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
     }
 
     @Nullable

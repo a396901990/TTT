@@ -1,9 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border_white"
-    android:padding="10dp"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/theme_dialog_title_height"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.Large.White"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="设置旅行类型" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,17 +26,16 @@
         android:padding="10dp">
 
         <EditText
-            android:singleLine="true"
-            android:layout_marginTop="10dp"
             android:id="@+id/destination_edit_view"
             style="@style/TextAppearance.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@drawable/border_theme_line"
             android:hint="@string/team_make_type_edit_hint"
             android:padding="10dp"
-            />
+            android:singleLine="true" />
     </LinearLayout>
 
     <RelativeLayout
@@ -57,10 +70,13 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/card_large_padding"
+        android:paddingLeft="@dimen/card_padding"
+        android:paddingRight="@dimen/card_padding"
+        android:paddingTop="@dimen/card_padding">
         <!--标题-->
         <TextView
             style="@style/TitleText"
@@ -81,15 +97,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <TextView
             android:id="@+id/ok_btn"
             style="@style/TextAppearance.Large.Bold"
             android:layout_width="match_parent"
             android:layout_height="@dimen/info_bottom_btn_height"
-            android:background="@android:color/transparent"
-            android:textColor="@color/colorPrimary"
             android:gravity="center"
-            android:text="完成" />
+            android:text="完成"
+            android:textColor="@color/colorPrimary" />
 
     </com.dean.travltotibet.ui.MaterialRippleLayout>
 </LinearLayout>

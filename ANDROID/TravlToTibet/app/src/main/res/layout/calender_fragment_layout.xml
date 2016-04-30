@@ -23,7 +23,7 @@
     <com.dean.travltotibet.ui.calender.DayPickerView
         android:id="@+id/pickerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:layout_above="@+id/btn_content"
         android:layout_below="@+id/header_content"
         calendar:drawRoundRect="true" />

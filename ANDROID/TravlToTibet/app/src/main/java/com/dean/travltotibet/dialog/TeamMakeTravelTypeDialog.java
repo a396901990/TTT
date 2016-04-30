@@ -43,7 +43,7 @@ public class TeamMakeTravelTypeDialog extends DialogFragment implements View.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.TravelTypeDialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
     }
 
     @Nullable
