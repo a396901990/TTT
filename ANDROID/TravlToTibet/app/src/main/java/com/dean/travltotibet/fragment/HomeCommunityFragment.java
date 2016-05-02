@@ -23,6 +23,7 @@ import com.dean.travltotibet.dialog.SearchDialog;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
+import com.dean.travltotibet.ui.tagview.OnTagClickListener;
 import com.dean.travltotibet.ui.tagview.OnTagDeleteListener;
 import com.dean.travltotibet.ui.tagview.Tag;
 import com.dean.travltotibet.ui.tagview.TagView;
@@ -94,11 +95,22 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
             }
         });
 
+        // 删除
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
             @Override
             public void onTagDeleted(TagView view, Tag tag, int position) {
                 SearchFilterManger.removeTagForTeamFilter(tag);
                 startSearch();
+            }
+        });
+
+        // 点击
+        tagView.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(Tag tag, int position) {
+                if (searchDialog != null) {
+                    searchDialog.show(getFragmentManager(), SearchDialog.class.getName());
+                }
             }
         });
 

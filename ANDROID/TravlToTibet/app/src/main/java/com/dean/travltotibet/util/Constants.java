@@ -89,6 +89,8 @@ public final class Constants {
 
     public static final String M_D_CHINA = "M月d日";
 
+    public static final String Y_M_D_CHINA = "yyyy年M月d日";
+
     public static final String DATE_OK_BTN = "完成（%s天）";
 
 }

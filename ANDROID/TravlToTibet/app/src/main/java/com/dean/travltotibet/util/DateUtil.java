@@ -15,6 +15,7 @@ import com.dean.travltotibet.TTTApplication;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -23,6 +24,12 @@ import java.util.Locale;
  * Created by DeanGuo on 1/23/16.
  */
 public final class DateUtil {
+
+    public static final String YYYY = "yyyy";
+
+    public static final String M = "M";
+
+    public static final String MONTH_MARK = "-%s-";
 
     public static String getCurrentTimeFormat(String argFormat) {
         Date date = new Date();
@@ -124,4 +131,37 @@ public final class DateUtil {
         return Integer.parseInt(String.valueOf(between_days));
     }
 
+    public static ArrayList<String> getExpiredYears() {
+        ArrayList<String> yeas = new ArrayList<>();
+        int curYear = Integer.parseInt(getCurrentTimeFormat(YYYY));
+        // cur = 2016 : 2015 2014 2013 2012 2011
+        for (int i= curYear-1; i > curYear-5; i--) {
+            yeas.add(String.valueOf(i));
+            Log.e("eyear ", i +"");
+        }
+        return yeas;
+    }
+
+    public static int getCurYear() {
+        return Integer.parseInt(getCurrentTimeFormat(YYYY));
+    }
+
+    public static String getNextYear() {
+        return String.valueOf(getCurYear() + 1);
+    }
+
+    public static String getSelectedDate(String date) {
+        // 5月：5
+        String newDate = date.split("月")[0];
+
+        // 5 : -5-
+        return String.format(DateUtil.MONTH_MARK, newDate );
+    }
+
+    public static boolean isSameYear(Date d1, Date d2) {
+        String y1 = formatDate(d1, DateUtil.YYYY);
+        String y2 = formatDate(d2, DateUtil.YYYY);
+
+        return y1.equals(y2);
+    }
 }

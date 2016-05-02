@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -345,8 +346,10 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
                 CalenderSelectedDialog dialogFragment = new CalenderSelectedDialog();
                 dialogFragment.setDateCallback(new CalenderSelectedDialog.TravelDateCallback() {
                     @Override
-                    public void dateChanged(String date) {
+                    public void dateChanged(String date, String month, int year) {
                         setTravelDate(date);
+                        setTravelMonth(month);
+                        setTravelYear(year);
                     }
                 });
                 dialogFragment.show(getFragmentManager(), CalenderSelectedDialog.class.getName());
@@ -359,6 +362,17 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         travelDate.setText(date);
         filed.set(PASS_DATE);
         teamRequest.setDate(date);
+        teamRequest.setMonth(date);
+    }
+
+    private void setTravelMonth(String date) {
+        teamRequest.setMonth(date);
+        Log.e("month:    ", date);
+    }
+
+    private void setTravelYear(int year) {
+        teamRequest.setYear(year);
+        Log.e("year:    ", year+"");
     }
 
     private void setContact(String contact, int contactType) {

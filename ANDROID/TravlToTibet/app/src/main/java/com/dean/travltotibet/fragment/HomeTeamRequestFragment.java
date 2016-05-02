@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,14 @@ import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.tagview.Tag;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -134,7 +138,8 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-comments,-createdAt");
         query.include("imageFile");
-        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
+        query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);   // 只显示P状态
+        query.addWhereGreaterThanOrEqualTo("year", DateUtil.getCurYear());  // 大于等于今年
 
         // 搜索条件
         if (SearchFilterManger.getTeamFilterTags().size() > 0) {
@@ -144,6 +149,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
             // destination
             String routeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_ROUTE);
+//            Log.e("routeTag:    ", routeTag);
             if (!TextUtils.isEmpty(routeTag)) {
                 BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();
                 destination.addWhereContains("destination", routeTag);
@@ -152,6 +158,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
             // type
             String typeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_TYPE);
+//            Log.e("typeTag:    ", typeTag);
             if (!TextUtils.isEmpty(typeTag)) {
                 BmobQuery<TeamRequest> type = new BmobQuery<TeamRequest>();
                 type.addWhereContains("type", typeTag);
@@ -160,9 +167,10 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
             // date
             String dateTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_MONTH);
-            if (!TextUtils.isEmpty(typeTag)) {
+//            Log.e("dateTag:    ", dateTag);
+            if (!TextUtils.isEmpty(dateTag)) {
                 BmobQuery<TeamRequest> date = new BmobQuery<TeamRequest>();
-                date.addWhereContains("date", dateTag);
+                date.addWhereContains("month", DateUtil.getSelectedDate(dateTag));
                 queries.add(date);
             }
 
