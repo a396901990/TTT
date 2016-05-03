@@ -123,7 +123,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         // date
         TextView travelDate = (TextView) root.findViewById(R.id.travel_date);
-        if (!TextUtils.isEmpty(teamRequest.getDate())) {
+        if (teamRequest != null && !TextUtils.isEmpty(teamRequest.getDate())) {
             travelDate.setText(teamRequest.getDate());
         } else {
             travelDate.setText("");
@@ -131,7 +131,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         // destination
         TextView travelDestination = (TextView) root.findViewById(R.id.destination_text);
-        if (!TextUtils.isEmpty(teamRequest.getDestination())) {
+        if (teamRequest != null && !TextUtils.isEmpty(teamRequest.getDestination())) {
             travelDestination.setText(teamRequest.getDestination());
         } else {
             travelDestination.setText("");
@@ -139,7 +139,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         // type
         TextView travelType = (TextView) root.findViewById(R.id.type_text);
-        if (!TextUtils.isEmpty(teamRequest.getType())) {
+        if (teamRequest != null && !TextUtils.isEmpty(teamRequest.getType())) {
             travelType.setText(teamRequest.getType());
         } else {
             travelType.setText("");

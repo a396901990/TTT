@@ -54,7 +54,7 @@ public class PrepareDetailActivity extends BaseActivity {
         setTitle("准备信息");
         initViewPagerAndTab();
 
-        if (!TextUtils.isEmpty(mInfoType.name())) {
+        if (mInfoType != null) {
             CountUtil.countPrepareInfo(this, mRoute, mInfoType.name(), mType);
         }
     }

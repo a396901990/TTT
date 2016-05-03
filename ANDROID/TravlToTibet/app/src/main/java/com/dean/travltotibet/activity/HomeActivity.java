@@ -1,7 +1,11 @@
 package com.dean.travltotibet.activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +26,12 @@ import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import cn.bmob.v3.helper.PermissionListener;
+import cn.bmob.v3.listener.BmobDialogButtonListener;
+import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
+import cn.bmob.v3.update.UpdateResponse;
+
 /**
  * Created by DeanGuo on 9/30/15.
  */
@@ -42,9 +51,12 @@ public class HomeActivity extends BaseActivity {
 
     private SlidingMenu mSlidingMenu;
 
+    private HomeActivity instance;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.home_view);
         setUpToolBar();
         setUpView();
@@ -175,6 +187,17 @@ public class HomeActivity extends BaseActivity {
     private void checkForUpdate() {
         // only wifi
         BmobUpdateAgent.forceUpdate(this);
+        BmobUpdateAgent.setDialogListener(new BmobDialogButtonListener() {
+            @Override
+            public void onClick(int i) {
+                // 6.0 检查存储运行权限
+                if (ContextCompat.checkSelfPermission(instance, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    instance.getPermissionManager()
+                            .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .request();
+                }
+            }
+        });
     }
 
     @Override

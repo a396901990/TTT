@@ -65,7 +65,7 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
     private void initImageContent() {
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.picker_image_list_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        recyclerView.addItemDecoration(new HorizontalItemDecoration(ScreenUtil.dip2px(getActivity(), 2)));
+        recyclerView.addItemDecoration(new HorizontalItemDecoration(ScreenUtil.dip2px(roadInfoDetailActivity, 2)));
         recyclerView.setHasFixedSize(true);
         imagePickAdapter = new ImagePickAdapter(getActivity());
         imagePickAdapter.setAddImageListener(new ImagePickAdapter.AddImageListener() {
@@ -187,6 +187,9 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
 
             @Override
             public void onFailure(int code, String arg0) {
+                if (roadInfoDetailActivity == null) {
+                    return;
+                }
                 roadInfoDetailActivity.getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
                     @Override
                     public void retry() {

@@ -164,6 +164,9 @@ public class AroundScenicDetailFragment extends BaseRefreshFragment {
     @Override
     public void LoadingError() {
         super.LoadingError();
+        if (mScenicInfo == null) {
+            mScenicInfo = new ScenicInfo();
+        }
         initContentView();
         getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
             @Override
