@@ -164,6 +164,12 @@
         <activity android:name=".activity.RoadInfoDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.QACreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.QAShowRequestDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

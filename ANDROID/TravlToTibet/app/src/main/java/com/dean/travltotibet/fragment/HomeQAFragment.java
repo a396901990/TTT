@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,31 +12,28 @@ import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.activity.HomeActivity;
-import com.dean.travltotibet.adapter.TeamRequestListAdapter;
+import com.dean.travltotibet.adapter.QAListAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
+import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.ui.tagview.Tag;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * Created by DeanGuo on 3/3/16.
+ * Created by DeanGuo on 5/3/16.
  */
-public class HomeTeamRequestFragment extends BaseRefreshFragment {
+public class HomeQAFragment extends BaseRefreshFragment {
 
     private static final int CREATE_REQUEST = 0;
 
@@ -46,8 +42,8 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
     private View root;
 
-    private TeamRequestListAdapter mAdapter;
-    private ArrayList<TeamRequest> teamRequests;
+    private QAListAdapter mAdapter;
+    private ArrayList<QARequest> qaRequests;
     private HomeActivity mActivity;
     private LoadMoreListView loadMoreListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -56,8 +52,8 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
     private int limit = 8;        // 每页的数据是8条
 
-    public static HomeTeamRequestFragment newInstance() {
-        HomeTeamRequestFragment fragment = new HomeTeamRequestFragment();
+    public static HomeQAFragment newInstance() {
+        HomeQAFragment fragment = new HomeQAFragment();
         return fragment;
     }
 
@@ -106,7 +102,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
             }
         });
 
-        mAdapter = new TeamRequestListAdapter(getActivity());
+        mAdapter = new QAListAdapter(getActivity());
         loadMoreListView.setAdapter(mAdapter);
         setLoadMoreListView(loadMoreListView);
     }
@@ -132,51 +128,16 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         });
     }
 
-    private void getTeamRequests(final int actionType) {
-        teamRequests = new ArrayList<>();
+    private void getQARequests(final int actionType) {
+        qaRequests = new ArrayList<>();
 
-        BmobQuery<TeamRequest> query = new BmobQuery<>();
+        BmobQuery<QARequest> query = new BmobQuery<>();
         query.order("-comments,-createdAt");
-        query.include("imageFile");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);   // 只显示P状态
 
         // 搜索条件
-        if (SearchFilterManger.getTeamFilterTags().size() > 0) {
-
-            // queries
-            List<BmobQuery<TeamRequest>> queries = new ArrayList<BmobQuery<TeamRequest>>();
-
-            // destination
-            String routeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_ROUTE);
-//            Log.e("routeTag:    ", routeTag);
-            if (!TextUtils.isEmpty(routeTag)) {
-                BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();
-                destination.addWhereContains("destination", routeTag);
-                queries.add(destination);
-            }
-
-            // type
-            String typeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_TYPE);
-//            Log.e("typeTag:    ", typeTag);
-            if (!TextUtils.isEmpty(typeTag)) {
-                BmobQuery<TeamRequest> type = new BmobQuery<TeamRequest>();
-                type.addWhereContains("type", typeTag);
-                queries.add(type);
-            }
-
-            // date
-            String dateTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_MONTH);
-//            Log.e("dateTag:    ", dateTag);
-            if (!TextUtils.isEmpty(dateTag)) {
-                BmobQuery<TeamRequest> date = new BmobQuery<TeamRequest>();
-                date.addWhereContains("month", DateUtil.getSelectedDate(dateTag));
-                queries.add(date);
-            }
-
-            // 添加and查询
-            query.and(queries);
-            // 大于等于今年
-            query.addWhereGreaterThanOrEqualTo("year", DateUtil.getCurYear());
+        if (SearchFilterManger.getQAFilterTags().size() > 0) {
+            query.addWhereContains("content", SearchFilterManger.getQATextWithType(SearchFilterManger.SEARCH_QA));
         }
 
         // 加载更多
@@ -188,10 +149,10 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         // 设置每页数据个数
         query.setLimit(limit);
 
-        query.findObjects(getActivity(), new FindListener<TeamRequest>() {
+        query.findObjects(getActivity(), new FindListener<QARequest>() {
             @Override
-            public void onSuccess(List<TeamRequest> list) {
-                teamRequests = (ArrayList<TeamRequest>) list;
+            public void onSuccess(List<QARequest> list) {
+                qaRequests = (ArrayList<QARequest>) list;
 
                 if (list.size() == 0 && actionType == STATE_MORE) {
                     loadMoreListView.onNoMoreDate();
@@ -253,7 +214,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     @Override
     public void onLoading() {
         super.onLoading();
-        getTeamRequests(STATE_REFRESH);
+        getQARequests(STATE_REFRESH);
     }
 
     @Override
@@ -265,12 +226,12 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         }
 
         // 无数据
-        if (teamRequests == null || teamRequests.size() == 0) {
+        if (qaRequests == null || qaRequests.size() == 0) {
             loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
         }
 
         if (mAdapter != null) {
-            mAdapter.setData(teamRequests);
+            mAdapter.setData(qaRequests);
         }
         finishRefresh();
     }
@@ -290,14 +251,14 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     @Override
     public void onLoadingMore() {
         super.onLoadingMore();
-        getTeamRequests(STATE_MORE);
+        getQARequests(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
         super.LoadingMoreSuccess();
         if (mAdapter != null) {
-            mAdapter.addData(teamRequests);
+            mAdapter.addData(qaRequests);
         }
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();

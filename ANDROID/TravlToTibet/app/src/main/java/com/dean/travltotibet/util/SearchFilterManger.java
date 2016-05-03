@@ -14,6 +14,7 @@ public final class SearchFilterManger {
     public static final String SEARCH_MONTH = "month";
     public static final String SEARCH_TYPE = "type";
     public static final String SEARCH_ROUTE = "route";
+    public static final String SEARCH_QA = "qa";
 
     private static SearchFilterManger sInstance;
 
@@ -21,7 +22,7 @@ public final class SearchFilterManger {
 
     private static ArrayList<Tag> teamFilterTags = new ArrayList<>();
 
-    private static ArrayList<Tag> askFilterTags = new ArrayList<>();
+    private static ArrayList<Tag> qaFilterTags = new ArrayList<>();
 
     private SearchFilterManger( final Context context )
     {
@@ -36,7 +37,7 @@ public final class SearchFilterManger {
     public static void clear()
     {
         sInstance.teamFilterTags = null;
-        sInstance.askFilterTags = null;
+        sInstance.qaFilterTags = null;
     }
 
     public static ArrayList<Tag> getTeamFilterTags() {
@@ -47,12 +48,12 @@ public final class SearchFilterManger {
         SearchFilterManger.teamFilterTags = teamFilterTags;
     }
 
-    public static ArrayList<Tag> getAskFilterTags() {
-        return askFilterTags;
+    public static ArrayList<Tag> getQAFilterTags() {
+        return qaFilterTags;
     }
 
-    public static void setAskFilterTags(ArrayList<Tag> askFilterTags) {
-        SearchFilterManger.askFilterTags = askFilterTags;
+    public static void setQAFilterTags(ArrayList<Tag> qaFilterTags) {
+        SearchFilterManger.qaFilterTags = qaFilterTags;
     }
 
     public static boolean hasSameTypeTags(ArrayList<Tag> tags, Tag tag) {
@@ -74,6 +75,15 @@ public final class SearchFilterManger {
         }
     }
 
+    public static void addTagForQAFilter(Tag tag) {
+
+        // 有同种类型，替换名字   没有则添加
+        if (hasSameTypeTags(qaFilterTags, tag)) {
+        } else {
+            qaFilterTags.add(tag);
+        }
+    }
+
     public static String getTeamTagTextWithType(String type) {
         for (Tag t : teamFilterTags) {
             if (t.getType().equals(type)) {
@@ -84,7 +94,21 @@ public final class SearchFilterManger {
         return "";
     }
 
+    public static String getQATextWithType(String type) {
+        for (Tag t : qaFilterTags) {
+            if (t.getType().equals(type)) {
+                return t.text;
+            }
+        }
+
+        return "";
+    }
+
     public static void removeTagForTeamFilter(Tag tag) {
         teamFilterTags.remove(tag);
+    }
+
+    public static void removeTagForQAFilter(Tag tag) {
+        qaFilterTags.remove(tag);
     }
 }

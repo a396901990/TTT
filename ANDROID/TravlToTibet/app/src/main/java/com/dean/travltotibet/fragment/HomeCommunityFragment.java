@@ -15,11 +15,14 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.HomeActivity;
+import com.dean.travltotibet.activity.QACreateActivity;
 import com.dean.travltotibet.activity.TeamCreateRequestActivity;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.dialog.LoginDialog;
+import com.dean.travltotibet.dialog.QASearchDialog;
 import com.dean.travltotibet.dialog.SearchDialog;
+import com.dean.travltotibet.dialog.TeamSearchDialog;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.ui.fab.FloatingActionMenu;
@@ -36,11 +39,15 @@ import java.util.ArrayList;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by DeanGuo on 3/3/16.
+ * Created by DeanGuo on 4/30/16.
  */
 public class HomeCommunityFragment extends BaseRefreshFragment {
 
     private static final int CREATE_REQUEST = 0;
+
+    private static final int TEAM_REQUEST_VIEW = 0;
+
+    private static final int QA_REQUEST_VIEW = 1;
 
     private View root;
 
@@ -54,9 +61,9 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
 
     private TagView tagView;
 
-    SearchDialog searchDialog;
-
     private boolean tryToCreateTeamRequest = false;
+
+    private boolean tryToCreateQA = false;
 
     public static HomeCommunityFragment newInstance() {
         HomeCommunityFragment fragment = new HomeCommunityFragment();
@@ -86,54 +93,67 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
         searchBar = root.findViewById(R.id.search_view_container);
         tagView = (TagView) root.findViewById(R.id.tags_content);
 
+        // 空白处点击
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (searchDialog != null) {
-                    searchDialog.show(getFragmentManager(), SearchDialog.class.getName());
-                }
+                openSearchDialog();
             }
         });
 
-        // 删除
+        // tag view 点击删除
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
             @Override
             public void onTagDeleted(TagView view, Tag tag, int position) {
-                SearchFilterManger.removeTagForTeamFilter(tag);
+                if (mPager.getCurrentItem() == TEAM_REQUEST_VIEW) {
+                    SearchFilterManger.removeTagForTeamFilter(tag);
+                }
+                else if (mPager.getCurrentItem() == QA_REQUEST_VIEW) {
+                    SearchFilterManger.removeTagForQAFilter(tag);
+                }
                 startSearch();
             }
         });
 
-        // 点击
+        // tag view 点击
         tagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(Tag tag, int position) {
-                if (searchDialog != null) {
-                    searchDialog.show(getFragmentManager(), SearchDialog.class.getName());
-                }
+                openSearchDialog();
             }
         });
 
-        setSearchHint(getString(R.string.team_make_filter_hint));
 
-        searchDialog = new SearchDialog();
+        // 默认显示第一个页面搜索栏
+        updateSearchView(0);
+    }
+
+    public void openSearchDialog() {
+
+        SearchDialog searchDialog = null;
+        if (mPager.getCurrentItem() == TEAM_REQUEST_VIEW) {
+            searchDialog = new TeamSearchDialog();
+        }
+        else if (mPager.getCurrentItem() == QA_REQUEST_VIEW) {
+            searchDialog = new QASearchDialog();
+        }
+
         searchDialog.setSearchCallBack(new SearchDialog.SearchCallBack() {
             @Override
-            public void onFilter(ArrayList<Tag> tags) {
+            public void onFinished() {
                 startSearch();
             }
         });
+
+        searchDialog.show(getFragmentManager(), SearchDialog.class.getName());
     }
 
     public void startSearch() {
-        tagView.addTags(SearchFilterManger.getTeamFilterTags());
 
-        if (SearchFilterManger.getTeamFilterTags().size() == 0) {
-            setSearchHint(getString(R.string.team_make_filter_hint));
-        } else {
-            setSearchHint("");
-        }
+        // 刷新search view
+        updateSearchView(mPager.getCurrentItem());
 
+        // 刷新当前页面
         BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
         if (fragment != null) {
             fragment.onRefresh();
@@ -153,13 +173,51 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
             mAdapter = new ViewPageFragmentAdapter(getChildFragmentManager());
         }
         mAdapter.add(HomeTeamRequestFragment.class, null, "约伴");
-        mAdapter.add(HomeTopicFragment.class, null, "问答");
+        mAdapter.add(HomeQAFragment.class, null, "问答");
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(1);
         mPager.setCurrentItem(0, true);
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                // 跟新搜索栏
+                updateSearchView(position);
+            }
+        });
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) root.findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
+    }
+
+    private void updateSearchView(int position) {
+        // 约伴界面
+        if (position == TEAM_REQUEST_VIEW) {
+
+            // 设置标签
+            tagView.addTags(SearchFilterManger.getTeamFilterTags());
+
+            // 设置搜索栏提示文字
+            if (SearchFilterManger.getTeamFilterTags().size() == 0) {
+                setSearchHint(getString(R.string.team_make_filter_hint));
+            } else {
+                setSearchHint("");
+            }
+        }
+        // 问答界面
+        else if (position == QA_REQUEST_VIEW) {
+            // 设置标签
+            tagView.addTags(SearchFilterManger.getQAFilterTags());
+
+            // 设置搜索栏提示文字
+            if (SearchFilterManger.getQAFilterTags().size() == 0) {
+                setSearchHint(getString(R.string.q_a_filter_hint));
+            } else {
+                setSearchHint("");
+            }
+        }
+
     }
 
     private void initCreateBtn() {
@@ -198,6 +256,30 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
 
             }
         });
+
+        // 提问题
+        askFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFloatingActionMenu.isOpened()) {
+                    mFloatingActionMenu.toggle(true);
+                }
+
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), QACreateActivity.class);
+                    startActivityForResult(intent, CREATE_REQUEST);
+                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                } else {
+                    tryToCreateQA = true;
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
+
+            }
+        });
     }
 
     /**
@@ -210,6 +292,12 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
             startActivityForResult(intent, CREATE_REQUEST);
             getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
             tryToCreateTeamRequest = false;
+        }
+        else if (tryToCreateQA) {
+            Intent intent = new Intent(getActivity(), QACreateActivity.class);
+            startActivityForResult(intent, CREATE_REQUEST);
+            getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+            tryToCreateQA = false;
         }
     }
 

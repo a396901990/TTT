@@ -16,6 +16,7 @@ public class Report extends BmobObject {
 
     public  final static String REPORT_COMMENT = "comment";
     public  final static String REPORT_TEAM_REQUEST = "teamRequest";
+    public  final static String REPORT_QA_REQUEST = "qa";
 
     private String reportId;
     private String reportType;

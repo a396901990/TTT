@@ -14,13 +14,13 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
+import com.dean.travltotibet.activity.QAShowRequestDetailActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.model.ImageFile;
+import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.ui.tagview.Tag;
-import com.dean.travltotibet.ui.tagview.TagView;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
@@ -34,13 +34,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by DeanGuo on 3//16.
  */
-public class TeamRequestListAdapter extends BaseAdapter {
+public class QAListAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    private ArrayList<TeamRequest> mData;
+    private ArrayList<QARequest> mData;
 
-    public TeamRequestListAdapter(Context mContext) {
+    public QAListAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -67,14 +67,14 @@ public class TeamRequestListAdapter extends BaseAdapter {
         final TeamRequestViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_show_request_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.q_a_list_item, parent, false);
             holder = new TeamRequestViewHolder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (TeamRequestViewHolder) convertView.getTag();
         }
 
-        final TeamRequest request = mData.get(position);
+        final QARequest request = mData.get(position);
 
         // 审核未通过和等待审核需要显示提示框
         if (TeamRequest.NO_PASS_STATUS.equals(request.getStatus())) {
@@ -89,9 +89,6 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         // content
         holder.mContentText.setText(request.getContent());
-
-        // destination, type, date
-        setTag(holder, request);
 
         // user name
         holder.mUserName.setText(request.getUserName());
@@ -121,80 +118,22 @@ public class TeamRequestListAdapter extends BaseAdapter {
                 if (ScreenUtil.isFastClick()) {
                     return;
                 }
-                Intent intent = new Intent(mContext, TeamShowRequestDetailActivity.class);
-                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, request);
+                Intent intent = new Intent(mContext, QAShowRequestDetailActivity.class);
+                intent.putExtra(IntentExtra.INTENT_QA_REQUEST, request);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
                 ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });
 
-        // 设置图片视图
-        setUpImageContent(holder, position);
-
         return convertView;
     }
 
-    private void setTag(TeamRequestViewHolder holder, TeamRequest request) {
-
-        ArrayList<Tag> teamFilterTags = new ArrayList<>();
-
-        Tag tagDest = new Tag(request.getDestination());
-        tagDest.tagTextSize = 10f;
-        tagDest.layoutColor = TTTApplication.getMyColor(R.color.route_color);
-
-        Tag tagDate = new Tag(request.getDate());
-        tagDate.tagTextSize = 10f;
-        tagDate.layoutColor = TTTApplication.getMyColor(R.color.month_color);
-
-        Tag tagType = new Tag(request.getType());
-        tagType.tagTextSize = 10f;
-        tagType.layoutColor = TTTApplication.getMyColor(R.color.type_color);
-
-        teamFilterTags.add(tagDest);
-        teamFilterTags.add(tagType);
-        teamFilterTags.add(tagDate);
-        holder.tagView.addTags(teamFilterTags);
-    }
-
-    private void setUpImageContent(TeamRequestViewHolder holder, int position) {
-        final TeamRequest request = mData.get(position);
-        resetImage(holder);
-
-        ImageFile imageFile = request.getImageFile();
-        if (imageFile != null) {
-            holder.imageContent.setVisibility(View.VISIBLE);
-            // image 1
-            ImageView image1 = (ImageView) holder.imageContent.findViewById(R.id.image_view_1);
-            ImageFile.setThumbnailImage(mContext, imageFile.getThumbnail1(), image1);
-//            ImageFile.setImagePreview(mContext, imageFile, image1, position);
-
-            // image 2
-            ImageView image2 = (ImageView) holder.imageContent.findViewById(R.id.image_view_2);
-            ImageFile.setThumbnailImage(mContext, imageFile.getThumbnail2(), image2);
-//            ImageFile.setImagePreview(mContext, imageFile, image2, position);
-
-            // image 3
-            ImageView image3 = (ImageView) holder.imageContent.findViewById(R.id.image_view_3);
-            ImageFile.setThumbnailImage(mContext, imageFile.getThumbnail3(), image3);
-//            ImageFile.setImagePreview(mContext, imageFile, image3, position);
-        } else {
-            holder.imageContent.setVisibility(View.GONE);
-        }
-
-    }
-
-    public void resetImage(TeamRequestViewHolder holder) {
-        holder.imageContent.findViewById(R.id.image_view_1).setVisibility(View.INVISIBLE);
-        holder.imageContent.findViewById(R.id.image_view_2).setVisibility(View.INVISIBLE);
-        holder.imageContent.findViewById(R.id.image_view_3).setVisibility(View.INVISIBLE);
-    }
-
-    public void setData(ArrayList<TeamRequest> data) {
+    public void setData(ArrayList<QARequest> data) {
         this.mData = data;
         notifyDataSetChanged();
     }
 
-    public void addData(ArrayList<TeamRequest> addDatas) {
+    public void addData(ArrayList<QARequest> addDatas) {
         mData.addAll(addDatas);
         notifyDataSetChanged();
     }
@@ -220,25 +159,19 @@ public class TeamRequestListAdapter extends BaseAdapter {
         private View mWarningView;
         private TextView mWarningText;
 
-        private View imageContent;
-
-        private TagView tagView;
-
         public TeamRequestViewHolder(View itemView) {
             mContentText = (TextView) itemView.findViewById(R.id.content_text);
 
             mUserName = (TextView) itemView.findViewById(R.id.user_name);
+//            mUserGender = itemView.findViewById(R.id.user_gender);
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
 
+//            mPublishTime = (TextView) itemView.findViewById(R.id.publish_time);
             mWatch = (TextView) itemView.findViewById(R.id.watch);
             rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
 
             mWarningView = itemView.findViewById(R.id.warning_view);
             mWarningText = (TextView) itemView.findViewById(R.id.warning_text);
-
-            imageContent = itemView.findViewById(R.id.image_content);
-
-            tagView = (TagView) itemView.findViewById(R.id.tags_content);
         }
     }
 

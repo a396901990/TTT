@@ -24,10 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="4dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="8dp">
+                android:padding="10dp">
 
                 <!--header-->
                 <RelativeLayout
@@ -79,32 +76,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="3dp"
                     android:paddingTop="5dp">
 
                     <TextView
                         android:id="@+id/content_text"
-                        style="@style/TextAppearance.Regular"
+                        style="@style/TextAppearance.Small.Bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="3"
                         android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份."
-                        />
-
-                    <include
-                        android:id="@+id/image_content"
-                        layout="@layout/show_image_content_view"
-                        android:visibility="gone"></include>
+                        android:textColor="@color/dark_gray" />
                 </LinearLayout>
-
-                <!--标签-->
-                <com.dean.travltotibet.ui.tagview.TagView
-                    android:id="@+id/tags_content"
-                    android:layout_toRightOf="@+id/tag_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></com.dean.travltotibet.ui.tagview.TagView>
             </LinearLayout>
 
             <View

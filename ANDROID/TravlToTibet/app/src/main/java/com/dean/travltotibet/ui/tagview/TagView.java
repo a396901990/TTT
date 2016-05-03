@@ -242,7 +242,7 @@ public class TagView extends RelativeLayout {
                 indexHeader = listIndex;
             } else {
                 //no need to new line
-                tagParams.addRule(RelativeLayout.CENTER_VERTICAL, indexHeader);
+                tagParams.addRule(RelativeLayout.ALIGN_TOP, indexHeader);
                 //not header of the line
                 if (listIndex != indexHeader) {
                     tagParams.addRule(RelativeLayout.RIGHT_OF, listIndex - 1);

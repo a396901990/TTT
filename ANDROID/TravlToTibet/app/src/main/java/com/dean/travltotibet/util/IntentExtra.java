@@ -31,6 +31,7 @@ public final class IntentExtra {
     public static final String INTENT_PLAN_END = "intent_plan_end";
     public static final String INTENT_HOTEL = "intent_hotel";
     public static final String INTENT_TEAM_REQUEST = "intent_team_request";
+    public static final String INTENT_QA_REQUEST = "intent_q_a_request";
     public static final String INTENT_TEAM_REQUEST_SHOW_TYPE = "intent_team_request_show_type";
     public static final String INTENT_TEAM_REQUEST_SEARCH_FILTER = "intent_team_request_search_filter";
     public static final String INTENT_TEAM_REQUEST_IS_PERSONAL = "intent_team_request_is_personal";

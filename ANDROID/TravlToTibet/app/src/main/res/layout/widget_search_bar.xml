@@ -26,17 +26,23 @@
             android:tint="@color/gray" />
 
         <RelativeLayout
-            android:paddingLeft="2dp"
             android:id="@+id/search_box_start_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:paddingLeft="2dp">
 
-            <com.dean.travltotibet.ui.tagview.TagView
-                android:id="@+id/tags_content"
-                android:layout_centerVertical="true"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></com.dean.travltotibet.ui.tagview.TagView>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+                <!--不换行偏上。。。-->
+                <com.dean.travltotibet.ui.tagview.TagView
+                    android:paddingTop="4dp"
+                    android:id="@+id/tags_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"></com.dean.travltotibet.ui.tagview.TagView>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/search_box_collapsed_hint"

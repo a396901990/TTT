@@ -146,6 +146,7 @@
     <string name="action_error">操作失败</string>
 
     <string name="team_make_title">结伴</string>
+    <string name="q_a_create_title">提问题</string>
     <string name="team_make_request_title">发起结伴</string>
     <string name="team_make_personal_request_title">我的结伴</string>
     <string name="team_make_time_title">时间</string>
@@ -177,6 +178,8 @@
     <string name="warning_no_pass">未通过审核，请修改后重新提交！</string>
     <string name="warning_wait_pass">正在审核中，请耐心等待！</string>
     <string name="road_feedback_hint">上传您知道的路况信息，方便更多驴友！人人都是户外探子！</string>
+    <string name="q_a_title_hint">完整而清晰的问题标题能帮助您更快获得回答</string>
+    <string name="q_a_content_hint">更详细的说明问题，或提供与之相关的背景信息喝参考资料</string>
 
     <string name="piece">张</string>
     <string name="you_have_a_select_limit">最多选择%1$s张图片</string>
@@ -185,5 +188,6 @@
     <string name="all_images">全部图片</string>
 
     <string name="team_make_filter_hint">筛选结伴信息</string>
+    <string name="q_a_filter_hint">输入问题关键字</string>
     <string name="sans_serif" translatable="false">sans-serif</string>
 </resources>
