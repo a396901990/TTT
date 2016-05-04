@@ -37,7 +37,7 @@
                 android:layout_centerVertical="true">
                 <!--不换行偏上。。。-->
                 <com.dean.travltotibet.ui.tagview.TagView
-                    android:paddingTop="4dp"
+                    android:paddingTop="5dp"
                     android:id="@+id/tags_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

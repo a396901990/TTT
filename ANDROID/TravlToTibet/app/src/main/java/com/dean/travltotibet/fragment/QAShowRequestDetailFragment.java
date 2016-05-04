@@ -1,8 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,17 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.QAShowRequestDetailActivity;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.listener.FindListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -46,6 +55,52 @@ public class QAShowRequestDetailFragment extends Fragment {
         initHeaderView();
         initTitleContent();
         initContentContent();
+        updateSameQuestionUsers();
+    }
+
+    private void initSameQuestionContent(List<UserInfo> userInfos) {
+        View sameQuestionContent = root.findViewById(R.id.same_question_content);
+        if (userInfos != null && userInfos.size() > 0) {
+            sameQuestionContent.setVisibility(View.VISIBLE);
+
+            FlowLayout flowLayout = (FlowLayout) root.findViewById(R.id.same_question_content_view);
+            flowLayout.removeAllViews();
+            for (UserInfo userInfo : userInfos) {
+                View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.flow_image_item_view, null, false);
+                CircleImageView userView = (CircleImageView) itemView.findViewById(R.id.item_view);
+
+                Picasso.with(getActivity())
+                        .load(userInfo.getUserIcon())
+                        .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                        .centerInside()
+                        .error(R.drawable.gray_profile)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .config(Bitmap.Config.RGB_565)
+                        .into(userView);
+
+                flowLayout.addView(itemView);
+            }
+
+        } else {
+            sameQuestionContent.setVisibility(View.GONE);
+        }
+    }
+
+    public void updateSameQuestionUsers () {
+        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+        query.addWhereRelatedTo("questionUsers", new BmobPointer(qaRequest));
+        query.findObjects(getActivity(), new FindListener<UserInfo>() {
+
+            @Override
+            public void onSuccess(List<UserInfo> userInfos) {
+                initSameQuestionContent(userInfos);
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                initSameQuestionContent(null);
+            }
+        });
     }
 
     private void initHeaderView() {
@@ -66,7 +121,7 @@ public class QAShowRequestDetailFragment extends Fragment {
             mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
             mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
-        // user icono
+        // user icon
         if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
             Picasso.with(getActivity()).load(qaRequest.getUserIcon()).error(R.drawable.gray_profile).into(mUserIcon);
         } else {

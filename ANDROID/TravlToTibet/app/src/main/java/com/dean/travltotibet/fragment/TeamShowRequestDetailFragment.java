@@ -28,8 +28,6 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -109,7 +107,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
             mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
             mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
-        // user icono
+        // user icon
         if (!TextUtils.isEmpty(teamRequest.getUserIcon())) {
             Picasso.with(getActivity()).load(teamRequest.getUserIcon()).error(R.drawable.gray_profile).into(mUserIcon);
         } else {

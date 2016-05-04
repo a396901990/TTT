@@ -63,7 +63,7 @@
             android:background="@drawable/top_shade_background" />
 
         <!--底部-->
-        <include layout="@layout/new_comment_bottom_view"></include>
+        <include layout="@layout/q_a_bottom_view"></include>
     </FrameLayout>
 </RelativeLayout>
 
