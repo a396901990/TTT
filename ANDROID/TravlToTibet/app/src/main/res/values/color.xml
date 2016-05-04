@@ -95,10 +95,10 @@
     <color name="colorPrimaryDark_light">#424242</color>
     <color name="colorAccent_light">#424242</color>
 
-    <color name="month_color">#B243A047</color>
-    <color name="type_color">#B2F44336</color>
-    <color name="route_color">#B27583ee</color>
-    <color name="qa_color">#B21E88E5</color>
+    <color name="month_color">#9943A047</color>
+    <color name="type_color">#99F44336</color>
+    <color name="route_color">#997583ee</color>
+    <color name="qa_color">#991E88E5</color>
 
     <color name="normal_day">#ff999999</color>
     <color name="current_day">#9CCC65</color>

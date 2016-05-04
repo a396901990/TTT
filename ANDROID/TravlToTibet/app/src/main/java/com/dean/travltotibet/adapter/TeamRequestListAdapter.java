@@ -239,6 +239,12 @@ public class TeamRequestListAdapter extends BaseAdapter {
             imageContent = itemView.findViewById(R.id.image_content);
 
             tagView = (TagView) itemView.findViewById(R.id.tags_content);
+            tagView.setTagMargin(3f);
+            tagView.setLineMargin(3f);
+            tagView.setTextPaddingTop(1f);
+            tagView.setTexPaddingBottom(1f);
+            tagView.setTextPaddingLeft(4f);
+            tagView.setTextPaddingRight(4f);
         }
     }
 

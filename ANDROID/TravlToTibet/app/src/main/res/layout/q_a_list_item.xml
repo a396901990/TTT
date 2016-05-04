@@ -80,13 +80,12 @@
 
                     <TextView
                         android:id="@+id/content_text"
-                        style="@style/TextAppearance.Small.Bold"
+                        style="@style/TextAppearance.Regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="3"
-                        android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份."
-                        android:textColor="@color/dark_gray" />
+                        android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份." />
                 </LinearLayout>
             </LinearLayout>
 
