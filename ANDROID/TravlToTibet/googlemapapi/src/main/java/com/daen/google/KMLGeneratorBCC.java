@@ -9,9 +9,8 @@ import com.daen.google.util.ParseJson;
 import java.io.File;
 import java.util.ArrayList;
 
-import de.micromata.opengis.kml.v_2_2_0.Document;
-
 import de.micromata.opengis.kml.v_2_2_0.Coordinate;
+import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Folder;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
@@ -20,7 +19,7 @@ import de.micromata.opengis.kml.v_2_2_0.Point;
 /**
  * Created by DeanGuo on 4/10/16.
  */
-public class KMLGenerator {
+public class KMLGeneratorBCC {
     private static ArrayList<Geocode> geocodes;
 
     public static void main(String[] args) throws Exception {
@@ -30,7 +29,7 @@ public class KMLGenerator {
 
         geocodes = new ArrayList<>();
 
-        final Kml kml = Kml.unmarshal(new File("/Users/DeanGuo/Desktop/grbq.kml"));
+        final Kml kml = Kml.unmarshal(new File("/Users/DeanGuo/Desktop/bingchacha.kml"));
         Document document = (Document) kml.getFeature();
 
         Folder folder = (Folder) document.getFeature().get(0);
@@ -57,26 +56,45 @@ public class KMLGenerator {
             geocodes.add(geocode);
         }
         geocodes = KMLGeneratorUtil.getDistanceForGeo(geocodes);
-        ArrayList<Geocode> newGeo = KMLGeneratorUtil.getNewGeocodes(geocodes, 50);
+        ArrayList<Geocode> newGeo = KMLGeneratorUtil.getNewGeocodes(geocodes, 280);
         ArrayList<String> addPoint = new ArrayList<>();
-        addPoint.add("-4385");
-        addPoint.add("-4351");
-        addPoint.add("-4070");
-        addPoint.add("-3480");
-        addPoint.add("-2613");
-        addPoint.add("-2300");
-        addPoint.add("-2255");
-        addPoint.add("-1610");
-        addPoint.add("-674");
-        addPoint.add("-480");
-        addPoint.add("-302");
-        addPoint.add("-27");
+        addPoint.add("-19582");
+        addPoint.add("-19450");
+        addPoint.add("-18553");
+        addPoint.add("-17999");
+        addPoint.add("-17998");
+        addPoint.add("-17714");
+        addPoint.add("-17340");
+        addPoint.add("-16740");
+        addPoint.add("-16071");
+        addPoint.add("-15730");
+        addPoint.add("-15640");
+        addPoint.add("-15220");
+        addPoint.add("-14525");
+        addPoint.add("-13580");
+        addPoint.add("-12820");
+        addPoint.add("-12665");
+        addPoint.add("-12510");
+        addPoint.add("-11450");
+        addPoint.add("-9800");
+        addPoint.add("-9380");
+        addPoint.add("-7457");
+        addPoint.add("-7008");
+        addPoint.add("-6100");
+        addPoint.add("-5175");
+        addPoint.add("-4570");
+        addPoint.add("-2560");
+        addPoint.add("-1630");
+        addPoint.add("-1195");
+        addPoint.add("-740");
+        addPoint.add("-580");
+        addPoint.add("-170");
         addPoint.add("-0");
         newGeo = KMLGeneratorUtil.addPoint(newGeo, geocodes, addPoint);
         newGeo = KMLGeneratorUtil.reOrder(newGeo, true);
 
         ArrayList<Geocode> finalGeo = KMLGeneratorUtil.getGeoDistance(newGeo, geocodes);
-//        finalGeo = KMLGeneratorUtil.getReversGeo(finalGeo);
+        finalGeo = KMLGeneratorUtil.getReversGeo(finalGeo);
 
         ParseJson.parseToFile(finalGeo);
     }

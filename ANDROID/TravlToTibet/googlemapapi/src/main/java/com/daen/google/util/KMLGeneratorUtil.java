@@ -72,7 +72,7 @@ public final class KMLGeneratorUtil {
 
         int DIVIDE_PART = 5; // 每一份取三个点，最高，中间，最低
         int points = kilos * 1000 / 1000;
-        final int pointsGap = oldGeos.size() / points * DIVIDE_PART; // 算出要多少份，每份取3个点，所以这步要除3，这样才能保证分割取点正确
+        final int pointsGap = oldGeos.size() / points * DIVIDE_PART; // (没公里分多少个点)算出要多少份，每份取3个点，所以这步要除3，这样才能保证分割取点正确
 
 
         // 不取第一个点，不取最后一个点，最后统一添加
