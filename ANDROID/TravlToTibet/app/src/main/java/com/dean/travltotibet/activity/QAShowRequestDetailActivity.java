@@ -12,13 +12,17 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.dialog.AnswerDialog;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.QAShowRequestDetailFragment;
+import com.dean.travltotibet.fragment.QAnswerFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.ui.like.LikeButton;
+import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -38,7 +42,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by DeanGuo on 5/3/16.
  */
-public class QAShowRequestDetailActivity extends BaseCommentActivity {
+public class QAShowRequestDetailActivity extends BaseActivity {
 
     private QARequest qaRequest;
 
@@ -68,8 +72,6 @@ public class QAShowRequestDetailActivity extends BaseCommentActivity {
 
         updateWatch();
         initHeader();
-        initBottom();
-
     }
 
     private void initHeader() {
@@ -81,8 +83,8 @@ public class QAShowRequestDetailActivity extends BaseCommentActivity {
         }
     }
 
-    private void refresh() {
-        TeamShowRequestCommentFragment fragment = (TeamShowRequestCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
+    public void refresh() {
+        QAnswerFragment fragment = (QAnswerFragment) getFragmentManager().findFragmentById(R.id.answer_fragment);
         if (fragment != null && fragment.isAdded()) {
             fragment.onRefresh();
         }
@@ -97,63 +99,6 @@ public class QAShowRequestDetailActivity extends BaseCommentActivity {
         } catch (Exception e) {
             // finish();
         }
-    }
-
-    private void initBottom() {
-        final View sameQuestion = this.findViewById(R.id.same_question_btn);
-        sameQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sameQuestionAction();
-            }
-        });
-    }
-
-    private void sameQuestionAction() {
-        UserInfo userInfo = TTTApplication.getUserInfo();
-        if (userInfo == null) {
-            return;
-        }
-
-        BmobRelation sameQuestionRelation = new BmobRelation();
-        sameQuestionRelation.add(userInfo);
-        qaRequest.setQuestionUsers(sameQuestionRelation);
-        qaRequest.update(this, new UpdateListener() {
-            @Override
-            public void onSuccess() {
-                if (detailFragment != null) {
-                    detailFragment.updateSameQuestionUsers();
-                }
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
-            }
-        });
-    }
-
-    private void commentAction() {
-        if (ScreenUtil.isFastClick()) {
-            return;
-        }
-        BaseCommentDialog dialogFragment = new TeamRequestCommentDialog();
-        dialogFragment.setCommentCallBack(this);
-        dialogFragment.show(getFragmentManager(), TeamRequestCommentDialog.class.getName());
-    }
-
-    @Override
-    public void onCommentSuccess() {
-        refresh();
-    }
-
-    @Override
-    public void onCommentFailed() {
-    }
-
-    @Override
-    public BmobObject getObj() {
-        return qaRequest;
     }
 
     @Override

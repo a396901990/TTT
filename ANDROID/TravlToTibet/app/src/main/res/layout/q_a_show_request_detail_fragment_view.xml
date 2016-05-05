@@ -3,37 +3,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="3dp"
-        card_view:cardElevation="3dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/card_padding">
-
-            <TextView
-                android:id="@+id/title_text"
-                style="@style/TextAppearance.Large.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="top"
-                android:text="@string/q_a_content_hint"
-                android:textColor="@color/dark_gray" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
     <!--内容-->
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -54,46 +23,32 @@
             android:orientation="vertical"
             android:padding="@dimen/card_padding">
 
-            <!--header-->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <!--头像-->
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/user_icon"
-                    android:layout_width="@dimen/team_request_profile_size"
-                    android:layout_height="@dimen/team_request_profile_size"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/gray_profile"
-                    app:civ_border_color="@color/white"
-                    app:civ_border_width="0dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <!--标题-->
+                <TextView
+                    android:id="@+id/title_text"
+                    style="@style/TextAppearance.XLarge"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/user_icon"
-                    android:orientation="vertical"
-                    android:paddingLeft="5dp">
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:text="@string/q_a_content_hint" />
 
-                    <!--用户名称-->
-                    <TextView
-                        android:id="@+id/user_name"
-                        style="@style/TextAppearance.Micro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="户外探子"
-                        android:textColor="@color/colorPrimary" />
-
-                    <!--用户性别-->
-                    <View
-                        android:id="@+id/user_gender"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/male_gender_view" />
-                </LinearLayout>
+                <!--内容-->
+                <TextView
+                    android:id="@+id/content_text"
+                    style="@style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="hahahahahahah" />
 
                 <!--发布时间-->
                 <TextView
@@ -101,63 +56,65 @@
                     style="@style/TextAppearance.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/card_large_padding"
                     android:text="5分钟前"
                     android:textColor="@color/gray" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/card_padding"
+                android:layout_marginTop="@dimen/card_padding"
+                android:background="@color/rule"></View>
 
-                <TextView
-                    android:id="@+id/content_text"
-                    style="@style/TextAppearance.Regular"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dean.travltotibet.ui.FlowLayout
+                    android:id="@+id/same_question_content_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="top"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:textColor="@color/dark_gray" />
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_content"></com.dean.travltotibet.ui.FlowLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/same_question_content"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="3dp"
-        card_view:cardElevation="3dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:id="@+id/btn_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+                    <!--同问按钮-->
+                    <TextView
+                        android:id="@+id/same_question_btn"
+                        style="@style/TextAppearance.Small.White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_theme"
+                        android:paddingBottom="@dimen/card_half_padding"
+                        android:paddingLeft="@dimen/card_large_padding"
+                        android:paddingRight="@dimen/card_large_padding"
+                        android:paddingTop="@dimen/card_half_padding"
+                        android:text="同问" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/card_padding">
-
-            <!--内容-->
-            <TextView
-                style="@style/TitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="同问" />
-
-            <com.dean.travltotibet.ui.FlowLayout
-                android:id="@+id/same_question_content_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.dean.travltotibet.ui.FlowLayout>
+                    <!--回答按钮-->
+                    <TextView
+                        android:id="@+id/answer_btn"
+                        style="@style/TextAppearance.Small.White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/card_half_padding"
+                        android:background="@drawable/border_theme"
+                        android:paddingBottom="@dimen/card_half_padding"
+                        android:paddingLeft="@dimen/card_large_padding"
+                        android:paddingRight="@dimen/card_large_padding"
+                        android:paddingTop="@dimen/card_half_padding"
+                        android:text="回答" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

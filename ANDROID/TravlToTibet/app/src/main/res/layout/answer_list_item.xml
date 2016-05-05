@@ -12,9 +12,7 @@
         android:id="@+id/profile_image"
         android:layout_width="@dimen/comment_item_base_length"
         android:layout_height="@dimen/comment_item_base_length"
-        android:layout_marginBottom="@dimen/comment_item_base_padding"
         android:layout_marginRight="@dimen/comment_item_base_padding"
-        android:layout_marginTop="@dimen/comment_item_base_padding"
         android:src="@drawable/gray_profile"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp" />
@@ -26,12 +24,12 @@
 
         <!--名字时间点赞-->
         <RelativeLayout
+            android:id="@+id/profile_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/comment_item_base_length"
             android:padding="@dimen/comment_item_base_padding">
 
             <LinearLayout
-                android:id="@+id/profile_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -50,11 +48,11 @@
                 <TextView
                     android:id="@+id/comment_date"
                     style="@style/TextAppearance.Mini"
-                    android:textColor="@color/gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="2015-09-17" />
+                    android:text="2015-09-17"
+                    android:textColor="@color/gray" />
 
             </LinearLayout>
 
@@ -67,34 +65,33 @@
                 android:background="@drawable/border_gray"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:paddingBottom="3dp"
-                    android:paddingTop="3dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:src="@drawable/icon_like_white"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_gravity="center"
-                        />
-
-                    <TextView
-                        android:layout_marginLeft="@dimen/card_half_padding"
-                        android:id="@+id/like_text"
-                        style="@style/TextAppearance.Micro.White"
+                    <LinearLayout
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="250" />
-                </LinearLayout>
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/icon_like_white"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="@dimen/card_half_padding"
+                            android:id="@+id/like_text"
+                            style="@style/TextAppearance.Micro.White"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0" />
+                    </LinearLayout>
 
             </LinearLayout>
-
         </RelativeLayout>
 
         <!--评论-->
@@ -104,33 +101,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/comment_item_base_padding">
-
-            <LinearLayout
-                android:id="@+id/reply_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/border_reply_comment_background"
-                android:orientation="vertical"
-                android:padding="6dp"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:id="@+id/reply_comment_username"
-                    style="@style/TextAppearance.Theme.Micro.Dark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="户外探子" />
-
-                <TextView
-                    android:id="@+id/reply_comment_text"
-                    style="@style/TextAppearance.Micro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
-                    android:text="naocannaocn" />
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/comment_text"

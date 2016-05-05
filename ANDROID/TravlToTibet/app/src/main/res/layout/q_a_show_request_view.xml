@@ -23,7 +23,6 @@
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/article_bottom_height"
             android:nestedScrollingEnabled="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -46,24 +45,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <!--<fragment-->
-                        <!--android:id="@+id/comment_fragment"-->
-                        <!--android:name="com.dean.travltotibet.fragment.TeamShowRequestCommentFragment"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content" />-->
+                    <fragment
+                        android:id="@+id/answer_fragment"
+                        android:name="com.dean.travltotibet.fragment.QAnswerFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </FrameLayout>
 
             </LinearLayout>
         </ScrollView>
-
-        <!--阴影、去空白-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/home_toolbar_shadow_height"
-            android:background="@drawable/top_shade_background" />
-
-        <!--底部-->
-        <include layout="@layout/q_a_bottom_view"></include>
     </FrameLayout>
 </RelativeLayout>
 

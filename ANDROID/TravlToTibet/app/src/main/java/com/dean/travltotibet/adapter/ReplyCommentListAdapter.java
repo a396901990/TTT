@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -83,10 +85,24 @@ public class ReplyCommentListAdapter extends BaseAdapter {
         }
         // profile Image old/new logic
         if (comment.getUser() != null && !TextUtils.isEmpty(comment.getUser().getUserIcon())) {
-            Picasso.with(mContext).load(comment.getUser().getUserIcon()).error(R.drawable.gray_profile).into(holder.profileImage);
+            Picasso.with(mContext)
+                    .load(comment.getUser().getUserIcon())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .centerInside()
+                    .error(R.drawable.gray_profile)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(holder.profileImage);
         } else {
             if (!TextUtils.isEmpty(comment.getUser_icon())) {
-                Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+                Picasso.with(mContext)
+                        .load(comment.getUser_icon())
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                        .centerInside()
+                        .error(R.drawable.gray_profile)
+                        .config(Bitmap.Config.RGB_565)
+                        .into(holder.profileImage);
             } else {
                 holder.profileImage.setImageResource(R.drawable.gray_profile);
             }
@@ -100,14 +116,8 @@ public class ReplyCommentListAdapter extends BaseAdapter {
         setCommentView(holder, comment);
 
         // like
-        if (comment.getLike() != 0) {
-            holder.likeText.setText(comment.getLike() + "");
-        } else {
-            holder.likeText.setText("");
-        }
-        // 改变like状态（点赞颜色）
+        holder.likeText.setText(String.valueOf(comment.getLike()));
         changeLikeStatus(comment, holder);
-        // 点赞按钮监听
         holder.likeContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,11 +162,9 @@ public class ReplyCommentListAdapter extends BaseAdapter {
         String objectId = sharedPreferences.getString(comment.getObjectId(), "");
 
         if (TextUtils.isEmpty(objectId)) {
-            holder.likeIcon.setImageResource(R.drawable.icon_good_gray);
-            holder.likeContent.setClickable(true);
+            holder.likeContent.setBackgroundResource(R.drawable.border_gray);
         } else {
-            holder.likeIcon.setImageResource(R.drawable.icon_good_red);
-            holder.likeContent.setClickable(false);
+            holder.likeContent.setBackgroundResource(R.drawable.border_red);
         }
     }
 
@@ -179,9 +187,8 @@ public class ReplyCommentListAdapter extends BaseAdapter {
                 @Override
                 public void onSuccess() {
                     comment.setLike(comment.getLike() + 1);
-                    holder.likeText.setText(comment.getLike() + "");
-                    holder.likeIcon.setImageDrawable(TTTApplication.getMyResources().getDrawable(R.drawable.icon_good_red));
-                    holder.likeContent.setClickable(false);
+                    holder.likeText.setText(String.valueOf(comment.getLike()));
+                    holder.likeContent.setBackgroundResource(R.drawable.border_red);
                     sharedPreferences.edit().putString(comment.getObjectId(), comment.getObjectId()).commit();
                 }
 
@@ -211,7 +218,6 @@ public class ReplyCommentListAdapter extends BaseAdapter {
         private TextView commentDate;
         private TextView commentText;
         private TextView likeText;
-        private ImageView likeIcon;
 
         private LinearLayout likeContent;
 
@@ -226,7 +232,6 @@ public class ReplyCommentListAdapter extends BaseAdapter {
             commentDate = (TextView) itemView.findViewById(R.id.comment_date);
             commentText = (TextView) itemView.findViewById(R.id.comment_text);
             likeText = (TextView) itemView.findViewById(R.id.like_text);
-            likeIcon = (ImageView) itemView.findViewById(R.id.like_icon);
             likeContent = (LinearLayout) itemView.findViewById(R.id.like_content);
 
             replyComment = (TextView) itemView.findViewById(R.id.reply_comment_text);

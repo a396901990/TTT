@@ -18,10 +18,12 @@ import com.dean.travltotibet.activity.QACreateActivity;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
 import com.dean.travltotibet.util.LoadingManager;
 
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -225,7 +227,7 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
 
     public void updateAction() {
         // 如果之前已经通过，则这次也通过
-        if (TeamRequest.PASS_STATUS.equals(qaRequest.getStatus())) {
+        if (QARequest.PASS_STATUS.equals(qaRequest.getStatus())) {
             qaRequest.setStatus(QARequest.PASS_STATUS);
         }
         // 如果之前是审核或者未通过，这次是审核
@@ -264,6 +266,11 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
         qaRequest.setComments(0);
         qaRequest.setWatch(0);
         qaRequest.setStatus(QARequest.PASS_STATUS);
+
+        // 用户关联
+        BmobRelation sameQuestionRelation = new BmobRelation();
+        sameQuestionRelation.add(TTTApplication.getUserInfo());
+        qaRequest.setQuestionUsers(sameQuestionRelation);
 
         qaRequest.save(getActivity(), new SaveListener() {
             @Override

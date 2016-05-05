@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/login_header_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/comment_view"
+            style="@style/TextAppearance.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/border_gray_background"
+            android:gravity="top"
+            android:hint="撰写答案"
+            android:padding="10dp" />
+
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/submit_content"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_theme">
+
+                <com.dean.travltotibet.ui.RotateLoading
+                    android:id="@+id/submit_progress_bar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_toLeftOf="@+id/submit_text"
+                    app:loading_color="@color/white"
+                    app:loading_width="4dp" />
+
+                <TextView
+                    android:id="@+id/submit_text"
+                    style="@style/TextAppearance.Theme.Large.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="提交"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+    </LinearLayout>
+</LinearLayout>

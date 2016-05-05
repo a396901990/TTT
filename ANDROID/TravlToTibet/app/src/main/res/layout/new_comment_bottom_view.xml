@@ -57,6 +57,7 @@
             android:background="@color/less_light_gray"></View>
 
         <LinearLayout
+            android:id="@+id/comment_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -64,10 +65,9 @@
             android:gravity="center">
 
             <com.mikepenz.iconics.view.IconicsImageView
-                android:id="@+id/comment_btn"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                app:iiv_color="#6B6C6D"
+                app:iiv_color="@color/colorPrimary"
                 app:iiv_icon="gmd_mode_comment" />
         </LinearLayout>
     </LinearLayout>
