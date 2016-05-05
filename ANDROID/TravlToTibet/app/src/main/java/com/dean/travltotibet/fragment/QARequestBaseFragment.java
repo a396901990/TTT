@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.adapter.TeamRequestListAdapter;
+import com.dean.travltotibet.adapter.QAListAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
-import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ import java.util.ArrayList;
  * Created by DeanGuo on 3/4/16.
  * 子类需要重写getTeamRequests,prepareLoadingWork
  */
-public abstract class TeamShowRequestBaseFragment extends BaseRefreshFragment implements LoadMoreListView.OnLoadMoreListener {
+public abstract class QARequestBaseFragment extends BaseRefreshFragment implements LoadMoreListView.OnLoadMoreListener {
 
     protected View root;
-    protected TeamRequestListAdapter mAdapter;
-    protected ArrayList<TeamRequest> teamRequests;
+    protected QAListAdapter mAdapter;
+    protected ArrayList<QARequest> qaRequests;
     protected LoadMoreListView loadMoreListView;
 
     protected SwipeRefreshLayout mSwipeRefreshLayout;
@@ -82,7 +82,7 @@ public abstract class TeamShowRequestBaseFragment extends BaseRefreshFragment im
 
     private void setUpList() {
         loadMoreListView = (LoadMoreListView) root.findViewById(R.id.base_request_fragment_list_rv);
-        mAdapter = new TeamRequestListAdapter(getActivity());
+        mAdapter = new QAListAdapter(getActivity());
         mAdapter.setIsPersonal(isPersonal());
         loadMoreListView.setAdapter(mAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
@@ -118,12 +118,12 @@ public abstract class TeamShowRequestBaseFragment extends BaseRefreshFragment im
         super.LoadingSuccess();
 
         // 无数据
-        if (teamRequests == null || teamRequests.size() == 0) {
+        if (qaRequests == null || qaRequests.size() == 0) {
             loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
         }
 
         if (mAdapter != null) {
-            mAdapter.setData(teamRequests);
+            mAdapter.setData(qaRequests);
         }
         finishRefresh();
     }
@@ -150,7 +150,7 @@ public abstract class TeamShowRequestBaseFragment extends BaseRefreshFragment im
     public void LoadingMoreSuccess() {
         super.LoadingMoreSuccess();
         if (mAdapter != null) {
-            mAdapter.addData(teamRequests);
+            mAdapter.addData(qaRequests);
         }
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();

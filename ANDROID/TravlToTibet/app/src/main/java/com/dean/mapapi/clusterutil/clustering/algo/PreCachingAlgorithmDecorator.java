@@ -59,7 +59,7 @@ public class PreCachingAlgorithmDecorator<T extends ClusterItem> implements Algo
     public Set<? extends Cluster<T>> getClusters(double zoom) {
         int discreteZoom = (int) zoom;
         Set<? extends Cluster<T>> results = getClustersInternal(discreteZoom);
-        // TODO: Check if requests are already in-flight.
+        // TODO: Check if teamRequests are already in-flight.
         if (mCache.get(discreteZoom + 1) == null) {
             new Thread(new PrecacheRunnable(discreteZoom + 1)).start();
         }

@@ -11,20 +11,18 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
-import com.dean.travltotibet.activity.TeamRequestPersonalActivity;
+import com.dean.travltotibet.activity.UserFavoriteActivity;
+import com.dean.travltotibet.activity.UserPublishActivity;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SystemUtil;
 
-import org.json.JSONArray;
-
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.update.AppVersion;
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -73,7 +71,7 @@ public class NavigationFragment extends LoginFragment {
                     return;
                 }
                 if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
+                    Intent intent = new Intent(getActivity(), UserPublishActivity.class);
                     startActivity(intent);
                 } else {
                     DialogFragment dialogFragment = new LoginDialog();
@@ -90,7 +88,7 @@ public class NavigationFragment extends LoginFragment {
                     return;
                 }
                 if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), TeamRequestPersonalActivity.class);
+                    Intent intent = new Intent(getActivity(), UserFavoriteActivity.class);
                     startActivity(intent);
                 } else {
                     DialogFragment dialogFragment = new LoginDialog();

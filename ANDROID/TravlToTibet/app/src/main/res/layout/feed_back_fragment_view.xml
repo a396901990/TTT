@@ -91,7 +91,37 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dip"
+        android:layout_height="2dip"
         android:background="@color/gray_background" />
 
+    <!--其他-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_background"
+        android:minHeight="@dimen/feeding_item_height"
+        android:paddingLeft="@dimen/feeding_item_padding"
+        android:paddingRight="@dimen/feeding_item_padding">
+
+        <TextView
+            android:id="@+id/others_title"
+            style="@style/TextAppearance.Medium.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="其他："
+            android:textColor="@color/dark_gray" />
+
+        <EditText
+            android:id="@+id/others_number"
+            style="@style/TextAppearance.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/others_title"
+            android:background="@null"
+            android:hint="（可选） 例：微信110120119"
+            android:paddingLeft="@dimen/feeding_item_edit_text_padding_left"
+            android:textColor="@color/dark_gray" />
+    </RelativeLayout>
 </LinearLayout>

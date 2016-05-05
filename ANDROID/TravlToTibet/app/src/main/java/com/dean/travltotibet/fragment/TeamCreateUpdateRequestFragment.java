@@ -34,6 +34,7 @@ import com.dean.travltotibet.dialog.TeamMakeDestinationDialog;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.HorizontalItemDecoration;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.Flag;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.helper.PermissionListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -560,7 +562,23 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
                 if (mActivity == null) {
                     return;
                 }
-                toDo(LOADING_SUCCESS, 0);
+
+                // 存入user中
+                UserInfo userInfo = TTTApplication.getUserInfo();
+                BmobRelation teamRelation = new BmobRelation();
+                teamRelation.add(teamRequest);
+                userInfo.setTeamRequest(teamRelation);
+                userInfo.update(getActivity(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        toDo(LOADING_SUCCESS, 0);
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
             }
 
             @Override

@@ -64,7 +64,7 @@
 
     <!--home setting-->
     <string name="feedback_title">反馈</string>
-    <string name="feedback_hint">您的反馈将帮助我们成长！</string>
+    <string name="feedback_hint">您的反馈将帮助我们成长！\n\n如果您留下了联系方式，我们会尽快对您的反馈进行回复。</string>
     <string name="submit_feedback">提交意见反馈</string>
 
     <!--point-->

@@ -1,7 +1,6 @@
 package com.dean.travltotibet.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -9,15 +8,15 @@ import android.support.v7.widget.Toolbar;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
-import com.dean.travltotibet.fragment.TeamRequestFavoriteFragment;
-import com.dean.travltotibet.fragment.TeamRequestMyselfFragment;
+import com.dean.travltotibet.fragment.QARequestPublishFragment;
+import com.dean.travltotibet.fragment.TeamRequestPublishFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 
 /**
- * Created by DeanGuo on 3/16/16.
- * 个人记录（包括个人发布，个人收藏，个人回复），先登录后查看
+ * Created by DeanGuo on 5/5/16.
+ * 个人发布记录（包括组队，问答），先登录后查看
  */
-public class TeamRequestPersonalActivity extends BaseActivity {
+public class UserPublishActivity extends BaseActivity {
 
     private ViewPager mPager;
 
@@ -26,7 +25,7 @@ public class TeamRequestPersonalActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.team_request_personal_view);
+        setContentView(R.layout.user_type_view);
 
         initToolBar();
         initPager();
@@ -38,8 +37,8 @@ public class TeamRequestPersonalActivity extends BaseActivity {
         if (mAdapter == null) {
             mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
         }
-        mAdapter.add(TeamRequestMyselfFragment.class, null, "我的发布");
-        mAdapter.add(TeamRequestFavoriteFragment.class, null, "我的收藏");
+        mAdapter.add(TeamRequestPublishFragment.class, null, "我的结伴");
+        mAdapter.add(QARequestPublishFragment.class, null, "我的问答");
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(1);
         mPager.setCurrentItem(0, true);
@@ -50,9 +49,8 @@ public class TeamRequestPersonalActivity extends BaseActivity {
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
         setUpToolBar(toolbar);
-        setTitle("我的结伴");
+        setTitle("我的发布");
         setHomeIndicator();
     }
 

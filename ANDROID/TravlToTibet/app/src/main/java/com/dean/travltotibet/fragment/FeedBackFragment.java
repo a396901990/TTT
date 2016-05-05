@@ -32,6 +32,8 @@ public class FeedbackFragment extends Fragment {
 
     private EditText note;
 
+    private EditText other;
+
     private boolean isEnable = false;
 
     private static final int ENABLE_ALPHA = 255;
@@ -60,6 +62,9 @@ public class FeedbackFragment extends Fragment {
     }
 
     private void initView() {
+        // 其他
+        other = (EditText) root.findViewById(R.id.others_number);
+
         // 电话
         phone = (EditText) root.findViewById(R.id.phone_number);
         phone.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -131,6 +136,7 @@ public class FeedbackFragment extends Fragment {
         feedBack.setFeedback(note.getText().toString());
         feedBack.setPhone(phone.getText().toString());
         feedBack.setEmail(email.getText().toString());
+        feedBack.setOther(other.getText().toString());
 
         feedBack.save(getActivity(), new SaveListener() {
             @Override
@@ -155,6 +161,7 @@ public class FeedbackFragment extends Fragment {
         note.setText("");
         phone.setText("");
         email.setText("");
+        other.setText("");
     }
 
 }

@@ -4,27 +4,27 @@ import android.content.Intent;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
-import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.QARequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * Created by DeanGuo on 3/4/16.
+ * Created by DeanGuo on 5/6/16.
  */
-public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
+public class QARequestPublishFragment extends QARequestBaseFragment {
 
     public void getTeamRequests(final int actionType) {
 
-        teamRequests = new ArrayList<>();
+        qaRequests = new ArrayList<>();
 
-        BmobQuery<TeamRequest> query = new BmobQuery<>();
+        BmobQuery<QARequest> query = new BmobQuery<>();
+        query.addWhereRelatedTo("QAFavorite", new BmobPointer(TTTApplication.getUserInfo()));
         query.order("-createdAt");
-        String userId = TTTApplication.getUserInfo() == null ? "no_result" : TTTApplication.getUserInfo().getUserId();
-        query.addWhereEqualTo("userId", userId);
-        query.include("imageFile");
 
         // 加载更多
         if (actionType == STATE_MORE) {
@@ -35,10 +35,10 @@ public class TeamRequestMyselfFragment extends TeamShowRequestBaseFragment {
         // 设置每页数据个数
         query.setLimit(limit);
 
-        query.findObjects(getActivity(), new FindListener<TeamRequest>() {
+        query.findObjects(getActivity(), new FindListener<QARequest>() {
             @Override
-            public void onSuccess(List<TeamRequest> list) {
-                teamRequests = (ArrayList<TeamRequest>) list;
+            public void onSuccess(List<QARequest> list) {
+                qaRequests = (ArrayList<QARequest>) list;
 
                 if (list.size() == 0 && actionType == STATE_MORE) {
                     loadMoreListView.onNoMoreDate();

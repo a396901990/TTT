@@ -35,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by DeanGuo on 5/3/16.
  */
-public class QAShowRequestDetailFragment extends Fragment {
+public class QARequestDetailFragment extends Fragment {
 
     private View root;
 
@@ -136,6 +136,22 @@ public class QAShowRequestDetailFragment extends Fragment {
             @Override
             public void onSuccess() {
                 updateSameQuestionUsers();
+
+                // 存入user中
+                UserInfo userInfo = TTTApplication.getUserInfo();
+                BmobRelation qaRelation = new BmobRelation();
+                qaRelation.add(qaRequest);
+                userInfo.setQAFavorite(qaRelation);
+                userInfo.update(getActivity(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
             }
 
             @Override

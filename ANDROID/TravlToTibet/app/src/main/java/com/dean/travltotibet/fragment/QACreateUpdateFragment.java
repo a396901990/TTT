@@ -240,6 +240,7 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
                 if (mActivity == null) {
                     return;
                 }
+
                 toDo(LOADING_SUCCESS, 0);
             }
 
@@ -278,7 +279,23 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
                 if (mActivity == null) {
                     return;
                 }
-                toDo(LOADING_SUCCESS, 0);
+
+                // 存入user中
+                UserInfo userInfo = TTTApplication.getUserInfo();
+                BmobRelation qaRelation = new BmobRelation();
+                qaRelation.add(qaRequest);
+                userInfo.setQARequest(qaRelation);
+                userInfo.update(getActivity(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        toDo(LOADING_SUCCESS, 0);
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
             }
 
             @Override

@@ -3,40 +3,23 @@ package com.dean.travltotibet.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.dialog.AnswerDialog;
-import com.dean.travltotibet.dialog.BaseCommentDialog;
-import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
-import com.dean.travltotibet.fragment.QAShowRequestDetailFragment;
+import com.dean.travltotibet.fragment.QARequestDetailFragment;
 import com.dean.travltotibet.fragment.QAnswerFragment;
-import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.Report;
-import com.dean.travltotibet.model.UserInfo;
-import com.dean.travltotibet.ui.like.LikeButton;
-import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
-import com.dean.travltotibet.util.ScreenUtil;
 
-import java.util.List;
-
-import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.DeleteListener;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
-import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -48,7 +31,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
     private boolean isPersonal = false;
 
-    private QAShowRequestDetailFragment detailFragment;
+    private QARequestDetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +39,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
         setContentView(R.layout.q_a_show_request_view);
         EventBus.getDefault().register(this);
-        detailFragment = (QAShowRequestDetailFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
+        detailFragment = (QARequestDetailFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
 
         if (getIntent() != null) {
             qaRequest = (QARequest) getIntent().getSerializableExtra(IntentExtra.INTENT_QA_REQUEST);

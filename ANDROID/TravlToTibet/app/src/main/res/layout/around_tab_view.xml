@@ -56,7 +56,7 @@
             app:pstsShouldExpand="true"
             app:pstsTabSwitch="true"
             app:pstsUnderlineColor="@color/less_light_gray"
-            app:pstsUnderlineHeight="2dp" />
+            app:pstsUnderlineHeight="1dp" />
 
     </android.support.design.widget.AppBarLayout>
 

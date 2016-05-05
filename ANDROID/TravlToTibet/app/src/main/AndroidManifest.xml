@@ -144,10 +144,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activity.TeamRequestPersonalActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
-        <activity
             android:name=".activity.TeamCreateRequestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
@@ -168,6 +164,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity android:name=".activity.QAShowRequestDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.UserPublishActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.UserFavoriteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity

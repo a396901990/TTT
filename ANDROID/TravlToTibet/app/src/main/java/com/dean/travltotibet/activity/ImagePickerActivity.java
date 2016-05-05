@@ -31,6 +31,11 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         initFragment();
     }
 
+    @Override
+    protected boolean needShowSystemBar() {
+        return false;
+    }
+
     private void initImagePicker() {
         androidImagePicker = AndroidImagePicker.getInstance();
         androidImagePicker.addOnImageSelectedListener(this);

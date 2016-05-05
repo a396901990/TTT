@@ -13,7 +13,7 @@
             android:layout_height="match_parent">
 
             <com.dean.travltotibet.ui.loadmore.LoadMoreListView
-                android:id="@+id/team_request_fragment_list_rv"
+                android:id="@+id/base_request_fragment_list_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@android:color/transparent"

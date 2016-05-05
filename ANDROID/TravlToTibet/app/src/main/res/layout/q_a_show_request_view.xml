@@ -35,7 +35,7 @@
                 <!--详细-->
                 <fragment
                     android:id="@+id/detail_fragment"
-                    android:name="com.dean.travltotibet.fragment.QAShowRequestDetailFragment"
+                    android:name="com.dean.travltotibet.fragment.QARequestDetailFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

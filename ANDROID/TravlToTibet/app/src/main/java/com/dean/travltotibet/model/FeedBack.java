@@ -9,6 +9,7 @@ public class FeedBack extends BmobObject {
     private String feedback;
     private String email;
     private String phone;
+    private String other;
 
     public String getFeedback() {
         return feedback;
@@ -32,5 +33,13 @@ public class FeedBack extends BmobObject {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 }

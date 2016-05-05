@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean needShowSystemBar() {
-        return false;
+        return true;
     }
 
     public void setUpToolBar(Toolbar toolBar) {
