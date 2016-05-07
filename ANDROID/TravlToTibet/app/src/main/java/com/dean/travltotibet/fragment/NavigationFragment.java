@@ -80,6 +80,7 @@ public class NavigationFragment extends LoginFragment {
             }
         });
 
+        // my favorite
         View myFavorite = root.findViewById(R.id.my_favorite);
         myFavorite.setOnClickListener(new View.OnClickListener() {
             @Override

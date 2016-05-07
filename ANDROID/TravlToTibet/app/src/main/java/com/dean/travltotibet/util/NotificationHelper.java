@@ -55,6 +55,9 @@ public class NotificationHelper {
         query.findObjects(context, new FindListener<Article>() {
             @Override
             public void onSuccess(List<Article> list) {
+                if (list == null) {
+                    return;
+                }
                 Article article = list.get(0);
                 if (article == null) {
                     return;

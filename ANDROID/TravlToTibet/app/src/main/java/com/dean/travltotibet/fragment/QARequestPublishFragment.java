@@ -23,7 +23,7 @@ public class QARequestPublishFragment extends QARequestBaseFragment {
         qaRequests = new ArrayList<>();
 
         BmobQuery<QARequest> query = new BmobQuery<>();
-        query.addWhereRelatedTo("QAFavorite", new BmobPointer(TTTApplication.getUserInfo()));
+        query.addWhereRelatedTo("QARequest", new BmobPointer(TTTApplication.getUserInfo()));
         query.order("-createdAt");
 
         // 加载更多

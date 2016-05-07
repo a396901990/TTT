@@ -89,10 +89,10 @@ public class PrepareDetailFragment extends Fragment {
             @Override
             public void onSuccess(List<PrepareInfo> list) {
                 PrepareInfo prepareFile = list.get(0);
-                if (prepareFile != null) {
+                if (prepareFile != null && mInfoType != null) {
                     String url = InfoType.getInfoResult(mInfoType, prepareFile);
                     // Log.e("url", url);
-                    if (mWebView!=null && !TextUtils.isEmpty(url)) {
+                    if (mWebView != null && !TextUtils.isEmpty(url)) {
                         mWebView.loadUrl(url);
                     }
                 }

@@ -86,7 +86,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_team_request_show, menu);
+        getMenuInflater().inflate(R.menu.menu_qa_request_show, menu);
         return true;
     }
 
@@ -208,7 +208,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
         MenuItem delItem = menu.findItem(R.id.action_del);
 
         if (isPersonal) {
-            editItem.setVisible(true);
+            editItem.setVisible(false);
             delItem.setVisible(true);
             reportItem.setVisible(false);
         } else {

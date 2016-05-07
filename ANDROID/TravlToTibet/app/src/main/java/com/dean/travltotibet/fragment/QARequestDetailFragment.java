@@ -3,7 +3,6 @@ package com.dean.travltotibet.fragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +42,8 @@ public class QARequestDetailFragment extends Fragment {
 
     private QAShowRequestDetailActivity qaShowRequestDetailActivity;
 
+    private TextView sameQuestionBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,11 +64,19 @@ public class QARequestDetailFragment extends Fragment {
     }
 
     private void initSameQuestionContent() {
-        final View sameQuestion = root.findViewById(R.id.same_question_btn);
-        sameQuestion.setOnClickListener(new View.OnClickListener() {
+        sameQuestionBtn = (TextView) root.findViewById(R.id.same_question_btn);
+        sameQuestionBtn.setTag(false);  // 默认没同问
+        sameQuestionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sameQuestionAction();
+                // true : 已同问，则取消同问
+                if ((Boolean) sameQuestionBtn.getTag()) {
+                    cancelSameQuestionAction();
+                }
+                // false ：没同问，进行添加同问
+                else {
+                    addSameQuestionAction();
+                }
             }
         });
 
@@ -123,7 +132,7 @@ public class QARequestDetailFragment extends Fragment {
         dialogFragment.show(getFragmentManager(), AnswerDialog.class.getName());
     }
 
-    private void sameQuestionAction() {
+    private void addSameQuestionAction() {
         UserInfo userInfo = TTTApplication.getUserInfo();
         if (userInfo == null) {
             return;
@@ -161,10 +170,55 @@ public class QARequestDetailFragment extends Fragment {
         });
     }
 
+    private void cancelSameQuestionAction() {
+        UserInfo userInfo = TTTApplication.getUserInfo();
+        if (userInfo == null) {
+            return;
+        }
+
+        BmobRelation sameQuestionRelation = new BmobRelation();
+        sameQuestionRelation.remove(userInfo);
+        qaRequest.setQuestionUsers(sameQuestionRelation);
+        qaRequest.update(getActivity(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                updateSameQuestionUsers();
+
+                UserInfo userInfo = TTTApplication.getUserInfo();
+                BmobRelation qaRelation = new BmobRelation();
+                qaRelation.remove(qaRequest);
+                userInfo.setQAFavorite(qaRelation);
+                userInfo.update(getActivity(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+    }
+
     private void updateSameQuestionContent(List<UserInfo> userInfos) {
 
+        // reset
         FlowLayout flowLayout = (FlowLayout) root.findViewById(R.id.same_question_content_view);
         flowLayout.removeAllViews();
+        sameQuestionBtn.setText("同问");
+        sameQuestionBtn.setTag(false);
+
+        if (userInfos == null) {
+            return;
+        }
+
         for (UserInfo userInfo : userInfos) {
             View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.flow_image_item_view, null, false);
             CircleImageView userView = (CircleImageView) itemView.findViewById(R.id.item_view);
@@ -179,6 +233,12 @@ public class QARequestDetailFragment extends Fragment {
                     .into(userView);
 
             flowLayout.addView(itemView);
+
+            // 如果你同问了这个问题，改变按钮文字
+            if (userInfo.getUserId().equals(TTTApplication.getUserInfo().getUserId())) {
+                sameQuestionBtn.setText("已同问");
+                sameQuestionBtn.setTag(true);
+            }
         }
     }
 
@@ -197,27 +257,6 @@ public class QARequestDetailFragment extends Fragment {
                 updateSameQuestionContent(null);
             }
         });
-    }
-
-    private void initHeaderView() {
-        TextView mUserName = (TextView) root.findViewById(R.id.user_name);
-        View mUserGender = root.findViewById(R.id.user_gender);
-        CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
-        // user name
-        mUserName.setText(qaRequest.getUserName());
-        if (UserInfo.MALE.equals(qaRequest.getUserGender())) {
-            mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
-            mUserGender.setBackgroundResource(R.drawable.male_gender_view);
-        } else {
-            mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
-            mUserGender.setBackgroundResource(R.drawable.female_gender_view);
-        }
-        // user icon
-        if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
-            Picasso.with(getActivity()).load(qaRequest.getUserIcon()).error(R.drawable.gray_profile).into(mUserIcon);
-        } else {
-            mUserIcon.setImageResource(R.drawable.gray_profile);
-        }
     }
 
     private void initContentContent() {

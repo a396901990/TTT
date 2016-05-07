@@ -268,7 +268,7 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
         qaRequest.setWatch(0);
         qaRequest.setStatus(QARequest.PASS_STATUS);
 
-        // 用户关联
+        // 将自己加入同问关联
         BmobRelation sameQuestionRelation = new BmobRelation();
         sameQuestionRelation.add(TTTApplication.getUserInfo());
         qaRequest.setQuestionUsers(sameQuestionRelation);
@@ -279,8 +279,9 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
                 if (mActivity == null) {
                     return;
                 }
+                toDo(LOADING_SUCCESS, 0);
 
-                // 存入user中
+                // 存入user（QARequest关联）
                 UserInfo userInfo = TTTApplication.getUserInfo();
                 BmobRelation qaRelation = new BmobRelation();
                 qaRelation.add(qaRequest);
@@ -288,7 +289,7 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
                 userInfo.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        toDo(LOADING_SUCCESS, 0);
+
                     }
 
                     @Override

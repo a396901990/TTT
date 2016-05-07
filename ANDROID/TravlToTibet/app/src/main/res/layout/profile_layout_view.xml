@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/card_large_padding">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/login_profile_size"
+            android:layout_height="@dimen/login_profile_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/gray_profile"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/card_padding"
+            android:layout_toRightOf="@+id/profile_image"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profile_text"
+                style="@style/TextAppearance.Large.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/login_text" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/my_publish"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/navigation_item_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/navigation_item_icon"
+                    android:layout_height="@dimen/navigation_item_icon"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/navigation_item_padding"
+                    android:layout_marginRight="@dimen/navigation_item_padding"
+                    app:iiv_color="@color/gray"
+                    app:iiv_icon="gmd_date_range" />
+
+                <TextView
+                    style="@style/NavigationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/navigation_item_padding"
+                    android:text="我的发布" />
+            </LinearLayout>
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+
+        <com.dean.travltotibet.ui.MaterialRippleLayout
+            android:id="@+id/my_favorite"
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/navigation_item_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/navigation_item_icon"
+                    android:layout_height="@dimen/navigation_item_icon"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/navigation_item_padding"
+                    android:layout_marginRight="@dimen/navigation_item_padding"
+                    app:iiv_color="@color/dark_gray"
+                    app:iiv_icon="gmd_favorite" />
+
+                <TextView
+                    style="@style/NavigationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/card_padding"
+                    android:text="收藏／关注" />
+            </LinearLayout>
+
+        </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/rule"></View>
+    </LinearLayout>
+</LinearLayout>

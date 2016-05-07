@@ -63,6 +63,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="NavigationText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
     <style name="TeamMakeTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/text_micro</item>
         <item name="android:textColor">@color/dark_gray</item>
