@@ -173,12 +173,14 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
                 BmobDate startMonth = DateUtil.getStartDateByMonth(dateTag);
                 BmobDate endMonth = DateUtil.getEndDateByMonth(dateTag);
 
+                // 起始日期要小于当前月份最后一天（当前5月，最后一天6.1  start < 6.1）
                 BmobQuery<TeamRequest> startDateQuery = new BmobQuery<TeamRequest>();
-                startDateQuery.addWhereGreaterThanOrEqualTo("startDate", startMonth);  // 大于等于起始日期：5.1
+                startDateQuery.addWhereLessThan("startDate", endMonth);
                 queries.add(startDateQuery);
 
-                BmobQuery<TeamRequest> endDateQuery = new BmobQuery<TeamRequest>();   // 小于终止日期：6.1
-                endDateQuery.addWhereLessThan("startDate", endMonth);
+                // 结束日期要大于等于月份第一天（当前5，第一天5.1  end >= 5.1）
+                BmobQuery<TeamRequest> endDateQuery = new BmobQuery<TeamRequest>();
+                endDateQuery.addWhereGreaterThanOrEqualTo("endDate", startMonth);
                 queries.add(endDateQuery);
             }
 
