@@ -1,6 +1,7 @@
 package com.dean.travltotibet.model;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobDate;
 
 /**
  * Created by DeanGuo on 1/22/16.
@@ -37,9 +38,9 @@ public class TeamRequest extends BmobObject {
 
     public String content;
 
-    public String month;
+    private BmobDate startDate;
 
-    private int year;
+    private BmobDate endDate;
 
     private int comments;
 
@@ -177,19 +178,19 @@ public class TeamRequest extends BmobObject {
         this.imageFile = imageFile;
     }
 
-    public String getMonth() {
-        return month;
+    public BmobDate getStartDate() {
+        return startDate;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
+    public void setStartDate(BmobDate startDate) {
+        this.startDate = startDate;
     }
 
-    public int getYear() {
-        return year;
+    public BmobDate getEndDate() {
+        return endDate;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setEndDate(BmobDate endDate) {
+        this.endDate = endDate;
     }
 }

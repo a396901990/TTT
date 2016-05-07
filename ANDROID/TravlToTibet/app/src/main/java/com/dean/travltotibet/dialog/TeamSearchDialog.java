@@ -11,6 +11,8 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.ui.tagview.Tag;
+import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 
 /**
@@ -22,7 +24,7 @@ public class TeamSearchDialog extends SearchDialog implements View.OnClickListen
 
     private ViewGroup.LayoutParams layoutParams;
 
-    FlowLayout monthFlowLayout, routeFlowLayout, typeFlowLayout;
+    FlowLayout curYearMonthFlowLayout, nextYearMonthFlowLayout,routeFlowLayout, typeFlowLayout;
 
     @Override
     public void onClick(View v) {
@@ -59,18 +61,50 @@ public class TeamSearchDialog extends SearchDialog implements View.OnClickListen
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_search_filter_dialog_view, null);
         layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        initHotMonthView();
+        initCurYearMonthView();
+        initNextYearMonthView();
         initHotTypeView();
         initHotRouteView();
         return contentLayout;
     }
 
-    private void initHotMonthView() {
-        monthFlowLayout = (FlowLayout) contentLayout.findViewById(R.id.hot_month_flow_layout);
-        monthFlowLayout.removeAllViews();
-        String[] routes = TTTApplication.getMyResources().getStringArray(R.array.hot_month);
-        for (String route : routes) {
-            monthFlowLayout.addView(addItem(route, SearchFilterManger.SEARCH_MONTH), layoutParams);
+    private void initCurYearMonthView() {
+        TextView curYearText = (TextView) contentLayout.findViewById(R.id.cur_year_text);
+        curYearMonthFlowLayout = (FlowLayout) contentLayout.findViewById(R.id.cur_year_month_flow_layout);
+
+        // 如果为1月，则不显示明年
+        if (DateUtil.getCurMonth() == 1) {
+            curYearText.setVisibility(View.GONE);
+            curYearMonthFlowLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        curYearText.setText(String.format(Constants.MONTH_TITLE, DateUtil.getCurYearS()));
+
+        curYearMonthFlowLayout.removeAllViews();
+        String[] months = TTTApplication.getMyResources().getStringArray(R.array.hot_month);
+        for (String month : months) {
+            // 大于等于当前月份显示为今年
+            int m = Integer.parseInt(month.split("月")[0]);
+            if (m >= DateUtil.getCurMonth()) {
+                curYearMonthFlowLayout.addView(addItem(month, SearchFilterManger.SEARCH_MONTH), layoutParams);
+            }
+        }
+    }
+
+    private void initNextYearMonthView() {
+        TextView nextYearText = (TextView) contentLayout.findViewById(R.id.next_year_text);
+        nextYearText.setText(String.format(Constants.MONTH_TITLE, String.valueOf(DateUtil.getCurYear() + 1)));
+
+        nextYearMonthFlowLayout = (FlowLayout) contentLayout.findViewById(R.id.next_year_month_flow_layout);
+        nextYearMonthFlowLayout.removeAllViews();
+        String[] months = TTTApplication.getMyResources().getStringArray(R.array.hot_month);
+        for (String month : months) {
+            // 小于当前月份显示为下一年
+            int m = Integer.parseInt(month.split("月")[0]);
+            if (m < DateUtil.getCurMonth()) {
+                nextYearMonthFlowLayout.addView(addItem(month, SearchFilterManger.SEARCH_MONTH), layoutParams);
+            }
         }
     }
 

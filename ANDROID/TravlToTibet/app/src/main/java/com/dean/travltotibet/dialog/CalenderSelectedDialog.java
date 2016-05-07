@@ -1,24 +1,13 @@
 package com.dean.travltotibet.dialog;
 
-import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.ui.calender.DatePickerController;
@@ -26,12 +15,7 @@ import com.dean.travltotibet.ui.calender.DayPickerView;
 import com.dean.travltotibet.ui.calender.SimpleMonthAdapter;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
-import com.dean.travltotibet.util.ScreenUtil;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -50,7 +34,7 @@ public class CalenderSelectedDialog extends DialogFragment implements DatePicker
     private Date firstDay, lastDay;
 
     public static interface TravelDateCallback {
-        void dateChanged(String date, String month, int year);
+        void dateChanged(String date, Date startDate, Date endDate);
     }
 
     @Override
@@ -77,15 +61,29 @@ public class CalenderSelectedDialog extends DialogFragment implements DatePicker
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(getMDDate())) {
-                    dateCallback.dateChanged(getMDDate(), getMonth(), getYear());
+                if (!TextUtils.isEmpty(getMDDateText())) {
+                    dateCallback.dateChanged(getMDDateText(), getStartDate(), getEndDate());
                 }
                 dismiss();
             }
         });
     }
 
-    public String getMDDate() {
+    public Date getStartDate() {
+        if (firstDay.getTime() > lastDay.getTime()) {
+            return lastDay;
+        }
+        return firstDay;
+    }
+
+    public Date getEndDate() {
+        if (firstDay.getTime() > lastDay.getTime()) {
+            return firstDay;
+        }
+        return lastDay;
+    }
+
+    public String getMDDateText() {
         String startDateText, endDateText;
 
         if (firstDay == null || lastDay == null) {

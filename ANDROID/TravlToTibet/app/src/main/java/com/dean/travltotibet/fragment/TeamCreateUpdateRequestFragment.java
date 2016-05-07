@@ -46,8 +46,10 @@ import com.pizidea.imagepicker.bean.ImageItem;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.helper.PermissionListener;
@@ -348,10 +350,10 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
                 CalenderSelectedDialog dialogFragment = new CalenderSelectedDialog();
                 dialogFragment.setDateCallback(new CalenderSelectedDialog.TravelDateCallback() {
                     @Override
-                    public void dateChanged(String date, String month, int year) {
+                    public void dateChanged(String date, Date startDate, Date endDate) {
                         setTravelDate(date);
-                        setTravelMonth(month);
-                        setTravelYear(year);
+                        setStartTime(startDate);
+                        setEndTime(endDate);
                     }
                 });
                 dialogFragment.show(getFragmentManager(), CalenderSelectedDialog.class.getName());
@@ -364,17 +366,14 @@ public class TeamCreateUpdateRequestFragment extends BaseRefreshFragment impleme
         travelDate.setText(date);
         filed.set(PASS_DATE);
         teamRequest.setDate(date);
-        teamRequest.setMonth(date);
     }
 
-    private void setTravelMonth(String date) {
-        teamRequest.setMonth(date);
-        Log.e("month:    ", date);
+    private void setStartTime(Date date) {
+        teamRequest.setStartDate(new BmobDate(date));
     }
 
-    private void setTravelYear(int year) {
-        teamRequest.setYear(year);
-        Log.e("year:    ", year+"");
+    private void setEndTime(Date date) {
+        teamRequest.setEndDate(new BmobDate(date));
     }
 
     private void setContact(String contact, int contactType) {

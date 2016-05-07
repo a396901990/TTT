@@ -27,11 +27,13 @@ import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindListener;
 
 /**
@@ -168,15 +170,20 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
             String dateTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_MONTH);
 //            Log.e("dateTag:    ", dateTag);
             if (!TextUtils.isEmpty(dateTag)) {
-                BmobQuery<TeamRequest> date = new BmobQuery<TeamRequest>();
-                date.addWhereContains("month", DateUtil.getSelectedDate(dateTag));
-                queries.add(date);
+                BmobDate startMonth = DateUtil.getStartDateByMonth(dateTag);
+                BmobDate endMonth = DateUtil.getEndDateByMonth(dateTag);
+
+                BmobQuery<TeamRequest> startDateQuery = new BmobQuery<TeamRequest>();
+                startDateQuery.addWhereGreaterThanOrEqualTo("startDate", startMonth);  // 大于等于起始日期：5.1
+                queries.add(startDateQuery);
+
+                BmobQuery<TeamRequest> endDateQuery = new BmobQuery<TeamRequest>();   // 小于终止日期：6.1
+                endDateQuery.addWhereLessThan("startDate", endMonth);
+                queries.add(endDateQuery);
             }
 
             // 添加and查询
             query.and(queries);
-            // 大于等于今年
-            query.addWhereGreaterThanOrEqualTo("year", DateUtil.getCurYear());
         }
 
         // 加载更多

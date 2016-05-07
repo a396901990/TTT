@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/card_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,13 +33,30 @@
             <!--标题-->
             <TextView
                 style="@style/TitleText"
+                android:id="@+id/cur_year_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="月份" />
 
             <com.dean.travltotibet.ui.FlowLayout
-                android:id="@+id/hot_month_flow_layout"
+                android:layout_marginBottom="@dimen/card_half_padding"
+                android:id="@+id/cur_year_month_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false" />
+
+            <TextView
+                android:id="@+id/next_year_text"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="月份" />
+
+            <com.dean.travltotibet.ui.FlowLayout
+                android:layout_marginBottom="@dimen/card_padding"
+                android:id="@+id/next_year_month_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false" />
@@ -59,6 +76,7 @@
                 android:text="热门旅行类型" />
 
             <com.dean.travltotibet.ui.FlowLayout
+                android:layout_marginBottom="@dimen/card_padding"
                 android:id="@+id/hot_type_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,6 +97,7 @@
                 android:text="热门线路" />
 
             <com.dean.travltotibet.ui.FlowLayout
+                android:layout_marginBottom="@dimen/card_padding"
                 android:id="@+id/hot_route_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

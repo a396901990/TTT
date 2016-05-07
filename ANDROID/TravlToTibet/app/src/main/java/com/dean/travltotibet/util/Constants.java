@@ -93,4 +93,6 @@ public final class Constants {
 
     public static final String DATE_OK_BTN = "完成（%s天）";
 
+    public static final String MONTH_TITLE = "月份（%s）";
+
 }

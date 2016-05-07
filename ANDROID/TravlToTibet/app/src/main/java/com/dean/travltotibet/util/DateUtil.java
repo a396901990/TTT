@@ -20,12 +20,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import cn.bmob.v3.datatype.BmobDate;
+
 /**
  * Created by DeanGuo on 1/23/16.
  */
 public final class DateUtil {
 
     public static final String YYYY = "yyyy";
+
+    public static final String YYYYM = "yyyyM";
+
+    public static final String STANDARD = "yyyy-MM-dd HH:mm:ss";
 
     public static final String M = "M";
 
@@ -142,8 +148,16 @@ public final class DateUtil {
         return yeas;
     }
 
+    public static String getCurYearS() {
+        return getCurrentTimeFormat(YYYY);
+    }
+
     public static int getCurYear() {
         return Integer.parseInt(getCurrentTimeFormat(YYYY));
+    }
+
+    public static int getCurMonth() {
+        return Integer.parseInt(getCurrentTimeFormat(M));
     }
 
     public static String getNextYear() {
@@ -156,6 +170,37 @@ public final class DateUtil {
 
         // 5 : -5-
         return String.format(DateUtil.MONTH_MARK, newDate );
+    }
+
+    public static BmobDate getStartDateByMonth(String date) {
+        String year;
+        String month = date.split("月")[0];
+
+        // 如果选择月份大于等于当前月份是今年，小于是明年
+        if (Integer.parseInt(month) >= DateUtil.getCurMonth()) {
+            year = getCurYearS();
+        } else {
+            year = String.valueOf(getCurYear() + 1);
+        }
+
+        Date d =  parse(year+month, YYYYM);
+        return new BmobDate(d);
+    }
+
+    public static BmobDate getEndDateByMonth(String date) {
+        String year;
+        String month = date.split("月")[0];
+        String nextMonth = String.valueOf(Integer.parseInt(month) + 1);
+
+        // 如果选择月份大于等于当前月份是今年，小于是明年
+        if (Integer.parseInt(month) >= DateUtil.getCurMonth()) {
+            year = getCurYearS();
+        } else {
+            year = String.valueOf(getCurYear() + 1);
+        }
+
+        Date d =  parse(year+nextMonth, YYYYM);
+        return new BmobDate(d);
     }
 
     public static boolean isSameYear(Date d1, Date d2) {
