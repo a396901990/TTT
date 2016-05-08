@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.annotation.TargetApi;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by DeanGuo on 4/30/16.
  */
-public class HomeCommunityFragment extends BaseRefreshFragment {
+public class HomeCommunityFragment extends Fragment {
 
     private static final int CREATE_REQUEST = 0;
 
@@ -308,5 +309,13 @@ public class HomeCommunityFragment extends BaseRefreshFragment {
         Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
 
+    public void refresh() {
+
+    }
 }

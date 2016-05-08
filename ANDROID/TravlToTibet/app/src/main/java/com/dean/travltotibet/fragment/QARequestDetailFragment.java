@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
@@ -69,6 +70,10 @@ public class QARequestDetailFragment extends Fragment {
         sameQuestionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+
                 // true : 已同问，则取消同问
                 if ((Boolean) sameQuestionBtn.getTag()) {
                     cancelSameQuestionAction();
@@ -154,11 +159,12 @@ public class QARequestDetailFragment extends Fragment {
                 userInfo.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
+                        Toast.makeText(getActivity(), getActivity().getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-
+                        Toast.makeText(getActivity(), getActivity().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -191,11 +197,12 @@ public class QARequestDetailFragment extends Fragment {
                 userInfo.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
+                        Toast.makeText(getActivity(), getActivity().getString(R.string.cancel_favorite), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-
+                        Toast.makeText(getActivity(), getActivity().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

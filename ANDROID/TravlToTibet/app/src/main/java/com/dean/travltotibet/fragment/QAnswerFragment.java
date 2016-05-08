@@ -15,6 +15,7 @@ import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.AnswerInfo;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.QARequest;
+import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.customScrollView.InsideScrollLoadMorePressListView;
 
@@ -94,6 +95,7 @@ public class QAnswerFragment extends BaseRefreshFragment  implements InsideScrol
 
         BmobQuery<AnswerInfo> query = new BmobQuery<>();
         query.addWhereRelatedTo("answers", new BmobPointer(qaRequest));
+        query.addWhereEqualTo("status", AnswerInfo.PASS_STATUS);
         query.include("user");
         // 加载更多
         if (actionType == STATE_MORE) {

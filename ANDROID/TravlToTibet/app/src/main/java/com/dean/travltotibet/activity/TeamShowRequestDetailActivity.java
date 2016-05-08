@@ -1,9 +1,9 @@
 package com.dean.travltotibet.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +16,11 @@ import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
+import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserFavorites;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.like.LikeButton;
 import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
@@ -29,10 +31,14 @@ import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -67,7 +73,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         setUpToolBar(toolbar);
         setHomeIndicator();
 
-        favoriteBtn = (LikeButton) findViewById(R.id.favorite_button);
         updateWatch();
         initHeader();
         initBottom();
@@ -79,7 +84,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             setTitle("我的结伴");
         } else {
             setTitle("结伴详情");
-            updateFavorite();
         }
     }
 
@@ -90,20 +94,19 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         }
     }
 
-    private void updateFavorite() {
-        if (TTTApplication.hasLoggedIn()) {
-            BmobQuery<UserFavorites> query = new BmobQuery<UserFavorites>();
-            query.addWhereEqualTo("userId", TTTApplication.getUserInfo().getUserId());
-            query.addWhereEqualTo("type", UserFavorites.TEAM_REQUEST);
-            query.addWhereEqualTo("typeObjectId", teamRequest.getObjectId());
-            query.findObjects(this, new FindListener<UserFavorites>() {
+    private void updateFavoriteStatus() {
+        if (TTTApplication.getUserInfo() != null) {
+
+            BmobQuery<TeamRequest> query = new BmobQuery<>();
+            query.addWhereRelatedTo("TeamFavorite", new BmobPointer(TTTApplication.getUserInfo()));
+            query.addQueryKeys("objectId");
+            query.findObjects(this, new FindListener<TeamRequest>() {
                 @Override
-                public void onSuccess(List<UserFavorites> list) {
-                    if (list!=null && list.size() > 0) {
-                        curUserFavorite = list.get(0);
-                        favoriteBtn.setLiked(true);
-                    } else {
-                        favoriteBtn.setLiked(false);
+                public void onSuccess(List<TeamRequest> list) {
+                    for (TeamRequest t : list) {
+                        if (t.getObjectId().equals(teamRequest.getObjectId())) {
+                            favoriteBtn.setLiked(true);
+                        }
                     }
                 }
 
@@ -142,15 +145,19 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             }
         });
 
+        // favorite
+        favoriteBtn = (LikeButton) findViewById(R.id.favorite_button);
+        favoriteBtn.setLiked(false);
+        updateFavoriteStatus(); // 更新收藏按钮状态
         favoriteBtn.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                actionFavorite(favoriteBtn);
+                addFavoriteAction();
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                actionFavorite(favoriteBtn);
+                cancelFavoriteAction();
             }
         });
 
@@ -209,10 +216,64 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void addFavoriteAction() {
+
+        if (TTTApplication.getUserInfo() == null) {
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
+            favoriteBtn.setLiked(false);
+            return;
+        }
+
+        // 存入user中
+        UserInfo userInfo = TTTApplication.getUserInfo();
+        BmobRelation teamRelation = new BmobRelation();
+        teamRelation.add(teamRequest);
+        userInfo.setTeamFavorite(teamRelation);
+        userInfo.update(this, new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void cancelFavoriteAction() {
+        if (TTTApplication.getUserInfo() == null) {
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
+            favoriteBtn.setLiked(false);
+            return;
+        }
+
+        // 从user中移除
+        UserInfo userInfo = TTTApplication.getUserInfo();
+        BmobRelation teamRelation = new BmobRelation();
+        teamRelation.remove(teamRequest);
+        userInfo.setTeamFavorite(teamRelation);
+        userInfo.update(this, new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.cancel_favorite), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     private void actionFavorite(final LikeButton likeButton) {
 
         // 没登陆
-        if (!TTTApplication.hasLoggedIn() ||  TTTApplication.getUserInfo() == null) {
+        if (TTTApplication.getUserInfo() == null) {
             LoginDialog loginDialog = new LoginDialog();
             loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
             likeButton.setLiked(false);
@@ -222,7 +283,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                 curUserFavorite.delete(this, new DeleteListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.cancel_favorite_success), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.cancel_favorite), Toast.LENGTH_SHORT).show();
                         curUserFavorite = null;
                     }
 
@@ -251,6 +312,8 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                         Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
             }
         }
 
@@ -389,7 +452,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
      */
     public void onEventMainThread(LoginUtil.LoginEvent event) {
         Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-        updateFavorite();
+        updateFavoriteStatus();
     }
 
     /**

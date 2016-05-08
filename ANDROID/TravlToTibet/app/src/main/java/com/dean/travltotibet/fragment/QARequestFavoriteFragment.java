@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.model.QARequest;
+import com.dean.travltotibet.model.TeamRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class QARequestFavoriteFragment extends QARequestBaseFragment {
 
         BmobQuery<QARequest> query = new BmobQuery<>();
         query.addWhereRelatedTo("QAFavorite", new BmobPointer(TTTApplication.getUserInfo()));
+        query.addWhereEqualTo("status", QARequest.PASS_STATUS);
         query.order("-createdAt");
 
         // 加载更多

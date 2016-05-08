@@ -1,6 +1,7 @@
 package com.dean.travltotibet.fragment;
 
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserFavorites;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
 
 /**
@@ -22,10 +24,10 @@ public class TeamRequestFavoriteFragment extends TeamShowRequestBaseFragment {
         teamRequests = new ArrayList<>();
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
-        query.order("-createdAt");
-        query.addWhereContainedIn("objectId", favorites);
-        query.include("imageFile");
+        query.addWhereRelatedTo("TeamFavorite", new BmobPointer(TTTApplication.getUserInfo()));
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);
+        query.include("imageFile");
+        query.order("-createdAt");
 
         // 加载更多
         if (actionType == STATE_MORE) {
