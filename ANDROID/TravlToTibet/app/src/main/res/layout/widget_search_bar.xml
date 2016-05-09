@@ -7,9 +7,9 @@
     android:clipToPadding="false"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_corners"
         android:gravity="center"
         android:orientation="horizontal"
@@ -17,6 +17,7 @@
         android:paddingRight="8dp">
 
         <ImageView
+            android:layout_alignParentLeft="true"
             android:id="@+id/search_magnifying_glass"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -26,9 +27,11 @@
             android:tint="@color/gray" />
 
         <RelativeLayout
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/search_magnifying_glass"
             android:id="@+id/search_box_start_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="2dp">
 
             <RelativeLayout
@@ -45,14 +48,15 @@
             </RelativeLayout>
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/search_box_collapsed_hint"
                 style="@style/TextAppearance.Regular"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColorHint="@color/gray" />
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

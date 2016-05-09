@@ -162,7 +162,7 @@ public class ReplyCommentListAdapter extends BaseAdapter {
         String objectId = sharedPreferences.getString(comment.getObjectId(), "");
 
         if (TextUtils.isEmpty(objectId)) {
-            holder.likeContent.setBackgroundResource(R.drawable.border_gray);
+            holder.likeContent.setBackgroundResource(R.drawable.border_light_gray);
         } else {
             holder.likeContent.setBackgroundResource(R.drawable.border_red);
         }

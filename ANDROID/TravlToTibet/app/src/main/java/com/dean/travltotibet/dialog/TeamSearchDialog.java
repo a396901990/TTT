@@ -2,15 +2,23 @@ package com.dean.travltotibet.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.ui.FlowLayout;
+import com.dean.travltotibet.ui.tagview.OnTagDeleteListener;
 import com.dean.travltotibet.ui.tagview.Tag;
+import com.dean.travltotibet.ui.tagview.TagView;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
@@ -24,7 +32,15 @@ public class TeamSearchDialog extends SearchDialog implements View.OnClickListen
 
     private ViewGroup.LayoutParams layoutParams;
 
-    FlowLayout curYearMonthFlowLayout, nextYearMonthFlowLayout,routeFlowLayout, typeFlowLayout;
+    private TagView tagView;
+
+    private View titleView;
+
+    private View searchTagContent;
+
+    private EditText searchEdit;
+
+    FlowLayout curYearMonthFlowLayout, nextYearMonthFlowLayout, routeFlowLayout, typeFlowLayout;
 
     @Override
     public void onClick(View v) {
@@ -50,9 +66,10 @@ public class TeamSearchDialog extends SearchDialog implements View.OnClickListen
             tag.setType(SearchFilterManger.SEARCH_ROUTE);
         }
 
+//        v.setBackgroundColor(TTTApplication.getMyColor(R.color.colorPrimary));
+
         SearchFilterManger.addTagForTeamFilter(tag);
-        getSearchCallBack().onFinished();
-        getDialog().dismiss();
+        updateSearchView();
     }
 
     @Nullable
@@ -61,11 +78,88 @@ public class TeamSearchDialog extends SearchDialog implements View.OnClickListen
         contentLayout = LayoutInflater.from(getActivity()).inflate(R.layout.team_search_filter_dialog_view, null);
         layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        initSearchHeaderView();
+        initSearchEditView();
         initCurYearMonthView();
         initNextYearMonthView();
         initHotTypeView();
         initHotRouteView();
+        initBottomView();
+
         return contentLayout;
+    }
+
+    private void initSearchEditView() {
+
+        final View keyWorkBtn = contentLayout.findViewById(R.id.search_key_word_ok);
+        keyWorkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(searchEdit.getText().toString().trim())) {
+                    Tag tag = new Tag(searchEdit.getText().toString().trim());
+                    tag.isDeletable = true;
+                    tag.layoutColor = TTTApplication.getMyColor(R.color.key_word_color);
+                    tag.setType(SearchFilterManger.SEARCH_KEY_WORD);
+                    SearchFilterManger.addTagForTeamFilter(tag);
+                    updateSearchView();
+
+                    searchEdit.setText("");
+                }
+            }
+        });
+
+        searchEdit = (EditText) contentLayout.findViewById(R.id.search_edit_text);
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString().trim())) {
+                    keyWorkBtn.setVisibility(View.VISIBLE);
+                } else {
+                    keyWorkBtn.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    private void initSearchHeaderView() {
+        tagView = (TagView) contentLayout.findViewById(R.id.tags_content);
+        searchTagContent = contentLayout.findViewById(R.id.search_tag_content);
+        titleView = contentLayout.findViewById(R.id.search_title);
+        // tag view 点击删除
+        tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
+            @Override
+            public void onTagDeleted(TagView view, Tag tag, int position) {
+                SearchFilterManger.removeTagForTeamFilter(tag);
+                updateSearchView();
+            }
+        });
+
+        updateSearchView();
+    }
+
+    private void updateSearchView() {
+
+        if (SearchFilterManger.getTeamFilterTags().size() == 0) {
+            titleView.setVisibility(View.VISIBLE);
+            searchTagContent.setVisibility(View.GONE);
+        } else {
+            titleView.setVisibility(View.GONE);
+            searchTagContent.setVisibility(View.VISIBLE);
+            // 设置标签
+            tagView.addTags(SearchFilterManger.getTeamFilterTags());
+        }
+
     }
 
     private void initCurYearMonthView() {
@@ -106,6 +200,17 @@ public class TeamSearchDialog extends SearchDialog implements View.OnClickListen
                 nextYearMonthFlowLayout.addView(addItem(month, SearchFilterManger.SEARCH_MONTH), layoutParams);
             }
         }
+    }
+
+    private void initBottomView() {
+        View okBtn = contentLayout.findViewById(R.id.ok_btn);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSearchCallBack().onFinished();
+                getDialog().dismiss();
+            }
+        });
     }
 
     private View addItem(String name, String tag) {

@@ -118,7 +118,7 @@ public class AnswerListAdapter extends BaseAdapter {
         String objectId = sharedPreferences.getString(answerInfo.getObjectId(), "");
 
         if (TextUtils.isEmpty(objectId)) {
-            holder.likeContent.setBackgroundResource(R.drawable.border_gray);
+            holder.likeContent.setBackgroundResource(R.drawable.border_light_gray);
         } else {
             holder.likeContent.setBackgroundResource(R.drawable.border_red);
         }

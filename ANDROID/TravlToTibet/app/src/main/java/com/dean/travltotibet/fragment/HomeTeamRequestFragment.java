@@ -163,7 +163,6 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
             // destination
             String routeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_ROUTE);
-//            Log.e("routeTag:    ", routeTag);
             if (!TextUtils.isEmpty(routeTag)) {
                 BmobQuery<TeamRequest> destination = new BmobQuery<TeamRequest>();
                 destination.addWhereContains("destination", routeTag);
@@ -172,7 +171,6 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
             // type
             String typeTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_TYPE);
-//            Log.e("typeTag:    ", typeTag);
             if (!TextUtils.isEmpty(typeTag)) {
                 BmobQuery<TeamRequest> type = new BmobQuery<TeamRequest>();
                 type.addWhereContains("type", typeTag);
@@ -181,7 +179,6 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
             // date
             String dateTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_MONTH);
-//            Log.e("dateTag:    ", dateTag);
             if (!TextUtils.isEmpty(dateTag)) {
                 BmobDate startMonth = DateUtil.getStartDateByMonth(dateTag);
                 BmobDate endMonth = DateUtil.getEndDateByMonth(dateTag);
@@ -195,6 +192,14 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
                 BmobQuery<TeamRequest> endDateQuery = new BmobQuery<TeamRequest>();
                 endDateQuery.addWhereGreaterThanOrEqualTo("endDate", startMonth);
                 queries.add(endDateQuery);
+            }
+
+            // key word
+            String keywordTag = SearchFilterManger.getTeamTagTextWithType(SearchFilterManger.SEARCH_KEY_WORD);
+            if (!TextUtils.isEmpty(keywordTag)) {
+                BmobQuery<TeamRequest> keyword = new BmobQuery<TeamRequest>();
+                keyword.addWhereContains("content", keywordTag);
+                queries.add(keyword);
             }
 
             // 添加and查询

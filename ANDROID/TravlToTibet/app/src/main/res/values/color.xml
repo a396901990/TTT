@@ -98,6 +98,7 @@
     <color name="month_color">#9943A047</color>
     <color name="type_color">#99F44336</color>
     <color name="route_color">#997583ee</color>
+    <color name="key_word_color">#99795548</color>
     <color name="qa_color">#991E88E5</color>
 
     <color name="normal_day">#ff999999</color>

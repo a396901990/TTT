@@ -14,6 +14,7 @@ public final class SearchFilterManger {
     public static final String SEARCH_MONTH = "month";
     public static final String SEARCH_TYPE = "type";
     public static final String SEARCH_ROUTE = "route";
+    public static final String SEARCH_KEY_WORD = "key_work";
     public static final String SEARCH_QA = "qa";
 
     private static SearchFilterManger sInstance;

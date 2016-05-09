@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/border_gray"
+                android:background="@drawable/border_light_gray"
                 android:orientation="horizontal">
 
                 <LinearLayout

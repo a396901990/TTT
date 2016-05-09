@@ -4,24 +4,87 @@
     android:background="@drawable/border_theme"
     android:orientation="vertical">
 
+    <!--header-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/search_title"
             style="@style/TextAppearance.Large.White"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="筛选约伴信息" />
+
+
+        <RelativeLayout
+            android:id="@+id/search_tag_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            android:padding="@dimen/card_padding">
+
+            <com.dean.travltotibet.ui.tagview.TagView
+                android:paddingTop="5dp"
+                android:id="@+id/tags_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"></com.dean.travltotibet.ui.tagview.TagView>
+        </RelativeLayout>
     </RelativeLayout>
 
+    <!--search-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/card_padding"
+            android:layout_marginLeft="@dimen/card_padding"
+            android:layout_marginRight="@dimen/card_padding"
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_theme_line">
+
+            <EditText
+                android:layout_centerVertical="true"
+                android:background="@drawable/border_no_line"
+                android:id="@+id/search_edit_text"
+                style="@style/TextAppearance.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:hint="自定义搜索关键字"
+                android:paddingLeft="@dimen/card_half_padding"
+                android:singleLine="true" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/search_key_word_ok"
+                android:paddingRight="@dimen/card_half_padding"
+                style="@style/TextAppearance.Theme.Regular.Bold"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="确定" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--type-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="@dimen/card_padding">
@@ -32,18 +95,18 @@
             android:orientation="vertical">
             <!--标题-->
             <TextView
-                style="@style/TitleText"
                 android:id="@+id/cur_year_text"
+                style="@style/TitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="月份" />
 
             <com.dean.travltotibet.ui.FlowLayout
-                android:layout_marginBottom="@dimen/card_half_padding"
                 android:id="@+id/cur_year_month_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_half_padding"
                 android:clipToPadding="false" />
 
             <TextView
@@ -55,10 +118,10 @@
                 android:text="月份" />
 
             <com.dean.travltotibet.ui.FlowLayout
-                android:layout_marginBottom="@dimen/card_padding"
                 android:id="@+id/next_year_month_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_padding"
                 android:clipToPadding="false" />
         </LinearLayout>
 
@@ -76,10 +139,10 @@
                 android:text="热门旅行类型" />
 
             <com.dean.travltotibet.ui.FlowLayout
-                android:layout_marginBottom="@dimen/card_padding"
                 android:id="@+id/hot_type_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_padding"
                 android:clipToPadding="false" />
         </LinearLayout>
 
@@ -93,15 +156,31 @@
                 style="@style/TitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:text="热门线路" />
 
             <com.dean.travltotibet.ui.FlowLayout
-                android:layout_marginBottom="@dimen/card_padding"
                 android:id="@+id/hot_route_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false" />
         </LinearLayout>
+
     </LinearLayout>
+
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        style="@style/RippleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/ok_btn"
+            style="@style/TextAppearance.Large.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/info_bottom_btn_height"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@color/colorPrimary" />
+
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
 </LinearLayout>
