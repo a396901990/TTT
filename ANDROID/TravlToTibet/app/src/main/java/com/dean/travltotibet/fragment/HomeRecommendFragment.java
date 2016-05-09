@@ -34,6 +34,7 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    HomeRecommendFragment homeRecommendFragment;
 
     public HomeRecommendFragment() {
     }
@@ -54,7 +55,6 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
-
         initRefreshView();
         initList();
         initFabBtn();
@@ -82,8 +82,10 @@ public class HomeRecommendFragment extends BaseRefreshFragment {
             return;
         }
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
-        fab.setColorNormalResId(R.color.colorPrimary);
-        fab.setColorPressedResId(R.color.colorPrimaryDark);
+//        fab.setColorNormalResId(R.color.colorPrimary);
+        fab.setColorNormal(0xFFDA4336);
+        fab.setColorPressed(0xFFE75043);
+//        fab.setColorPressedResId(R.color.colorPrimaryDark);
         fab.hide(false);
         new Handler().postDelayed(new Runnable() {
             @Override

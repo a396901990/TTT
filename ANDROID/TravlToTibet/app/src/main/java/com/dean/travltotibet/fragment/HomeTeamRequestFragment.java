@@ -1,10 +1,11 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,31 +19,26 @@ import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.ui.tagview.Tag;
-import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
-import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 3/3/16.
  */
 public class HomeTeamRequestFragment extends BaseRefreshFragment {
+
+    private HomeCommunityFragment communityFragment;
 
     private static final int CREATE_REQUEST = 0;
 
@@ -78,6 +74,10 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            communityFragment = (HomeCommunityFragment) getParentFragment();
+        }
+
         initLoadingBackground();
         initRefreshView();
         setUpList();
@@ -98,14 +98,24 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
     private void setUpList() {
         loadMoreListView = (LoadMoreListView) root.findViewById(R.id.team_request_fragment_list_rv);
 
-        // 解决listview，mSwipeRefreshLayout冲突
         loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
+                // 拖动时隐藏
+                if (scrollState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    if (communityFragment != null) {
+                        communityFragment.hiddenFloatingActionMenu();
+                    }
+                } else {
+                    if (communityFragment != null) {
+                        communityFragment.showFloatingActionMenu();
+                    }
+                }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // 解决listview，mSwipeRefreshLayout冲突
                 int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
                 mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }

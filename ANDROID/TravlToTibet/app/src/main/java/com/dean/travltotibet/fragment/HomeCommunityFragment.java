@@ -6,10 +6,12 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +67,8 @@ public class HomeCommunityFragment extends Fragment {
     private boolean tryToCreateTeamRequest = false;
 
     private boolean tryToCreateQA = false;
+
+    private FloatingActionMenu mFloatingActionMenu;
 
     public static HomeCommunityFragment newInstance() {
         HomeCommunityFragment fragment = new HomeCommunityFragment();
@@ -173,6 +177,7 @@ public class HomeCommunityFragment extends Fragment {
         if (mAdapter == null) {
             mAdapter = new ViewPageFragmentAdapter(getChildFragmentManager());
         }
+
         mAdapter.add(HomeTeamRequestFragment.class, null, "约伴");
         mAdapter.add(HomeQAFragment.class, null, "问答");
         mPager.setAdapter(mAdapter);
@@ -223,7 +228,7 @@ public class HomeCommunityFragment extends Fragment {
 
     private void initCreateBtn() {
         // 添加结伴
-        final FloatingActionMenu mFloatingActionMenu = (FloatingActionMenu) root.findViewById(R.id.add_btn);
+        mFloatingActionMenu = (FloatingActionMenu) root.findViewById(R.id.add_btn);
         mFloatingActionMenu.setClosedOnTouchOutside(true);
         FloatingActionButton teamFab = (FloatingActionButton) root.findViewById(R.id.team_create_fab);
         FloatingActionButton askFab = (FloatingActionButton) root.findViewById(R.id.ask_create_fab);
@@ -233,6 +238,15 @@ public class HomeCommunityFragment extends Fragment {
                 mFloatingActionMenu.toggle(true);
             }
         });
+        mFloatingActionMenu.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom));
+        mFloatingActionMenu.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.hide_to_bottom));
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mFloatingActionMenu.showMenu(true);
+            }
+        }, 300);
 
         // 发起组队
         teamFab.setOnClickListener(new View.OnClickListener() {
@@ -317,5 +331,13 @@ public class HomeCommunityFragment extends Fragment {
 
     public void refresh() {
 
+    }
+
+    public void hiddenFloatingActionMenu() {
+        mFloatingActionMenu.hideMenu(false);
+    }
+
+    public void showFloatingActionMenu() {
+        mFloatingActionMenu.showMenu(false);
     }
 }

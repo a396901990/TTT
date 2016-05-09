@@ -1,8 +1,10 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,8 @@ import cn.bmob.v3.listener.FindListener;
  * Created by DeanGuo on 5/3/16.
  */
 public class HomeQAFragment extends BaseRefreshFragment {
+
+    private HomeCommunityFragment communityFragment;
 
     private static final int CREATE_REQUEST = 0;
 
@@ -69,6 +73,10 @@ public class HomeQAFragment extends BaseRefreshFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            communityFragment = (HomeCommunityFragment) getParentFragment();
+        }
+
         initLoadingBackground();
         initRefreshView();
         setUpList();
@@ -89,14 +97,24 @@ public class HomeQAFragment extends BaseRefreshFragment {
     private void setUpList() {
         loadMoreListView = (LoadMoreListView) root.findViewById(R.id.team_request_fragment_list_rv);
 
-        // 解决listview，mSwipeRefreshLayout冲突
         loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
+                // 拖动时隐藏
+                if (scrollState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    if (communityFragment != null) {
+                        communityFragment.hiddenFloatingActionMenu();
+                    }
+                } else {
+                    if (communityFragment != null) {
+                        communityFragment.showFloatingActionMenu();
+                    }
+                }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // 解决listview，mSwipeRefreshLayout冲突
                 int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
                 mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
