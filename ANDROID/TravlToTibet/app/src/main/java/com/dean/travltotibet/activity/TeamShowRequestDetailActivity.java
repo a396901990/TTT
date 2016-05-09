@@ -3,7 +3,6 @@ package com.dean.travltotibet.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +15,8 @@ import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
-import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.UserFavorites;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.like.LikeButton;
 import com.dean.travltotibet.ui.like.OnLikeListener;
@@ -33,11 +30,9 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
-import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
@@ -49,8 +44,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     private TeamRequest teamRequest;
 
     private boolean isPersonal = false;
-
-    private UserFavorites curUserFavorite;
 
     private LikeButton favoriteBtn;
 
@@ -267,56 +260,6 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                 Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-    private void actionFavorite(final LikeButton likeButton) {
-
-        // 没登陆
-        if (TTTApplication.getUserInfo() == null) {
-            LoginDialog loginDialog = new LoginDialog();
-            loginDialog.show(getFragmentManager(), LoginDialog.class.getName());
-            likeButton.setLiked(false);
-        } else {
-            // 已经收藏，则取消收藏
-            if (curUserFavorite != null) {
-                curUserFavorite.delete(this, new DeleteListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.cancel_favorite), Toast.LENGTH_SHORT).show();
-                        curUserFavorite = null;
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            // 没有收藏则收藏
-            else {
-                curUserFavorite = new UserFavorites();
-                curUserFavorite.setTypeObjectId(teamRequest.getObjectId());
-                curUserFavorite.setType(UserFavorites.TEAM_REQUEST);
-                curUserFavorite.setUserId(TTTApplication.getUserInfo().getUserId());
-                curUserFavorite.setUserName(TTTApplication.getUserInfo().getUserName());
-                curUserFavorite.save(this, new SaveListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        curUserFavorite = null;
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-            }
-        }
-
     }
 
     private void actionReport() {

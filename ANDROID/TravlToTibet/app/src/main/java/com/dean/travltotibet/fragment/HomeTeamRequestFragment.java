@@ -18,6 +18,7 @@ import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.ShowHtmlDialogFragment;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.tagview.Tag;
@@ -34,7 +35,9 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 3/3/16.

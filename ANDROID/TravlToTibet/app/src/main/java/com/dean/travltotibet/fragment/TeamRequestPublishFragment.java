@@ -1,17 +1,26 @@
 package com.dean.travltotibet.fragment;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.util.LoginUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 3/4/16.
@@ -19,7 +28,7 @@ import cn.bmob.v3.listener.FindListener;
 public class TeamRequestPublishFragment extends TeamShowRequestBaseFragment {
 
     public void getTeamRequests(final int actionType) {
-
+//        moveToUser();
         teamRequests = new ArrayList<>();
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
@@ -64,6 +73,58 @@ public class TeamRequestPublishFragment extends TeamShowRequestBaseFragment {
         });
     }
 
+    /**
+     * 配合老逻辑手工添加
+     */
+    private void moveToUser() {
+        BmobQuery<TeamRequest> query = new BmobQuery<>();
+        query.include("user");
+//        query.setSkip(100);
+        query.findObjects(getActivity(), new FindListener<TeamRequest>() {
+            @Override
+            public void onSuccess(List<TeamRequest> list) {
+                for (final TeamRequest t : list) {
+                    if (t.getUserId() != null) {
+                        BmobUser.loginByAccount(TTTApplication.getContext(), t.getUserId(), LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
+
+                            @Override
+                            public void done(UserInfo user, BmobException e) {
+                                if (user != null) {
+                                    addToUserTR(user, t.getObjectId());
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
+
+    private void addToUserTR(final UserInfo userInfo, String id) {
+
+        final BmobRelation relation = new BmobRelation();
+        TeamRequest teamRequest = new TeamRequest();
+        teamRequest.setObjectId(id);
+        relation.add(teamRequest);
+        userInfo.setTeamRequest(relation);
+        userInfo.update(getActivity(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                Log.e("userId", userInfo.getUserName());
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+    }
+
     @Override
     public void onRefresh() {
         if (TTTApplication.getUserInfo() == null) {
@@ -71,11 +132,6 @@ public class TeamRequestPublishFragment extends TeamShowRequestBaseFragment {
             return;
         }
         super.onRefresh();
-    }
-
-    @Override
-    protected void prepareLoadingWork() {
-        toDo(ON_LOADING, 800);
     }
 
     @Override
