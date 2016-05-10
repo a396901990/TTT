@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.base.NewBaseRatingCommentFragment;
 import com.dean.travltotibet.dialog.AroundHotelCommentDialog;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
+import com.dean.travltotibet.model.BaseCommentBmobObject;
 import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.model.HotelInfo;
+
+import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 1/22/16.
  */
-public class AroundHotelCommentFragment extends BaseRatingCommentFragment {
+public class AroundHotelCommentFragment extends NewBaseRatingCommentFragment {
 
     private AroundBaseActivity aroundBaseActivity;
 
@@ -26,8 +32,10 @@ public class AroundHotelCommentFragment extends BaseRatingCommentFragment {
     }
 
     @Override
-    public String getCommentTypeObjectId() {
-        return aroundBaseActivity.getTypeObjectId();
+    public BaseCommentBmobObject getCommentObject() {
+        HotelInfo hotelInfo = new HotelInfo();
+        hotelInfo.setObjectId(aroundBaseActivity.getTypeObjectId());
+        return hotelInfo;
     }
 
     @Override
@@ -48,7 +56,22 @@ public class AroundHotelCommentFragment extends BaseRatingCommentFragment {
 
     @Override
     public void onCommentSuccess(Comment comment) {
-        onRefresh();
+        // 将评论添加到当前team request的关联中
+        HotelInfo hotelInfo = (HotelInfo) getCommentObject();
+        BmobRelation commentRelation = new BmobRelation();
+        commentRelation.add(comment);
+        hotelInfo.setReplyComments(commentRelation);
+        hotelInfo.update(getActivity(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                onRefresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     @Override

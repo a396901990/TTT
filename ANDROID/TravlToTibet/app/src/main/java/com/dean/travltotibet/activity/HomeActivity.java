@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -26,11 +25,8 @@ import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import cn.bmob.v3.helper.PermissionListener;
 import cn.bmob.v3.listener.BmobDialogButtonListener;
-import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
-import cn.bmob.v3.update.UpdateResponse;
 
 /**
  * Created by DeanGuo on 9/30/15.
@@ -67,6 +63,9 @@ public class HomeActivity extends BaseActivity {
 
         // 初始化搜索过滤
         SearchFilterManger.init(this);
+
+        // 处理老逻辑数据
+//        MoveOldLogicUtil.changeTeamRequestComment(this);
     }
 
     private void initMenu() {

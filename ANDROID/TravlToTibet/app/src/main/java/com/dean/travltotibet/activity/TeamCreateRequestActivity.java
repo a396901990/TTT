@@ -2,13 +2,11 @@ package com.dean.travltotibet.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
@@ -17,9 +15,6 @@ import com.dean.travltotibet.fragment.TeamCreateUpdateRequestFragment;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-
-import cn.bmob.v3.helper.PermissionManager;
 
 /**
  * Created by DeanGuo on 3/3/16.

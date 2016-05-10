@@ -1,11 +1,9 @@
 package com.dean.travltotibet.model;
 
-import cn.bmob.v3.BmobObject;
-
 /**
  * Created by DeanGuo on 3/18/16.
  */
-public class HotelInfo extends BmobObject{
+public class HotelInfo extends BaseCommentBmobObject {
     private int comment;
     String route;
 

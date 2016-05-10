@@ -1,88 +1,107 @@
 package com.dean.travltotibet.base;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.ReplyCommentListAdapter;
-import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.activity.AroundBaseActivity;
+import com.dean.travltotibet.adapter.CommentListAdapter;
+import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.model.BaseCommentBmobObject;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.model.TeamRequest;
-import com.dean.travltotibet.model.UserInfo;
-import com.dean.travltotibet.ui.customScrollView.InsideScrollLoadMorePressListView;
-import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.ui.customScrollView.InsideScrollLoadMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.datatype.BmobRelation;
-import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.LogInListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
- * Created by DeanGuo on 3/3/16.
- * 调用此fragment，父activity必须继承自CommentBaseActivity
- * 子类必须实现getCommentTypeObjectId，getCommentType
+ * Created by DeanGuo on 3/16/16.
  */
-public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  implements InsideScrollLoadMorePressListView.OnLoadMoreListener  {
+public abstract class NewBaseRatingCommentFragment extends BaseRefreshFragment implements InsideScrollLoadMoreListView.OnLoadMoreListener, BaseCommentDialog.CommentCallBack  {
 
     private View root;
 
-    private ReplyCommentListAdapter commentListAdapter;
+    private CommentListAdapter commentListAdapter;
 
     private ArrayList<Comment> mComments;
 
-    public final static int COMMENT_LIMIT = 12;        // 每页的数据是8条
+    public final static int COMMENT_LIMIT = 6;        // 每页的数据是6条
 
-    private InsideScrollLoadMorePressListView loadMoreListView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private LoadingBackgroundManager loadingBackgroundManager;
+    private InsideScrollLoadMoreListView loadMoreListView;
+
+    private AroundBaseActivity mActivity;
+
+
+    // 获取评论类型
+    public abstract String getCommentType();
+
+    public abstract BaseCommentBmobObject getCommentObject();
+
+    public abstract void initCommentAction();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = LayoutInflater.from(getActivity()).inflate(R.layout.base_inside_comment_fragment_view, null);
+        root = LayoutInflater.from(getActivity()).inflate(R.layout.base_rating_comment_fragment_view, null);
         return root;
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        loadMoreListView = (InsideScrollLoadMorePressListView) root.findViewById(R.id.comment_list_view);
+        loadMoreListView = (InsideScrollLoadMoreListView) root.findViewById(R.id.comment_list_view);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
+        mActivity = (AroundBaseActivity) getActivity();
 
-        initLoadingBackground();
+        initLoadingBackground(root);
+        initCommentAction();
         initCommentView();
+        initRefresh();
         onRefresh();
     }
 
-    private void initLoadingBackground() {
-        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
-        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
+    private void initRefresh() {
+
+        // 解决listview，mSwipeRefreshLayout冲突
+        loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+        // 设置下拉刷新
+        setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
     private void initCommentView() {
-        commentListAdapter = new ReplyCommentListAdapter(getActivity());
-        commentListAdapter.setCommentType(getCommentType());
+        commentListAdapter = new CommentListAdapter(getActivity());
         loadMoreListView.setAdapter(commentListAdapter);
         loadMoreListView.setOnLoadMoreListener(this);
     }
 
-    public ReplyCommentListAdapter getCommentListAdapter() {
+    public CommentListAdapter getCommentListAdapter() {
         return commentListAdapter;
     }
 
-    public InsideScrollLoadMorePressListView getLoadMorePressListView() {
+    public InsideScrollLoadMoreListView getLoadMoreListView() {
         return loadMoreListView;
     }
 
@@ -90,17 +109,12 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
         this.mComments = mComments;
     }
 
-    // 获取评论类型
-    public abstract String getCommentType();
-
-    public abstract BaseCommentBmobObject getCommentObject();
-
     // 获取评论数据
     public void getCommentData(final int actionType) {
 
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereRelatedTo("replyComments", new BmobPointer(getCommentObject()));
-        query.include("commentQuote,user");
+        
         // 加载更多
         if (actionType == STATE_MORE) {
             // 跳过已经加载的元素
@@ -109,40 +123,28 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
 
         // 设置每页数据个数
         query.setLimit(COMMENT_LIMIT);
-
-        query.order("-like,-createdAt");
+        query.order("-createdAt");
 
         query.findObjects(getActivity(), new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
-                if (getActivity() == null) {
-                    return;
-                }
+
                 setComments((ArrayList<Comment>) list);
 
-                if (list.size() < COMMENT_LIMIT) {
-                    getLoadMorePressListView().onNoMoreDate();
+                if (list.size() == 0 && actionType == STATE_MORE) {
+                    getLoadMoreListView().onNoMoreDate();
                 } else {
-                    getLoadMorePressListView().hasMoreDate();
-                }
-
-                if (actionType == STATE_REFRESH) {
-                    toDo(LOADING_SUCCESS, 0);
-                } else {
-                    toDo(LOADING_MORE_SUCCESS, 0);
+                    if (actionType == STATE_REFRESH) {
+                        toDo(LOADING_SUCCESS, 0);
+                    } else {
+                        toDo(LOADING_MORE_SUCCESS, 0);
+                    }
                 }
             }
 
             @Override
             public void onError(int i, String s) {
-                if (getActivity() == null) {
-                    return;
-                }
-                if (TextUtils.isEmpty(s)) {
-                    toDo(LOADING_SUCCESS, 0);
-                } else {
-                    toDo(LOADING_ERROR, 0);
-                }
+                toDo(LOADING_ERROR, 0);
             }
         });
     }
@@ -157,7 +159,7 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
     public void prepareLoading() {
         super.prepareLoading();
 
-        loadingBackgroundManager.showLoadingView();
+        getLoadingBackgroundManager().resetLoadingView();
 
         if (commentListAdapter != null) {
             commentListAdapter.clearData();
@@ -174,22 +176,25 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
     @Override
     public void LoadingSuccess() {
         super.LoadingSuccess();
+
         // 无数据
         if (mComments == null || mComments.size() == 0) {
-//            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
-            loadingBackgroundManager.loadingSuccess();
+            getLoadingBackgroundManager().loadingFaild(getString(R.string.no_comment_result), null);
+
         }
         // 有数据
         else {
-            loadingBackgroundManager.loadingSuccess();
             commentListAdapter.setData(mComments);
         }
+
+        finishRefresh();
     }
 
     @Override
     public void LoadingError() {
         super.LoadingError();
-        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+        finishRefresh();
+        getLoadingBackgroundManager().loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
             @Override
             public void retry() {
                 onRefresh();
@@ -205,13 +210,12 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
 
     @Override
     public void onLoadingMore() {
-        super.onLoadingMore();
+        super.onLoadMore();
         getCommentData(STATE_MORE);
     }
 
     @Override
     public void LoadingMoreSuccess() {
-        super.LoadingMoreSuccess();
         if (commentListAdapter != null) {
             commentListAdapter.addData(mComments);
         }
@@ -222,9 +226,9 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
 
     @Override
     public void LoadingMoreError() {
-        super.LoadingMoreError();
         if (loadMoreListView != null) {
             loadMoreListView.onLoadMoreComplete();
         }
     }
+
 }

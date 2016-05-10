@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobObject;
 /**
  * Created by DeanGuo on 1/22/16.
  */
-public class RoadInfo extends BmobObject {
+public class RoadInfo extends BaseCommentBmobObject {
 
     public final static String PASS_STATUS = "P";
 

@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,17 @@ import com.dean.travltotibet.adapter.ArticleListAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 2/16/16.
@@ -78,7 +83,6 @@ public class HomeTopicFragment extends BaseRefreshFragment {
 
         loadMoreListView = (LoadMoreListView) root.findViewById(R.id.article_fragment_list_rv);
 
-
         // 解决listview，mSwipeRefreshLayout冲突
         loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -97,7 +101,6 @@ public class HomeTopicFragment extends BaseRefreshFragment {
     }
 
     private void getArticles(final int actionType) {
-
         articles = new ArrayList<>();
 
         BmobQuery<Article> query = new BmobQuery<>();

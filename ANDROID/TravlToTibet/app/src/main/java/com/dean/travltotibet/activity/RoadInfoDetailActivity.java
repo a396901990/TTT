@@ -1,24 +1,21 @@
 package com.dean.travltotibet.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ScrollView;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.RoadInfoCommentDialog;
-import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.RoadInfoCommentFragment;
-import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 4/9/16.
@@ -112,7 +109,21 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
 
     @Override
     public void onCommentSuccess(Comment comment) {
-        refresh();
+        // 将评论添加到当前road info的关联中
+        BmobRelation commentRelation = new BmobRelation();
+        commentRelation.add(comment);
+        roadInfo.setReplyComments(commentRelation);
+        roadInfo.update(getApplication(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                refresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     @Override

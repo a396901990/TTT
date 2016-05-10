@@ -2,7 +2,6 @@ package com.dean.travltotibet.activity;
 
 import android.annotation.TargetApi;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;

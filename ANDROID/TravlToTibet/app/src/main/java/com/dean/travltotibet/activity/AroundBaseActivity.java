@@ -12,6 +12,7 @@ import android.view.View;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
+import com.dean.travltotibet.base.NewBaseRatingCommentFragment;
 import com.dean.travltotibet.fragment.BaseRatingCommentFragment;
 import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
@@ -93,7 +94,7 @@ public abstract class AroundBaseActivity extends BaseActivity {
                 if (mAdapter.getAllFragments().size() > 0) {
                     Fragment fragment = mAdapter.getFragment(mPager.getCurrentItem());
                     if (fragment.isAdded()) {
-                        if (fragment instanceof BaseRatingCommentFragment) {
+                        if (fragment instanceof NewBaseRatingCommentFragment) {
                             getFloatingBtn().setVisibility(View.VISIBLE);
                         } else {
                             getFloatingBtn().setVisibility(View.GONE);

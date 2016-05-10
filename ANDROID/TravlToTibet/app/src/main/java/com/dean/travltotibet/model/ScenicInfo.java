@@ -1,11 +1,9 @@
 package com.dean.travltotibet.model;
 
-import cn.bmob.v3.BmobObject;
-
 /**
  * Created by DeanGuo on 3/18/16.
  */
-public class ScenicInfo extends BmobObject{
+public class ScenicInfo extends BaseCommentBmobObject {
     private int comment;
     String route;
     String scenicName;
