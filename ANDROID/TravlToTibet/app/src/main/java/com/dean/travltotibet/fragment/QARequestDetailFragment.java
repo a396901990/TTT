@@ -97,6 +97,9 @@ public class QARequestDetailFragment extends Fragment {
         });
     }
 
+    /**
+     * 回答问题
+     */
     private void answerAction() {
         if (ScreenUtil.isFastClick()) {
             return;
@@ -108,7 +111,7 @@ public class QARequestDetailFragment extends Fragment {
             @Override
             public void onAnswerSuccess(AnswerInfo answerInfo) {
                 if (answerInfo != null) {
-                    // 加入当前关联
+                    // 将问题加入当前用户关联
                     BmobRelation answersRelation = new BmobRelation();
                     answersRelation.add(answerInfo);
                     qaRequest.setAnswers(answersRelation);

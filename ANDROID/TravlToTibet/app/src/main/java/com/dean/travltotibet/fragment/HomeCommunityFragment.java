@@ -330,7 +330,12 @@ public class HomeCommunityFragment extends Fragment {
     }
 
     public void refresh() {
-
+        if (mAdapter.getAllFragments().size() > 0) {
+            BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
+            if (fragment.isAdded()) {
+                fragment.onRefresh();
+            }
+        }
     }
 
     public void hiddenFloatingActionMenu() {

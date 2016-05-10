@@ -20,7 +20,7 @@ import com.dean.travltotibet.util.SystemUtil;
 /**
  * Created by DeanGuo on 2/18/16.
  */
-public class ArticleFragment extends Fragment {
+public class ArticleDetailFragment extends Fragment {
 
     private View root;
 

@@ -15,6 +15,7 @@ import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
@@ -69,6 +70,11 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         updateWatch();
         initHeader();
         initBottom();
+    }
+
+    @Override
+    public BmobObject getObj() {
+        return teamRequest;
     }
 
     private void initHeader() {
@@ -164,6 +170,9 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         });
     }
 
+    /**
+     * 回复操作
+     */
     private void commentAction() {
         if (ScreenUtil.isFastClick()) {
             return;
@@ -174,17 +183,27 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     @Override
-    public void onCommentSuccess() {
-        refresh();
+    public void onCommentSuccess(Comment comment) {
+        // 将评论添加到当前team request的关联中
+        BmobRelation commentRelation = new BmobRelation();
+        commentRelation.add(comment);
+        teamRequest.setReplyComments(commentRelation);
+        teamRequest.update(getApplication(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                refresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     @Override
     public void onCommentFailed() {
-    }
-
-    @Override
-    public BmobObject getObj() {
-        return teamRequest;
+        super.onCommentFailed();
     }
 
     @Override
@@ -234,6 +253,12 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
                 Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.action_error), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // 将收藏用户存入teamRequest关联中
+        BmobRelation userRelation = new BmobRelation();
+        userRelation.add(userInfo);
+        teamRequest.setFavoriteUsers(userRelation);
+        teamRequest.update(this);
     }
 
     private void cancelFavoriteAction() {

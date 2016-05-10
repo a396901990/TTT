@@ -19,6 +19,13 @@ public abstract class ReplyCommentDialog extends BaseCommentDialog {
 
     private Comment replyComment;
 
+    private Comment comment;
+
+    @Override
+    public Comment getCommentObject() {
+        return comment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +60,7 @@ public abstract class ReplyCommentDialog extends BaseCommentDialog {
         if (!TTTApplication.hasLoggedIn()) {
             return;
         }
-        Comment comment = new Comment();
+        comment = new Comment();
 
         // type
         comment.setType(getCommentType());

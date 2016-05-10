@@ -44,7 +44,7 @@
 
                     <fragment
                         android:id="@+id/detail_fragment"
-                        android:name="com.dean.travltotibet.fragment.ArticleFragment"
+                        android:name="com.dean.travltotibet.fragment.ArticleDetailFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </FrameLayout>

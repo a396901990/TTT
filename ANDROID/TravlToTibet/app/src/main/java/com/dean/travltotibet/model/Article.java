@@ -1,13 +1,9 @@
 package com.dean.travltotibet.model;
 
-import java.io.Serializable;
-
-import cn.bmob.v3.BmobObject;
-
 /**
  * Created by DeanGuo on 1/22/16.
  */
-public class Article extends BmobObject {
+public class Article extends BaseCommentBmobObject {
 
     private String id;
     private String title;

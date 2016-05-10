@@ -22,6 +22,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.fragment.LoginDialogFragment;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.ui.RotateLoading;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
@@ -61,10 +62,12 @@ public abstract class BaseCommentDialog extends LoginDialogFragment {
     protected final static int SUBMIT_BEGIN = 5;
 
     public static interface CommentCallBack {
-        void onCommentSuccess();
+        void onCommentSuccess(Comment comment);
 
         void onCommentFailed();
     }
+
+    public abstract Comment getCommentObject();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +107,7 @@ public abstract class BaseCommentDialog extends LoginDialogFragment {
                                     getDialog().dismiss();
                                 }
                                 if (commentCallBack != null) {
-                                    commentCallBack.onCommentSuccess();
+                                    commentCallBack.onCommentSuccess(getCommentObject());
                                 }
                             }
                         }, 1000);

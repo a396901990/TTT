@@ -18,11 +18,13 @@ import com.dean.travltotibet.dialog.ArticleCommentDialog;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
 import com.dean.travltotibet.fragment.ArticleCommentFragment;
 import com.dean.travltotibet.model.Article;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.CountUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -234,9 +236,23 @@ public class ArticleActivity extends BaseCommentActivity {
     }
 
     @Override
-    public void onCommentSuccess() {
-        refresh();
-        gotoComment();
+    public void onCommentSuccess(Comment comment) {
+        // 将评论添加到当前team request的关联中
+        BmobRelation commentRelation = new BmobRelation();
+        commentRelation.add(comment);
+        mArticle.setReplyComments(commentRelation);
+        mArticle.update(getApplication(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                gotoComment();
+                refresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     @Override

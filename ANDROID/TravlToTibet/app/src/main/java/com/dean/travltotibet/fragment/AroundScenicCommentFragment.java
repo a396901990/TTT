@@ -48,7 +48,7 @@ public class AroundScenicCommentFragment extends BaseRatingCommentFragment {
     }
 
     @Override
-    public void onCommentSuccess() {
+    public void onCommentSuccess(Comment comment) {
         onRefresh();
     }
 

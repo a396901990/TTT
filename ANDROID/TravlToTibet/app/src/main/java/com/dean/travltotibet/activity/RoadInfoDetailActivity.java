@@ -13,6 +13,7 @@ import com.dean.travltotibet.dialog.RoadInfoCommentDialog;
 import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
 import com.dean.travltotibet.fragment.RoadInfoCommentFragment;
 import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -110,7 +111,7 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
     }
 
     @Override
-    public void onCommentSuccess() {
+    public void onCommentSuccess(Comment comment) {
         refresh();
     }
 

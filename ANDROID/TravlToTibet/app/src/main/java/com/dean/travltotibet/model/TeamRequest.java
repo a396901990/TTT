@@ -2,11 +2,12 @@ package com.dean.travltotibet.model;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobDate;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * Created by DeanGuo on 1/22/16.
  */
-public class TeamRequest extends BmobObject {
+public class TeamRequest extends BaseCommentBmobObject {
 
     public final static String PASS_STATUS = "P";
 
@@ -49,6 +50,8 @@ public class TeamRequest extends BmobObject {
     private UserInfo user;
 
     private ImageFile imageFile;
+
+    private BmobRelation favoriteUsers;
 
     public String getStatus() {
         return status;
@@ -193,4 +196,13 @@ public class TeamRequest extends BmobObject {
     public void setEndDate(BmobDate endDate) {
         this.endDate = endDate;
     }
+
+    public BmobRelation getFavoriteUsers() {
+        return favoriteUsers;
+    }
+
+    public void setFavoriteUsers(BmobRelation favoriteUsers) {
+        this.favoriteUsers = favoriteUsers;
+    }
+
 }

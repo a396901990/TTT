@@ -6,7 +6,7 @@ import cn.bmob.v3.datatype.BmobRelation;
 /**
  * Created by DeanGuo on 1/22/16.
  */
-public class AnswerInfo extends BmobObject {
+public class AnswerInfo extends BaseCommentBmobObject {
 
     public final static String PASS_STATUS = "P";
 

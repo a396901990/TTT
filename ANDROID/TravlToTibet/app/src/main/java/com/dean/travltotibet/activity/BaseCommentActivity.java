@@ -6,9 +6,13 @@ import android.view.ViewGroup;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
+import com.dean.travltotibet.model.Comment;
 
 import cn.bmob.v3.BmobObject;
 
+/**
+ *  需要显示回复的activity必须继承BaseCommentActivity
+ */
 public abstract class BaseCommentActivity extends  BaseActivity implements BaseCommentDialog.CommentCallBack  {
 
     @Override
@@ -17,7 +21,7 @@ public abstract class BaseCommentActivity extends  BaseActivity implements BaseC
     }
 
     @Override
-    public void onCommentSuccess() {
+    public void onCommentSuccess(Comment comment) {
 
     }
 
