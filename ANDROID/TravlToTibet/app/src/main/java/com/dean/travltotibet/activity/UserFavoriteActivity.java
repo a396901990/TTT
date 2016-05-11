@@ -1,10 +1,10 @@
 package com.dean.travltotibet.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
@@ -66,14 +66,12 @@ public class UserFavoriteActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 取消关注后，后退没法触发时间，所以每次退出都更新一次，以后再改好了我懒了。。。
+     */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == UPDATE_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                updateAll();
-            }
-        }
+        updateAll();
     }
 }

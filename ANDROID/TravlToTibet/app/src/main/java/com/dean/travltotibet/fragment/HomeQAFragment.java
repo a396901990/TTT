@@ -151,6 +151,7 @@ public class HomeQAFragment extends BaseRefreshFragment {
 
         BmobQuery<QARequest> query = new BmobQuery<>();
         query.order("-comments,-createdAt");
+        query.include("user.id");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);   // 只显示P状态
 
         // 搜索条件

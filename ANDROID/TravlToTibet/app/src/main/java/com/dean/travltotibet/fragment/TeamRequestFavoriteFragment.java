@@ -1,8 +1,11 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserFavorites;
 import com.dean.travltotibet.model.UserInfo;

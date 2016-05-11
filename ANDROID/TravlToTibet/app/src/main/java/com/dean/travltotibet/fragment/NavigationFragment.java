@@ -1,24 +1,30 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
+import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
+import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.UserFavoriteActivity;
 import com.dean.travltotibet.activity.UserNotificationActivity;
 import com.dean.travltotibet.activity.UserPublishActivity;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.util.AppUtil;
+import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SystemUtil;
@@ -43,6 +49,8 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 public class NavigationFragment extends LoginFragment {
 
+    private HomeActivity homeActivity;
+
     private View root;
 
     public NavigationFragment() {
@@ -62,7 +70,7 @@ public class NavigationFragment extends LoginFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        homeActivity = (HomeActivity) getActivity();
         initProfileView();
         initSettingItemView();
         updateVersionCheck(getActivity());
@@ -86,8 +94,9 @@ public class NavigationFragment extends LoginFragment {
                     return;
                 }
                 if (TTTApplication.hasLoggedIn()) {
+                    // 可能修改数据，所以退出时需要刷新
                     Intent intent = new Intent(getActivity(), UserPublishActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
                 } else {
                     DialogFragment dialogFragment = new LoginDialog();
                     dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
@@ -131,9 +140,46 @@ public class NavigationFragment extends LoginFragment {
             }
         });
 
+        // logout
+        View logout = root.findViewById(R.id.logout_btn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+
+                if (TTTApplication.hasLoggedIn()) {
+                    new MaterialDialog.Builder(getActivity())
+                            .title(getString(R.string.logout_dialog_title))
+                            .positiveText(getString(R.string.ok_btn))
+                            .negativeText(getString(R.string.cancel_btn))
+                            .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+                            .callback(new MaterialDialog.Callback() {
+                                @Override
+                                public void onPositive(MaterialDialog dialog) {
+                                    LoginUtil.getInstance().logout();
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onNegative(MaterialDialog dialog) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .build()
+                            .show();
+                }
+            }
+        });
+
     }
 
     private void checkNotification() {
+        if (getActivity() == null || root == null) {
+            return;
+        }
+
         BmobQuery<UserMessage> query1 = new BmobQuery<>();
         query1.addWhereRelatedTo("UserMessage", new BmobPointer(TTTApplication.getUserInfo()));
         query1.addWhereEqualTo("status", UserMessage.UNREAD_STATUS);
@@ -152,7 +198,10 @@ public class NavigationFragment extends LoginFragment {
 
             @Override
             public void onError(int i, String s) {
-
+                IconicsDrawable iconicsDrawable;
+                ImageView notificationIcon = (ImageView) root.findViewById(R.id.my_notification_icon);
+                iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.white)).sizeDp(18);
+                notificationIcon.setImageDrawable(iconicsDrawable);
             }
         });
     }
@@ -280,4 +329,16 @@ public class NavigationFragment extends LoginFragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 只在UPDATE_REQUEST操作后刷新(Publish)
+        if (requestCode == BaseActivity.UPDATE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (homeActivity != null) {
+                    homeActivity.updateCommunityFragment();
+                }
+            }
+        }
+    }
 }

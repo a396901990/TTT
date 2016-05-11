@@ -2,6 +2,7 @@ package com.dean.travltotibet.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
+import com.dean.travltotibet.fragment.HomeCommunityFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -264,4 +267,12 @@ public class HomeActivity extends BaseActivity {
         return mSlidingMenu;
     }
 
+    public void updateCommunityFragment() {
+        if (this != null && mAdapter.getAllFragments().size() > 0) {
+            HomeCommunityFragment fragment = (HomeCommunityFragment) mAdapter.getFragment(1);
+            if (fragment != null && fragment.isAdded()) {
+                fragment.refresh();
+            }
+        }
+    }
 }

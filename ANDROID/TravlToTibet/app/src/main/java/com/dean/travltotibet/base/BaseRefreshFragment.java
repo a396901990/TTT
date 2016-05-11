@@ -1,10 +1,14 @@
 package com.dean.travltotibet.base;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 
 /**
@@ -109,6 +113,12 @@ public class BaseRefreshFragment extends BaseLoadingFragment implements LoadMore
         if (getActivity() == null){
             return;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
 }

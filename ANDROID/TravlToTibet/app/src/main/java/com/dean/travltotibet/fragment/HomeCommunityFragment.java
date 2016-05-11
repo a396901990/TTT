@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,7 +129,6 @@ public class HomeCommunityFragment extends Fragment {
             }
         });
 
-
         // 默认显示第一个页面搜索栏
         updateSearchView(0);
     }
@@ -244,7 +244,7 @@ public class HomeCommunityFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mFloatingActionMenu.showMenu(true);
+                mFloatingActionMenu.showMenu(false);
             }
         }, 300);
 
@@ -330,6 +330,7 @@ public class HomeCommunityFragment extends Fragment {
     }
 
     public void refresh() {
+        Log.e("refresh", "refresh");
         if (mAdapter.getAllFragments().size() > 0) {
             BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
             if (fragment.isAdded()) {

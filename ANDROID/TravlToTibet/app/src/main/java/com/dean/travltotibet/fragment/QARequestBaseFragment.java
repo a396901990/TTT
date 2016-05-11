@@ -34,8 +34,6 @@ public abstract class QARequestBaseFragment extends BaseRefreshFragment implemen
 
     // 获取数据
     protected abstract void getTeamRequests(final int actionType);
-    // 获取准备数据
-    protected abstract void prepareLoadingWork();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,7 +102,7 @@ public abstract class QARequestBaseFragment extends BaseRefreshFragment implemen
             mAdapter.clearData();
         }
 
-        prepareLoadingWork();
+        toDo(ON_LOADING, 800);
     }
 
     @Override

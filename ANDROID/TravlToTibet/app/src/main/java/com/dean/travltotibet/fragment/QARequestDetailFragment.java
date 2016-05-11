@@ -219,6 +219,12 @@ public class QARequestDetailFragment extends Fragment {
             return;
         }
 
+        // 创建用户不允许取关
+        if (userInfo.getUserId().equals(qaRequest.getUser().getUserId())) {
+            Toast.makeText(getActivity(), "问题发布者不可以取消关注", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         BmobRelation sameQuestionRelation = new BmobRelation();
         sameQuestionRelation.remove(userInfo);
         qaRequest.setQuestionUsers(sameQuestionRelation);
@@ -257,7 +263,7 @@ public class QARequestDetailFragment extends Fragment {
         // reset
         FlowLayout flowLayout = (FlowLayout) root.findViewById(R.id.same_question_content_view);
         flowLayout.removeAllViews();
-        sameQuestionBtn.setText("同问");
+        sameQuestionBtn.setText("关注");
         sameQuestionBtn.setTag(false);
 
         if (userInfos == null) {
@@ -281,7 +287,7 @@ public class QARequestDetailFragment extends Fragment {
 
             // 如果你同问了这个问题，改变按钮文字
             if (userInfo.getUserId().equals(TTTApplication.getUserInfo().getUserId())) {
-                sameQuestionBtn.setText("已同问");
+                sameQuestionBtn.setText("已关注");
                 sameQuestionBtn.setTag(true);
             }
         }
@@ -290,6 +296,7 @@ public class QARequestDetailFragment extends Fragment {
     public void updateSameQuestionUsers () {
         BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
         query.addWhereRelatedTo("questionUsers", new BmobPointer(qaRequest));
+        query.order("createdAt"); // 越早越靠前
         query.findObjects(getActivity(), new FindListener<UserInfo>() {
 
             @Override

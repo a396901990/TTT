@@ -1,11 +1,8 @@
 package com.dean.travltotibet.fragment;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.activity.BaseActivity;
-import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.LoginUtil;
@@ -137,17 +134,6 @@ public class TeamRequestPublishFragment extends TeamShowRequestBaseFragment {
     @Override
     public boolean isPersonal() {
         return true;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == BaseActivity.UPDATE_REQUEST) {
-            if (resultCode == getActivity().RESULT_OK) {
-                onRefresh();
-            }
-        }
     }
 
 }

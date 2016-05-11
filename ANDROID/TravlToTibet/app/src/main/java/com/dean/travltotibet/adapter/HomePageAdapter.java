@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 
+import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.fragment.HomeCommunityFragment;
 import com.dean.travltotibet.fragment.HomeRecommendFragment;
 import com.dean.travltotibet.fragment.HomeTopicFragment;
