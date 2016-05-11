@@ -16,6 +16,8 @@ public class AnswerInfo extends BaseCommentBmobObject {
 
     public String status;
 
+    public String questionTitle;
+
     public String content;
 
     public String userName;
@@ -27,6 +29,8 @@ public class AnswerInfo extends BaseCommentBmobObject {
     private UserInfo user;
 
     private QARequest qaRequest;
+
+    private int watch;
 
     private int like;
 
@@ -104,4 +108,19 @@ public class AnswerInfo extends BaseCommentBmobObject {
         this.unlike = unlike;
     }
 
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
+    }
+
+    public int getWatch() {
+        return watch;
+    }
+
+    public void setWatch(int watch) {
+        this.watch = watch;
+    }
 }

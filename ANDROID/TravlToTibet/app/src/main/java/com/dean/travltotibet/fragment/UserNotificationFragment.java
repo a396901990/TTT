@@ -34,7 +34,7 @@ public class UserNotificationFragment extends UserMessageBaseFragment {
         }
 
         // 设置每页数据个数
-        query.setLimit(limit);
+//        query.setLimit(limit);
 
         query.findObjects(getActivity(), new FindListener<UserMessage>() {
             @Override
@@ -71,17 +71,6 @@ public class UserNotificationFragment extends UserMessageBaseFragment {
             return;
         }
         super.onRefresh();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == BaseActivity.UPDATE_REQUEST) {
-            if (resultCode == getActivity().RESULT_OK) {
-                onRefresh();
-            }
-        }
     }
 
 }

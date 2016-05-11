@@ -12,9 +12,7 @@
         android:id="@+id/profile_image"
         android:layout_width="@dimen/comment_item_base_length"
         android:layout_height="@dimen/comment_item_base_length"
-        android:layout_marginBottom="@dimen/comment_item_base_padding"
         android:layout_marginRight="@dimen/comment_item_base_padding"
-        android:layout_marginTop="@dimen/comment_item_base_padding"
         android:src="@drawable/gray_profile"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp" />
@@ -28,7 +26,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/comment_item_base_padding">
+            android:padding="@dimen/comment_item_base_padding"
+            >
 
             <LinearLayout
                 android:id="@+id/profile_content"
@@ -53,7 +52,7 @@
                     android:textColor="@color/gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
+                    android:paddingTop="1dp"
                     android:text="2015-09-17" />
 
             </LinearLayout>

@@ -424,7 +424,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             delItem.setVisible(true);
             reportItem.setVisible(false);
         } else {
-            reportItem.setVisible(true);
+            reportItem.setVisible(false);
             editItem.setVisible(false);
             delItem.setVisible(false);
         }

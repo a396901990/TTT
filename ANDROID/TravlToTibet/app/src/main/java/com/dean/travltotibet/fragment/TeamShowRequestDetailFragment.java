@@ -2,6 +2,7 @@ package com.dean.travltotibet.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -109,7 +111,14 @@ public class TeamShowRequestDetailFragment extends Fragment {
         }
         // user icon
         if (!TextUtils.isEmpty(teamRequest.getUserIcon())) {
-            Picasso.with(getActivity()).load(teamRequest.getUserIcon()).error(R.drawable.gray_profile).into(mUserIcon);
+            Picasso.with(getActivity())
+                    .load(teamRequest.getUserIcon())
+                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .centerInside()
+                    .error(R.drawable.gray_profile)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(mUserIcon);
         } else {
             mUserIcon.setImageResource(R.drawable.gray_profile);
         }

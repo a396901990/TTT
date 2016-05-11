@@ -1,113 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:layout_height="wrap_content">
 
-    <!--头像-->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="@dimen/comment_item_base_length"
-        android:layout_height="@dimen/comment_item_base_length"
-        android:layout_marginRight="@dimen/comment_item_base_padding"
-        android:src="@drawable/gray_profile"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="2dp" />
-
-    <LinearLayout
+    <com.dean.travltotibet.ui.MaterialRippleLayout
+        android:id="@+id/ripple_view"
+        style="@style/RippleStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <!--名字时间点赞-->
-        <RelativeLayout
-            android:id="@+id/profile_content"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/comment_item_base_length"
-            android:padding="@dimen/comment_item_base_padding">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/left_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/profile_text"
-                    style="@style/TextAppearance.Micro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="匿名用户"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <TextView
-                    android:id="@+id/comment_date"
-                    style="@style/TextAppearance.Mini"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
-                    android:text="2015-09-17"
-                    android:textColor="@color/gray" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/like_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/border_light_gray"
-                android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:src="@drawable/icon_like_white"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_gravity="center"
-                            />
-
-                        <TextView
-                            android:layout_marginLeft="@dimen/card_half_padding"
-                            android:id="@+id/like_text"
-                            style="@style/TextAppearance.Micro.White"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="0" />
-                    </LinearLayout>
-
-            </LinearLayout>
-        </RelativeLayout>
-
-        <!--评论-->
-        <LinearLayout
-            android:id="@+id/comment_text_content"
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/comment_item_base_padding">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
-            <TextView
-                android:id="@+id/comment_text"
-                style="@style/TextAppearance.Small"
+            <!--头像-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/comment_item_base_length"
+                android:layout_height="@dimen/comment_item_base_length"
+                android:layout_marginRight="@dimen/comment_item_base_padding"
+                android:src="@drawable/gray_profile"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />
+                android:orientation="vertical">
+
+                <!--名字时间点赞-->
+                <RelativeLayout
+                    android:id="@+id/profile_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/comment_item_base_length"
+                    android:padding="@dimen/comment_item_base_padding">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/left_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/profile_text"
+                            style="@style/TextAppearance.Micro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="匿名用户"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <TextView
+                            android:id="@+id/comment_date"
+                            style="@style/TextAppearance.Mini"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="1dp"
+                            android:text="2015-09-17"
+                            android:textColor="@color/gray" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/watch"
+                        style="@style/TextAppearance.Mini"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/border_half_blue"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:paddingTop="1dp"
+                        android:text="30"
+                        android:textColor="@color/colorPrimary" />
+
+                </RelativeLayout>
+
+                <!--评论-->
+                <LinearLayout
+                    android:id="@+id/comment_text_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/comment_item_base_padding">
+
+                    <TextView
+                        android:id="@+id/comment_text"
+                        style="@style/TextAppearance.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="5"
+                        android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </com.dean.travltotibet.ui.MaterialRippleLayout>
+</FrameLayout>

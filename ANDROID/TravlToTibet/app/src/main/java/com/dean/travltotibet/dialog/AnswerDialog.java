@@ -177,6 +177,7 @@ public class AnswerDialog extends LoginDialogFragment {
         answerInfo = new AnswerInfo();
         if (qaRequest != null) {
             answerInfo.setQaRequest(qaRequest);
+            answerInfo.setQuestionTitle(qaRequest.getTitle());
         }
         // 评论
         answerInfo.setContent(getComment());
@@ -184,7 +185,12 @@ public class AnswerDialog extends LoginDialogFragment {
         answerInfo.setLike(0);
         answerInfo.setUnlike(0);
         answerInfo.setStatus(AnswerInfo.PASS_STATUS);
-        answerInfo.setUser(TTTApplication.getUserInfo());
+        if (TTTApplication.getUserInfo() != null) {
+            answerInfo.setUser(TTTApplication.getUserInfo());
+            answerInfo.setUserIcon(TTTApplication.getUserInfo().getUserIcon());
+            answerInfo.setUserGender(TTTApplication.getUserInfo().getUserGender());
+            answerInfo.setUserName(TTTApplication.getUserInfo().getUserName());
+        }
 
         answerInfo.save(getActivity(), new SaveListener() {
             @Override

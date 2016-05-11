@@ -1,6 +1,8 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
@@ -9,15 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
+import com.dean.travltotibet.activity.AnswerDetailActivity;
+import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.model.AnswerInfo;
-import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -91,13 +96,19 @@ public class AnswerListAdapter extends BaseAdapter {
         // 内容
         holder.commentText.setText(answerInfo.getContent());
 
-        // like
-        holder.likeText.setText(String.valueOf(answerInfo.getLike()));
-        changeLikeStatus(answerInfo, holder);
-        holder.likeContent.setOnClickListener(new View.OnClickListener() {
+        // watch
+        holder.watchText.setText(String.valueOf(answerInfo.getWatch()));
+
+        holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                likeAction(answerInfo, parent.getContext(), holder);
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                Intent intent = new Intent(mContext, AnswerDetailActivity.class);
+                intent.putExtra(IntentExtra.INTENT_ANSWER, answerInfo);
+                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, false);
+                ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });
 
@@ -110,42 +121,6 @@ public class AnswerListAdapter extends BaseAdapter {
         }
         this.mData = data;
         notifyDataSetChanged();
-    }
-
-    private void changeLikeStatus(final AnswerInfo answerInfo, final AnswerViewHolder holder) {
-
-        final SharedPreferences sharedPreferences = TTTApplication.getSharedPreferences();
-        String objectId = sharedPreferences.getString(answerInfo.getObjectId(), "");
-
-        if (TextUtils.isEmpty(objectId)) {
-            holder.likeContent.setBackgroundResource(R.drawable.border_light_gray);
-        } else {
-            holder.likeContent.setBackgroundResource(R.drawable.border_red);
-        }
-    }
-
-    private void likeAction(final AnswerInfo answerInfo, final Context context, final AnswerViewHolder holder) {
-
-        final SharedPreferences sharedPreferences = TTTApplication.getSharedPreferences();
-        final String objectId = sharedPreferences.getString(answerInfo.getObjectId(), "");
-
-        if (TextUtils.isEmpty(objectId)) {
-            answerInfo.increment("like");
-            answerInfo.update(context, new UpdateListener() {
-                @Override
-                public void onSuccess() {
-
-                    answerInfo.setLike(answerInfo.getLike() + 1);
-                    holder.likeText.setText(String.valueOf(answerInfo.getLike()));
-                    holder.likeContent.setBackgroundResource(R.drawable.border_red);
-                    sharedPreferences.edit().putString(answerInfo.getObjectId(), answerInfo.getObjectId()).commit();
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-                }
-            });
-        }
     }
 
     public void addData(ArrayList<AnswerInfo> addDatas) {
@@ -166,17 +141,17 @@ public class AnswerListAdapter extends BaseAdapter {
         private TextView profileName;
         private TextView commentDate;
         private TextView commentText;
-        private TextView likeText;
+        private TextView watchText;
 
-        private View likeContent;
+        private MaterialRippleLayout rippleLayout;
 
         public AnswerViewHolder(View itemView) {
             profileImage = (ImageView) itemView.findViewById(R.id.profile_image);
             profileName = (TextView) itemView.findViewById(R.id.profile_text);
             commentDate = (TextView) itemView.findViewById(R.id.comment_date);
             commentText = (TextView) itemView.findViewById(R.id.comment_text);
-            likeText = (TextView) itemView.findViewById(R.id.like_text);
-            likeContent = itemView.findViewById(R.id.like_content);
+            watchText = (TextView) itemView.findViewById(R.id.watch);
+            rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
         }
     }
 

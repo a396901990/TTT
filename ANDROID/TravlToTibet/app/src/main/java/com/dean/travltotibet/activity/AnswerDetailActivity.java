@@ -5,47 +5,58 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.QARequestDetailFragment;
-import com.dean.travltotibet.fragment.QAnswerFragment;
-import com.dean.travltotibet.model.QARequest;
+import com.dean.travltotibet.dialog.AnswerCommentDialog;
+import com.dean.travltotibet.dialog.BaseCommentDialog;
+import com.dean.travltotibet.dialog.TeamRequestCommentDialog;
+import com.dean.travltotibet.fragment.AnswerCommentFragment;
+import com.dean.travltotibet.fragment.TeamShowRequestCommentFragment;
+import com.dean.travltotibet.model.AnswerInfo;
+import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.Report;
+import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.model.UserMessage;
+import com.dean.travltotibet.ui.like.LikeButton;
+import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.ScreenUtil;
 
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by DeanGuo on 5/3/16.
+ * Created by DeanGuo on 5/11/16.
  */
-public class QAShowRequestDetailActivity extends BaseActivity {
+public class AnswerDetailActivity extends BaseCommentActivity {
 
-    private QARequest qaRequest;
+    private AnswerInfo answerInfo;
 
     private boolean isPersonal = false;
-
-    private QARequestDetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.q_a_show_request_view);
+        setContentView(R.layout.answer_detail_view);
         EventBus.getDefault().register(this);
-        detailFragment = (QARequestDetailFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
 
         if (getIntent() != null) {
-            qaRequest = (QARequest) getIntent().getSerializableExtra(IntentExtra.INTENT_QA_REQUEST);
+            answerInfo = (AnswerInfo) getIntent().getSerializableExtra(IntentExtra.INTENT_ANSWER);
             isPersonal = getIntent().getBooleanExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, false);
         }
-        if (qaRequest == null) {
+        if (answerInfo == null) {
             finish();
         }
 
@@ -55,38 +66,142 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
         updateWatch();
         initHeader();
+        initBottom();
+    }
+
+    @Override
+    public BmobObject getObj() {
+        return answerInfo;
     }
 
     private void initHeader() {
         // title
         if (isPersonal) {
-            setTitle("我的问答");
+            setTitle("我的答案");
         } else {
-            setTitle("问题详情");
+            setTitle("答案详情");
         }
     }
 
-    public void refresh() {
-        QAnswerFragment fragment = (QAnswerFragment) getFragmentManager().findFragmentById(R.id.answer_fragment);
+    private void refresh() {
+        AnswerCommentFragment fragment = (AnswerCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
         if (fragment != null && fragment.isAdded()) {
             fragment.onRefresh();
         }
     }
 
-    private void updateWatch() {
+    private void updateLike() {
         try {
-            qaRequest.increment("watch");
+            answerInfo.increment("like");
             if (this != null) {
-                qaRequest.update(this, null);
+                answerInfo.update(this, null);
             }
         } catch (Exception e) {
             // finish();
         }
     }
 
+    private void updateWatch() {
+        try {
+            answerInfo.increment("watch");
+            if (this != null) {
+                answerInfo.update(this, null);
+            }
+        } catch (Exception e) {
+            // finish();
+        }
+    }
+
+    private void initBottom() {
+
+        // like
+        LikeButton likeBtn = (LikeButton) findViewById(R.id.like_button);
+        likeBtn.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                updateWatch();
+                updateLike();
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+            }
+        });
+
+        // comment
+        View commentBtn = findViewById(R.id.comment_btn);
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentAction();
+            }
+        });
+    }
+
+    /**
+     * 回复操作
+     */
+    private void commentAction() {
+        if (ScreenUtil.isFastClick()) {
+            return;
+        }
+        BaseCommentDialog dialogFragment = new AnswerCommentDialog();
+        dialogFragment.setCommentCallBack(this);
+        dialogFragment.show(getFragmentManager(), AnswerCommentDialog.class.getName());
+    }
+
+    @Override
+    public void onCommentSuccess(final Comment comment) {
+        // 将评论添加到当前team request的关联中
+        final BmobRelation commentRelation = new BmobRelation();
+        commentRelation.add(comment);
+        answerInfo.setReplyComments(commentRelation);
+        answerInfo.update(getApplication(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                refresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+
+//        // 发送新通知，成功后加入用户关联中
+//        final UserInfo targetUser = answerInfo.getUser();
+//        final UserMessage message = new UserMessage();
+//        message.setStatus(UserMessage.UNREAD_STATUS);
+//        message.setMessage(answerInfo.getContent());
+//        message.setMessageTitle(UserMessage.TEAM_REQUEST_TITLE);
+//        message.setType(UserMessage.TEAM_REQUEST_TYPE);
+//        message.setTypeObjectId(answerInfo.getObjectId());
+//        message.setSendUser(TTTApplication.getUserInfo());
+//        message.save(this, new SaveListener() {
+//            @Override
+//            public void onSuccess() {
+//                BmobRelation messageRelation = new BmobRelation();
+//                messageRelation.add(message);
+//                targetUser.setUserMessage(messageRelation);
+//                targetUser.update(getApplication());
+//            }
+//
+//            @Override
+//            public void onFailure(int i, String s) {
+//
+//            }
+//        });
+    }
+
+    @Override
+    public void onCommentFailed() {
+        super.onCommentFailed();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_qa_request_show, menu);
+        getMenuInflater().inflate(R.menu.menu_team_request_show, menu);
         return true;
     }
 
@@ -137,7 +252,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
                 .callback(new MaterialDialog.Callback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        deleteQARequest();
+                        deleteTeamRequest();
                         dialog.dismiss();
                     }
 
@@ -151,18 +266,19 @@ public class QAShowRequestDetailActivity extends BaseActivity {
     }
 
     private void actionEdit() {
-        Intent intent = new Intent(this, QAShowRequestDetailActivity.class);
-        intent.putExtra(IntentExtra.INTENT_QA_REQUEST, qaRequest);
+        Intent intent = new Intent(this, TeamCreateRequestActivity.class);
+        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, answerInfo);
         startActivityForResult(intent, UPDATE_REQUEST);
         setResult(RESULT_OK);
         finish();
     }
 
-    private void deleteQARequest() {
+    private void deleteTeamRequest() {
 
-        qaRequest.delete(this, new DeleteListener() {
+        answerInfo.delete(this, new DeleteListener() {
             @Override
             public void onSuccess() {
+                Toast.makeText(getApplicationContext(), getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK);
                 finish();
             }
@@ -176,7 +292,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
     // 举报
     private void reportAction() {
-        new Report().addReport(this, Report.REPORT_QA_REQUEST, qaRequest.getObjectId(), "", qaRequest.getUserName());
+        new Report().addReport(this, Report.REPORT_TEAM_REQUEST, answerInfo.getObjectId(), "", answerInfo.getUserName());
     }
 
     @Override
@@ -185,12 +301,12 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
         if (requestCode == UPDATE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                BmobQuery<QARequest> query = new BmobQuery<QARequest>();
-                query.getObject(this, qaRequest.getObjectId(), new GetListener<QARequest>() {
+                BmobQuery<AnswerInfo> query = new BmobQuery<AnswerInfo>();
+                query.getObject(this, answerInfo.getObjectId(), new GetListener<AnswerInfo>() {
 
                     @Override
-                    public void onSuccess(QARequest object) {
-                        qaRequest = object;
+                    public void onSuccess(AnswerInfo object) {
+                        answerInfo = object;
                     }
 
                     @Override
@@ -208,7 +324,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
         MenuItem delItem = menu.findItem(R.id.action_del);
 
         if (isPersonal) {
-            editItem.setVisible(false);
+            editItem.setVisible(true);
             delItem.setVisible(true);
             reportItem.setVisible(false);
         } else {
@@ -225,8 +341,8 @@ public class QAShowRequestDetailActivity extends BaseActivity {
         return true;
     }
 
-    public QARequest getQaRequest() {
-        return qaRequest;
+    public AnswerInfo getAnswerInfo() {
+        return answerInfo;
     }
 
     /**

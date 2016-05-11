@@ -111,6 +111,13 @@ public class MessageListAdapter extends BaseAdapter {
         String createTime = DateUtil.getTimeGap(message.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         holder.mPublishTime.setText(createTime);
 
+        // 未读白色，读了灰色
+        if (message.getStatus() != null && message.getStatus().equals(UserMessage.UNREAD_STATUS)) {
+            holder.rippleLayout.setBackgroundColor(TTTApplication.getMyColor(R.color.white));
+        } else {
+            holder.rippleLayout.setBackgroundColor(TTTApplication.getMyColor(R.color.less_gray_background));
+        }
+
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

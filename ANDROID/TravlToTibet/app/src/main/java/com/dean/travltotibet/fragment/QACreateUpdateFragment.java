@@ -28,7 +28,7 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
- * Created by DeanGuo on 2/23/16.
+ * Created by DeanGuo on 4/23/16.
  */
 public class QACreateUpdateFragment extends BaseRefreshFragment {
 
@@ -38,14 +38,13 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
 
     private final static int TEXT_TITLE_MAX_LIMIT = 50;
 
-    private final static int TEXT_TITLE_MIN_LIMIT = 6;
+    private final static int TEXT_TITLE_MIN_LIMIT = 10;
 
     private final static int TEXT_CONTENT_MAX_LIMIT = 666;
 
     private final static int TEXT_CONTENT_MIN_LIMIT = 10;
 
     private int PASS_TITLE = 1 << 0; // 0
-
 
     private int PASS_CONTENT = 1 << 1; // 1
 
@@ -102,7 +101,7 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
     // 标题
     private void initTitleContent() {
         titleEdit = (EditText) root.findViewById(R.id.title_edit_text);
-        titleEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TEXT_CONTENT_MAX_LIMIT)});
+        titleEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TEXT_TITLE_MAX_LIMIT)});
         titleEdit.addTextChangedListener(new TextWatcher() {
 
             @Override

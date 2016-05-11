@@ -91,6 +91,23 @@ public abstract class UserMessageBaseFragment extends BaseRefreshFragment implem
         toDo(PREPARE_LOADING, 0);
     }
 
+    public void deleteMessage() {
+        if (userMessages != null) {
+            for (UserMessage userMessage : userMessages) {
+                userMessage.delete(getActivity(), null);
+            }
+        }
+    }
+
+    public void verifiedMessage() {
+        if (userMessages != null) {
+            for (UserMessage userMessage : userMessages) {
+                userMessage.setStatus(UserMessage.READ_STATUS);
+                userMessage.update(getActivity(), null);
+            }
+        }
+    }
+
     @Override
     public void prepareLoading() {
         super.prepareLoading();

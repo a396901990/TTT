@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/article_bottom_height"
+    android:layout_gravity="bottom"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topLine"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.dean.travltotibet.ui.like.LikeButton
+                android:id="@+id/like_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:anim_scale_factor="3"
+                app:icon_size="22dp"
+                app:icon_type="thumb" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:background="@color/less_light_gray"></View>
+
+        <LinearLayout
+            android:id="@+id/comment_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                app:iiv_color="@color/colorPrimary"
+                app:iiv_icon="gmd_mode_comment" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/topLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_line_rule"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/up_shade_background" />
+</RelativeLayout>
+
+
+

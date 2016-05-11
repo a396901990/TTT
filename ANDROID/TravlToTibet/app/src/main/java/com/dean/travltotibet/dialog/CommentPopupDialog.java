@@ -133,6 +133,9 @@ public class CommentPopupDialog extends DialogFragment {
         else if (Comment.ROAD_INFO_COMMENT.equals(mCommentType)) {
             dialogFragment = new RoadInfoCommentDialog();
         }
+        else if (Comment.ANSWER_COMMENT.equals(mCommentType)) {
+            dialogFragment = new AnswerCommentDialog();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentExtra.INTENT_COMMENT, mComment);

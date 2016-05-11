@@ -1,8 +1,10 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.QAShowRequestDetailActivity;
 import com.dean.travltotibet.dialog.AnswerDialog;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.AnswerInfo;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.UserInfo;
@@ -78,13 +81,18 @@ public class QARequestDetailFragment extends Fragment {
                     return;
                 }
 
-                // true : 已同问，则取消同问
-                if ((Boolean) sameQuestionBtn.getTag()) {
-                    cancelSameQuestionAction();
-                }
-                // false ：没同问，进行添加同问
-                else {
-                    addSameQuestionAction();
+                if (!TTTApplication.hasLoggedIn()) {
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                } else {
+                    // true : 已同问，则取消同问
+                    if ((Boolean) sameQuestionBtn.getTag()) {
+                        cancelSameQuestionAction();
+                    }
+                    // false ：没同问，进行添加同问
+                    else {
+                        addSameQuestionAction();
+                    }
                 }
             }
         });
@@ -286,7 +294,7 @@ public class QARequestDetailFragment extends Fragment {
             flowLayout.addView(itemView);
 
             // 如果你同问了这个问题，改变按钮文字
-            if (userInfo.getUserId().equals(TTTApplication.getUserInfo().getUserId())) {
+            if (TTTApplication.getUserInfo() != null && userInfo.getUserId().equals(TTTApplication.getUserInfo().getUserId())) {
                 sameQuestionBtn.setText("已关注");
                 sameQuestionBtn.setTag(true);
             }
@@ -324,5 +332,31 @@ public class QARequestDetailFragment extends Fragment {
         TextView mPublishTime = (TextView) root.findViewById(R.id.publish_time);
         String createTime = DateUtil.getTimeGap(qaRequest.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
         mPublishTime.setText(createTime);
+
+
+        // user name
+        TextView mUserName = (TextView) root.findViewById(R.id.user_name);
+
+        mUserName.setText(qaRequest.getUserName());
+        if (UserInfo.MALE.equals(qaRequest.getUserGender())) {
+            mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
+        } else {
+            mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
+        }
+
+        // user icon
+        CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
+        if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
+            Picasso.with(getActivity())
+                    .load(qaRequest.getUserIcon())
+                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .centerInside()
+                    .error(R.drawable.gray_profile)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(mUserIcon);
+        } else {
+            mUserIcon.setImageResource(R.drawable.gray_profile);
+        }
     }
 }

@@ -21,6 +21,7 @@ public class QARequestPublishFragment extends QARequestBaseFragment {
 
         BmobQuery<QARequest> query = new BmobQuery<>();
         query.addWhereRelatedTo("QARequest", new BmobPointer(TTTApplication.getUserInfo()));
+        query.include("user");
         query.order("-createdAt");
 
         // 加载更多

@@ -95,59 +95,6 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/card_padding"
-                android:layout_marginTop="@dimen/card_padding"
-                android:background="@color/rule"></View>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.dean.travltotibet.ui.FlowLayout
-                    android:id="@+id/same_question_content_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/btn_content"></com.dean.travltotibet.ui.FlowLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
-                    <!--同问按钮-->
-                    <TextView
-                        android:id="@+id/same_question_btn"
-                        style="@style/TextAppearance.Small.White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/border_theme"
-                        android:paddingBottom="@dimen/card_half_padding"
-                        android:paddingLeft="@dimen/card_large_padding"
-                        android:paddingRight="@dimen/card_large_padding"
-                        android:paddingTop="@dimen/card_half_padding"
-                        android:text="同问" />
-
-                    <!--回答按钮-->
-                    <TextView
-                        android:id="@+id/answer_btn"
-                        style="@style/TextAppearance.Small.White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/card_half_padding"
-                        android:background="@drawable/border_theme"
-                        android:paddingBottom="@dimen/card_half_padding"
-                        android:paddingLeft="@dimen/card_large_padding"
-                        android:paddingRight="@dimen/card_large_padding"
-                        android:paddingTop="@dimen/card_half_padding"
-                        android:text="回答" />
-                </LinearLayout>
-            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
