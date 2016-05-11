@@ -172,6 +172,9 @@
         <activity android:name=".activity.UserFavoriteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.UserNotificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

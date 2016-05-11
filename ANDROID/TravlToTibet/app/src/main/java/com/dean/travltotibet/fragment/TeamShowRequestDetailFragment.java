@@ -189,7 +189,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
     // 内容
     private void initContentContent() {
-        TextView content = (TextView) root.findViewById(R.id.content_text);
+        TextView content = (TextView) root.findViewById(R.id.message_text);
         content.setText(teamRequest.getContent());
     }
 

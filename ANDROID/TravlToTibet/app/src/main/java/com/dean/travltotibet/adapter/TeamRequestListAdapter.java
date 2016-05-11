@@ -21,8 +21,6 @@ import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.tagview.Tag;
 import com.dean.travltotibet.ui.tagview.TagView;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
@@ -32,7 +30,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by DeanGuo on 3//16.
+ * Created by DeanGuo on 3/8/16.
  */
 public class TeamRequestListAdapter extends BaseAdapter {
 
@@ -225,7 +223,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
         private TagView tagView;
 
         public TeamRequestViewHolder(View itemView) {
-            mContentText = (TextView) itemView.findViewById(R.id.content_text);
+            mContentText = (TextView) itemView.findViewById(R.id.message_text);
 
             mUserName = (TextView) itemView.findViewById(R.id.user_name);
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);

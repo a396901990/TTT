@@ -37,7 +37,7 @@ public class QAnswerFragment extends BaseRefreshFragment  implements InsideScrol
 
     private ArrayList<AnswerInfo> mComments;
 
-    public final static int COMMENT_LIMIT = 8;        // 每页的数据是8条
+    public final static int COMMENT_LIMIT = 12;        // 每页的数据是8条
 
     private InsideScrollLoadMorePressListView loadMoreListView;
 

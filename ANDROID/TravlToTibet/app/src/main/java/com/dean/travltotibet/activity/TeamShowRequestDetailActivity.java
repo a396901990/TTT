@@ -19,6 +19,7 @@ import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.Report;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.ui.like.LikeButton;
 import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
@@ -34,6 +35,7 @@ import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
@@ -183,15 +185,39 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
     }
 
     @Override
-    public void onCommentSuccess(Comment comment) {
+    public void onCommentSuccess(final Comment comment) {
         // 将评论添加到当前team request的关联中
-        BmobRelation commentRelation = new BmobRelation();
+        final BmobRelation commentRelation = new BmobRelation();
         commentRelation.add(comment);
         teamRequest.setReplyComments(commentRelation);
         teamRequest.update(getApplication(), new UpdateListener() {
             @Override
             public void onSuccess() {
                 refresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+
+        // 发送新通知，成功后加入用户关联中
+        final UserInfo targetUser = teamRequest.getUser();
+        final UserMessage message = new UserMessage();
+        message.setStatus(UserMessage.UNREAD_STATUS);
+        message.setMessage(teamRequest.getContent());
+        message.setMessageTitle(UserMessage.TEAM_REQUEST_TITLE);
+        message.setType(UserMessage.TEAM_REQUEST_TYPE);
+        message.setTypeObjectId(teamRequest.getObjectId());
+        message.setSendUser(TTTApplication.getUserInfo());
+        message.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                BmobRelation messageRelation = new BmobRelation();
+                messageRelation.add(message);
+                targetUser.setUserMessage(messageRelation);
+                targetUser.update(getApplication());
             }
 
             @Override

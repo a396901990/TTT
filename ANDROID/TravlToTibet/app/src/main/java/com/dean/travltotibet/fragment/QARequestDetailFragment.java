@@ -16,6 +16,7 @@ import com.dean.travltotibet.dialog.AnswerDialog;
 import com.dean.travltotibet.model.AnswerInfo;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
@@ -29,6 +30,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,6 +46,8 @@ public class QARequestDetailFragment extends Fragment {
     private QAShowRequestDetailActivity qaShowRequestDetailActivity;
 
     private TextView sameQuestionBtn;
+
+    private List<UserInfo> mUserInfos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -121,6 +125,36 @@ public class QARequestDetailFragment extends Fragment {
                             // 刷新答案列表
                             if (qaShowRequestDetailActivity != null) {
                                 qaShowRequestDetailActivity.refresh();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+
+                        }
+                    });
+
+                    // 发送新通知，成功后加入用户关联中
+                    final UserMessage message = new UserMessage();
+                    message.setStatus(UserMessage.UNREAD_STATUS);
+                    message.setMessage(qaRequest.getContent());
+                    message.setMessageTitle(UserMessage.QA_REQUEST_TITLE);
+                    message.setType(UserMessage.QA_REQUEST_TYPE);
+                    message.setTypeObjectId(qaRequest.getObjectId());
+                    message.setSendUser(TTTApplication.getUserInfo());
+                    message.save(getActivity(), new SaveListener() {
+                        @Override
+                        public void onSuccess() {
+
+                            // 发消息给每一关注用户
+                            if (mUserInfos != null) {
+
+                                for (UserInfo userInfo : mUserInfos) {
+                                    BmobRelation messageRelation = new BmobRelation();
+                                    messageRelation.add(message);
+                                    userInfo.setUserMessage(messageRelation);
+                                    userInfo.update(getActivity());
+                                }
                             }
                         }
 
@@ -218,6 +252,7 @@ public class QARequestDetailFragment extends Fragment {
     }
 
     private void updateSameQuestionContent(List<UserInfo> userInfos) {
+        mUserInfos = userInfos;
 
         // reset
         FlowLayout flowLayout = (FlowLayout) root.findViewById(R.id.same_question_content_view);
@@ -275,7 +310,7 @@ public class QARequestDetailFragment extends Fragment {
         title.setText(qaRequest.getTitle());
 
         // 内容
-        TextView content = (TextView) root.findViewById(R.id.content_text);
+        TextView content = (TextView) root.findViewById(R.id.message_text);
         content.setText(qaRequest.getContent());
 
         // publish time

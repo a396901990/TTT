@@ -183,6 +183,7 @@ public class AnswerDialog extends LoginDialogFragment {
         // 评分
         answerInfo.setLike(0);
         answerInfo.setUnlike(0);
+        answerInfo.setStatus(AnswerInfo.PASS_STATUS);
         answerInfo.setUser(TTTApplication.getUserInfo());
 
         answerInfo.save(getActivity(), new SaveListener() {

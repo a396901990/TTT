@@ -8,21 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.QAShowRequestDetailActivity;
-import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
-import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
-import com.dean.travltotibet.util.Constants;
-import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
@@ -64,14 +59,14 @@ public class QAListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final TeamRequestViewHolder holder;
+        final QAViewHolder holder;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.q_a_list_item, parent, false);
-            holder = new TeamRequestViewHolder(convertView);
+            holder = new QAViewHolder(convertView);
             convertView.setTag(holder);
         } else {
-            holder = (TeamRequestViewHolder) convertView.getTag();
+            holder = (QAViewHolder) convertView.getTag();
         }
 
         final QARequest request = mData.get(position);
@@ -147,7 +142,7 @@ public class QAListAdapter extends BaseAdapter {
         }
     }
 
-    public class TeamRequestViewHolder {
+    public class QAViewHolder {
 
         private MaterialRippleLayout rippleLayout;
         private TextView mContentText;
@@ -159,8 +154,8 @@ public class QAListAdapter extends BaseAdapter {
         private View mWarningView;
         private TextView mWarningText;
 
-        public TeamRequestViewHolder(View itemView) {
-            mContentText = (TextView) itemView.findViewById(R.id.content_text);
+        public QAViewHolder(View itemView) {
+            mContentText = (TextView) itemView.findViewById(R.id.message_text);
 
             mUserName = (TextView) itemView.findViewById(R.id.user_name);
 //            mUserGender = itemView.findViewById(R.id.user_gender);

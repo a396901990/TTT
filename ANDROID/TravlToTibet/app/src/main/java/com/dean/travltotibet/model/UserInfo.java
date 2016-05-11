@@ -20,6 +20,16 @@ public class UserInfo extends BmobUser{
 
 	private BmobRelation TeamFavorite;
 
+	private BmobRelation UserMessage;
+
+	public BmobRelation getUserMessage() {
+		return UserMessage;
+	}
+
+	public void setUserMessage(BmobRelation userMessage) {
+		UserMessage = userMessage;
+	}
+
 	public String getUserIcon() {
 		return userIcon;
 	}

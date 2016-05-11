@@ -7,22 +7,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.activity.UserFavoriteActivity;
+import com.dean.travltotibet.activity.UserNotificationActivity;
 import com.dean.travltotibet.activity.UserPublishActivity;
 import com.dean.travltotibet.dialog.LoginDialog;
+import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SystemUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.view.IconicsImageView;
 
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.update.AppVersion;
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -57,6 +66,12 @@ public class NavigationFragment extends LoginFragment {
         initProfileView();
         initSettingItemView();
         updateVersionCheck(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        checkNotification();
+        super.onResume();
     }
 
     private void initProfileView() {
@@ -98,6 +113,48 @@ public class NavigationFragment extends LoginFragment {
             }
         });
 
+        // notification
+        View myNotification = root.findViewById(R.id.my_notification);
+        myNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                if (TTTApplication.hasLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), UserNotificationActivity.class);
+                    startActivity(intent);
+                } else {
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
+            }
+        });
+
+    }
+
+    private void checkNotification() {
+        BmobQuery<UserMessage> query1 = new BmobQuery<>();
+        query1.addWhereRelatedTo("UserMessage", new BmobPointer(TTTApplication.getUserInfo()));
+        query1.addWhereEqualTo("status", UserMessage.UNREAD_STATUS);
+        query1.findObjects(getActivity(), new FindListener<UserMessage>() {
+            @Override
+            public void onSuccess(List<UserMessage> list) {
+                IconicsDrawable iconicsDrawable;
+                ImageView notificationIcon = (ImageView) root.findViewById(R.id.my_notification_icon);
+                if (list.size() > 0) {
+                    iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.light_red)).sizeDp(18);
+                } else {
+                    iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.white)).sizeDp(18);
+                }
+                notificationIcon.setImageDrawable(iconicsDrawable);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
     }
 
     private void initSettingItemView() {

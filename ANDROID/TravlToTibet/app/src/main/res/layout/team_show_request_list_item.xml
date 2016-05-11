@@ -83,7 +83,7 @@
                     android:paddingTop="5dp">
 
                     <TextView
-                        android:id="@+id/content_text"
+                        android:id="@+id/message_text"
                         style="@style/TextAppearance.Regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

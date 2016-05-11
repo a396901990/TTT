@@ -27,27 +27,40 @@
             <com.dean.travltotibet.ui.PagerSlidingTabStrip
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white"
-                app:pstsActivateTextColor="@color/dark_gray"
-                app:pstsDeactivateTextColor="@color/dark_gray"
+                android:layout_height="36dp"
+                android:layout_below="@+id/search_content"
+                android:background="@color/colorPrimary"
+                app:pstsActivateTextColor="@color/white"
+                app:pstsDeactivateTextColor="@color/half_white"
                 app:pstsDividerColor="@android:color/transparent"
-                app:pstsIndicatorColor="@color/colorPrimary"
-                app:pstsIndicatorHeight="10px"
+                app:pstsIndicatorColor="@color/white"
+                app:pstsIndicatorHeight="6px"
                 app:pstsShouldExpand="true"
                 app:pstsTabSwitch="true"
                 app:pstsUnderlineColor="@android:color/transparent"
                 app:pstsUnderlineHeight="0dp" />
+
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/appbar"
-            android:fillViewport="true"
-            android:flipInterval="30"
-            android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
+            android:layout_below="@id/appbar">
 
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:fillViewport="true"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation"></android.support.v4.view.ViewPager>
+
+            <!--阴影、去空白-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_toolbar_shadow_height"
+                android:background="@drawable/top_shade_background" />
+        </FrameLayout>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
