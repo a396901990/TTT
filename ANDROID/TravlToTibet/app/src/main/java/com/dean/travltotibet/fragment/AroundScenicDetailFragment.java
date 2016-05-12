@@ -74,6 +74,9 @@ public class AroundScenicDetailFragment extends BaseRefreshFragment {
 
     private void initContentView() {
 
+        if (mScenicInfo == null) {
+            return;
+        }
         // 简介介绍
         View scenicDetailContent = root.findViewById(R.id.scenic_detail_content);
         TextView scenicDetail = (TextView) root.findViewById(R.id.scenic_detail);

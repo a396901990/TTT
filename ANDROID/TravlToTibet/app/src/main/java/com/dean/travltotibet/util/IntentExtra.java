@@ -47,6 +47,9 @@ public final class IntentExtra {
     public static final String INTENT_COMMENT = "intent_comment";
     public static final String INTENT_COMMENT_TYPE = "intent_comment_type";
     public static final String INTENT_ROAD = "intent_road";
+    public static final String INTENT_PREPARE_DETAIL_INFO_TYPE = "intent_p_d_info_type";
+    public static final String INTENT_PREPARE_DETAIL_ROUTE = "intent_p_d_route";
+    public static final String INTENT_PREPARE_DETAIL_TYPE = "intent_p_d_type";
 
     // prepare intent
     public static final String INTENT_PREPARE_BUNDLE = "intent_prepare_bundle";

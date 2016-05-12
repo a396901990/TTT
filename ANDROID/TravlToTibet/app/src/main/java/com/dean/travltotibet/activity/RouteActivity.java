@@ -260,6 +260,9 @@ public class RouteActivity
                 headerHour.setText(String.format(Constants.HEADER_PLAN_DAY, currentRoute.getDay()));
             }
         } else {
+            if (getCurrentPlan() == null) {
+                return;
+            }
             if (!TextUtils.isEmpty(currentPlan.getDay())) {
                 headerPlan.setText(String.format(Constants.HEADER_DAY, currentPlan.getDay()));
             }

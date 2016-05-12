@@ -189,7 +189,7 @@
     <string name="complete">完成</string>
     <string name="all_images">全部图片</string>
 
-    <string name="team_make_filter_hint">搜索筛选约伴信息</string>
-    <string name="q_a_filter_hint">搜索筛选问答信息</string>
+    <string name="team_make_filter_hint">搜索/筛选约伴信息</string>
+    <string name="q_a_filter_hint">搜索问答信息</string>
     <string name="sans_serif" translatable="false">sans-serif</string>
 </resources>

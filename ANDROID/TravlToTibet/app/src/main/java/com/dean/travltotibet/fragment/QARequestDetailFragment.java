@@ -329,35 +329,35 @@ public class QARequestDetailFragment extends Fragment {
         TextView content = (TextView) root.findViewById(R.id.message_text);
         content.setText(qaRequest.getContent());
 
-        // publish time
-        TextView mPublishTime = (TextView) root.findViewById(R.id.publish_time);
-        String createTime = DateUtil.getTimeGap(qaRequest.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
-        mPublishTime.setText(createTime);
-
-
-        // user name
-        TextView mUserName = (TextView) root.findViewById(R.id.user_name);
-
-        mUserName.setText(qaRequest.getUserName());
-        if (UserInfo.MALE.equals(qaRequest.getUserGender())) {
-            mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
-        } else {
-            mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
-        }
-
-        // user icon
-        CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
-        if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
-            PicassoTools.getPicasso()
-                    .load(qaRequest.getUserIcon())
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
-                    .centerInside()
-                    .error(R.drawable.gray_profile)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                    .config(Bitmap.Config.RGB_565)
-                    .into(mUserIcon);
-        } else {
-            mUserIcon.setImageResource(R.drawable.gray_profile);
-        }
+//        // publish time
+//        TextView mPublishTime = (TextView) root.findViewById(R.id.publish_time);
+//        String createTime = DateUtil.getTimeGap(qaRequest.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
+//        mPublishTime.setText(createTime);
+//
+//
+//        // user name
+//        TextView mUserName = (TextView) root.findViewById(R.id.user_name);
+//
+//        mUserName.setText(qaRequest.getUserName());
+//        if (UserInfo.MALE.equals(qaRequest.getUserGender())) {
+//            mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
+//        } else {
+//            mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
+//        }
+//
+//        // user icon
+//        CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
+//        if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
+//            PicassoTools.getPicasso()
+//                    .load(qaRequest.getUserIcon())
+//                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+//                    .centerInside()
+//                    .error(R.drawable.gray_profile)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//                    .config(Bitmap.Config.RGB_565)
+//                    .into(mUserIcon);
+//        } else {
+//            mUserIcon.setImageResource(R.drawable.gray_profile);
+//        }
     }
 }

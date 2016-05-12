@@ -166,9 +166,13 @@ public class RouteMapFragment extends BaseRouteFragment implements BaiduMap.OnMa
         overlay.setData(mGeocodes);
 
         // 当不显示更多和路线时不显示更多
-        boolean isShowMore = showMore.getTag() != null ? (boolean) showMore.getTag() : true;
-        boolean isPlan = !routeActivity.isRoute();
-        overlay.setShowMore(isPlan && isShowMore);
+        if (showMore == null) {
+            overlay.setShowMore(false);
+        } else {
+            boolean isShowMore = showMore.getTag() != null ? (boolean) showMore.getTag() : true;
+            boolean isPlan = !routeActivity.isRoute();
+            overlay.setShowMore(isPlan && isShowMore);
+        }
 
         // add to map
         rootView.postDelayed(new Runnable() {

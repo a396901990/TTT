@@ -2,11 +2,13 @@ package com.dean.travltotibet.adapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 
 import com.dean.travltotibet.fragment.PrepareDetailFragment;
 import com.dean.travltotibet.model.InfoType;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.ArrayList;
 
@@ -52,7 +54,14 @@ public class PrepareDetailPageAdapter extends FragmentStatePagerAdapter {
         for (int i=0; i<types.size(); i++) {
             String title = InfoType.INFO_TEXT.get(types.get(i));
             mTitles.put(i, title);
-            mFragments.put(i, new PrepareDetailFragment(mInfoTypes.get(i), mRoute, mType));
+
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentExtra.INTENT_PREPARE_DETAIL_ROUTE, mRoute);
+            bundle.putString(IntentExtra.INTENT_PREPARE_DETAIL_TYPE, mType);
+            bundle.putSerializable(IntentExtra.INTENT_PREPARE_DETAIL_INFO_TYPE, mInfoTypes.get(i));
+            PrepareDetailFragment prepareDetailFragment = new PrepareDetailFragment();
+            prepareDetailFragment.setArguments(bundle);
+            mFragments.put(i, prepareDetailFragment);
         }
         notifyDataSetChanged();
     }

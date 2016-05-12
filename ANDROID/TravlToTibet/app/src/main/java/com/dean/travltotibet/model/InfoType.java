@@ -1,7 +1,5 @@
 package com.dean.travltotibet.model;
 
-import android.content.Context;
-
 import com.dean.travltotibet.R;
 
 import java.util.ArrayList;

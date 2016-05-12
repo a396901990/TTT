@@ -16,6 +16,7 @@ import com.dean.travltotibet.base.LoadingBackgroundManager;
 import com.dean.travltotibet.model.InfoType;
 import com.dean.travltotibet.model.PrepareInfo;
 import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.util.IntentExtra;
 
 import java.util.List;
 
@@ -39,12 +40,6 @@ public class PrepareDetailFragment extends Fragment {
 
     private LoadingBackgroundManager loadingBackgroundManager;
 
-    public PrepareDetailFragment(InfoType infoType, String route, String type) {
-        this.mInfoType = infoType;
-        this.mRoute = route;
-        this.mType = type;
-    }
-
     public PrepareDetailFragment() {
         super();
     }
@@ -64,9 +59,30 @@ public class PrepareDetailFragment extends Fragment {
         mWebView.setWebViewClient(new SimpleWebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
 
+        if (getArguments() != null) {
+            mInfoType = (InfoType) getArguments().getSerializable(IntentExtra.INTENT_PREPARE_DETAIL_INFO_TYPE);
+            mRoute = getArguments().getString(IntentExtra.INTENT_PREPARE_DETAIL_ROUTE);
+            mType = getArguments().getString(IntentExtra.INTENT_PREPARE_DETAIL_TYPE);
+        }
+
+        if (savedInstanceState != null) {
+            mInfoType = (InfoType) getArguments().getSerializable(IntentExtra.INTENT_PREPARE_DETAIL_INFO_TYPE);
+            mRoute = getArguments().getString(IntentExtra.INTENT_PREPARE_DETAIL_ROUTE);
+            mType = getArguments().getString(IntentExtra.INTENT_PREPARE_DETAIL_TYPE);
+        }
+
         // 初始化数据
         initLoadingBackground();
         initData();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentExtra.INTENT_PREPARE_DETAIL_ROUTE, mRoute);
+        bundle.putString(IntentExtra.INTENT_PREPARE_DETAIL_TYPE, mType);
+        bundle.putSerializable(IntentExtra.INTENT_PREPARE_DETAIL_INFO_TYPE, mInfoType);
     }
 
     private void initLoadingBackground() {
@@ -88,6 +104,9 @@ public class PrepareDetailFragment extends Fragment {
         query.findObjects(getActivity(), new FindListener<PrepareInfo>() {
             @Override
             public void onSuccess(List<PrepareInfo> list) {
+                if (list == null || list.size() == 0) {
+                    return;
+                }
                 PrepareInfo prepareFile = list.get(0);
                 if (prepareFile != null && mInfoType != null) {
                     String url = InfoType.getInfoResult(mInfoType, prepareFile);
