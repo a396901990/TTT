@@ -159,6 +159,7 @@ public class NavigationFragment extends LoginFragment {
                                 @Override
                                 public void onPositive(MaterialDialog dialog) {
                                     LoginUtil.getInstance().logout();
+                                    checkNotification();
                                     dialog.dismiss();
                                 }
 
@@ -180,30 +181,40 @@ public class NavigationFragment extends LoginFragment {
             return;
         }
 
-        BmobQuery<UserMessage> query1 = new BmobQuery<>();
-        query1.addWhereRelatedTo("UserMessage", new BmobPointer(TTTApplication.getUserInfo()));
-        query1.addWhereEqualTo("status", UserMessage.UNREAD_STATUS);
-        query1.findObjects(getActivity(), new FindListener<UserMessage>() {
-            @Override
-            public void onSuccess(List<UserMessage> list) {
-                IconicsDrawable iconicsDrawable;
-                ImageView notificationIcon = (ImageView) root.findViewById(R.id.my_notification_icon);
-                if (list.size() > 0) {
-                    iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.light_red)).sizeDp(18);
-                } else {
-                    iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.white)).sizeDp(18);
+        if (!TTTApplication.hasLoggedIn()) {
+            resetNotification();
+        } else {
+            BmobQuery<UserMessage> query = new BmobQuery<>();
+            query.addWhereRelatedTo("UserMessage", new BmobPointer(TTTApplication.getUserInfo()));
+            query.addWhereEqualTo("status", UserMessage.UNREAD_STATUS);
+            query.findObjects(getActivity(), new FindListener<UserMessage>() {
+                @Override
+                public void onSuccess(List<UserMessage> list) {
+                    if (list.size() > 0) {
+                        hasNewNotification();
+                    } else {
+                        resetNotification();
+                    }
                 }
-                notificationIcon.setImageDrawable(iconicsDrawable);
-            }
 
-            @Override
-            public void onError(int i, String s) {
-                IconicsDrawable iconicsDrawable;
-                ImageView notificationIcon = (ImageView) root.findViewById(R.id.my_notification_icon);
-                iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.white)).sizeDp(18);
-                notificationIcon.setImageDrawable(iconicsDrawable);
-            }
-        });
+                @Override
+                public void onError(int i, String s) {
+                    resetNotification();
+                }
+            });
+        }
+    }
+
+    private void hasNewNotification() {
+        ImageView notificationIcon = (ImageView) root.findViewById(R.id.my_notification_icon);
+        IconicsDrawable iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.light_red)).sizeDp(18);
+        notificationIcon.setImageDrawable(iconicsDrawable);
+    }
+
+    public void resetNotification() {
+        ImageView notificationIcon = (ImageView) root.findViewById(R.id.my_notification_icon);
+        IconicsDrawable iconicsDrawable = new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_notifications).color(TTTApplication.getMyColor(R.color.white)).sizeDp(18);
+        notificationIcon.setImageDrawable(iconicsDrawable);
     }
 
     private void initSettingItemView() {

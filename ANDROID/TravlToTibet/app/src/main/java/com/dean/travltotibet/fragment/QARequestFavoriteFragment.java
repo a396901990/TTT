@@ -22,6 +22,7 @@ public class QARequestFavoriteFragment extends QARequestBaseFragment {
         BmobQuery<QARequest> query = new BmobQuery<>();
         query.addWhereRelatedTo("QAFavorite", new BmobPointer(TTTApplication.getUserInfo()));
         query.addWhereEqualTo("status", QARequest.PASS_STATUS);
+        query.include("user");
         query.order("-createdAt");
 
         // 加载更多

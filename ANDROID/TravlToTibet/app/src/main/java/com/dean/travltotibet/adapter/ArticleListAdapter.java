@@ -2,6 +2,7 @@ package com.dean.travltotibet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,9 @@ import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -70,7 +73,13 @@ public class ArticleListAdapter extends BaseAdapter {
 
         // 背景
         if (!TextUtils.isEmpty(article.getTitleImage())) {
-            Picasso.with(mContext).load(article.getTitleImage()).error(R.color.light_gray).into(holder.mBackgroundView);
+            PicassoTools.getPicasso()
+                    .load(article.getTitleImage())
+                    .centerInside()
+                    .resizeDimen(R.dimen.home_recent_item_width, R.dimen.home_recent_item_height)
+                    .error(R.color.light_gray)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(holder.mBackgroundView);
         }
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

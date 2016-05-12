@@ -16,6 +16,7 @@ import com.dean.travltotibet.model.AnswerInfo;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.PicassoTools;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -76,7 +77,7 @@ public class AnswerDetailFragment extends Fragment {
         // user icon
         CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
         if (!TextUtils.isEmpty(answerInfo.getUserIcon())) {
-            Picasso.with(getActivity())
+            PicassoTools.getPicasso()
                     .load(answerInfo.getUserIcon())
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
                     .centerInside()

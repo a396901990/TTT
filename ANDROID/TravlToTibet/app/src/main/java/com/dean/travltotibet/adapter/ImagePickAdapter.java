@@ -16,6 +16,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.ImagePreviewDialogFragment;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
 import com.dean.travltotibet.model.ImageFile;
+import com.dean.travltotibet.util.PicassoTools;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.squareup.picasso.Picasso;
 
@@ -97,7 +98,7 @@ public class ImagePickAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // 显示添加，从本地加载图片
             else {
                 String url = mData.get(position);
-                Picasso.with(mContext)
+                PicassoTools.getPicasso()
                         .load(new File(url))
                         .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
                         .error(R.color.light_gray)

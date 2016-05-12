@@ -22,6 +22,7 @@ import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -85,7 +86,7 @@ public class ReplyCommentListAdapter extends BaseAdapter {
         }
         // profile Image old/new logic
         if (comment.getUser() != null && !TextUtils.isEmpty(comment.getUser().getUserIcon())) {
-            Picasso.with(mContext)
+            PicassoTools.getPicasso()
                     .load(comment.getUser().getUserIcon())
                     .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
@@ -95,7 +96,7 @@ public class ReplyCommentListAdapter extends BaseAdapter {
                     .into(holder.profileImage);
         } else {
             if (!TextUtils.isEmpty(comment.getUser_icon())) {
-                Picasso.with(mContext)
+                PicassoTools.getPicasso()
                         .load(comment.getUser_icon())
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)

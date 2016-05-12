@@ -22,6 +22,7 @@ import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.squareup.picasso.Picasso;
@@ -130,7 +131,7 @@ public class HomeQAFragment extends BaseRefreshFragment {
         articleHeader = LayoutInflater.from(getActivity()).inflate(R.layout.team_request_header_view, null);
         ImageView backgroundImage = (ImageView) articleHeader.findViewById(R.id.background_image);
         if (!TextUtils.isEmpty(HEADER_IMAGE_URL)) {
-            Picasso.with(getActivity()).load(HEADER_IMAGE_URL).error(R.color.light_gray).into(backgroundImage);
+            PicassoTools.getPicasso().load(HEADER_IMAGE_URL).error(R.color.light_gray).into(backgroundImage);
         }
         MaterialRippleLayout contentView = (MaterialRippleLayout) articleHeader.findViewById(R.id.ripple_view);
         contentView.setOnClickListener(new View.OnClickListener() {

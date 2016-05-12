@@ -19,6 +19,7 @@ import com.dean.travltotibet.model.GalleryInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
@@ -54,7 +55,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         if (galleryInfo.getUrl() != null) {
             String picURL = galleryInfo.getUrl().split(Constants.URL_MARK)[0];
             if (!TextUtils.isEmpty(picURL)) {
-                Picasso.with(mContext)
+                PicassoTools.getPicasso()
                         .load(picURL)
                         .resizeDimen(R.dimen.image_pick_show_height, R.dimen.image_pick_show_height)
                         .config(Bitmap.Config.RGB_565)

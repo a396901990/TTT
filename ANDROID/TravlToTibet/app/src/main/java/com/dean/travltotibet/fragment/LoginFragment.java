@@ -14,6 +14,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.PicassoTools;
 import com.squareup.picasso.Picasso;
 
 import de.greenrobot.event.EventBus;
@@ -96,7 +97,7 @@ public class LoginFragment extends Fragment {
 
         // 设置图片
         if (!TextUtils.isEmpty(userInfo.getUserIcon())) {
-            Picasso.with(getActivity()).load(userInfo.getUserIcon()).error(R.drawable.gray_profile).into(profileImage);
+            PicassoTools.getPicasso().load(userInfo.getUserIcon()).error(R.drawable.gray_profile).into(profileImage);
         } else
         {
             profileImage.setImageResource(R.drawable.gray_profile);

@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.util.PicassoTools;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.widget.TouchImageView;
 import com.squareup.picasso.MemoryPolicy;
@@ -153,7 +154,7 @@ public class ImagePreviewDialogFragment extends DialogFragment {
             });
 
             if (isURL) {
-                Picasso.with(imageView.getContext())
+                PicassoTools.getPicasso()
                         .load(url)
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .placeholder(R.drawable.default_img)
@@ -161,7 +162,7 @@ public class ImagePreviewDialogFragment extends DialogFragment {
                         .error(R.color.light_gray)
                         .into(imageView);
             } else {
-                Picasso.with(imageView.getContext())
+                PicassoTools.getPicasso()
                         .load(new File(url))
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .placeholder(R.drawable.default_img)

@@ -14,6 +14,7 @@ import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.model.Article;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
@@ -49,7 +50,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         holder.mLike.setText(article.getLike() + "");
 
         if (!TextUtils.isEmpty(article.getTitleImage())) {
-            Picasso.with(mContext)
+            PicassoTools.getPicasso()
                     .load(article.getTitleImage())
                     .resizeDimen(R.dimen.home_recent_item_height, R.dimen.home_recent_item_height)
                     .error(R.color.light_gray)

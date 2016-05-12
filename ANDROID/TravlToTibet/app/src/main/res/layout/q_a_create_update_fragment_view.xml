@@ -53,7 +53,7 @@
                     android:id="@+id/title_edit_text"
                     style="@style/TextAppearance.Regular"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="80dp"
                     android:layout_above="@+id/picker_image_list_rv"
                     android:layout_below="@+id/title_header_view"
                     android:background="@color/white"

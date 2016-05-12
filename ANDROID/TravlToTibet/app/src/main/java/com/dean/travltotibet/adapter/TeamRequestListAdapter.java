@@ -22,6 +22,7 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.ui.tagview.Tag;
 import com.dean.travltotibet.ui.tagview.TagView;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
@@ -101,7 +102,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
 
         // user icon
         if (!TextUtils.isEmpty(request.getUserIcon())) {
-            Picasso.with(mContext)
+            PicassoTools.getPicasso()
                     .load(request.getUserIcon())
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
                     .centerInside()

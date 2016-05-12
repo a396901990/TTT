@@ -312,9 +312,11 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
 
         if (!filed.isSet(PASS_TITLE)) {
             Toast.makeText(getActivity(), "标题不得少于10个字", Toast.LENGTH_SHORT).show();
-        } else if (!filed.isSet(PASS_CONTENT)) {
-            Toast.makeText(getActivity(), "内容不得少于10个字", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+//        else if (!filed.isSet(PASS_CONTENT)) {
+//            Toast.makeText(getActivity(), "内容不得少于10个字", Toast.LENGTH_SHORT).show();
+//        }
+        else {
             return true;
         }
         return false;

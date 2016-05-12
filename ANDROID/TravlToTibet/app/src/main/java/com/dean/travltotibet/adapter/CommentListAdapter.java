@@ -14,6 +14,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.PicassoTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class CommentListAdapter extends BaseAdapter {
 
         // profile Image
         if (!TextUtils.isEmpty(comment.getUser_icon())) {
-            Picasso.with(mContext).load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
+            PicassoTools.getPicasso().load(comment.getUser_icon()).error(R.drawable.gray_profile).into(holder.profileImage);
         } else {
             holder.profileImage.setImageResource(R.drawable.gray_profile);
         }

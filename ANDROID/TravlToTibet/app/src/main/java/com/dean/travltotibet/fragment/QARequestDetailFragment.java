@@ -23,6 +23,7 @@ import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -282,7 +283,7 @@ public class QARequestDetailFragment extends Fragment {
             View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.flow_image_item_view, null, false);
             CircleImageView userView = (CircleImageView) itemView.findViewById(R.id.item_view);
 
-            Picasso.with(getActivity())
+            PicassoTools.getPicasso()
                     .load(userInfo.getUserIcon())
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
                     .centerInside()
@@ -347,7 +348,7 @@ public class QARequestDetailFragment extends Fragment {
         // user icon
         CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
         if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
-            Picasso.with(getActivity())
+            PicassoTools.getPicasso()
                     .load(qaRequest.getUserIcon())
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
                     .centerInside()

@@ -26,6 +26,7 @@ import com.dean.travltotibet.ui.HorizontalItemDecoration;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -111,7 +112,7 @@ public class TeamShowRequestDetailFragment extends Fragment {
         }
         // user icon
         if (!TextUtils.isEmpty(teamRequest.getUserIcon())) {
-            Picasso.with(getActivity())
+            PicassoTools.getPicasso()
                     .load(teamRequest.getUserIcon())
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
                     .centerInside()

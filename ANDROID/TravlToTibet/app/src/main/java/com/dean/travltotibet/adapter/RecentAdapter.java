@@ -21,6 +21,7 @@ import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.squareup.picasso.Picasso;
@@ -92,7 +93,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.RecentView
         Random random = new Random();
         int picId = random.nextInt(picURLs.length);
         if (!TextUtils.isEmpty(picURLs[picId].trim())) {
-            Picasso.with(mContext)
+            PicassoTools.getPicasso()
                     .load(picURLs[picId])
                     .resizeDimen(R.dimen.home_recent_item_width, R.dimen.home_recent_item_height)
                     .error(R.color.light_gray)

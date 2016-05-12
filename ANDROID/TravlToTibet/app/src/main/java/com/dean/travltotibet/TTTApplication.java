@@ -16,9 +16,11 @@ import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.ui.chart.PointManager;
 import com.dean.travltotibet.util.LoginUtil;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ResourceUtil;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
+import com.squareup.picasso.Picasso;
 
 import cn.bmob.v3.BmobUser;
 import cn.sharesdk.framework.Platform;
@@ -72,6 +74,18 @@ public class TTTApplication extends Application {
         PointManager.init(instance);
         AppUtil.saveVersionCode(context);
         AppUtil.saveVersionName(context);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        PicassoTools.clearCache();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        PicassoTools.clearCache();
     }
 
     private void initPreferences() {

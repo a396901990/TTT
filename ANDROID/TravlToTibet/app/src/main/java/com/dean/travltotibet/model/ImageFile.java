@@ -11,6 +11,7 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.ImagePreviewDialogFragment;
 import com.dean.travltotibet.dialog.TeamMakeTravelTypeDialog;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.SystemUtil;
 import com.dean.travltotibet.util.VolleyImageUtils;
 import com.pizidea.imagepicker.AndroidImagePicker;
@@ -107,7 +108,7 @@ public class ImageFile extends BmobObject {
 
         final String url = file.getFileUrl(mContext);
         imageView.setVisibility(View.VISIBLE);
-        Picasso.with(mContext)
+        PicassoTools.getPicasso()
                 .load(url)
                 .placeholder(R.color.less_light_gray)
                 .error(R.color.light_gray)

@@ -17,6 +17,7 @@ import com.dean.travltotibet.model.TravelType;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +49,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         // 图片url(取第一个)
         if (!TextUtils.isEmpty(route.getPic_url().trim())) {
             String picURL = route.getPic_url().split(Constants.URL_MARK)[0];
-            Picasso.with(mContext)
+            PicassoTools.getPicasso()
                     .load(picURL)
                     .resizeDimen(R.dimen.home_recommend_item_width, R.dimen.home_recommend_item_height)
                     .error(R.color.light_gray)

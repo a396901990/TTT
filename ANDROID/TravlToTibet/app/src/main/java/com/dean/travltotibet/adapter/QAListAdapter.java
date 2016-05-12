@@ -19,8 +19,8 @@ import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -82,8 +82,8 @@ public class QAListAdapter extends BaseAdapter {
             holder.mWarningView.setVisibility(View.GONE);
         }
 
-        // content
-        holder.mContentText.setText(request.getContent());
+        // title
+        holder.mContentTitle.setText(request.getTitle());
 
         // user name
         holder.mUserName.setText(request.getUserName());
@@ -95,7 +95,7 @@ public class QAListAdapter extends BaseAdapter {
 
         // user icon
         if (!TextUtils.isEmpty(request.getUserIcon())) {
-            Picasso.with(mContext)
+            PicassoTools.getPicasso()
                     .load(request.getUserIcon())
                     .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
                     .centerInside()
@@ -145,7 +145,7 @@ public class QAListAdapter extends BaseAdapter {
     public class QAViewHolder {
 
         private MaterialRippleLayout rippleLayout;
-        private TextView mContentText;
+        private TextView mContentTitle;
 
         private TextView mUserName;
         private CircleImageView mUserIcon;
@@ -155,7 +155,7 @@ public class QAListAdapter extends BaseAdapter {
         private TextView mWarningText;
 
         public QAViewHolder(View itemView) {
-            mContentText = (TextView) itemView.findViewById(R.id.message_text);
+            mContentTitle = (TextView) itemView.findViewById(R.id.message_title);
 
             mUserName = (TextView) itemView.findViewById(R.id.user_name);
 //            mUserGender = itemView.findViewById(R.id.user_gender);
