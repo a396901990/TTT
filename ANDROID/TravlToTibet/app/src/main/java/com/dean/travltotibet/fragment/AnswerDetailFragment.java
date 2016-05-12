@@ -79,7 +79,7 @@ public class AnswerDetailFragment extends Fragment {
         if (!TextUtils.isEmpty(answerInfo.getUserIcon())) {
             PicassoTools.getPicasso()
                     .load(answerInfo.getUserIcon())
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
                     .centerInside()
                     .error(R.drawable.gray_profile)
                     .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)

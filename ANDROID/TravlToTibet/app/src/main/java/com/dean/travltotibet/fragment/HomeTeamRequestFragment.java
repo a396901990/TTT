@@ -25,7 +25,6 @@ import com.dean.travltotibet.util.DateUtil;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;

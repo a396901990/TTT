@@ -3,6 +3,7 @@ package com.dean.travltotibet.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
+import com.squareup.picasso.MemoryPolicy;
 
 import java.util.ArrayList;
 
@@ -97,9 +99,10 @@ public class QAListAdapter extends BaseAdapter {
         if (!TextUtils.isEmpty(request.getUserIcon())) {
             PicassoTools.getPicasso()
                     .load(request.getUserIcon())
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
                     .centerInside()
                     .error(R.drawable.gray_profile)
+                    .config(Bitmap.Config.RGB_565)
                     .into(holder.mUserIcon);
         } else {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);

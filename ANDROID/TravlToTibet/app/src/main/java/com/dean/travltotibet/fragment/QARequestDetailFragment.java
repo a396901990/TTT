@@ -285,7 +285,7 @@ public class QARequestDetailFragment extends Fragment {
 
             PicassoTools.getPicasso()
                     .load(userInfo.getUserIcon())
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
                     .centerInside()
                     .error(R.drawable.gray_profile)
                     .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -350,7 +350,7 @@ public class QARequestDetailFragment extends Fragment {
 //        if (!TextUtils.isEmpty(qaRequest.getUserIcon())) {
 //            PicassoTools.getPicasso()
 //                    .load(qaRequest.getUserIcon())
-//                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+//                    .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
 //                    .centerInside()
 //                    .error(R.drawable.gray_profile)
 //                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)

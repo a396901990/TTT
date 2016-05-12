@@ -10,6 +10,7 @@ import com.dean.travltotibet.model.HotelInfo;
 import com.dean.travltotibet.model.RoadInfo;
 import com.dean.travltotibet.model.ScenicInfo;
 import com.dean.travltotibet.model.TeamRequest;
+import com.dean.travltotibet.model.UserFavorites;
 import com.dean.travltotibet.model.UserInfo;
 
 import java.util.List;
@@ -25,16 +26,18 @@ import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 5/11/16.
+ * last update 5.12
  */
 public class MoveOldLogicUtil {
 
     /**
      * 配合老逻辑手工添加
      */
-    public static void moveToArticle(final Context context) {
+    public static void moveCommentForArticle(final Context context) {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.ARTICLE_COMMENT);
-//        query.setSkip(100);
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -68,10 +71,11 @@ public class MoveOldLogicUtil {
         });
     }
 
-    public static void moveToHotel(final Context context) {
+    public static void moveCommentForHotel(final Context context) {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.HOTEL_COMMENT);
-//        query.setSkip(100);
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -105,10 +109,11 @@ public class MoveOldLogicUtil {
         });
     }
 
-    public static void moveToScenic(final Context context) {
+    public static void moveCommentForScenic(final Context context) {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.SCENIC_COMMENT);
-//        query.setSkip(100);
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -142,10 +147,11 @@ public class MoveOldLogicUtil {
         });
     }
 
-    public static void moveToRoadInfo(final Context context) {
+    public static void moveCommentForRoadInfo(final Context context) {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.ROAD_INFO_COMMENT);
-//        query.setSkip(100);
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -179,10 +185,11 @@ public class MoveOldLogicUtil {
         });
     }
 
-    public static void moveToTeamRequest(final Context context) {
+    public static void moveCommentForTeamRequest(final Context context) {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.TEAM_REQUEST_COMMENT);
-        query.setSkip(400);
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -220,9 +227,10 @@ public class MoveOldLogicUtil {
      * bmob更新数据bug，有时会重置number变量
      * @param context
      */
-    public static void changeTeamRequestComment(final Context context) {
+    public static void changeTeamRequestCommentWatch(final Context context) {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
-        query.setSkip(100);
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
         query.findObjects(context, new FindListener<TeamRequest>() {
             @Override
             public void onSuccess(List<TeamRequest> list) {
@@ -242,4 +250,104 @@ public class MoveOldLogicUtil {
             }
         });
     }
+
+
+    /**
+     * 用户发布的TeamRequest移动到user中
+     */
+    public static void moveTeamRequestToUser(final Context context) {
+        BmobQuery<TeamRequest> query = new BmobQuery<>();
+        query.order("-createdAt"); // 最新的放前面
+        query.setLimit(20);
+        query.include("user");
+//        query.setSkip(100);
+        query.findObjects(context, new FindListener<TeamRequest>() {
+            @Override
+            public void onSuccess(List<TeamRequest> list) {
+                for (final TeamRequest t : list) {
+                    if (t.getUserId() != null) {
+                        BmobUser.loginByAccount(TTTApplication.getContext(), t.getUserId(), LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
+
+                            @Override
+                            public void done(final UserInfo user, BmobException e) {
+                                if (user != null) {
+
+                                    final BmobRelation relation = new BmobRelation();
+                                    TeamRequest teamRequest = new TeamRequest();
+                                    teamRequest.setObjectId(t.getObjectId());
+                                    relation.add(teamRequest);
+                                    user.setTeamRequest(relation);
+                                    user.update(context, new UpdateListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Log.e("userId", user.getUserName());
+                                        }
+
+                                        @Override
+                                        public void onFailure(int i, String s) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
+
+    /**
+     * 手工将旧逻辑数据添加到user中
+     */
+    public static void moveToFavorites(final Context context) {
+        BmobQuery<UserFavorites> query = new BmobQuery<UserFavorites>();
+        query.order("-createdAt"); // 最新的放前面
+        query.addWhereEqualTo("type", UserFavorites.TEAM_REQUEST);
+        query.setLimit(3);
+        query.findObjects(context, new FindListener<UserFavorites>() {
+            @Override
+            public void onSuccess(List<UserFavorites> list) {
+                for (UserFavorites f : list) {
+                    String userId = f.getUserId();
+                    final String id = f.getTypeObjectId();
+                    BmobUser.loginByAccount(TTTApplication.getContext(), userId, LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
+
+                        @Override
+                        public void done(final UserInfo user, BmobException e) {
+                            if (user != null) {
+
+                                TeamRequest teamRequest = new TeamRequest();
+                                teamRequest.setObjectId(id);
+                                BmobRelation relation = new BmobRelation();
+                                relation.add(teamRequest);
+                                user.setTeamFavorite(relation);
+                                user.update(context, new UpdateListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        Log.e("userId", user.getUserName());
+                                    }
+
+                                    @Override
+                                    public void onFailure(int i, String s) {
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+            }
+        });
+    }
+
 }

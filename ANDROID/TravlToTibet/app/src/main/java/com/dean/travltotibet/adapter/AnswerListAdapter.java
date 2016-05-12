@@ -85,7 +85,7 @@ public class AnswerListAdapter extends BaseAdapter {
         if (answerInfo.getUser() != null && !TextUtils.isEmpty(answerInfo.getUser().getUserIcon())) {
             PicassoTools.getPicasso()
                     .load(answerInfo.getUser().getUserIcon())
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
                     .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .centerInside()
                     .error(R.drawable.gray_profile)

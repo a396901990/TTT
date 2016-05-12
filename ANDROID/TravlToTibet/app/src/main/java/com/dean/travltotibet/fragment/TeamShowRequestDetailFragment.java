@@ -94,7 +94,6 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
     private void initHeaderView() {
         TextView mUserName = (TextView) root.findViewById(R.id.user_name);
-        View mUserGender = root.findViewById(R.id.user_gender);
         CircleImageView mUserIcon = (CircleImageView) root.findViewById(R.id.user_icon);
         TextView mPublishTime = (TextView) root.findViewById(R.id.publish_time);
 
@@ -105,19 +104,17 @@ public class TeamShowRequestDetailFragment extends Fragment {
         mUserName.setText(teamRequest.getUserName());
         if (UserInfo.MALE.equals(teamRequest.getUserGender())) {
             mUserName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
-            mUserGender.setBackgroundResource(R.drawable.male_gender_view);
         } else {
             mUserName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
-            mUserGender.setBackgroundResource(R.drawable.female_gender_view);
         }
         // user icon
         if (!TextUtils.isEmpty(teamRequest.getUserIcon())) {
             PicassoTools.getPicasso()
                     .load(teamRequest.getUserIcon())
-                    .resizeDimen(R.dimen.image_pick_height, R.dimen.image_pick_height)
+                    .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .centerInside()
                     .error(R.drawable.gray_profile)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .config(Bitmap.Config.RGB_565)
                     .into(mUserIcon);
         } else {

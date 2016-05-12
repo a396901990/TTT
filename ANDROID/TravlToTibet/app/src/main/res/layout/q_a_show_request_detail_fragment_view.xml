@@ -129,8 +129,8 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/border_theme"
                         android:paddingBottom="@dimen/card_half_padding"
-                        android:paddingLeft="@dimen/card_large_padding"
-                        android:paddingRight="@dimen/card_large_padding"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
                         android:paddingTop="@dimen/card_half_padding"
                         android:text="同问" />
 
@@ -143,8 +143,8 @@
                         android:layout_marginLeft="@dimen/card_half_padding"
                         android:background="@drawable/border_theme"
                         android:paddingBottom="@dimen/card_half_padding"
-                        android:paddingLeft="@dimen/card_large_padding"
-                        android:paddingRight="@dimen/card_large_padding"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
                         android:paddingTop="@dimen/card_half_padding"
                         android:text="回答" />
                 </LinearLayout>

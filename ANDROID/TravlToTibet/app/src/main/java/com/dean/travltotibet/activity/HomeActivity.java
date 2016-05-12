@@ -25,6 +25,7 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
 import com.dean.travltotibet.fragment.HomeCommunityFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.dean.travltotibet.util.MoveOldLogicUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -68,7 +69,7 @@ public class HomeActivity extends BaseActivity {
         SearchFilterManger.init(this);
 
         // 处理老逻辑数据
-//        MoveOldLogicUtil.changeTeamRequestComment(this);
+//        MoveOldLogicUtil.moveToFavorites(this);
     }
 
     private void initMenu() {

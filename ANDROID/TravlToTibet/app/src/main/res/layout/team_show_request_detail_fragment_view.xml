@@ -33,6 +33,7 @@
             android:orientation="vertical"
             android:padding="@dimen/card_padding">
 
+
             <!--header-->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -41,47 +42,35 @@
                 <!--头像-->
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/user_icon"
-                    android:layout_width="@dimen/team_request_profile_size"
-                    android:layout_height="@dimen/team_request_profile_size"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/gray_profile"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="0dp" />
 
-                <LinearLayout
+                <!--用户名称-->
+                <TextView
+                    android:id="@+id/user_name"
+                    style="@style/TextAppearance.Micro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/user_icon"
                     android:orientation="vertical"
-                    android:paddingLeft="5dp">
-
-                    <!--用户名称-->
-                    <TextView
-                        android:id="@+id/user_name"
-                        style="@style/TextAppearance.Micro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="户外探子"
-                        android:textColor="@color/colorPrimary" />
-
-                    <!--用户性别-->
-                    <View
-                        android:id="@+id/user_gender"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/male_gender_view" />
-                </LinearLayout>
+                    android:paddingLeft="5dp"
+                    android:text="户外探子"
+                    android:textColor="@color/colorPrimary" />
 
                 <!--发布时间-->
                 <TextView
                     android:id="@+id/publish_time"
-                    style="@style/TextAppearance.Small"
+                    style="@style/TextAppearance.Micro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="center"
+                    android:layout_centerVertical="true"
                     android:text="5分钟前"
                     android:textColor="@color/gray" />
             </RelativeLayout>
