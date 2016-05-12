@@ -67,20 +67,6 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/watch"
-                        style="@style/TextAppearance.Mini"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/border_half_blue"
-                        android:paddingBottom="1dp"
-                        android:paddingLeft="6dp"
-                        android:paddingRight="6dp"
-                        android:paddingTop="1dp"
-                        android:text="30"
-                        android:textColor="@color/colorPrimary" />
-
                 </RelativeLayout>
 
                 <!--评论-->
@@ -94,12 +80,49 @@
                     <TextView
                         android:id="@+id/comment_text"
                         style="@style/TextAppearance.Small"
+                        android:maxLines="5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="5"
                         android:text="真心是个好地阿芳，推荐大家都去看看，很漂亮的哦~~~" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </com.dean.travltotibet.ui.MaterialRippleLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/card_padding"
+        android:id="@+id/like_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/border_light_gray"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_like_white" />
+
+            <TextView
+                android:id="@+id/like_text"
+                style="@style/TextAppearance.Micro.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/card_half_padding"
+                android:text="0" />
+        </LinearLayout>
+
+    </LinearLayout>
 </FrameLayout>

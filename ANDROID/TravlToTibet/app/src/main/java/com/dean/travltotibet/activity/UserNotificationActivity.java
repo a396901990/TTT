@@ -1,6 +1,5 @@
 package com.dean.travltotibet.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -13,12 +12,9 @@ import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
-import com.dean.travltotibet.fragment.QARequestFavoriteFragment;
-import com.dean.travltotibet.fragment.TeamRequestFavoriteFragment;
 import com.dean.travltotibet.fragment.UserMessageBaseFragment;
 import com.dean.travltotibet.fragment.UserNotificationFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
-import com.dean.travltotibet.util.ScreenUtil;
 
 /**
  * Created by DeanGuo on 5/11/16.

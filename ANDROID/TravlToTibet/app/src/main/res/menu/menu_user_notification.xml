@@ -5,13 +5,13 @@
         android:id="@+id/action_verified"
         android:icon="@drawable/icon_verified"
         android:orderInCategory="100"
-        android:title="@string/action_del"
+        android:title="标记为已读"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_del"
         android:icon="@drawable/icon_delete"
         android:orderInCategory="100"
-        android:title="@string/action_del"
+        android:title="清空列表"
         app:showAsAction="always" />
 </menu>
