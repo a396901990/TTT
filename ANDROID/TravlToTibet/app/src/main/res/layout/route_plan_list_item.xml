@@ -16,6 +16,7 @@
             android:background="@color/less_gray_background">
 
             <LinearLayout
+                android:layout_toLeftOf="@+id/detail_content"
                 android:layout_width="wrap_content"
                 android:layout_height="54dp"
                 android:layout_alignParentLeft="true"
@@ -48,6 +49,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/detail_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

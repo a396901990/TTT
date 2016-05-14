@@ -21,6 +21,7 @@ import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.model.AnswerInfo;
 import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
@@ -77,21 +78,28 @@ public class AnswerListAdapter extends BaseAdapter {
 
         final AnswerInfo answerInfo = mData.get(position);
 
-        // profile Text
-        if (answerInfo.getUser() != null && !TextUtils.isEmpty(answerInfo.getUser().getUserName())) {
-            holder.profileName.setText(answerInfo.getUser().getUserName());
+        // profile Name
+        holder.profileName.setText(answerInfo.getUserName());
+        if (UserInfo.MALE.equals(answerInfo.getUserGender())) {
+            holder.profileName.setTextColor(TTTApplication.getMyColor(R.color.colorPrimary));
+        } else {
+            holder.profileName.setTextColor(TTTApplication.getMyColor(R.color.light_red));
         }
+//        if (answerInfo.getUser() != null && !TextUtils.isEmpty(answerInfo.getUser().getUserName())) {
+//            holder.profileName.setText(answerInfo.getUser().getUserName());
+//        }
+
         // profile Image
-        if (answerInfo.getUser() != null && !TextUtils.isEmpty(answerInfo.getUser().getUserIcon())) {
+//        if (answerInfo.getUser() != null && !TextUtils.isEmpty(answerInfo.getUser().getUserIcon())) {
             PicassoTools.getPicasso()
-                    .load(answerInfo.getUser().getUserIcon())
+                    .load(answerInfo.getUserIcon())
                     .resizeDimen(R.dimen.profile_icon_size, R.dimen.profile_icon_size)
                     .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .centerInside()
                     .error(R.drawable.gray_profile)
                     .config(Bitmap.Config.RGB_565)
                     .into(holder.profileImage);
-        }
+//        }
 
         // 评论时间
         String time = DateUtil.getTimeGap(answerInfo.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);

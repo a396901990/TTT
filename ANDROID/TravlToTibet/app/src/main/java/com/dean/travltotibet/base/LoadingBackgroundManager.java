@@ -2,6 +2,7 @@ package com.dean.travltotibet.base;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,24 @@ public class LoadingBackgroundManager {
         if (noResultText != null && !TextUtils.isEmpty(showText)) {
             noResultText.setText(showText);
         }
+    }
+
+    public void loadingNoResultView(String showText) {
+
+        loadingView.setVisibility(View.VISIBLE);
+        loadingProgressView.setVisibility(View.GONE);
+        loadingNoResultView.setVisibility(View.VISIBLE);
+        Log.e("showText", showText);
+        // 设置显示文字
+        TextView noResultText = (TextView) loadingView.findViewById(R.id.no_result_text);
+        if (noResultText != null && !TextUtils.isEmpty(showText)) {
+            noResultText.setText(showText);
+        }
+
+        // 暂不显示图片
+        View noResultIcon = loadingView.findViewById(R.id.no_result_icon);
+        noResultIcon.setVisibility(View.GONE);
+//        Log.e("showText", showText);
     }
 
     public LoadingRetryCallBack getLoadingRetryCallBack() {

@@ -21,7 +21,6 @@ import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     @Override
     public GalleryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_scenic_list_item_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_info_list_item_view, parent, false);
         return new GalleryViewHolder(view);
     }
 

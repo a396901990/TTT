@@ -34,6 +34,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
+        android:largeHeap="true"
         android:name=".TTTApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"

@@ -9,6 +9,7 @@
         <item>TUNNEL</item>
         <item>CHECK_POINT</item>
         <item>CAMP_SPOT</item>
+        <item>SCENIC_SPOT</item>
         <item>OTHERS</item>
     </string-array>
 
@@ -51,6 +52,7 @@
         <item>阿里北线</item>
         <item>珠峰线</item>
         <item>唐蕃古道</item>
+        <item>刚仁波齐转山</item>
         <item>环青海湖</item>
         <item>环海南岛</item>
     </string-array>

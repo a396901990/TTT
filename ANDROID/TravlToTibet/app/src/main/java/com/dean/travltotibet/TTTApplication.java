@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.dean.greendao.DaoMaster;
 import com.dean.greendao.DaoSession;
@@ -80,12 +81,14 @@ public class TTTApplication extends Application {
     public void onLowMemory() {
         super.onLowMemory();
         PicassoTools.clearCache();
+        Log.e("onLowMemory", "onLowMemory");
     }
 
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         PicassoTools.clearCache();
+        Log.e("onTrimMemory", "onTrimMemory");
     }
 
     private void initPreferences() {

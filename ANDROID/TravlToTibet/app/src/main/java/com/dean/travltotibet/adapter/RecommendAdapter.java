@@ -75,7 +75,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
                 Intent intent = new Intent(mContext, InfoActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ROUTE, route.getRoute());
                 intent.putExtra(IntentExtra.INTENT_ROUTE_NAME, route.getName());
-                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, TravelType.BIKE);
+                intent.putExtra(IntentExtra.INTENT_ROUTE_TYPE, route.getType());
                 mContext.startActivity(intent);
             }
         });

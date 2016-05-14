@@ -92,6 +92,7 @@ public class InfoActivity extends BaseActivity {
                 android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.MATCH_PARENT);
         layoutParams.gravity = Gravity.RIGHT;
         setCustomView(v, layoutParams);
+
         mMenuType = (ImageView) v.findViewById(R.id.header_menu_type);
         mMenuType.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +208,7 @@ public class InfoActivity extends BaseActivity {
     }
 
     public void updateMenu(boolean isShowMenu) {
+
         mMenuType.setVisibility(isShowMenu ? View.VISIBLE : View.GONE);
         mMenuType.setImageDrawable(TravelType.getActionBarImageSrc(getRouteType()));
 
