@@ -275,11 +275,9 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
         qaRequest.save(getActivity(), new SaveListener() {
             @Override
             public void onSuccess() {
-                if (mActivity == null) {
+                if (getActivity() == null) {
                     return;
                 }
-                toDo(LOADING_SUCCESS, 0);
-
                 // 存入user（QARequest关联）
                 UserInfo userInfo = TTTApplication.getUserInfo();
                 BmobRelation qaRelation = new BmobRelation();
@@ -288,12 +286,12 @@ public class QACreateUpdateFragment extends BaseRefreshFragment {
                 userInfo.update(getActivity(), new UpdateListener() {
                     @Override
                     public void onSuccess() {
-
+                        toDo(LOADING_SUCCESS, 0);
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-
+                        toDo(LOADING_SUCCESS, 0);
                     }
                 });
             }

@@ -103,6 +103,9 @@ public class HomeCommunityFragment extends Fragment {
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
                 openSearchDialog();
             }
         });

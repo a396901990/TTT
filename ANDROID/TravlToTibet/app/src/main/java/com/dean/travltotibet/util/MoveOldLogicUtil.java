@@ -230,7 +230,7 @@ public class MoveOldLogicUtil {
     public static void moveTeamRequestToUser(final Context context) {
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-createdAt"); // 最新的放前面
-        query.setLimit(20);
+        query.setLimit(5);
         query.include("user");
 //        query.setSkip(100);
         query.findObjects(context, new FindListener<TeamRequest>() {
