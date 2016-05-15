@@ -118,6 +118,9 @@ public abstract class GalleryInfoDialogFragment extends BaseRefreshDialogFragmen
             title.setText("风景");
             View feedback = root.findViewById(R.id.feedback_btn);
             feedback.setVisibility(View.GONE);
+        } else {
+            View feedback = root.findViewById(R.id.feedback_btn);
+            feedback.setVisibility(View.GONE);
         }
     }
 

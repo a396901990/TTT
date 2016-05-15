@@ -26,9 +26,9 @@ public class QARequest extends BmobObject {
 
     public String userGender;
 
-    private int comments;
+    private Number comments;
 
-    private int watch;
+    private Number watch;
 
     private UserInfo user;
 
@@ -84,22 +84,6 @@ public class QARequest extends BmobObject {
         this.userGender = userGender;
     }
 
-    public int getComments() {
-        return comments;
-    }
-
-    public void setComments(int comments) {
-        this.comments = comments;
-    }
-
-    public int getWatch() {
-        return watch;
-    }
-
-    public void setWatch(int watch) {
-        this.watch = watch;
-    }
-
     public UserInfo getUser() {
         return user;
     }
@@ -124,4 +108,19 @@ public class QARequest extends BmobObject {
         this.answers = answers;
     }
 
+    public Number getWatch() {
+        return watch;
+    }
+
+    public void setWatch(Number watch) {
+        this.watch = watch;
+    }
+
+    public Number getComments() {
+        return comments;
+    }
+
+    public void setComments(Number comments) {
+        this.comments = comments;
+    }
 }

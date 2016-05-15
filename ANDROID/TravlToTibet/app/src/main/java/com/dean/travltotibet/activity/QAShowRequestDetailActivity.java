@@ -20,6 +20,7 @@ import com.dean.travltotibet.util.LoginUtil;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -72,10 +73,19 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
     private void updateWatch() {
         try {
+            final int watch = qaRequest.getWatch().intValue();
             qaRequest.increment("watch");
-            if (this != null) {
-                qaRequest.update(this, null);
-            }
+            qaRequest.update(this, new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    qaRequest.setWatch(watch+1);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+
+                }
+            });
         } catch (Exception e) {
             // finish();
         }

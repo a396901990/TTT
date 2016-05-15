@@ -75,6 +75,8 @@ public final class Constants {
 
     public static final String KEY_LAST_TOKEN = "KEY_LAST_TOKEN";
 
+    public static final String KEY_LAST_USER_ID = "KEY_LAST_USER_ID";
+
     public static final int COMMENT_LENGTH_LIMIT = 8;
 
     public static final String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";

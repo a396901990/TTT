@@ -109,7 +109,7 @@ public class AnswerListAdapter extends BaseAdapter {
         holder.commentText.setText(answerInfo.getContent());
 
         // like
-        holder.likeText.setText(String.valueOf(answerInfo.getLike()));
+        holder.likeText.setText(String.valueOf(answerInfo.getLike().intValue()));
         changeLikeStatus(answerInfo, holder);
         holder.likeContent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,8 +164,8 @@ public class AnswerListAdapter extends BaseAdapter {
                 @Override
                 public void onSuccess() {
 
-                    answerInfo.setLike(answerInfo.getLike() + 1);
-                    holder.likeText.setText(String.valueOf(answerInfo.getLike()));
+                    answerInfo.setLike(answerInfo.getLike().intValue() + 1);
+                    holder.likeText.setText(String.valueOf(answerInfo.getLike().intValue()));
                     holder.likeContent.setBackgroundResource(R.drawable.border_red);
                     sharedPreferences.edit().putString(answerInfo.getObjectId(), answerInfo.getObjectId()).commit();
                 }

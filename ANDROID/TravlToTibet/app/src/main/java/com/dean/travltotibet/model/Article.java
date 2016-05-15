@@ -81,22 +81,6 @@ public class Article extends BaseCommentBmobObject {
         this.isDisplay = isDisplay;
     }
 
-    public Number getLike() {
-        return like;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
-    }
-
-    public Number getWatch() {
-        return watch;
-    }
-
-    public void setWatch(int watch) {
-        this.watch = watch;
-    }
-
     public String getShareUrl() {
         return shareUrl;
     }
@@ -105,4 +89,19 @@ public class Article extends BaseCommentBmobObject {
         this.shareUrl = shareUrl;
     }
 
+    public Number getWatch() {
+        return watch;
+    }
+
+    public void setWatch(Number watch) {
+        this.watch = watch;
+    }
+
+    public Number getLike() {
+        return like;
+    }
+
+    public void setLike(Number like) {
+        this.like = like;
+    }
 }

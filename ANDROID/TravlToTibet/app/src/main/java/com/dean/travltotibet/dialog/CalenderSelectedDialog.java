@@ -4,10 +4,12 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.ui.calender.DatePickerController;
@@ -67,6 +69,8 @@ public class CalenderSelectedDialog extends DialogFragment implements DatePicker
                 dismiss();
             }
         });
+
+        Toast.makeText(getActivity(), "请设置起始日期", Toast.LENGTH_SHORT).show();
     }
 
     public Date getStartDate() {
@@ -176,16 +180,21 @@ public class CalenderSelectedDialog extends DialogFragment implements DatePicker
         return DateUtil.getCurYear() + 2;
     }
 
+    boolean allSelected = false;
     @Override
     public void onDayOfMonthSelected(int year, int month, int day) {
-//        Log.e("tttttt", "y:"+year+"    m"+month+"    d"+day);
+//        Log.e("tttttt", "y:" + year + "    m" + month + "    d" + day);
         okBtn.setText("完成");
+        if (!allSelected) {
+            Toast.makeText(getActivity(), "请设置结束日期", Toast.LENGTH_SHORT).show();
+        }
+        allSelected = !allSelected;
     }
 
     @Override
     public void onDateRangeSelected(SimpleMonthAdapter.SelectedDays<SimpleMonthAdapter.CalendarDay> selectedDays) {
-//        Log.e("getFirst", "     "+selectedDays.getFirst().getDate() + "    "+selectedDays.getFirst().getDate().getYear());
-//        Log.e("getLast", "     "+selectedDays.getLast().getDate());
+//        Log.e("getFirst", "     " + selectedDays.getFirst().getDate() + "    " + selectedDays.getFirst().getDate().getYear());
+//        Log.e("getLast", "     " + selectedDays.getLast().getDate());
         firstDay = selectedDays.getFirst().getDate();
         lastDay = selectedDays.getLast().getDate();
 //        Log.e("day", "     "+selectedDays.getLast().getDate().getDay());

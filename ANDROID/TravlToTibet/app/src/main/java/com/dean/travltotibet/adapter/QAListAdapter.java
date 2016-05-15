@@ -108,7 +108,7 @@ public class QAListAdapter extends BaseAdapter {
             holder.mUserIcon.setImageResource(R.drawable.gray_profile);
         }
 
-        holder.mWatch.setText(request.getWatch() + "");
+        holder.mWatch.setText(request.getWatch().intValue() + "");
 
         holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

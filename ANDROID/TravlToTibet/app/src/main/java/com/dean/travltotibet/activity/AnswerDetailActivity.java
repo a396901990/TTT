@@ -103,10 +103,20 @@ public class AnswerDetailActivity extends BaseCommentActivity {
 
     private void updateWatch() {
         try {
+            final int watch = answerInfo.getWatch().intValue();
             answerInfo.increment("watch");
-            if (this != null) {
-                answerInfo.update(this, null);
-            }
+            answerInfo.update(this, new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    answerInfo.setWatch(watch+1);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+
+                }
+            });
+
         } catch (Exception e) {
             // finish();
         }

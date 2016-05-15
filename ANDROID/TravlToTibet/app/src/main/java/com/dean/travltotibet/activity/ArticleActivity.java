@@ -87,10 +87,19 @@ public class ArticleActivity extends BaseCommentActivity {
 
     private void updateWatch() {
         try {
+            final int watch = mArticle.getWatch().intValue();
             mArticle.increment("watch");
-            if (this != null) {
-                mArticle.update(this, null);
-            }
+            mArticle.update(this, new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    mArticle.setWatch(watch+1);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+
+                }
+            });
         } catch (Exception e) {
             // finish();
         }

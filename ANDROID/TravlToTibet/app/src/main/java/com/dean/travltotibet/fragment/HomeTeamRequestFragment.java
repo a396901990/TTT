@@ -152,7 +152,7 @@ public class HomeTeamRequestFragment extends BaseRefreshFragment {
 
         BmobQuery<TeamRequest> query = new BmobQuery<>();
         query.order("-comments,-createdAt");
-        query.include("imageFile");
+        query.include("imageFile,user[userId]");
         query.addWhereEqualTo("status", TeamRequest.PASS_STATUS);   // 只显示P状态
 
         // 搜索条件

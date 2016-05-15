@@ -83,7 +83,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="@dimen/card_padding"
-        android:paddingBottom="@dimen/card_large_padding"
         android:paddingLeft="@dimen/card_padding"
         android:paddingRight="@dimen/card_padding"
         >

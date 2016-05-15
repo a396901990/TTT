@@ -42,6 +42,10 @@ public class TeamRequest extends BaseCommentBmobObject {
 
     private BmobDate endDate;
 
+    public Number getComments() {
+        return comments;
+    }
+
     private Number comments;
 
     private Number watch;
@@ -110,22 +114,6 @@ public class TeamRequest extends BaseCommentBmobObject {
 
     public void setContactWeChat(String contactWeChat) {
         this.contactWeChat = contactWeChat;
-    }
-
-    public Number getComments() {
-        return comments;
-    }
-
-    public void setComments(int comments) {
-        this.comments = comments;
-    }
-
-    public Number getWatch() {
-        return watch;
-    }
-
-    public void setWatch(int watch) {
-        this.watch = watch;
     }
 
     public String getType() {
@@ -204,4 +192,15 @@ public class TeamRequest extends BaseCommentBmobObject {
         this.favoriteUsers = favoriteUsers;
     }
 
+    public void setComments(Number comments) {
+        this.comments = comments;
+    }
+
+    public Number getWatch() {
+        return watch;
+    }
+
+    public void setWatch(Number watch) {
+        this.watch = watch;
+    }
 }

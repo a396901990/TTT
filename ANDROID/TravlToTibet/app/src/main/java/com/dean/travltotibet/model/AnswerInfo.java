@@ -30,11 +30,15 @@ public class AnswerInfo extends BaseCommentBmobObject {
 
     private QARequest qaRequest;
 
-    private int watch;
+    public Number getWatch() {
+        return watch;
+    }
 
-    private int like;
+    private Number watch;
 
-    private int unlike;
+    private Number like;
+
+    private Number unlike;
 
     public String getStatus() {
         return status;
@@ -92,22 +96,6 @@ public class AnswerInfo extends BaseCommentBmobObject {
         this.qaRequest = qaRequest;
     }
 
-    public int getLike() {
-        return like;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
-    }
-
-    public int getUnlike() {
-        return unlike;
-    }
-
-    public void setUnlike(int unlike) {
-        this.unlike = unlike;
-    }
-
     public String getQuestionTitle() {
         return questionTitle;
     }
@@ -116,11 +104,23 @@ public class AnswerInfo extends BaseCommentBmobObject {
         this.questionTitle = questionTitle;
     }
 
-    public int getWatch() {
-        return watch;
+    public void setWatch(Number watch) {
+        this.watch = watch;
     }
 
-    public void setWatch(int watch) {
-        this.watch = watch;
+    public Number getLike() {
+        return like;
+    }
+
+    public void setLike(Number like) {
+        this.like = like;
+    }
+
+    public Number getUnlike() {
+        return unlike;
+    }
+
+    public void setUnlike(Number unlike) {
+        this.unlike = unlike;
     }
 }

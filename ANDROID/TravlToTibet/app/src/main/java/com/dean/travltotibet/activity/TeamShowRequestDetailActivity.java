@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.baidu.platform.comapi.map.L;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
@@ -124,10 +125,19 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     private void updateWatch() {
         try {
+            final int watch = teamRequest.getWatch().intValue();
             teamRequest.increment("watch");
-            if (this != null) {
-                teamRequest.update(this, null);
-            }
+            teamRequest.update(this, new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    teamRequest.setWatch(watch+1);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+
+                }
+            });
         } catch (Exception e) {
             // finish();
         }
@@ -189,6 +199,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
 
     @Override
     public void onCommentSuccess(final Comment comment) {
+
         // 将评论添加到当前team request的关联中
         final BmobRelation commentRelation = new BmobRelation();
         commentRelation.add(comment);

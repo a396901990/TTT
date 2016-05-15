@@ -64,7 +64,7 @@ public class AppLaunchActivity extends Activity {
         ShareSDK.initSDK(this);
 
         // 设置登陆状态
-        LoginUtil.getInstance().updateUserInfo();
+        LoginUtil.getInstance().loginWithLastUserInfo();
 
         initView();
         // 6.0 检查运行时权限
