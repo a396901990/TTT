@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -180,6 +181,10 @@ public class GuideLineAdapter extends BaseAdapter {
 
         // 设置btn（hotel scenic）
         setUpDetailBtn(holder, position);
+
+//        if (holder.isExpanded) {
+//            setHotelBtnVisibility(holder);
+//        }
     }
 
     /**
@@ -200,6 +205,7 @@ public class GuideLineAdapter extends BaseAdapter {
         } else {
             if (around.contains(AroundType.HOTEL)) {
                 // 当打开详细时会判断是否有旅店数据
+                holder.hotelBtn.setVisibility(View.VISIBLE);
                 holder.hotelBtn.setTag(geocode.getName());
                 holder.hotelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -403,7 +409,7 @@ public class GuideLineAdapter extends BaseAdapter {
         holder.detailToggleLayout.setVisibility(View.VISIBLE);
         holder.distanceDivideContent.setVisibility(View.GONE);
 
-        setHotelBtnVisibility(holder);
+//        setHotelBtnVisibility(holder);
 
         mExpandableListener.onExpand();
 
@@ -411,6 +417,7 @@ public class GuideLineAdapter extends BaseAdapter {
 
     private void setHotelBtnVisibility(final GuideDetailViewHolder holder) {
         String hotelBelong = (String) holder.hotelBtn.getTag();
+        Log.e("hotelBelong", hotelBelong);
         if (!TextUtils.isEmpty(hotelBelong)) {
             BmobQuery<HotelInfo> query = new BmobQuery<HotelInfo>();
 //            query.addWhereContains("route", curRoute);
