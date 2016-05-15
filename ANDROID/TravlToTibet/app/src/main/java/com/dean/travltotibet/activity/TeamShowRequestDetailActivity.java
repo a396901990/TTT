@@ -30,11 +30,14 @@ import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
@@ -214,10 +217,20 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         message.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
-                BmobRelation messageRelation = new BmobRelation();
-                messageRelation.add(message);
-                targetUser.setUserMessage(messageRelation);
-                targetUser.update(getApplication());
+
+                // 先登陆（shit，以后改云端代码）
+                BmobUser.loginByAccount(TTTApplication.getContext(), targetUser.getUserId(), LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
+
+                    @Override
+                    public void done(final UserInfo user, BmobException e) {
+                        if (user != null) {
+                            BmobRelation messageRelation = new BmobRelation();
+                            messageRelation.add(message);
+                            user.setUserMessage(messageRelation);
+                            user.update(getApplication());
+                        }
+                    }
+                });
             }
 
             @Override

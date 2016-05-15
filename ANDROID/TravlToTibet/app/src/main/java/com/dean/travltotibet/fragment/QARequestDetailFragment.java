@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.ui.FlowLayout;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
@@ -31,9 +33,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -128,7 +133,7 @@ public class QARequestDetailFragment extends Fragment {
                     BmobRelation answersRelation = new BmobRelation();
                     answersRelation.add(answerInfo);
                     qaRequest.setAnswers(answersRelation);
-                    qaRequest.update(getActivity(), new UpdateListener() {
+                    qaRequest.update(qaShowRequestDetailActivity, new UpdateListener() {
                         @Override
                         public void onSuccess() {
                             // 刷新答案列表
@@ -146,23 +151,32 @@ public class QARequestDetailFragment extends Fragment {
                     // 发送新通知，成功后加入用户关联中
                     final UserMessage message = new UserMessage();
                     message.setStatus(UserMessage.UNREAD_STATUS);
-                    message.setMessage(qaRequest.getContent());
+                    message.setMessage(qaRequest.getTitle());
                     message.setMessageTitle(UserMessage.QA_REQUEST_TITLE);
                     message.setType(UserMessage.QA_REQUEST_TYPE);
                     message.setTypeObjectId(qaRequest.getObjectId());
                     message.setSendUser(TTTApplication.getUserInfo());
-                    message.save(getActivity(), new SaveListener() {
+                    message.save(qaShowRequestDetailActivity, new SaveListener() {
                         @Override
                         public void onSuccess() {
 
-                            // 发消息给每一关注用户
+                            // 发消息给每一关注用户，先登陆（shit，以后改云端代码）
                             if (mUserInfos != null) {
 
                                 for (UserInfo userInfo : mUserInfos) {
-                                    BmobRelation messageRelation = new BmobRelation();
-                                    messageRelation.add(message);
-                                    userInfo.setUserMessage(messageRelation);
-                                    userInfo.update(getActivity());
+
+                                    BmobUser.loginByAccount(TTTApplication.getContext(), userInfo.getUserId(), LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
+
+                                                @Override
+                                                public void done(final UserInfo user, BmobException e) {
+                                                    if (user != null) {
+                                                        BmobRelation messageRelation = new BmobRelation();
+                                                        messageRelation.add(message);
+                                                        user.setUserMessage(messageRelation);
+                                                        user.update(getActivity());
+                                                    }
+                                                }
+                                            });
                                 }
                             }
                         }
