@@ -13,7 +13,7 @@ import com.dean.travltotibet.model.Comment;
 /**
  * Created by DeanGuo on 4/9/16.
  */
-public class RoadInfoCommentFragment extends NewBaseInsideCommentFragment {
+public class RoadInfoCommentFragment extends BaseInsideCommentFragment {
 
     private RoadInfoDetailActivity roadInfoDetailActivity;
 
@@ -28,13 +28,17 @@ public class RoadInfoCommentFragment extends NewBaseInsideCommentFragment {
         return Comment.ROAD_INFO_COMMENT;
     }
 
-
-
     @Override
-    public BaseCommentBmobObject getCommentObject() {
-        if (roadInfoDetailActivity == null) {
-            return null;
-        }
-        return roadInfoDetailActivity.getRoadInfo();
+    public String getCommentTypeObjectId() {
+        return roadInfoDetailActivity.getRoadInfo().getObjectId();
     }
+
+
+//    @Override
+//    public BaseCommentBmobObject getCommentObject() {
+//        if (roadInfoDetailActivity == null) {
+//            return null;
+//        }
+//        return roadInfoDetailActivity.getRoadInfo();
+//    }
 }

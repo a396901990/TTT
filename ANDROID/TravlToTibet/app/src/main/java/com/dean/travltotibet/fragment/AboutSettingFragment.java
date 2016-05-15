@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.WelcomeActivity;
+import com.dean.travltotibet.dialog.ContactUsDialogFragment;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.Constants;
 
@@ -70,60 +71,64 @@ public class AboutSettingFragment extends Fragment {
         contactUsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // qq
-                final View contactView = LayoutInflater.from(getActivity()).inflate(R.layout.contact_dialog_layout, null);
-                View qqCopy = contactView.findViewById(R.id.qq_copy_btn);
-                qqCopy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                        TextView qqText = (TextView) contactView.findViewById(R.id.qq_text);
-                        cmb.setText(qqText.getText().toString());
-                        Toast.makeText(getActivity(), getString(R.string.copy_success),Toast.LENGTH_LONG).show();
-                    }
-                });
 
-                // qq group
-                View qqGroupCopy = contactView.findViewById(R.id.qq_group_copy_btn);
-                qqGroupCopy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                        TextView qqGroupText = (TextView) contactView.findViewById(R.id.qq_group_text);
-                        cmb.setText(qqGroupText.getText().toString());
-                        Toast.makeText(getActivity(), getString(R.string.copy_success),Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                // email
-                View emailCopy = contactView.findViewById(R.id.email_copy_btn);
-                emailCopy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                        TextView emailText = (TextView) contactView.findViewById(R.id.email_text);
-                        cmb.setText(emailText.getText().toString());
-                        Toast.makeText(getActivity(),getString(R.string.copy_success),Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                new MaterialDialog.Builder(getActivity())
-                        .customView(contactView)
-                        .positiveText(R.string.ok_btn)
-                        .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
-                        .callback(new MaterialDialog.Callback() {
-                            @Override
-                            public void onPositive(MaterialDialog dialog) {
-                                dialog.dismiss();
-                            }
-
-                            @Override
-                            public void onNegative(MaterialDialog dialog) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .build()
-                        .show();
+                ContactUsDialogFragment contactDialog = new ContactUsDialogFragment();
+                contactDialog.setShowDetail(false);
+                contactDialog.show(getFragmentManager(), ContactUsDialogFragment.class.getName());
+//                // qq
+//                final View contactView = LayoutInflater.from(getActivity()).inflate(R.layout.contact_dialog_layout, null);
+//                View qqCopy = contactView.findViewById(R.id.qq_copy_btn);
+//                qqCopy.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+//                        TextView qqText = (TextView) contactView.findViewById(R.id.qq_text);
+//                        cmb.setText(qqText.getText().toString());
+//                        Toast.makeText(getActivity(), getString(R.string.copy_success),Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//                // qq group
+//                View qqGroupCopy = contactView.findViewById(R.id.qq_group_copy_btn);
+//                qqGroupCopy.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+//                        TextView qqGroupText = (TextView) contactView.findViewById(R.id.qq_group_text);
+//                        cmb.setText(qqGroupText.getText().toString());
+//                        Toast.makeText(getActivity(), getString(R.string.copy_success),Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//                // email
+//                View emailCopy = contactView.findViewById(R.id.email_copy_btn);
+//                emailCopy.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+//                        TextView emailText = (TextView) contactView.findViewById(R.id.email_text);
+//                        cmb.setText(emailText.getText().toString());
+//                        Toast.makeText(getActivity(),getString(R.string.copy_success),Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//                new MaterialDialog.Builder(getActivity())
+//                        .customView(contactView)
+//                        .positiveText(R.string.ok_btn)
+//                        .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
+//                        .callback(new MaterialDialog.Callback() {
+//                            @Override
+//                            public void onPositive(MaterialDialog dialog) {
+//                                dialog.dismiss();
+//                            }
+//
+//                            @Override
+//                            public void onNegative(MaterialDialog dialog) {
+//                                dialog.dismiss();
+//                            }
+//                        })
+//                        .build()
+//                        .show();
             }
         });
     }

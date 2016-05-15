@@ -172,8 +172,7 @@ public class QAnswerFragment extends BaseRefreshFragment  implements InsideScrol
         super.LoadingSuccess();
         // 无数据
         if (mComments == null || mComments.size() == 0) {
-//            loadingBackgroundManager.loadingFaild(getString(R.string.no_comment_result), null);
-            loadingBackgroundManager.loadingSuccess();
+            loadingBackgroundManager.loadingNoResultView(getString(R.string.no_answer_result));
         }
         // 有数据
         else {

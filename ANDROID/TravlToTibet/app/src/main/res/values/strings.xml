@@ -120,6 +120,7 @@
     <string name="around_comment">评论</string>
     <string name="no_result">暂无数据</string>
     <string name="no_comment_result">暂无评论</string>
+    <string name="no_answer_result">暂无回答</string>
     <string name="no_network_result">网络出错</string>
     <string name="network_no_result">网络出错，点击重试</string>
     <string name="plan_header_hint">点击返回总览</string>
@@ -182,6 +183,8 @@
     <string name="road_feedback_hint">上传您知道的路况信息，方便更多驴友！人人都是户外探子！</string>
     <string name="q_a_title_hint">完整而清晰的问题标题能帮助您更快获得回答</string>
     <string name="q_a_content_hint">更详细的说明问题，或提供与之相关的背景信息和参考资料</string>
+    <string name="hotel_contact_detail_text">为了保证信息的质量与准确性，请联系我们来添加／修改住宿信息！</string>
+    <string name="hotel_feedback_text">住宿上传</string>
 
     <string name="piece">张</string>
     <string name="you_have_a_select_limit">最多选择%1$s张图片</string>

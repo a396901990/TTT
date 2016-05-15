@@ -100,12 +100,24 @@ public abstract class GalleryInfoDialogFragment extends BaseRefreshDialogFragmen
         loadMoreRecyclerView.setLoadMoreListener(this);
 
         // title
-        TextView title = (TextView) root.findViewById(R.id.title_text);
+        final TextView title = (TextView) root.findViewById(R.id.title_text);
         if (AroundType.HOTEL.equals(getType())) {
             title.setText("住宿");
+            View feedback = root.findViewById(R.id.feedback_btn);
+            feedback.setVisibility(View.VISIBLE);
+            feedback.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ContactUsDialogFragment contactDialog = new ContactUsDialogFragment();
+                    contactDialog.setShowDetail(true);
+                    contactDialog.show(getFragmentManager(), ContactUsDialogFragment.class.getName());
+                }
+            });
         }
         else if (AroundType.SCENIC.equals(getType())) {
             title.setText("风景");
+            View feedback = root.findViewById(R.id.feedback_btn);
+            feedback.setVisibility(View.GONE);
         }
     }
 

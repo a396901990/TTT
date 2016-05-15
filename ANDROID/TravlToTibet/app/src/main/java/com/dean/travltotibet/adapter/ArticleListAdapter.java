@@ -68,8 +68,8 @@ public class ArticleListAdapter extends BaseAdapter {
 
         holder.mTitle.setText(article.getTitle());
 
-        holder.mWatch.setText(article.getWatch() + "");
-        holder.mLike.setText(article.getLike() + "");
+        holder.mWatch.setText(article.getWatch().intValue() + "");
+        holder.mLike.setText(article.getLike().intValue() + "");
 
         // 背景
         if (!TextUtils.isEmpty(article.getTitleImage())) {

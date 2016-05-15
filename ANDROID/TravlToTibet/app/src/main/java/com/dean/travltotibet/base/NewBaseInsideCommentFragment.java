@@ -175,7 +175,7 @@ public abstract class NewBaseInsideCommentFragment extends BaseRefreshFragment  
     public void LoadingSuccess() {
         super.LoadingSuccess();
         // 无数据
-        Log.e(" mComments.size()",  mComments.size()+"");
+//        Log.e(" mComments.size()",  mComments.size()+"");
         if (mComments == null || mComments.size() == 0) {
             loadingBackgroundManager.loadingNoResultView(getString(R.string.no_comment_result));
 //            loadingBackgroundManager.loadingSuccess();

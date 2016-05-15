@@ -31,15 +31,12 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
     private boolean isPersonal = false;
 
-    private QARequestDetailFragment detailFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.q_a_show_request_view);
         EventBus.getDefault().register(this);
-        detailFragment = (QARequestDetailFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
 
         if (getIntent() != null) {
             qaRequest = (QARequest) getIntent().getSerializableExtra(IntentExtra.INTENT_QA_REQUEST);

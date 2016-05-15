@@ -110,20 +110,21 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
     @Override
     public void onCommentSuccess(Comment comment) {
         // 将评论添加到当前road info的关联中
-        BmobRelation commentRelation = new BmobRelation();
-        commentRelation.add(comment);
-        roadInfo.setReplyComments(commentRelation);
-        roadInfo.update(getApplication(), new UpdateListener() {
-            @Override
-            public void onSuccess() {
-                refresh();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
-            }
-        });
+//        BmobRelation commentRelation = new BmobRelation();
+//        commentRelation.add(comment);
+//        roadInfo.setReplyComments(commentRelation);
+//        roadInfo.update(getApplication(), new UpdateListener() {
+//            @Override
+//            public void onSuccess() {
+//                refresh();
+//            }
+//
+//            @Override
+//            public void onFailure(int i, String s) {
+//
+//            }
+//        });
+        refresh();
     }
 
     @Override

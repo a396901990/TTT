@@ -1,6 +1,5 @@
 package com.dean.travltotibet.model;
 
-import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobRelation;
 
@@ -43,9 +42,9 @@ public class TeamRequest extends BaseCommentBmobObject {
 
     private BmobDate endDate;
 
-    private int comments;
+    private Number comments;
 
-    private int watch;
+    private Number watch;
 
     private UserInfo user;
 
@@ -113,7 +112,7 @@ public class TeamRequest extends BaseCommentBmobObject {
         this.contactWeChat = contactWeChat;
     }
 
-    public int getComments() {
+    public Number getComments() {
         return comments;
     }
 
@@ -121,7 +120,7 @@ public class TeamRequest extends BaseCommentBmobObject {
         this.comments = comments;
     }
 
-    public int getWatch() {
+    public Number getWatch() {
         return watch;
     }
 

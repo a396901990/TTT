@@ -260,9 +260,7 @@ public class HomeCommunityFragment extends Fragment {
                     return;
                 }
                 if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
-                    startActivityForResult(intent, CREATE_REQUEST);
-                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                    gotoTeamCreate();
                 } else {
                     tryToCreateTeamRequest = true;
                     DialogFragment dialogFragment = new LoginDialog();
@@ -284,17 +282,32 @@ public class HomeCommunityFragment extends Fragment {
                     return;
                 }
                 if (TTTApplication.hasLoggedIn()) {
-                    Intent intent = new Intent(getActivity(), QACreateActivity.class);
-                    startActivityForResult(intent, CREATE_REQUEST);
-                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                    gotoQACreate();
                 } else {
                     tryToCreateQA = true;
                     DialogFragment dialogFragment = new LoginDialog();
                     dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
                 }
-
             }
         });
+    }
+
+    public void gotoTeamCreate() {
+        if (mPager != null) {
+            mPager.setCurrentItem(0);
+        }
+        Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
+        startActivityForResult(intent, CREATE_REQUEST);
+        getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+    }
+
+    public void gotoQACreate() {
+        if (mPager != null) {
+            mPager.setCurrentItem(1);
+        }
+        Intent intent = new Intent(getActivity(), QACreateActivity.class);
+        startActivityForResult(intent, CREATE_REQUEST);
+        getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
     }
 
     /**
@@ -303,16 +316,10 @@ public class HomeCommunityFragment extends Fragment {
     public void onEventMainThread(LoginUtil.LoginEvent event) {
         Toast.makeText(getActivity(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
         if (tryToCreateTeamRequest) {
-            Intent intent = new Intent(getActivity(), TeamCreateRequestActivity.class);
-            startActivityForResult(intent, CREATE_REQUEST);
-            getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
-            tryToCreateTeamRequest = false;
+            gotoTeamCreate();
         }
         else if (tryToCreateQA) {
-            Intent intent = new Intent(getActivity(), QACreateActivity.class);
-            startActivityForResult(intent, CREATE_REQUEST);
-            getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
-            tryToCreateQA = false;
+            gotoQACreate();
         }
     }
 
@@ -330,7 +337,7 @@ public class HomeCommunityFragment extends Fragment {
     }
 
     public void refresh() {
-        Log.e("refresh", "refresh");
+//        Log.e("home community refresh", "refresh");
         if (mAdapter.getAllFragments().size() > 0) {
             BaseRefreshFragment fragment = (BaseRefreshFragment) mAdapter.getFragment(mPager.getCurrentItem());
             if (fragment.isAdded()) {

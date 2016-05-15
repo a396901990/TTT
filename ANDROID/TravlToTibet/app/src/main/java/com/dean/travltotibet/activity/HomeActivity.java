@@ -70,6 +70,10 @@ public class HomeActivity extends BaseActivity {
 
         // 处理老逻辑数据
 //        MoveOldLogicUtil.moveToFavorites(this);
+//        MoveOldLogicUtil.moveTeamRequestToUser(this);
+//        MoveOldLogicUtil.moveCommentForHotel(this);
+//        MoveOldLogicUtil.moveCommentForArticle(this);
+//        MoveOldLogicUtil.moveCommentForTeamRequest(this);
     }
 
     private void initMenu() {

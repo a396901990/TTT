@@ -46,8 +46,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
         holder.mTitle.setText(article.getTitle());
 
-        holder.mWatch.setText(article.getWatch() + "");
-        holder.mLike.setText(article.getLike() + "");
+        holder.mWatch.setText(article.getWatch().intValue() + "");
+        holder.mLike.setText(article.getLike().intValue() + "");
 
         if (!TextUtils.isEmpty(article.getTitleImage())) {
             PicassoTools.getPicasso()

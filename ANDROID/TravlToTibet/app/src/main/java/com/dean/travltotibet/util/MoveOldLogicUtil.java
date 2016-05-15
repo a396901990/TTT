@@ -26,7 +26,9 @@ import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by DeanGuo on 5/11/16.
+ * last update 5.15
  * last update 5.12
+ * last update 5.9
  */
 public class MoveOldLogicUtil {
 
@@ -48,9 +50,8 @@ public class MoveOldLogicUtil {
                     relation.add(comment);
 
                     Article article = new Article();
-                    article.setObjectId(id);
                     article.setReplyComments(relation);
-                    article.update(context, new UpdateListener() {
+                    article.update(context, id, new UpdateListener() {
                         @Override
                         public void onSuccess() {
                             Log.e("articleId", id);
@@ -61,6 +62,7 @@ public class MoveOldLogicUtil {
 
                         }
                     });
+
                 }
             }
 
@@ -75,7 +77,7 @@ public class MoveOldLogicUtil {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.HOTEL_COMMENT);
         query.order("-createdAt"); // 最新的放前面
-        query.setLimit(20);
+        query.setLimit(10);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -189,7 +191,7 @@ public class MoveOldLogicUtil {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.TEAM_REQUEST_COMMENT);
         query.order("-createdAt"); // 最新的放前面
-        query.setLimit(20);
+        query.setLimit(80);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
@@ -200,9 +202,8 @@ public class MoveOldLogicUtil {
                     relation.add(comment);
 
                     TeamRequest teamRequest = new TeamRequest();
-                    teamRequest.setObjectId(id);
                     teamRequest.setReplyComments(relation);
-                    teamRequest.update(context, new UpdateListener() {
+                    teamRequest.update(context, id, new UpdateListener() {
                         @Override
                         public void onSuccess() {
                             Log.e("teamRequestId", id);
@@ -222,35 +223,6 @@ public class MoveOldLogicUtil {
             }
         });
     }
-
-    /**
-     * bmob更新数据bug，有时会重置number变量
-     * @param context
-     */
-    public static void changeTeamRequestCommentWatch(final Context context) {
-        BmobQuery<TeamRequest> query = new BmobQuery<>();
-        query.order("-createdAt"); // 最新的放前面
-        query.setLimit(20);
-        query.findObjects(context, new FindListener<TeamRequest>() {
-            @Override
-            public void onSuccess(List<TeamRequest> list) {
-                for (final TeamRequest t : list) {
-                    if (t.getWatch() == 0) {
-                        Random random = new Random();
-                        int watch = random.nextInt(80) + 80;
-                        t.setWatch(watch);
-                        t.update(context);
-                    }
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
-            }
-        });
-    }
-
 
     /**
      * 用户发布的TeamRequest移动到user中
@@ -274,10 +246,9 @@ public class MoveOldLogicUtil {
 
                                     final BmobRelation relation = new BmobRelation();
                                     TeamRequest teamRequest = new TeamRequest();
-                                    teamRequest.setObjectId(t.getObjectId());
                                     relation.add(teamRequest);
                                     user.setTeamRequest(relation);
-                                    user.update(context, new UpdateListener() {
+                                    user.update(context, t.getObjectId(), new UpdateListener() {
                                         @Override
                                         public void onSuccess() {
                                             Log.e("userId", user.getUserName());
@@ -309,7 +280,7 @@ public class MoveOldLogicUtil {
         BmobQuery<UserFavorites> query = new BmobQuery<UserFavorites>();
         query.order("-createdAt"); // 最新的放前面
         query.addWhereEqualTo("type", UserFavorites.TEAM_REQUEST);
-        query.setLimit(3);
+        query.setLimit(5);
         query.findObjects(context, new FindListener<UserFavorites>() {
             @Override
             public void onSuccess(List<UserFavorites> list) {

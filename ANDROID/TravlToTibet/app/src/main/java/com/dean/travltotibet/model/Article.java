@@ -11,10 +11,10 @@ public class Article extends BaseCommentBmobObject {
     private String author;
     private String titleImage;
     private String type;
-    private int like;
-    private int watch;
+    private Number like;
+    private Number watch;
     private String url;
-    private boolean isDisplay;
+    private Boolean isDisplay;
     private String shareUrl;
 
     public String getId() {
@@ -81,7 +81,7 @@ public class Article extends BaseCommentBmobObject {
         this.isDisplay = isDisplay;
     }
 
-    public int getLike() {
+    public Number getLike() {
         return like;
     }
 
@@ -89,7 +89,7 @@ public class Article extends BaseCommentBmobObject {
         this.like = like;
     }
 
-    public int getWatch() {
+    public Number getWatch() {
         return watch;
     }
 
