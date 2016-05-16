@@ -168,7 +168,7 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
         super.onLoading();
         BmobQuery<RoadInfo> query = new BmobQuery<RoadInfo>();
         query.include("imageFile,article");
-        query.getObject(getActivity(), roadInfo.getObjectId(), new GetListener<RoadInfo>() {
+        query.getObject(roadInfoDetailActivity, roadInfo.getObjectId(), new GetListener<RoadInfo>() {
 
             @Override
             public void onSuccess(RoadInfo object) {

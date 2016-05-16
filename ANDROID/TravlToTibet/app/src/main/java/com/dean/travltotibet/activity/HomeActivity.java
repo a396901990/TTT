@@ -72,7 +72,8 @@ public class HomeActivity extends BaseActivity {
 //        MoveOldLogicUtil.moveToFavorites(this);
 //        MoveOldLogicUtil.moveTeamRequestToUser(this);
 //        MoveOldLogicUtil.moveCommentForHotel(this);
-//        MoveOldLogicUtil.moveCommentForArticle(this);
+//        MoveOldLogicUtil.moveCommentForScenic(this);
+////        MoveOldLogicUtil.moveCommentForArticle(this);
 //        MoveOldLogicUtil.moveCommentForTeamRequest(this);
     }
 

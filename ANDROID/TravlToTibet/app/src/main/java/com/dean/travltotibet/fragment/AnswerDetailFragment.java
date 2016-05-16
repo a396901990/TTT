@@ -51,6 +51,9 @@ public class AnswerDetailFragment extends Fragment {
     }
 
     private void initContentContent() {
+        if (answerInfo == null) {
+            return;
+        }
         // 标题
         TextView title = (TextView) root.findViewById(R.id.title_text);
         title.setText(answerInfo.getQuestionTitle());

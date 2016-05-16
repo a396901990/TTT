@@ -294,6 +294,9 @@ public class QARequestDetailFragment extends Fragment {
         }
 
         for (UserInfo userInfo : userInfos) {
+            if (getActivity() == null) {
+                return;
+            }
             View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.flow_image_item_view, null, false);
             CircleImageView userView = (CircleImageView) itemView.findViewById(R.id.item_view);
 
@@ -335,6 +338,10 @@ public class QARequestDetailFragment extends Fragment {
     }
 
     private void initContentContent() {
+
+        if (qaRequest == null) {
+            return;
+        }
         // 标题
         TextView title = (TextView) root.findViewById(R.id.title_text);
         title.setText(qaRequest.getTitle());
