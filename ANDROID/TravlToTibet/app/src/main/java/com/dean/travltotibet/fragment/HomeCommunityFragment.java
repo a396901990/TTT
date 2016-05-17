@@ -1,6 +1,5 @@
 package com.dean.travltotibet.fragment;
 
-import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +35,6 @@ import com.dean.travltotibet.ui.tagview.TagView;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
-
-import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 
@@ -71,9 +67,26 @@ public class HomeCommunityFragment extends Fragment {
 
     private FloatingActionMenu mFloatingActionMenu;
 
+    private HomeCommunityFragment homeCommunityFragment;
+
     public static HomeCommunityFragment newInstance() {
         HomeCommunityFragment fragment = new HomeCommunityFragment();
         return fragment;
+    }
+
+    /**
+     * Fragment当前状态是否可见
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        // 版本小于4.2时提示（getChildFragment）
+        if (isVisibleToUser) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                Toast.makeText(getActivity(), "您的手机版本太低，暂不支持该功能", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -89,7 +102,6 @@ public class HomeCommunityFragment extends Fragment {
         EventBus.getDefault().register(this);
 
         mActivity = (HomeActivity) getActivity();
-
         initPager();
         initCreateBtn();
         initSearchView();
@@ -173,12 +185,15 @@ public class HomeCommunityFragment extends Fragment {
         view.setHint(hint);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initPager() {
         mPager = (ViewPager) root.findViewById(R.id.view_pager);
 
         if (mAdapter == null) {
-            mAdapter = new ViewPageFragmentAdapter(getChildFragmentManager());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                mAdapter = new ViewPageFragmentAdapter(getChildFragmentManager());
+            } else {
+                mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
+            }
         }
 
         mAdapter.add(HomeTeamRequestFragment.class, null, "约伴");

@@ -80,7 +80,7 @@ public class ArticleActivity extends BaseCommentActivity {
         initLoadingBackground();
 
         // 统计文章
-        if (!TextUtils.isEmpty(mArticle.getTitle())) {
+        if (mArticle != null && !TextUtils.isEmpty(mArticle.getTitle())) {
             CountUtil.countArticle(this, mArticle.getTitle());
         }
     }

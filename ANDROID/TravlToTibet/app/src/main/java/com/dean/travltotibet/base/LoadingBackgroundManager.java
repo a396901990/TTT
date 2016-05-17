@@ -86,7 +86,7 @@ public class LoadingBackgroundManager {
         loadingView.setVisibility(View.VISIBLE);
         loadingProgressView.setVisibility(View.GONE);
         loadingNoResultView.setVisibility(View.VISIBLE);
-        Log.e("showText", showText);
+//        Log.e("showText", showText);
         // 设置显示文字
         TextView noResultText = (TextView) loadingView.findViewById(R.id.no_result_text);
         if (noResultText != null && !TextUtils.isEmpty(showText)) {

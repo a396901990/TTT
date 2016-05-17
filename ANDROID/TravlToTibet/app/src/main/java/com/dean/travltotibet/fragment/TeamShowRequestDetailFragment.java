@@ -59,6 +59,11 @@ public class TeamShowRequestDetailFragment extends Fragment {
 
         teamShowRequestDetailActivity = (TeamShowRequestDetailActivity) getActivity();
         teamRequest = teamShowRequestDetailActivity.getTeamRequest();
+
+        if (teamRequest == null) {
+            return;
+        }
+
         initPlanContent();
         initContactContent();
         initHeaderView();

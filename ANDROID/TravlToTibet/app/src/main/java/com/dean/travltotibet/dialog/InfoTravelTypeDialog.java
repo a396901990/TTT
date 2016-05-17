@@ -36,6 +36,12 @@ public class InfoTravelTypeDialog extends DialogFragment {
 
     private String route;
 
+    private TravelTypeListener listener;
+
+    public static interface TravelTypeListener {
+        public void updateTravelType(String type);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +186,10 @@ public class InfoTravelTypeDialog extends DialogFragment {
                             return;
                         }
                         else {
-                            ((InfoActivity) getActivity()).updateType(type);
+                            if (listener != null) {
+                                listener.updateTravelType(type);
+                            }
+//                            ((InfoActivity) getActivity()).updateType(type);
                         }
                         dismiss();
                     }
@@ -200,5 +209,13 @@ public class InfoTravelTypeDialog extends DialogFragment {
 
             }
         }, 200);
+    }
+
+    public TravelTypeListener getListener() {
+        return listener;
+    }
+
+    public void setListener(TravelTypeListener listener) {
+        this.listener = listener;
     }
 }

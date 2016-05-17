@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.ClipboardManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,9 +127,15 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
     private void initContentContent() {
 
         TextView time = (TextView) root.findViewById(R.id.publish_time);
-        Date publishDate = DateUtil.parse(roadInfo.getUpdatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
-        String publishTime = DateUtil.formatDate(publishDate, Constants.YYYY_MM_DD);
-        time.setText(publishTime);
+
+        // 没设置修改时间，默认创建时间
+        if (TextUtils.isEmpty(roadInfo.getUpdateTime())) {
+            Date publishDate = DateUtil.parse(roadInfo.getCreatedAt(), Constants.YYYY_MM_DD_HH_MM_SS);
+            String publishTime = DateUtil.formatDate(publishDate, Constants.YYYY_MM_DD);
+            time.setText(publishTime);
+        } else {
+            time.setText(roadInfo.getUpdateTime());
+        }
 
         TextView content = (TextView) root.findViewById(R.id.message_text);
         content.setText(roadInfo.getContent());

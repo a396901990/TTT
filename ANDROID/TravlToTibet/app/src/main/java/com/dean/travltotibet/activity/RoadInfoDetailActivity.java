@@ -67,9 +67,20 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
 
     private void updateWatch() {
         try {
+            final int watch = roadInfo.getWatch().intValue();
             roadInfo.increment("watch");
             if (this != null) {
-                roadInfo.update(this, null);
+                roadInfo.update(this, new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        roadInfo.setWatch(watch+1);
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
             }
         } catch (Exception e) {
             // finish();
@@ -110,20 +121,20 @@ public class RoadInfoDetailActivity extends BaseCommentActivity {
     @Override
     public void onCommentSuccess(Comment comment) {
         // 将评论添加到当前road info的关联中
-//        BmobRelation commentRelation = new BmobRelation();
-//        commentRelation.add(comment);
-//        roadInfo.setReplyComments(commentRelation);
-//        roadInfo.update(getApplication(), new UpdateListener() {
-//            @Override
-//            public void onSuccess() {
-//                refresh();
-//            }
-//
-//            @Override
-//            public void onFailure(int i, String s) {
-//
-//            }
-//        });
+        BmobRelation commentRelation = new BmobRelation();
+        commentRelation.add(comment);
+        roadInfo.setReplyComments(commentRelation);
+        roadInfo.update(getApplication(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                refresh();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
         refresh();
     }
 

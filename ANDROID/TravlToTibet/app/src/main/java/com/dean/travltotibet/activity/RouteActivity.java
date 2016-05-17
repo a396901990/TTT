@@ -304,6 +304,9 @@ public class RouteActivity
     }
 
     public String getCurrentStart() {
+        if (currentRoute == null) {
+            return "";
+        }
         if (isRoute()) {
             return currentRoute.getStart();
         } else {
@@ -312,6 +315,9 @@ public class RouteActivity
     }
 
     public String getCurrentEnd() {
+        if (currentRoute == null) {
+            return "";
+        }
         if (isRoute()) {
             return currentRoute.getEnd();
         } else {

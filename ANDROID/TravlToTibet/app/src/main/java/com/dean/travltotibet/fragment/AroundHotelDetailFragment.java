@@ -62,6 +62,13 @@ public class AroundHotelDetailFragment extends BaseRefreshFragment {
         View hotelTelContent = root.findViewById(R.id.hotel_tel_content);
         View hotelAddressContent = root.findViewById(R.id.hotel_address_content);
 
+        if (hotelInfo == null) {
+            hotelDetailContent.setVisibility(View.GONE);
+            hotelTelContent.setVisibility(View.GONE);
+            hotelAddressContent.setVisibility(View.GONE);
+            return;
+        }
+
         // 细节
         String detail = hotelInfo.getHotelDetail();
         if (!TextUtils.isEmpty(detail)) {

@@ -137,7 +137,13 @@ public class InfoActivity extends BaseActivity {
         if (ScreenUtil.isFastClick()) {
             return;
         }
-        DialogFragment dialogFragment = new InfoTravelTypeDialog();
+        InfoTravelTypeDialog dialogFragment = new InfoTravelTypeDialog();
+        dialogFragment.setListener(new InfoTravelTypeDialog.TravelTypeListener() {
+            @Override
+            public void updateTravelType(String type) {
+                updateType(type);
+            }
+        });
         Bundle bundle = new Bundle();
         bundle.putString(IntentExtra.INTENT_ROUTE, getRoute());
         dialogFragment.setArguments(bundle);

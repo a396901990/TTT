@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.util.PicassoTools;
@@ -45,6 +46,21 @@ public class ImagePreviewDialogFragment extends DialogFragment {
     private int mCurrentItemPosition = 0;
     private boolean isURL = true;
 
+    /**
+     * Fragment当前状态是否可见
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        // 版本小于4.2时提示（getChildFragment）
+        if (isVisibleToUser) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                Toast.makeText(getActivity(), "您的手机版本太低，暂不支持该功能", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +78,13 @@ public class ImagePreviewDialogFragment extends DialogFragment {
         return contentView;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initView(View contentView) {
         mViewPager = (ViewPager) contentView.findViewById(R.id.viewpager);
-        mAdapter = new TouchImageAdapter(getChildFragmentManager());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            mAdapter = new TouchImageAdapter(getChildFragmentManager());
+        } else {
+            mAdapter = new TouchImageAdapter(getFragmentManager());
+        }
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(mCurrentItemPosition, false);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

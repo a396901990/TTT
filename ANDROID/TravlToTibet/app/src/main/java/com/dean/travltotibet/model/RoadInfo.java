@@ -27,7 +27,7 @@ public class RoadInfo extends BaseCommentBmobObject {
 
     public String content;
 
-    public int comment;
+    public Number comment;
 
     public String priority;
 
@@ -39,9 +39,35 @@ public class RoadInfo extends BaseCommentBmobObject {
 
     private String belong;
 
-    private int watch;
+    private Number watch;
 
     private Article article;
+
+    private String updateTime;
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Number getWatch() {
+        return watch;
+    }
+
+    public void setWatch(Number watch) {
+        this.watch = watch;
+    }
+
+    public Number getComment() {
+        return comment;
+    }
+
+    public void setComment(Number comment) {
+        this.comment = comment;
+    }
 
     public String getStatus() {
         return status;
@@ -105,22 +131,6 @@ public class RoadInfo extends BaseCommentBmobObject {
 
     public void setBelong(String belong) {
         this.belong = belong;
-    }
-
-    public int getWatch() {
-        return watch;
-    }
-
-    public void setWatch(int watch) {
-        this.watch = watch;
-    }
-
-    public int getComment() {
-        return comment;
-    }
-
-    public void setComment(int comment) {
-        this.comment = comment;
     }
 
     public Article getArticle() {
