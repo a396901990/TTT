@@ -27,14 +27,19 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
@@ -216,7 +221,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             }
         });
 
-        // 发送新通知，成功后加入用户关联中
+        // 发送新通知，成功后加入用户关联中(云端逻辑)
         final UserInfo targetUser = teamRequest.getUser();
         final UserMessage message = new UserMessage();
         message.setStatus(UserMessage.UNREAD_STATUS);
@@ -229,17 +234,21 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
             @Override
             public void onSuccess() {
 
-                // 先登陆（shit，以后改云端代码）
-                BmobUser.loginByAccount(TTTApplication.getContext(), targetUser.getUserId(), LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
-
+                AsyncCustomEndpoints ace = new AsyncCustomEndpoints();
+                String cloudCodeName = "sendUserMessageToUser";
+                JSONObject params = new JSONObject();
+                try {
+                    params.put("username", targetUser.getUserId());
+                    params.put("messageId", message.getObjectId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ace.callEndpoint(TTTApplication.getContext(), cloudCodeName, params, new CloudCodeListener() {
                     @Override
-                    public void done(final UserInfo user, BmobException e) {
-                        if (user != null) {
-                            BmobRelation messageRelation = new BmobRelation();
-                            messageRelation.add(message);
-                            user.setUserMessage(messageRelation);
-                            user.update(getApplication());
-                        }
+                    public void onSuccess(Object object) {
+                    }
+                    @Override
+                    public void onFailure(int code, String msg) {
                     }
                 });
             }

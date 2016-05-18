@@ -30,13 +30,18 @@ import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -148,7 +153,7 @@ public class QARequestDetailFragment extends Fragment {
                         }
                     });
 
-                    // 发送新通知，成功后加入用户关联中
+                    // 发送新通知，成功后加入用户关联中(云端逻辑)
                     final UserMessage message = new UserMessage();
                     message.setStatus(UserMessage.UNREAD_STATUS);
                     message.setMessage(qaRequest.getTitle());
@@ -160,24 +165,30 @@ public class QARequestDetailFragment extends Fragment {
                         @Override
                         public void onSuccess() {
 
-                            // 发消息给每一关注用户，先登陆（shit，以后改云端代码）
+                            // 发消息给每一关注用户（云端代码）
                             if (mUserInfos != null) {
 
                                 for (UserInfo userInfo : mUserInfos) {
 
-                                    BmobUser.loginByAccount(TTTApplication.getContext(), userInfo.getUserId(), LoginUtil.DEFAULT_PASSWORD, new LogInListener<UserInfo>() {
-
-                                                @Override
-                                                public void done(final UserInfo user, BmobException e) {
-                                                    if (user != null) {
-                                                        BmobRelation messageRelation = new BmobRelation();
-                                                        messageRelation.add(message);
-                                                        user.setUserMessage(messageRelation);
-                                                        user.update(getActivity());
-                                                    }
-                                                }
-                                            });
+                                    AsyncCustomEndpoints ace = new AsyncCustomEndpoints();
+                                    String cloudCodeName = "sendUserMessageToUser";
+                                    JSONObject params = new JSONObject();
+                                    try {
+                                        params.put("username", userInfo.getUserId());
+                                        params.put("messageId", message.getObjectId());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ace.callEndpoint(getActivity(), cloudCodeName, params, new CloudCodeListener() {
+                                        @Override
+                                        public void onSuccess(Object object) {
+                                        }
+                                        @Override
+                                        public void onFailure(int code, String msg) {
+                                        }
+                                    });
                                 }
+
                             }
                         }
 
