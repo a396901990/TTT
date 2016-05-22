@@ -15,6 +15,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AboutSettingActivity;
+import com.dean.travltotibet.activity.ArticleActivity;
 import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.FeedbackActivity;
 import com.dean.travltotibet.activity.HomeActivity;
@@ -24,6 +25,7 @@ import com.dean.travltotibet.activity.UserPublishActivity;
 import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.util.AppUtil;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.MarketUtils;
 import com.dean.travltotibet.util.ScreenUtil;
@@ -132,6 +134,7 @@ public class NavigationFragment extends LoginFragment {
                 }
                 if (TTTApplication.hasLoggedIn()) {
                     Intent intent = new Intent(getActivity(), UserNotificationActivity.class);
+                    intent.putExtra(IntentExtra.INTENT_LAUNCH_FROM, BaseActivity.FROM_HOME);
                     startActivity(intent);
                 } else {
                     DialogFragment dialogFragment = new LoginDialog();

@@ -34,10 +34,6 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 public class ArticleActivity extends BaseCommentActivity {
 
-    public static final String FROM_HOME = "from_home";
-
-    public static final String FROM_NOTIFICATION = "from_notification";
-
     private String launchFrom;
 
     private Article mArticle;
@@ -50,7 +46,7 @@ public class ArticleActivity extends BaseCommentActivity {
 
         if (getIntent() != null) {
             mArticle = (Article) getIntent().getSerializableExtra(IntentExtra.INTENT_ARTICLE);
-            launchFrom = getIntent().getStringExtra(IntentExtra.INTENT_ARTICLE_FROM);
+            launchFrom = getIntent().getStringExtra(IntentExtra.INTENT_LAUNCH_FROM);
         }
         if (mArticle == null) {
             finish();

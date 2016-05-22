@@ -116,7 +116,7 @@ public class RoadInfoDetailFragment extends BaseRefreshFragment {
                     // 跳转到RouteActivity
                     Intent intent = new Intent(getActivity(), ArticleActivity.class);
                     intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
-                    intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
+                    intent.putExtra(IntentExtra.INTENT_LAUNCH_FROM, ArticleActivity.FROM_HOME);
                     getActivity().startActivity(intent);
                 }
             });

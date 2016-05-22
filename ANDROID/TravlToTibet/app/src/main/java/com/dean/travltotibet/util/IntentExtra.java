@@ -43,7 +43,7 @@ public final class IntentExtra {
     public static final String INTENT_AROUND_BELONG = "intent_around_belong";
     public static final String INTENT_AROUND_TYPE = "intent_around_type";
     public static final String INTENT_ARTICLE = "intent_article";
-    public static final String INTENT_ARTICLE_FROM = "intent_article_from";
+    public static final String INTENT_LAUNCH_FROM = "intent_launch_from";
     public static final String INTENT_COMMENT = "intent_comment";
     public static final String INTENT_COMMENT_TYPE = "intent_comment_type";
     public static final String INTENT_ROAD = "intent_road";

@@ -153,22 +153,23 @@ public class QARequestDetailFragment extends Fragment {
                         }
                     });
 
-                    // 发送新通知，成功后加入用户关联中(云端逻辑)
-                    final UserMessage message = new UserMessage();
-                    message.setStatus(UserMessage.UNREAD_STATUS);
-                    message.setMessage(qaRequest.getTitle());
-                    message.setMessageTitle(UserMessage.QA_REQUEST_TITLE);
-                    message.setType(UserMessage.QA_REQUEST_TYPE);
-                    message.setTypeObjectId(qaRequest.getObjectId());
-                    message.setSendUser(TTTApplication.getUserInfo());
-                    message.save(qaShowRequestDetailActivity, new SaveListener() {
-                        @Override
-                        public void onSuccess() {
+                    // 发消息给每一关注用户（云端代码）
+                    if (mUserInfos != null) {
 
-                            // 发消息给每一关注用户（云端代码）
-                            if (mUserInfos != null) {
+                        for (final UserInfo userInfo : mUserInfos) {
 
-                                for (UserInfo userInfo : mUserInfos) {
+                            // 发送新通知，成功后加入用户关联中(云端逻辑)
+                            final UserMessage message = new UserMessage();
+                            message.setStatus(UserMessage.UNREAD_STATUS);
+                            message.setMessage(qaRequest.getTitle());
+                            message.setMessageTitle(UserMessage.QA_REQUEST_TITLE);
+                            message.setType(UserMessage.QA_REQUEST_TYPE);
+                            message.setTypeObjectId(qaRequest.getObjectId());
+                            message.setSendUser(TTTApplication.getUserInfo());
+                            message.setReceiveUser(userInfo);
+                            message.save(qaShowRequestDetailActivity, new SaveListener() {
+                                @Override
+                                public void onSuccess() {
 
                                     AsyncCustomEndpoints ace = new AsyncCustomEndpoints();
                                     String cloudCodeName = "sendUserMessageToUser";
@@ -183,20 +184,20 @@ public class QARequestDetailFragment extends Fragment {
                                         @Override
                                         public void onSuccess(Object object) {
                                         }
+
                                         @Override
                                         public void onFailure(int code, String msg) {
                                         }
                                     });
                                 }
 
-                            }
-                        }
+                                @Override
+                                public void onFailure(int i, String s) {
 
-                        @Override
-                        public void onFailure(int i, String s) {
-
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             }
 
@@ -330,7 +331,7 @@ public class QARequestDetailFragment extends Fragment {
         }
     }
 
-    public void updateSameQuestionUsers () {
+    public void updateSameQuestionUsers() {
         BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
         query.addWhereRelatedTo("questionUsers", new BmobPointer(qaRequest));
         query.order("createdAt"); // 越早越靠前

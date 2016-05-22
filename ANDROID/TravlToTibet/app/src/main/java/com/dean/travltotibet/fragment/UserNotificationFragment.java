@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.model.UserMessage;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class UserNotificationFragment extends UserMessageBaseFragment {
         userMessages = new ArrayList<>();
 
         BmobQuery<UserMessage> query = new BmobQuery<>();
-        query.addWhereRelatedTo("UserMessage", new BmobPointer(TTTApplication.getUserInfo()));
+        UserInfo userInfo = TTTApplication.getUserInfo();
+        query.addWhereRelatedTo("UserMessage", new BmobPointer(userInfo));
         query.order("-createdAt");
         query.include("sendUser");
 

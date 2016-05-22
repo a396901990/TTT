@@ -18,8 +18,6 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -90,7 +88,7 @@ public class ArticleListAdapter extends BaseAdapter {
                 // 跳转到RouteActivity
                 Intent intent = new Intent(mContext, ArticleActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ARTICLE, article);
-                intent.putExtra(IntentExtra.INTENT_ARTICLE_FROM, ArticleActivity.FROM_HOME);
+                intent.putExtra(IntentExtra.INTENT_LAUNCH_FROM, ArticleActivity.FROM_HOME);
                 mContext.startActivity(intent);
             }
         });

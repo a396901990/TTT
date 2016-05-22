@@ -15,12 +15,18 @@ import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.fragment.UserMessageBaseFragment;
 import com.dean.travltotibet.fragment.UserNotificationFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.dean.travltotibet.util.IntentExtra;
+import com.dean.travltotibet.util.LoginUtil;
+
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by DeanGuo on 5/11/16.
  * 个人通知
  */
 public class UserNotificationActivity extends BaseActivity {
+
+    private String launchFrom;
 
     private ViewPager mPager;
 
@@ -30,6 +36,23 @@ public class UserNotificationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_type_view);
+
+        if (getIntent() != null) {
+            launchFrom = getIntent().getStringExtra(IntentExtra.INTENT_LAUNCH_FROM);
+        }
+
+        if (FROM_NOTIFICATION.equals(launchFrom)) {
+            // 初始化share sdk
+            ShareSDK.initSDK(this);
+
+            // 初始化share sdk
+            ShareSDK.initSDK(this);
+
+            // 设置登陆状态
+            if (!TTTApplication.hasLoggedIn()) {
+                LoginUtil.getInstance().updateUserInfo();
+            }
+        }
 
         initToolBar();
         initPager();
@@ -73,6 +96,17 @@ public class UserNotificationActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        // 结束
+        if (id == android.R.id.home) {
+            if (FROM_HOME.equals(launchFrom)) {
+                finish();
+            }
+            else if (FROM_NOTIFICATION.equals(launchFrom)) {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
         if (id == R.id.action_del) {
             actionDel();
             return false;

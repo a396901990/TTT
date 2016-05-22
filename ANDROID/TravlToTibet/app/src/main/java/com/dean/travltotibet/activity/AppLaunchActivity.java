@@ -19,6 +19,7 @@ import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.util.AppUtil;
 import com.dean.travltotibet.util.LoginUtil;
 
@@ -55,16 +56,22 @@ public class AppLaunchActivity extends Activity {
 
         // 初始化Bmob
         Bmob.initialize(this, BMOB_APPLICATION_ID);
-        // 使用推送服务时的初始化操作
-        BmobInstallation.getCurrentInstallation(this).save();
-        // 启动推送服务
-        BmobPush.startWork(this, BMOB_APPLICATION_ID);
 
         // 初始化share sdk
         ShareSDK.initSDK(this);
 
         // 设置登陆状态
         LoginUtil.getInstance().updateUserInfo();
+
+        // 注册设备信息(使用推送服务时的初始化操作)，如果登陆则添加用户信息
+        BmobInstallation bmobInstallation = BmobInstallation.getCurrentInstallation(this);
+        if (TTTApplication.hasLoggedIn()) {
+            bmobInstallation.setValue("user", TTTApplication.getUserInfo().getUserId());
+        }
+        bmobInstallation.save();
+
+        // 启动推送服务
+        BmobPush.startWork(this, BMOB_APPLICATION_ID);
 
         initView();
         // 6.0 检查运行时权限

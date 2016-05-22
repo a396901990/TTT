@@ -230,6 +230,7 @@ public class TeamShowRequestDetailActivity extends BaseCommentActivity {
         message.setType(UserMessage.TEAM_REQUEST_TYPE);
         message.setTypeObjectId(teamRequest.getObjectId());
         message.setSendUser(TTTApplication.getUserInfo());
+        message.setReceiveUser(targetUser);
         message.save(this, new SaveListener() {
             @Override
             public void onSuccess() {

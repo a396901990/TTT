@@ -23,10 +23,17 @@ import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.adapter.HomePageAdapter;
 import com.dean.travltotibet.fragment.HomeCommunityFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
+import com.dean.travltotibet.util.MoveOldLogicUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.bmob.v3.AsyncCustomEndpoints;
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.listener.BmobDialogButtonListener;
+import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
@@ -73,6 +80,7 @@ public class HomeActivity extends BaseActivity {
 //        MoveOldLogicUtil.moveCommentForScenic(this);
 //        MoveOldLogicUtil.moveCommentForArticle(this);
 //        MoveOldLogicUtil.moveCommentForTeamRequest(this);
+
     }
 
     private void initMenu() {
