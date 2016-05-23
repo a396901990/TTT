@@ -28,6 +28,8 @@ public class BaseActivity extends AppCompatActivity {
 
     public static final int UPDATE_REQUEST = 0;
 
+    public static final int CREATE_REQUEST = 1;
+
     public static final String FROM_HOME = "from_home";
 
     public static final String FROM_NOTIFICATION = "from_notification";

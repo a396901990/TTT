@@ -38,6 +38,7 @@ public final class IntentExtra {
     public static final String INTENT_TEAM_REQUEST_SEARCH_FILTER = "intent_team_request_search_filter";
     public static final String INTENT_TEAM_REQUEST_IS_PERSONAL = "intent_team_request_is_personal";
     public static final String INTENT_IMAGE_SELECTED = "intent_image_selected";
+    public static final String INTENT_IMAGE_LIMIT = "intent_image_limit";
     public static final String INTENT_SCENIC = "intent_scenic";
     public static final String INTENT_GALLERY = "intent_gallery";
     public static final String INTENT_AROUND_BELONG = "intent_around_belong";

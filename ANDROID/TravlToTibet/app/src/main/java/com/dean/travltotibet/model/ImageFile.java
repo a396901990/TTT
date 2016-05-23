@@ -291,6 +291,16 @@ public class ImageFile extends BmobObject {
         return imgs;
     }
 
+    public static String getCompressUrl(String imgPath) {
+
+        // 创建临时图片目录
+        createTempFile();
+        String imageUrl = getImageName(1);
+        VolleyImageUtils.compress(imgPath, imageUrl, IMAGE_WIDTH, IMAGE_HEIGHT, 100);
+
+        return imageUrl;
+    }
+
     public static void createTempFile() {
         File file=new File(getMyPicPath());
         if(!file.exists())

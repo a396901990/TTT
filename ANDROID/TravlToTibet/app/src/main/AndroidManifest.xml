@@ -179,6 +179,9 @@
         <activity android:name=".activity.AnswerDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".activity.MomentCreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

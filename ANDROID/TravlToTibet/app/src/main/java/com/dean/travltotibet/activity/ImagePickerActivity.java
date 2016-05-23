@@ -19,6 +19,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
     ImagesGridFragment mFragment;
     AndroidImagePicker androidImagePicker;
     int selectedCount;
+    int selectedLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +41,16 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         androidImagePicker = AndroidImagePicker.getInstance();
         androidImagePicker.addOnImageSelectedListener(this);
         androidImagePicker.setSelectMode(AndroidImagePicker.Select_Mode.MODE_MULTI);
-        androidImagePicker.setSelectLimit(3);
         androidImagePicker.clearSelectedImages();
 
         if (getIntent() != null) {
             selectedCount = getIntent().getIntExtra(IntentExtra.INTENT_IMAGE_SELECTED, 0);
+            selectedLimit = getIntent().getIntExtra(IntentExtra.INTENT_IMAGE_LIMIT, 3);
         } else {
             selectedCount = androidImagePicker.getSelectImageCount();
+            selectedLimit = 3;
         }
+        androidImagePicker.setSelectLimit(selectedLimit);
 
         onImageSelected(0, null, 0, androidImagePicker.getSelectLimit());
     }

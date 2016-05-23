@@ -20,20 +20,16 @@ import android.widget.Toast;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.adapter.HomePageAdapter;
+import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.fragment.HomeCommunityFragment;
+import com.dean.travltotibet.fragment.HomeMomentFragment;
+import com.dean.travltotibet.fragment.HomeRecommendFragment;
+import com.dean.travltotibet.fragment.HomeTopicFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
-import com.dean.travltotibet.util.MoveOldLogicUtil;
 import com.dean.travltotibet.util.SearchFilterManger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cn.bmob.v3.AsyncCustomEndpoints;
-import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.listener.BmobDialogButtonListener;
-import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
@@ -45,7 +41,7 @@ public class HomeActivity extends BaseActivity {
 
     private String routeName;
 
-    private HomePageAdapter mAdapter;
+    private ViewPageFragmentAdapter mAdapter;
     private ViewPager mPager;
     private PagerSlidingTabStrip mTabs;
     private DrawerLayout mDrawerLayout;
@@ -113,7 +109,12 @@ public class HomeActivity extends BaseActivity {
     private void setUpView() {
         toolbarShadow = findViewById(R.id.toolbar_shadow);
         // 设置viewpager
-        mAdapter = new HomePageAdapter(getFragmentManager());
+        mAdapter = new ViewPageFragmentAdapter(getFragmentManager());
+        mAdapter.add(HomeRecommendFragment.class, null, "推荐");
+        mAdapter.add(HomeCommunityFragment.class, null, "社区");
+        mAdapter.add(HomeMomentFragment.class, null, "直播");
+        mAdapter.add(HomeTopicFragment.class, null, "发现");
+
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(1);
@@ -133,6 +134,8 @@ public class HomeActivity extends BaseActivity {
                 }
             }
         });
+
+
     }
 
     private void setUpHomeTab() {

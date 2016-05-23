@@ -181,6 +181,7 @@
     <string name="warning_no_pass">未通过审核，请修改后重新提交！</string>
     <string name="warning_wait_pass">正在审核中，请耐心等待！</string>
     <string name="road_feedback_hint">上传您知道的路况信息，方便更多驴友！人人都是户外探子！</string>
+    <string name="moment_hint">说点什么吧</string>
     <string name="q_a_title_hint">完整而清晰的问题标题能帮助您更快获得回答</string>
     <string name="q_a_content_hint">更详细的说明问题，或提供与之相关的背景信息和参考资料</string>
     <string name="hotel_contact_detail_text">为了保证信息的质量与准确性，请联系我们来添加／修改住宿信息！</string>
