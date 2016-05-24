@@ -22,6 +22,8 @@ public class UserInfo extends BmobUser{
 
 	private BmobRelation UserMessage;
 
+	private BmobRelation Moment;
+
 	public BmobRelation getUserMessage() {
 		return UserMessage;
 	}
@@ -92,5 +94,13 @@ public class UserInfo extends BmobUser{
 
 	public void setTeamFavorite(BmobRelation teamFavorite) {
 		TeamFavorite = teamFavorite;
+	}
+
+	public BmobRelation getMoment() {
+		return Moment;
+	}
+
+	public void setMoment(BmobRelation moment) {
+		Moment = moment;
 	}
 }

@@ -11,16 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.AnswerDetailActivity;
 import com.dean.travltotibet.activity.BaseActivity;
-import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
 import com.dean.travltotibet.model.AnswerInfo;
-import com.dean.travltotibet.model.Comment;
 import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.Constants;
@@ -29,7 +26,6 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -126,7 +122,7 @@ public class AnswerListAdapter extends BaseAdapter {
                 }
                 Intent intent = new Intent(mContext, AnswerDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_ANSWER, answerInfo);
-                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, false);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, false);
                 ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });

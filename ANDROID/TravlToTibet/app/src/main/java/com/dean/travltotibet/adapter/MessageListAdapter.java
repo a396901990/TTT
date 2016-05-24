@@ -27,7 +27,6 @@ import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
 import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -152,7 +151,7 @@ public class MessageListAdapter extends BaseAdapter {
             public void onSuccess(QARequest qaRequest) {
                 Intent intent = new Intent(mContext, QAShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_QA_REQUEST, qaRequest);
-                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
                 ((Activity) mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
 
@@ -171,7 +170,7 @@ public class MessageListAdapter extends BaseAdapter {
             public void onSuccess(TeamRequest teamRequest) {
                 Intent intent = new Intent(mContext, TeamShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, teamRequest);
-                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
                 ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
 

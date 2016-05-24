@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.adapter.ViewPageFragmentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
+import com.dean.travltotibet.fragment.MomentPublishFragment;
 import com.dean.travltotibet.fragment.QARequestPublishFragment;
 import com.dean.travltotibet.fragment.TeamRequestPublishFragment;
 import com.dean.travltotibet.ui.PagerSlidingTabStrip;
@@ -44,8 +45,9 @@ public class UserPublishActivity extends BaseActivity {
         }
         mAdapter.add(TeamRequestPublishFragment.class, null, "我的结伴");
         mAdapter.add(QARequestPublishFragment.class, null, "我的问答");
+        mAdapter.add(MomentPublishFragment.class, null, "我的直播");
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(1);
+        mPager.setOffscreenPageLimit(2);
         mPager.setCurrentItem(0, true);
 
         PagerSlidingTabStrip mTabs = (PagerSlidingTabStrip) this.findViewById(R.id.tabs);

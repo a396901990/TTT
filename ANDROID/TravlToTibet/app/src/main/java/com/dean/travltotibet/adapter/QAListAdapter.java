@@ -22,7 +22,6 @@ import com.dean.travltotibet.ui.MaterialRippleLayout;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.squareup.picasso.MemoryPolicy;
 
 import java.util.ArrayList;
 
@@ -118,7 +117,7 @@ public class QAListAdapter extends BaseAdapter {
                 }
                 Intent intent = new Intent(mContext, QAShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_QA_REQUEST, request);
-                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
                 ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });

@@ -33,10 +33,11 @@ public final class IntentExtra {
     public static final String INTENT_TEAM_REQUEST = "intent_team_request";
     public static final String INTENT_QA_REQUEST = "intent_q_a_request";
     public static final String INTENT_ANSWER = "intent_answer";
+    public static final String INTENT_MOMENT = "intent_moment";
     public static final String INTENT_QUESTION_TITLE = "intent_question_title";
     public static final String INTENT_TEAM_REQUEST_SHOW_TYPE = "intent_team_request_show_type";
     public static final String INTENT_TEAM_REQUEST_SEARCH_FILTER = "intent_team_request_search_filter";
-    public static final String INTENT_TEAM_REQUEST_IS_PERSONAL = "intent_team_request_is_personal";
+    public static final String INTENT_IS_PERSONAL = "intent_is_personal";
     public static final String INTENT_IMAGE_SELECTED = "intent_image_selected";
     public static final String INTENT_IMAGE_LIMIT = "intent_image_limit";
     public static final String INTENT_SCENIC = "intent_scenic";

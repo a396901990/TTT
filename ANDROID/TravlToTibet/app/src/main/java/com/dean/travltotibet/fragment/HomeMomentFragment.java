@@ -1,5 +1,6 @@
 package com.dean.travltotibet.fragment;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,12 +14,14 @@ import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.dean.travltotibet.R;
+import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.MomentCreateActivity;
 import com.dean.travltotibet.adapter.MomentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.base.LoadingBackgroundManager;
+import com.dean.travltotibet.dialog.LoginDialog;
 import com.dean.travltotibet.model.Moment;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
 import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
@@ -128,11 +131,16 @@ public class HomeMomentFragment extends BaseRefreshFragment {
             }
         }, 300);
 
-        // 点击打开slidingMenu
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoMomentCreate();
+                if (TTTApplication.hasLoggedIn()) {
+                    gotoMomentCreate();
+                } else {
+                    tryToCreateMoment = true;
+                    DialogFragment dialogFragment = new LoginDialog();
+                    dialogFragment.show(getFragmentManager(), LoginDialog.class.getName());
+                }
             }
         });
     }
@@ -142,7 +150,6 @@ public class HomeMomentFragment extends BaseRefreshFragment {
         startActivityForResult(intent, BaseActivity.CREATE_REQUEST);
         getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
     }
-
 
     /**
      * 登陆成功回调

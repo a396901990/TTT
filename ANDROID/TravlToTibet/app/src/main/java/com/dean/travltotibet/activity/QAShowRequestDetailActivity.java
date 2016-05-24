@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.fragment.QARequestDetailFragment;
 import com.dean.travltotibet.fragment.QAnswerFragment;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.Report;
@@ -41,7 +40,7 @@ public class QAShowRequestDetailActivity extends BaseActivity {
 
         if (getIntent() != null) {
             qaRequest = (QARequest) getIntent().getSerializableExtra(IntentExtra.INTENT_QA_REQUEST);
-            isPersonal = getIntent().getBooleanExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, false);
+            isPersonal = getIntent().getBooleanExtra(IntentExtra.INTENT_IS_PERSONAL, false);
         }
         if (qaRequest == null) {
             finish();

@@ -25,7 +25,6 @@ import com.dean.travltotibet.ui.tagview.TagView;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
 import com.dean.travltotibet.util.ScreenUtil;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -124,7 +123,7 @@ public class TeamRequestListAdapter extends BaseAdapter {
                 }
                 Intent intent = new Intent(mContext, TeamShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, request);
-                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
                 ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });

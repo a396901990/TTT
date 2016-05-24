@@ -1,8 +1,10 @@
 package com.dean.travltotibet.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,49 +13,61 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.dialog.AnswerCommentDialog;
 import com.dean.travltotibet.dialog.BaseCommentDialog;
-import com.dean.travltotibet.fragment.AnswerCommentFragment;
-import com.dean.travltotibet.model.AnswerInfo;
+import com.dean.travltotibet.dialog.MomentCommentDialog;
+import com.dean.travltotibet.fragment.MomentCommentFragment;
+import com.dean.travltotibet.fragment.MomentDetailFragment;
 import com.dean.travltotibet.model.Comment;
-import com.dean.travltotibet.model.Report;
+import com.dean.travltotibet.model.Moment;
+import com.dean.travltotibet.model.UserInfo;
+import com.dean.travltotibet.model.UserMessage;
 import com.dean.travltotibet.ui.like.LikeButton;
 import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoginUtil;
 import com.dean.travltotibet.util.ScreenUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by DeanGuo on 5/11/16.
+ * Created by DeanGuo on 5/23/16.
  */
-public class AnswerDetailActivity extends BaseCommentActivity {
+public class MomentDetailActivity extends BaseCommentActivity {
 
-    private AnswerInfo answerInfo;
+    private Moment moment;
 
     private boolean isPersonal = false;
+
+    MomentDetailFragment momentDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.answer_detail_view);
+        setContentView(R.layout.moment_detail_view);
         EventBus.getDefault().register(this);
 
         if (getIntent() != null) {
-            answerInfo = (AnswerInfo) getIntent().getSerializableExtra(IntentExtra.INTENT_ANSWER);
+            moment = (Moment) getIntent().getSerializableExtra(IntentExtra.INTENT_MOMENT);
             isPersonal = getIntent().getBooleanExtra(IntentExtra.INTENT_IS_PERSONAL, false);
         }
-        if (answerInfo == null) {
+        if (moment == null) {
             finish();
         }
+
+        momentDetailFragment = (MomentDetailFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setUpToolBar(toolbar);
@@ -66,44 +80,33 @@ public class AnswerDetailActivity extends BaseCommentActivity {
 
     @Override
     public BmobObject getObj() {
-        return answerInfo;
+        return moment;
     }
 
     private void initHeader() {
         // title
         if (isPersonal) {
-            setTitle("我的答案");
+            setTitle("我的直播");
         } else {
-            setTitle("答案详情");
+            setTitle("直播详情");
         }
     }
 
     private void refresh() {
-        AnswerCommentFragment fragment = (AnswerCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
+        MomentCommentFragment fragment = (MomentCommentFragment) getFragmentManager().findFragmentById(R.id.comment_fragment);
         if (fragment != null && fragment.isAdded()) {
             fragment.onRefresh();
         }
     }
 
-    private void updateLike() {
-        try {
-            answerInfo.increment("like");
-            if (this != null) {
-                answerInfo.update(this, null);
-            }
-        } catch (Exception e) {
-            // finish();
-        }
-    }
-
     private void updateWatch() {
         try {
-            final int watch = answerInfo.getWatch().intValue();
-            answerInfo.increment("watch");
-            answerInfo.update(this, new UpdateListener() {
+            final int watch = moment.getWatch().intValue();
+            moment.increment("watch");
+            moment.update(this, new UpdateListener() {
                 @Override
                 public void onSuccess() {
-                    answerInfo.setWatch(watch+1);
+                    moment.setWatch(watch+1);
                 }
 
                 @Override
@@ -111,7 +114,6 @@ public class AnswerDetailActivity extends BaseCommentActivity {
 
                 }
             });
-
         } catch (Exception e) {
             // finish();
         }
@@ -121,16 +123,20 @@ public class AnswerDetailActivity extends BaseCommentActivity {
 
         // like
         LikeButton likeBtn = (LikeButton) findViewById(R.id.like_button);
+        changeLikeStatus(moment, likeBtn);
         likeBtn.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                updateWatch();
-                updateLike();
+                if (momentDetailFragment!=null && momentDetailFragment.isAdded()) {
+                    momentDetailFragment.likeAction(moment);
+                }
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-
+                if (momentDetailFragment!=null && momentDetailFragment.isAdded()) {
+                    momentDetailFragment.unlikeAction(moment);
+                }
             }
         });
 
@@ -144,6 +150,18 @@ public class AnswerDetailActivity extends BaseCommentActivity {
         });
     }
 
+    private void changeLikeStatus(final Moment moment, LikeButton likeBtn) {
+
+        final SharedPreferences sharedPreferences = TTTApplication.getSharedPreferences();
+        String objectId = sharedPreferences.getString(moment.getObjectId(), "");
+
+        if (TextUtils.isEmpty(objectId)) {
+            likeBtn.setLiked(false);
+        } else {
+            likeBtn.setLiked(true);
+        }
+    }
+
     /**
      * 回复操作
      */
@@ -151,18 +169,19 @@ public class AnswerDetailActivity extends BaseCommentActivity {
         if (ScreenUtil.isFastClick()) {
             return;
         }
-        BaseCommentDialog dialogFragment = new AnswerCommentDialog();
+        BaseCommentDialog dialogFragment = new MomentCommentDialog();
         dialogFragment.setCommentCallBack(this);
-        dialogFragment.show(getFragmentManager(), AnswerCommentDialog.class.getName());
+        dialogFragment.show(getFragmentManager(), MomentCommentDialog.class.getName());
     }
 
     @Override
     public void onCommentSuccess(final Comment comment) {
+
         // 将评论添加到当前team request的关联中
         final BmobRelation commentRelation = new BmobRelation();
         commentRelation.add(comment);
-        answerInfo.setReplyComments(commentRelation);
-        answerInfo.update(getApplication(), new UpdateListener() {
+        moment.setReplyComments(commentRelation);
+        moment.update(getApplication(), new UpdateListener() {
             @Override
             public void onSuccess() {
                 refresh();
@@ -174,29 +193,44 @@ public class AnswerDetailActivity extends BaseCommentActivity {
             }
         });
 
-//        // 发送新通知，成功后加入用户关联中
-//        final UserInfo targetUser = answerInfo.getUser();
-//        final UserMessage message = new UserMessage();
-//        message.setStatus(UserMessage.UNREAD_STATUS);
-//        message.setMessage(answerInfo.getContent());
-//        message.setMessageTitle(UserMessage.TEAM_REQUEST_TITLE);
-//        message.setType(UserMessage.TEAM_REQUEST_TYPE);
-//        message.setTypeObjectId(answerInfo.getObjectId());
-//        message.setSendUser(TTTApplication.getUserInfo());
-//        message.save(this, new SaveListener() {
-//            @Override
-//            public void onSuccess() {
-//                BmobRelation messageRelation = new BmobRelation();
-//                messageRelation.add(message);
-//                targetUser.setUserMessage(messageRelation);
-//                targetUser.update(getApplication());
-//            }
-//
-//            @Override
-//            public void onFailure(int i, String s) {
-//
-//            }
-//        });
+        // 发送新通知，成功后加入用户关联中(云端逻辑)
+        final UserInfo targetUser = moment.getUser();
+        final UserMessage message = new UserMessage();
+        message.setStatus(UserMessage.UNREAD_STATUS);
+        message.setMessage(moment.getContent());
+        message.setMessageTitle(UserMessage.MOMENT_REQUEST_TITLE);
+        message.setType(UserMessage.MOMENT_TYPE);
+        message.setTypeObjectId(moment.getObjectId());
+        message.setSendUser(TTTApplication.getUserInfo());
+        message.setReceiveUser(targetUser);
+        message.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+
+                AsyncCustomEndpoints ace = new AsyncCustomEndpoints();
+                String cloudCodeName = "sendUserMessageToUser";
+                JSONObject params = new JSONObject();
+                try {
+                    params.put("username", targetUser.getUserId());
+                    params.put("messageId", message.getObjectId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ace.callEndpoint(TTTApplication.getContext(), cloudCodeName, params, new CloudCodeListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                    }
+                    @Override
+                    public void onFailure(int code, String msg) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     @Override
@@ -206,7 +240,7 @@ public class AnswerDetailActivity extends BaseCommentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_team_request_show, menu);
+        getMenuInflater().inflate(R.menu.menu_moment, menu);
         return true;
     }
 
@@ -220,32 +254,8 @@ public class AnswerDetailActivity extends BaseCommentActivity {
             actionEdit();
         } else if (id == R.id.action_del) {
             actionDel();
-        } else if (id == R.id.action_report) {
-            actionReport();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void actionReport() {
-        new MaterialDialog.Builder(this)
-                .title(getString(R.string.dialog_report_title))
-                .positiveText(getString(R.string.ok_btn))
-                .negativeText(getString(R.string.cancel_btn))
-                .positiveColor(TTTApplication.getMyColor(R.color.colorPrimary))
-                .callback(new MaterialDialog.Callback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        reportAction();
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        dialog.dismiss();
-                    }
-                })
-                .build()
-                .show();
     }
 
     private void actionDel() {
@@ -257,7 +267,7 @@ public class AnswerDetailActivity extends BaseCommentActivity {
                 .callback(new MaterialDialog.Callback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        deleteTeamRequest();
+                        deleteMoment();
                         dialog.dismiss();
                     }
 
@@ -271,18 +281,22 @@ public class AnswerDetailActivity extends BaseCommentActivity {
     }
 
     private void actionEdit() {
-        Intent intent = new Intent(this, TeamCreateRequestActivity.class);
-        intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST, answerInfo);
+        Intent intent = new Intent(this, MomentCreateActivity.class);
+        intent.putExtra(IntentExtra.INTENT_MOMENT, moment);
         startActivityForResult(intent, UPDATE_REQUEST);
         setResult(RESULT_OK);
         finish();
     }
 
-    private void deleteTeamRequest() {
+    private void deleteMoment() {
 
-        answerInfo.delete(this, new DeleteListener() {
+        moment.delete(this, new DeleteListener() {
             @Override
             public void onSuccess() {
+                // 删除文件
+                if (moment.getImageFile() != null) {
+                    moment.getImageFile().deleteAll(getApplicationContext());
+                }
                 Toast.makeText(getApplicationContext(), getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK);
                 finish();
@@ -295,23 +309,18 @@ public class AnswerDetailActivity extends BaseCommentActivity {
         });
     }
 
-    // 举报
-    private void reportAction() {
-        new Report().addReport(this, Report.REPORT_TEAM_REQUEST, answerInfo.getObjectId(), "", answerInfo.getUserName());
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == UPDATE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                BmobQuery<AnswerInfo> query = new BmobQuery<AnswerInfo>();
-                query.getObject(this, answerInfo.getObjectId(), new GetListener<AnswerInfo>() {
+                BmobQuery<Moment> query = new BmobQuery<Moment>();
+                query.getObject(this, moment.getObjectId(), new GetListener<Moment>() {
 
                     @Override
-                    public void onSuccess(AnswerInfo object) {
-                        answerInfo = object;
+                    public void onSuccess(Moment object) {
+                        moment = object;
                     }
 
                     @Override
@@ -329,7 +338,7 @@ public class AnswerDetailActivity extends BaseCommentActivity {
         MenuItem delItem = menu.findItem(R.id.action_del);
 
         if (isPersonal) {
-            editItem.setVisible(true);
+            editItem.setVisible(false);
             delItem.setVisible(true);
             reportItem.setVisible(false);
         } else {
@@ -346,8 +355,8 @@ public class AnswerDetailActivity extends BaseCommentActivity {
         return true;
     }
 
-    public AnswerInfo getAnswerInfo() {
-        return answerInfo;
+    public Moment getMoment() {
+        return moment;
     }
 
     /**

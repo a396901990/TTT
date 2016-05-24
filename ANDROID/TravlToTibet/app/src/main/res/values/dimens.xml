@@ -1,5 +1,6 @@
 <resources>
     <!--text-->
+    <dimen name="text_super_mini">7dp</dimen>
     <dimen name="text_mini">9dp</dimen>
     <dimen name="text_micro">11dp</dimen>
     <dimen name="text_small">13dp</dimen>
@@ -252,4 +253,5 @@
     <dimen name="header_month_height">50dip</dimen>
     <dimen name="selected_day_radius">16dip</dimen>
     <dimen name="calendar_height">270dip</dimen>
+    <dimen name="moment_bottom_height">44dp</dimen>
 </resources>

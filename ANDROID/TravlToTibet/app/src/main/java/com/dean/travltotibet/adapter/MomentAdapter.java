@@ -1,6 +1,8 @@
 package com.dean.travltotibet.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
@@ -11,9 +13,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.a.a.V;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
-import com.dean.travltotibet.model.Comment;
+import com.dean.travltotibet.activity.BaseActivity;
+import com.dean.travltotibet.activity.MomentDetailActivity;
 import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.Moment;
 import com.dean.travltotibet.model.TeamRequest;
@@ -23,7 +27,9 @@ import com.dean.travltotibet.ui.like.LikeButton;
 import com.dean.travltotibet.ui.like.OnLikeListener;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.DateUtil;
+import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.PicassoTools;
+import com.dean.travltotibet.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -147,7 +153,13 @@ public class MomentAdapter extends BaseAdapter {
         holder.commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                Intent intent = new Intent(mContext, MomentDetailActivity.class);
+                intent.putExtra(IntentExtra.INTENT_MOMENT, moment);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
+                ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }
         });
 
@@ -164,19 +176,27 @@ public class MomentAdapter extends BaseAdapter {
                 unlikeAction(moment, mContext, holder);
             }
         });
-//
-//        holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (ScreenUtil.isFastClick()) {
-//                    return;
-//                }
-//                Intent intent = new Intent(mContext, QAShowRequestDetailActivity.class);
-//                intent.putExtra(IntentExtra.INTENT_QA_REQUEST, moment);
-//                intent.putExtra(IntentExtra.INTENT_TEAM_REQUEST_IS_PERSONAL, isPersonal);
-//                ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
-//            }
-//        });
+
+        // 点击跳转
+        holder.rippleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ScreenUtil.isFastClick()) {
+                    return;
+                }
+                Intent intent = new Intent(mContext, MomentDetailActivity.class);
+                intent.putExtra(IntentExtra.INTENT_MOMENT, moment);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
+                ((Activity)mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
+            }
+        });
+
+        // 个人观看不需要显示评论和点赞
+        if (isPersonal) {
+            holder.bottomView.setVisibility(View.GONE);
+        } else {
+            holder.bottomView.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }
@@ -295,6 +315,7 @@ public class MomentAdapter extends BaseAdapter {
 
         private LikeButton likeButton;
         private View commentBtn;
+        private View bottomView;
 
         public MomentViewHolder(View itemView) {
             mContentText = (TextView) itemView.findViewById(R.id.content_text);
@@ -310,10 +331,12 @@ public class MomentAdapter extends BaseAdapter {
             mUserIcon = (CircleImageView) itemView.findViewById(R.id.user_icon);
 
             mWatch = (TextView) itemView.findViewById(R.id.watch);
-//            rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
+            rippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple_view);
 
             mWarningView = itemView.findViewById(R.id.warning_view);
             mWarningText = (TextView) itemView.findViewById(R.id.warning_text);
+
+            bottomView = itemView.findViewById(R.id.bottom_content_view);
         }
     }
 

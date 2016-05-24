@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +39,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.helper.PermissionListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 
 /**
@@ -267,7 +270,23 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
                 if (mActivity == null) {
                     return;
                 }
-                toDo(LOADING_SUCCESS, 0);
+
+                // 存入user中
+                UserInfo userInfo = TTTApplication.getUserInfo();
+                BmobRelation momentRelation = new BmobRelation();
+                momentRelation.add(moment);
+                userInfo.setMoment(momentRelation);
+                userInfo.update(getActivity(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        toDo(LOADING_SUCCESS, 0);
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        toDo(LOADING_SUCCESS, 0);
+                    }
+                });
             }
 
             @Override
@@ -315,6 +334,7 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
             @Override
             public void onError(int statuscode, String errormsg) {
                 // 删除temp文件
+                Log.e("uploadImage：", errormsg);
                 ImageFile.delTempFile();
                 toDo(LOADING_ERROR, 0);
             }
