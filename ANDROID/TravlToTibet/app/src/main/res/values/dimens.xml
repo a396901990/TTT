@@ -122,6 +122,7 @@
     <dimen name="recommend_view_item_margin">0dp</dimen>
     <dimen name="home_recent_item_width">250dp</dimen>
     <dimen name="home_recent_item_height">180dp</dimen>
+    <dimen name="home_moment_img_height">180dp</dimen>
 
     <!--setting-->
     <dimen name="setting_item_height">44dp</dimen>

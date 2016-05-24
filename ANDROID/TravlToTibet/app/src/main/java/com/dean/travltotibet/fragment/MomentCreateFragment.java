@@ -25,6 +25,7 @@ import com.dean.travltotibet.activity.MomentCreateActivity;
 import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.Moment;
+import com.dean.travltotibet.model.UserInfo;
 import com.dean.travltotibet.util.Constants;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoadingManager;
@@ -249,9 +250,17 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
         }
 
         if (TTTApplication.getUserInfo() != null) {
-            moment.setUser(TTTApplication.getUserInfo());
+            UserInfo userInfo = TTTApplication.getUserInfo();
+            moment.setUser(userInfo);
+            moment.setUserName(userInfo.getUserName());
+            moment.setUserGender(userInfo.getUserGender());
+            moment.setUserIcon(userInfo.getUserIcon());
         }
         moment.setStatus(Moment.PASS_STATUS);
+        moment.setWatch(0);
+        moment.setLike(0);
+        moment.setComment(0);
+        moment.setLocation("中国 西藏 布达拉宫");
         moment.save(getActivity(), new SaveListener() {
             @Override
             public void onSuccess() {

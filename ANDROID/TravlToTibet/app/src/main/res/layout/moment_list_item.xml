@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <!--<com.dean.travltotibet.ui.MaterialRippleLayout-->
+    <!--android:id="@+id/ripple_view"-->
+    <!--style="@style/RippleStyle"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--&gt;-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/less_light_gray"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+            <!--header-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--头像-->
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/user_icon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/gray_profile"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="0dp" />
+
+                <!--用户名称-->
+                <TextView
+                    android:id="@+id/user_name"
+                    style="@style/TextAppearance.Micro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/user_icon"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:text="户外探子"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/watch"
+                    style="@style/TextAppearance.Mini"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/border_half_blue"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="1dp"
+                    android:text="30"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
+            <!--content-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/content_text"
+                    style="@style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:text="7月份，自驾青藏线，求妹子~~7月份，自驾青藏线，求妹子~~7月份." />
+
+                <ImageView
+                    android:id="@+id/share_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_moment_img_height"
+                    android:layout_marginTop="@dimen/card_padding"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_camera" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="@dimen/card_padding"
+                    android:layout_marginTop="@dimen/card_half_padding"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/location_text"
+                        style="@style/TextAppearance.Theme.Micro.Dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中国 西藏" />
+
+                    <TextView
+                        android:id="@+id/publish_time"
+                        style="@style/TextAppearance.Mini"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/card_half_padding"
+                        android:text="5分钟前"
+                        android:textColor="@color/gray" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <com.dean.travltotibet.ui.like.LikeButton
+                        android:id="@+id/like_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        app:anim_scale_factor="2"
+                        app:icon_size="20dp"
+                        app:icon_type="thumb" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="14dp"
+                        android:layout_gravity="center"
+                        android:background="@color/less_light_gray"></View>
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/comment_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        app:iiv_color="@color/colorPrimary"
+                        app:iiv_icon="gmd_mode_comment" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/less_light_gray"></View>
+    </LinearLayout>
+
+    <!--</com.dean.travltotibet.ui.MaterialRippleLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/warning_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/half_dark_gray"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/warning_text"
+            style="@style/TextAppearance.Large.White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/dark_gray"
+            android:padding="10dp"
+            android:text="@string/warning_no_pass" />
+    </RelativeLayout>
+</FrameLayout>

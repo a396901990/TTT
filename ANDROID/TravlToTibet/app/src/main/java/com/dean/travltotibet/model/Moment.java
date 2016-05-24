@@ -27,6 +27,12 @@ public class Moment extends BaseCommentBmobObject {
 
     private String location;
 
+    public String userName;
+
+    public String userIcon;
+
+    public String userGender;
+
     public Number getWatch() {
         return watch;
     }
@@ -89,5 +95,28 @@ public class Moment extends BaseCommentBmobObject {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserIcon() {
+        return userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
     }
 }

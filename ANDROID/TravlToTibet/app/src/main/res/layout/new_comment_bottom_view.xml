@@ -23,7 +23,7 @@
                 android:id="@+id/like_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:anim_scale_factor="3"
+                app:anim_scale_factor="2"
                 app:icon_size="22dp"
                 app:icon_type="thumb" />
         </LinearLayout>
@@ -45,7 +45,7 @@
                 android:id="@+id/favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:anim_scale_factor="3"
+                app:anim_scale_factor="2"
                 app:icon_size="22dp"
                 app:icon_type="heart" />
         </LinearLayout>

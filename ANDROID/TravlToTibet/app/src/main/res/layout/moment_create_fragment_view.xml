@@ -43,7 +43,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_recent_item_height"
+                    android:layout_height="@dimen/home_moment_img_height"
                     android:background="@color/less_light_gray">
 
                     <FrameLayout

@@ -4,29 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.Toast;
 
-import com.dean.greendao.Route;
 import com.dean.travltotibet.R;
-import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
 import com.dean.travltotibet.activity.HomeActivity;
 import com.dean.travltotibet.activity.MomentCreateActivity;
-import com.dean.travltotibet.activity.TeamCreateRequestActivity;
-import com.dean.travltotibet.adapter.RecommendAdapter;
-import com.dean.travltotibet.animator.ReboundItemAnimator;
+import com.dean.travltotibet.adapter.MomentAdapter;
 import com.dean.travltotibet.base.BaseRefreshFragment;
-import com.dean.travltotibet.ui.VerticalSpaceItemDecoration;
+import com.dean.travltotibet.base.LoadingBackgroundManager;
+import com.dean.travltotibet.model.Moment;
 import com.dean.travltotibet.ui.fab.FloatingActionButton;
+import com.dean.travltotibet.ui.loadmore.LoadMoreListView;
 import com.dean.travltotibet.util.LoginUtil;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by DeanGuo on 5/23/16.
@@ -34,12 +36,15 @@ import java.util.ArrayList;
 public class HomeMomentFragment extends BaseRefreshFragment {
 
     private View root;
-    private RecommendAdapter mAdapter;
-    private ArrayList<Route> routes;
+    private MomentAdapter mAdapter;
+    private ArrayList<Moment> moments;
     private HomeActivity mActivity;
-    private RecyclerView mRecyclerView;
+    private LoadMoreListView loadMoreListView;
     private FloatingActionButton fab;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private LoadingBackgroundManager loadingBackgroundManager;
+
+    private int limit = 8;        // 每页的数据是8条
 
     private boolean tryToCreateMoment = false;
 
@@ -59,11 +64,17 @@ public class HomeMomentFragment extends BaseRefreshFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (HomeActivity) getActivity();
+        initLoadingBackground();
         initRefreshView();
-        initList();
         initFabBtn();
+        setUpList();
 
         onRefresh();
+    }
+
+    private void initLoadingBackground() {
+        ViewGroup contentView = (ViewGroup) root.findViewById(R.id.content_view);
+        loadingBackgroundManager = new LoadingBackgroundManager(getActivity(), contentView);
     }
 
     private void initRefreshView() {
@@ -71,14 +82,31 @@ public class HomeMomentFragment extends BaseRefreshFragment {
         setSwipeRefreshLayout(mSwipeRefreshLayout);
     }
 
-    private void initList() {
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.moment_fragment_list_rv);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setItemAnimator(new ReboundItemAnimator());
-        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(3));
+    private void setUpList() {
+        loadMoreListView = (LoadMoreListView) root.findViewById(R.id.moment_fragment_list_rv);
 
-        mAdapter = new RecommendAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        loadMoreListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                // 拖动时隐藏
+                if (scrollState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    fab.hide(true);
+                } else {
+                    fab.show(true);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // 解决listview，mSwipeRefreshLayout冲突
+                int topRowVerticalPosition = (loadMoreListView == null || loadMoreListView.getChildCount() == 0) ? 0 : loadMoreListView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+        mAdapter = new MomentAdapter(getActivity());
+        loadMoreListView.setAdapter(mAdapter);
+        setLoadMoreListView(loadMoreListView);
     }
 
     private void initFabBtn() {
@@ -107,23 +135,6 @@ public class HomeMomentFragment extends BaseRefreshFragment {
                 gotoMomentCreate();
             }
         });
-
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    fab.hide(true);
-                } else {
-                    fab.show(true);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
     }
 
     private void gotoMomentCreate() {
@@ -150,54 +161,150 @@ public class HomeMomentFragment extends BaseRefreshFragment {
         Toast.makeText(getActivity(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
     }
 
+    private void getMoments(final int actionType) {
+        moments = new ArrayList<>();
+
+        BmobQuery<Moment> query = new BmobQuery<>();
+        query.order("-comments,-createdAt");
+        query.include("imageFile,user[userId]");
+        query.addWhereEqualTo("status", Moment.PASS_STATUS);   // 只显示P状态
+
+        // 加载更多
+        if (actionType == STATE_MORE) {
+            // 跳过已经加载的元素
+            query.setSkip(mAdapter.getCount());
+        }
+
+        // 设置每页数据个数
+        query.setLimit(limit);
+
+        query.findObjects(getActivity(), new FindListener<Moment>() {
+            @Override
+            public void onSuccess(List<Moment> list) {
+                moments = (ArrayList<Moment>) list;
+
+                if (list.size() == 0 && actionType == STATE_MORE) {
+                    loadMoreListView.onNoMoreDate();
+                } else {
+                    if (actionType == STATE_REFRESH) {
+                        toDo(LOADING_SUCCESS, 0);
+                    } else {
+                        toDo(LOADING_MORE_SUCCESS, 0);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+                if (actionType == STATE_REFRESH) {
+                    toDo(LOADING_ERROR, 0);
+                } else {
+                    toDo(LOADING_MORE_ERROR, 0);
+                }
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        onRefresh();
-    }
 
-    /**
-     * 获取route数据
-     */
-    private void getRouteData() {
-        routes = (ArrayList<Route>) TTTApplication.getDbHelper().getRoutsList();
-        if (routes != null) {
-            toDo(LOADING_SUCCESS, 0);
-        } else {
-            toDo(LOADING_ERROR, 0);
+        if (requestCode == BaseActivity.CREATE_REQUEST) {
+            if (resultCode == getActivity().RESULT_OK) {
+                onRefresh();
+            }
         }
     }
 
     @Override
     public void onRefresh() {
-        super.onUpdate();
-        toDo(PREPARE_LOADING, 200);
+        super.onRefresh();
+        toDo(PREPARE_LOADING, 0);
     }
 
     @Override
     public void prepareLoading() {
         super.prepareLoading();
-        startRefresh();
-        mAdapter.clearData();
-        toDo(ON_LOADING, 600);
+
+        loadingBackgroundManager.resetLoadingView();
+
+        if (mActivity != null && mAdapter != null) {
+            startRefresh();
+            mAdapter.clearData();
+            toDo(ON_LOADING, 800);
+        }
+
+        if (loadMoreListView.getHeaderViewsCount() > 0) {
+            // loadMoreListView.removeHeaderView(articleHeader);
+        }
     }
 
     @Override
     public void onLoading() {
         super.onLoading();
-        getRouteData();
+        getMoments(STATE_REFRESH);
     }
 
     @Override
     public void LoadingSuccess() {
         super.LoadingSuccess();
-        mAdapter.setData(routes);
+        // 加载header
+        if (loadMoreListView.getHeaderViewsCount() == 0) {
+            // loadMoreListView.addHeaderView(articleHeader);
+        }
+
+        // 无数据
+        if (moments == null || moments.size() == 0) {
+            loadingBackgroundManager.loadingFaild(getString(R.string.no_result), null);
+        }
+
+        if (mAdapter != null) {
+            mAdapter.setData(moments);
+        }
         finishRefresh();
     }
 
     @Override
     public void LoadingError() {
         super.LoadingError();
+        loadingBackgroundManager.loadingFaild(getString(R.string.network_no_result), new LoadingBackgroundManager.LoadingRetryCallBack() {
+            @Override
+            public void retry() {
+                onRefresh();
+            }
+        });
         finishRefresh();
+    }
+
+    @Override
+    public void onLoadingMore() {
+        super.onLoadingMore();
+        getMoments(STATE_MORE);
+    }
+
+    @Override
+    public void LoadingMoreSuccess() {
+        super.LoadingMoreSuccess();
+        if (mAdapter != null) {
+            mAdapter.addData(moments);
+        }
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
+    }
+
+    @Override
+    public void LoadingMoreError() {
+        super.LoadingMoreError();
+        if (loadMoreListView != null) {
+            loadMoreListView.onLoadMoreComplete();
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        super.onLoadMore();
+        toDo(ON_LOADING_MORE, 800);
     }
 }
