@@ -14,6 +14,53 @@
             android:id="@+id/contact_content_view"
             layout="@layout/team_create_request_image_content_view"></include>
 
+        <!--地点-->
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="3dp"
+            card_view:cardElevation="3dp"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="@dimen/card_padding">
+
+                <RelativeLayout
+                    android:id="@+id/position_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+                    <!--内容-->
+                    <TextView
+                        style="@style/TitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="路况地点" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/position_edit_text"
+                    style="@style/TextAppearance.Regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/position_header"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="@string/road_position_feedback_hint"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/dark_gray" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
         <!--内容-->
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"

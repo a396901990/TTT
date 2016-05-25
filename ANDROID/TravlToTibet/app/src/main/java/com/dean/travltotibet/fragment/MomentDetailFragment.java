@@ -107,7 +107,7 @@ public class MomentDetailFragment extends Fragment {
         if (imageFile != null) {
             mShareImage.setVisibility(View.VISIBLE);
             PicassoTools.getPicasso()
-                    .load(imageFile.getImage1().getFileUrl(getActivity()))
+                    .load(imageFile.getImage1().getFileUrl(momentDetailActivity))
                     .placeholder(R.color.less_light_gray)
                     .error(R.color.light_gray)
                     .into(mShareImage);

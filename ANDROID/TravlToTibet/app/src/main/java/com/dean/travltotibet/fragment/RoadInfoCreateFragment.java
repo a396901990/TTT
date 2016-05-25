@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,7 +58,7 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
     private RoadInfo roadInfo;
 
-    private EditText contentEdit;
+    private EditText positionEdit, contentEdit;
 
     private ImagePickAdapter imagePickAdapter;
 
@@ -181,6 +180,8 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
             public void afterTextChanged(Editable s) {
             }
         });
+
+        positionEdit = (EditText) root.findViewById(R.id.position_edit_text);
     }
 
     private void updateTextLimitHint() {
@@ -192,6 +193,12 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
 
     // 提交请求
     public void commitRequest() {
+        // set position value
+        String positionString = positionEdit.getText().toString().trim();
+        if (!TextUtils.isEmpty(positionString)) {
+            roadInfo.setPosition(positionString);
+        }
+
         // set content value
         String contentString = contentEdit.getText().toString().trim();
         if (!TextUtils.isEmpty(contentString) && contentString.length() >= TEXT_MIN_LIMIT) {
@@ -257,6 +264,7 @@ public class RoadInfoCreateFragment extends BaseRefreshFragment implements Andro
         if (TTTApplication.getUserInfo() != null) {
             roadInfo.setUser(TTTApplication.getUserInfo());
         }
+
         roadInfo.setStatus(RoadInfo.WAIT_STATUS);
         roadInfo.setRoute(mActivity.getRouteName());
         roadInfo.setTitle("");

@@ -6,19 +6,19 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.a.a.V;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.Poi;
+import com.baidu.mapapi.SDKInitializer;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.ImagePickerActivity;
@@ -27,7 +27,7 @@ import com.dean.travltotibet.base.BaseRefreshFragment;
 import com.dean.travltotibet.model.ImageFile;
 import com.dean.travltotibet.model.Moment;
 import com.dean.travltotibet.model.UserInfo;
-import com.dean.travltotibet.util.Constants;
+import com.dean.travltotibet.service.LocationService;
 import com.dean.travltotibet.util.IntentExtra;
 import com.dean.travltotibet.util.LoadingManager;
 import com.dean.travltotibet.util.PicassoTools;
@@ -60,13 +60,15 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
 
     private Moment moment;
 
-    private EditText contentEdit;
+    private EditText contentEdit, locationEdit;
 
     private LoadingManager loadingManager;
 
     private ArrayList<String> imagePaths = new ArrayList<>();
 
-    private View addBtn, delBtn;
+    private View addBtn, delBtn, clearBtn, refreshBtn;
+
+    private LocationService locationService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,9 +85,15 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
         moment = new Moment();
         loadingManager = new LoadingManager(getActivity());
 
+        initLocation();
         initContentContent();
         updateImageContent();
 //        actionPickImage();
+    }
+
+    private void initLocation() {
+        SDKInitializer.initialize(TTTApplication.getContext());
+        locationService = new LocationService(getActivity());
     }
 
     @Override
@@ -135,6 +143,8 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
 
     // 内容
     private void initContentContent() {
+        locationEdit = (EditText) root.findViewById(R.id.location_edit_text);
+
         contentEdit = (EditText) root.findViewById(R.id.content_edit_text);
         contentEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(TEXT_MAX_LIMIT)});
 
@@ -153,6 +163,24 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
             public void onClick(View v) {
                 imagePaths.clear();
                 updateImageContent();
+            }
+        });
+
+        clearBtn = root.findViewById(R.id.clear_btn);
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationEdit.setText("");
+                onStart();
+//                locationService.requestLocation();
+            }
+        });
+
+        refreshBtn = root.findViewById(R.id.refresh_btn);
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                onStart();
             }
         });
     }
@@ -263,7 +291,7 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
         moment.setWatch(0);
         moment.setLike(0);
         moment.setComment(0);
-        moment.setLocation("中国 西藏 布达拉宫");
+        moment.setLocation(locationEdit.getText().toString().trim());
         moment.save(getActivity(), new SaveListener() {
             @Override
             public void onSuccess() {
@@ -366,6 +394,71 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
                 toDo(LOADING_ERROR, 0);
             }
         });
+    }
+
+    /***
+     * Stop location service
+     */
+    @Override
+    public void onStop() {
+        // TODO Auto-generated method stub
+        locationService.unregisterListener(mListener); //注销掉监听
+        locationService.stop(); //停止定位服务
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        // -----------location config ------------
+
+        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+        locationService.registerListener(mListener);
+        //注册监听
+        int type = getActivity().getIntent().getIntExtra("from", 0);
+        if (type == 0) {
+            locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+        } else if (type == 1) {
+            locationService.setLocationOption(locationService.getOption());
+        }
+
+        locationService.start();// 定位SDK
+    }
+
+
+    /*****
+     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+     */
+    private BDLocationListener mListener = new BDLocationListener() {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // TODO Auto-generated method stub
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                Log.e("onReceiveLocation", "onReceiveLocation");
+                StringBuffer sb = new StringBuffer(256);
+                sb.append(location.getCountry());
+                sb.append(" · ");
+                sb.append(location.getCity());
+                sb.append(" · ");
+                sb.append(location.getDistrict());
+                sb.append(" · ");
+                sb.append(location.getStreet());
+                logMsg(sb.toString());
+                locationService.stop();
+            }
+        }
+
+    };
+
+    public void logMsg(String str) {
+        try {
+            if (locationEdit != null)
+                locationEdit.setText(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

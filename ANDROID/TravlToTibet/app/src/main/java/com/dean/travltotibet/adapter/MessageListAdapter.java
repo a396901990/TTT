@@ -14,8 +14,10 @@ import android.widget.TextView;
 import com.dean.travltotibet.R;
 import com.dean.travltotibet.TTTApplication;
 import com.dean.travltotibet.activity.BaseActivity;
+import com.dean.travltotibet.activity.MomentDetailActivity;
 import com.dean.travltotibet.activity.QAShowRequestDetailActivity;
 import com.dean.travltotibet.activity.TeamShowRequestDetailActivity;
+import com.dean.travltotibet.model.Moment;
 import com.dean.travltotibet.model.QARequest;
 import com.dean.travltotibet.model.TeamRequest;
 import com.dean.travltotibet.model.UserInfo;
@@ -129,10 +131,17 @@ public class MessageListAdapter extends BaseAdapter {
                     return;
                 }
 
+                // team request
                 if (message.getType().equals(UserMessage.TEAM_REQUEST_TYPE)) {
                     openTeamRequest(message.getTypeObjectId());
-                } else if (message.getType().equals(UserMessage.QA_REQUEST_TYPE)) {
+                }
+                // qa request
+                else if (message.getType().equals(UserMessage.QA_REQUEST_TYPE)) {
                     openQARequest(message.getTypeObjectId());
+                }
+                // moment
+                else if (message.getType().equals(UserMessage.MOMENT_TYPE)) {
+                    openMoment(message.getTypeObjectId());
                 }
 
                 message.setStatus(UserMessage.READ_STATUS);
@@ -151,6 +160,26 @@ public class MessageListAdapter extends BaseAdapter {
             public void onSuccess(QARequest qaRequest) {
                 Intent intent = new Intent(mContext, QAShowRequestDetailActivity.class);
                 intent.putExtra(IntentExtra.INTENT_QA_REQUEST, qaRequest);
+                intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
+                ((Activity) mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+    }
+
+    private void openMoment(String id) {
+        // 获取Moment对象
+        BmobQuery<Moment> query = new BmobQuery<>();
+        query.include("imageFile");
+        query.getObject(mContext, id, new GetListener<Moment>() {
+            @Override
+            public void onSuccess(Moment moment) {
+                Intent intent = new Intent(mContext, MomentDetailActivity.class);
+                intent.putExtra(IntentExtra.INTENT_MOMENT, moment);
                 intent.putExtra(IntentExtra.INTENT_IS_PERSONAL, isPersonal);
                 ((Activity) mContext).startActivityForResult(intent, BaseActivity.UPDATE_REQUEST);
             }

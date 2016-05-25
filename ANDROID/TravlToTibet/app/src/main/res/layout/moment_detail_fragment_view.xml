@@ -28,8 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
-                >
+                android:padding="10dp">
 
                 <!--header-->
                 <RelativeLayout
@@ -95,9 +94,10 @@
                     <ImageView
                         android:id="@+id/share_image"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/home_moment_img_height"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/card_padding"
-                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
                         android:src="@drawable/icon_camera" />
 
                 </LinearLayout>

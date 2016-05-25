@@ -2,8 +2,6 @@ package com.dean.travltotibet.model;
 
 import com.dean.travltotibet.R;
 
-import cn.bmob.v3.BmobObject;
-
 /**
  * Created by DeanGuo on 1/22/16.
  */
@@ -44,6 +42,8 @@ public class RoadInfo extends BaseCommentBmobObject {
     private Article article;
 
     private String updateTime;
+
+    private String position;
 
     public String getUpdateTime() {
         return updateTime;
@@ -139,6 +139,14 @@ public class RoadInfo extends BaseCommentBmobObject {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public static int getPriorityIcon(String priority) {
