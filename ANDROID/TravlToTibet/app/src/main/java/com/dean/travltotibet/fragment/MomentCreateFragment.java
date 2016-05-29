@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -88,7 +89,7 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
         initLocation();
         initContentContent();
         updateImageContent();
-//        actionPickImage();
+        actionPickImage();
     }
 
     private void initLocation() {
@@ -189,7 +190,7 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
         // 6.0 检查存储运行权限
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             mActivity.getPermissionManager()
-                    .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                    .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                     .setPermissionsListener(new PermissionListener() {
                         @Override
                         public void onGranted() {
@@ -226,7 +227,13 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
         if (!TextUtils.isEmpty(contentString) && contentString.length() >= TEXT_MIN_LIMIT) {
             moment.setContent(contentString);
         }
-        toDo(PREPARE_LOADING, 0);
+
+        // 有内容可以通过
+        if (TextUtils.isEmpty(contentString) && imagePaths.size() == 0) {
+            Toast.makeText(getActivity(), "请添加图片和心情文字", Toast.LENGTH_SHORT).show();
+        } else {
+            toDo(PREPARE_LOADING, 0);
+        }
     }
 
     @Override
@@ -438,14 +445,34 @@ public class MomentCreateFragment extends BaseRefreshFragment implements Android
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
                 Log.e("onReceiveLocation", "onReceiveLocation");
                 StringBuffer sb = new StringBuffer(256);
-                sb.append(location.getCountry());
-                sb.append(" · ");
-                sb.append(location.getCity());
-                sb.append(" · ");
-                sb.append(location.getDistrict());
-                sb.append(" · ");
-                sb.append(location.getStreet());
+
+                // country
+                if (!TextUtils.isEmpty(location.getCountry())) {
+                    sb.append(location.getCountry());
+                }
+
+                // city
+                if (!TextUtils.isEmpty(location.getCity())) {
+                    sb.append(" · ");
+                    sb.append(location.getCity());
+                }
+
+                // district
+                if (!TextUtils.isEmpty(location.getDistrict())) {
+                    sb.append(" · ");
+                    sb.append(location.getDistrict());
+                }
+
+                // street
+                if (!TextUtils.isEmpty(location.getStreet())) {
+                    sb.append(" · ");
+                    sb.append(location.getStreet());
+                }
+
                 logMsg(sb.toString());
+                locationService.stop();
+            } else {
+                logMsg("");
                 locationService.stop();
             }
         }

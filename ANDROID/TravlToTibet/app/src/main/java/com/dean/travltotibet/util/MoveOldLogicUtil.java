@@ -191,7 +191,7 @@ public class MoveOldLogicUtil {
         BmobQuery<Comment> query = new BmobQuery<>();
         query.addWhereEqualTo("type", Comment.TEAM_REQUEST_COMMENT);
         query.order("-createdAt"); // 最新的放前面
-        query.setLimit(10);
+        query.setLimit(20);
         query.findObjects(context, new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {

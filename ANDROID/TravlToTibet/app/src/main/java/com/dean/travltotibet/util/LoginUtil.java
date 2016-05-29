@@ -86,9 +86,10 @@ public final class LoginUtil {
     public void logout() {
         TTTApplication.setUserInfo(null);
         TTTApplication.setLogedIn(false);
-        clearLastUserId();
+        shareLogout();
         BmobUser.logOut(TTTApplication.getContext());
         EventBus.getDefault().post(new LoginUtil.LogoutEvent());
+        clearLastUserId();
     }
 
     public void login( final Platform platform )
@@ -149,6 +150,19 @@ public final class LoginUtil {
 //                }
 //            }
 //        }
+    }
+
+    public void shareLogout() {
+        Platform[] platforms = ShareSDK.getPlatformList();
+        String lastUserId = getLastUserId();
+        if (!TextUtils.isEmpty(lastUserId)) {
+            for (Platform platform : platforms) {
+                // token相同，可以登陆
+                if (lastUserId.equals(platform.getDb().getUserId())) {
+                    platform.removeAccount();
+                }
+            }
+        }
     }
 
     public void updateUserInfo(UserInfo userInfo) {

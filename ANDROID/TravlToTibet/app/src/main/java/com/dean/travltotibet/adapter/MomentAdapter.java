@@ -132,7 +132,7 @@ public class MomentAdapter extends BaseAdapter {
             holder.mShareImage.setVisibility(View.VISIBLE);
             PicassoTools.getPicasso()
                     .load(imageFile.getImage1().getFileUrl(mContext))
-                    .placeholder(R.color.less_light_gray)
+//                    .placeholder(R.color.less_light_gray)
                     .error(R.color.light_gray)
                     .into(holder.mShareImage);
         }

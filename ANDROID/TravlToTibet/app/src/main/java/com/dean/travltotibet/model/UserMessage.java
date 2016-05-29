@@ -6,9 +6,9 @@ import cn.bmob.v3.BmobObject;
  * Created by DeanGuo on 5/11/16.
  */
 public class UserMessage extends BmobObject {
-    public final static String TEAM_REQUEST_TITLE = "回复了您的结伴";
+    public final static String TEAM_REQUEST_TITLE = "回复了您发布的结伴";
     public final static String QA_REQUEST_TITLE = "回答了您关注的问题";
-    public final static String MOMENT_REQUEST_TITLE = "回答了您的直播";
+    public final static String MOMENT_REQUEST_TITLE = "回复了您发布的直播";
 
     public final static String TEAM_REQUEST_TYPE = "teamRequest";
     public final static String QA_REQUEST_TYPE = "qaRequest";

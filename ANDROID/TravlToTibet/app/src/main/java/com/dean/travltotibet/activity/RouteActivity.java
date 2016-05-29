@@ -304,12 +304,15 @@ public class RouteActivity
     }
 
     public String getCurrentStart() {
-        if (currentRoute == null) {
-            return "";
-        }
         if (isRoute()) {
+            if (currentRoute == null) {
+                return "";
+            }
             return currentRoute.getStart();
         } else {
+            if (currentPlan == null) {
+                return "";
+            }
             return currentPlan.getStart();
         }
     }
@@ -319,8 +322,14 @@ public class RouteActivity
             return "";
         }
         if (isRoute()) {
+            if (currentRoute == null) {
+                return "";
+            }
             return currentRoute.getEnd();
         } else {
+            if (currentPlan == null) {
+                return "";
+            }
             return currentPlan.getEnd();
         }
     }

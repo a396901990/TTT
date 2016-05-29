@@ -97,7 +97,7 @@
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
                         android:layout_marginTop="@dimen/card_padding"
-                        android:src="@drawable/icon_camera" />
+                        />
 
                 </LinearLayout>
 
